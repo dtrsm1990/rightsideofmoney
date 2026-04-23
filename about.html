@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Darrell Thompson | Right Side of Money</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+  body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+  :root {
+    --navy: #0D1F3C; --navy-mid: #1B3A6B; --navy-light: #2A5298;
+    --gold: #C9941A; --gold-light: #E8B84B; --gold-pale: #FDF3DC;
+    --cream: #FAF7F2; --white: #FFFFFF;
+    --gray-100: #F4F4F0; --gray-300: #D0CFC8; --gray-500: #888880;
+    --gray-700: #444440; --dark: #0A0A0A;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-impact: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--cream); color: var(--gray-700); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,31,60,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,148,26,0.3); padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .nav-logo-top { font-family: var(--font-impact); font-size: 22px; letter-spacing: 3px; color: var(--white); }
+  .nav-logo-sub { font-size: 10px; letter-spacing: 2px; color: var(--gold-light); text-transform: uppercase; font-weight: 500; }
+  .nav-links { display: flex; align-items: center; height: 68px; gap: 28px; list-style: none; }
+  .nav-links li { display: flex; align-items: center; }
+  .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a.active { color: var(--gold-light); }
+  .nav-seminar { background: rgba(201,148,26,0.15) !important; color: var(--gold-light) !important; padding: 10px 16px; border-radius: 2px; border: 1px solid rgba(201,148,26,0.4) !important; font-size: 12px !important; animation: navglow 2s infinite; display: inline-flex; align-items: center; }
+  @keyframes navglow { 0%,100%{border-color:rgba(201,148,26,0.4)} 50%{border-color:rgba(201,148,26,0.9)} }
+  .nav-cta { background: var(--gold) !important; color: var(--navy) !important; padding: 10px 20px; border-radius: 2px; font-weight: 600 !important; display: inline-flex; align-items: center; justify-content: center; }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* HERO */
+  .hero { background: var(--navy); padding-top: 68px; position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(42,82,152,0.2) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 10% 80%, rgba(201,148,26,0.08) 0%, transparent 50%); }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,148,26,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,148,26,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+  .hero-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(to bottom, var(--gold), transparent 60%); }
+  .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 80px 60px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; width: 100%; }
+  .hero-photo-wrap { position: relative; }
+  .hero-photo-frame { position: relative; }
+  .hero-photo-border { position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px; border: 2px solid rgba(201,148,26,0.3); border-radius: 4px; z-index: 0; }
+  .hero-photo { width: 100%; max-width: 420px; border-radius: 4px; display: block; position: relative; z-index: 1; box-shadow: 24px 24px 60px rgba(0,0,0,0.5); }
+  .hero-photo-accent { position: absolute; bottom: -24px; right: -24px; width: 120px; height: 120px; background: var(--gold); border-radius: 2px; z-index: 0; opacity: 0.15; }
+  .hero-badge { position: absolute; bottom: 24px; left: -20px; background: var(--gold); padding: 16px 20px; border-radius: 2px; z-index: 2; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .hero-badge-title { font-family: var(--font-impact); font-size: 22px; letter-spacing: 2px; color: var(--navy); line-height: 1; }
+  .hero-badge-sub { font-size: 11px; color: var(--navy); font-weight: 600; letter-spacing: 1px; margin-top: 2px; opacity: 0.7; }
+  .hero-text {}
+  .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .hero-eyebrow-line { width: 40px; height: 2px; background: var(--gold); }
+  .hero-eyebrow-text { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  .hero-name { font-family: var(--font-display); font-size: clamp(44px, 5vw, 68px); font-weight: 900; color: var(--white); line-height: 1.0; margin-bottom: 12px; }
+  .hero-name em { font-style: normal; color: var(--gold-light); display: block; font-size: 0.65em; font-weight: 700; margin-bottom: 4px; }
+  .hero-tagline { font-family: var(--font-impact); font-size: 20px; letter-spacing: 3px; color: rgba(255,255,255,0.5); margin-bottom: 32px; }
+  .hero-intro { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,0.65); margin-bottom: 40px; font-weight: 300; }
+  .hero-intro strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+  .hero-creds { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+  .hero-cred { display: flex; align-items: center; gap: 12px; }
+  .hero-cred-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+  .hero-cred-text { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 400; }
+
+  /* TICKER */
+  .ticker-strip { background: var(--gold); padding: 16px 0; overflow: hidden; }
+  .ticker-track { display: flex; gap: 60px; animation: ticker 30s linear infinite; white-space: nowrap; }
+  .ticker-item { display: flex; align-items: center; gap: 16px; font-family: var(--font-impact); font-size: 19px; letter-spacing: 2px; color: var(--navy); }
+  .ticker-dot { width: 6px; height: 6px; background: var(--navy); border-radius: 50%; flex-shrink: 0; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* STORY SECTION */
+  .story-section { background: var(--white); padding: 100px 40px; }
+  .story-inner { max-width: 1200px; margin: 0 auto; }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .story-left {}
+  .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .eyebrow-line { width: 32px; height: 2px; background: var(--gold); }
+  .eyebrow-text { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  .sec-headline { font-family: var(--font-display); font-size: clamp(28px, 3vw, 44px); font-weight: 900; line-height: 1.1; color: var(--navy); margin-bottom: 28px; }
+  .story-text p { font-size: 16px; line-height: 1.9; color: var(--gray-700); margin-bottom: 22px; font-weight: 300; }
+  .story-text p strong { color: var(--navy); font-weight: 600; }
+  .story-text p:last-of-type { margin-bottom: 0; }
+  .story-pull { background: var(--navy); padding: 40px; margin: 40px 0; border-left: 5px solid var(--gold); }
+  .story-pull-text { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--white); line-height: 1.45; font-style: italic; }
+  .story-pull-text em { font-style: normal; color: var(--gold-light); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), rgba(201,148,26,0.1)); }
+  .timeline-item { position: relative; margin-bottom: 40px; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-dot { position: absolute; left: -28px; top: 6px; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 2px var(--gold); }
+  .timeline-year { font-family: var(--font-impact); font-size: 14px; letter-spacing: 2px; color: var(--gold); margin-bottom: 4px; }
+  .timeline-title { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .timeline-desc { font-size: 14px; color: var(--gray-500); line-height: 1.65; font-weight: 300; }
+
+  /* MISSION SECTION */
+  .mission-section { background: var(--navy); padding: 100px 40px; position: relative; overflow: hidden; }
+  .mission-section::before { content: ''; position: absolute; top: -80px; right: -80px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(201,148,26,0.08) 0%, transparent 60%); border-radius: 50%; }
+  .mission-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+  .mission-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
+  .mission-text p { font-size: 16px; line-height: 1.9; color: rgba(255,255,255,0.65); margin-bottom: 22px; font-weight: 300; }
+  .mission-text p strong { color: var(--white); font-weight: 500; }
+  .mission-text p:last-of-type { margin-bottom: 40px; }
+  .mission-values { display: flex; flex-direction: column; gap: 2px; }
+  .mission-value { background: rgba(255,255,255,0.03); border-left: 3px solid var(--gold); padding: 22px 24px; transition: all 0.3s; }
+  .mission-value:hover { background: rgba(255,255,255,0.06); transform: translateX(4px); }
+  .mission-value-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+  .mission-value-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; font-weight: 300; }
+
+  /* CREDENTIALS SECTION */
+  .creds-section { background: var(--cream); padding: 100px 40px; }
+  .creds-inner { max-width: 1200px; margin: 0 auto; }
+  .creds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gray-300); margin-top: 60px; }
+  .cred-card { background: var(--white); padding: 44px 36px; position: relative; overflow: hidden; transition: all 0.3s; }
+  .cred-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(13,31,60,0.12); z-index: 2; }
+  .cred-card-number { position: absolute; top: 16px; right: 20px; font-family: var(--font-impact); font-size: 80px; color: rgba(13,31,60,0.04); line-height: 1; user-select: none; }
+  .cred-card-accent { width: 32px; height: 3px; background: var(--gold); margin-bottom: 20px; }
+  .cred-card-title { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--navy); margin-bottom: 12px; line-height: 1.25; }
+  .cred-card-desc { font-size: 14px; line-height: 1.75; color: var(--gray-500); font-weight: 300; }
+
+  /* BOOK SECTION */
+  .book-section { background: var(--navy); padding: 80px 40px; }
+  .book-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: center; }
+  .book-img { width: 100%; max-width: 260px; border-radius: 4px; box-shadow: 20px 20px 50px rgba(0,0,0,0.5); transition: transform 0.4s; display: block; }
+  .book-img:hover { transform: scale(1.03) rotate(-1deg); }
+  .book-text p { font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.65); margin-bottom: 20px; font-weight: 300; }
+  .book-text p strong { color: var(--white); font-weight: 500; }
+  .book-text p:last-of-type { margin-bottom: 36px; }
+  .book-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* TESTIMONIAL */
+  .testimonial-section { background: var(--gold); padding: 80px 40px; text-align: center; }
+  .testimonial-inner { max-width: 800px; margin: 0 auto; }
+  .testimonial-stars { display: flex; justify-content: center; gap: 6px; margin-bottom: 28px; }
+  .star { width: 20px; height: 20px; background: var(--navy); clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+  .testimonial-quote { font-family: var(--font-display); font-size: clamp(20px, 2.5vw, 30px); font-weight: 700; color: var(--navy); line-height: 1.45; margin-bottom: 28px; font-style: italic; }
+  .testimonial-name { font-size: 14px; font-weight: 700; color: var(--navy); letter-spacing: 2px; text-transform: uppercase; }
+  .testimonial-org { font-size: 13px; color: rgba(13,31,60,0.6); margin-top: 4px; }
+
+  /* CTA SECTION */
+  .cta-section { background: var(--dark); padding: 100px 40px; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,148,26,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,148,26,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+  .cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+  .cta-headline { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+  .cta-headline em { font-style: normal; color: var(--gold-light); }
+  .cta-sub { font-size: 18px; color: rgba(255,255,255,0.55); margin-bottom: 48px; font-weight: 300; line-height: 1.7; }
+  .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+  /* BUTTONS */
+  .btn-primary { display: inline-block; background: var(--gold); color: var(--navy); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 2px; border: 2px solid var(--gold); transition: all 0.25s; }
+  .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,148,26,0.35); }
+  .btn-secondary { display: inline-block; background: transparent; color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 2px; border: 2px solid rgba(255,255,255,0.3); transition: all 0.25s; }
+  .btn-secondary:hover { border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-2px); }
+  .btn-gold-outline { display: inline-block; background: transparent; color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 2px; border: 2px solid var(--gold); transition: all 0.25s; }
+  .btn-gold-outline:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
+  .btn-navy { display: inline-block; background: var(--navy); color: var(--white); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 2px; border: 2px solid var(--navy); transition: all 0.25s; }
+  .btn-navy:hover { background: transparent; color: var(--navy); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 60px 40px 40px; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-brand-name { font-family: var(--font-impact); font-size: 28px; letter-spacing: 3px; color: var(--white); margin-bottom: 8px; }
+  .footer-brand-tag { font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .footer-brand-desc { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.4); font-weight: 300; margin-bottom: 24px; }
+  .footer-contact-item { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+  .footer-contact-item a { color: var(--gold-light); text-decoration: none; }
+  .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 14px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; font-weight: 300; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+  .footer-copy span { color: var(--gold); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 12px 20px; height: auto; min-height: 60px; flex-direction: column; align-items: center; gap: 10px; top: 80px; }
+    .nav-logo { align-items: center; }
+    .nav-logo-top { font-size: 17px; }
+    .nav-links { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 10px; width: 100%; }
+    .nav-links li a:not(.nav-cta):not(.nav-seminar) { display: none; }
+    .nav-cta, .nav-seminar { display: inline-flex !important; padding: 9px 14px !important; font-size: 11px !important; }
+    .hero-inner { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
+    .hero-photo { max-width: 280px; margin: 0 auto; }
+    .hero-photo-wrap { display: flex; justify-content: center; }
+    .story-grid, .mission-grid, .book-inner { grid-template-columns: 1fr; gap: 48px; }
+    .creds-grid { grid-template-columns: 1fr; }
+    .story-section, .mission-section, .creds-section, .book-section, .cta-section { padding: 70px 24px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .hero-badge { left: 0; bottom: -20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://www.rightsideofmoney.com" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://www.rightsideofmoney.com">Home</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-about" class="active">About</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-service">Services</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-accountability-programs">Accountability</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-my-book">Book</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-speaking">Speaking</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-contact-us">Contact</a></li>
+    <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-bar"></div>
+  <div class="hero-inner">
+    <div class="hero-photo-wrap fade-up">
+      <div class="hero-photo-frame">
+        <div class="hero-photo-border"></div>
+        <img src="https://static.wixstatic.com/media/0f36f8_b271dcf6dbfa4840a249ea558af27e2e~mv2.jpeg" alt="Darrell Thompson - Right Side of Money" class="hero-photo">
+        <div class="hero-photo-accent"></div>
+        <div class="hero-badge">
+          <div class="hero-badge-title">DARRELL THOMPSON</div>
+          <div class="hero-badge-sub">Right Side of Money</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-text fade-up">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Founder, Right Side of Money</span>
+      </div>
+      <h1 class="hero-name">
+        <em>Meet Darrell</em>
+        Thompson
+      </h1>
+      <div class="hero-tagline">Financial Literacy. Mindset. Legacy.</div>
+      <p class="hero-intro">
+        From the <strong>South Side of Chicago</strong> to the United States Marine Corps. From financial struggle to financial literacy advocate, published author, licensed professional, and college professor. <strong>This is the story behind Right Side of Money.</strong>
+      </p>
+      <div class="hero-creds">
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Retired United States Marine</div></div>
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">College Adjunct Professor</div></div>
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Author, Creating A Wealth Building Mindset</div></div>
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">CA Licensed Real Estate Professional and Landlord</div></div>
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Licensed Life and Health Insurance Producer</div></div>
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Founder, TNT Legacy Shield</div></div>
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Financial Literacy Coach and Speaker</div></div>
+      </div>
+      <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="btn-primary">Start the Free 30-Day Challenge</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>South Side of Chicago</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>United States Marine Corps</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Financial Specialist Course Changed Everything</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Published Author</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>College Adjunct Professor</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Right Side of Money</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>South Side of Chicago</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>United States Marine Corps</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Financial Specialist Course Changed Everything</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Published Author</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>College Adjunct Professor</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Right Side of Money</span>
+  </div>
+</div>
+
+<!-- STORY SECTION -->
+<section class="story-section">
+  <div class="story-inner">
+    <div class="story-grid">
+      <div class="story-left fade-up">
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">The Story</span></div>
+        <h2 class="sec-headline">Where It All Began.</h2>
+        <div class="story-text">
+          <p>Darrell Thompson grew up on the <strong>South Side of Chicago</strong>. Like most people from working class communities, he was surrounded by hard work, family loyalty, and a deep sense of determination. What he was not surrounded by was financial education. Nobody in his world was talking about wealth building, investment strategy, or the mindset required to build something that lasts. The focus was on survival. On getting by. On doing what you had to do.</p>
+          <p>As a young adult Darrell found himself financially struggling despite his drive and his work ethic. The money came in and it went out and there was never enough of it doing what it was supposed to do. He was working hard and getting nowhere financially, and he could not understand why.</p>
+          <p>Then he made a decision that changed everything. <strong>He joined the United States Marine Corps.</strong></p>
+          <p>The Corps gave him discipline, structure, and a mission-driven mindset that he carries to this day. But even inside one of the most elite institutions in the world, Darrell found himself still struggling financially. It was not a work ethic problem. It was a knowledge problem. And nobody around him seemed to be talking about it.</p>
+        </div>
+        <div class="story-pull">
+          <div class="story-pull-text">"I was doing everything right and still getting nowhere financially. That told me the problem was not effort. <em>The problem was foundation.</em>"</div>
+        </div>
+      </div>
+      <div class="story-right fade-up">
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">The Turning Point</span></div>
+        <h2 class="sec-headline">One Course Changed Everything.</h2>
+        <div class="story-text">
+          <p>During his time in the Marine Corps, Darrell attended a <strong>Financial Specialist course</strong>. What he learned in that room did not just teach him about money. It completely rewired how he thought about it.</p>
+          <p>The course was not complicated. That was the part that hit hardest. The information was straightforward, practical, and immediately applicable. And nobody had ever given it to him before. Not in school. Not at home. Not anywhere. The way wealth is actually built. The way money actually moves. The mindset required to make any of it stick long term.</p>
+          <p>From that moment Darrell became a <strong>student of financial literacy and mindset</strong>. He studied everything he could get his hands on. He began applying what he learned to his own life and his own finances. And then he began helping others do the same, because he understood that he was not the only one who had been left without the financial foundation they deserved.</p>
+          <p>That drive to share what he had learned never left him. It became his mission. It became Right Side of Money.</p>
+        </div>
+        <div class="timeline" style="margin-top:40px;">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">THE BEGINNING</div>
+            <div class="timeline-title">South Side of Chicago</div>
+            <div class="timeline-desc">Grew up in a hardworking community where financial education was never part of the conversation. Learned early what it meant to grind, but not yet what it meant to build.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">THE DECISION</div>
+            <div class="timeline-title">United States Marine Corps</div>
+            <div class="timeline-desc">Joined the Marines and gained the discipline, leadership, and mission-driven mindset that defines everything he does today. Still struggled financially despite the structure.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">THE SHIFT</div>
+            <div class="timeline-title">Financial Specialist Course</div>
+            <div class="timeline-desc">Attended a Financial Specialist course in the Corps that rewired everything. Became a student of financial literacy and mindset. Started helping others immediately.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">THE BUILD</div>
+            <div class="timeline-title">Licenses, Real Estate, Teaching</div>
+            <div class="timeline-desc">Earned his California real estate license, built a rental portfolio as a landlord, became a licensed insurance producer, and joined academia as a College Adjunct Professor.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">THE MISSION</div>
+            <div class="timeline-title">Right Side of Money</div>
+            <div class="timeline-desc">Founded RSM to give people the financial truth the system was never designed to teach them. Wrote the book. Built the courses. Built the accountability program. Still showing up every day.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION SECTION -->
+<section class="mission-section">
+  <div class="mission-inner">
+    <div class="mission-grid">
+      <div class="mission-text fade-up">
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">The Mission</span></div>
+        <h2 class="sec-headline" style="color:var(--white);">This Is Personal. That Is Why It Works.</h2>
+        <p>Darrell does not teach theory. He teaches what he lived. What he learned the hard way. What changed his financial life and what he has watched change the lives of the people he coaches, speaks to, and teaches in the classroom every single day.</p>
+        <p>Right Side of Money exists because Darrell knows firsthand what it feels like to work hard and still feel financially stuck. He knows what it feels like to lack the foundation that wealthy families take for granted and pass down through generations. And he knows what it feels like when that foundation finally gets built.</p>
+        <p><strong>That transformation is what he is dedicated to creating for every person who walks through the doors of Right Side of Money.</strong> Not with motivational speeches. Not with empty promises. With real knowledge, real accountability, and real truth about how money works and how wealth gets built.</p>
+        <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="btn-primary">Start the Free 30-Day Challenge</a>
+      </div>
+      <div class="mission-values fade-up">
+        <div class="mission-value">
+          <div class="mission-value-title">Truth Over Comfort</div>
+          <div class="mission-value-desc">Darrell tells you what you need to hear, not what you want to hear. That honesty is the foundation of every program, every session, and every piece of content he creates.</div>
+        </div>
+        <div class="mission-value">
+          <div class="mission-value-title">Foundation Before Strategy</div>
+          <div class="mission-value-desc">Tactics without a foundation are just expensive experiments. Every RSM program starts with the mindset and the financial literacy before anything else.</div>
+        </div>
+        <div class="mission-value">
+          <div class="mission-value-title">Real Experience Only</div>
+          <div class="mission-value-desc">Everything Darrell teaches comes from something he has personally lived, built, invested in, or navigated. Not textbooks. Not trends. Real life.</div>
+        </div>
+        <div class="mission-value">
+          <div class="mission-value-title">Generational Impact</div>
+          <div class="mission-value-desc">The goal is not just your financial life. It is the financial life of everyone who comes after you. Building wealth that outlasts one person and one generation.</div>
+        </div>
+        <div class="mission-value">
+          <div class="mission-value-title">Access for Everyone</div>
+          <div class="mission-value-desc">The right side of money is not reserved for people born into it. Darrell has built every offering from free to premium so that wherever you are, there is a door open for you.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="creds-section">
+  <div class="creds-inner">
+    <div class="fade-up" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-line"></div><span class="eyebrow-text">Credentials and Experience</span><div class="eyebrow-line"></div></div>
+      <h2 class="sec-headline" style="text-align:center;">Real Credentials. Real Experience. Real Results.</h2>
+    </div>
+    <div class="creds-grid">
+      <div class="cred-card fade-up">
+        <div class="cred-card-number">01</div>
+        <div class="cred-card-accent"></div>
+        <div class="cred-card-title">Retired U.S. Marine</div>
+        <p class="cred-card-desc">Military service instilled the discipline, mission clarity, and commitment to showing up that defines everything Darrell does. The Corps did not make him who he is. It sharpened who he already was.</p>
+      </div>
+      <div class="cred-card fade-up">
+        <div class="cred-card-number">02</div>
+        <div class="cred-card-accent"></div>
+        <div class="cred-card-title">College Adjunct Professor</div>
+        <p class="cred-card-desc">Darrell brings financial and academic knowledge into the classroom, helping the next generation develop the critical thinking and financial awareness that most curricula leave out entirely.</p>
+      </div>
+      <div class="cred-card fade-up">
+        <div class="cred-card-number">03</div>
+        <div class="cred-card-accent"></div>
+        <div class="cred-card-title">Published Author</div>
+        <p class="cred-card-desc">Creating A Wealth Building Mindset is the book Darrell needed as a young man but could not find. He wrote it so nobody else would have to navigate the financial journey without a map.</p>
+      </div>
+      <div class="cred-card fade-up">
+        <div class="cred-card-number">04</div>
+        <div class="cred-card-accent"></div>
+        <div class="cred-card-title">CA Licensed Real Estate Professional and Landlord</div>
+        <p class="cred-card-desc">Darrell owns rental property and understands wealth building not as theory but as daily practice. Real estate is one of the foundational wealth building tools he teaches from personal experience.</p>
+      </div>
+      <div class="cred-card fade-up">
+        <div class="cred-card-number">05</div>
+        <div class="cred-card-accent"></div>
+        <div class="cred-card-title">Licensed Insurance Producer and TNT Legacy Shield</div>
+        <p class="cred-card-desc">Founder of TNT Legacy Shield, covering life, health, Medicare, and final expense. Because building wealth is only half the mission. Protecting it for the people you love is the other half.</p>
+      </div>
+      <div class="cred-card fade-up">
+        <div class="cred-card-number">06</div>
+        <div class="cred-card-accent"></div>
+        <div class="cred-card-title">Financial Literacy Coach and Speaker</div>
+        <p class="cred-card-desc">Darrell speaks to schools, corporations, nonprofits, and community organizations delivering truth-based financial education that changes not just what people know about money but how they think about it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK SECTION -->
+<section class="book-section">
+  <div class="book-inner">
+    <div class="fade-up" style="display:flex;justify-content:center;">
+      <img src="https://static.wixstatic.com/media/0f36f8_8b5f3324432b4d7389614fdd061aced7~mv2.png" alt="Creating A Wealth Building Mindset by Darrell Thompson" class="book-img">
+    </div>
+    <div class="book-text fade-up">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">The Book</span></div>
+      <h2 class="sec-headline" style="color:var(--white);">The Book He Needed. Written for You.</h2>
+      <p>Creating A Wealth Building Mindset was not written from an ivory tower. It was written from experience. From the South Side of Chicago to the Marine Corps. From financial struggle to financial literacy. From confusion to clarity.</p>
+      <p><strong>Every chapter reflects something real.</strong> A hard lesson learned. A mindset shift that changed a financial outcome. A truth that nobody else was saying out loud. This is the book that gives people the foundation that wealthy families pass down through generations and that most people never get access to.</p>
+      <p>Available on Amazon now. Or order a personally signed copy mailed directly to your door.</p>
+      <div class="book-buttons">
+        <a href="https://a.co/d/aOXz5ak" target="_blank" class="btn-primary">Get It On Amazon &#36;19.99</a>
+        <a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank" class="btn-gold-outline">Signed Copy &#36;15.00</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <div class="testimonial-inner fade-up">
+    <div class="testimonial-stars">
+      <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+    </div>
+    <blockquote class="testimonial-quote">
+      "Powerful. Dynamic. Forward Thinking. Mr. Thompson was very knowledgeable of his trade. I liked how he broke it down for us and reset my mind to not be ashamed of loving money."
+    </blockquote>
+    <div class="testimonial-name">I.H.</div>
+    <div class="testimonial-org">The Platform Xperience</div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="cta-inner fade-up">
+    <h2 class="cta-headline">Ready to Get on the <em>Right Side of Money?</em></h2>
+    <p class="cta-sub">The foundation Darrell built his life on is available to you right now. Start with the free 30-Day Mindset and Money Challenge and begin rebuilding the way you think about money from the ground up.</p>
+    <div class="cta-buttons">
+      <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="btn-primary">Start the Free 30-Day Challenge</a>
+      <a href="https://www.rightsideofmoney.com/booking-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank" class="btn-secondary">Book a Free Discovery Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">RIGHT SIDE OF MONEY</div>
+        <div class="footer-brand-tag">Financial Literacy. Mindset. Freedom.</div>
+        <p class="footer-brand-desc">Real financial truth for people who were never given the foundation they deserved. No fluff. No hype. Just the knowledge that changes everything.</p>
+        <div class="footer-contact-item">Phone: <a href="tel:9512235716">(951) 223-5716</a></div>
+        <div class="footer-contact-item">Contact: <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></div>
+        <div class="footer-contact-item">Booking: <a href="mailto:rsmbooking@rightsideofmoney.com">rsmbooking@rightsideofmoney.com</a></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="https://www.rightsideofmoney.com">Home</a></li>
+          <li><a href="https://www.rightsideofmoney.com/test-about">About Darrell</a></li>
+          <li><a href="https://www.rightsideofmoney.com/test-service">Services</a></li>
+          <li><a href="https://www.rightsideofmoney.com/test-accountability-programs">Accountability Program</a></li>
+          <li><a href="https://www.rightsideofmoney.com/test-speaking">Speaking</a></li>
+          <li><a href="https://www.tntlegacyshield.com" target="_blank">TNT Legacy Shield</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Get Started</div>
+        <ul class="footer-links">
+          <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank">Free 30-Day Challenge</a></li>
+          <li><a href="https://www.rightsideofmoney.com/booking-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank">Free Discovery Call</a></li>
+          <li><a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank">Foundation Course &#36;297</a></li>
+          <li><a href="https://a.co/d/aOXz5ak" target="_blank">Book on Amazon &#36;19.99</a></li>
+          <li><a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank">Signed Copy &#36;15.00</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://www.tiktok.com/@rightsideofmoney" target="_blank">TikTok</a></li>
+          <li><a href="https://www.instagram.com/rightsideofmoney/" target="_blank">Instagram</a></li>
+          <li><a href="https://www.facebook.com/rightsideofmoney" target="_blank">Facebook</a></li>
+          <li><a href="https://www.linkedin.com/in/darrell-thompson" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.rightsideofmoney.com/blog" target="_blank">Blog</a></li>
+          <li><a href="mailto:info@rightsideofmoney.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. Darrell Thompson.</div>
+      <div class="footer-copy">Privacy Policy | Disclaimer</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.borderBottomColor = window.scrollY > 60 ? 'rgba(201,148,26,0.5)' : 'rgba(201,148,26,0.3)';
+  });
+</script>
+
+
+<script>
+(function() {
+  function sendHeight() {
+    var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+    window.parent.postMessage({type: 'setHeight', height: h}, '*');
+  }
+  // Send on load
+  sendHeight();
+  // Send after images load
+  window.addEventListener('load', function() {
+    sendHeight();
+    setTimeout(sendHeight, 300);
+    setTimeout(sendHeight, 800);
+    setTimeout(sendHeight, 2000);
+  });
+  // Use ResizeObserver for continuous updates
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(function() { sendHeight(); });
+    ro.observe(document.body);
+  }
+  // Also send on any window resize
+  window.addEventListener('resize', sendHeight);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Right Side of Money</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+  body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+  }
+  :root {
+    --navy: #0D1F3C;
+    --navy-mid: #1B3A6B;
+    --navy-light: #2A5298;
+    --gold: #C9941A;
+    --gold-light: #E8B84B;
+    --gold-pale: #FDF3DC;
+    --cream: #FAF7F2;
+    --white: #FFFFFF;
+    --gray-100: #F4F4F0;
+    --gray-300: #D0CFC8;
+    --gray-500: #888880;
+    --gray-700: #444440;
+    --dark: #0A0A0A;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-impact: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--cream); color: var(--gray-700); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,31,60,0.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,148,26,0.3);
+    padding: 0 40px; height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .nav-logo-top { font-family: var(--font-impact); font-size: 22px; letter-spacing: 3px; color: var(--white); }
+  .nav-logo-sub { font-size: 10px; letter-spacing: 2px; color: var(--gold-light); text-transform: uppercase; font-weight: 500; }
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a.active { color: var(--gold-light); }
+  .nav-seminar { background: rgba(201,148,26,0.15) !important; color: var(--gold-light) !important; padding: 10px 16px; border-radius: 2px; border: 1px solid rgba(201,148,26,0.4) !important; font-size: 12px !important; animation: navglow 2s infinite; display: inline-flex; align-items: center; text-decoration: none; }
+  @keyframes navglow { 0%,100%{border-color:rgba(201,148,26,0.4)} 50%{border-color:rgba(201,148,26,0.9)} }
+  .nav-cta { background: var(--gold) !important; color: var(--navy) !important; padding: 10px 20px; border-radius: 2px; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: var(--navy);
+    padding: 140px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(42,82,152,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(201,148,26,0.1) 0%, transparent 50%);
+  }
+  .page-hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(201,148,26,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,148,26,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .page-hero-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(to bottom, var(--gold), transparent 60%); }
+  .page-hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+  .page-hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .page-hero-line { width: 40px; height: 2px; background: var(--gold); }
+  .page-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  .page-hero-headline { font-family: var(--font-display); font-size: clamp(40px, 5vw, 68px); font-weight: 900; color: var(--white); line-height: 1.05; margin-bottom: 24px; }
+  .page-hero-headline em { font-style: normal; color: var(--gold-light); }
+  .page-hero-sub { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.65); max-width: 640px; font-weight: 300; }
+
+  /* TICKER */
+  .ticker-strip { background: var(--gold); padding: 16px 0; overflow: hidden; }
+  .ticker-track { display: flex; gap: 60px; animation: ticker 28s linear infinite; white-space: nowrap; }
+  .ticker-item { display: flex; align-items: center; gap: 16px; font-family: var(--font-impact); font-size: 19px; letter-spacing: 2px; color: var(--navy); }
+  .ticker-dot { width: 6px; height: 6px; background: var(--navy); border-radius: 50%; flex-shrink: 0; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SHARED */
+  .inner { max-width: 1200px; margin: 0 auto; }
+  .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .eyebrow-line { width: 32px; height: 2px; background: var(--gold); }
+  .eyebrow-text { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+  .sec-headline { font-family: var(--font-display); font-size: clamp(28px, 3vw, 44px); font-weight: 900; line-height: 1.1; color: var(--navy); margin-bottom: 16px; }
+  .sec-headline.light { color: var(--white); }
+  .sec-sub { font-size: 17px; line-height: 1.7; color: var(--gray-500); font-weight: 300; max-width: 620px; }
+
+  /* BUTTONS */
+  .btn-primary { display: inline-block; background: var(--gold); color: var(--navy); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 2px; border: 2px solid var(--gold); transition: all 0.25s; }
+  .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,148,26,0.35); }
+  .btn-secondary { display: inline-block; background: transparent; color: var(--navy); font-size: 14px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 2px; border: 2px solid var(--navy); transition: all 0.25s; }
+  .btn-secondary:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); }
+  .btn-white { display: inline-block; background: var(--white); color: var(--navy); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 2px; border: 2px solid var(--white); transition: all 0.25s; }
+  .btn-white:hover { background: transparent; color: var(--white); transform: translateY(-2px); }
+  .btn-gold-outline { display: inline-block; background: transparent; color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; padding: 14px 28px; border-radius: 2px; border: 2px solid var(--gold); transition: all 0.25s; }
+  .btn-gold-outline:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
+
+  /* INTRO STRIP */
+  .intro-strip { background: var(--white); padding: 70px 40px; }
+  .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .intro-text p { font-size: 16px; line-height: 1.85; color: var(--gray-700); margin-bottom: 20px; font-weight: 300; }
+  .intro-text p strong { color: var(--navy); font-weight: 600; }
+  .intro-text p:last-of-type { margin-bottom: 0; }
+  .intro-values { display: flex; flex-direction: column; gap: 2px; }
+  .intro-value { background: var(--cream); border-left: 4px solid var(--gold); padding: 22px 24px; display: flex; align-items: flex-start; gap: 16px; }
+  .intro-value-number { font-family: var(--font-impact); font-size: 32px; color: var(--gold); line-height: 1; min-width: 36px; }
+  .intro-value-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .intro-value-desc { font-size: 13px; color: var(--gray-500); line-height: 1.6; font-weight: 300; }
+
+  /* FREE SERVICE */
+  .free-section { background: var(--navy); padding: 80px 40px; position: relative; overflow: hidden; }
+  .free-section::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(201,148,26,0.1) 0%, transparent 60%); border-radius: 50%; }
+  .free-card { position: relative; z-index: 2; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,148,26,0.25); border-radius: 4px; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .free-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(201,148,26,0.15); border: 1px solid rgba(201,148,26,0.3); padding: 8px 18px; border-radius: 2px; margin-bottom: 24px; }
+  .free-badge-text { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .free-badge-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+  .free-title { font-family: var(--font-display); font-size: clamp(28px, 3vw, 42px); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+  .free-title em { font-style: normal; color: var(--gold-light); }
+  .free-desc { font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.65); margin-bottom: 36px; font-weight: 300; }
+  .free-what { display: flex; flex-direction: column; gap: 16px; }
+  .free-what-item { display: flex; align-items: flex-start; gap: 14px; }
+  .free-check { width: 22px; height: 22px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; color: var(--navy); font-weight: 700; margin-top: 2px; }
+  .free-what-text { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.5; font-weight: 300; }
+  .free-what-text strong { color: var(--white); font-weight: 500; }
+
+  /* SERVICE CARDS */
+  .services-section { background: var(--cream); padding: 100px 40px; }
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--gray-300); margin-top: 60px; }
+  .service-card { background: var(--white); padding: 52px 44px; position: relative; overflow: hidden; transition: all 0.3s; display: flex; flex-direction: column; }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(13,31,60,0.12); z-index: 2; }
+  .service-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; gap: 16px; }
+  .service-tag { display: inline-block; background: var(--gold-pale); color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; }
+  .service-price { font-family: var(--font-impact); font-size: 38px; letter-spacing: 1px; color: var(--navy); line-height: 1; }
+  .service-price-note { font-size: 12px; color: var(--gray-500); font-weight: 400; letter-spacing: 0; font-family: var(--font-body); display: block; text-align: right; margin-top: 2px; }
+  .service-accent { width: 32px; height: 3px; background: var(--gold); margin-bottom: 16px; }
+  .service-title { font-family: var(--font-display); font-size: 24px; font-weight: 900; color: var(--navy); margin-bottom: 14px; line-height: 1.2; }
+  .service-desc { font-size: 15px; line-height: 1.8; color: var(--gray-500); font-weight: 300; margin-bottom: 28px; flex-grow: 1; }
+  .service-includes { margin-bottom: 32px; }
+  .service-includes-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--navy); margin-bottom: 12px; }
+  .service-include-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .service-include-check { width: 18px; height: 18px; background: var(--gold-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--gold); font-weight: 700; margin-top: 2px; }
+  .service-include-text { font-size: 14px; color: var(--gray-700); line-height: 1.5; font-weight: 300; }
+  .service-bg-number { position: absolute; bottom: -10px; right: 20px; font-family: var(--font-impact); font-size: 120px; color: rgba(13,31,60,0.04); line-height: 1; user-select: none; }
+
+  /* COACHING LEVELS */
+  .coaching-section { background: var(--navy); padding: 100px 40px; position: relative; overflow: hidden; }
+  .coaching-section::before { content: ''; position: absolute; bottom: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(201,148,26,0.08) 0%, transparent 60%); border-radius: 50%; }
+  .coaching-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.08); margin-top: 60px; }
+  .coaching-card { background: var(--navy); padding: 48px 36px; position: relative; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; display: flex; flex-direction: column; }
+  .coaching-card.featured { background: rgba(201,148,26,0.08); border: 1px solid rgba(201,148,26,0.3); }
+  .coaching-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-4px); }
+  .coaching-card.featured:hover { background: rgba(201,148,26,0.12); }
+  .coaching-featured-tag { display: inline-block; background: var(--gold); color: var(--navy); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 2px; margin-bottom: 20px; }
+  .coaching-level { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .coaching-price { font-family: var(--font-impact); font-size: 52px; letter-spacing: 2px; color: var(--white); line-height: 1; margin-bottom: 6px; }
+  .coaching-price-note { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 20px; font-weight: 300; }
+  .coaching-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 20px; }
+  .coaching-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 14px; line-height: 1.25; }
+  .coaching-desc { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.55); font-weight: 300; margin-bottom: 28px; flex-grow: 1; }
+  .coaching-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .coaching-check { width: 16px; height: 16px; background: rgba(201,148,26,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 9px; color: var(--gold); font-weight: 700; margin-top: 2px; }
+  .coaching-item-text { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; font-weight: 300; }
+  .coaching-items { margin-bottom: 32px; flex-grow: 1; }
+  .coaching-note { font-size: 12px; color: rgba(255,255,255,0.35); font-style: italic; margin-top: 8px; }
+
+  /* SPEAKING */
+  .speaking-section { background: var(--white); padding: 100px 40px; }
+  .speaking-banner { background: var(--navy); padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 60px; border-left: 5px solid var(--gold); }
+  .speaking-banner-title { font-family: var(--font-display); font-size: 34px; font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+  .speaking-banner-title em { font-style: normal; color: var(--gold-light); }
+  .speaking-banner-desc { font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.65); font-weight: 300; margin-bottom: 32px; }
+  .speaking-formats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .speaking-format { background: rgba(255,255,255,0.05); border: 1px solid rgba(201,148,26,0.2); padding: 16px 18px; border-radius: 2px; }
+  .speaking-format-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .speaking-format-desc { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.5; }
+
+  /* TNT */
+  .tnt-section { background: var(--gray-100); padding: 80px 40px; border-top: 3px solid var(--gold); }
+  .tnt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 0; }
+  .tnt-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+  .tnt-feature { background: var(--white); border-left: 3px solid var(--gold); padding: 24px 20px; }
+  .tnt-feature-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .tnt-feature-desc { font-size: 13px; color: var(--gray-500); line-height: 1.6; font-weight: 300; }
+
+  /* GUARANTEE */
+  .guarantee-section { background: var(--gold); padding: 80px 40px; text-align: center; position: relative; overflow: hidden; }
+  .guarantee-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(13,31,60,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(13,31,60,0.06) 1px, transparent 1px); background-size: 40px 40px; }
+  .guarantee-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+  .guarantee-icon { font-family: var(--font-impact); font-size: 72px; color: var(--navy); line-height: 1; margin-bottom: 16px; opacity: 0.15; }
+  .guarantee-headline { font-family: var(--font-display); font-size: clamp(30px, 3.5vw, 48px); font-weight: 900; color: var(--navy); line-height: 1.1; margin-bottom: 20px; }
+  .guarantee-sub { font-size: 17px; color: rgba(13,31,60,0.7); margin-bottom: 40px; font-weight: 300; line-height: 1.7; }
+  .guarantee-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 60px 40px 40px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-brand-name { font-family: var(--font-impact); font-size: 28px; letter-spacing: 3px; color: var(--white); margin-bottom: 8px; }
+  .footer-brand-tag { font-size: 11px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .footer-brand-desc { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.4); font-weight: 300; margin-bottom: 24px; }
+  .footer-contact-item { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+  .footer-contact-item a { color: var(--gold-light); text-decoration: none; }
+  .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 14px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; font-weight: 300; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+  .footer-copy span { color: var(--gold); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .page-hero { padding: 120px 24px 60px; }
+    .intro-grid, .free-card, .speaking-banner, .tnt-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid, .coaching-grid { grid-template-columns: 1fr; }
+    .speaking-formats { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    section { padding: 70px 24px; }
+    .free-section, .coaching-section, .guarantee-section, .tnt-section, .speaking-section, .intro-strip { padding: 70px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://www.rightsideofmoney.com" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://www.rightsideofmoney.com">Home</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-about">About</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-service" class="active">Services</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-accountability-programs">Accountability</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-my-book">Book</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-speaking">Speaking</a></li>
+    <li><a href="https://www.rightsideofmoney.com/test-contact-us">Contact</a></li>
+    <li><a href="https://www.rightsideofmoney.com/booking-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank" class="nav-cta">Book a Call</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-bar"></div>
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow">
+      <div class="page-hero-line"></div>
+      <span class="page-hero-label">Right Side of Money</span>
+    </div>
+    <h1 class="page-hero-headline">
+      Services Built to
+      <em>Change Your</em>
+      Financial Life.
+    </h1>
+    <p class="page-hero-sub">Every service offered through Right Side of Money is built around one mission. To give you the financial truth, the mindset shift, and the practical tools that create lasting change. Not theory. Real work. Real results.</p>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>Free 30-Minute Discovery Call</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>1-Hour Financial Literacy Call</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>RSM MFA Foundation Course</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Premium Coaching Programs</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Speaking Engagements</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>TNT Legacy Shield</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Free 30-Minute Discovery Call</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>1-Hour Financial Literacy Call</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>RSM MFA Foundation Course</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Premium Coaching Programs</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Speaking Engagements</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>TNT Legacy Shield</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-strip">
+  <div class="inner">
+    <div class="intro-grid">
+      <div class="intro-text fade-up">
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">The RSM Approach</span></div>
+        <h2 class="sec-headline">Every Service Starts With the Foundation.</h2>
+        <p>Most people jump straight to tactics. Which investment. Which budget app. Which side hustle. And they wonder why nothing sticks. Because tactics without a foundation are just expensive experiments.</p>
+        <p><strong>Everything at Right Side of Money starts with the foundation.</strong> The mindset. The financial literacy. The accountability. Whether you book a single call or commit to a full coaching program, that foundation is always the starting point.</p>
+        <p>From there we build. Together. At whatever pace and investment level fits where you are right now.</p>
+      </div>
+      <div class="intro-values fade-up">
+        <div class="intro-value">
+          <div class="intro-value-number">01</div>
+          <div>
+            <div class="intro-value-title">Start Where You Are</div>
+            <div class="intro-value-desc">Every service is designed to meet you exactly where you are financially and mentally. No judgment. No prerequisites.</div>
+          </div>
+        </div>
+        <div class="intro-value">
+          <div class="intro-value-number">02</div>
+          <div>
+            <div class="intro-value-title">Truth Over Comfort</div>
+            <div class="intro-value-desc">You will get honesty, not validation. Real assessment, not empty encouragement. That is what actually moves the needle.</div>
+          </div>
+        </div>
+        <div class="intro-value">
+          <div class="intro-value-number">03</div>
+          <div>
+            <div class="intro-value-title">Action Over Information</div>
+            <div class="intro-value-desc">Every engagement ends with clear next steps. Because knowing without doing is just expensive entertainment.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FREE DISCOVERY CALL -->
+<div class="free-section">
+  <div class="inner">
+    <div class="free-card fade-up">
+      <div>
+        <div class="free-badge">
+          <div class="free-badge-dot"></div>
+          <span class="free-badge-text">Completely Free</span>
+        </div>
+        <h2 class="free-title">30-Minute<br><em>Discovery Call</em></h2>
+        <p class="free-desc">Not sure where to start? This is the call. No pressure. No pitch. Just an honest 30-minute conversation about where you are financially, what is holding you back, and what the right next step looks like for you specifically.</p>
+        <a href="https://www.rightsideofmoney.com/booking-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank" class="btn-primary">Book Your Free Call Now</a>
+      </div>
+      <div class="free-what">
+        <div class="free-what-item">
+          <div class="free-check">&#10003;</div>
+          <div class="free-what-text"><strong>Honest assessment</strong> of where you are and what your biggest financial obstacles actually are</div>
+        </div>
+        <div class="free-what-item">
+          <div class="free-check">&#10003;</div>
+          <div class="free-what-text"><strong>Clear direction</strong> on which RSM service or program is the right fit for your specific situation</div>
+        </div>
+        <div class="free-what-item">
+          <div class="free-check">&#10003;</div>
+          <div class="free-what-text"><strong>One actionable step</strong> you can take immediately regardless of whether we work together</div>
+        </div>
+        <div class="free-what-item">
+          <div class="free-check">&#10003;</div>
+          <div class="free-what-text"><strong>Zero obligation</strong> to purchase anything. This call exists to serve you, full stop</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1-ON-1 SERVICES -->
+<section class="services-section">
+  <div class="inner">
+    <div class="fade-up">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">One on One Services</span></div>
+      <h2 class="sec-headline">Direct Access to Darrell.</h2>
+      <p class="sec-sub">These sessions are for people who are ready to go beyond content and get personal, focused, truth-based guidance on their specific financial situation.</p>
+    </div>
+    <div class="services-grid">
+
+      <!-- 1 HOUR CALL -->
+      <div class="service-card fade-up">
+        <div class="service-bg-number">01</div>
+        <div class="service-card-top">
+          <div class="service-tag">One on One Session</div>
+          <div>
+            <div class="service-price">&#36;197</div>
+          </div>
+        </div>
+        <div class="service-accent"></div>
+        <div class="service-title">1-Hour Financial Literacy and Mindset Call</div>
+        <p class="service-desc">One focused hour with Darrell built entirely around your financial situation. This is not a generic coaching call. This is a direct, honest, targeted session that identifies exactly where your financial foundation is broken and what to do about it. You will leave with clarity, direction, and a real action plan.</p>
+        <div class="service-includes">
+          <div class="service-includes-title">What is Included</div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Personal financial mindset assessment</div>
+          </div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Identification of your top financial patterns and blind spots</div>
+          </div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Financial literacy guidance tailored to your specific situation</div>
+          </div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Clear written action plan delivered after the session</div>
+          </div>
+        </div>
+        <a href="https://www.rightsideofmoney.com/booking-calendar/1-hour-financial-literacy-mindset?referral=service_list_widget" target="_blank" class="btn-secondary">Book This Session</a>
+      </div>
+
+      <!-- RSM MFA COURSE -->
+      <div class="service-card fade-up">
+        <div class="service-bg-number">02</div>
+        <div class="service-card-top">
+          <div class="service-tag">Foundation Course</div>
+          <div>
+            <div class="service-price">&#36;297</div>
+            <span class="service-price-note">Payment plan available</span>
+          </div>
+        </div>
+        <div class="service-accent"></div>
+        <div class="service-title">RSM MFA Foundation Course</div>
+        <p class="service-desc">The complete foundation program. Mindset, financial literacy, and accountability working together in one structured course designed to permanently change your relationship with money. This is not content you watch and forget. This is a system you implement with results that last.</p>
+        <div class="service-includes">
+          <div class="service-includes-title">Three Pillars</div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Mindset: Break the beliefs silently running your financial life</div>
+          </div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Financial Literacy: Real knowledge about how money actually works</div>
+          </div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Accountability: The structure that makes sure you implement</div>
+          </div>
+          <div class="service-include-item">
+            <div class="service-include-check">&#10003;</div>
+            <div class="service-include-text">Lifetime access. One time investment. No recurring fees.</div>
+          </div>
+        </div>
+        <a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank" class="btn-secondary">Enroll Now for &#36;297</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COACHING LEVELS -->
+<section class="coaching-section">
+  <div class="inner">
+    <div class="fade-up">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text" style="color:var(--gold)">Premium Coaching Programs</span></div>
+      <h2 class="sec-headline light">Ready to Go All the Way?</h2>
+      <p class="sec-sub light">These are full coaching relationships for people who are serious about transformation. Not a course. Not a call. A committed partnership with Darrell built around your financial life and your goals.</p>
+    </div>
+    <div class="coaching-grid">
+
+      <!-- LEVEL 1 -->
+      <div class="coaching-card fade-up">
+        <div class="coaching-level">Level 1</div>
+        <div class="coaching-price">&#36;799</div>
+        <div class="coaching-price-note">Full pay</div>
+        <div class="coaching-divider"></div>
+        <div class="coaching-title">Mindset, Financial Literacy and Accountability</div>
+        <p class="coaching-desc">The starting point for serious transformation. Built for people who are ready to do the real work and need structure, guidance, and accountability to make it last.</p>
+        <div class="coaching-items">
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Full mindset and financial literacy curriculum</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Personal accountability framework</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Direct access to Darrell throughout the program</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Custom action plan built around your life</div></div>
+        </div>
+        <a href="mailto:rsmbooking@rightsideofmoney.com?subject=Level 1 Coaching Inquiry" class="btn-gold-outline">Inquire About Level 1</a>
+      </div>
+
+      <!-- LEVEL 2 -->
+      <div class="coaching-card featured fade-up">
+        <div class="coaching-featured-tag">Most Popular</div>
+        <div class="coaching-level">Level 2</div>
+        <div class="coaching-price">&#36;1,999</div>
+        <div class="coaching-price-note">Full pay or payment plan</div>
+        <div class="coaching-divider"></div>
+        <div class="coaching-title">Deep Transformation and Implementation</div>
+        <p class="coaching-desc">For people who are ready to go beyond the foundation and into real implementation. Deeper work, more access, and a program built for lasting financial change across every area of your life.</p>
+        <div class="coaching-items">
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Everything in Level 1</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Extended coaching engagement with deeper implementation</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Financial planning and strategy sessions</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Priority access and response time</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Wealth building roadmap built for your specific goals</div></div>
+        </div>
+        <a href="mailto:rsmbooking@rightsideofmoney.com?subject=Level 2 Coaching Inquiry" class="btn-primary">Inquire About Level 2</a>
+      </div>
+
+      <!-- LEVEL 3 -->
+      <div class="coaching-card fade-up">
+        <div class="coaching-level">Level 3</div>
+        <div class="coaching-price">&#36;3,499</div>
+        <div class="coaching-price-note">Full pay or payment plan</div>
+        <div class="coaching-divider"></div>
+        <div class="coaching-title">Full Coaching Relationship and Legacy Building</div>
+        <p class="coaching-desc">The highest level of access and commitment. This is a complete coaching relationship focused not just on your finances but on building a legacy that outlasts you and serves the people you love.</p>
+        <div class="coaching-items">
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Everything in Level 1 and Level 2</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Full legacy planning and generational wealth strategy</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Insurance and protection planning integration</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Maximum access to Darrell throughout the program</div></div>
+          <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Complete wealth building and protection blueprint</div></div>
+        </div>
+        <a href="mailto:rsmbooking@rightsideofmoney.com?subject=Level 3 Coaching Inquiry" class="btn-gold-outline">Inquire About Level 3</a>
+      </div>
+
+    </div>
+    <p class="coaching-note" style="text-align:center; margin-top:32px;">All premium coaching inquiries are reviewed personally by Darrell. A brief discovery call is required before enrollment to ensure the right fit.</p>
+  </div>
+</section>
+
+<!-- SPEAKING -->
+<section class="speaking-section">
+  <div class="inner">
+    <div class="fade-up">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Speaking Engagements</span></div>
+      <h2 class="sec-headline">Bring Right Side of Money to Your Audience.</h2>
+    </div>
+    <div class="speaking-banner fade-up">
+      <div>
+        <h3 class="speaking-banner-title">Truth-Telling Sessions That Change the Way <em>Audiences Think About Money.</em></h3>
+        <p class="speaking-banner-desc">Darrell speaks to schools, corporations, nonprofits, and community organizations. These are not motivational speeches. They are financial literacy sessions that leave audiences with a different foundation and a clear path forward.</p>
+        <a href="mailto:rsmbooking@rightsideofmoney.com?subject=Speaking Engagement Inquiry" class="btn-white">Book Darrell to Speak</a>
+      </div>
+      <div class="speaking-formats">
+        <div class="speaking-format">
+          <div class="speaking-format-title">Schools and Youth</div>
+          <div class="speaking-format-desc">Assemblies, classrooms, financial literacy weeks, career days</div>
+        </div>
+        <div class="speaking-format">
+          <div class="speaking-format-title">Corporations and HR</div>
+          <div class="speaking-format-desc">Employee wellness, leadership retreats, professional development</div>
+        </div>
+        <div class="speaking-format">
+          <div class="speaking-format-title">Community Organizations</div>
+          <div class="speaking-format-desc">Nonprofits, faith communities, civic organizations</div>
+        </div>
+        <div class="speaking-format">
+          <div class="speaking-format-title">Conferences and Events</div>
+          <div class="speaking-format-desc">Keynotes, panels, workshops, virtual presentations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TNT LEGACY SHIELD -->
+<div class="tnt-section">
+  <div class="inner">
+    <div class="tnt-grid">
+      <div class="fade-up">
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">TNT Legacy Shield</span></div>
+        <h2 class="sec-headline">Protect Everything You Are Building.</h2>
+        <p class="sec-sub" style="margin-bottom:32px;">Building wealth is only half the mission. Protecting it for the people you love is the other half. Through TNT Legacy Shield, Darrell helps families put the right protection in place so that financial freedom becomes a legacy, not just a moment.</p>
+        <a href="https://www.tntlegacyshield.com" target="_blank" class="btn-primary">Visit TNT Legacy Shield</a>
+      </div>
+      <div class="fade-up">
+        <div class="tnt-features">
+          <div class="tnt-feature">
+            <div class="tnt-feature-title">Life Insurance</div>
+            <div class="tnt-feature-desc">Protect your family and your legacy with coverage built around your goals.</div>
+          </div>
+          <div class="tnt-feature">
+            <div class="tnt-feature-title">Health Coverage</div>
+            <div class="tnt-feature-desc">Individual and family health plans designed around real needs and real budgets.</div>
+          </div>
+          <div class="tnt-feature">
+            <div class="tnt-feature-title">Medicare Planning</div>
+            <div class="tnt-feature-desc">Navigate Medicare with clarity and confidence. No confusion. No guesswork.</div>
+          </div>
+          <div class="tnt-feature">
+            <div class="tnt-feature-title">Final Expense</div>
+            <div class="tnt-feature-desc">Give your family peace of mind when it matters most.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GUARANTEE / FINAL CTA -->
+<div class="guarantee-section">
+  <div class="guarantee-inner fade-up">
+    <div class="guarantee-icon">RSM</div>
+    <h2 class="guarantee-headline">Not Sure Which Service Is Right for You?</h2>
+    <p class="guarantee-sub">Start with the free 30-minute discovery call. Darrell will tell you honestly which service fits where you are right now. No pressure. No sales pitch. Just the truth about what your next best step is.</p>
+    <div class="guarantee-buttons">
+      <a href="https://www.rightsideofmoney.com/booking-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank" class="btn-navy" style="background:var(--navy);color:var(--white);border-color:var(--navy);">Book Free Discovery Call</a>
+      <a href="mailto:info@rightsideofmoney.com" class="btn-navy" style="background:transparent;color:var(--navy);border-color:var(--navy);">Email Darrell Directly</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- SEMINAR CALLOUT -->
+<div style="background:var(--navy-mid);border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);padding:48px 40px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Upcoming Live Event</div>
+      <div style="font-family:var(--font-display);font-size:clamp(22px,2.5vw,34px);font-weight:900;color:var(--white);margin-bottom:6px;">Mindset and Money Seminar</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.55);font-weight:300;">Thursday April 23, 2026 &nbsp;|&nbsp; 5:30 PM Pacific &nbsp;|&nbsp; 8:30 PM Eastern &nbsp;|&nbsp; Free to Attend</div>
+      <div style="font-size:13px;color:var(--gold-light);margin-top:8px;font-weight:500;">Registration closes midnight Wednesday April 22. Do not miss it.</div>
+    </div>
+    <a href="https://rightsideofmoney.wixforms.com/f/7442423520404964751" target="_blank" style="display:inline-block;background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:16px 36px;border-radius:2px;border:2px solid var(--gold);white-space:nowrap;transition:all 0.25s;">Reserve My Free Spot</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">RIGHT SIDE OF MONEY</div>
+        <div class="footer-brand-tag">Financial Literacy. Mindset. Freedom.</div>
+        <p class="footer-brand-desc">Real financial truth for people who were never given the foundation they deserved. No fluff. No hype. Just the knowledge that changes everything.</p>
+        <div class="footer-contact-item">Phone: <a href="tel:9512235716">(951) 223-5716</a></div>
+        <div class="footer-contact-item">Contact: <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></div>
+        <div class="footer-contact-item">Booking: <a href="mailto:rsmbooking@rightsideofmoney.com">rsmbooking@rightsideofmoney.com</a></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="https://www.rightsideofmoney.com/booking-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank">Free Discovery Call</a></li>
+          <li><a href="https://www.rightsideofmoney.com/booking-calendar/1-hour-financial-literacy-mindset?referral=service_list_widget" target="_blank">1-Hour Mindset Call: &#36;197</a></li>
+          <li><a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank">Foundation Course: &#36;297</a></li>
+          <li><a href="mailto:rsmbooking@rightsideofmoney.com?subject=Level 1 Coaching Inquiry">Level 1 Coaching: &#36;799</a></li>
+          <li><a href="mailto:rsmbooking@rightsideofmoney.com?subject=Level 2 Coaching Inquiry">Level 2 Coaching: &#36;1,999</a></li>
+          <li><a href="mailto:rsmbooking@rightsideofmoney.com?subject=Level 3 Coaching Inquiry">Level 3 Coaching: &#36;3,499</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="https://www.rightsideofmoney.com">Home</a></li>
+          <li><a href="/courses">Courses</a></li>
+          <li><a href="https://www.rightsideofmoney.com/test-my-book">The Book</a></li>
+          <li><a href="https://www.rightsideofmoney.com/test-speaking">Speaking</a></li>
+          <li><a href="https://www.tntlegacyshield.com" target="_blank">TNT Legacy Shield</a></li>
+          <li><a href="https://www.rightsideofmoney.com/blog" target="_blank">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://www.tiktok.com/@rightsideofmoney" target="_blank">TikTok</a></li>
+          <li><a href="https://www.instagram.com/rightsideofmoney/" target="_blank">Instagram</a></li>
+          <li><a href="https://www.facebook.com/rightsideofmoney" target="_blank">Facebook</a></li>
+          <li><a href="https://www.linkedin.com/in/darrell-thompson" target="_blank">LinkedIn</a></li>
+          <li><a href="https://a.co/d/aOXz5ak" target="_blank">Book on Amazon</a></li>
+          <li><a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank">Signed Copy: &#36;15</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&#169; 2025 <span>Right Side of Money</span>. All Rights Reserved. Darrell Thompson.</div>
+      <div class="footer-copy">Privacy Policy | Disclaimer</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.borderBottomColor = window.scrollY > 60 ? 'rgba(201,148,26,0.5)' : 'rgba(201,148,26,0.3)';
+  });
+</script>
+
+
+<script>
+(function() {
+  function sendHeight() {
+    var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+    window.parent.postMessage({type: 'setHeight', height: h}, '*');
+  }
+  // Send on load
+  sendHeight();
+  // Send after images load
+  window.addEventListener('load', function() {
+    sendHeight();
+    setTimeout(sendHeight, 300);
+    setTimeout(sendHeight, 800);
+    setTimeout(sendHeight, 2000);
+  });
+  // Use ResizeObserver for continuous updates
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(function() { sendHeight(); });
+    ro.observe(document.body);
+  }
+  // Also send on any window resize
+  window.addEventListener('resize', sendHeight);
+})();
+</script>
+</body>
+</html>
