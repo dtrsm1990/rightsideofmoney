@@ -248,7 +248,7 @@
 
   
 
-  /* HAMBURGER MENU */
+  
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 200; margin-left: auto; }
   .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
   .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -268,6 +268,23 @@
     .nav-logo { align-items: flex-start; }
     .nav-logo-top { font-size: 16px; }
     .nav-logo-sub { font-size: 9px; }
+    .nav-links { display: none !important; }
+    .hamburger { display: flex !important; }
+  }
+
+  /* HAMBURGER */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.98); backdrop-filter: blur(12px); z-index: 99; flex-direction: column; padding: 16px 0 24px; border-bottom: 2px solid rgba(201,148,26,0.4); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+  .mobile-menu a:hover, .mobile-menu a.active { color: #E8B84B; }
+  .mobile-menu a.mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 16px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; display: block; }
+  @media (max-width: 900px) {
+    nav { padding: 0 20px !important; height: 68px !important; flex-direction: row !important; align-items: center !important; gap: 0 !important; justify-content: space-between !important; }
     .nav-links { display: none !important; }
     .hamburger { display: flex !important; }
   }
@@ -292,7 +309,8 @@
     <li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li>
     <li><a href="https://wix.to/AATH9Bm" target="_blank" class="nav-cta">Book a Call</a></li>
   </ul>
-  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+  
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -307,6 +325,7 @@
   <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
   <a href="https://wix.to/AATH9Bm" target="_blank" class="mobile-cta">Book a Call</a>
 </div>
+
 
 <!-- PAGE HERO -->
 <div class="page-hero">
@@ -443,7 +462,7 @@
         </div>
         <h2 class="free-title">30-Minute<br><em>Discovery Call</em></h2>
         <p class="free-desc">Not sure where to start? This is the call. No pressure. No pitch. Just an honest 30-minute conversation about where you are financially, what is holding you back, and what the right next step looks like for you specifically.</p>
-        <a href="https://wix.to/AATH9Bm" target="_blank" class="btn-primary">Book Your Free Call Now</a>
+        <a href="https://wix.to/IlDbZ6p" target="_blank" class="btn-primary">Book Your Free Call Now</a>
       </div>
       <div class="free-what">
         <div class="free-what-item">
@@ -508,7 +527,7 @@
             <div class="service-include-text">Clear written action plan delivered after the session</div>
           </div>
         </div>
-        <a href="https://wix.to/AATH9Bm" target="_blank" class="btn-secondary">Book This Session</a>
+        <a href="https://wix.to/IlDbZ6p" target="_blank" class="btn-secondary">Book This Session</a>
       </div>
 
       <!-- RSM MFA COURSE -->
@@ -574,7 +593,7 @@
           <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Direct access to Darrell throughout the program</div></div>
           <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Custom action plan built around your life</div></div>
         </div>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html" class="btn-gold-outline">Inquire About Level 1</a>
+        <a href="https://dtrsm1990.github.io/rightsideofmoney/level1.html" class="btn-gold-outline">Inquire About Level 1</a>
       </div>
 
       <!-- LEVEL 2 -->
@@ -593,7 +612,7 @@
           <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Priority access and response time</div></div>
           <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Wealth building roadmap built for your specific goals</div></div>
         </div>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html" class="btn-primary">Inquire About Level 2</a>
+        <a href="https://dtrsm1990.github.io/rightsideofmoney/level2.html" class="btn-primary">Inquire About Level 2</a>
       </div>
 
       <!-- LEVEL 3 -->
@@ -611,7 +630,7 @@
           <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Maximum access to Darrell throughout the program</div></div>
           <div class="coaching-item"><div class="coaching-check">&#10003;</div><div class="coaching-item-text">Complete wealth building and protection blueprint</div></div>
         </div>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html" class="btn-gold-outline">Inquire About Level 3</a>
+        <a href="https://dtrsm1990.github.io/rightsideofmoney/level3.html" class="btn-gold-outline">Inquire About Level 3</a>
       </div>
 
     </div>
@@ -630,7 +649,7 @@
       <div>
         <h3 class="speaking-banner-title">Truth-Telling Sessions That Change the Way <em>Audiences Think About Money.</em></h3>
         <p class="speaking-banner-desc">Darrell speaks to schools, corporations, nonprofits, and community organizations. These are not motivational speeches. They are financial literacy sessions that leave audiences with a different foundation and a clear path forward.</p>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html" class="btn-white">Book Darrell to Speak</a>
+        <a href="https://dtrsm1990.github.io/rightsideofmoney/level3.html" class="btn-white">Book Darrell to Speak</a>
       </div>
       <div class="speaking-formats">
         <div class="speaking-format">
@@ -729,7 +748,7 @@
         <div class="footer-col-title">Navigate</div>
         <ul class="footer-links">
           <li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li>
-          <li><a href="/courses">Courses</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li>
           <li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">The Book</a></li>
           <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
           <li><a href="https://www.tntlegacyshield.com" target="_blank">TNT Legacy Shield</a></li>
@@ -766,7 +785,9 @@
 
   
 
-  // Hamburger menu
+  
+  
+  // Mobile menu
   (function() {
     var btn = document.getElementById('hamburgerBtn');
     var menu = document.getElementById('mobileMenu');
@@ -774,21 +795,27 @@
     btn.addEventListener('click', function(e) {
       e.stopPropagation();
       var isOpen = menu.classList.contains('open');
-      menu.classList.toggle('open');
-      btn.classList.toggle('open');
+      if (isOpen) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      } else {
+        menu.classList.add('open');
+        btn.classList.add('open');
+      }
     });
     document.addEventListener('click', function(e) {
-      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
         menu.classList.remove('open');
         btn.classList.remove('open');
       }
     });
-    menu.querySelectorAll('a').forEach(function(link) {
-      link.addEventListener('click', function() {
+    var links = menu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function() {
         menu.classList.remove('open');
         btn.classList.remove('open');
       });
-    });
+    }
   })();
   </script>
 </body>
