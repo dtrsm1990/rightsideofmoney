@@ -301,6 +301,23 @@
     .hamburger { display: flex !important; }
   }
 
+  
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.98); backdrop-filter: blur(12px); z-index: 99; flex-direction: column; padding: 16px 0 24px; border-bottom: 2px solid rgba(201,148,26,0.4); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+  .mobile-menu a:hover, .mobile-menu a.active { color: #E8B84B; }
+  .mobile-menu a.mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 16px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; display: block; }
+  @media (max-width: 900px) {
+    nav { padding: 0 20px !important; height: 68px !important; flex-direction: row !important; align-items: center !important; gap: 0 !important; justify-content: space-between !important; }
+    .nav-links { display: none !important; }
+    .hamburger { display: flex !important; }
+  }
+
   /* HAMBURGER */
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 200; }
   .hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: all 0.3s; }
@@ -335,9 +352,11 @@
     <li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li>
     <li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a></li>
     <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a></li>
     <li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li>
     <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li>
   </ul>
+  
   
   <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -351,25 +370,14 @@
   <a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a>
   <a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a>
   <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a>
   <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
   <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="mobile-cta">Start Free</a>
 </div>
 
 
-<!-- SEMINAR ALERT BANNER -->
-<div style="background:#C9941A;padding:20px 40px;text-align:center;position:relative;z-index:99;">
-  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div style="width:10px;height:10px;background:#0D1F3C;border-radius:50%;animation:pulse 1.5s infinite;"></div>
-      <span style="font-family:Bebas Neue,sans-serif;font-size:22px;letter-spacing:3px;color:#0D1F3C;">LIVE TONIGHT</span>
-    </div>
-    <div style="text-align:center;">
-      <div style="font-family:Bebas Neue,sans-serif;font-size:26px;letter-spacing:2px;color:#0D1F3C;line-height:1;">Mindset and Money Seminar</div>
-      <div style="font-size:14px;font-weight:600;color:rgba(13,31,60,0.7);margin-top:2px;">Thursday April 23 &nbsp;|&nbsp; 5:30 PM Pacific &nbsp;|&nbsp; 8:30 PM Eastern &nbsp;|&nbsp; Free</div>
-    </div>
-    <a href="https://rightsideofmoney.wixforms.com/f/7442423520404964751" target="_blank" style="display:inline-block;background:#0D1F3C;color:#E8B84B;font-family:DM Sans,sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:2px;border:2px solid #0D1F3C;white-space:nowrap;transition:all 0.25s;">Register Now. It Is Free.</a>
-  </div>
-</div>
+
+
 
 <!-- HERO -->
 <section class="hero">
@@ -617,7 +625,7 @@
             <span class="book-price-tag">&#36;19.99</span>
           </div>
           <div class="book-btn-row">
-            <a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank" class="btn-gold-outline">Order Signed Copy</a>
+            <a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank" class="btn-gold-outline">Order Signed Copy</a>
             <span class="book-price-tag">&#36;15.00 &nbsp; signed and mailed to you</span>
           </div>
         </div>
@@ -724,6 +732,84 @@
   </div>
 </section>
 
+
+<!-- BLOG SECTION -->
+<section style="background:#FAF7F2;padding:80px 40px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:32px;height:2px;background:#C9941A;"></div>
+        <span style="font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#C9941A;">Financial Education</span>
+        <div style="width:32px;height:2px;background:#C9941A;"></div>
+      </div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,42px);font-weight:900;color:#0D1F3C;margin-bottom:12px;">The Financial Truth You Were Never Given.</h2>
+      <p style="font-size:16px;color:#888880;font-weight:300;max-width:600px;margin:0 auto;">Real financial education in plain language. No jargon. No fluff. Just the knowledge that changes how you think about and build money.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#D0CFC8;margin-bottom:40px;">
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-emergency-fund.html" style="background:#FFFFFF;padding:32px 28px;text-decoration:none;display:block;border-top:3px solid transparent;transition:all 0.3s;" onmouseover="this.style.borderTopColor='#C9941A';this.style.background='#0D1F3C'" onmouseout="this.style.borderTopColor='transparent';this.style.background='#FFFFFF'">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:10px;">Financial Literacy</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#0D1F3C;line-height:1.3;margin-bottom:10px;">How to Build an Emergency Fund When You Have Nothing Left Over</div>
+        <div style="font-size:13px;color:#888880;font-weight:300;">The step-by-step guide starting from zero.</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-compound-interest.html" style="background:#FFFFFF;padding:32px 28px;text-decoration:none;display:block;border-top:3px solid transparent;transition:all 0.3s;" onmouseover="this.style.borderTopColor='#C9941A';this.style.background='#0D1F3C'" onmouseout="this.style.borderTopColor='transparent';this.style.background='#FFFFFF'">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:10px;">Financial Literacy</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#0D1F3C;line-height:1.3;margin-bottom:10px;">What Is Compound Interest and Why It Is Either Your Greatest Ally or Your Worst Enemy</div>
+        <div style="font-size:13px;color:#888880;font-weight:300;">The force that builds wealth or destroys it.</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-get-out-of-debt.html" style="background:#FFFFFF;padding:32px 28px;text-decoration:none;display:block;border-top:3px solid transparent;transition:all 0.3s;" onmouseover="this.style.borderTopColor='#C9941A';this.style.background='#0D1F3C'" onmouseout="this.style.borderTopColor='transparent';this.style.background='#FFFFFF'">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:10px;">Financial Literacy</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#0D1F3C;line-height:1.3;margin-bottom:10px;">How to Get Out of Debt: The Real Strategy That Actually Works</div>
+        <div style="font-size:13px;color:#888880;font-weight:300;">No gimmicks. No magic. Just the proven approach.</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-credit-score.html" style="background:#FFFFFF;padding:32px 28px;text-decoration:none;display:block;border-top:3px solid transparent;transition:all 0.3s;" onmouseover="this.style.borderTopColor='#C9941A';this.style.background='#0D1F3C'" onmouseout="this.style.borderTopColor='transparent';this.style.background='#FFFFFF'">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:10px;">Financial Literacy</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#0D1F3C;line-height:1.3;margin-bottom:10px;">Your Credit Score Explained: What It Is, How It Works, and How to Improve It</div>
+        <div style="font-size:13px;color:#888880;font-weight:300;">Take control of one of your most important financial tools.</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-generational-wealth.html" style="background:#FFFFFF;padding:32px 28px;text-decoration:none;display:block;border-top:3px solid transparent;transition:all 0.3s;" onmouseover="this.style.borderTopColor='#C9941A';this.style.background='#0D1F3C'" onmouseout="this.style.borderTopColor='transparent';this.style.background='#FFFFFF'">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:10px;">Wealth Building</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#0D1F3C;line-height:1.3;margin-bottom:10px;">Generational Wealth: What It Is, Why Most Families Never Build It, and How to Start</div>
+        <div style="font-size:13px;color:#888880;font-weight:300;">Breaking the cycle starts with understanding the cycle.</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html" style="background:#0D1F3C;padding:32px 28px;text-decoration:none;display:block;border-top:3px solid #C9941A;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:10px;">Free Community</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#FFFFFF;line-height:1.3;margin-bottom:10px;">Join the RSM Wealth Builders Community</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.55);font-weight:300;margin-bottom:16px;">Daily financial truth. Real accountability. Free to join.</div>
+        <span style="display:inline-block;background:#C9941A;color:#0D1F3C;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border-radius:2px;">Join Free &#8594;</span>
+      </a>
+    </div>
+
+    <!-- FREE DOWNLOADS -->
+    <div style="background:#0D1F3C;padding:40px;border-left:5px solid #C9941A;">
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;">Free Downloads</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,30px);font-weight:900;color:#FFFFFF;margin-bottom:12px;">Free Resources to Start Building Your Foundation.</div>
+          <p style="font-size:14px;color:rgba(255,255,255,0.6);font-weight:300;line-height:1.7;">Download any of these free guides and start building the financial foundation you were never given. No email required. Just click and download.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Financial_Foundation_Checklist.pdf" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.2);padding:14px 16px;text-decoration:none;transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(201,148,26,0.6)'" onmouseout="this.style.borderColor='rgba(201,148,26,0.2)'">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:#C9941A;flex-shrink:0;">PDF</span>
+            <span style="font-size:13px;color:#FFFFFF;font-weight:500;">RSM Financial Foundation Checklist</span>
+          </a>
+          <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_5_Money_Lies.pdf" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.2);padding:14px 16px;text-decoration:none;transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(201,148,26,0.6)'" onmouseout="this.style.borderColor='rgba(201,148,26,0.2)'">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:#C9941A;flex-shrink:0;">PDF</span>
+            <span style="font-size:13px;color:#FFFFFF;font-weight:500;">The 5 Money Lies You Were Told Growing Up</span>
+          </a>
+          <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Wealth_Building_Mindset_Starter_Kit.pdf" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.2);padding:14px 16px;text-decoration:none;transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(201,148,26,0.6)'" onmouseout="this.style.borderColor='rgba(201,148,26,0.2)'">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:#C9941A;flex-shrink:0;">PDF</span>
+            <span style="font-size:13px;color:#FFFFFF;font-weight:500;">Wealth Building Mindset Starter Kit</span>
+          </a>
+          <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Budget_Snapshot_Tool.pdf" target="_blank" style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.2);padding:14px 16px;text-decoration:none;transition:all 0.25s;" onmouseover="this.style.borderColor='rgba(201,148,26,0.6)'" onmouseout="this.style.borderColor='rgba(201,148,26,0.2)'">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;color:#C9941A;flex-shrink:0;">PDF</span>
+            <span style="font-size:13px;color:#FFFFFF;font-weight:500;">RSM Budget Snapshot Tool</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -755,7 +841,7 @@
           <li><a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" target="_blank">Free Discovery Call</a></li>
           <li><a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank">&#36;297 Foundation Course</a></li>
           <li><a href="https://a.co/d/aOXz5ak" target="_blank">Book on Amazon: &#36;19.99</a></li>
-          <li><a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank">Signed Copy: &#36;15.00</a></li>
+          <li><a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank">Signed Copy: &#36;25.00</a></li>
           <li><a href="https://www.tntlegacyshield.com" target="_blank">TNT Legacy Shield</a></li>
         </ul>
       </div>
@@ -806,6 +892,30 @@
         menu.classList.add('open');
         btn.classList.add('open');
       }
+    });
+    document.addEventListener('click', function(e) {
+      if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      }
+    });
+    var links = menu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function() {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      });
+    }
+  })();
+  
+  (function() {
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
     });
     document.addEventListener('click', function(e) {
       if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {

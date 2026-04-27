@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generational Wealth: What It Is, Why Most Families Never Build It, and How to Start | Right Side of Money</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#FAF7F2;color:#444440;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex;align-items:center;height:68px;gap:22px;list-style:none;}
+.nav-links li{display:flex;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;}
+.nav-links a:hover{color:#E8B84B;}
+.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:10px 18px;border-radius:2px;font-weight:600!important;display:inline-flex;align-items:center;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;margin-left:auto;}
+.hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.98);z-index:99;flex-direction:column;padding:16px 0 24px;border-bottom:2px solid rgba(201,148,26,0.4);}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.mobile-menu a.mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:16px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;display:block;}
+.article-hero{background:#0D1F3C;padding:120px 40px 60px;position:relative;overflow:hidden;}
+.article-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,148,26,0.08) 0%,transparent 60%);}
+.article-hero-inner{position:relative;z-index:2;max-width:800px;margin:0 auto;}
+.article-category{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.article-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;color:#FFFFFF;line-height:1.1;margin-bottom:16px;}
+.article-subtitle{font-size:17px;color:rgba(255,255,255,0.6);line-height:1.7;font-weight:300;margin-bottom:24px;}
+.article-meta{display:flex;align-items:center;gap:20px;font-size:13px;color:rgba(255,255,255,0.45);}
+.article-meta span{color:rgba(255,255,255,0.6);font-weight:500;}
+.article-body{max-width:760px;margin:0 auto;padding:60px 40px;}
+.article-intro{font-size:17px;line-height:1.85;color:#0D1F3C;font-weight:400;margin-bottom:32px;padding-bottom:32px;border-bottom:2px solid #C9941A;}
+.article-h2{font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,28px);font-weight:900;color:#0D1F3C;margin-bottom:16px;margin-top:40px;}
+.article-p{font-size:16px;line-height:1.85;color:#444440;margin-bottom:18px;font-weight:300;}
+.article-quote{background:#0D1F3C;border-left:5px solid #C9941A;padding:28px 32px;margin:36px 0;}
+.article-quote-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#FFFFFF;line-height:1.45;font-style:italic;margin-bottom:10px;}
+.article-quote-attr{font-size:13px;color:#C9941A;font-weight:600;letter-spacing:1px;}
+.lead-magnet-box{background:#FDF3DC;border:1px solid #C9941A;border-left:5px solid #C9941A;padding:28px 32px;margin:36px 0;}
+.lead-magnet-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#C9941A;margin-bottom:8px;}
+.lead-magnet-sub{font-size:14px;color:#444440;margin-bottom:16px;font-weight:300;line-height:1.6;}
+.lead-magnet-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.lead-magnet-list li::before{content:'↓ ';color:#C9941A;font-weight:700;}
+.cta-box{background:#0D1F3C;padding:40px;margin:40px 0;text-align:center;}
+.cta-box-title{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,32px);font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.cta-box-sub{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.7;font-weight:300;margin-bottom:28px;}
+.cta-btn{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:16px 36px;border-radius:2px;margin:6px;}
+.cta-btn:hover{background:#E8B84B;}
+.cta-btn.outline{background:transparent;color:#FFFFFF;border:2px solid rgba(255,255,255,0.3);}
+.cta-btn.outline:hover{border-color:#C9941A;color:#C9941A;}
+.community-box{background:#1B3A6B;border:1px solid rgba(201,148,26,0.3);padding:32px;margin:36px 0;text-align:center;}
+.community-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#E8B84B;margin-bottom:8px;}
+.community-sub{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.65;font-weight:300;margin-bottom:20px;}
+.related-posts{background:#F4F4F0;padding:40px;margin:40px 0;}
+.related-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#0D1F3C;margin-bottom:20px;}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.related-item{background:#FFFFFF;padding:20px;border-left:3px solid #C9941A;text-decoration:none;display:block;}
+.related-item-cat{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:6px;}
+.related-item-title{font-size:14px;font-weight:600;color:#0D1F3C;line-height:1.4;}
+footer{background:#0A0A0A;padding:40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;margin-bottom:8px;}
+.footer-brand span{color:#C9941A;}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;}
+.footer-links a:hover{color:#E8B84B;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.25);}
+@media(max-width:900px){
+  nav{padding:0 20px!important;height:68px!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;}
+  .nav-links{display:none!important;}
+  .hamburger{display:flex!important;}
+  .article-hero{padding:120px 24px 48px;}
+  .article-body{padding:40px 24px;}
+  .related-grid{grid-template-columns:1fr;}
+}
+
+  /* HAMBURGER */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.98); backdrop-filter: blur(12px); z-index: 99; flex-direction: column; padding: 16px 0 24px; border-bottom: 2px solid rgba(201,148,26,0.4); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+  .mobile-menu a:hover, .mobile-menu a.active { color: #E8B84B; }
+  .mobile-menu a.mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 16px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; display: block; }
+  @media (max-width: 900px) {
+    nav { padding: 0 20px !important; height: 68px !important; flex-direction: row !important; align-items: center !important; gap: 0 !important; justify-content: space-between !important; }
+    .nav-links { display: none !important; }
+    .hamburger { display: flex !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="active">Home</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li>
+    <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li>
+  </ul>
+  
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="active">Home</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
+  <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="mobile-cta">Start Free</a>
+</div>
+
+
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-category">Wealth Building &nbsp;|&nbsp; 10 min read</div>
+    <h1 class="article-title">Generational Wealth: What It Is, Why Most Families Never Build It, and How to Start</h1>
+    <p class="article-subtitle">Breaking the cycle starts with understanding what the cycle actually is</p>
+    <div class="article-meta">
+      <span>By Darrell Thompson</span>
+      <span>|</span>
+      <span>Right Side of Money</span>
+      <span>|</span>
+      <span>10 min read</span>
+    </div>
+  </div>
+</div>
+
+<div class="article-body">
+  <p class="article-intro">Generational wealth is one of the most talked-about concepts in financial literacy circles right now. But most of the conversation stays at the surface level. People know they want it. They know their family did not have it. They have a vague sense that building it is important. But very few people understand what it actually takes to build wealth that outlasts one generation and serves the next. This article goes deeper.</p>
+
+  
+      <h2 class="article-h2">What Generational Wealth Actually Means</h2>
+      <p class="article-p">Generational wealth is not just being rich. It is building financial resources, assets, and knowledge that can be transferred to the next generation in a way that allows them to start further ahead than you did.</p>
+      <p class="article-p">It can take several forms. Financial assets like investment accounts, retirement funds, and savings. Physical assets like real estate, business ownership, and valuable property. Financial knowledge including the habits, education, and understanding of how money works that gives the next generation the foundation to build on. And protection vehicles like life insurance, trusts, and legal structures that preserve and transfer wealth efficiently.</p>
+      <p class="article-p">True generational wealth is not just what you leave behind. It is what you teach along the way.</p>
+      <h2 class="article-h2">Why Most Families Never Build It</h2>
+      <p class="article-p">The cycle of financial struggle is not primarily a moral failure. It is an information failure. Families that do not discuss money raise children who do not know how money works. Communities that are underserved by financial institutions produce generations that never access the wealth building tools those institutions offer. School systems that teach math but not financial literacy produce adults who can solve quadratic equations but cannot build a budget.</p>
+      <p class="article-p">When you add to that the weight of historical wealth gaps, systemic exclusion from property ownership and wealth building opportunities, and the normalization of consumer debt as a lifestyle, the cycle becomes self-reinforcing across generations.</p>
+      <p class="article-p">Breaking it requires something no external policy or program can fully provide. It requires someone in the family to learn something different and then live differently based on what they learned. Generational wealth starts with one person who decides the cycle ends with them.</p>
+      <h2 class="article-h2">The Five Pillars of Generational Wealth Building</h2>
+      <p class="article-p">The first pillar is income growth. You cannot build generational wealth on income that barely covers expenses. Building wealth requires closing the gap between what you earn and what you spend and growing that gap over time. This means pursuing career advancement, developing marketable skills, building side income, and creating business income where possible.</p>
+      <p class="article-p">The second pillar is debt elimination. Consumer debt is the enemy of generational wealth. High interest debt transfers your wealth to lending institutions every single month. Getting out of consumer debt and staying out of it is not optional. It is foundational.</p>
+      <p class="article-p">The third pillar is asset building. Wealth is not built in a savings account. It is built in assets that appreciate in value over time. Real estate. Investment accounts. Business equity. These are the vehicles that grow faster than inflation and create the financial foundation that can be transferred to the next generation.</p>
+      <p class="article-p">The fourth pillar is protection. Building wealth without protecting it is like filling a bucket with a hole. Life insurance ensures that your death does not financially destroy your family. Proper insurance coverage prevents one disaster from wiping out years of progress. Legal structures like wills and trusts ensure your wealth transfers efficiently and according to your wishes.</p>
+      <p class="article-p">The fifth pillar is financial education passed down. The most powerful inheritance you can give your children is not money. It is financial literacy. Children who grow up understanding how money works, how debt works, how investing works, and how wealth is built have a foundation that cannot be taken away. Teaching financial literacy to your children and grandchildren is the most sustainable form of generational wealth transfer.</p>
+      <h2 class="article-h2">Where to Start Today</h2>
+      <p class="article-p">Generational wealth feels overwhelming when you look at the full picture. The gap between where most people start and where generational wealth lives can feel enormous. But every journey is made of single steps and the step you take today is the one that matters most.</p>
+      <p class="article-p">Start with your own financial foundation. Get your budget in order. Build your emergency fund. Begin eliminating consumer debt. Start investing even a small amount. Get appropriate life insurance coverage. These are not glamorous steps. But they are the ones that every generational wealth builder has taken.</p>
+      <p class="article-p">Then teach what you learn. Talk to your children about money in age-appropriate ways. Let them see you making deliberate financial decisions. Explain why you are saving. Explain what debt costs. Explain what investing does over time. The conversation is the inheritance. Start it now.</p>
+
+  <div class="article-quote">
+    <div class="article-quote-text">"Generational wealth starts when one person in a family decides that what was handed to them is not what they will hand to the next generation. That person can be you. The decision starts today."</div>
+    <div class="article-quote-attr">— Darrell Thompson, Right Side of Money</div>
+  </div>
+
+  <div class="lead-magnet-box">
+    <div class="lead-magnet-title">Free Resources from Right Side of Money</div>
+    <p class="lead-magnet-sub">Everything covered in this article and more is available in our free resource library. Download any or all of these guides and start building your financial foundation today.</p>
+    <ul class="lead-magnet-list">
+      <li><a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Financial_Foundation_Checklist.pdf" target="_blank" style="color:#C9941A;text-decoration:none;font-weight:600;">The RSM Financial Foundation Checklist</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_5_Money_Lies.pdf" target="_blank" style="color:#C9941A;text-decoration:none;font-weight:600;">The 5 Money Lies You Were Told Growing Up</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Wealth_Building_Mindset_Starter_Kit.pdf" target="_blank" style="color:#C9941A;text-decoration:none;font-weight:600;">The Wealth Building Mindset Starter Kit</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Budget_Snapshot_Tool.pdf" target="_blank" style="color:#C9941A;text-decoration:none;font-weight:600;">The RSM Budget Snapshot Tool</a></li>
+    </ul>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:2px;">Book a Free Discovery Call</a>
+  </div>
+
+  <div class="community-box">
+    <div class="community-title">Join the RSM Wealth Builders Community</div>
+    <p class="community-sub">Connect with others on the same journey. Get daily financial truth, ask questions, share wins, and be part of a community that is serious about getting on the right side of money.</p>
+    <a href="https://www.rightsideofmoney.com/group/rsm-wealth-builders-community" target="_blank" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 28px;border-radius:2px;">Join the Free Community</a>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-box-title">Ready to Go Deeper?</div>
+    <p class="cta-box-sub">Reading about financial literacy is step one. Applying it with structure, accountability, and real guidance is where change actually happens. Right Side of Money has a program for wherever you are right now.</p>
+    <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="cta-btn">Start Free: 30-Day Challenge</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" class="cta-btn outline">Book a Free Discovery Call</a>
+  </div>
+
+  <div class="related-posts">
+    <div class="related-title">More From Right Side of Money</div>
+    <div class="related-grid">
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-emergency-fund.html" class="related-item">
+        <div class="related-item-cat">Financial Literacy</div>
+        <div class="related-item-title">How to Build an Emergency Fund When You Have Nothing Left Over</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-compound-interest.html" class="related-item">
+        <div class="related-item-cat">Financial Literacy</div>
+        <div class="related-item-title">What Is Compound Interest and Why It Is Either Your Greatest Ally or Your Worst Enemy</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-get-out-of-debt.html" class="related-item">
+        <div class="related-item-cat">Financial Literacy</div>
+        <div class="related-item-title">How to Get Out of Debt: The Real Strategy That Actually Works</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-credit-score.html" class="related-item">
+        <div class="related-item-cat">Financial Literacy</div>
+        <div class="related-item-title">Your Credit Score Explained: What It Is, How It Works, and How to Improve It</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/blog-generational-wealth.html" class="related-item">
+        <div class="related-item-cat">Wealth Building</div>
+        <div class="related-item-title">Generational Wealth: What It Is, Why Most Families Never Build It, and How to Start</div>
+      </a>
+      <a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html" class="related-item">
+        <div class="related-item-cat">Programs</div>
+        <div class="related-item-title">Explore All Right Side of Money Programs and Courses</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">RIGHT SIDE OF <span>MONEY</span></div>
+  <div class="footer-links">
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
+  </div>
+  <div class="footer-copy">&#169; 2026 Right Side of Money. All Rights Reserved. Darrell Thompson.</div>
+</footer>
+
+<script>
+(function() {
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+  });
+  document.addEventListener('click', function(e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  });
+})();
+
+  (function() {
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e) {
+      if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      }
+    });
+    var links = menu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function() {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

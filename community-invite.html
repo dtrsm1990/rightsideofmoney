@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the RSM Wealth Builders Community | Right Side of Money</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#0D1F3C;color:#444440;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex;align-items:center;height:68px;gap:22px;list-style:none;}
+.nav-links li{display:flex;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;}
+.nav-links a:hover{color:#E8B84B;}
+.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:10px 18px;border-radius:2px;font-weight:600!important;display:inline-flex;align-items:center;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;margin-left:auto;}
+.hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.98);z-index:99;flex-direction:column;padding:16px 0 24px;border-bottom:2px solid rgba(201,148,26,0.4);}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.mobile-menu a.mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:16px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;display:block;}
+
+/* HERO */
+.hero{background:#0D1F3C;padding:120px 40px 80px;position:relative;overflow:hidden;text-align:center;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 40%,rgba(201,148,26,0.12) 0%,transparent 60%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;max-width:800px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,148,26,0.12);border:1px solid rgba(201,148,26,0.35);padding:8px 20px;border-radius:2px;margin-bottom:24px;}
+.hero-badge-dot{width:8px;height:8px;background:#C9941A;border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.4)}}
+.hero-badge-text{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;}
+.hero-headline{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,60px);font-weight:900;color:#FFFFFF;line-height:1.05;margin-bottom:16px;}
+.hero-headline em{font-style:normal;color:#E8B84B;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.75;font-weight:300;margin-bottom:40px;}
+.hero-sub strong{color:#FFFFFF;font-weight:500;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,0.06);max-width:600px;margin:0 auto;}
+.hero-stat{background:rgba(255,255,255,0.04);padding:24px 16px;text-align:center;}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#C9941A;line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,0.5);font-weight:300;}
+
+/* WHAT YOU GET */
+.what-section{background:#FAF7F2;padding:80px 40px;}
+.what-inner{max-width:1100px;margin:0 auto;}
+.section-eyebrow{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;}
+.eyebrow-line{width:32px;height:2px;background:#C9941A;}
+.eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#C9941A;}
+.section-headline{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,42px);font-weight:900;color:#0D1F3C;text-align:center;margin-bottom:48px;}
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#D0CFC8;}
+.benefit-card{background:#FFFFFF;padding:40px 28px;border-top:3px solid transparent;transition:all 0.3s;}
+.benefit-card:hover{background:#0D1F3C;border-top-color:#C9941A;transform:translateY(-4px);box-shadow:0 20px 60px rgba(13,31,60,0.15);}
+.benefit-card:hover .benefit-title{color:#FFFFFF;}
+.benefit-card:hover .benefit-desc{color:rgba(255,255,255,0.55);}
+.benefit-card:hover .benefit-icon{background:rgba(201,148,26,0.15);color:#C9941A;}
+.benefit-icon{width:52px;height:52px;background:#F4F4F0;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:#0D1F3C;margin-bottom:16px;transition:all 0.3s;}
+.benefit-title{font-size:16px;font-weight:700;color:#0D1F3C;margin-bottom:10px;transition:color 0.3s;}
+.benefit-desc{font-size:14px;color:#888880;line-height:1.65;font-weight:300;transition:color 0.3s;}
+
+/* DARRELL MESSAGE */
+.darrell-section{background:#0D1F3C;padding:80px 40px;position:relative;overflow:hidden;}
+.darrell-section::before{content:'';position:absolute;bottom:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,148,26,0.08) 0%,transparent 60%);border-radius:50%;}
+.darrell-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 2.5fr;gap:60px;align-items:center;position:relative;z-index:2;}
+.darrell-photo{width:100%;max-width:240px;border-radius:4px;box-shadow:16px 16px 48px rgba(0,0,0,0.4);display:block;}
+.darrell-text{}
+.darrell-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.darrell-headline{font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,34px);font-weight:900;color:#FFFFFF;margin-bottom:20px;line-height:1.2;}
+.darrell-para{font-size:16px;color:rgba(255,255,255,0.65);line-height:1.85;font-weight:300;margin-bottom:16px;}
+.darrell-para strong{color:#FFFFFF;font-weight:500;}
+
+/* COMMUNITY RULES */
+.rules-section{background:#1B3A6B;padding:60px 40px;border-top:3px solid #C9941A;border-bottom:3px solid #C9941A;}
+.rules-inner{max-width:900px;margin:0 auto;}
+.rules-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#C9941A;margin-bottom:24px;text-align:center;}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);}
+.rule-item{background:rgba(255,255,255,0.04);padding:20px 24px;display:flex;align-items:flex-start;gap:14px;}
+.rule-num{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#C9941A;line-height:1;min-width:28px;}
+.rule-text{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;font-weight:300;}
+.rule-text strong{color:#FFFFFF;font-weight:500;}
+
+/* FORM */
+.form-section{background:#FAF7F2;padding:80px 40px;}
+.form-inner{max-width:760px;margin:0 auto;}
+.form-card{background:#FFFFFF;border-top:4px solid #C9941A;padding:52px;box-shadow:0 4px 40px rgba(13,31,60,0.08);}
+.form-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;color:#0D1F3C;margin-bottom:10px;text-align:center;}
+.form-sub{font-size:15px;color:#888880;text-align:center;line-height:1.7;font-weight:300;margin-bottom:36px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.field-row.full{grid-template-columns:1fr;}
+.field-group{display:flex;flex-direction:column;}
+.field-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0D1F3C;margin-bottom:8px;}
+.field-label span{color:#C9941A;}
+.field-input,.field-select,.field-textarea{font-family:'DM Sans',sans-serif;font-size:15px;color:#444440;background:#F4F4F0;border:1px solid #D0CFC8;border-radius:2px;padding:14px 16px;width:100%;outline:none;transition:all 0.25s;}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:#C9941A;background:#FFFFFF;box-shadow:0 0 0 3px rgba(201,148,26,0.1);}
+.field-textarea{resize:vertical;min-height:80px;line-height:1.6;}
+.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;cursor:pointer;}
+.btn-submit{width:100%;background:#C9941A;color:#0D1F3C;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;padding:20px;border-radius:2px;cursor:pointer;transition:all 0.25s;margin-top:8px;}
+.btn-submit:hover{background:#E8B84B;transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,148,26,0.4);}
+.form-note{font-size:13px;color:#888880;text-align:center;margin-top:14px;font-weight:300;line-height:1.6;}
+.success-box{display:none;background:#0D1F3C;padding:48px;text-align:center;}
+.success-check{font-size:56px;color:#C9941A;margin-bottom:20px;}
+.success-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.success-sub{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.7;font-weight:300;margin-bottom:28px;}
+.success-btn{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:15px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:18px 40px;border-radius:2px;}
+
+footer{background:#0A0A0A;padding:40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;margin-bottom:8px;}
+.footer-brand span{color:#C9941A;}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,0.45);text-decoration:none;}
+.footer-links a:hover{color:#E8B84B;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.25);}
+
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  nav{padding:0 20px!important;height:68px!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;}
+  .nav-links{display:none!important;}
+  .hamburger{display:flex!important;}
+  .hero,.what-section,.darrell-section,.rules-section,.form-section{padding-left:24px;padding-right:24px;}
+  .benefits-grid,.rules-grid{grid-template-columns:1fr;}
+  .hero-stats{grid-template-columns:1fr 1fr 1fr;}
+  .darrell-inner{grid-template-columns:1fr;gap:32px;}
+  .darrell-photo{max-width:200px;margin:0 auto;}
+  .field-row{grid-template-columns:1fr;}
+  .form-card{padding:32px 24px;}
+}
+
+  /* HAMBURGER */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.98); backdrop-filter: blur(12px); z-index: 99; flex-direction: column; padding: 16px 0 24px; border-bottom: 2px solid rgba(201,148,26,0.4); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s; }
+  .mobile-menu a:hover, .mobile-menu a.active { color: #E8B84B; }
+  .mobile-menu a.mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 16px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; display: block; }
+  @media (max-width: 900px) {
+    nav { padding: 0 20px !important; height: 68px !important; flex-direction: row !important; align-items: center !important; gap: 0 !important; justify-content: space-between !important; }
+    .nav-links { display: none !important; }
+    .hamburger { display: flex !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html" class="active">Community</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html" target="_blank" class="nav-cta">Join Community</a></li>
+  </ul>
+  
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html" class="active">Community</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html" target="_blank" class="mobile-cta">Join Community</a>
+</div>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner fade-up">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span class="hero-badge-text">Free Community</span>
+    </div>
+    <h1 class="hero-headline">Join the RSM<br><em>Wealth Builders Community</em></h1>
+    <p class="hero-sub">A free community for people who are <strong>serious about getting on the right side of money.</strong> Real talk. Real support. Real accountability. No fluff. No hype. Just the truth and the people committed to living it.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">FREE</div>
+        <div class="hero-stat-label">Always free to join</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">DAILY</div>
+        <div class="hero-stat-label">Financial truth from Darrell</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">REAL</div>
+        <div class="hero-stat-label">Community accountability</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="what-section">
+  <div class="what-inner">
+    <div class="section-eyebrow fade-up">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">What You Get</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-headline fade-up">Everything Inside the RSM Wealth Builders Community</h2>
+    <div class="benefits-grid fade-up">
+      <div class="benefit-card">
+        <div class="benefit-icon">DAILY</div>
+        <div class="benefit-title">Daily Financial Truth</div>
+        <div class="benefit-desc">Darrell posts daily financial insights, mindset shifts, and practical money moves you can implement immediately. No filler. No recycled motivational content. Real financial education every single day.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">Q&A</div>
+        <div class="benefit-title">Ask Darrell Directly</div>
+        <div class="benefit-desc">Got a financial question? Post it in the community. Darrell responds personally and the answer helps everyone. This is access to a Command Financial Specialist, Federal executive, and experienced financial educator at no cost.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">WINS</div>
+        <div class="benefit-title">Celebrate Financial Wins</div>
+        <div class="benefit-desc">Paid off a credit card. Built your first $500 emergency fund. Stuck to your budget for the first time. This community celebrates every win because every win matters. Progress is recognized and honored here.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">LIVE</div>
+        <div class="benefit-title">Live Sessions and Events</div>
+        <div class="benefit-desc">Darrell hosts live financial education sessions, Q&A events, and accountability check-ins inside the community. Community members get early access and exclusive content not available anywhere else.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">ACCT</div>
+        <div class="benefit-title">Peer Accountability</div>
+        <div class="benefit-desc">Financial change is hard alone. This community gives you people around you who are on the same journey. You hold each other accountable. You share what works. You support each other through the hard parts.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">RES</div>
+        <div class="benefit-title">Free Resources and Downloads</div>
+        <div class="benefit-desc">Community members get access to free RSM resources including checklists, guides, and tools. The RSM Financial Foundation Checklist, the Budget Snapshot Tool, and more are available exclusively to community members.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DARRELL MESSAGE -->
+<section class="darrell-section">
+  <div class="darrell-inner">
+    <div class="fade-up">
+      <img src="https://static.wixstatic.com/media/0f36f8_b271dcf6dbfa4840a249ea558af27e2e~mv2.jpeg" alt="Darrell Thompson" class="darrell-photo">
+    </div>
+    <div class="darrell-text fade-up">
+      <div class="darrell-eyebrow">A Message From Darrell</div>
+      <h2 class="darrell-headline">You Should Not Be Doing This Alone.</h2>
+      <p class="darrell-para">When I was learning about financial literacy in the Marine Corps, the thing that made the biggest difference was not just the information. It was being around other people who were taking it seriously. People who were asking the same questions. Working toward the same goals. Holding each other accountable.</p>
+      <p class="darrell-para">Most people try to figure out money in isolation. They watch videos. They read articles. They take notes. And then life happens and the momentum fades because there is nobody around them to keep it going.</p>
+      <p class="darrell-para"><strong>The RSM Wealth Builders Community exists to change that.</strong> It is a place where financial truth is spoken daily, where questions get real answers, where wins get celebrated, and where you are never the only one working toward something better.</p>
+      <p class="darrell-para">It is free. It is real. And it is waiting for you. Come join us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY RULES -->
+<div class="rules-section">
+  <div class="rules-inner fade-up">
+    <div class="rules-title">Community Standards</div>
+    <div class="rules-grid">
+      <div class="rule-item">
+        <div class="rule-num">01</div>
+        <div class="rule-text"><strong>Truth over comfort.</strong> We tell each other the truth here even when it is uncomfortable. This is a judgment-free space but it is not a comfort zone.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">02</div>
+        <div class="rule-text"><strong>No pitching or selling.</strong> This community is for learning and support, not for selling products, services, or opportunities to other members.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">03</div>
+        <div class="rule-text"><strong>Celebrate others.</strong> When a community member shares a win you celebrate it fully. Rising tides lift all ships. Someone else's success does not diminish yours.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">04</div>
+        <div class="rule-text"><strong>Show up consistently.</strong> The value of community comes from consistency. Post. Comment. Engage. Your presence matters and your journey inspires others.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">05</div>
+        <div class="rule-text"><strong>Confidentiality.</strong> Financial conversations are personal. What is shared in the community stays in the community.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">06</div>
+        <div class="rule-text"><strong>Do the work.</strong> This community supports action. We are here to build something real. Come ready to learn, apply, and grow.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INVITATION FORM -->
+<section class="form-section" id="join-form">
+  <div class="form-inner">
+    <div class="form-card fade-up">
+      <div class="form-title">Join the Community</div>
+      <p class="form-sub">Complete the form below. You will receive your community invitation link via email within 24 hours along with your free RSM resource downloads.</p>
+      <form id="communityForm">
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">First Name <span>*</span></label>
+            <input type="text" name="firstName" class="field-input" required placeholder="Your first name">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Last Name <span>*</span></label>
+            <input type="text" name="lastName" class="field-input" required placeholder="Your last name">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Email Address <span>*</span></label>
+            <input type="email" name="email" class="field-input" required placeholder="Your email address">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Phone Number</label>
+            <input type="tel" name="phone" class="field-input" placeholder="Your phone number (optional)">
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label class="field-label">City and State</label>
+            <input type="text" name="cityState" class="field-input" placeholder="City, State">
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label class="field-label">Where Are You Right Now Financially? <span>*</span></label>
+            <select name="financialStatus" class="field-select" required>
+              <option value="">Select the best description</option>
+              <option>Living paycheck to paycheck and need a real change</option>
+              <option>Making ends meet but not saving or building anything</option>
+              <option>Have some savings but still carrying significant debt</option>
+              <option>Stable but not growing my wealth the way I want to</option>
+              <option>Already investing and want to go further and faster</option>
+              <option>In financial crisis and need support and direction now</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label class="field-label">What Is Your Biggest Financial Goal Right Now? <span>*</span></label>
+            <select name="mainGoal" class="field-select" required>
+              <option value="">Select your primary goal</option>
+              <option>Get out of debt completely</option>
+              <option>Build my first real emergency fund</option>
+              <option>Start investing and building wealth</option>
+              <option>Improve my credit score significantly</option>
+              <option>Buy a home</option>
+              <option>Build generational wealth for my family</option>
+              <option>Start or grow a business</option>
+              <option>Increase my income significantly</option>
+              <option>Protect my family with the right insurance</option>
+              <option>Create a budget and financial system that works</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label class="field-label">How Did You Hear About Right Side of Money?</label>
+            <select name="referral" class="field-select">
+              <option value="">Select one</option>
+              <option>TikTok</option>
+              <option>Instagram</option>
+              <option>Facebook</option>
+              <option>LinkedIn</option>
+              <option>YouTube</option>
+              <option>Friend or Family Referral</option>
+              <option>Google Search</option>
+              <option>Attended a RSM Event or Seminar</option>
+              <option>Read the Book</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label class="field-label">Why Do You Want to Join This Community?</label>
+            <textarea name="whyJoin" class="field-textarea" placeholder="Tell us what you are hoping to get from the RSM Wealth Builders Community. What will make this the right community for you?"></textarea>
+          </div>
+        </div>
+        <div class="field-row full">
+          <div class="field-group">
+            <label class="field-label">What Free Resources Would You Like? (You will receive download links via email)</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;">
+              <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F4F4F0;border:1px solid #D0CFC8;border-radius:2px;cursor:pointer;">
+                <input type="checkbox" name="resources" value="Financial Foundation Checklist" style="accent-color:#C9941A;width:16px;height:16px;">
+                <span style="font-size:13px;color:#444440;">RSM Financial Foundation Checklist</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F4F4F0;border:1px solid #D0CFC8;border-radius:2px;cursor:pointer;">
+                <input type="checkbox" name="resources" value="5 Money Lies" style="accent-color:#C9941A;width:16px;height:16px;">
+                <span style="font-size:13px;color:#444440;">The 5 Money Lies You Were Told Growing Up</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F4F4F0;border:1px solid #D0CFC8;border-radius:2px;cursor:pointer;">
+                <input type="checkbox" name="resources" value="Wealth Building Mindset Starter Kit" style="accent-color:#C9941A;width:16px;height:16px;">
+                <span style="font-size:13px;color:#444440;">Wealth Building Mindset Starter Kit</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F4F4F0;border:1px solid #D0CFC8;border-radius:2px;cursor:pointer;">
+                <input type="checkbox" name="resources" value="Budget Snapshot Tool" style="accent-color:#C9941A;width:16px;height:16px;">
+                <span style="font-size:13px;color:#444440;">RSM Budget Snapshot Tool</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Request My Community Invitation</button>
+        <p class="form-note">Your information is completely confidential and will never be shared or sold. You will receive your community invitation link and free resource downloads via email within 24 hours. Welcome to the Right Side of Money.</p>
+      </form>
+      <div class="success-box" id="successBox">
+        <div class="success-check">&#10003;</div>
+        <div class="success-title">You Are In. Welcome.</div>
+        <p class="success-sub">Your invitation request has been received. Check your email within 24 hours for your community invitation link and your free RSM resource downloads. We will see you inside the RSM Wealth Builders Community.</p>
+        <a href="https://www.rightsideofmoney.com/group/rsm-wealth-builders-community" target="_blank" class="success-btn">Go to the Community Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">RIGHT SIDE OF <span>MONEY</span></div>
+  <div class="footer-links">
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
+  </div>
+  <div class="footer-copy">&#169; 2026 Right Side of Money. All Rights Reserved. Darrell Thompson.</div>
+</footer>
+
+<script>
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(el) { if (el.isIntersecting) el.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
+
+(function() {
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+  });
+  document.addEventListener('click', function(e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  });
+  menu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    });
+  });
+})();
+
+var form = document.getElementById('communityForm');
+if (form) {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xpqkkovj', {
+      method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+      if (r.ok) {
+        form.style.display = 'none';
+        document.getElementById('successBox').style.display = 'block';
+      } else {
+        alert('Please email info@rightsideofmoney.com to join the community.');
+      }
+    }).catch(function() {
+      alert('Please email info@rightsideofmoney.com to join the community.');
+    });
+  });
+}
+
+  (function() {
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e) {
+      if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      }
+    });
+    var links = menu.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function() {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
