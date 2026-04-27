@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Right Side of Money | Discovery Call Intake Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A017;
+    --gold-light: #E8B832;
+    --gold-dim: #A87B00;
+    --navy: #0A1628;
+    --navy-mid: #112240;
+    --navy-light: #1E3A5F;
+    --charcoal: #1E2D3D;
+    --white: #FFFFFF;
+    --off-white: #F8F4EE;
+    --text-light: #CDD5E0;
+    --border: rgba(212,160,23,0.25);
+    --border-focus: rgba(212,160,23,0.8);
+    --input-bg: rgba(255,255,255,0.04);
+    --input-hover: rgba(255,255,255,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 90% 10%, rgba(212,160,23,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 10% 90%, rgba(212,160,23,0.05) 0%, transparent 60%),
+      linear-gradient(180deg, #0A1628 0%, #0D1E35 50%, #0A1628 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* subtle grid overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(212,160,23,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,160,23,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+  }
+
+  /* ── HEADER ── */
+  .form-header {
+    text-align: center;
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  .brand-line {
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .brand-line::before,
+  .brand-line::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .form-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 82px);
+    letter-spacing: 3px;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .form-header h1 span {
+    color: var(--gold);
+    display: block;
+  }
+
+  .form-header .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--text-light);
+    margin-top: 18px;
+    line-height: 1.6;
+  }
+
+  .gold-rule {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 24px auto;
+  }
+
+  .header-note {
+    background: rgba(212,160,23,0.08);
+    border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 4px;
+    padding: 18px 24px;
+    margin-top: 28px;
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.7;
+    text-align: left;
+  }
+  .header-note strong {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ── FORM SECTIONS ── */
+  .form-section {
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .form-section:nth-child(1) { animation-delay: 0.1s; }
+  .form-section:nth-child(2) { animation-delay: 0.2s; }
+  .form-section:nth-child(3) { animation-delay: 0.3s; }
+  .form-section:nth-child(4) { animation-delay: 0.4s; }
+  .form-section:nth-child(5) { animation-delay: 0.5s; }
+  .form-section:nth-child(6) { animation-delay: 0.6s; }
+  .form-section:nth-child(7) { animation-delay: 0.7s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.35;
+    min-width: 44px;
+  }
+  .section-info h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .section-info p {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+  .section-divider {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(212,160,23,0.3), transparent);
+  }
+
+  /* ── FIELD GRID ── */
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .field-grid.full { grid-template-columns: 1fr; }
+  .field-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .span-2 { grid-column: span 2; }
+
+  /* ── FORM FIELDS ── */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  label .req {
+    color: #E07070;
+    margin-left: 3px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: var(--white);
+    outline: none;
+    transition: all 0.25s ease;
+    -webkit-appearance: none;
+  }
+  input::placeholder, textarea::placeholder {
+    color: rgba(255,255,255,0.2);
+    font-style: italic;
+  }
+  input:hover, select:hover, textarea:hover {
+    background: var(--input-hover);
+    border-color: rgba(212,160,23,0.4);
+  }
+  input:focus, select:focus, textarea:focus {
+    background: rgba(212,160,23,0.05);
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,160,23,0.1);
+  }
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4A017' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+  select option { background: var(--navy-mid); color: var(--white); }
+  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+  /* ── RADIO / CHECKBOX ── */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .options-grid.two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .option-btn {
+    position: relative;
+  }
+  .option-btn input[type="radio"],
+  .option-btn input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .option-btn label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--input-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--text-light);
+    transition: all 0.2s ease;
+    line-height: 1.5;
+  }
+  .option-btn label:hover {
+    border-color: rgba(212,160,23,0.5);
+    background: var(--input-hover);
+    color: var(--white);
+  }
+  .option-btn input:checked + label {
+    border-color: var(--gold);
+    background: rgba(212,160,23,0.1);
+    color: var(--white);
+  }
+  .option-btn label .check-box {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 2px solid rgba(212,160,23,0.4);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+  .option-btn input[type="radio"] + label .check-box {
+    border-radius: 50%;
+  }
+  .option-btn input:checked + label .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .option-btn input:checked + label .check-box::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: block;
+  }
+  .option-btn input[type="checkbox"]:checked + label .check-box::after {
+    content: '✓';
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--navy);
+    border-radius: 0;
+    background: none;
+  }
+
+  /* ── SCALE SLIDER ── */
+  .scale-wrap {
+    padding: 8px 0;
+  }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    opacity: 0.6;
+  }
+  input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(212,160,23,0.2) 100%);
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: 3px solid var(--navy);
+    box-shadow: 0 0 0 2px var(--gold);
+    transition: transform 0.15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+  .range-value {
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-top: 8px;
+  }
+
+  /* ── CALLOUT BOX ── */
+  .callout-box {
+    background: rgba(212,160,23,0.06);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.7;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+  }
+  .callout-box strong {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ── SUBMIT BUTTON ── */
+  .submit-wrap {
+    margin-top: 56px;
+    text-align: center;
+  }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 20px 56px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  .submit-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212,160,23,0.35);
+  }
+  .submit-btn:hover::before {
+    transform: translateX(100%);
+  }
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+  .submit-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .submit-note {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 14px;
+    opacity: 0.55;
+    letter-spacing: 1px;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 80px 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .success-screen.show {
+    display: block;
+  }
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    border: 3px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 32px;
+  }
+  .success-screen h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .success-screen p {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* ── FOOTER ── */
+  .form-footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(212,160,23,0.12);
+    font-size: 12px;
+    color: var(--text-light);
+    opacity: 0.4;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .field-grid { grid-template-columns: 1fr; }
+    .field-grid.three { grid-template-columns: 1fr 1fr; }
+    .span-2 { grid-column: span 1; }
+    .options-grid { grid-template-columns: 1fr; }
+    .options-grid.two-col { grid-template-columns: 1fr 1fr; }
+    .form-header h1 { font-size: 52px; }
+  }
+  @media (max-width: 480px) {
+    .page-wrap { padding: 40px 16px 80px; }
+    .options-grid.two-col { grid-template-columns: 1fr; }
+    .field-grid.three { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="form-header">
+    <p class="brand-line">Right Side of Money</p>
+    <h1>Discovery<span>Call Form</span></h1>
+    <div class="gold-rule"></div>
+    <p class="subtitle">Complete this form before your 30-minute discovery call.<br>Your answers help us make every minute count.</p>
+    <div class="header-note">
+      <strong>Why this matters:</strong> This is not a standard intake form. Your answers give me a real picture of where you are financially, what is holding you back, and what kind of support will move the needle fastest for you. Be as honest as possible. There are no wrong answers and everything you share is completely confidential.
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <form id="discoveryForm" action="https://formspree.io/f/mpqkedwq" method="POST">
+
+    <!-- SECTION 1: PERSONAL INFO -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">01</span>
+        <div class="section-info">
+          <h2>About You</h2>
+          <p>Basic contact information</p>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" name="first_name" placeholder="Your first name" required>
+        </div>
+        <div class="field">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" name="last_name" placeholder="Your last name" required>
+        </div>
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="your@email.com" required>
+        </div>
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="(555) 000-0000" required>
+        </div>
+        <div class="field">
+          <label>City &amp; State</label>
+          <input type="text" name="location" placeholder="Las Vegas, NV">
+        </div>
+        <div class="field">
+          <label>How did you hear about us?</label>
+          <select name="referral">
+            <option value="" disabled selected>Select one</option>
+            <option>TikTok</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>LinkedIn</option>
+            <option>YouTube</option>
+            <option>Friend or Family Referral</option>
+            <option>Google Search</option>
+            <option>Podcast</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: FINANCIAL SNAPSHOT -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">02</span>
+        <div class="section-info">
+          <h2>Your Financial Snapshot</h2>
+          <p>Where you are right now — no judgment, just clarity</p>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="callout-box">
+        <strong>Remember:</strong> The only way I can truly help you in 30 minutes is if I know the real picture. This information stays between us.
+      </div>
+
+      <div class="field-grid" style="margin-bottom:16px;">
+        <div class="field">
+          <label>Employment Status <span class="req">*</span></label>
+          <select name="employment" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Full-Time Employee</option>
+            <option>Part-Time Employee</option>
+            <option>Self-Employed / Business Owner</option>
+            <option>Freelancer / Contractor</option>
+            <option>Multiple Income Sources</option>
+            <option>Currently Unemployed</option>
+            <option>Retired</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Annual Household Income</label>
+          <select name="income">
+            <option value="" disabled selected>Select range</option>
+            <option>Under $25,000</option>
+            <option>$25,000 to $40,000</option>
+            <option>$40,000 to $60,000</option>
+            <option>$60,000 to $80,000</option>
+            <option>$80,000 to $100,000</option>
+            <option>$100,000 to $150,000</option>
+            <option>$150,000 and above</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>Which of the following best describes your current financial situation? <span class="req">*</span></label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="radio" name="fin_situation" id="sit1" value="paycheck_to_paycheck">
+            <label for="sit1"><span class="check-box"></span>Living paycheck to paycheck</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="fin_situation" id="sit2" value="making_ends_meet">
+            <label for="sit2"><span class="check-box"></span>Making ends meet but not saving</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="fin_situation" id="sit3" value="some_savings">
+            <label for="sit3"><span class="check-box"></span>Some savings but deep in debt</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="fin_situation" id="sit4" value="stable_not_growing">
+            <label for="sit4"><span class="check-box"></span>Stable but not growing my wealth</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="fin_situation" id="sit5" value="investing_want_more">
+            <label for="sit5"><span class="check-box"></span>Already investing, want to do more</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="fin_situation" id="sit6" value="crisis_mode">
+            <label for="sit6"><span class="check-box"></span>In financial crisis and need help now</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>Do you currently have a budget?</label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="radio" name="has_budget" id="b1" value="yes_follow">
+            <label for="b1"><span class="check-box"></span>Yes, and I follow it consistently</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="has_budget" id="b2" value="yes_not_follow">
+            <label for="b2"><span class="check-box"></span>Yes, but I do not follow it</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="has_budget" id="b3" value="no_tried">
+            <label for="b3"><span class="check-box"></span>No, but I have tried before</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="has_budget" id="b4" value="no_never">
+            <label for="b4"><span class="check-box"></span>No, never had one</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you have an emergency fund?</label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="radio" name="emergency_fund" id="ef1" value="fully_funded">
+            <label for="ef1"><span class="check-box"></span>Yes, fully funded (3-6 months)</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="emergency_fund" id="ef2" value="partial">
+            <label for="ef2"><span class="check-box"></span>Partial (less than 3 months)</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="emergency_fund" id="ef3" value="small_amount">
+            <label for="ef3"><span class="check-box"></span>A small amount under $1,000</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="emergency_fund" id="ef4" value="none">
+            <label for="ef4"><span class="check-box"></span>No emergency fund at all</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: DEBT & CREDIT -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">03</span>
+        <div class="section-info">
+          <h2>Debt &amp; Credit</h2>
+          <p>Understanding what you are carrying</p>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>What types of debt do you currently carry? (Select all that apply)</label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d1" value="credit_card">
+            <label for="d1"><span class="check-box"></span>Credit Card Debt</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d2" value="student_loans">
+            <label for="d2"><span class="check-box"></span>Student Loans</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d3" value="auto_loan">
+            <label for="d3"><span class="check-box"></span>Auto Loan</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d4" value="mortgage">
+            <label for="d4"><span class="check-box"></span>Mortgage</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d5" value="personal_loan">
+            <label for="d5"><span class="check-box"></span>Personal Loan</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d6" value="medical_debt">
+            <label for="d6"><span class="check-box"></span>Medical Debt</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d7" value="payday_loan">
+            <label for="d7"><span class="check-box"></span>Payday Loans</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="debt_type" id="d8" value="no_debt">
+            <label for="d8"><span class="check-box"></span>No debt at this time</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label>Estimated Total Debt</label>
+          <select name="total_debt">
+            <option value="" disabled selected>Select range</option>
+            <option>No debt</option>
+            <option>Under $5,000</option>
+            <option>$5,000 to $15,000</option>
+            <option>$15,000 to $30,000</option>
+            <option>$30,000 to $60,000</option>
+            <option>$60,000 to $100,000</option>
+            <option>Over $100,000</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Estimated Credit Score Range</label>
+          <select name="credit_score">
+            <option value="" disabled selected>Select range</option>
+            <option>I do not know my score</option>
+            <option>Poor: 300 to 579</option>
+            <option>Fair: 580 to 669</option>
+            <option>Good: 670 to 739</option>
+            <option>Very Good: 740 to 799</option>
+            <option>Exceptional: 800 to 850</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: GOALS & MINDSET -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">04</span>
+        <div class="section-info">
+          <h2>Your Goals &amp; Mindset</h2>
+          <p>What you want and what is in the way</p>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>What are your top financial goals right now? (Select all that apply)</label>
+        <div class="options-grid">
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g1" value="get_out_debt">
+            <label for="g1"><span class="check-box"></span>Get out of debt</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g2" value="build_emergency">
+            <label for="g2"><span class="check-box"></span>Build an emergency fund</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g3" value="start_investing">
+            <label for="g3"><span class="check-box"></span>Start investing</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g4" value="buy_home">
+            <label for="g4"><span class="check-box"></span>Buy a home</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g5" value="improve_credit">
+            <label for="g5"><span class="check-box"></span>Improve my credit score</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g6" value="build_budget">
+            <label for="g6"><span class="check-box"></span>Build a real budget system</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g7" value="retirement">
+            <label for="g7"><span class="check-box"></span>Plan for retirement</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g8" value="increase_income">
+            <label for="g8"><span class="check-box"></span>Increase my income</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g9" value="protect_family">
+            <label for="g9"><span class="check-box"></span>Protect my family financially</label>
+          </div>
+          <div class="option-btn">
+            <input type="checkbox" name="goals" id="g10" value="build_wealth">
+            <label for="g10"><span class="check-box"></span>Build long-term wealth</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>What is the biggest obstacle standing between you and financial freedom right now? <span class="req">*</span></label>
+        <textarea name="biggest_obstacle" placeholder="Be honest. This is the most important question on this form..." required></textarea>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>Have you tried to improve your finances before? What happened?</label>
+        <textarea name="previous_attempts" placeholder="Tell me what you tried and why it did not stick..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>On a scale of 1 to 10 how urgent is fixing your financial situation right now?</label>
+        <div class="scale-wrap">
+          <div class="scale-labels">
+            <span>1 — Not urgent at all</span>
+            <span>10 — I need help now</span>
+          </div>
+          <input type="range" name="urgency" id="urgency" min="1" max="10" value="7"
+                 oninput="document.getElementById('urgencyVal').textContent = this.value">
+          <div class="range-value" id="urgencyVal">7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: MINDSET CHECK -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">05</span>
+        <div class="section-info">
+          <h2>Mindset Check</h2>
+          <p>Understanding how you think about money</p>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>Complete this sentence: "Money is..." <span class="req">*</span></label>
+        <input type="text" name="money_is" placeholder="Write the first thing that comes to mind..." required>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>Complete this sentence: "I would have more money if..."</label>
+        <input type="text" name="more_money_if" placeholder="Be honest with yourself here...">
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>How would you describe your relationship with money right now?</label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="radio" name="money_relationship" id="mr1" value="stressed_anxious">
+            <label for="mr1"><span class="check-box"></span>Stressed and anxious about it</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="money_relationship" id="mr2" value="avoidant">
+            <label for="mr2"><span class="check-box"></span>I avoid thinking about it</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="money_relationship" id="mr3" value="curious_learning">
+            <label for="mr3"><span class="check-box"></span>Curious and actively learning</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="money_relationship" id="mr4" value="in_control">
+            <label for="mr4"><span class="check-box"></span>Mostly in control but want more</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="money_relationship" id="mr5" value="it_controls_me">
+            <label for="mr5"><span class="check-box"></span>It controls me more than I control it</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="money_relationship" id="mr6" value="complicated">
+            <label for="mr6"><span class="check-box"></span>It is complicated and hard to explain</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>What does financial freedom look like for you specifically?</label>
+        <textarea name="freedom_vision" placeholder="Paint the picture. What does your life look like when money is no longer a stress?"></textarea>
+      </div>
+    </div>
+
+    <!-- SECTION 6: READINESS & COMMITMENT -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">06</span>
+        <div class="section-info">
+          <h2>Readiness &amp; Commitment</h2>
+          <p>Are you ready to do the work?</p>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>How many hours per week are you realistically able to dedicate to your financial education and implementation right now?</label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="radio" name="weekly_hours" id="wh1" value="1_2">
+            <label for="wh1"><span class="check-box"></span>1 to 2 hours per week</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="weekly_hours" id="wh2" value="3_5">
+            <label for="wh2"><span class="check-box"></span>3 to 5 hours per week</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="weekly_hours" id="wh3" value="5_10">
+            <label for="wh3"><span class="check-box"></span>5 to 10 hours per week</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="weekly_hours" id="wh4" value="whatever_it_takes">
+            <label for="wh4"><span class="check-box"></span>Whatever it takes</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>If the Right Side of Money program is the right fit, are you prepared to invest in yourself today?</label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="radio" name="ready_to_invest" id="ri1" value="yes_absolutely">
+            <label for="ri1"><span class="check-box"></span>Yes, absolutely ready</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="ready_to_invest" id="ri2" value="yes_payment_plan">
+            <label for="ri2"><span class="check-box"></span>Yes, if a payment plan is available</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="ready_to_invest" id="ri3" value="need_more_info">
+            <label for="ri3"><span class="check-box"></span>I need more information first</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="ready_to_invest" id="ri4" value="just_exploring">
+            <label for="ri4"><span class="check-box"></span>Just exploring right now</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you have a support system? (spouse, partner, accountability partner)</label>
+        <div class="options-grid two-col">
+          <div class="option-btn">
+            <input type="radio" name="support_system" id="ss1" value="yes_supportive">
+            <label for="ss1"><span class="check-box"></span>Yes and they are supportive</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="support_system" id="ss2" value="yes_not_same_page">
+            <label for="ss2"><span class="check-box"></span>Yes but we are not on the same page</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="support_system" id="ss3" value="no_solo">
+            <label for="ss3"><span class="check-box"></span>No, I am doing this on my own</label>
+          </div>
+          <div class="option-btn">
+            <input type="radio" name="support_system" id="ss4" value="looking_for_community">
+            <label for="ss4"><span class="check-box"></span>Looking for a community to join</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: FINAL THOUGHTS -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">07</span>
+        <div class="section-info">
+          <h2>Final Thoughts</h2>
+          <p>Anything else I need to know before we talk</p>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>Is there anything specific you want to make sure we cover in our 30-minute call?</label>
+        <textarea name="call_topics" placeholder="Specific questions, concerns, or topics you want to address..."></textarea>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label>What would make this discovery call a 10 out of 10 for you?</label>
+        <textarea name="call_success" placeholder="What outcome would make you feel like this call was completely worth your time?"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Anything else you want me to know before we speak?</label>
+        <textarea name="anything_else" placeholder="This is your space. Say whatever is on your mind..."></textarea>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <button type="submit" class="submit-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Submit My Intake Form
+      </button>
+      <p class="submit-note">Your information is 100% confidential and will only be used to prepare for your discovery call.</p>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>You Are All Set</h2>
+    <div class="gold-rule"></div>
+    <p>Your intake form has been received. I will review your answers before our call so we can hit the ground running. Check your email for confirmation and call details. I will see you soon.</p>
+    <br><br>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--gold);">Welcome to the Right Side of Money.</p>
+  </div>
+
+  <div class="form-footer">Right Side of Money &nbsp;|&nbsp; Discovery Call Intake &nbsp;|&nbsp; Confidential</div>
+
+</div>
+
+<script>
+  document.getElementById('discoveryForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = this.querySelector('.submit-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Submitting...';
+    btn.disabled = true;
+    btn.style.opacity = '0.75';
+
+    const data = new FormData(this);
+
+    try {
+      const response = await fetch('https://formspree.io/f/mpqkedwq', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        this.style.display = 'none';
+        const s = document.getElementById('successScreen');
+        s.classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const res = await response.json();
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        alert('Something went wrong submitting the form. Please try again or email us directly.');
+      }
+    } catch (err) {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      alert('Connection error. Please check your internet and try again.');
+    }
+  });
+</script>
+</body>
+</html>
