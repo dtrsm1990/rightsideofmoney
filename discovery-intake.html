@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>30-Min Discovery Call Intake | Right Side of Money</title>
@@ -769,6 +770,15 @@ if (form) {
     }
   })();
   /* === END NAV JS === */
+</script>
+<script>
+  /* === FRAME BUSTER === */
+  (function(){
+    if(window.self !== window.top){
+      window.top.location.href = window.self.location.href;
+    }
+  })();
+  /* === END FRAME BUSTER === */
 </script>
 </body>
 </html>
