@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RSM Accountability Program | Right Side of Money</title>
@@ -548,69 +547,49 @@
 
 
 
+
+
 <script>
 (function() {
-  "use strict";
-
-  /* FRAME BUSTER - break out of any iframe */
-  if (window.self !== window.top) {
-    window.top.location.href = window.self.location.href;
-    return;
-  }
-
-  /* FADE UP OBSERVER */
+  /* FADE UP */
   if (window.IntersectionObserver) {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(el) {
-        if (el.isIntersecting) el.target.classList.add('visible');
-      });
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add("visible"); });
     }, { threshold: 0.08 });
-    var fadeEls = document.querySelectorAll('.fade-up');
-    for (var i = 0; i < fadeEls.length; i++) {
-      observer.observe(fadeEls[i]);
-    }
+    document.querySelectorAll(".fade-up").forEach(function(el) { obs.observe(el); });
   }
 
   /* NAV HAMBURGER */
-  var navBtn = document.getElementById('navHamburger');
-  var navMenu = document.getElementById('navMobile');
-  if (navBtn && navMenu) {
-    navBtn.addEventListener('click', function(e) {
+  var btn = document.getElementById("navHamburger");
+  var menu = document.getElementById("navMobile");
+  if (btn && menu) {
+    btn.addEventListener("click", function(e) {
       e.stopPropagation();
-      var isOpen = navMenu.classList.contains('is-open');
-      if (isOpen) {
-        navMenu.classList.remove('is-open');
-        navBtn.classList.remove('is-open');
-      } else {
-        navMenu.classList.add('is-open');
-        navBtn.classList.add('is-open');
+      var open = menu.classList.contains("is-open");
+      menu.classList[open ? "remove" : "add"]("is-open");
+      btn.classList[open ? "remove" : "add"]("is-open");
+    });
+    document.addEventListener("click", function(e) {
+      if (menu.classList.contains("is-open") && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove("is-open");
+        btn.classList.remove("is-open");
       }
     });
-    document.addEventListener('click', function(e) {
-      if (navMenu.classList.contains('is-open') &&
-          !navMenu.contains(e.target) && !navBtn.contains(e.target)) {
-        navMenu.classList.remove('is-open');
-        navBtn.classList.remove('is-open');
-      }
-    });
-    var navLinks = navMenu.querySelectorAll('a');
-    for (var j = 0; j < navLinks.length; j++) {
-      navLinks[j].addEventListener('click', function() {
-        navMenu.classList.remove('is-open');
-        navBtn.classList.remove('is-open');
+    menu.querySelectorAll("a").forEach(function(a) {
+      a.addEventListener("click", function() {
+        menu.classList.remove("is-open");
+        btn.classList.remove("is-open");
       });
-    }
-  }
-
-  /* SCROLL NAV BORDER */
-  var nav = document.querySelector('nav');
-  if (nav) {
-    window.addEventListener('scroll', function() {
-      nav.style.borderBottomColor = window.scrollY > 60 ?
-        'rgba(201,148,26,0.6)' : 'rgba(201,148,26,0.3)';
     });
   }
 
+  /* SCROLL NAV */
+  var nav = document.querySelector("nav");
+  if (nav) {
+    window.addEventListener("scroll", function() {
+      nav.style.borderBottomColor = window.scrollY > 60 ? "rgba(201,148,26,0.6)" : "rgba(201,148,26,0.3)";
+    });
+  }
 })();
 </script>
 
