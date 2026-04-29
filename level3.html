@@ -175,7 +175,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 .nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
 .nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
 .nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
-.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:16px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:14px!important;list-style:none!important;flex-wrap:nowrap!important;}
 .nav-links li{display:flex!important;align-items:center!important;}
 .nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
 .nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
@@ -238,7 +238,8 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
-<a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-mobile-cta">Start Free</a></div>
+<a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-mobile-cta">Start Free</a>
+</div>
 
 
 
@@ -400,12 +401,12 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
   var btn=document.getElementById("navHamburger");
   var menu=document.getElementById("navMobile");
   if(!btn||!menu)return;
-  function openMenu(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
-  function closeMenu(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
-  closeMenu();
-  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?closeMenu():openMenu();});
-  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){closeMenu();}});
-  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){closeMenu();});});
+  function open(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function close(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  close();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?close():open();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){close();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){close();});});
   if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
 })();
 </script>
