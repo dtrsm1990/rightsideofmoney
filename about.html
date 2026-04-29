@@ -195,9 +195,12 @@
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   /* RESPONSIVE */
-  
+  @media (max-width: 900px) {
+    nav { padding: 12px 20px; height: auto; min-height: 60px; flex-direction: column; align-items: center; gap: 10px; top: 80px; }
+    .nav-logo { align-items: center; }
     .nav-logo-top { font-size: 17px; }
     .nav-links { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 10px; width: 100%; }
+    .nav-links li a:not(.nav-cta):not(.nav-seminar) { display: none; }
     .nav-cta, .nav-seminar { display: inline-flex !important; padding: 9px 14px !important; font-size: 11px !important; }
     .hero-inner { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
     .hero-photo { max-width: 280px; margin: 0 auto; }
@@ -209,156 +212,38 @@
     .hero-badge { left: 0; bottom: -20px; }
   }
 
-  
-
-  
-  
-  
-  
-  
-  
-
-  /* SLIDE DOWN MENU FROM TOP */
-  
-  
-  
-  
-  
-  
-
-  
-    .nav-logo-top { font-size: 16px; }
-    .nav-logo-sub { font-size: 9px; }
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  }
-
-  
-
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
-.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
-.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
-.nav-links{display:flex;align-items:center;height:68px;gap:18px;list-style:none;}
-.nav-links li{display:flex;align-items:center;}
-.nav-links a{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
-.nav-links a:hover,.nav-links a.active{color:#E8B84B;}
-.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 16px;border-radius:2px;font-weight:700!important;}
-.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:1001;flex-shrink:0;}
+/* ==RSM NAV FINAL== */
+nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(13,31,60,0.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px!important;height:68px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+.nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:16px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links li{display:flex!important;align-items:center!important;}
+.nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
+.nav-links li a.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 14px!important;border-radius:2px!important;font-weight:700!important;}
+.nav-hamburger{display:none!important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none!important;border:none!important;z-index:99999!important;flex-shrink:0;}
 .nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
 .nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
 .nav-hamburger.is-open span:nth-child(2){opacity:0;}
 .nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:999;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
-.nav-mobile.is-open{display:flex;}
+.nav-mobile{display:none!important;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex!important;}
 .nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
-.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
-.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;border:none;}
-
-
-/* ===== DEFINITIVE NAV - DO NOT MODIFY ===== */
-nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
-.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
-.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
-.nav-links{display:flex !important;align-items:center;height:68px;gap:16px;list-style:none;flex-wrap:nowrap;}
-.nav-links li{display:flex !important;align-items:center;}
-.nav-links li a{display:block !important;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
-.nav-links li a:hover,.nav-links li a.active{color:#E8B84B;}
-.nav-links li a.nav-cta{background:#C9941A !important;color:#0D1F3C !important;padding:9px 14px;border-radius:2px;font-weight:700 !important;}
-.nav-hamburger{display:none !important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:9999;flex-shrink:0;}
-.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
-.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.nav-hamburger.is-open span:nth-child(2){opacity:0;}
-.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:9998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
-.nav-mobile.is-open{display:flex !important;}
-.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
-.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
-.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C !important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
-@media screen and (max-width:768px){
-  nav{padding:0 20px !important;}
-  .nav-links{display:none !important;}
-  .nav-hamburger{display:flex !important;}
-}
-@media screen and (min-width:769px){
-  .nav-links{display:flex !important;}
-  .nav-hamburger{display:none !important;}
-  .nav-mobile{display:none !important;}
-}
-/* ===== END DEFINITIVE NAV ===== */
-
-.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 9999; flex-shrink: 0; }
-.nav-hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
-.nav-hamburger.is-open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-.nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.is-open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
-.nav-mobile { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.99); z-index: 9998; flex-direction: column; padding: 12px 0 20px; border-bottom: 3px solid #C9941A; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
-.nav-mobile a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.07); display: block; }
-.nav-mobile a:hover, .nav-mobile a.active { color: #E8B84B; background: rgba(201,148,26,0.05); }
-.nav-mobile a.nav-mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 14px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; }
-/* DEFINITIVE NAV OVERRIDE - FINAL */
-nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 9999 !important; background: rgba(13,31,60,0.97) !important; height: 68px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 40px !important; }
-.nav-links { display: flex !important; align-items: center !important; height: 68px !important; gap: 16px !important; list-style: none !important; flex-wrap: nowrap !important; }
-.nav-links li { display: flex !important; align-items: center !important; }
-.nav-links li a { display: block !important; font-size: 11px !important; font-weight: 500 !important; letter-spacing: 1px !important; text-transform: uppercase !important; color: rgba(255,255,255,0.8) !important; text-decoration: none !important; white-space: nowrap !important; }
-.nav-links li a:hover, .nav-links li a.active { color: #E8B84B !important; }
-.nav-links li a.nav-cta { background: #C9941A !important; color: #0D1F3C !important; padding: 9px 14px !important; border-radius: 2px !important; font-weight: 700 !important; }
-.nav-hamburger { display: none !important; }
-.nav-mobile { display: none !important; }
-@media screen and (max-width: 768px) {
-  nav { padding: 0 20px !important; }
-  .nav-links { display: none !important; }
-  .nav-hamburger { display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 5px !important; cursor: pointer !important; padding: 8px !important; background: none !important; border: none !important; z-index: 9999 !important; flex-shrink: 0 !important; }
-}
-@media screen and (min-width: 769px) {
-  .nav-links { display: flex !important; }
-  .nav-hamburger { display: none !important; }
-  .nav-mobile { display: none !important; }
-}
-/* END DEFINITIVE NAV */
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
+@media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
+/* ==END RSM NAV== */
 </style>
 </head>
 <body>
 <nav>
-  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo">
-    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
-    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
-  </a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
   <ul class="nav-links"><li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html" class="active">About</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li><li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li></ul>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="nav-mobile" id="navMobile" style="display:none;">
+<div class="nav-mobile" id="navMobile">
 <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html" class="active">About</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
@@ -370,14 +255,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
 <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-mobile-cta">Start Free</a></div>
 
-
-
-
-
 <!-- NAV -->
-
-
-
 
 
 <!-- HERO -->
@@ -408,19 +286,16 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
       </h1>
       <div class="hero-tagline">Financial Literacy. Mindset. Legacy.</div>
       <p class="hero-intro">
-        From the <strong>South Side of Chicago</strong> to the United States Marine Corps. From Command Financial Specialist to Federal Cybersecurity Executive. From financial struggle to financial literacy advocate, published author, licensed professional, and college professor. <strong>This is the story behind Right Side of Money.</strong>
+        From the <strong>South Side of Chicago</strong> to the United States Marine Corps. From financial struggle to financial literacy advocate, published author, licensed professional, and college professor. <strong>This is the story behind Right Side of Money.</strong>
       </p>
       <div class="hero-creds">
         <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Retired United States Marine</div></div>
-        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Retired Federal Government Cybersecurity Manager</div></div>
-        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Command Financial Specialist, United States Marine Corps</div></div>
-        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Financial Specialist, Marine Corps Community Services</div></div>
-        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Dave Ramsey Financial Peace Financial Educator</div></div>
         <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">College Adjunct Professor</div></div>
         <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Author, Creating A Wealth Building Mindset</div></div>
         <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">CA Licensed Real Estate Professional and Landlord</div></div>
         <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Licensed Life and Health Insurance Producer</div></div>
         <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Founder, TNT Legacy Shield</div></div>
+        <div class="hero-cred"><div class="hero-cred-dot"></div><div class="hero-cred-text">Financial Literacy Coach and Speaker</div></div>
       </div>
       <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="btn-primary">Start the Free 30-Day Challenge</a>
     </div>
@@ -557,56 +432,38 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
       <div class="cred-card fade-up">
         <div class="cred-card-number">01</div>
         <div class="cred-card-accent"></div>
-        <div class="cred-card-title">Retired United States Marine</div>
+        <div class="cred-card-title">Retired U.S. Marine</div>
         <p class="cred-card-desc">Military service instilled the discipline, mission clarity, and commitment to showing up that defines everything Darrell does. The Corps did not make him who he is. It sharpened who he already was.</p>
       </div>
       <div class="cred-card fade-up">
         <div class="cred-card-number">02</div>
         <div class="cred-card-accent"></div>
-        <div class="cred-card-title">Retired Federal Government Cybersecurity Manager</div>
-        <p class="cred-card-desc">After the Marine Corps, Darrell built a distinguished career in federal service, rising to Cybersecurity Manager. Operating at the highest levels of government demands accountability, precision, and leadership under pressure. He brought all of that into everything he builds.</p>
-      </div>
-      <div class="cred-card fade-up">
-        <div class="cred-card-number">03</div>
-        <div class="cred-card-accent"></div>
-        <div class="cred-card-title">Command Financial Specialist, United States Marine Corps</div>
-        <p class="cred-card-desc">The Marine Corps specifically selected and trained Darrell to serve as a Command Financial Specialist, counseling fellow Marines on financial readiness, budgeting, debt management, and wealth building. This is government trained financial counseling at the command level. Not a weekend course. A mission.</p>
-      </div>
-      <div class="cred-card fade-up">
-        <div class="cred-card-number">04</div>
-        <div class="cred-card-accent"></div>
-        <div class="cred-card-title">Financial Specialist, Marine Corps Community Services</div>
-        <p class="cred-card-desc">Beyond his Command role, Darrell served as a Financial Specialist for Marine Corps Community Services, delivering professional financial education and counseling to the broader Marine Corps community. Real advisory work. Real people. Real results.</p>
-      </div>
-      <div class="cred-card fade-up">
-        <div class="cred-card-number">05</div>
-        <div class="cred-card-accent"></div>
-        <div class="cred-card-title">Dave Ramsey Financial Peace Financial Educator</div>
-        <p class="cred-card-desc">Darrell administered the Dave Ramsey Financial Peace course, one of the most recognized financial education programs in the country. Bringing that framework to real people and watching it change their financial lives only deepened his commitment to the mission.</p>
-      </div>
-      <div class="cred-card fade-up">
-        <div class="cred-card-number">06</div>
-        <div class="cred-card-accent"></div>
         <div class="cred-card-title">College Adjunct Professor</div>
         <p class="cred-card-desc">Darrell brings financial and academic knowledge into the classroom, helping the next generation develop the critical thinking and financial awareness that most curricula leave out entirely.</p>
       </div>
       <div class="cred-card fade-up">
-        <div class="cred-card-number">07</div>
+        <div class="cred-card-number">03</div>
         <div class="cred-card-accent"></div>
         <div class="cred-card-title">Published Author</div>
         <p class="cred-card-desc">Creating A Wealth Building Mindset is the book Darrell needed as a young man but could not find. He wrote it so nobody else would have to navigate the financial journey without a map.</p>
       </div>
       <div class="cred-card fade-up">
-        <div class="cred-card-number">08</div>
+        <div class="cred-card-number">04</div>
         <div class="cred-card-accent"></div>
         <div class="cred-card-title">CA Licensed Real Estate Professional and Landlord</div>
         <p class="cred-card-desc">Darrell owns rental property and understands wealth building not as theory but as daily practice. Real estate is one of the foundational wealth building tools he teaches from personal experience.</p>
       </div>
       <div class="cred-card fade-up">
-        <div class="cred-card-number">09</div>
+        <div class="cred-card-number">05</div>
         <div class="cred-card-accent"></div>
         <div class="cred-card-title">Licensed Insurance Producer and TNT Legacy Shield</div>
         <p class="cred-card-desc">Founder of TNT Legacy Shield, covering life, health, Medicare, and final expense. Because building wealth is only half the mission. Protecting it for the people you love is the other half.</p>
+      </div>
+      <div class="cred-card fade-up">
+        <div class="cred-card-number">06</div>
+        <div class="cred-card-accent"></div>
+        <div class="cred-card-title">Financial Literacy Coach and Speaker</div>
+        <p class="cred-card-desc">Darrell speaks to schools, corporations, nonprofits, and community organizations delivering truth-based financial education that changes not just what people know about money but how they think about it.</p>
       </div>
     </div>
   </div>
@@ -626,7 +483,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
       <p>Available on Amazon now. Or order a personally signed copy mailed directly to your door.</p>
       <div class="book-buttons">
         <a href="https://a.co/d/aOXz5ak" target="_blank" class="btn-primary">Get It On Amazon &#36;19.99</a>
-        <a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank" class="btn-gold-outline">Signed Copy &#36;25.00</a>
+        <a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank" class="btn-gold-outline">Signed Copy &#36;15.00</a>
       </div>
     </div>
   </div>
@@ -653,7 +510,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
     <p class="cta-sub">The foundation Darrell built his life on is available to you right now. Start with the free 30-Day Mindset and Money Challenge and begin rebuilding the way you think about money from the ground up.</p>
     <div class="cta-buttons">
       <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="btn-primary">Start the Free 30-Day Challenge</a>
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" target="_blank" class="btn-secondary">Book a Free Discovery Call</a>
+      <a href="https://www.rightsideofmoney.comhttps://dtrsm1990.github.io/rightsideofmoney/book.htmling-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank" class="btn-secondary">Book a Free Discovery Call</a>
     </div>
   </div>
 </section>
@@ -668,16 +525,16 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <p class="footer-brand-desc">Real financial truth for people who were never given the foundation they deserved. No fluff. No hype. Just the knowledge that changes everything.</p>
         <div class="footer-contact-item">Phone: <a href="tel:9512235716">(951) 223-5716</a></div>
         <div class="footer-contact-item">Contact: <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></div>
-        <div class="footer-contact-item">Booking: <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html">rsmbooking@rightsideofmoney.com</a></div>
+        <div class="footer-contact-item">Booking: <a href="mailto:rsmbooking@rightsideofmoney.com">rsmbooking@rightsideofmoney.com</a></div>
       </div>
       <div>
         <div class="footer-col-title">Navigate</div>
         <ul class="footer-links">
           <li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About Darrell</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability Program</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/about.html.html">About Darrell</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/services.html.html">Services</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/accountability.html.html">Accountability Program</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/speaking.html.html">Speaking</a></li>
           <li><a href="https://www.tntlegacyshield.com" target="_blank">TNT Legacy Shield</a></li>
         </ul>
       </div>
@@ -685,10 +542,10 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <div class="footer-col-title">Get Started</div>
         <ul class="footer-links">
           <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank">Free 30-Day Challenge</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" target="_blank">Free Discovery Call</a></li>
+          <li><a href="https://www.rightsideofmoney.comhttps://dtrsm1990.github.io/rightsideofmoney/book.htmling-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank">Free Discovery Call</a></li>
           <li><a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank">Foundation Course &#36;297</a></li>
           <li><a href="https://a.co/d/aOXz5ak" target="_blank">Book on Amazon &#36;19.99</a></li>
-          <li><a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank">Signed Copy &#36;25.00</a></li>
+          <li><a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank">Signed Copy &#36;15.00</a></li>
         </ul>
       </div>
       <div>
@@ -696,8 +553,8 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <ul class="footer-links">
           <li><a href="https://www.tiktok.com/@rightsideofmoney" target="_blank">TikTok</a></li>
           <li><a href="https://www.instagram.com/rightsideofmoney/" target="_blank">Instagram</a></li>
-          <li><a href="https://www.facebook.com/dtrightsideofmoney" target="_blank">Facebook</a></li>
-          <li><a href="https://www.linkedin.com/in/rightsideofmoney" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.facebook.com/rightsideofmoney" target="_blank">Facebook</a></li>
+          <li><a href="https://www.linkedin.com/in/darrell-thompson" target="_blank">LinkedIn</a></li>
           <li><a href="https://www.rightsideofmoney.com/blog" target="_blank">Blog</a></li>
           <li><a href="mailto:info@rightsideofmoney.com">Contact</a></li>
         </ul>
@@ -714,43 +571,18 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 
 
 
-
-
-
-
-
 <script>
 (function(){
   var btn=document.getElementById("navHamburger");
   var menu=document.getElementById("navMobile");
   if(!btn||!menu)return;
-  btn.addEventListener("click",function(e){
-    e.stopPropagation();
-    var o=menu.classList.contains("is-open");
-    menu.classList[o?"remove":"add"]("is-open");
-    btn.classList[o?"remove":"add"]("is-open");
-    if(!o){menu.style.display="flex";}else{menu.style.display="none";}
-  });
-  document.addEventListener("click",function(e){
-    if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    }
-  });
-  menu.querySelectorAll("a").forEach(function(a){
-    a.addEventListener("click",function(){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    });
-  });
-  if(window.IntersectionObserver){
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});
-    },{threshold:0.08});
-    document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});
-  }
+  function openMenu(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function closeMenu(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  closeMenu();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?closeMenu():openMenu();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){closeMenu();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){closeMenu();});});
+  if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
 })();
 </script>
 

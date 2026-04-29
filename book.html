@@ -197,9 +197,12 @@
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   /* RESPONSIVE */
-  
+  @media (max-width: 900px) {
+    nav { padding: 12px 20px; height: auto; min-height: 60px; flex-direction: column; align-items: center; gap: 10px; top: 80px; }
+    .nav-logo { align-items: center; }
     .nav-logo-top { font-size: 17px; }
     .nav-links { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 10px; width: 100%; }
+    .nav-links li a:not(.nav-cta):not(.nav-seminar) { display: none; }
     .nav-cta, .nav-seminar { display: inline-flex !important; padding: 9px 14px !important; font-size: 11px !important; }
     .hero-inner { grid-template-columns: 1fr; padding: 60px 24px; gap: 60px; }
     .book-visual { order: -1; }
@@ -211,156 +214,38 @@
     .book-badge-signed { left: 0; bottom: -16px; }
   }
 
-  
-
-  
-  
-  
-  
-  
-  
-
-  /* SLIDE DOWN MENU FROM TOP */
-  
-  
-  
-  
-  
-  
-
-  
-    .nav-logo-top { font-size: 16px; }
-    .nav-logo-sub { font-size: 9px; }
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  }
-
-  
-
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
-.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
-.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
-.nav-links{display:flex;align-items:center;height:68px;gap:18px;list-style:none;}
-.nav-links li{display:flex;align-items:center;}
-.nav-links a{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
-.nav-links a:hover,.nav-links a.active{color:#E8B84B;}
-.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 16px;border-radius:2px;font-weight:700!important;}
-.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:1001;flex-shrink:0;}
+/* ==RSM NAV FINAL== */
+nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(13,31,60,0.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px!important;height:68px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+.nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:16px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links li{display:flex!important;align-items:center!important;}
+.nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
+.nav-links li a.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 14px!important;border-radius:2px!important;font-weight:700!important;}
+.nav-hamburger{display:none!important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none!important;border:none!important;z-index:99999!important;flex-shrink:0;}
 .nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
 .nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
 .nav-hamburger.is-open span:nth-child(2){opacity:0;}
 .nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:999;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
-.nav-mobile.is-open{display:flex;}
+.nav-mobile{display:none!important;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex!important;}
 .nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
-.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
-.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;border:none;}
-
-
-/* ===== DEFINITIVE NAV - DO NOT MODIFY ===== */
-nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
-.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
-.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
-.nav-links{display:flex !important;align-items:center;height:68px;gap:16px;list-style:none;flex-wrap:nowrap;}
-.nav-links li{display:flex !important;align-items:center;}
-.nav-links li a{display:block !important;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
-.nav-links li a:hover,.nav-links li a.active{color:#E8B84B;}
-.nav-links li a.nav-cta{background:#C9941A !important;color:#0D1F3C !important;padding:9px 14px;border-radius:2px;font-weight:700 !important;}
-.nav-hamburger{display:none !important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:9999;flex-shrink:0;}
-.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
-.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.nav-hamburger.is-open span:nth-child(2){opacity:0;}
-.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:9998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
-.nav-mobile.is-open{display:flex !important;}
-.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
-.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
-.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C !important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
-@media screen and (max-width:768px){
-  nav{padding:0 20px !important;}
-  .nav-links{display:none !important;}
-  .nav-hamburger{display:flex !important;}
-}
-@media screen and (min-width:769px){
-  .nav-links{display:flex !important;}
-  .nav-hamburger{display:none !important;}
-  .nav-mobile{display:none !important;}
-}
-/* ===== END DEFINITIVE NAV ===== */
-
-.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 9999; flex-shrink: 0; }
-.nav-hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
-.nav-hamburger.is-open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-.nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.is-open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
-.nav-mobile { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.99); z-index: 9998; flex-direction: column; padding: 12px 0 20px; border-bottom: 3px solid #C9941A; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
-.nav-mobile a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.07); display: block; }
-.nav-mobile a:hover, .nav-mobile a.active { color: #E8B84B; background: rgba(201,148,26,0.05); }
-.nav-mobile a.nav-mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 14px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; }
-/* DEFINITIVE NAV OVERRIDE - FINAL */
-nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 9999 !important; background: rgba(13,31,60,0.97) !important; height: 68px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 40px !important; }
-.nav-links { display: flex !important; align-items: center !important; height: 68px !important; gap: 16px !important; list-style: none !important; flex-wrap: nowrap !important; }
-.nav-links li { display: flex !important; align-items: center !important; }
-.nav-links li a { display: block !important; font-size: 11px !important; font-weight: 500 !important; letter-spacing: 1px !important; text-transform: uppercase !important; color: rgba(255,255,255,0.8) !important; text-decoration: none !important; white-space: nowrap !important; }
-.nav-links li a:hover, .nav-links li a.active { color: #E8B84B !important; }
-.nav-links li a.nav-cta { background: #C9941A !important; color: #0D1F3C !important; padding: 9px 14px !important; border-radius: 2px !important; font-weight: 700 !important; }
-.nav-hamburger { display: none !important; }
-.nav-mobile { display: none !important; }
-@media screen and (max-width: 768px) {
-  nav { padding: 0 20px !important; }
-  .nav-links { display: none !important; }
-  .nav-hamburger { display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 5px !important; cursor: pointer !important; padding: 8px !important; background: none !important; border: none !important; z-index: 9999 !important; flex-shrink: 0 !important; }
-}
-@media screen and (min-width: 769px) {
-  .nav-links { display: flex !important; }
-  .nav-hamburger { display: none !important; }
-  .nav-mobile { display: none !important; }
-}
-/* END DEFINITIVE NAV */
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
+@media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
+/* ==END RSM NAV== */
 </style>
 </head>
 <body>
 <nav>
-  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo">
-    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
-    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
-  </a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
   <ul class="nav-links"><li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html" class="active">Book</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li><li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li></ul>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="nav-mobile" id="navMobile" style="display:none;">
+<div class="nav-mobile" id="navMobile">
 <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
@@ -372,14 +257,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
 <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-mobile-cta">Start Free</a></div>
 
-
-
-
-
 <!-- NAV -->
-
-
-
 
 
 <!-- HERO -->
@@ -397,7 +275,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
       </div>
       <div class="book-badge-signed">
         <div class="book-badge-signed-label">Author Signed</div>
-        <div class="book-badge-signed-price">&#36;25.00</div>
+        <div class="book-badge-signed-price">&#36;15.00</div>
         <div class="book-badge-signed-sub">Mailed to your door</div>
       </div>
     </div>
@@ -423,12 +301,12 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
           </div>
           <div class="buy-option-arrow">&#8594;</div>
         </a>
-        <a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank" class="buy-option">
+        <a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank" class="buy-option">
           <div class="buy-option-icon signed">SGN</div>
           <div>
             <div class="buy-option-label">Personally Signed by Darrell</div>
             <div class="buy-option-title">Order Author Signed Copy</div>
-            <div class="buy-option-price">&#36;25.00</div>
+            <div class="buy-option-price">&#36;15.00</div>
           </div>
           <div class="buy-option-arrow">&#8594;</div>
         </a>
@@ -444,12 +322,12 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
     <span class="ticker-item"><span class="ticker-dot"></span>Creating A Wealth Building Mindset</span>
     <span class="ticker-item"><span class="ticker-dot"></span>By Darrell Thompson</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Available on Amazon for &#36;19.99</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Author Signed Copies for &#36;25.00</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Author Signed Copies for &#36;15.00</span>
     <span class="ticker-item"><span class="ticker-dot"></span>The Book You Were Never Given</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Creating A Wealth Building Mindset</span>
     <span class="ticker-item"><span class="ticker-dot"></span>By Darrell Thompson</span>
     <span class="ticker-item"><span class="ticker-dot"></span>Available on Amazon for &#36;19.99</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Author Signed Copies for &#36;25.00</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Author Signed Copies for &#36;15.00</span>
     <span class="ticker-item"><span class="ticker-dot"></span>The Book You Were Never Given</span>
   </div>
 </div>
@@ -597,7 +475,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
       </div>
       <div class="buy-card" style="border-color:rgba(201,148,26,0.35);">
         <div class="buy-card-tag">Personally Signed by Darrell</div>
-        <div class="buy-card-price">&#36;25.00</div>
+        <div class="buy-card-price">&#36;15.00</div>
         <div class="buy-card-title">Author Signed Copy</div>
         <div class="buy-card-desc">A signed copy personally signed by Darrell and mailed directly to your door. More than a book. A statement that you are done operating from a broken financial foundation.</div>
         <div class="buy-card-features">
@@ -605,7 +483,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
           <div class="buy-card-feature"><div class="buy-card-check">&#10003;</div><div class="buy-card-feature-text">Mailed directly to your door</div></div>
           <div class="buy-card-feature"><div class="buy-card-check">&#10003;</div><div class="buy-card-feature-text">A personal touch from the author</div></div>
         </div>
-        <a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank" class="btn-outline">Order Signed Copy</a>
+        <a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank" class="btn-outline">Order Signed Copy</a>
       </div>
     </div>
     <div class="fade-up" style="text-align:center;">
@@ -625,16 +503,16 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <p class="footer-brand-desc">Real financial truth for people who were never given the foundation they deserved. No fluff. No hype. Just the knowledge that changes everything.</p>
         <div class="footer-contact-item">Phone: <a href="tel:9512235716">(951) 223-5716</a></div>
         <div class="footer-contact-item">Contact: <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></div>
-        <div class="footer-contact-item">Booking: <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html">rsmbooking@rightsideofmoney.com</a></div>
+        <div class="footer-contact-item">Booking: <a href="mailto:rsmbooking@rightsideofmoney.com">rsmbooking@rightsideofmoney.com</a></div>
       </div>
       <div>
         <div class="footer-col-title">Navigate</div>
         <ul class="footer-links">
           <li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About Darrell</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability Program</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/about.html.html">About Darrell</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/services.html.html">Services</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/accountability.html.html">Accountability Program</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/speaking.html.html">Speaking</a></li>
           <li><a href="https://www.tntlegacyshield.com" target="_blank">TNT Legacy Shield</a></li>
         </ul>
       </div>
@@ -642,10 +520,10 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <div class="footer-col-title">The Book</div>
         <ul class="footer-links">
           <li><a href="https://a.co/d/aOXz5ak" target="_blank">Amazon Edition &#36;19.99</a></li>
-          <li><a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank">Signed Copy &#36;25.00</a></li>
+          <li><a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank">Signed Copy &#36;15.00</a></li>
           <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank">Free 30-Day Challenge</a></li>
           <li><a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank">Foundation Course &#36;297</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" target="_blank">Free Discovery Call</a></li>
+          <li><a href="https://www.rightsideofmoney.comhttps://dtrsm1990.github.io/rightsideofmoney/book.htmling-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank">Free Discovery Call</a></li>
         </ul>
       </div>
       <div>
@@ -653,8 +531,8 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <ul class="footer-links">
           <li><a href="https://www.tiktok.com/@rightsideofmoney" target="_blank">TikTok</a></li>
           <li><a href="https://www.instagram.com/rightsideofmoney/" target="_blank">Instagram</a></li>
-          <li><a href="https://www.facebook.com/dtrightsideofmoney" target="_blank">Facebook</a></li>
-          <li><a href="https://www.linkedin.com/in/rightsideofmoney" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.facebook.com/rightsideofmoney" target="_blank">Facebook</a></li>
+          <li><a href="https://www.linkedin.com/in/darrell-thompson" target="_blank">LinkedIn</a></li>
           <li><a href="https://www.rightsideofmoney.com/blog" target="_blank">Blog</a></li>
           <li><a href="mailto:info@rightsideofmoney.com">Contact</a></li>
         </ul>
@@ -671,43 +549,18 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 
 
 
-
-
-
-
-
 <script>
 (function(){
   var btn=document.getElementById("navHamburger");
   var menu=document.getElementById("navMobile");
   if(!btn||!menu)return;
-  btn.addEventListener("click",function(e){
-    e.stopPropagation();
-    var o=menu.classList.contains("is-open");
-    menu.classList[o?"remove":"add"]("is-open");
-    btn.classList[o?"remove":"add"]("is-open");
-    if(!o){menu.style.display="flex";}else{menu.style.display="none";}
-  });
-  document.addEventListener("click",function(e){
-    if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    }
-  });
-  menu.querySelectorAll("a").forEach(function(a){
-    a.addEventListener("click",function(){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    });
-  });
-  if(window.IntersectionObserver){
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});
-    },{threshold:0.08});
-    document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});
-  }
+  function openMenu(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function closeMenu(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  closeMenu();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?closeMenu():openMenu();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){closeMenu();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){closeMenu();});});
+  if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
 })();
 </script>
 

@@ -174,20 +174,39 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
   .nav-mobile { display: none !important; }
 }
 /* END DEFINITIVE NAV */
+
+/* ==RSM NAV FINAL== */
+nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(13,31,60,0.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px!important;height:68px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+.nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:16px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links li{display:flex!important;align-items:center!important;}
+.nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
+.nav-links li a.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 14px!important;border-radius:2px!important;font-weight:700!important;}
+.nav-hamburger{display:none!important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none!important;border:none!important;z-index:99999!important;flex-shrink:0;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.is-open span:nth-child(2){opacity:0;}
+.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-mobile{display:none!important;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex!important;}
+.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
+@media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
+/* ==END RSM NAV== */
 </style>
 </head>
 <body>
 <nav>
-  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo">
-    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
-    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
-  </a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
   <ul class="nav-links"><li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="active">Home</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li><li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li></ul>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="nav-mobile" id="navMobile" style="display:none;">
+<div class="nav-mobile" id="navMobile">
 <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="active">Home</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
@@ -198,6 +217,8 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
 <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-mobile-cta">Start Free</a></div>
+
+
 
 
 
@@ -329,38 +350,20 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 
 
 
+
+
 <script>
 (function(){
   var btn=document.getElementById("navHamburger");
   var menu=document.getElementById("navMobile");
   if(!btn||!menu)return;
-  btn.addEventListener("click",function(e){
-    e.stopPropagation();
-    var o=menu.classList.contains("is-open");
-    menu.classList[o?"remove":"add"]("is-open");
-    btn.classList[o?"remove":"add"]("is-open");
-    if(!o){menu.style.display="flex";}else{menu.style.display="none";}
-  });
-  document.addEventListener("click",function(e){
-    if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    }
-  });
-  menu.querySelectorAll("a").forEach(function(a){
-    a.addEventListener("click",function(){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    });
-  });
-  if(window.IntersectionObserver){
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});
-    },{threshold:0.08});
-    document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});
-  }
+  function openMenu(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function closeMenu(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  closeMenu();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?closeMenu():openMenu();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){closeMenu();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){closeMenu();});});
+  if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
 })();
 </script>
 

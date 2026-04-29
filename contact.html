@@ -158,9 +158,12 @@
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   /* RESPONSIVE */
-  
+  @media (max-width: 900px) {
+    nav { padding: 12px 20px; height: auto; min-height: 60px; flex-direction: column; align-items: center; gap: 10px; top: 80px; }
+    .nav-logo { align-items: center; }
     .nav-logo-top { font-size: 17px; }
     .nav-links { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 10px; width: 100%; }
+    .nav-links li a:not(.nav-cta) { display: none; }
     .nav-cta { display: inline-flex !important; padding: 9px 18px !important; font-size: 12px !important; }
     .hero { padding: 120px 24px 60px; }
     .contact-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -170,156 +173,38 @@
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
   }
 
-  
-
-  
-  
-  
-  
-  
-  
-
-  /* SLIDE DOWN MENU FROM TOP */
-  
-  
-  
-  
-  
-  
-
-  
-    .nav-logo-top { font-size: 16px; }
-    .nav-logo-sub { font-size: 9px; }
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  }
-
-  
-
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
-.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
-.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
-.nav-links{display:flex;align-items:center;height:68px;gap:18px;list-style:none;}
-.nav-links li{display:flex;align-items:center;}
-.nav-links a{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
-.nav-links a:hover,.nav-links a.active{color:#E8B84B;}
-.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 16px;border-radius:2px;font-weight:700!important;}
-.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:1001;flex-shrink:0;}
+/* ==RSM NAV FINAL== */
+nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(13,31,60,0.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px!important;height:68px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+.nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:16px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links li{display:flex!important;align-items:center!important;}
+.nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
+.nav-links li a.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 14px!important;border-radius:2px!important;font-weight:700!important;}
+.nav-hamburger{display:none!important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none!important;border:none!important;z-index:99999!important;flex-shrink:0;}
 .nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
 .nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
 .nav-hamburger.is-open span:nth-child(2){opacity:0;}
 .nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:999;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
-.nav-mobile.is-open{display:flex;}
+.nav-mobile{display:none!important;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex!important;}
 .nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
-.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
-.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;border:none;}
-
-
-/* ===== DEFINITIVE NAV - DO NOT MODIFY ===== */
-nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
-.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
-.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
-.nav-links{display:flex !important;align-items:center;height:68px;gap:16px;list-style:none;flex-wrap:nowrap;}
-.nav-links li{display:flex !important;align-items:center;}
-.nav-links li a{display:block !important;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
-.nav-links li a:hover,.nav-links li a.active{color:#E8B84B;}
-.nav-links li a.nav-cta{background:#C9941A !important;color:#0D1F3C !important;padding:9px 14px;border-radius:2px;font-weight:700 !important;}
-.nav-hamburger{display:none !important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:9999;flex-shrink:0;}
-.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
-.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.nav-hamburger.is-open span:nth-child(2){opacity:0;}
-.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:9998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
-.nav-mobile.is-open{display:flex !important;}
-.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
-.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
-.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C !important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
-@media screen and (max-width:768px){
-  nav{padding:0 20px !important;}
-  .nav-links{display:none !important;}
-  .nav-hamburger{display:flex !important;}
-}
-@media screen and (min-width:769px){
-  .nav-links{display:flex !important;}
-  .nav-hamburger{display:none !important;}
-  .nav-mobile{display:none !important;}
-}
-/* ===== END DEFINITIVE NAV ===== */
-
-.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 9999; flex-shrink: 0; }
-.nav-hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
-.nav-hamburger.is-open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-.nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
-.nav-hamburger.is-open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
-.nav-mobile { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.99); z-index: 9998; flex-direction: column; padding: 12px 0 20px; border-bottom: 3px solid #C9941A; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
-.nav-mobile a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.07); display: block; }
-.nav-mobile a:hover, .nav-mobile a.active { color: #E8B84B; background: rgba(201,148,26,0.05); }
-.nav-mobile a.nav-mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 14px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; }
-/* DEFINITIVE NAV OVERRIDE - FINAL */
-nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 9999 !important; background: rgba(13,31,60,0.97) !important; height: 68px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 40px !important; }
-.nav-links { display: flex !important; align-items: center !important; height: 68px !important; gap: 16px !important; list-style: none !important; flex-wrap: nowrap !important; }
-.nav-links li { display: flex !important; align-items: center !important; }
-.nav-links li a { display: block !important; font-size: 11px !important; font-weight: 500 !important; letter-spacing: 1px !important; text-transform: uppercase !important; color: rgba(255,255,255,0.8) !important; text-decoration: none !important; white-space: nowrap !important; }
-.nav-links li a:hover, .nav-links li a.active { color: #E8B84B !important; }
-.nav-links li a.nav-cta { background: #C9941A !important; color: #0D1F3C !important; padding: 9px 14px !important; border-radius: 2px !important; font-weight: 700 !important; }
-.nav-hamburger { display: none !important; }
-.nav-mobile { display: none !important; }
-@media screen and (max-width: 768px) {
-  nav { padding: 0 20px !important; }
-  .nav-links { display: none !important; }
-  .nav-hamburger { display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 5px !important; cursor: pointer !important; padding: 8px !important; background: none !important; border: none !important; z-index: 9999 !important; flex-shrink: 0 !important; }
-}
-@media screen and (min-width: 769px) {
-  .nav-links { display: flex !important; }
-  .nav-hamburger { display: none !important; }
-  .nav-mobile { display: none !important; }
-}
-/* END DEFINITIVE NAV */
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
+@media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
+/* ==END RSM NAV== */
 </style>
 </head>
 <body>
 <nav>
-  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo">
-    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
-    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
-  </a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
   <ul class="nav-links"><li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/courses.html">Courses</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html">Community</a></li><li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html" class="active">Contact</a></li><li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li></ul>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="nav-mobile" id="navMobile" style="display:none;">
+<div class="nav-mobile" id="navMobile">
 <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
 <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
@@ -331,14 +216,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html" class="active">Contact</a>
 <a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-mobile-cta">Start Free</a></div>
 
-
-
-
-
 <!-- NAV -->
-
-
-
 
 
 <!-- HERO -->
@@ -399,7 +277,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
             <div class="contact-card-note">Questions, inquiries, and general outreach</div>
           </div>
         </a>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html" class="contact-card">
+        <a href="mailto:rsmbooking@rightsideofmoney.com" class="contact-card">
           <div class="contact-card-icon">BOOK</div>
           <div>
             <div class="contact-card-label">Booking and Speaking</div>
@@ -407,7 +285,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
             <div class="contact-card-note">Speaking engagements, coaching inquiries, and program bookings</div>
           </div>
         </a>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" target="_blank" class="contact-card">
+        <a href="https://www.rightsideofmoney.comhttps://dtrsm1990.github.io/rightsideofmoney/book.htmling-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank" class="contact-card">
           <div class="contact-card-icon">CALL</div>
           <div>
             <div class="contact-card-label">Free Discovery Call</div>
@@ -441,14 +319,14 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
             <div class="social-link-handle">@rightsideofmoney</div>
           </div>
         </a>
-        <a href="https://www.facebook.com/dtrightsideofmoney" target="_blank" class="social-link">
+        <a href="https://www.facebook.com/rightsideofmoney" target="_blank" class="social-link">
           <div class="social-link-icon">FB</div>
           <div>
             <div class="social-link-name">Facebook</div>
             <div class="social-link-handle">Right Side of Money</div>
           </div>
         </a>
-        <a href="https://www.linkedin.com/in/rightsideofmoney" target="_blank" class="social-link">
+        <a href="https://www.linkedin.com/in/darrell-thompson" target="_blank" class="social-link">
           <div class="social-link-icon">LI</div>
           <div>
             <div class="social-link-name">LinkedIn</div>
@@ -482,7 +360,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
           <div class="reason-icon">BOOK</div>
           <div>
             <div class="reason-title">I want to buy the book</div>
-            <div class="reason-desc">Get Creating A Wealth Building Mindset on Amazon for $19.99 or order a personally signed copy for $25.00 mailed directly to your door.</div>
+            <div class="reason-desc">Get Creating A Wealth Building Mindset on Amazon for $19.99 or order a personally signed copy for $15.00 mailed directly to your door.</div>
           </div>
         </div>
         <div class="reason-card">
@@ -536,7 +414,7 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <p class="quick-card-desc">Start rebuilding your financial foundation right now. Thirty days. Zero cost. The mindset shift that changes everything.</p>
         <div class="quick-card-action">Start Free &#8594;</div>
       </a>
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" target="_blank" class="quick-card fade-up">
+      <a href="https://www.rightsideofmoney.comhttps://dtrsm1990.github.io/rightsideofmoney/book.htmling-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank" class="quick-card fade-up">
         <div class="quick-card-tag">Free</div>
         <div class="quick-card-title">30-Minute Discovery Call with Darrell</div>
         <p class="quick-card-desc">Not sure where to start? Book a free call and let Darrell tell you exactly which path fits where you are right now.</p>
@@ -561,55 +439,6 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
   </div>
 </div>
 
-
-<!-- FREE DOWNLOADS -->
-<section style="background:#0D1F3C;padding:80px 40px;">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:48px;">
-      <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <div style="width:32px;height:2px;background:#C9941A;"></div>
-        <span style="font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#C9941A;">Free Downloads</span>
-        <div style="width:32px;height:2px;background:#C9941A;"></div>
-      </div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);font-weight:900;color:#FFFFFF;margin-bottom:12px;">Free Resources. No Email Required.</h2>
-      <p style="font-size:16px;color:rgba(255,255,255,0.5);font-weight:300;max-width:560px;margin:0 auto;">Download any of these guides right now and start building your financial foundation today.</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(255,255,255,0.06);max-width:900px;margin:0 auto 48px;">
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Financial_Foundation_Checklist.pdf" target="_blank" style="background:rgba(255,255,255,0.04);padding:32px 28px;text-decoration:none;display:flex;align-items:flex-start;gap:16px;border:1px solid rgba(255,255,255,0.04);transition:all 0.3s;" onmouseover="this.style.background='rgba(201,148,26,0.06)';this.style.borderColor='rgba(201,148,26,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.04)'">
-        <div style="background:#C9941A;color:#0D1F3C;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 10px;border-radius:2px;flex-shrink:0;">PDF</div>
-        <div>
-          <div style="font-size:15px;font-weight:600;color:#FFFFFF;margin-bottom:6px;">RSM Financial Foundation Checklist</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.5;">10 things you must have in place before you can build real wealth.</div>
-        </div>
-      </a>
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_5_Money_Lies.pdf" target="_blank" style="background:rgba(255,255,255,0.04);padding:32px 28px;text-decoration:none;display:flex;align-items:flex-start;gap:16px;border:1px solid rgba(255,255,255,0.04);transition:all 0.3s;" onmouseover="this.style.background='rgba(201,148,26,0.06)';this.style.borderColor='rgba(201,148,26,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.04)'">
-        <div style="background:#C9941A;color:#0D1F3C;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 10px;border-radius:2px;flex-shrink:0;">PDF</div>
-        <div>
-          <div style="font-size:15px;font-weight:600;color:#FFFFFF;margin-bottom:6px;">The 5 Money Lies You Were Told Growing Up</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.5;">Name the lies. Replace them with truth. Change your financial outcomes.</div>
-        </div>
-      </a>
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Wealth_Building_Mindset_Starter_Kit.pdf" target="_blank" style="background:rgba(255,255,255,0.04);padding:32px 28px;text-decoration:none;display:flex;align-items:flex-start;gap:16px;border:1px solid rgba(255,255,255,0.04);transition:all 0.3s;" onmouseover="this.style.background='rgba(201,148,26,0.06)';this.style.borderColor='rgba(201,148,26,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.04)'">
-        <div style="background:#C9941A;color:#0D1F3C;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 10px;border-radius:2px;flex-shrink:0;">PDF</div>
-        <div>
-          <div style="font-size:15px;font-weight:600;color:#FFFFFF;margin-bottom:6px;">Wealth Building Mindset Starter Kit</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.5;">The 7 mindset shifts and daily practices that install the wealth building mindset.</div>
-        </div>
-      </a>
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/RSM_Budget_Snapshot_Tool.pdf" target="_blank" style="background:rgba(255,255,255,0.04);padding:32px 28px;text-decoration:none;display:flex;align-items:flex-start;gap:16px;border:1px solid rgba(255,255,255,0.04);transition:all 0.3s;" onmouseover="this.style.background='rgba(201,148,26,0.06)';this.style.borderColor='rgba(201,148,26,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.borderColor='rgba(255,255,255,0.04)'">
-        <div style="background:#C9941A;color:#0D1F3C;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:8px 10px;border-radius:2px;flex-shrink:0;">PDF</div>
-        <div>
-          <div style="font-size:15px;font-weight:600;color:#FFFFFF;margin-bottom:6px;">RSM Budget Snapshot Tool</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.5;">Your complete monthly financial picture. Budget vs Actual. Print and use every month.</div>
-        </div>
-      </a>
-    </div>
-    <div style="text-align:center;">
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/community-invite.html" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:18px 44px;border-radius:2px;">Join the RSM Wealth Builders Community</a>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -620,27 +449,27 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <p class="footer-brand-desc">Real financial truth for people who were never given the foundation they deserved. No fluff. No hype. Just the knowledge that changes everything.</p>
         <div class="footer-contact-item">Phone: <a href="tel:9512235716">(951) 223-5716</a></div>
         <div class="footer-contact-item">Contact: <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></div>
-        <div class="footer-contact-item">Booking: <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html">rsmbooking@rightsideofmoney.com</a></div>
+        <div class="footer-contact-item">Booking: <a href="mailto:rsmbooking@rightsideofmoney.com">rsmbooking@rightsideofmoney.com</a></div>
       </div>
       <div>
         <div class="footer-col-title">Navigate</div>
         <ul class="footer-links">
           <li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About Darrell</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/accountability.html">Accountability Program</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">The Book</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/about.html.html">About Darrell</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/services.html.html">Services</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/accountability.html.html">Accountability Program</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/book.html.html">The Book</a></li>
+          <li><a href="https://dtrsm1990.github.io/rightsideofmoneyhttps://dtrsm1990.github.io/rightsideofmoney/speaking.html.html">Speaking</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Get Started</div>
         <ul class="footer-links">
           <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank">Free 30-Day Challenge</a></li>
-          <li><a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" target="_blank">Free Discovery Call</a></li>
+          <li><a href="https://www.rightsideofmoney.comhttps://dtrsm1990.github.io/rightsideofmoney/book.htmling-calendar/30min-discovery-meeting?referral=service_list_widget" target="_blank">Free Discovery Call</a></li>
           <li><a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank">Foundation Course &#36;297</a></li>
           <li><a href="https://a.co/d/aOXz5ak" target="_blank">Book on Amazon &#36;19.99</a></li>
-          <li><a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank">Signed Copy &#36;25.00</a></li>
+          <li><a href="https://www.rightsideofmoney.com/_paylink/AZlQxABf" target="_blank">Signed Copy &#36;15.00</a></li>
           <li><a href="https://www.tntlegacyshield.com" target="_blank">TNT Legacy Shield</a></li>
         </ul>
       </div>
@@ -649,8 +478,8 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
         <ul class="footer-links">
           <li><a href="https://www.tiktok.com/@rightsideofmoney" target="_blank">TikTok</a></li>
           <li><a href="https://www.instagram.com/rightsideofmoney/" target="_blank">Instagram</a></li>
-          <li><a href="https://www.facebook.com/dtrightsideofmoney" target="_blank">Facebook</a></li>
-          <li><a href="https://www.linkedin.com/in/rightsideofmoney" target="_blank">LinkedIn</a></li>
+          <li><a href="https://www.facebook.com/rightsideofmoney" target="_blank">Facebook</a></li>
+          <li><a href="https://www.linkedin.com/in/darrell-thompson" target="_blank">LinkedIn</a></li>
           <li><a href="https://www.rightsideofmoney.com/blog" target="_blank">Blog</a></li>
           <li><a href="mailto:info@rightsideofmoney.com">Contact</a></li>
         </ul>
@@ -667,43 +496,18 @@ nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 
 
 
 
-
-
-
-
-
 <script>
 (function(){
   var btn=document.getElementById("navHamburger");
   var menu=document.getElementById("navMobile");
   if(!btn||!menu)return;
-  btn.addEventListener("click",function(e){
-    e.stopPropagation();
-    var o=menu.classList.contains("is-open");
-    menu.classList[o?"remove":"add"]("is-open");
-    btn.classList[o?"remove":"add"]("is-open");
-    if(!o){menu.style.display="flex";}else{menu.style.display="none";}
-  });
-  document.addEventListener("click",function(e){
-    if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    }
-  });
-  menu.querySelectorAll("a").forEach(function(a){
-    a.addEventListener("click",function(){
-      menu.classList.remove("is-open");
-      btn.classList.remove("is-open");
-      menu.style.display="none";
-    });
-  });
-  if(window.IntersectionObserver){
-    var obs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});
-    },{threshold:0.08});
-    document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});
-  }
+  function openMenu(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function closeMenu(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  closeMenu();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?closeMenu():openMenu();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){closeMenu();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){closeMenu();});});
+  if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
 })();
 </script>
 
