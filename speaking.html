@@ -248,6 +248,21 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 @media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
 @media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
 /* ==END RSM NAV== */
+
+
+
+
+/* === TESTIMONIALS === */
+.testimonials-section{background:#0D1F3C;padding:80px 40px;}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:48px;}
+.testimonial-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,148,26,0.2);border-top:3px solid #C9941A;padding:36px 32px;border-radius:2px;}
+.testimonial-quote-mark{font-family:'Playfair Display',serif;font-size:64px;color:#C9941A;opacity:0.4;line-height:1;margin-bottom:8px;}
+.testimonial-text{font-size:16px;color:rgba(255,255,255,0.8);line-height:1.75;margin-bottom:28px;font-style:italic;}
+.testimonial-author{border-top:1px solid rgba(201,148,26,0.2);padding-top:20px;}
+.testimonial-name{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:4px;}
+.testimonial-title{font-size:13px;color:#C9941A;font-weight:500;}
+@media(max-width:768px){.testimonials-section{padding:60px 20px;}.testimonials-grid{grid-template-columns:1fr;}}
+/* === END TESTIMONIALS === */
 </style>
 </head>
 <body>
@@ -273,298 +288,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-bar"></div>
-  <div class="hero-inner">
-    <div class="fade-up">
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-line"></div>
-        <span class="hero-eyebrow-text">Darrell Thompson</span>
-      </div>
-      <h1 class="hero-headline">
-        Bring the Truth to
-        <em>Your Stage.</em>
-      </h1>
-      <p class="hero-sub">Darrell Thompson does not deliver motivational speeches. He delivers <strong>truth-telling sessions that change the way audiences think about money permanently.</strong> Real talk. Real experience. Real results.</p>
-      <div class="hero-formats">
-        <div class="hero-format">
-          <div class="hero-format-title">Keynote Presentations</div>
-          <div class="hero-format-desc">45 to 90 minutes. Any audience size.</div>
-        </div>
-        <div class="hero-format">
-          <div class="hero-format-title">Workshops</div>
-          <div class="hero-format-desc">60 to 120 minutes. Interactive and practical.</div>
-        </div>
-        <div class="hero-format">
-          <div class="hero-format-title">School Assemblies</div>
-          <div class="hero-format-desc">30 to 60 minutes. Middle school through college.</div>
-        </div>
-        <div class="hero-format">
-          <div class="hero-format-title">Virtual Events</div>
-          <div class="hero-format-desc">Available for online and hybrid formats.</div>
-        </div>
-      </div>
-      <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html" class="btn-primary">Book Darrell to Speak</a>
-    </div>
-    <div class="hero-right fade-up">
-      <img src="https://static.wixstatic.com/media/0f36f8_48594e63d3ed41caa2c013413558769f~mv2.jpeg" alt="Darrell Thompson Speaking" class="hero-speaking-img">
-      <div class="hero-poster-row">
-        <img src="https://static.wixstatic.com/media/07d5a3_adc505e360d64d1f84716bb18e11e237~mv2.jpg" alt="RSM Speaking Event" class="hero-poster">
-        <img src="https://static.wixstatic.com/media/0f36f8_dacc4eea98c44827877a69669076631d~mv2.png" alt="RSM Speaking Event" class="hero-poster">
-      </div>
-    </div>
-  </div>
-</section>
-<div style="background:#0D1F3C;padding:40px;text-align:center;"><img src="IMG_8909.jpeg" alt="Darrell Thompson speaking at the Hilton" style="width:100%;max-width:680px;height:auto;border-radius:4px;box-shadow:0 8px 40px rgba(0,0,0,0.5);display:block;margin:0 auto;"></div>
 
-<!-- TICKER -->
-<div class="ticker-strip">
-  <div class="ticker-track">
-    <span class="ticker-item"><span class="ticker-dot"></span>Financial Literacy Speaker</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Mindset Coach</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Retired U.S. Marine</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>College Adjunct Professor</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Published Author</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Truth-Telling Sessions That Create Real Change</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Financial Literacy Speaker</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Mindset Coach</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Retired U.S. Marine</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>College Adjunct Professor</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Published Author</span>
-    <span class="ticker-item"><span class="ticker-dot"></span>Truth-Telling Sessions That Create Real Change</span>
-  </div>
-</div>
-
-<!-- NOT A SPEECH -->
-<div class="truth-strip">
-  <div class="truth-inner">
-    <div class="fade-up">
-      <h2 class="truth-headline">Not a Motivational Speech.<br><em>A Transformation Session.</em></h2>
-      <div class="truth-text">
-        <p>There is no shortage of motivational speakers. People who get on stage, tell a great story, fire the crowd up, and send everyone home feeling good for 48 hours before everything goes back to the way it was.</p>
-        <p>That is not what Darrell does.</p>
-        <p>Every session Darrell delivers goes to the root. The mindset that drives financial behavior. The financial knowledge that was never taught. The beliefs people carry without knowing it that keep them stuck regardless of how hard they work or how much they earn. <strong>Audiences leave not just inspired but genuinely equipped.</strong> With a different framework. With practical tools. With a starting point they can act on immediately.</p>
-        <p>That is the difference. And that is what makes people call him back.</p>
-      </div>
-    </div>
-    <div class="fade-up">
-      <div class="truth-stats">
-        <div class="truth-stat">
-          <div class="truth-stat-accent"></div>
-          <div class="truth-stat-number">20+</div>
-          <div class="truth-stat-label">Years of real-world financial experience</div>
-        </div>
-        <div class="truth-stat">
-          <div class="truth-stat-accent"></div>
-          <div class="truth-stat-number">4</div>
-          <div class="truth-stat-label">Core speaking topics built from lived experience</div>
-        </div>
-        <div class="truth-stat">
-          <div class="truth-stat-accent"></div>
-          <div class="truth-stat-number">0</div>
-          <div class="truth-stat-label">Sugarcoating in any session ever</div>
-        </div>
-        <div class="truth-stat">
-          <div class="truth-stat-accent"></div>
-          <div class="truth-stat-number">1</div>
-          <div class="truth-stat-label">Mission: financial truth for everyone</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SPEAKING TOPICS -->
-<section class="topics-section">
-  <div class="inner">
-    <div class="fade-up" style="text-align:center;">
-      <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-line"></div><span class="eyebrow-text" style="color:var(--gold)">Keynote Topics</span><div class="eyebrow-line"></div></div>
-      <h2 class="sec-headline light" style="text-align:center;">Four Talks. One Mission.</h2>
-      <p style="font-size:17px;color:rgba(255,255,255,0.5);font-weight:300;max-width:600px;margin:0 auto;">Each topic is available as a keynote, workshop, or customized session. All are adaptable for your specific audience, format, and time constraints.</p>
-    </div>
-    <div class="topics-grid">
-
-      <div class="topic-card fade-up">
-        <div class="topic-number">01</div>
-        <div class="topic-tag">Signature Keynote</div>
-        <div class="topic-title">The Right Side of Money</div>
-        <p class="topic-desc">Darrell's most requested presentation. A complete journey from the root of financial struggle all the way through to a clear, practical framework for building real wealth. Delivered with honesty, urgency, and real-world application that sticks long after the applause stops.</p>
-        <div class="topic-outcomes">
-          <div class="topic-outcomes-title">Audience Takeaways</div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Understand why financial struggle is a foundation problem, not an income problem</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Identify the money beliefs silently driving their financial outcomes</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Walk away with one immediate action step toward financial clarity</div></div>
-        </div>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/topic-right-side-of-money.html" class="topic-btn" style="display:inline-block;margin-top:24px;background:#C9941A;color:#0D1F3C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:2px;text-decoration:none;">View Full Topic &rarr;</a>
-      </div>
-
-      <div class="topic-card fade-up">
-        <div class="topic-number">02</div>
-        <div class="topic-tag">Schools and Youth</div>
-        <div class="topic-title">What They Never Taught You: Financial Truth for the Next Generation</div>
-        <p class="topic-desc">An honest, engaging, age-appropriate conversation about money that students almost never hear in a classroom. Darrell speaks directly to young people about credit, debt, compound interest, and the wealth building habits that start before the first paycheck.</p>
-        <div class="topic-outcomes">
-          <div class="topic-outcomes-title">Audience Takeaways</div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Understand credit, debt, and compound interest in plain language</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Learn why mindset matters before income does</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Leave with a simple financial starting point they can implement immediately</div></div>
-        </div>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/topic-what-they-never-taught-you.html" class="topic-btn" style="display:inline-block;margin-top:24px;background:#C9941A;color:#0D1F3C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:2px;text-decoration:none;">View Full Topic &rarr;</a>
-      </div>
-
-      <div class="topic-card fade-up">
-        <div class="topic-number">03</div>
-        <div class="topic-tag">Corporate and HR</div>
-        <div class="topic-title">Financial Wellness from the Inside Out</div>
-        <p class="topic-desc">Financial stress is one of the leading drivers of reduced workplace productivity, disengagement, and turnover. This workshop goes beyond surface-level tips and addresses the root causes, providing practical tools and mindset shifts that improve both personal finances and organizational performance.</p>
-        <div class="topic-outcomes">
-          <div class="topic-outcomes-title">Audience Takeaways</div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Identify how financial stress impacts workplace performance</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Build awareness of the most common financial patterns that keep employees stuck</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Walk away with a practical framework they can implement immediately</div></div>
-        </div>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/topic-financial-wellness.html" class="topic-btn" style="display:inline-block;margin-top:24px;background:#C9941A;color:#0D1F3C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:2px;text-decoration:none;">View Full Topic &rarr;</a>
-      </div>
-
-      <div class="topic-card fade-up">
-        <div class="topic-number">04</div>
-        <div class="topic-tag">Community Organizations</div>
-        <div class="topic-title">Breaking the Cycle: Generational Wealth Starts Here</div>
-        <p class="topic-desc">This presentation speaks directly to communities where financial struggle has been a generational experience, not because of lack of effort, but because of lack of access to the right knowledge. Delivered with compassion, conviction, and the authenticity of someone who has lived the experience.</p>
-        <div class="topic-outcomes">
-          <div class="topic-outcomes-title">Audience Takeaways</div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Understand the generational cycle of financial struggle and how it is broken</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Learn the mindset shifts required before financial behavior can change</div></div>
-          <div class="topic-outcome"><div class="topic-outcome-dot"></div><div class="topic-outcome-text">Discover practical first steps toward building a legacy</div></div>
-        </div>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/topic-breaking-the-cycle.html" class="topic-btn" style="display:inline-block;margin-top:24px;background:#C9941A;color:#0D1F3C;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:2px;text-decoration:none;">View Full Topic &rarr;</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- AUDIENCES -->
-<section class="audiences-section">
-  <div class="inner">
-    <div class="fade-up" style="text-align:center;">
-      <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-line"></div><span class="eyebrow-text">Who Darrell Speaks To</span><div class="eyebrow-line"></div></div>
-      <h2 class="sec-headline" style="text-align:center;">Every Audience. One Standard.</h2>
-      <p style="font-size:17px;color:var(--gray-500);font-weight:300;max-width:560px;margin:0 auto;">Darrell adapts his content and delivery to meet every audience exactly where they are. The standard of truth, depth, and practical application never changes.</p>
-    </div>
-    <div class="audiences-grid">
-      <div class="audience-card fade-up">
-        <div class="audience-icon">K12</div>
-        <div class="audience-title">Middle and High Schools</div>
-        <div class="audience-desc">Assemblies, financial literacy weeks, career days, and counselor-referred programs for students who deserve the financial education the curriculum leaves out.</div>
-      </div>
-      <div class="audience-card fade-up">
-        <div class="audience-icon">EDU</div>
-        <div class="audience-title">Colleges and Universities</div>
-        <div class="audience-desc">Campus events, orientation programs, student organizations, and financial wellness initiatives for young adults stepping into financial independence.</div>
-      </div>
-      <div class="audience-card fade-up">
-        <div class="audience-icon">CORP</div>
-        <div class="audience-title">Corporations and Businesses</div>
-        <div class="audience-desc">Employee wellness sessions, HR initiatives, leadership retreats, professional development days, and benefits enrollment periods.</div>
-      </div>
-      <div class="audience-card fade-up">
-        <div class="audience-icon">ORG</div>
-        <div class="audience-title">Nonprofits and Community Groups</div>
-        <div class="audience-desc">Faith communities, civic organizations, veterans groups, and nonprofits serving communities where financial education access has been limited.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CREDENTIALS BAR -->
-<div class="creds-bar">
-  <div class="creds-bar-inner">
-    <div class="cred-bar-item">
-      <div class="cred-bar-label">Military Background</div>
-      <div class="cred-bar-value">Retired United States Marine</div>
-    </div>
-    <div class="cred-bar-item">
-      <div class="cred-bar-label">Academic Credentials</div>
-      <div class="cred-bar-value">College Adjunct Professor</div>
-    </div>
-    <div class="cred-bar-item">
-      <div class="cred-bar-label">Professional Licenses</div>
-      <div class="cred-bar-value">CA Real Estate and Insurance Producer</div>
-    </div>
-    <div class="cred-bar-item">
-      <div class="cred-bar-label">Published Work</div>
-      <div class="cred-bar-value">Creating A Wealth Building Mindset</div>
-    </div>
-  </div>
-</div>
-
-<!-- WHAT TO EXPECT -->
-<section class="expect-section">
-  <div class="expect-inner">
-    <div class="expect-grid">
-      <div class="fade-up">
-        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text" style="color:var(--gold)">The Booking Process</span></div>
-        <h2 class="sec-headline light">Simple. Professional. Easy to Work With.</h2>
-        <div class="expect-steps">
-          <div class="expect-step">
-            <div class="expect-step-num">01</div>
-            <div>
-              <div class="expect-step-title">Reach Out</div>
-              <div class="expect-step-desc">Email rsmbooking@rightsideofmoney.com with your event details, audience size, format, and preferred dates. The more detail the better.</div>
-            </div>
-          </div>
-          <div class="expect-step">
-            <div class="expect-step-num">02</div>
-            <div>
-              <div class="expect-step-title">Discovery Call</div>
-              <div class="expect-step-desc">Darrell will schedule a brief call to understand your audience, your goals, and how to best tailor the presentation for maximum impact.</div>
-            </div>
-          </div>
-          <div class="expect-step">
-            <div class="expect-step-num">03</div>
-            <div>
-              <div class="expect-step-title">Speaker Agreement</div>
-              <div class="expect-step-desc">A clear, simple agreement is sent covering the event details, format, logistics, and any specific requirements. Deposit required to confirm.</div>
-            </div>
-          </div>
-          <div class="expect-step">
-            <div class="expect-step-num">04</div>
-            <div>
-              <div class="expect-step-title">Show Up and Deliver</div>
-              <div class="expect-step-desc">Darrell arrives prepared, professional, and early. Your audience gets the truth-based, practical financial education they came for and more.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="expect-right fade-up">
-        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text" style="color:var(--gold)">What to Expect</span></div>
-        <h2 class="sec-headline light">A Speaker Who Takes It Seriously.</h2>
-        <p>Darrell does not show up and wing it. Every engagement is prepared specifically for the audience in the room. He studies who he is speaking to, what they need to hear, and how to deliver it in a way that lands and sticks.</p>
-        <p>He arrives early. He handles his own setup. He is easy to coordinate with before and after the event. He respects your time, your audience, and the platform you have given him.</p>
-        <p><strong>What your audience will experience is not a performance. It is a conversation.</strong> An honest, direct, sometimes uncomfortable, and ultimately empowering conversation about money that most of them have never had before.</p>
-        <p>That is what they will remember. That is what they will talk about. And that is what will make your event memorable.</p>
-        <a href="https://dtrsm1990.github.io/rightsideofmoney/speaker-form.html" class="btn-secondary">Book Darrell for Your Event</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIAL -->
-<section class="testimonial-section">
-  <div class="testimonial-inner fade-up">
-    <div class="stars">
-      <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
-    </div>
-    <blockquote class="testimonial-quote">
-      "Powerful. Dynamic. Forward Thinking. Mr. Thompson was very knowledgeable of his trade. I liked how he broke it down for us and <em>reset my mind to not be ashamed of loving money.</em>"
-    </blockquote>
-    <div class="testimonial-name">I.H.</div>
-    <div class="testimonial-org">The Platform Xperience</div>
-  </div>
-</section>
 
 <!-- BOOKING CTA -->
 <section class="booking-section">
@@ -602,6 +326,32 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
   </div>
 </section>
 
+
+
+
+
+<!-- TESTIMONIALS SECTION -->
+<section class="testimonials-section">
+<div class="inner">
+<div class="eyebrow fade-up">Testimonials</div>
+<h2 class="section-title fade-up">What Audiences Are Saying</h2>
+<div class="testimonials-grid"><div class="testimonial-card fade-up">
+<div class="testimonial-quote-mark">&ldquo;</div>
+<p class="testimonial-text">POWERFUL! DYNAMIC! FORWARD THINKING! Mr. Thompson was very knowledgeable of his trade. I liked how he broke it down for us and reset my mind to not be ashamed of loving money!</p>
+<div class="testimonial-author">
+<div class="testimonial-name">I.H.</div>
+<div class="testimonial-title">The Platform Xperience, Las Vegas</div>
+</div></div>
+<div class="testimonial-card fade-up">
+<div class="testimonial-quote-mark">&ldquo;</div>
+<p class="testimonial-text">I have heard Mr. Thompson speak two years in a row at the Platform in Las Vegas. He connected with his audience as he taught us the value of changing our mindset. Mr. Thompson is a dynamic speaker. Once you hear him, it will give you a new level of understanding investments. I am looking forward to hearing him speak again.</p>
+<div class="testimonial-author">
+<div class="testimonial-name">Teresa P.</div>
+<div class="testimonial-title">Business Professional, Las Vegas</div>
+</div></div></div>
+</div>
+</section>
+<!-- END TESTIMONIALS -->
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">

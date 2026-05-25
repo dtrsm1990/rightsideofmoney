@@ -237,6 +237,21 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 @media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
 @media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
 /* ==END RSM NAV== */
+
+
+
+
+/* === TESTIMONIALS === */
+.testimonials-section{background:#0D1F3C;padding:80px 40px;}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:48px;}
+.testimonial-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,148,26,0.2);border-top:3px solid #C9941A;padding:36px 32px;border-radius:2px;}
+.testimonial-quote-mark{font-family:'Playfair Display',serif;font-size:64px;color:#C9941A;opacity:0.4;line-height:1;margin-bottom:8px;}
+.testimonial-text{font-size:16px;color:rgba(255,255,255,0.8);line-height:1.75;margin-bottom:28px;font-style:italic;}
+.testimonial-author{border-top:1px solid rgba(201,148,26,0.2);padding-top:20px;}
+.testimonial-name{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:4px;}
+.testimonial-title{font-size:13px;color:#C9941A;font-weight:500;}
+@media(max-width:768px){.testimonials-section{padding:60px 20px;}.testimonials-grid{grid-template-columns:1fr;}}
+/* === END TESTIMONIALS === */
 </style>
 </head>
 <body>
@@ -494,6 +509,32 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
   </div>
 </section>
 
+
+
+
+
+<!-- TESTIMONIALS SECTION -->
+<section class="testimonials-section">
+<div class="inner">
+<div class="eyebrow fade-up">Testimonials</div>
+<h2 class="section-title fade-up">What Readers Are Saying</h2>
+<div class="testimonials-grid"><div class="testimonial-card fade-up">
+<div class="testimonial-quote-mark">&ldquo;</div>
+<p class="testimonial-text">This book completely transformed my approach to finances. I went from feeling overwhelmed and stuck to empowered and in control. The actionable strategies and mindset shifts helped me achieve financial milestones I never thought possible. A must-read!</p>
+<div class="testimonial-author">
+<div class="testimonial-name">Sarah M.</div>
+<div class="testimonial-title">Verified Reader</div>
+</div></div>
+<div class="testimonial-card fade-up">
+<div class="testimonial-quote-mark">&ldquo;</div>
+<p class="testimonial-text">Creating A Wealth Building Mindset is more than just a book. It is a guide to transforming your life. The personal stories and practical advice resonated deeply with me. I have started implementing the strategies and already see significant improvements in my financial health.</p>
+<div class="testimonial-author">
+<div class="testimonial-name">John D.</div>
+<div class="testimonial-title">Verified Reader</div>
+</div></div></div>
+</div>
+</section>
+<!-- END TESTIMONIALS -->
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
