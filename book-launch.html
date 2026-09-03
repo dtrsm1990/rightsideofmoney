@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creating A Wealth-Building Mindset | 2nd Edition | Right Side of Money</title>
+<meta name="description" content="The Second Edition of Creating A Wealth-Building Mindset is coming September 30, 2026. Pre-register now for launch day notification.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#0D1F3C;--navy-mid:#1B3A6B;--gold:#C9941A;--gold-light:#E8B84B;--white:#FFFFFF;--gray:rgba(255,255,255,0.6);}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:99999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex;align-items:center;gap:14px;list-style:none;}
+.nav-links li a{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
+.nav-links li a:hover{color:#E8B84B;}
+.nav-links li a.nav-cta{background:#C9941A;color:#0D1F3C;padding:9px 14px;border-radius:2px;font-weight:700;}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:99999;flex-shrink:0;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.is-open span:nth-child(2){opacity:0;}
+.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;}
+.nav-mobile.is-open{display:flex;}
+.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+.nav-mobile a:hover{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media(max-width:768px){nav{padding:0 20px;}.nav-links{display:none;}.nav-hamburger{display:flex;}}
+@media(min-width:769px){.nav-links{display:flex;}.nav-hamburger{display:none;}.nav-mobile{display:none!important;}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 40px 60px;background:linear-gradient(135deg,#0D1F3C 0%,#1B3A6B 50%,#0D1F3C 100%);position:relative;overflow:hidden;}
+.hero-bg-text{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:clamp(100px,20vw,280px);color:rgba(201,148,26,0.04);white-space:nowrap;top:50%;left:50%;transform:translate(-50%,-50%);letter-spacing:10px;pointer-events:none;user-select:none;}
+.hero-inner{max-width:1200px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;}
+.hero-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,64px);font-weight:900;line-height:1.05;margin-bottom:12px;}
+.hero-title em{font-style:normal;color:#E8B84B;}
+.hero-edition{display:inline-block;background:rgba(201,148,26,0.15);border:1px solid rgba(201,148,26,0.4);color:#E8B84B;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:2px;margin-bottom:20px;}
+.hero-subtitle{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:32px;font-style:italic;}
+.hero-date{font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:32px;}
+.hero-date span{color:#C9941A;}
+
+/* COUNTDOWN */
+.countdown{display:flex;gap:16px;margin-bottom:40px;flex-wrap:wrap;}
+.countdown-unit{text-align:center;background:rgba(255,255,255,0.05);border:1px solid rgba(201,148,26,0.3);padding:16px 20px;border-radius:4px;min-width:80px;}
+.countdown-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#E8B84B;line-height:1;display:block;}
+.countdown-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);display:block;margin-top:4px;}
+.countdown-sep{font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(201,148,26,0.4);align-self:center;}
+
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-gold{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;transition:background 0.25s,transform 0.2s;}
+.btn-gold:hover{background:#E8B84B;transform:translateY(-2px);}
+.btn-outline{display:inline-block;background:transparent;color:#C9941A;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;border:2px solid #C9941A;transition:all 0.25s;}
+.btn-outline:hover{background:#C9941A;color:#0D1F3C;}
+
+/* BOOK IMAGE */
+.hero-image{display:flex;justify-content:center;align-items:center;}
+.hero-image img{max-width:100%;height:auto;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.8));animation:floatBook 4s ease-in-out infinite;}
+@keyframes floatBook{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+
+/* SECTION BASICS */
+section{padding:80px 40px;}
+.inner{max-width:1100px;margin:0 auto;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;margin-bottom:20px;}
+.section-title em{font-style:normal;color:#E8B84B;}
+.divider-gold{display:flex;align-items:center;gap:16px;margin:20px 0 48px;}
+.divider-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,148,26,0.4),transparent);}
+.divider-diamond{width:8px;height:8px;background:#C9941A;transform:rotate(45deg);flex-shrink:0;}
+
+/* BOOKS GRID */
+.books-section{background:rgba(255,255,255,0.02);border-top:1px solid rgba(201,148,26,0.15);border-bottom:1px solid rgba(201,148,26,0.15);}
+.books-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;}
+.book-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.2);border-top:3px solid #C9941A;padding:40px;border-radius:2px;display:flex;flex-direction:column;}
+.book-card-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.book-card-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#FFFFFF;margin-bottom:8px;line-height:1.2;}
+.book-card-subtitle{font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:24px;font-style:italic;}
+.book-card-desc{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.75;margin-bottom:28px;flex:1;}
+.book-price{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;margin-bottom:24px;}
+.book-price span{font-size:16px;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif;margin-left:8px;font-weight:400;}
+.book-card-btns{display:flex;flex-direction:column;gap:10px;}
+.btn-card-gold{display:block;background:#C9941A;color:#0D1F3C;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 24px;border-radius:2px;text-align:center;transition:background 0.25s;}
+.btn-card-gold:hover{background:#E8B84B;}
+.btn-card-outline{display:block;background:transparent;color:#C9941A;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 24px;border-radius:2px;border:2px solid #C9941A;text-align:center;transition:all 0.25s;}
+.btn-card-outline:hover{background:#C9941A;color:#0D1F3C;}
+.btn-coming{display:block;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 24px;border-radius:2px;border:1px solid rgba(255,255,255,0.1);text-align:center;cursor:not-allowed;}
+
+/* WHAT'S INSIDE */
+.inside-section{background:var(--navy);}
+.inside-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:48px;}
+.inside-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:28px 24px;border-radius:2px;text-align:center;}
+.inside-icon{font-size:32px;margin-bottom:12px;}
+.inside-title{font-size:14px;font-weight:700;color:#E8B84B;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.inside-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+
+/* BUNDLE PROMO */
+.bundle-section{background:linear-gradient(135deg,#0D1F3C,#1B3A6B);border-top:3px solid #C9941A;border-bottom:3px solid #C9941A;text-align:center;}
+.bundle-badge{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;border-radius:2px;margin-bottom:24px;}
+.bundle-books-img{max-width:700px;width:100%;margin:32px auto;display:block;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.6));}
+
+/* AUTHOR */
+.author-section{background:rgba(255,255,255,0.02);}
+.author-inner{display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center;}
+.author-img{width:100%;max-width:320px;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:3px solid rgba(201,148,26,0.3);}
+.author-quote{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:24px;border-left:4px solid #C9941A;padding-left:24px;}
+.author-name{font-size:20px;font-weight:700;color:#FFFFFF;margin-bottom:4px;}
+.author-title{font-size:13px;color:#C9941A;font-weight:500;}
+
+/* NOTIFY */
+.notify-section{background:var(--navy);text-align:center;}
+.notify-box{max-width:560px;margin:0 auto;}
+.notify-input-wrap{display:flex;gap:0;margin-top:32px;border-radius:2px;overflow:hidden;border:1px solid rgba(201,148,26,0.4);}
+.notify-input{flex:1;background:rgba(255,255,255,0.06);border:none;padding:16px 20px;font-size:15px;color:#FFFFFF;font-family:'DM Sans',sans-serif;outline:none;}
+.notify-input::placeholder{color:rgba(255,255,255,0.35);}
+.notify-btn{background:#C9941A;color:#0D1F3C;border:none;padding:16px 28px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s;white-space:nowrap;}
+.notify-btn:hover{background:#E8B84B;}
+.notify-fine{font-size:12px;color:rgba(255,255,255,0.3);margin-top:12px;}
+.notify-success{display:none;background:rgba(201,148,26,0.1);border:1px solid rgba(201,148,26,0.3);padding:20px;border-radius:2px;margin-top:16px;color:#E8B84B;font-weight:500;}
+
+/* FOOTER */
+.launch-footer{background:#0D1F3C;border-top:1px solid rgba(201,148,26,0.2);padding:40px;text-align:center;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:#FFFFFF;margin-bottom:8px;}
+.footer-sub{font-size:12px;color:#C9941A;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+.footer-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:20px;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none;letter-spacing:1px;text-transform:uppercase;}
+.footer-links a:hover{color:#C9941A;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.25);}
+
+/* MOBILE */
+@media(max-width:768px){
+  section{padding:60px 20px;}
+  .hero{padding:100px 20px 60px;}
+  .hero-inner{grid-template-columns:1fr;gap:40px;}
+  .hero-image{order:-1;}
+  .hero-image img{max-width:80vw;}
+  .countdown{gap:8px;}
+  .countdown-unit{min-width:60px;padding:12px;}
+  .countdown-num{font-size:36px;}
+  .countdown-sep{font-size:36px;}
+  .books-grid{grid-template-columns:1fr;}
+  .author-inner{grid-template-columns:1fr;text-align:center;}
+  .author-img{max-width:220px;margin:0 auto;}
+  .author-quote{text-align:left;}
+  .notify-input-wrap{flex-direction:column;}
+  .notify-btn{width:100%;}
+  .hero-btns{flex-direction:column;}
+  .btn-gold,.btn-outline{text-align:center;}
+}
+
+/* FADE UP */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s,transform 0.6s;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/book.html" class="active">The Book</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a></li>
+    <li><a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" class="nav-cta">Book a Call</a></li>
+  </ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/book.html" class="active">The Book</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
+  <a href="https://dtrsm1990.github.io/rightsideofmoney/discovery-intake.html" class="nav-mobile-cta">Book a Call</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">LAUNCH</div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-label">New Release &nbsp;|&nbsp; September 30, 2026</div>
+      <div class="hero-edition">Second Edition + 90-Day Companion Workbook</div>
+      <h1 class="hero-title">Creating A<br><em>Wealth-Building</em><br>Mindset</h1>
+      <p class="hero-subtitle">Change How You Think About Money. Change What You Do With Money. Change What Money Can Do For You.</p>
+      <div class="hero-date">Launches <span>September 30, 2026</span></div>
+
+      <!-- COUNTDOWN -->
+      <div class="countdown" id="countdown">
+        <div class="countdown-unit"><span class="countdown-num" id="days">00</span><span class="countdown-label">Days</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="hours">00</span><span class="countdown-label">Hours</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="mins">00</span><span class="countdown-label">Minutes</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="secs">00</span><span class="countdown-label">Seconds</span></div>
+      </div>
+
+      <div class="hero-btns">
+        <a href="#books" class="btn-gold">View Both Books &darr;</a>
+        <a href="#notify" class="btn-outline">Get Launch Notification</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="ChatGPT_Image_Sep_3_2026_at_12_08_42_PM.png" alt="Creating A Wealth-Building Mindset Second Edition and 90-Day Companion Workbook by Darrell Thompson">
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS INSIDE -->
+<section class="inside-section">
+  <div class="inner">
+    <div class="eyebrow fade-up">What You Will Learn</div>
+    <h2 class="section-title fade-up">A Complete <em>Wealth-Building System</em></h2>
+    <div class="divider-gold"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+    <div class="inside-grid">
+      <div class="inside-card fade-up">
+        <div class="inside-icon">🧠</div>
+        <div class="inside-title">Know Your Numbers</div>
+        <div class="inside-desc">Understand your true financial position and what it is telling you.</div>
+      </div>
+      <div class="inside-card fade-up">
+        <div class="inside-icon">⚙️</div>
+        <div class="inside-title">Control Your Money</div>
+        <div class="inside-desc">Stop wondering where it went. Start telling it where to go.</div>
+      </div>
+      <div class="inside-card fade-up">
+        <div class="inside-icon">📈</div>
+        <div class="inside-title">Build Real Wealth</div>
+        <div class="inside-desc">Through ownership, smart decisions, and consistent action.</div>
+      </div>
+      <div class="inside-card fade-up">
+        <div class="inside-icon">🛡️</div>
+        <div class="inside-title">Protect What You Build</div>
+        <div class="inside-desc">The assets you build deserve a plan to protect and preserve them.</div>
+      </div>
+      <div class="inside-card fade-up">
+        <div class="inside-icon">👨‍👩‍👧‍👦</div>
+        <div class="inside-title">Transfer a Legacy</div>
+        <div class="inside-desc">Create generational wealth that outlasts you and serves your family.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTH BOOKS -->
+<section class="books-section" id="books">
+  <div class="inner">
+    <div class="eyebrow fade-up">Available September 30, 2026</div>
+    <h2 class="section-title fade-up">Choose Your <em>Path Forward</em></h2>
+    <div class="divider-gold"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+    <div class="books-grid">
+
+      <!-- BOOK 1 -->
+      <div class="book-card fade-up">
+        <div class="book-card-label">Second Edition &nbsp;|&nbsp; Expanded &amp; Updated</div>
+        <div class="book-card-title">Creating A Wealth-Building Mindset</div>
+        <div class="book-card-subtitle">Change How You Think. Change What You Do. Change Your Future.</div>
+        <div class="book-card-desc">The fully expanded and updated second edition delivers a more powerful roadmap to financial freedom. New chapters. Deeper strategies. The same no-fluff truth that has already changed lives, now built for where the world is today.</div>
+        <div class="book-price">$19.99 <span>per copy</span></div>
+        <div class="book-card-btns">
+          <span class="btn-coming">Amazon — Available September 30</span>
+          <a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank" class="btn-card-outline">Order Author Signed Copy — $25.00</a>
+        </div>
+      </div>
+
+      <!-- BOOK 2 -->
+      <div class="book-card fade-up">
+        <div class="book-card-label">Companion Workbook &nbsp;|&nbsp; 90-Day Guided Experience</div>
+        <div class="book-card-title">Creating A Wealth-Building Mindset: 90-Day Companion Workbook</div>
+        <div class="book-card-subtitle">Do the Work. See the Change. Build the Life You Deserve.</div>
+        <div class="book-card-desc">Knowledge without action is just information. The 90-Day Companion Workbook turns every principle from the book into a daily practice. Clarify your money mindset. Track your money. Make intentional decisions. Build confidence. Create a plan.</div>
+        <div class="book-price">$19.99 <span>per copy</span></div>
+        <div class="book-card-btns">
+          <span class="btn-coming">Amazon — Available September 30</span>
+          <a href="https://www.rightsideofmoney.com/_paylink/AZ3QJOoU" target="_blank" class="btn-card-outline">Order Author Signed Copy — $25.00</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BUNDLE COMING SOON -->
+<section class="bundle-section">
+  <div class="inner">
+    <div class="bundle-badge">Bundle Coming Soon</div>
+    <h2 class="section-title fade-up">The Complete <em>Wealth-Building System</em></h2>
+    <p style="font-size:18px;color:rgba(255,255,255,0.7);max-width:560px;margin:0 auto 16px;line-height:1.7;">Both the Second Edition and the 90-Day Companion Workbook together. The book gives you the knowledge. The workbook makes it real. Together they give you everything you need to get on the right side of money.</p>
+    <p style="font-size:14px;color:#C9941A;font-weight:600;letter-spacing:1px;">Bundle pricing announced soon. Stay connected below for first access.</p>
+    <img src="ChatGPT_Image_Sep_3_2026_at_12_08_42_PM.png" alt="Creating A Wealth-Building Mindset Complete Set" class="bundle-books-img fade-up">
+  </div>
+</section>
+
+<!-- ABOUT THE AUTHOR -->
+<section class="author-section">
+  <div class="inner">
+    <div class="eyebrow fade-up">About the Author</div>
+    <div class="author-inner">
+      <div>
+        <img src="https://static.wixstatic.com/media/0f36f8_b271dcf6dbfa4840a249ea558af27e2e~mv2.jpeg" alt="Darrell Thompson" class="author-img fade-up">
+      </div>
+      <div>
+        <blockquote class="author-quote fade-up">"I grew up on the South Side of Chicago and dropped out of high school. That is where the story starts. What followed was a Bachelor's of Business Management, a Master's in Cybersecurity and Information Assurance, a career as a Federal Government executive, and a platform built on one belief: where you start does not determine where you finish."</blockquote>
+        <div class="author-name">Darrell Thompson</div>
+        <div class="author-title">Founder, Right Side of Money &nbsp;|&nbsp; Retired U.S. Marine &nbsp;|&nbsp; Command Financial Specialist &nbsp;|&nbsp; Author &nbsp;|&nbsp; Speaker</div>
+        <div style="margin-top:24px;">
+          <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html" class="btn-outline">Read Full Story</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTIFY -->
+<section class="notify-section" id="notify">
+  <div class="inner">
+    <div class="notify-box">
+      <div class="eyebrow fade-up">Launch Day</div>
+      <h2 class="section-title fade-up">Be First to Know <em>When It Drops</em></h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:0;" class="fade-up">Enter your email and we will notify you the moment both books are live on Amazon on September 30, 2026.</p>
+      <form id="notifyForm" action="https://formspree.io/f/xpwzgvqk" method="POST">
+        <div class="notify-input-wrap">
+          <input type="email" name="email" class="notify-input" placeholder="Your email address" required>
+          <input type="hidden" name="_subject" value="RSM Book Launch Notification Signup">
+          <button type="submit" class="notify-btn">Notify Me</button>
+        </div>
+        <p class="notify-fine">No spam. One email on launch day. That is it.</p>
+        <div class="notify-success" id="notifySuccess">You are on the list. We will see you on September 30th.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="launch-footer">
+  <div class="footer-logo">RIGHT SIDE OF MONEY</div>
+  <div class="footer-sub">Financial Literacy. Mindset. Freedom.</div>
+  <div class="footer-links">
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/index.html">Home</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/about.html">About</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/services.html">Services</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/speaking.html">Speaking</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/book.html">Book</a>
+    <a href="https://www.facebook.com/groups/rsmwealthbuilders/" target="_blank">Community</a>
+    <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html">Contact</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Right Side of Money. All Rights Reserved.</div>
+</footer>
+
+<script>
+// NAV
+(function(){
+  var btn=document.getElementById("navHamburger");
+  var menu=document.getElementById("navMobile");
+  if(!btn||!menu)return;
+  function openM(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function closeM(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  closeM();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?closeM():openM();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){closeM();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){closeM();}); });
+  if(window.IntersectionObserver){
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});
+    document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});
+  }
+})();
+
+// COUNTDOWN to September 30 2026 midnight
+(function(){
+  var launch = new Date('2026-09-30T00:00:00').getTime();
+  function update(){
+    var now = new Date().getTime();
+    var diff = launch - now;
+    if(diff <= 0){
+      document.getElementById('days').textContent='00';
+      document.getElementById('hours').textContent='00';
+      document.getElementById('mins').textContent='00';
+      document.getElementById('secs').textContent='00';
+      return;
+    }
+    var d=Math.floor(diff/(1000*60*60*24));
+    var h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    var m=Math.floor((diff%(1000*60*60))/(1000*60));
+    var s=Math.floor((diff%(1000*60))/1000);
+    document.getElementById('days').textContent=String(d).padStart(2,'0');
+    document.getElementById('hours').textContent=String(h).padStart(2,'0');
+    document.getElementById('mins').textContent=String(m).padStart(2,'0');
+    document.getElementById('secs').textContent=String(s).padStart(2,'0');
+  }
+  update();
+  setInterval(update,1000);
+})();
+
+// FORM SUBMIT
+(function(){
+  var form=document.getElementById('notifyForm');
+  var success=document.getElementById('notifySuccess');
+  if(!form)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+    .then(function(r){
+      if(r.ok){form.style.display='none';success.style.display='block';}
+    }).catch(function(){form.submit();});
+  });
+})();
+</script>
+</body>
+</html>
