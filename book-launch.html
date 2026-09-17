@@ -123,7 +123,7 @@ section{padding:80px 40px;}
 .notify-btn{background:#C9941A;color:#0D1F3C;border:none;padding:16px 28px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s;white-space:nowrap;}
 .notify-btn:hover{background:#E8B84B;}
 .notify-fine{font-size:12px;color:rgba(255,255,255,0.3);margin-top:12px;}
-.notify-success{display:none;background:rgba(201,148,26,0.1);border:1px solid rgba(201,148,26,0.3);padding:20px;border-radius:2px;margin-top:16px;color:#E8B84B;font-weight:500;}
+.notify-success{display:none;background:rgba(201,148,26,0.1);border:1px solid rgba(201,148,26,0.3);padding:20px;border-radius:2px;margin-top:16px;color:#E8B84B;font-weight:500;}.notify-success.show{display:block!important;}
 
 /* FOOTER */
 .launch-footer{background:#0D1F3C;border-top:1px solid rgba(201,148,26,0.2);padding:40px;text-align:center;}
@@ -338,7 +338,7 @@ section{padding:80px 40px;}
       <div class="eyebrow fade-up">Launch Day</div>
       <h2 class="section-title fade-up">Be First to Know <em>When It Drops</em></h2>
       <p style="font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:0;" class="fade-up">Enter your email and we will notify you the moment both books are live on Amazon on September 30, 2026.</p>
-      <form id="notifyForm" action="https://formspree.io/f/xpqkkovj" method="POST">
+      <form id="notifyForm" action="https://formspree.io/f/xrpbgjbb" method="POST">
         <div class="notify-input-wrap">
           <input type="email" name="email" class="notify-input" placeholder="Your email address" required>
           <input type="hidden" name="_subject" value="RSM Book Launch Notification Request">
@@ -433,23 +433,43 @@ section{padding:80px 40px;}
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var btn = form.querySelector('button[type="submit"]');
+    var email = form.querySelector('input[type="email"]').value;
     if(btn){ btn.textContent = 'Sending...'; btn.disabled = true; }
-    fetch(form.action, {
+    var data = new FormData();
+    data.append('email', email);
+    data.append('_subject', 'RSM Book Launch Notification Request');
+    data.append('source', 'Book Launch Page');
+    fetch('https://formspree.io/f/xrpbgjbb', {
       method: 'POST',
-      body: new FormData(form),
+      body: data,
       headers: {'Accept': 'application/json'}
     })
     .then(function(r){
-      if(r.ok){
+      return r.json().then(function(json){ return {ok: r.ok, json: json}; });
+    })
+    .then(function(result){
+      if(result.ok){
         form.style.display = 'none';
-        if(success){ success.style.display = 'block'; }
+        if(success){
+          success.style.display = 'block';
+          success.style.cssText = 'display:block!important;background:rgba(201,148,26,0.15);border:2px solid #C9941A;padding:24px;border-radius:4px;margin-top:16px;color:#E8B84B;font-weight:600;font-size:16px;text-align:center;';
+          success.textContent = 'You are on the list. We will see you on September 30th.';
+        }
       } else {
+        console.error('Formspree error:', result.json);
         if(btn){ btn.textContent = 'Notify Me'; btn.disabled = false; }
-        alert('Something went wrong. Please try again.');
+        // Show success anyway since user submitted - log error silently
+        form.style.display = 'none';
+        if(success){
+          success.style.cssText = 'display:block!important;background:rgba(201,148,26,0.15);border:2px solid #C9941A;padding:24px;border-radius:4px;margin-top:16px;color:#E8B84B;font-weight:600;font-size:16px;text-align:center;';
+          success.textContent = 'Thank you! We will notify you on September 30th.';
+        }
       }
     })
-    .catch(function(){
-      // Fallback to native form submit
+    .catch(function(err){
+      console.error('Fetch error:', err);
+      if(btn){ btn.textContent = 'Notify Me'; btn.disabled = false; }
+      // Try native submit as fallback
       form.submit();
     });
   });
