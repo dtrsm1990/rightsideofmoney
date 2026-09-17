@@ -338,15 +338,59 @@ section{padding:80px 40px;}
       <div class="eyebrow fade-up">Launch Day</div>
       <h2 class="section-title fade-up">Be First to Know <em>When It Drops</em></h2>
       <p style="font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:0;" class="fade-up">Enter your email and we will notify you the moment both books are live on Amazon on September 30, 2026.</p>
-      <form action="https://formspree.io/f/xrpbgjbb" method="POST" style="margin-top:32px;">
-  <input type="hidden" name="_subject" value="RSM Book Launch Notification">
-  <input type="hidden" name="_next" value="https://dtrsm1990.github.io/rightsideofmoney/discovery-confirmed.html">
-  <div class="notify-input-wrap">
-    <input type="email" name="email" class="notify-input" placeholder="Your email address" required>
-    <button type="submit" class="notify-btn">Notify Me</button>
-  </div>
-  <p class="notify-fine">No spam. One email on launch day. That is it.</p>
-</form>
+      <div id="notifyWrap" style="margin-top:32px;">
+  <form id="notifyForm" action="https://formspree.io/f/xrpbgjbb" method="POST">
+    <input type="hidden" name="_subject" value="RSM Book Launch Notification">
+    <div class="notify-input-wrap">
+      <input type="email" name="email" id="notifyEmail" class="notify-input" placeholder="Your email address" required>
+      <button type="submit" id="notifyBtn" class="notify-btn">Notify Me</button>
+    </div>
+    <p class="notify-fine">No spam. One email on launch day. That is it.</p>
+  </form>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('notifyForm');
+  var wrap = document.getElementById('notifyWrap');
+  var btn = document.getElementById('notifyBtn');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    var email = document.getElementById('notifyEmail').value;
+    var body = new FormData();
+    body.append('email', email);
+    body.append('_subject', 'RSM Book Launch Notification');
+    fetch('https://formspree.io/f/xrpbgjbb', {
+      method: 'POST',
+      body: body,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if(data.ok || data.next){
+        wrap.innerHTML = '<div style="background:rgba(201,148,26,0.15);border:2px solid #C9941A;padding:28px 32px;border-radius:4px;text-align:center;">'
+          + '<div style="font-size:28px;margin-bottom:12px;">&#10003;</div>'
+          + '<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">You are on the list.</div>'
+          + '<div style="font-size:15px;color:rgba(255,255,255,0.7);">We will notify you the moment both books are live on September 30th.</div>'
+          + '</div>';
+      } else {
+        btn.textContent = 'Notify Me';
+        btn.disabled = false;
+        wrap.insertAdjacentHTML('afterbegin', '<div style="background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.4);padding:14px;border-radius:4px;margin-bottom:12px;color:#ff8080;font-size:14px;">Something went wrong. Please try again or email us at info@rightsideofmoney.com</div>');
+      }
+    })
+    .catch(function(){
+      wrap.innerHTML = '<div style="background:rgba(201,148,26,0.15);border:2px solid #C9941A;padding:28px 32px;border-radius:4px;text-align:center;">'
+        + '<div style="font-size:28px;margin-bottom:12px;">&#10003;</div>'
+        + '<div style="font-family:Playfair Display,serif;font-size:20px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">You are on the list.</div>'
+        + '<div style="font-size:15px;color:rgba(255,255,255,0.7);">We will notify you the moment both books are live on September 30th.</div>'
+        + '</div>';
+    });
+  });
+})();
+</script>
     </div>
   </div>
 </section>
