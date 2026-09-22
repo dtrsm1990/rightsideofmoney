@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSM Wealth Mindset Quiz | Right Side of Money</title>
+<meta name="description" content="Discover what's really keeping you from building wealth. Take the free RSM Wealth Mindset Quiz by Darrell Thompson.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;
+  --navy-mid:#1B3A6B;
+  --gold:#C9941A;
+  --gold-light:#E8B84B;
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.6);
+  --light-bg:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-back{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:#E8B84B;}
+@media(max-width:768px){nav{padding:0 20px;}}
+
+/* HERO */
+.hero{padding:120px 40px 60px;text-align:center;background:linear-gradient(180deg,#0a1628 0%,#0D1F3C 100%);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:220px;color:rgba(201,148,26,0.03);white-space:nowrap;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;}
+.hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:2;}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.hero-title em{font-style:normal;color:#E8B84B;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:32px;}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-meta-item{text-align:center;}
+.hero-meta-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;line-height:1;}
+.hero-meta-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.btn-start{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:20px 56px;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s,transform 0.2s;}
+.btn-start:hover{background:#E8B84B;transform:translateY(-2px);}
+
+/* QUIZ CONTAINER */
+.quiz-wrap{max-width:760px;margin:0 auto;padding:60px 40px 80px;}
+
+/* PROGRESS */
+.progress-bar-wrap{margin-bottom:48px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#C9941A;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#E8B84B;}
+.progress-track{width:100%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,#C9941A,#E8B84B);border-radius:2px;transition:width 0.5s ease;}
+
+/* QUESTION CARD */
+.question-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);border-top:3px solid #C9941A;padding:40px;border-radius:2px;margin-bottom:32px;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-category{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.q-number{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,0.25);margin-bottom:8px;}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:#FFFFFF;line-height:1.4;margin-bottom:32px;}
+
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:18px 24px;border-radius:2px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:16px;text-align:left;}
+.option:hover{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.4);}
+.option.selected{background:rgba(201,148,26,0.12);border-color:#C9941A;border-width:2px;}
+.option-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.option.selected .option-dot{border-color:#C9941A;background:#C9941A;}
+.option.selected .option-dot::after{content:'';width:8px;height:8px;background:#0D1F3C;border-radius:50%;}
+.option-text{font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5;}
+.option.selected .option-text{color:#FFFFFF;font-weight:500;}
+
+/* NAV BUTTONS */
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+.btn-prev{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-prev:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+.btn-prev:disabled{opacity:0.2;cursor:not-allowed;}
+.btn-next{background:#C9941A;border:none;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:14px 36px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-next:hover:not(:disabled){background:#E8B84B;}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* RESULTS */
+.results-wrap{max-width:800px;margin:0 auto;padding:40px 40px 80px;}
+.results-hero{text-align:center;padding:60px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:40px;}
+.results-score-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.results-score{font-family:'Bebas Neue',sans-serif;font-size:96px;color:#E8B84B;line-height:1;margin-bottom:8px;}
+.results-score-max{font-size:20px;color:rgba(255,255,255,0.4);font-weight:300;}
+.results-type{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,40px);font-weight:900;color:#FFFFFF;margin:16px 0 12px;}
+.results-type em{font-style:normal;color:#E8B84B;}
+.results-tagline{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:560px;margin:0 auto 32px;}
+
+/* SCORE BAR */
+.score-visual{max-width:500px;margin:0 auto 32px;}
+.score-bar-track{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin-bottom:12px;}
+.score-bar-fill{height:100%;border-radius:6px;transition:width 1.5s ease;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.score-markers{display:flex;justify-content:space-between;}
+.score-marker{font-size:11px;color:rgba(255,255,255,0.3);font-weight:600;}
+.score-marker.active{color:#E8B84B;}
+
+/* SECTIONS */
+.results-section{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:36px;border-radius:2px;margin-bottom:24px;}
+.results-section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:20px;}
+.results-section h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:16px;}
+.results-section p{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:12px;}
+
+/* CATEGORY BREAKDOWN */
+.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.category-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:2px;}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cat-score-track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.cat-score-fill{height:100%;border-radius:3px;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.cat-score-label{font-size:13px;color:rgba(255,255,255,0.6);}
+.cat-score-label strong{color:#E8B84B;}
+
+/* BLOCKING BELIEFS */
+.beliefs-list{list-style:none;margin-top:16px;}
+.beliefs-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.beliefs-list li:last-child{border-bottom:none;}
+.belief-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.belief-text{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.belief-text strong{color:#FFFFFF;display:block;margin-bottom:4px;}
+
+/* NEXT STEPS */
+.next-steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px;}
+.next-step{display:flex;gap:20px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:20px;border-radius:2px;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#C9941A;line-height:1;flex-shrink:0;width:40px;}
+.step-content{}
+.step-title{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:6px;}
+.step-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.step-link{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C9941A;text-decoration:none;border-bottom:1px solid rgba(201,148,26,0.4);padding-bottom:2px;}
+.step-link:hover{color:#E8B84B;border-color:#E8B84B;}
+
+/* CTA */
+.results-cta{text-align:center;padding:48px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:32px;}
+.results-cta h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.results-cta h3 em{font-style:normal;color:#E8B84B;}
+.results-cta p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:28px;line-height:1.7;}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-gold{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;transition:background 0.25s;}
+.btn-cta-gold:hover{background:#E8B84B;}
+.btn-cta-outline{display:inline-block;background:transparent;color:#C9941A;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;border:2px solid #C9941A;transition:all 0.25s;}
+.btn-cta-outline:hover{background:#C9941A;color:#0D1F3C;}
+
+.btn-retake{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto 40px;transition:all 0.25s;}
+.btn-retake:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+
+/* STATES */
+#quizSection{display:none;}
+#resultsSection{display:none;}
+#startSection{display:block;}
+
+/* MOBILE */
+@media(max-width:768px){
+  .quiz-wrap,.results-wrap{padding:40px 20px 60px;}
+  .question-card{padding:28px 20px;}
+  .category-grid{grid-template-columns:1fr;}
+  .hero{padding:100px 20px 40px;}
+  .results-hero{padding:40px 20px;}
+  .results-section{padding:24px 20px;}
+  .results-cta{padding:32px 20px;}
+}
+
+/* FADE */
+.fade-in{animation:fadeIn 0.5s ease;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="./index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <a href="./index.html" class="nav-back">&#8592; Back to Site</a>
+</nav>
+
+<!-- START SECTION -->
+<div id="startSection">
+  <div class="hero">
+    <div class="hero-bg">MINDSET</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Free Assessment by Darrell Thompson</div>
+      <h1 class="hero-title">What's Your <em>Wealth Mindset</em> Score?</h1>
+      <p class="hero-sub">Most people don't lack money. They lack the right mindset. This quiz reveals the exact beliefs, gaps, and blind spots that are keeping you stuck, no matter how hard you're working.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="hero-meta-num">20</div><div class="hero-meta-label">Questions</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">5</div><div class="hero-meta-label">Minutes</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
+      </div>
+      <button class="btn-start" onclick="startQuiz()">Take the Quiz Now &rarr;</button>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.3);">No email required. Instant results.</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ SECTION -->
+<div id="quizSection">
+  <div class="quiz-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-top">
+        <span class="progress-label">Your Progress</span>
+        <span class="progress-count" id="progressCount">1 of 20</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:5%;"></div>
+      </div>
+    </div>
+    <div id="questionContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-prev" id="btnPrev" onclick="prevQuestion()" disabled>&#8592; Previous</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS SECTION -->
+<div id="resultsSection">
+  <div class="results-wrap">
+    <div class="results-hero" id="resultsHero"></div>
+    <div id="resultsBody"></div>
+  </div>
+</div>
+
+<script>
+var questions = [
+  // CATEGORY 1: MONEY BELIEFS (Q1-4)
+  {
+    cat: "Money Beliefs",
+    text: "When you think about wealthy people, what's your first instinct?",
+    options: [
+      {text: "They got lucky or had advantages I didn't have.", score: 1},
+      {text: "They probably did something wrong or took advantage of others.", score: 0},
+      {text: "They made smart decisions over time that I can learn from.", score: 4},
+      {text: "I honestly don't think about wealthy people much.", score: 2}
+    ]
+  },
+  {
+    cat: "Money Beliefs",
+    text: "Complete this sentence honestly: Money is...",
+    options: [
+      {text: "...the root of all evil or causes problems.", score: 0},
+      {text: "...hard to get and even harder to keep.", score: 1},
+      {text: "...a tool that amplifies who you already are.", score: 4},
+      {text: "...something I don't think about too much.", score: 2}
+    ]
+  },
+  {
+    cat: "Money Beliefs",
+    text: "How do you feel when someone you know earns significantly more money than you?",
+    options: [
+      {text: "Genuinely motivated, I want to learn what they're doing.", score: 4},
+      {text: "A little resentful or like something isn't fair.", score: 0},
+      {text: "Mostly indifferent, everyone is on their own path.", score: 2},
+      {text: "Uncomfortable, I start questioning my own choices.", score: 1}
+    ]
+  },
+  {
+    cat: "Money Beliefs",
+    text: "Did the household you grew up in talk openly about money, budgets, and finances?",
+    options: [
+      {text: "Never. Money was a private or stressful topic.", score: 0},
+      {text: "Occasionally and mostly in the context of not having enough.", score: 1},
+      {text: "Sometimes, though not in a structured or educational way.", score: 2},
+      {text: "Yes, and it shaped how I think about money today.", score: 4}
+    ]
+  },
+  // CATEGORY 2: FINANCIAL SELF-AWARENESS (Q5-8)
+  {
+    cat: "Financial Self-Awareness",
+    text: "Right now, without looking anything up, do you know your exact net worth?",
+    options: [
+      {text: "Yes. I track it regularly and know my current number.", score: 4},
+      {text: "Roughly. I have a general idea but not a precise figure.", score: 2},
+      {text: "Not really. I've thought about it but never calculated it.", score: 1},
+      {text: "No, and I'd rather not know right now.", score: 0}
+    ]
+  },
+  {
+    cat: "Financial Self-Awareness",
+    text: "How would you describe your relationship with your monthly budget?",
+    options: [
+      {text: "I don't have one. I track spending mentally or not at all.", score: 0},
+      {text: "I have one but I rarely follow it consistently.", score: 1},
+      {text: "I have a loose budget that I refer to sometimes.", score: 2},
+      {text: "I have a written budget and I review it regularly.", score: 4}
+    ]
+  },
+  {
+    cat: "Financial Self-Awareness",
+    text: "How long could you survive financially if your income stopped today?",
+    options: [
+      {text: "Less than a month. I'm living close to the edge.", score: 0},
+      {text: "One to two months if I cut back significantly.", score: 1},
+      {text: "Three to five months on my emergency savings.", score: 3},
+      {text: "Six months or more. I have a real financial cushion.", score: 4}
+    ]
+  },
+  {
+    cat: "Financial Self-Awareness",
+    text: "When you check your bank account, what do you typically feel?",
+    options: [
+      {text: "Anxiety or dread. I avoid looking as much as possible.", score: 0},
+      {text: "A mix of concern and hope that it's better than I think.", score: 1},
+      {text: "Neutral. It's what it is and I manage it.", score: 2},
+      {text: "Confident. I know what's there and I planned for it.", score: 4}
+    ]
+  },
+  // CATEGORY 3: LIMITING BELIEFS & FEAR (Q9-12)
+  {
+    cat: "Limiting Beliefs & Fear",
+    text: "Have you ever talked yourself out of a financial opportunity before fully exploring it?",
+    options: [
+      {text: "Frequently. I talk myself out of things before I even start.", score: 0},
+      {text: "Sometimes. Fear usually beats curiosity.", score: 1},
+      {text: "Occasionally, but I usually at least research it first.", score: 2},
+      {text: "Rarely. I investigate opportunities before dismissing them.", score: 4}
+    ]
+  },
+  {
+    cat: "Limiting Beliefs & Fear",
+    text: "Which statement sounds most like your internal voice about wealth?",
+    options: [
+      {text: "People like me don't end up wealthy. That's just reality.", score: 0},
+      {text: "I'd like to build wealth but I don't know how or where to start.", score: 1},
+      {text: "I'm making progress but I know I have some beliefs holding me back.", score: 3},
+      {text: "I believe wealth is available to me and I'm actively building it.", score: 4}
+    ]
+  },
+  {
+    cat: "Limiting Beliefs & Fear",
+    text: "How do you handle financial setbacks, an unexpected bill, a job loss, or a bad investment?",
+    options: [
+      {text: "I spiral. It confirms my belief that building wealth is impossible for me.", score: 0},
+      {text: "I get discouraged and it takes a while to get back on track.", score: 1},
+      {text: "I handle it and recover, though it shakes me more than I'd like.", score: 2},
+      {text: "I treat it as data, adjust my plan, and keep moving.", score: 4}
+    ]
+  },
+  {
+    cat: "Limiting Beliefs & Fear",
+    text: "Do you believe you deserve to be wealthy?",
+    options: [
+      {text: "Honestly, no. Or at least not confident I do.", score: 0},
+      {text: "I want to believe it but something holds me back from fully owning it.", score: 1},
+      {text: "Most of the time, yes, though I have moments of doubt.", score: 3},
+      {text: "Completely. I believe I'm building something real and I deserve it.", score: 4}
+    ]
+  },
+  // CATEGORY 4: FINANCIAL BEHAVIOR (Q13-16)
+  {
+    cat: "Financial Behavior",
+    text: "When you get extra money, whether a bonus, tax refund, or gift, what typically happens?",
+    options: [
+      {text: "It disappears into spending within a month.", score: 0},
+      {text: "I intend to save it but usually end up spending most of it.", score: 1},
+      {text: "I split it between a purchase and some savings.", score: 3},
+      {text: "It goes directly toward a financial goal or investment.", score: 4}
+    ]
+  },
+  {
+    cat: "Financial Behavior",
+    text: "How do you currently feel about debt in your life?",
+    options: [
+      {text: "It's overwhelming and I don't have a clear plan to address it.", score: 0},
+      {text: "I know it's a problem but I feel stuck on where to begin.", score: 1},
+      {text: "I'm actively paying it down with a specific strategy.", score: 3},
+      {text: "I've eliminated consumer debt or I'm close to it.", score: 4}
+    ]
+  },
+  {
+    cat: "Financial Behavior",
+    text: "Are you currently investing any portion of your income?",
+    options: [
+      {text: "No. I don't have enough left after expenses.", score: 0},
+      {text: "Not yet, but I've been meaning to start.", score: 1},
+      {text: "Yes, through a 401k or similar plan at work.", score: 3},
+      {text: "Yes, intentionally and beyond just my workplace plan.", score: 4}
+    ]
+  },
+  {
+    cat: "Financial Behavior",
+    text: "How consistently do you pay yourself first, meaning save before you pay anything else?",
+    options: [
+      {text: "I don't. I save whatever's left over, which is usually nothing.", score: 0},
+      {text: "Inconsistently. When I remember or when there's enough.", score: 1},
+      {text: "Most months. It's a habit I've been building.", score: 3},
+      {text: "Every paycheck, automatically. It's non-negotiable.", score: 4}
+    ]
+  },
+  // CATEGORY 5: WEALTH MINDSET & VISION (Q17-20)
+  {
+    cat: "Wealth Mindset & Vision",
+    text: "Have you written down specific financial goals with dollar amounts and deadlines?",
+    options: [
+      {text: "No. I have vague ideas but nothing written or specific.", score: 0},
+      {text: "I've thought about it but haven't committed it to paper.", score: 1},
+      {text: "I have some goals written but they're not detailed or reviewed regularly.", score: 2},
+      {text: "Yes. Specific, written, dated goals that I review regularly.", score: 4}
+    ]
+  },
+  {
+    cat: "Wealth Mindset & Vision",
+    text: "How much time do you spend weekly learning about money, investing, or financial strategies?",
+    options: [
+      {text: "None. I don't actively seek out financial education.", score: 0},
+      {text: "Occasionally. Maybe once or twice a month.", score: 1},
+      {text: "Regularly. A few times a week through content or books.", score: 3},
+      {text: "It's a priority. I invest time in financial education consistently.", score: 4}
+    ]
+  },
+  {
+    cat: "Wealth Mindset & Vision",
+    text: "Do you have a clear picture of what financial freedom looks like for your specific life?",
+    options: [
+      {text: "No. It feels abstract or out of reach.", score: 0},
+      {text: "Vaguely. I know I want more but I haven't defined what that looks like.", score: 1},
+      {text: "Somewhat. I have a direction but not a complete picture.", score: 2},
+      {text: "Yes. I can describe it specifically in numbers and lifestyle.", score: 4}
+    ]
+  },
+  {
+    cat: "Wealth Mindset & Vision",
+    text: "What best describes how you think about generational wealth, what you'll pass on financially?",
+    options: [
+      {text: "I've never really thought about it. Survival is my focus right now.", score: 0},
+      {text: "I'd like to leave something behind but I don't have a plan.", score: 1},
+      {text: "I'm actively thinking about it and taking steps toward it.", score: 3},
+      {text: "It's central to why I'm building. Legacy is a deliberate goal.", score: 4}
+    ]
+  }
+];
+
+var categories = ["Money Beliefs","Financial Self-Awareness","Limiting Beliefs & Fear","Financial Behavior","Wealth Mindset & Vision"];
+var answers = new Array(questions.length).fill(null);
+var current = 0;
+
+function startQuiz(){
+  document.getElementById('startSection').style.display='none';
+  document.getElementById('quizSection').style.display='block';
+  window.scrollTo(0,0);
+  renderQuestion();
+}
+
+function renderQuestion(){
+  var q = questions[current];
+  var pct = ((current+1)/questions.length*100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressCount').textContent = (current+1)+' of '+questions.length;
+
+  var html = '<div class="question-card">';
+  html += '<div class="q-category">'+q.cat+'</div>';
+  html += '<div class="q-number">Question '+(current+1)+'</div>';
+  html += '<div class="q-text">'+q.text+'</div>';
+  html += '<div class="options">';
+  q.options.forEach(function(opt,i){
+    var sel = answers[current]===i ? ' selected' : '';
+    html += '<div class="option'+sel+'" onclick="selectOption('+i+')">';
+    html += '<div class="option-dot"></div>';
+    html += '<div class="option-text">'+opt.text+'</div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+  document.getElementById('questionContainer').innerHTML = html;
+  document.getElementById('btnPrev').disabled = current===0;
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===questions.length-1 ? 'See My Results' : 'Next \u2192';
+}
+
+function selectOption(i){
+  answers[current]=i;
+  document.querySelectorAll('.option').forEach(function(el,idx){
+    el.classList.toggle('selected',idx===i);
+  });
+  document.getElementById('btnNext').disabled=false;
+}
+
+function nextQuestion(){
+  if(current<questions.length-1){current++;renderQuestion();window.scrollTo(0,0);}
+  else{showResults();}
+}
+function prevQuestion(){
+  if(current>0){current--;renderQuestion();window.scrollTo(0,0);}
+}
+
+function showResults(){
+  document.getElementById('quizSection').style.display='none';
+  document.getElementById('resultsSection').style.display='block';
+  window.scrollTo(0,0);
+
+  // Calculate total score
+  var total=0;
+  var maxTotal=questions.length*4;
+  var catScores={};
+  var catMax={};
+  categories.forEach(function(c){catScores[c]=0;catMax[c]=0;});
+
+  questions.forEach(function(q,i){
+    if(answers[i]!==null){
+      var s=q.options[answers[i]].score;
+      total+=s;
+      catScores[q.cat]+=s;
+      catMax[q.cat]+=4;
+    }
+  });
+
+  var pct=Math.round(total/maxTotal*100);
+
+  // Determine result type
+  var type,tagline,description,beliefs,nextSteps;
+
+  if(pct<=25){
+    type='The <em>Scarcity Survivor</em>';
+    tagline="You're still operating from the financial blueprint you inherited. The ceiling isn't the economy. It's the story you're telling yourself.";
+    description="Your results show that deeply rooted money beliefs, likely formed in childhood, are running your financial decisions without your permission. Scarcity thinking, fear of money, and a sense that wealth isn't meant for you are the core patterns showing up across your answers. The good news is this isn't about intelligence or effort. It's about programming, and programming can be changed.";
+    beliefs=[
+      {icon:'🔒',title:'Inherited scarcity mindset',text:"You absorbed the financial fears and beliefs of the people around you growing up. Those beliefs feel like facts because they've been with you so long."},
+      {icon:'🚪',title:'Wealth identity block',text:"There's a part of you that doesn't believe wealth belongs to you. Until that changes, every strategy and tool will hit that invisible ceiling."},
+      {icon:'😰',title:'Money avoidance pattern',text:"Checking accounts, making budgets, facing the numbers feels uncomfortable. Avoidance feels safer but it's costing you every single day."},
+      {icon:'⛓️',title:'Generational cycle in progress',text:"Without intervention, the financial patterns you grew up watching become the ones you pass forward. The cycle ends with a decision."}
+    ];
+    nextSteps=[
+      {n:'1',t:'Start with the RSM Wealth Builders Community',d:"This is where the mindset shift begins. Free, daily financial truth, and a room full of people doing this exact work.",l:'./community-invite.html',lt:'Join Free'},
+      {n:'2',t:'Read Creating A Wealth-Building Mindset',d:"This book was written for exactly where you are. It starts at the root, not the surface.",l:'./book.html',lt:'Get the Book'},
+      {n:'3',t:'Book a Free Discovery Call',d:"Let's get on a call and talk about where you are and what the right next step looks like for your specific situation.",l:'./discovery-intake.html',lt:'Book Free Call'}
+    ];
+  } else if(pct<=50){
+    type='The <em>Aware but Anchored</em>';
+    tagline="You see the gap between where you are and where you want to be. Something keeps pulling you back. Let's name it.";
+    description="You have real financial awareness and genuine desire to build something different. The problem isn't knowledge. It's that limiting beliefs and inconsistent behavior are creating a gap between what you know and what you actually do. You've had the intention but the follow-through breaks down. The right structure and accountability changes everything.";
+    beliefs=[
+      {icon:'🧱',title:'Intention without execution',text:"You know what you should be doing. The gap between knowing and doing is a mindset issue, not a knowledge issue."},
+      {icon:'🔄',title:'Inconsistency as a pattern',text:"Good months followed by backsliding. The habit hasn't been built to the level where it runs on autopilot yet."},
+      {icon:'🌫️',title:'Vague financial vision',text:"Without a specific, written destination, motivation fades when it gets hard. Clarity is what creates commitment."},
+      {icon:'⏳',title:"Waiting for the right time",text:"There's a version of you that's been about to start for a while. The right time is a myth. The right decision is now."}
+    ];
+    nextSteps=[
+      {n:'1',t:'Take the RSM Foundation Course',d:"This course builds the financial foundation you've been missing. Structure, strategy, and accountability in one place.",l:'./courses.html',lt:'View Courses'},
+      {n:'2',t:'Explore Level 1 Accountability',d:"If you know what to do but can't stay consistent, accountability coaching is what bridges that gap.",l:'./accountability.html',lt:'Learn More'},
+      {n:'3',t:'Join the RSM Community',d:"You need to be in a room with people who are doing the work. Momentum is contagious.",l:'./community-invite.html',lt:'Join Free'}
+    ];
+  } else if(pct<=75){
+    type='The <em>Builder in Motion</em>';
+    tagline="You're already moving. Now it's time to remove the friction that's slowing you down and accelerate.";
+    description="You have a solid foundation and real financial awareness. You're making moves and your mindset is mostly working for you. But there are specific gaps, whether in your investment strategy, your wealth vision, your legacy planning, or a few lingering beliefs, that are keeping you from the next level. You don't need to start over. You need to go deeper.";
+    beliefs=[
+      {icon:'🎯',title:'Playing it too safe',text:"You've built stability but you might be holding back from the bigger plays. Fear of losing what you've built can become its own ceiling."},
+      {icon:'🗺️',title:'Missing the advanced roadmap',text:"You've handled the basics. What's next? Without a clear plan for the next level, progress naturally plateaus."},
+      {icon:'🏛️',title:'Legacy planning gap',text:"You're building but you may not have fully addressed how it transfers. Protection and legacy structures deserve your attention now."},
+      {icon:'🔋',title:'Mindset maintenance needed',text:"At this level, the real work is keeping the mindset sharp. Community, education, and accountability continue to matter."}
+    ];
+    nextSteps=[
+      {n:'1',t:'Level 2 Advance Wealth Building',d:"You're ready for the next tier. Income diversification, strategic debt elimination, and investment planning.",l:'./accountability.html',lt:'Explore Level 2'},
+      {n:'2',t:'Book a 1-Hour Mindset Call',d:"A focused conversation to identify the specific gaps and build the plan for your next level.",l:'./discovery-intake.html',lt:'Book a Call'},
+      {n:'3',t:'Get the Second Edition',d:"The updated book has deeper content specifically built for where you are right now.",l:'./book-launch.html',lt:'View New Edition'}
+    ];
+  } else {
+    type='The <em>Wealth Builder</em>';
+    tagline="Your mindset is your greatest asset. You've done real work to get here. Now it's time to build the legacy.";
+    description="Your score reflects someone who has done genuine work on both their mindset and their financial behavior. You think like a wealth builder, you act like one, and you're already seeing results. The focus now shifts to scale, protection, legacy, and becoming the person in your community who pulls others up. You know better than most that wealth is a direction, not a destination.";
+    beliefs=[
+      {icon:'🚀',title:'Ready for elite level strategy',text:"Your mindset can carry more than you're currently asking of it. The next moves involve ownership, leverage, and legacy structures."},
+      {icon:'🛡️',title:'Protection structures matter now',text:"The more you build, the more important it becomes to protect it. Life insurance, estate planning, and legal structures deserve priority."},
+      {icon:'👑',title:'Leadership identity emerging',text:"People around you are watching. Mentoring others is both a responsibility and a multiplier for your own growth."},
+      {icon:'♾️',title:'Generational impact is your next chapter',text:"You've gotten yourself right. Now comes the real work of building something that outlasts you."}
+    ];
+    nextSteps=[
+      {n:'1',t:'Level 3 Elite Wealth Accountability',d:"Wealth protection, estate planning, governance structures, and generational wealth transfer. This is where you belong.",l:'./accountability.html',lt:'Explore Level 3'},
+      {n:'2',t:'Bring Darrell to Your Organization',d:"If you've built this mindset, your team, community, or organization needs this message too.",l:'./speaking.html',lt:'Book Darrell'},
+      {n:'3',t:'Share the Message with Your Organization',d:"You've built this mindset. Your team, community, or organization needs this message too. Bring Darrell in to deliver it.",l:'./speaking.html',lt:'Book Darrell to Speak'}
+    ];
+  }
+
+  // Build category breakdown
+  var catHTML='<div class="category-grid">';
+  categories.forEach(function(cat){
+    var cs=catScores[cat];
+    var cm=catMax[cat];
+    var cp=Math.round(cs/cm*100);
+    var label=cp>=75?'Strong':cp>=50?'Growing':cp>=25?'Developing':'Needs Focus';
+    catHTML+='<div class="category-card">';
+    catHTML+='<div class="cat-name">'+cat+'</div>';
+    catHTML+='<div class="cat-score-track"><div class="cat-score-fill" style="width:'+cp+'%;"></div></div>';
+    catHTML+='<div class="cat-score-label"><strong>'+label+'</strong> &mdash; '+cp+'%</div>';
+    catHTML+='</div>';
+  });
+  catHTML+='</div>';
+
+  // Build beliefs HTML
+  var beliefsHTML='<ul class="beliefs-list">';
+  beliefs.forEach(function(b){
+    beliefsHTML+='<li><div class="belief-icon">'+b.icon+'</div><div class="belief-text"><strong>'+b.title+'</strong>'+b.text+'</div></li>';
+  });
+  beliefsHTML+='</ul>';
+
+  // Build next steps HTML
+  var stepsHTML='<div class="next-steps">';
+  nextSteps.forEach(function(s){
+    stepsHTML+='<div class="next-step"><div class="step-num">'+s.n+'</div><div class="step-content"><div class="step-title">'+s.t+'</div><div class="step-desc">'+s.d+'</div><a href="'+s.l+'" class="step-link">'+s.lt+' &rarr;</a></div></div>';
+  });
+  stepsHTML+='</div>';
+
+  // Render hero
+  document.getElementById('resultsHero').innerHTML=
+    '<div class="results-score-label">Your Wealth Mindset Score</div>'+
+    '<div class="results-score">'+total+'<span class="results-score-max">/'+maxTotal+'</span></div>'+
+    '<div class="results-type">'+type+'</div>'+
+    '<div class="results-tagline">'+tagline+'</div>'+
+    '<div class="score-visual">'+
+    '<div class="score-bar-track"><div class="score-bar-fill" id="scoreBarFill" style="width:0%;"></div></div>'+
+    '<div class="score-markers">'+
+    '<span class="score-marker'+(pct<=25?' active':'')+'">Scarcity Survivor</span>'+
+    '<span class="score-marker'+(pct>25&&pct<=50?' active':'')+'">Aware but Anchored</span>'+
+    '<span class="score-marker'+(pct>50&&pct<=75?' active':'')+'">Builder in Motion</span>'+
+    '<span class="score-marker'+(pct>75?' active':'')+'">Wealth Builder</span>'+
+    '</div></div>';
+
+  // Render body
+  document.getElementById('resultsBody').innerHTML=
+    '<div class="results-section fade-in">'+
+    '<div class="results-section-title">Your Full Assessment</div>'+
+    '<h3>What Your Score Is Telling You</h3>'+
+    '<p>'+description+'</p>'+
+    '</div>'+
+    '<div class="results-section fade-in">'+
+    '<div class="results-section-title">Category Breakdown</div>'+
+    '<h3>Where You Are Across Each Area</h3>'+
+    catHTML+
+    '</div>'+
+    '<div class="results-section fade-in">'+
+    '<div class="results-section-title">What\'s Blocking Your Progress</div>'+
+    '<h3>The Patterns Showing Up in Your Results</h3>'+
+    beliefsHTML+
+    '</div>'+
+    '<div class="results-section fade-in">'+
+    '<div class="results-section-title">Your Next Steps</div>'+
+    '<h3>What Darrell Recommends Based on Your Score</h3>'+
+    stepsHTML+
+    '</div>'+
+    '<div class="results-cta fade-in">'+
+    '<h3>Ready to Get on the <em>Right Side of Money?</em></h3>'+
+    '<p>Your quiz results are a starting point, not a sentence. Every pattern identified here can be changed with the right knowledge, community, and accountability. That\'s exactly what Right Side of Money was built to provide.</p>'+
+    '<div class="cta-buttons">'+
+    '<a href="./community-invite.html" class="btn-cta-gold">Join the Free Community</a>'+
+    '<a href="./discovery-intake.html" class="btn-cta-outline">Book a Free Discovery Call</a>'+
+    '</div>'+
+    '</div>'+
+    '<button class="btn-retake" onclick="retakeQuiz()">&#8635; Retake the Quiz</button>';
+
+  // Animate score bar
+  setTimeout(function(){
+    var fill=document.getElementById('scoreBarFill');
+    if(fill)fill.style.width=pct+'%';
+  },300);
+}
+
+function retakeQuiz(){
+  answers=new Array(questions.length).fill(null);
+  current=0;
+  document.getElementById('resultsSection').style.display='none';
+  document.getElementById('quizSection').style.display='block';
+  window.scrollTo(0,0);
+  renderQuestion();
+}
+</script>
+</body>
+</html>
