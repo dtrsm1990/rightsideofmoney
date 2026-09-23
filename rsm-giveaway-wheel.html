@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Right Side of Money Giveaway Wheel</title>
+<title>RSM Giveaway Wheel (Slide Version)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
@@ -237,6 +237,37 @@
   @media (prefers-reduced-motion: reduce) {
     .dialog { animation: none; }
   }
+
+  /* ---------- Slide-fit layout for PowerPoint Web Viewer ---------- */
+  html, body { height: 100%; overflow: hidden; }
+  body { background: #1a1a1a !important; font-size: clamp(10px, 2.3vh, 16px); }
+  header, .tagline, .panel:nth-of-type(3), .panel .hint { display: none !important; }
+  .wrap {
+    height: 100vh; max-width: none; margin: 0;
+    padding: 3vh 3vw;
+    grid-template-columns: auto minmax(180px, 1fr) !important;
+    gap: 3vw; align-items: center;
+  }
+  .stage { gap: 2.2vh; }
+  .wheel-box { width: min(calc(100vh - 17vh - 90px), 56vw); margin-top: 3vh; }
+  .wheel-box canvas#wheel { box-shadow: 0 0 0 1.2vh var(--gold), 0 0 0 1.6vh var(--gold-bright), 0 0 0 2vh var(--gold-deep); }
+  .pointer { top: -2.6vh; border-left-width: 2.6vh; border-right-width: 2.6vh; border-top-width: 5.2vh; }
+  .spin-btn { font-size: clamp(12px, 3.4vh, 24px); padding: 1.4vh 5vh; box-shadow: 0 0.6vh 0 var(--gold-deep); }
+  .count { margin: -1vh 0 0; font-size: .9em; }
+  aside { align-self: center; }
+  .panel { padding: 2vh 1.6vw; border-radius: 12px; }
+  .panel + .panel { margin-top: 2vh; }
+  .panel h2 { font-size: 1.15em; margin-bottom: 1vh; }
+  textarea { min-height: 0; height: 30vh; font-size: .95em; line-height: 1.45; padding: 1vh 1vw; resize: none; }
+  .row { gap: 0.8vh; margin-top: 1.2vh; }
+  .btn { font-size: .8em; padding: 0.8vh 1vw; }
+  label.toggle { margin-top: 1.2vh; font-size: .85em; }
+  ol.winners { max-height: 16vh; }
+  .hub { font-size: clamp(8px, 2.6vh, 20px); border-width: 0.6vh; }
+  label.toggle input { width: 2.4vh; height: 2.4vh; }
+  .dialog { padding: 4vh 3vw 3vh; }
+  .dialog .dlogo { height: 8vh; }
+  .dialog .name { font-size: clamp(20px, 8vh, 56px); }
 </style>
 </head>
 <body>
