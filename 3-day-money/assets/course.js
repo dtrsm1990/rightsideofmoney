@@ -7,7 +7,7 @@
 /* ---------- SETTINGS: the only lines you need to edit ---------- */
 const RSM_CONFIG = {
   // Your Formspree form ID (the part after /f/ in https://formspree.io/f/XXXXXXX)
-  formspreeId: "xrpbgjbb",
+  formspreeId: "xbglzeal",
   // Name and title printed on the completion certificate
   instructorName: "Darrell Thompson",
   instructorTitle: "Founder, Right Side of Money",

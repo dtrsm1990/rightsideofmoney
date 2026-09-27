@@ -24,7 +24,7 @@ A free Right Side of Money program. Static HTML, CSS and JavaScript, ready for G
 
 ## Settings (top of `assets/course.js`)
 
-- `formspreeId`: your Formspree form ID (currently `xrpbgjbb`).
+- `formspreeId`: your Formspree form ID (currently `xbglzeal`).
 - `instructorName` / `instructorTitle`: printed on the certificate.
 - `passMark`: 0.8 means 80% is required to unlock the next day.
 
