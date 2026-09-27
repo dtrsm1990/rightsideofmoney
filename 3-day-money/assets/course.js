@@ -13,7 +13,7 @@ const RSM_CONFIG = {
   instructorTitle: "Founder, Right Side of Money",
   // Logo file (put your logo at this path in the repository)
   logo: "assets/rsm-logo.png",
-  siteUrl: "https://rightsideofmoney.com",
+  siteUrl: "https://dtrsm1990.github.io/rightsideofmoney/",
   bookUrl: "https://www.amazon.com/author/rightsideofmoney",
   courseName: "3-Day Introduction to Understanding Money",
   passMark: 0.8

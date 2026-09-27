@@ -325,3 +325,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   .shell,.narrow{padding-left:16px;padding-right:16px}
   .prose-lead::first-letter{font-size:56px}
 }
+
+/* program banner on the welcome page */
+.hero-banner{display:block;width:100%;height:auto;border-radius:8px;border:1px solid rgba(245,191,31,.45);box-shadow:0 18px 48px rgba(0,0,0,.5);margin:0 0 30px}
+@media (min-width:901px){.signup{position:sticky;top:90px}}
