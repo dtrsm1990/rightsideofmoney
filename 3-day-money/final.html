@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final Knowledge Check | Right Side of Money</title>
+<link rel="icon" href="assets/rsm-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body>
+<header id="topbar" class="topbar"></header>
+<main>
+<div class="shell">
+<aside class="sidebar" id="sidebar" data-title="Final" data-sub="Final Knowledge Check and Completion"></aside>
+<div class="content">
+
+<section class="lesson" data-id="start" data-title="Before You Begin" data-kind="Start">
+  <p class="eyebrow">Final Knowledge Check</p>
+  <h1>Three days of learning. One final step, <span data-name></span>.</h1>
+  <p class="dek">You've done the work. Now show yourself how much you've learned. This final check covers all three days through 15 real-life situations.</p>
+  <div class="callout">
+    <p class="tag">How the Final works</p>
+    <ul>
+      <li><strong>15 questions</strong> drawn from Day 1, Day 2, and Day 3.</li>
+      <li>Answer each one <strong>in your own words</strong>. Exact wording doesn't matter. Understanding does.</li>
+      <li>Score <strong>80% (12 of 15) or higher</strong> to earn your certificate.</li>
+      <li>There's no time limit. If you miss one, use the feedback and the hint, then try again. After three tries, you'll get a link to review the lesson.</li>
+      <li>Your answers save as you go, so you can take a break and come back.</li>
+    </ul>
+  </div>
+  <p>Take a breath. You already know this. Every question is something you've seen, thought about, and applied over the last three days.</p>
+</section>
+
+<section class="lesson" data-id="final" data-title="Final Knowledge Check" data-kind="Knowledge Check" hidden>
+  <p class="eyebrow">Final Knowledge Check</p>
+  <h1>15 real-life situations</h1>
+  <p class="dek">Score 80% (12 of 15) or higher to complete the program.</p>
+  <div class="kc" data-kc="final" data-questions="f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15"></div>
+</section>
+
+<section class="lesson takeaway" data-id="message" data-title="Course Completion Message" data-kind="Completion" hidden>
+  <p class="eyebrow">Course Completion Message</p>
+  <h1>Congratulations, <span data-name></span>. You're on the right side now.</h1>
+  <p class="dek">A message from Darrell Thompson, founder of Right Side of Money.</p>
+
+  <p>Three days ago, you made a decision most people never make. You decided to understand money instead of just using it. I want you to take a moment and recognize that. It matters more than you might think.</p>
+  <p>You now know things most adults in this country were never taught. You know that the dollar in your wallet is an agreement built on trust, law, and the work of millions of people. You know that it hasn't been tied to gold since 1971, that most new money is created when someone takes out a loan, and that inflation quietly takes from savers while new money flows first to those closest to it. You know that the tax code rewards owners, that every financial crisis follows a pattern, and that the people who come out stronger are the ones with low debt, cash reserves, and assets that grow.</p>
+  <p>Most of all, you know that <strong>you can't control the system, but you can control your position in it.</strong></p>
+
+  <p class="big-line">Knowledge only becomes power when you use it. Your next move matters more than everything you just learned.</p>
+
+  <p>I grew up on the South Side of Chicago. I dropped out of high school. Nobody in my world was talking about money scripts, the Federal Reserve, or asset ownership. The Marine Corps taught me discipline, and life taught me the rest the hard way. I built Right Side of Money so that you don't have to learn it the hard way too.</p>
+  <p>So here's what I'm asking of you. Don't let this be one more thing you learned and forgot. On the next page, you'll build your personal action plan. Pick three moves. Put dates on them. Then do the first one this week, even if it's small. Open the account. Make the extra payment. Set up the automatic transfer. Have the conversation with your kids.</p>
+  <p>And then teach someone. Every time you share what you've learned, you're breaking a cycle that's been holding families back for generations. That's how we change the game, one family at a time.</p>
+  <p>I'm proud of you. Welcome to the right side of money.</p>
+  <p style="font-family:var(--display);font-size:30px;font-style:italic;color:var(--gold-light);margin-top:24px">Darrell Thompson</p>
+  <p style="margin-top:-8px;color:#cfc8b5">Founder, Right Side of Money &middot; U.S. Marine Corps, Retired &middot; Author of <em>Creating a Wealth Building Mindset</em></p>
+</section>
+
+</div></div>
+</main>
+<footer class="footer">
+  <p>&copy; 2026 Right Side of Money. For educational purposes only. Nothing in this program is financial, investment, tax, or legal advice. Talk with a licensed professional about your specific situation.</p>
+  <p><a href="index.html">Program home</a></p>
+</footer>
+
+<script src="assets/course.js"></script>
+<script>
+const Q = {
+f1: {
+  id:"f1", title:"The Coffee Can", review:{href:"day-1.html#origin", title:"The Origin of Money"},
+  scenario:`<p>In 2005, Mr. Harris put <b>$20,000</b> in cash in a coffee can in his closet, planning to use it when he retired. When he opened it 20 years later, it was all still there. But he found it bought far less than it would have in 2005.</p>`,
+  ask:"Which of money's three jobs did the dollar fail to do well for Mr. Harris, and why?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Name the function.", re:[/store\s*of\s*value/,/storing value/,/hold(ing|s)? (its )?value/]},
+    {nudge:"Explain what caused the loss.", re:[/inflation/,/purchas/,/prices? (rose|went up|increas|climb)/,/buy(s)? less/,/worth less/,/lost value/,/los/]}
+  ]}],
+  wrong:[{re:/medium\s*of\s*exchange|unit\s*of\s*account/, msg:"His dollars could still be spent and still measured prices. What job is about holding value over time?"}],
+  hint:"Which job is about saving today and spending later?",
+  model:"Store of value. Inflation steadily reduced what each dollar could buy, so his $20,000 kept its face value but lost a large share of its purchasing power over 20 years.",
+  why:"Cash is a great tool for spending and emergencies, but a poor place to store long-term wealth."
+},
+f2: {
+  id:"f2", title:"Community Credits", review:{href:"day-1.html#origin", title:"The Origin of Money"},
+  scenario:`<p>A neighborhood starts a skills exchange. Instead of trading haircuts for car repairs directly, members earn "community credits" for any service they provide and spend those credits with any other member. Suddenly, trades that never would've happened are happening every day.</p>`,
+  ask:"Which function of money are the community credits performing, and what problem do they solve?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Name the function.", re:[/medium\s*of\s*exchange/,/means of exchange/,/exchange/]},
+    {nudge:"Name the problem it solves.", re:[/coincidence/,/barter/,/(don'?t|doesn'?t|do not|does not) (want|need)/,/what the other/,/match/,/direct(ly)? trad/]}
+  ]}],
+  wrong:[{re:/store\s*of\s*value|unit\s*of\s*account/, msg:"The credits might do that too, but what's making the new trades possible?"}],
+  hint:"This is the exact problem from Andre and Lisa in Day 1, Lesson 1.",
+  model:"They're working as a medium of exchange. They solve the double coincidence of wants: members no longer need to find someone who wants exactly what they offer. They can earn credits from anyone and spend them with anyone.",
+  why:"Anything that everyone agrees to accept can act as money. That's why trust is the real foundation."
+},
+f3: {
+  id:"f3", title:"New Hampshire, 1944", review:{href:"day-1.html#gold", title:"The Gold Standard"},
+  scenario:`<p>In July 1944, representatives of 44 nations meet at a hotel in New Hampshire to design the world's money system after World War II. When they leave, most major currencies are tied to the U.S. dollar.</p>`,
+  ask:"What's the name of this agreement, and how was the dollar itself tied to gold under it?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Name the agreement.", re:[/bretton\s*woods/]},
+    {nudge:"Explain the dollar's link to gold.", re:[/35/,/peg/,/fixed/,/convert/,/exchange(d|able)? for gold/,/backed by gold/,/tied to gold/,/redeem/,/gold/]}
+  ]}],
+  wrong:[{re:/nixon|1971/, msg:"1971 is when this system ended. What was it called when it started?"}],
+  hint:"It's named after the town where the meeting took place.",
+  model:"The Bretton Woods Agreement. Other currencies were pegged to the dollar, and the dollar was fixed to gold at $35 an ounce. Foreign central banks could exchange their dollars for U.S. gold at that price until Nixon closed the gold window in 1971.",
+  why:"Bretton Woods is why the dollar became the world's reserve currency, a position it still holds today."
+},
+f4: {
+  id:"f4", title:"The Birth of the Fed", review:{href:"day-1.html#fed", title:"The Creation of the Federal Reserve"},
+  scenario:`<p>A student sees a headline saying "The Fed holds rates steady" and asks, "Has the Federal Reserve always existed? When did it start, and what made people want it?"</p>`,
+  ask:"When was the Federal Reserve created, and what event pushed the country to create it?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Give the year.", re:[/1913/]},
+    {nudge:"Name the event that pushed it.", re:[/1907/,/panic/,/bank run/,/runs/,/crisis/,/morgan/]}
+  ]}],
+  wrong:[{re:/1933|depression/, msg:"The Depression came after the Fed was created. What crisis came before it?"}],
+  hint:"J.P. Morgan had to rescue the banking system personally a few years earlier.",
+  model:"It was created in 1913 when President Woodrow Wilson signed the Federal Reserve Act. The Panic of 1907, when bank runs spread and J.P. Morgan had to organize a private rescue, convinced Congress the country needed a central bank to act as a lender of last resort.",
+  why:"Knowing why the Fed exists helps you predict what it'll do in the next crisis."
+},
+f5: {
+  id:"f5", title:"Paid in Full", review:{href:"day-2.html#creation", title:"How Money Is Created"},
+  scenario:`<p>Tasha makes the final payment on her $5,000 personal loan. She feels great. Her economics-loving friend says, "Congratulations. You just made money disappear."</p>`,
+  ask:"What does her friend mean? What happens to the money supply when a bank loan is paid off?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Explain that the money is destroyed or removed.", re:[/destroy/,/disappear/,/shrink/,/remov/,/goes away/,/gone/,/erase/,/cancel/,/out of (existence|circulation)/,/decreas/,/less money/,/reduc/,/extinguish/]},
+    {nudge:"Connect it to how the money was created: as a loan.", re:[/creat/,/loan/,/debt/,/money supply/,/borrow/,/lend/]}
+  ]}],
+  wrong:[{re:/(bank|lender) (keeps|kept|gets|got) (it|the money)|profit/, msg:"The bank does earn interest, but what happens to the principal itself when the debt is repaid?"}],
+  hint:"Money was created when the loan was made. What's the reverse?",
+  model:"When the bank made the loan, it created new money as a deposit. When Tasha repays the principal, that money cancels out the debt and is effectively removed from the money supply. Money created by lending is destroyed by repayment.",
+  why:"This is why the economy depends on continuous borrowing, and why widespread debt paydown can slow the whole economy."
+},
+f6: {
+  id:"f6", title:"The High-Yield Account", review:{href:"day-2.html#inflation", title:"Inflation"},
+  scenario:`<p>Brandon moves his emergency fund to a high-yield savings account paying <b>4.5%</b> a year. Inflation that year is <b>3%</b>.</p>`,
+  ask:"What is Brandon's approximate real return, and what does \"real\" mean here?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Calculate his real return.", re:[/1\.5/,/one and a half/]},
+    {nudge:"Explain what \"real\" means.", re:[/inflation/,/purchas/,/buying power/,/after/,/minus/,/subtract/,/adjust/]}
+  ]}],
+  wrong:[{re:/\b7\.5\b/, msg:"You added the numbers. Real return means taking inflation out."}],
+  hint:"Nominal rate minus inflation.",
+  model:"About 1.5%. His real return is his nominal rate (4.5%) minus inflation (3%). \"Real\" means adjusted for inflation: it's how much his purchasing power actually grew.",
+  why:"Real returns are the only returns that make you wealthier."
+},
+f7: {
+  id:"f7", title:"The Fed Shrinks", review:{href:"day-2.html#qe", title:"Quantitative Easing"},
+  scenario:`<p>After years of buying bonds, the Federal Reserve announces it will let billions of dollars of its bonds mature each month without buying new ones to replace them. Its balance sheet will slowly shrink.</p>`,
+  ask:"What's this policy called, and how is it different from quantitative easing?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Name the policy.", re:[/quantitative tightening/,/\bqt\b/,/tighten/]},
+    {nudge:"Explain the difference from QE.", re:[/opposite/,/revers/,/shrink/,/remov/,/drain/,/less money/,/pull(s|ing)? (money|back)/,/reduc/,/instead of (buying|adding|creating)/,/qe (adds|buys|creates)/,/not buying/,/stop(s|ping)? buying/]}
+  ]}],
+  wrong:[{re:/^quantitative easing$|^qe$/, msg:"QE is when the Fed buys and expands. This is the reverse."}],
+  hint:"If QE is easing, what's the opposite?",
+  model:"Quantitative tightening (QT). It's the reverse of QE. Under QE, the Fed creates reserves to buy assets and expands its balance sheet. Under QT, it lets assets roll off, shrinking its balance sheet and pulling money out of the financial system.",
+  why:"QT tends to push long-term rates up and can cool asset prices. Knowing the difference helps you understand market headlines."
+},
+f8: {
+  id:"f8", title:"Who's First in Line?", review:{href:"day-2.html#follow", title:"Follow the Money"},
+  scenario:`<p>An economist explains: "When new money enters the economy, the people who get it first can spend it before prices rise. The people who get it last face higher prices before their income catches up." This idea was first described by an 18th-century banker.</p>`,
+  ask:"What's this effect called, and give one example of a group that tends to receive new money last.",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Name the effect.", re:[/cantillon/]},
+    {nudge:"Name a group that receives it last.", re:[/worker/,/wage/,/saver/,/renter/,/fixed/,/retire/,/employee/,/paycheck/,/working/,/middle/,/poor/,/low.?income/]}
+  ]}],
+  wrong:[],
+  hint:"Richard ________.",
+  model:"The Cantillon effect, named for Richard Cantillon. Wage earners, savers, renters, and people on fixed incomes tend to receive new money last, after banks, governments, and asset owners have already benefited.",
+  why:"Moving toward ownership moves you closer to the front of the line."
+},
+f9: {
+  id:"f9", title:"Credit Score Priorities", review:{href:"day-2.html#debt", title:"How Debt Actually Works"},
+  scenario:`<p>Keon wants to raise his credit score before applying for a mortgage in a year. He has limited time and energy. He asks, "What's the single most important thing I should focus on?"</p>`,
+  ask:"Which credit score factor carries the most weight, and about how much of the score does it make up?",
+  fields:[{label:"Your answer", need:1, groups:[
+    {nudge:"Name the biggest factor.", re:[/payment history/,/pay(ing)? (bills |everything )?on time/,/on.?time payment/,/never miss/,/late payment/]}
+  ]}],
+  wrong:[{re:/utiliz|amounts? owed|balance/, msg:"That's the second biggest factor at 30%. What's the biggest one?"}],
+  hint:"It's 35% of a FICO score.",
+  model:"Payment history is the biggest factor, about 35% of a FICO score. Paying every bill on time, every time, matters most. Keeping card balances low (amounts owed, about 30%) comes next.",
+  why:"A higher credit score can save tens of thousands of dollars on a mortgage."
+},
+f10: {
+  id:"f10", title:"Great-Grandpa's Gold Coins", review:{href:"day-1.html#gold", title:"The Gold Standard"},
+  scenario:`<p>Lauren finds a family letter from 1933. Her great-grandfather wrote that he was required by law to take his gold coins to the bank and exchange them for paper money, or face a large fine and possible prison.</p>`,
+  ask:"What government action required this, and which president signed it?",
+  fields:[{label:"Your answer", need:1, groups:[
+    {nudge:"Name the order or the president.", re:[/6102/,/roosevelt/,/\bfdr\b/,/executive order/]}
+  ]}],
+  wrong:[{re:/nixon/, msg:"Nixon closed the gold window for foreign governments in 1971. This letter is from 1933."}],
+  hint:"He was president during the Great Depression.",
+  model:"Executive Order 6102, signed by President Franklin D. Roosevelt in April 1933. It required Americans to turn in most gold coins, bullion, and certificates at $20.67 an ounce. In 1934, gold was revalued to $35, devaluing the dollar by about 41%.",
+  why:"When money rules change, people holding the old form of money usually carry the loss."
+},
+f11: {
+  id:"f11", title:"September 15, 2008", review:{href:"day-3.html#crises", title:"Past Financial Crises"},
+  scenario:`<p>On September 15, 2008, a 158-year-old Wall Street investment bank files for the largest bankruptcy in U.S. history. Markets panic worldwide. Within weeks, Congress approves a $700 billion rescue for the financial system.</p>`,
+  ask:"Which firm failed, and what was the rescue program called?",
+  fields:[
+    {label:"The firm", multi:false, placeholder:"Which bank?", need:1, groups:[{nudge:"Name the bank.", re:[/lehman/]}]},
+    {label:"The rescue", multi:false, placeholder:"Which program?", need:1, groups:[{nudge:"Name the program.", re:[/tarp/,/troubled asset/,/bail ?out/]}]}
+  ],
+  wrong:[{re:/bear stearns/, msg:"Bear Stearns was rescued earlier in 2008. This one was allowed to fail."}],
+  hint:"The bank's name starts with L. The program's acronym has four letters.",
+  model:"Lehman Brothers failed, and Congress created the Troubled Asset Relief Program (TARP), a $700 billion bailout. It followed the classic pattern: easy credit and heavy leverage, then a trigger, panic, and a rescue that helped the largest institutions first.",
+  why:"Recognizing the pattern helps you prepare instead of panic."
+},
+f12: {
+  id:"f12", title:"The Boat or the Duplex", review:{href:"day-3.html#assets", title:"Asset Ownership"},
+  scenario:`<p>Shawn has $40,000 saved. Option A: a new boat that costs $400 a month in storage, insurance, and upkeep. Option B: the down payment on a duplex, where rent from one unit brings in $1,400 a month and covers most of the mortgage.</p>`,
+  ask:"Which option is an asset and which is a liability? Explain using the test from Day 3.",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Identify the duplex as the asset.", re:[/duplex/,/option b/,/\bb\b.{0,20}asset/,/rental/,/property/]},
+    {nudge:"Use the test: produces income or grows vs. costs money.", re:[/income/,/rent/,/cash ?flow/,/pays?/,/produc/,/earn/,/grow/,/apprecia/,/costs?/,/takes? money/,/drain/,/expense/]}
+  ]}],
+  wrong:[{re:/boat.{0,30}asset/, msg:"The boat costs $400 a month and loses value. Does it pass the asset test?"}],
+  hint:"Does it put money in Shawn's pocket or take money out?",
+  model:"The duplex is an asset: the rent produces income, covers most of the mortgage, and the property can grow in value. The boat is a liability: it costs $400 a month and loses value over time.",
+  why:"Every major purchase is a choice between becoming a consumer or an owner."
+},
+f13: {
+  id:"f13", title:"A Dollar From 1913", review:{href:"day-2.html#inflation", title:"Inflation"},
+  scenario:`<p>A history buff notes that since the Federal Reserve was created in 1913, the U.S. dollar has lost roughly <b>97%</b> of its purchasing power. What cost $1 then costs over $30 now.</p>`,
+  ask:"What's the main force behind that loss, and what drives it over the long run?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Name the force.", re:[/inflation/]},
+    {nudge:"Name what drives it long term.", re:[/money supply/,/more money/,/more dollars/,/print/,/creat/,/expan/,/grow/,/fiat/,/gold standard/,/no (limit|backing)/,/debt/,/spending/,/lending/]}
+  ]}],
+  wrong:[],
+  hint:"Think about Day 1's money supply lesson and Day 2's inflation lesson together.",
+  model:"Inflation. Over the long run, the money supply has grown much faster than the goods and services it buys, especially since the dollar left gold. More dollars chasing goods means each dollar buys less.",
+  why:"This is why long-term wealth has to be stored in things that grow, not just in dollars."
+},
+f14: {
+  id:"f14", title:"The Snowball Choice", review:{href:"day-2.html#strategy", title:"Debt Strategy"},
+  scenario:`<p>Nia has six debts. She's disciplined with numbers, doesn't need quick wins, and wants to pay the least total interest. Her friend tells her to start with her smallest balance.</p>`,
+  ask:"Is her friend's advice the best fit for Nia? Which method should she use, and which debt should get her extra payments first?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Name the method.", re:[/avalanche/]},
+    {nudge:"Say which debt goes first.", re:[/highest (interest|rate|apr)/,/most (interest|expensive)/,/biggest (rate|interest|apr)/,/highest.{0,10}(interest|rate|apr)/]}
+  ]}],
+  wrong:[{re:/snowball.{0,30}(best|should|use)/, msg:"The snowball is great for motivation, but Nia wants the least interest. Which method does that?"}],
+  hint:"She cares about total interest, not quick wins.",
+  model:"No. The friend is describing the debt snowball. Nia should use the debt avalanche: pay minimums on everything and send extra money to the debt with the highest interest rate first. That saves the most interest.",
+  why:"The right method depends on the person. Knowing both lets you choose on purpose."
+},
+f15: {
+  id:"f15", title:"The 21 Million Question", review:{href:"day-3.html#crypto", title:"Why This Leads Directly to Cryptocurrency"},
+  scenario:`<p>At a family dinner, a cousin says, "Bitcoin is just like the dollar, only digital. The government can make more whenever it wants." You've just finished this program.</p>`,
+  ask:"Correct your cousin. How is Bitcoin's supply different from the dollar's, and who controls it?",
+  fields:[{label:"Your answer", need:2, groups:[
+    {nudge:"Describe Bitcoin's supply.", re:[/21 ?(million|m\b)/,/fixed/,/limited/,/capped/,/cap\b/,/max/,/can'?t (make|create|print)/,/cannot (make|create|print)/,/no more/,/scarce/,/halving/]},
+    {nudge:"Explain who controls it.", re:[/no (one|government|central|bank|company)/,/nobody/,/decentraliz/,/network/,/not (the )?government/,/isn'?t controlled/,/not controlled/,/computers/,/code/,/users/]}
+  ]}],
+  wrong:[],
+  hint:"Look at the Day 3 table comparing what you learned with what Bitcoin was designed to do.",
+  model:"Your cousin has it backward. Bitcoin has a fixed maximum supply of 21 million coins written into its code, and new coins are released on a schedule that halves about every four years. No government or central bank controls it. A decentralized network of computers maintains it. The dollar, by contrast, has no fixed limit.",
+  why:"Whatever you decide about crypto, you now understand money well enough to judge it for yourself."
+}
+};
+
+RSM.initDay({
+  key:"final", questions:Q, nextHref:"complete.html", nextLabel:"Get your certificate and action plan",
+  onPass:(n,t,p)=>`<h3>You passed: ${p}%</h3><p>You got ${n} of ${t} correct. You've completed the 3-Day Introduction to Understanding Money. Continue to read your completion message, then claim your certificate.</p>`
+});
+</script>
+</body>
+</html>

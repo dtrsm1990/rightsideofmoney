@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Certificate and Action Plan | Right Side of Money</title>
+<link rel="icon" href="assets/rsm-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="assets/course.css">
+<style>
+  .growth{display:grid;gap:10px;margin:18px 0}
+  .growth-row{display:grid;grid-template-columns:1fr 160px;gap:14px;align-items:center;font-size:16px}
+  @media (max-width:600px){.growth-row{grid-template-columns:1fr}}
+  .bars{display:flex;flex-direction:column;gap:4px}
+  .bar{height:10px;border-radius:3px;background:var(--line);position:relative}
+  .bar span{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+  .bar.b span{background:var(--silver)} .bar.a span{background:var(--gold)}
+  .legend{display:flex;gap:18px;font-size:14px;color:var(--muted);margin-top:6px}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+  .journal h3{margin:26px 0 6px;font-family:var(--display);font-size:26px}
+  .journal .entry{border-left:3px solid var(--gold);padding:6px 0 6px 16px;margin:12px 0}
+  .journal .entry b{display:block;font-size:15px;color:var(--muted);font-weight:600}
+  .journal .entry p{margin:4px 0 0;white-space:pre-wrap}
+  .plan{display:grid;gap:18px;margin:20px 0}
+  .plan-item{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--paper)}
+  .plan-item h4{margin:0 0 10px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep)}
+  .plan-item .row{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+  @media (max-width:600px){.plan-item .row{grid-template-columns:1fr}}
+  .plan-item label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:600}
+  .plan-item input,.plan-item select{font:16px var(--body);padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+  .ideas{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+  .ideas button{font:14px var(--body);border:1px dashed var(--gold-deep);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;color:var(--ink)}
+  .ideas button:hover{background:var(--gold-wash)}
+  .next{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+  @media (max-width:800px){.next{grid-template-columns:1fr}}
+  .next a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:var(--surface)}
+  .next a:hover{border-color:var(--gold)}
+  .next b{display:block;font-family:var(--display);font-size:24px;margin-bottom:4px}
+  .next span{font-size:15px;color:var(--muted)}
+  .print-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 26px}
+</style>
+</head>
+<body>
+<header id="topbar" class="topbar"></header>
+<main>
+<div class="narrow" id="page">
+
+  <div class="cert" id="cert">
+    <img class="cert-logo" src="assets/rsm-logo.png" alt="Right Side of Money" onerror="this.remove()">
+    <p class="eyebrow">Right Side of Money</p>
+    <div class="cert-title">Certificate of Completion</div>
+    <p class="presented">This certifies that</p>
+    <div class="who" id="certName"></div>
+    <p class="for">has successfully completed the <strong>3-Day Introduction to Understanding Money</strong>, including all lessons, daily knowledge checks, and the Final Knowledge Check with a score of <strong id="certScore"></strong>.</p>
+    <div class="sig">
+      <div><b id="instr"></b><span id="instrTitle"></span></div>
+      <div><b id="certDate"></b>Date completed</div>
+    </div>
+    <p style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);margin:26px 0 0">CERTIFICATE ID <span id="certId"></span></p>
+  </div>
+
+  <div class="print-row no-print">
+    <button class="btn gold" type="button" onclick="window.print()">Print or save as PDF</button>
+    <a class="btn" href="final.html#message">Reread the completion message</a>
+  </div>
+
+  <section class="lesson" style="margin-bottom:24px">
+    <p class="eyebrow">Your growth</p>
+    <h2 style="margin-top:0">How far you've come</h2>
+    <p>On Day 1, you rated yourself on six statements. Rate yourself again now, honestly, and see the difference three days made.</p>
+    <div class="scale" data-scale="after"></div>
+    <div id="growth" hidden>
+      <div class="growth" id="growthRows"></div>
+      <div class="legend"><span><i style="background:var(--silver)"></i>Day 1</span><span><i style="background:var(--gold)"></i>Today</span></div>
+      <p id="growthSummary" style="font-weight:700;margin-top:14px"></p>
+    </div>
+  </section>
+
+  <section class="lesson" style="margin-bottom:24px">
+    <p class="eyebrow">Your Right Side of Money Action Plan</p>
+    <h2 style="margin-top:0">Three moves. Three dates. Starting now.</h2>
+    <p>Knowledge becomes power when you use it. Choose three specific actions from what you learned and give each one a deadline. Tap an idea to fill it in, or write your own. Your plan saves on this device and prints with your certificate.</p>
+    <div class="plan" id="plan"></div>
+  </section>
+
+  <section class="lesson journal" style="margin-bottom:24px">
+    <p class="eyebrow">Your reflections</p>
+    <h2 style="margin-top:0">Your three-day money journal</h2>
+    <p>Here's everything you wrote. Come back to it in six months and see what's changed.</p>
+    <div id="journal"></div>
+  </section>
+
+  <section class="lesson takeaway no-print">
+    <p class="eyebrow">What's next</p>
+    <h1>Keep building on the right side.</h1>
+    <p class="dek">This program gave you the foundation. Here's where to go from here.</p>
+    <div class="next">
+      <a href="https://www.amazon.com/author/rightsideofmoney" target="_blank" rel="noopener" style="background:var(--black-3);border-color:#3a372f;color:#fff"><b style="color:var(--gold-light)">Read the book</b><span style="color:#cfc8b5"><em>Creating a Wealth Building Mindset</em>, 2nd Edition, and the 90-Day Companion Workbook by Darrell Thompson.</span></a>
+      <a href="https://rightsideofmoney.com" target="_blank" rel="noopener" style="background:var(--black-3);border-color:#3a372f;color:#fff"><b style="color:var(--gold-light)">Go deeper</b><span style="color:#cfc8b5">Explore more Right Side of Money courses, coaching, and resources at rightsideofmoney.com.</span></a>
+      <a href="index.html" style="background:var(--black-3);border-color:#3a372f;color:#fff"><b style="color:var(--gold-light)">Share the program</b><span style="color:#cfc8b5">Send this free program to someone you love. Breaking the cycle starts with one conversation.</span></a>
+    </div>
+  </section>
+
+</div>
+</main>
+<footer class="footer">
+  <p>&copy; 2026 Right Side of Money. For educational purposes only. Nothing in this program is financial, investment, tax, or legal advice. Talk with a licensed professional about your specific situation.</p>
+  <p><a href="index.html">Program home</a></p>
+</footer>
+<script src="assets/course.js"></script>
+<script>
+(function(){
+  if (!RSM.guard("complete")) return;
+  const S = RSM.S, $ = RSM.$, esc = RSM.esc;
+  S.completedAt = S.completedAt || new Date().toISOString(); RSM.save();
+  const d = new Date(S.completedAt);
+  $("#certName").textContent = S.student.name;
+  $("#certDate").textContent = d.toLocaleDateString("en-US", { year:"numeric", month:"long", day:"numeric" });
+  $("#certScore").textContent = S.scores.final ? S.scores.final.pct + "%" : "80% or higher";
+  $("#instr").textContent = RSM_CONFIG.instructorName;
+  $("#instrTitle").textContent = RSM_CONFIG.instructorTitle;
+  let h = 7; for (const c of (S.student.email + S.completedAt)) h = (h * 131 + c.charCodeAt(0)) >>> 0;
+  $("#certId").textContent = "RSM-3D-" + d.getFullYear() + "-" + h.toString(36).toUpperCase().padStart(7, "0").slice(0, 7);
+
+  /* growth */
+  RSM.renderScale("after");
+  function growth(){
+    if (!RSM.scaleDone("after")) return;
+    const b = S.scale.baseline || {}, a = S.scale.after;
+    $("#growth").hidden = false;
+    $("#growthRows").innerHTML = RSM.SCALE.map((s,i)=>`<div class="growth-row"><span>${s}</span><div class="bars">
+      <div class="bar b"><span style="width:${(b[i]||0)*20}%"></span></div><div class="bar a"><span style="width:${a[i]*20}%"></span></div></div></div>`).join("");
+    const tb = RSM.SCALE.reduce((t,_,i)=>t+(b[i]||0),0), ta = RSM.SCALE.reduce((t,_,i)=>t+a[i],0);
+    const diff = ta - tb;
+    $("#growthSummary").textContent = tb ? (diff > 0 ? `Your total confidence score grew from ${tb} to ${ta} out of 30. That's real growth in three days.` : diff === 0 ? `Your total score held steady at ${ta} out of 30. Sometimes learning shows us how much more there is to know, and that's growth too.` : `Your score moved from ${tb} to ${ta} out of 30. Knowing what you didn't know is where real progress starts.`) : `Your score today is ${ta} out of 30.`;
+  }
+  document.addEventListener("rated", growth); growth();
+
+  /* plan */
+  const IDEAS = [
+    "Move my savings to an insured high-yield account or credit union",
+    "List every debt and choose avalanche or snowball",
+    "Set up an automatic extra payment on my target debt",
+    "Build a $1,000 starter emergency fund",
+    "Enroll in my employer's retirement plan to get the full match",
+    "Open a Roth IRA and invest in a broad index fund",
+    "Calculate my net worth and review it monthly",
+    "Call my credit card company and ask for a lower APR",
+    "Set up an automatic transfer on payday to pay myself first",
+    "Teach my family one lesson from this program"
+  ];
+  S.plan = S.plan || [{},{},{}];
+  $("#plan").innerHTML = [0,1,2].map(i=>`<div class="plan-item"><h4>Move ${i+1}</h4><div class="row">
+    <label>What I'll do<input type="text" id="p${i}_what" value="${esc(S.plan[i].what||"")}" placeholder="Be specific"></label>
+    <label>By when<input type="date" id="p${i}_when" value="${esc(S.plan[i].when||"")}"></label></div>
+    <div class="ideas no-print">${IDEAS.slice(i*3, i===2 ? 10 : i*3+3).map(t=>`<button type="button" data-i="${i}">${t}</button>`).join("")}</div></div>`).join("");
+  [0,1,2].forEach(i=>["what","when"].forEach(k=>{
+    const el = $(`#p${i}_${k}`); el.addEventListener("input",()=>{ S.plan[i][k]=el.value; RSM.save(); });
+  }));
+  $("#plan").addEventListener("click", e=>{
+    const b = e.target.closest(".ideas button"); if(!b) return;
+    const i = +b.dataset.i, el = $(`#p${i}_what`); el.value = b.textContent; S.plan[i].what = el.value; RSM.save();
+  });
+
+  /* journal */
+  const DAYS = [
+    ["Day 1: Understanding Money", [["r1_1","What I believed about money before, and what I see differently now"],["r1_2","Where my time went"],["r1_3","Where my first money lessons came from"],["r1_4","What I'll do differently this week"]]],
+    ["Day 2: Understand the System", [["r2_1","Paying side or earning side"],["r2_2","My debt and what the calculators showed me"],["r2_3","How inflation has shown up in my life"],["r2_4","Where I am in line, and my next step"]]],
+    ["Day 3: Position Yourself", [["r3_1","My money story, old and new"],["r3_2","If a crisis hit tomorrow"],["r3_3","The next asset I'll own"],["r3_4","Who I'll teach, and what"]]]
+  ];
+  $("#journal").innerHTML = DAYS.map(([t,items])=>{
+    const rows = items.filter(([id])=>(S.reflect[id]||"").trim()).map(([id,label])=>`<div class="entry"><b>${label}</b><p>${esc(S.reflect[id])}</p></div>`).join("");
+    return `<h3>${t}</h3>${rows || '<p style="color:var(--muted)">No reflections saved for this day on this device.</p>'}`;
+  }).join("");
+})();
+</script>
+</body>
+</html>
