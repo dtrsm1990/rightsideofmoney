@@ -18,9 +18,9 @@ A free Right Side of Money program. Static HTML, CSS and JavaScript, ready for G
 
 ## Put it on your site
 
-1. Upload the whole `3-day-money` folder to your rightsideofmoney.com repository, keeping the `assets` folder inside it.
-2. Commit. GitHub Pages publishes it at `https://rightsideofmoney.com/3-day-money/`.
-3. Link your site's buttons, and your old Wix course page, to that address.
+1. Upload the whole `3-day-money` folder to your rightsideofmoney repository, keeping the `assets` folder inside it.
+2. Commit. GitHub Pages publishes it at `https://dtrsm1990.github.io/rightsideofmoney/3-day-money/`.
+3. The Courses page and the course-intro page link to it.
 
 ## Settings (top of `assets/course.js`)
 

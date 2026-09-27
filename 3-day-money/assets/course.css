@@ -329,3 +329,9 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 /* program banner on the welcome page */
 .hero-banner{display:block;width:100%;height:auto;border-radius:8px;border:1px solid rgba(245,191,31,.45);box-shadow:0 18px 48px rgba(0,0,0,.5);margin:0 0 30px}
 @media (min-width:901px){.signup{position:sticky;top:90px}}
+
+/* link back to the main Right Side of Money site */
+.sitelink{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--gold-light);padding:7px 11px;border:1px solid rgba(245,191,31,.45);border-radius:6px;white-space:nowrap}
+.sitelink:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
+@media (max-width:900px){.topbar-in{position:relative}.sitelink{position:absolute;top:12px;right:16px;font-size:11px;padding:6px 9px}}
+@media (max-width:1400px){.course-name{display:none}}

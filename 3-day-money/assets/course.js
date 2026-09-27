@@ -94,7 +94,8 @@ const RSM = (() => {
     h.innerHTML = `<div class="topbar-in">
       <a class="brand" href="index.html" id="brand"><img src="${RSM_CONFIG.logo}" alt="Right Side of Money" onerror="this.parentNode.classList.add('nologo');this.remove()"><span class="wordmark">Right Side <em>of</em> Money</span></a>
       <span class="course-name">${RSM_CONFIG.courseName}</span>
-      <nav class="daytabs" aria-label="Course days">${tabs}</nav></div>`;
+      <nav class="daytabs" aria-label="Course days">${tabs}</nav>
+      <a class="sitelink" href="../index.html" title="Your progress is saved. Come back anytime.">&larr; RSM Home</a></div>`;
   }
 
   /* ---------- gate ---------- */
