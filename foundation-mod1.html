@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 1: Your Money Story & Mindset Reset | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="active">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Module 1</p>
+<h1>Your Money Story &amp; Mindset Reset</h1>
+<p class="lesson-subtitle">Before we build a new financial life, we have to understand the story that's been running your old one.</p>
+<div class="gold-rule"></div>
+<div class="callout callout-truth">
+  <h3>The Core Truth</h3>
+  <p>Your financial behavior is driven by beliefs you formed before you were old enough to evaluate them. The kid who watched their parents fight over bills every month grows up with a fundamentally different relationship to money than the kid who saw calm, strategic financial conversations at the dinner table. Neither chose their environment. But both can choose their next chapter. That choice starts here.</p>
+</div>
+<h2>Where Your Money Story Comes From</h2>
+<p>Your money story is the collection of beliefs, emotions, and automatic responses you carry about money. It was written by three forces: what you saw, what you heard, and what you experienced. Most of it was written before you turned 12.</p>
+<h3>What You Saw</h3>
+<p>Children learn by watching. If you watched the adults in your life stress about money constantly, you learned that money equals stress. If you watched them avoid financial conversations, you learned that money is something you don't talk about. If you watched them spend freely whenever money came in and struggle the week before payday, you internalized a feast-or-famine relationship with income that may still be running your behavior today.</p>
+<h3>What You Heard</h3>
+<p>The phrases repeated in your household became your beliefs. "We can't afford that." "Money doesn't grow on trees." "Rich people are greedy." "People like us don't have that kind of money." These aren't just phrases. They're programming. And unless you actively examine and replace them, they run silently in the background of every financial decision you make.</p>
+<h3>What You Experienced</h3>
+<p>Direct experiences with money create the deepest imprints. If you experienced financial instability as a child, you may hoard money now out of a scarcity fear you never consciously chose. If you experienced sudden loss of income through a parent's job loss or illness, you may struggle to feel secure no matter how much money you have.</p>
+<h2>The Five Most Common Limiting Money Beliefs</h2>
+<table class="rsm-table">
+  <thead><tr><th>The Belief</th><th>Where It Usually Comes From</th><th>The Truth</th></tr></thead>
+  <tbody>
+    <tr><td>"I'm just not good with money."</td><td>Repeated failure without financial education</td><td>Money skills are learned, not inherited. Nobody is born "good with money."</td></tr>
+    <tr><td>"Rich people are greedy or corrupt."</td><td>Cultural narratives, observation of bad actors</td><td>Wealth is neutral. What matters is how it's built and how it's used.</td></tr>
+    <tr><td>"There will never be enough."</td><td>Childhood scarcity, witnessed financial trauma</td><td>Scarcity is often a temporary condition, not a permanent identity.</td></tr>
+    <tr><td>"Money isn't spiritual or wanting more is wrong."</td><td>Religious upbringing, community values</td><td>Financial stability reduces suffering. Providing for your family isn't greed.</td></tr>
+    <tr><td>"I'll start saving when I earn more."</td><td>Procrastination disguised as practicality</td><td>The habits you build now are the ones you'll use at a higher income.</td></tr>
+  </tbody>
+</table>
+<h2>The Three-Step Mindset Reset</h2>
+<h3>Step 1: Identify the Belief</h3>
+<p>When you have a financial reaction, anxiety when you look at your bank account, guilt when you spend money on yourself, resistance when you talk about investing, pause and ask: what belief is driving this reaction? Name it specifically. You can't replace a belief you haven't named.</p>
+<h3>Step 2: Challenge the Belief</h3>
+<p>Once you've named it, interrogate it. Where did this belief come from? Is there evidence that contradicts it? Most limiting money beliefs don't survive direct examination. They were absorbed uncritically and they've never been challenged. Challenge them.</p>
+<h3>Step 3: Replace the Belief</h3>
+<p>Identify the belief you want to hold instead. Make it specific, personal, and grounded in evidence you can actually believe. "I'm learning to manage money effectively and I get better every month." Then look for daily evidence that confirms the new belief. What you look for, you find more of.</p>
+<div class="callout callout-stat">
+  <div class="stat-num">88%</div>
+  <div class="stat-label">of self-made millionaires in one study cited mindset and financial education as the primary factors in their wealth, not inheritance or luck.</div>
+</div>
+<div class="callout callout-action">
+  <h3>Your Mindset Reset Assignment</h3>
+  <p>Write down your three strongest money beliefs. Not the ones you wish you had, the ones actually running your behavior. Then trace each one back to its origin. For each limiting belief you find, write the replacement belief you intend to practice. Post the replacements somewhere you'll see them daily for the next 30 days.</p>
+</div>
+
+<style>
+.rsm-reflection { background: var(--gray-light); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; }
+.rsm-reflection .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-reflection .ref-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.ref-progress { font-size: 0.78rem; color: var(--gray-mid); }
+.ref-q { margin-bottom: 1.5rem; }
+.ref-q .ref-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.5; }
+.ref-q .ref-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.ref-textarea { width: 100%; min-height: 110px; border: 2px solid #ddd; border-radius: 8px; padding: 0.85rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); resize: vertical; transition: border-color 0.2s; background: #fff; }
+.ref-textarea:focus { outline: none; border-color: var(--gold); }
+.ref-textarea.complete { border-color: #2a7f4f; background: #f6fdf9; }
+.ref-feedback { font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.ref-feedback.good { color: #2a7f4f; font-weight: 600; }
+.ref-feedback.warn { color: #b8860b; }
+.ref-submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.ref-word-count { font-size: 0.78rem; color: var(--gray-mid); }
+.btn-ref-submit { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.btn-ref-submit:hover { background: var(--gold); color: var(--navy); }
+.ref-score-bar { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 1.2rem 0 0.3rem; overflow: hidden; }
+.ref-score-fill { height: 6px; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
+.ref-score-label { font-size: 0.8rem; color: var(--gray-mid); }
+.ref-complete-banner { background: var(--navy); color: var(--white); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; display: none; }
+.ref-complete-banner .ref-check { background: var(--gold); color: var(--navy); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+</style>
+
+<div class="rsm-reflection">
+  <div class="ref-header">
+    <span class="ref-title">Reflection Questions</span>
+    <span class="ref-progress" id="refProgress">0/5 answered</span>
+  </div>
+  <div class="ref-score-bar"><div class="ref-score-fill" id="refScoreFill" style="width:0%"></div></div>
+  <div class="ref-score-label" id="refScoreLabel">Complete all questions to finish this module</div>
+  <div style="margin-top:1.5rem;">
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">1</span>What three words would you have used to describe your family's relationship with money when you were growing up? How have those words shaped your relationship with money today?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa1"></textarea>
+      <div class="ref-submit-row">
+        <span class="ref-word-count" id="refWc1">0 words</span>
+      </div>
+      <div class="ref-feedback" id="refFb1"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">2</span>Which of the five limiting beliefs from this module do you recognize most in yourself? What decisions has that belief led you to make in the past two years?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa2"></textarea>
+      <div class="ref-submit-row">
+        <span class="ref-word-count" id="refWc2">0 words</span>
+      </div>
+      <div class="ref-feedback" id="refFb2"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">3</span>Describe a financial decision you made that felt emotionally driven rather than logically driven. What belief was behind it? What would you do differently now?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa3"></textarea>
+      <div class="ref-submit-row">
+        <span class="ref-word-count" id="refWc3">0 words</span>
+      </div>
+      <div class="ref-feedback" id="refFb3"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">4</span>What does wealth mean to you specifically? Not in general terms, in your life, for your family, in your community. What changes when you have it?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa4"></textarea>
+      <div class="ref-submit-row">
+        <span class="ref-word-count" id="refWc4">0 words</span>
+      </div>
+      <div class="ref-feedback" id="refFb4"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">5</span>Who is one person in your life who has the financial life you want? What do you think they believe about money that's different from what you've believed? What would it take to adopt one of those beliefs this month?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa5"></textarea>
+      <div class="ref-submit-row">
+        <span class="ref-word-count" id="refWc5">0 words</span>
+      </div>
+      <div class="ref-feedback" id="refFb5"></div>
+    </div></div>
+  <div style="text-align:right;margin-top:1rem;">
+    <button class="btn-ref-submit" id="refSubmitBtn">Submit My Reflections ✓</button>
+  </div>
+  <div class="ref-complete-banner" id="refBanner">
+    <div class="ref-check">✓</div>
+    <div><strong>Module reflection complete!</strong> Your answers are saved in this browser. Move to the next module when you're ready.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MOD_ID = 'mod1';
+  const MIN_WORDS = 15;
+
+  function countWords(s){ return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+
+  function save(qid, val){
+    try { localStorage.setItem('rsm_ref_' + MOD_ID + '_q' + qid, val); } catch(e){}
+  }
+  function load(qid){
+    try { return localStorage.getItem('rsm_ref_' + MOD_ID + '_q' + qid) || ''; } catch(e){ return ''; }
+  }
+
+  function updateProgress(){
+    const textareas = document.querySelectorAll('.ref-textarea');
+    let done = 0;
+    textareas.forEach(ta => {
+      if(countWords(ta.value) >= MIN_WORDS) done++;
+    });
+    const total = textareas.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const fill = document.getElementById('refScoreFill');
+    const lbl = document.getElementById('refScoreLabel');
+    const prog = document.getElementById('refProgress');
+    const banner = document.getElementById('refBanner');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl) lbl.textContent = done + ' of ' + total + ' questions complete';
+    if(prog) prog.textContent = done + '/' + total + ' answered';
+    if(banner) banner.style.display = done === total ? 'flex' : 'none';
+  }
+
+  function initTextarea(ta, idx){
+    const saved = load(idx);
+    if(saved){ ta.value = saved; }
+    const feedback = document.getElementById('refFb' + idx);
+    const wordCount = document.getElementById('refWc' + idx);
+
+    function check(){
+      const w = countWords(ta.value);
+      if(wordCount) wordCount.textContent = w + ' words';
+      if(w >= MIN_WORDS){
+        ta.classList.add('complete');
+        if(feedback){ feedback.className='ref-feedback good'; feedback.textContent = '✓ Great response. Keep going!'; }
+      } else if(w > 0){
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback warn'; feedback.textContent = 'Keep going. Aim for at least ' + MIN_WORDS + ' words for a full reflection.'; }
+      } else {
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback'; feedback.textContent = ''; }
+        if(wordCount) wordCount.textContent = '0 words';
+      }
+      save(idx, ta.value);
+      updateProgress();
+    }
+    ta.addEventListener('input', check);
+    check();
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.ref-textarea').forEach(function(ta, i){
+      initTextarea(ta, i+1);
+    });
+    updateProgress();
+
+    const btn = document.getElementById('refSubmitBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        const textareas = document.querySelectorAll('.ref-textarea');
+        let done = 0;
+        textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+        if(done < textareas.length){
+          alert('Please complete all reflection questions before submitting. Each answer needs at least 15 words.');
+          return;
+        }
+        try { localStorage.setItem('rsm_ref_' + MOD_ID + '_submitted', '1'); } catch(e){}
+        const banner = document.getElementById('refBanner');
+        if(banner){ banner.style.display = 'flex'; banner.scrollIntoView({behavior:'smooth'}); }
+      });
+    }
+  });
+})();
+</script>
+
+    
+
+<style>
+.rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+.rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-quiz .quiz-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+.quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+.quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.quiz-q:last-of-type { border-bottom: none; }
+.quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+.quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.quiz-options { list-style: none; padding: 0; margin: 0; }
+.quiz-options li { margin-bottom: 0.55rem; }
+.quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+.quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+.quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+.quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn:disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+.quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+.quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+.quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+.quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+.quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+.quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+.quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+.btn-quiz-retry:hover { background: var(--gold-light); }
+</style>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Module Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_mod1">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_mod1" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next module.</p>
+  
+<div class="quiz-q qblock_mod1_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Deja grew up hearing her grandmother say 'we don't talk about money, it causes problems' and 'people who flaunt wealth are showing off.' Now at 28, she earns a good salary but feels guilty every time she saves a large amount and sabotages herself by spending it down. Which concept from Module 1 best explains what's happening?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Deja has a spending addiction that requires professional treatment</button></li>
+<li><button class="quiz-opt-btn" type="button">The phrases Deja heard repeatedly became embedded beliefs that now drive her behavior unconsciously</button></li>
+<li><button class="quiz-opt-btn" type="button">Deja simply hasn't found the right savings account</button></li>
+<li><button class="quiz-opt-btn" type="button">Her guilt is a sign she's spending on the wrong things</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod1_0"></div>
+</div>
+<div class="quiz-q qblock_mod1_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Jerome tells his financial coach: 'I've always been bad with money. My dad was bad with money, his dad was bad with money, it's just how our family is.' According to Module 1, what limiting belief is Jerome holding, and what's the truth that challenges it?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Jerome has a scarcity mindset; the truth is that money is abundant for everyone</button></li>
+<li><button class="quiz-opt-btn" type="button">Jerome believes financial incompetence is inherited; the truth is that money skills are learned behaviors, not genetic traits</button></li>
+<li><button class="quiz-opt-btn" type="button">Jerome has a wealth mindset; he just needs more income</button></li>
+<li><button class="quiz-opt-btn" type="button">Jerome is correct: financial habits are largely inherited and hard to change</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod1_1"></div>
+</div>
+<div class="quiz-q qblock_mod1_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Aisha uses the three-step mindset reset from Module 1. In Step 1, she identifies her belief: 'wanting more money makes me materialistic and selfish.' In Step 2, she challenges it. Which of the following best represents a valid Step 2 challenge to that belief?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">'I'll just stop wanting more money so I stop feeling guilty'</button></li>
+<li><button class="quiz-opt-btn" type="button">'That belief came from somewhere, but financial security lets me help my family, give to others, and stop stressing: none of that is selfish'</button></li>
+<li><button class="quiz-opt-btn" type="button">'Rich people are often materialistic, so maybe the belief is correct'</button></li>
+<li><button class="quiz-opt-btn" type="button">'I should focus on Step 3 and skip this step because it's uncomfortable'</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod1_2"></div>
+</div>
+<div class="quiz-q qblock_mod1_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>Two people grew up in similar financial circumstances. Person A says 'I can't build wealth because of where I came from.' Person B says 'I didn't learn this growing up, so I'm learning it now.' According to Module 1, which mindset does each person represent, and who is more likely to reach financial goals?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Both have a wealth mindset; environment determines outcomes more than attitude</button></li>
+<li><button class="quiz-opt-btn" type="button">Person A has a scarcity mindset; Person B has a wealth mindset: B is far more likely to succeed because their belief opens the door to action</button></li>
+<li><button class="quiz-opt-btn" type="button">Person A is being realistic; Person B is being unrealistically optimistic</button></li>
+<li><button class="quiz-opt-btn" type="button">Person B has a wealth mindset but will still be held back by their background</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod1_3"></div>
+</div>
+<div class="quiz-q qblock_mod1_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>Carlos starts telling himself 'I am someone who manages money intentionally' even though he doesn't fully believe it yet and his bank account doesn't reflect it. According to the Identity Shift section of Module 1, is this a useful approach or is he just lying to himself?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">He's lying to himself and should wait until his finances improve before claiming that identity</button></li>
+<li><button class="quiz-opt-btn" type="button">This is exactly the right approach: acting in alignment with the identity you're building causes decisions that make it real over time</button></li>
+<li><button class="quiz-opt-btn" type="button">Identity statements only work if you already believe them 100%</button></li>
+<li><button class="quiz-opt-btn" type="button">Carlos should focus on actions only and never make statements about who he is</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod1_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_mod1"></div>
+  <button class="btn-quiz-retry" id="quizRetry_mod1" type="button">Retry Quiz</button>
+</div>
+
+<script>
+(function(){
+  const MOD_QUIZ_ID = 'mod1';
+  const PASS_THRESHOLD = 0.8;
+  const questions = [{"q": "Deja grew up hearing her grandmother say 'we don't talk about money \u2014 it causes problems' and 'people who flaunt wealth are showing off.' Now at 28, she earns a good salary but feels guilty every time she saves a large amount and sabotages herself by spending it down. Which concept from Module 1 best explains what's happening?", "opts": ["Deja has a spending addiction that requires professional treatment", "The phrases Deja heard repeatedly became embedded beliefs that now drive her behavior unconsciously", "Deja simply hasn't found the right savings account", "Her guilt is a sign she's spending on the wrong things"], "correct": 1, "explanation": "What we hear repeatedly in childhood becomes programming. Deja's grandmother's phrases became beliefs \u2014 that money causes conflict and that accumulating it is shameful \u2014 and those beliefs are now running her financial behavior from the background. She's not broken. She has unexamined inherited beliefs that need to be replaced.", "hint": "Review 'What You Heard' under 'Where Your Money Story Comes From.'"}, {"q": "Jerome tells his financial coach: 'I've always been bad with money. My dad was bad with money, his dad was bad with money \u2014 it's just how our family is.' According to Module 1, what limiting belief is Jerome holding, and what's the truth that challenges it?", "opts": ["Jerome has a scarcity mindset; the truth is that money is abundant for everyone", "Jerome believes financial incompetence is inherited; the truth is that money skills are learned behaviors, not genetic traits", "Jerome has a wealth mindset; he just needs more income", "Jerome is correct \u2014 financial habits are largely inherited and hard to change"], "correct": 1, "explanation": "'I'm just not good with money' is one of the five most common limiting beliefs. It frames a learned behavior gap as a fixed personal trait. Money management is a skill set, not a personality type. Jerome's family pattern reflects a pattern of financial education being absent, not financial ability being absent.", "hint": "Review 'The Five Most Common Limiting Money Beliefs.'"}, {"q": "Aisha uses the three-step mindset reset from Module 1. In Step 1, she identifies her belief: 'wanting more money makes me materialistic and selfish.' In Step 2, she challenges it. Which of the following best represents a valid Step 2 challenge to that belief?", "opts": ["'I'll just stop wanting more money so I stop feeling guilty'", "'That belief came from somewhere, but financial security lets me help my family, give to others, and stop stressing \u2014 none of that is selfish'", "'Rich people are often materialistic, so maybe the belief is correct'", "'I should focus on Step 3 and skip this step because it's uncomfortable'"], "correct": 1, "explanation": "Step 2 is about interrogating the belief with honest questions: Where did it come from? Is it actually true? Does evidence contradict it? Providing for your family, reducing financial stress, and building generational wealth are the opposite of selfishness. The belief doesn't survive examination.", "hint": "Review 'The Three-Step Mindset Reset,' specifically Step 2: Challenge the Belief."}, {"q": "Two people grew up in similar financial circumstances. Person A says 'I can't build wealth because of where I came from.' Person B says 'I didn't learn this growing up, so I'm learning it now.' According to Module 1, which mindset does each person represent, and who is more likely to reach financial goals?", "opts": ["Both have a wealth mindset; environment determines outcomes more than attitude", "Person A has a scarcity mindset; Person B has a wealth mindset \u2014 B is far more likely to succeed because their belief opens the door to action", "Person A is being realistic; Person B is being unrealistically optimistic", "Person B has a wealth mindset but will still be held back by their background"], "correct": 1, "explanation": "A scarcity mindset sees limitations as permanent and personal. A wealth mindset sees them as starting points. Person A's belief closes the door on action before it starts. Person B's belief keeps the door open. Same background, completely different trajectories, driven entirely by the belief each person holds.", "hint": "Review 'The Wealth Mindset vs. The Scarcity Mindset.'"}, {"q": "Carlos starts telling himself 'I am someone who manages money intentionally' even though he doesn't fully believe it yet and his bank account doesn't reflect it. According to the Identity Shift section of Module 1, is this a useful approach or is he just lying to himself?", "opts": ["He's lying to himself and should wait until his finances improve before claiming that identity", "This is exactly the right approach \u2014 acting in alignment with the identity you're building causes decisions that make it real over time", "Identity statements only work if you already believe them 100%", "Carlos should focus on actions only and never make statements about who he is"], "correct": 1, "explanation": "Identity shapes behavior. You don't wait until the results arrive to claim the identity \u2014 you claim the identity to generate the decisions that produce the results. 'I am someone who manages money intentionally' leads to intentional financial decisions. Those decisions, repeated, produce the financial reality. The belief follows the behavior.", "hint": "Review 'The Identity Shift That Changes Everything.'"}];
+  let answered = {};
+
+  function unlockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      btn.style.cursor = 'pointer';
+      btn.title = '';
+    }
+  }
+
+  function lockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+      btn.style.cursor = 'not-allowed';
+      btn.title = 'Pass the module quiz to continue';
+    }
+  }
+
+  function updateQuizProgress() {
+    const total = questions.length;
+    const done = Object.keys(answered).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    const lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = pct + '%';
+    if (lbl) lbl.textContent = done + '/' + total + ' answered';
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(answered).length < questions.length) return;
+    const correct = Object.values(answered).filter(v => v).length;
+    const total = questions.length;
+    const pct = correct / total;
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!resultBar) return;
+    resultBar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      resultBar.className = 'quiz-result-bar pass';
+      resultBar.innerHTML = '<strong>Module Quiz Passed! ' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%)</strong>The Next Module button is now unlocked. Well done.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      resultBar.className = 'quiz-result-bar fail';
+      resultBar.innerHTML = '<strong>' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%). Need 80% to pass.</strong>Review the sections noted in the hints above, then retry the quiz.';
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+
+  function initQuiz() {
+    // Check if already passed
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (resultBar) {
+          resultBar.style.display = 'block';
+          resultBar.className = 'quiz-result-bar pass';
+          resultBar.innerHTML = '<strong>Module Quiz Previously Passed</strong>The Next Module button is unlocked.';
+        }
+        return;
+      }
+    } catch(e) {}
+
+    lockNext();
+
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          const isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          // Style all buttons
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          // Show feedback
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+              feedbackEl.className = 'quiz-feedback correct-fb';
+              feedbackEl.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              feedbackEl.className = 'quiz-feedback wrong-fb';
+              feedbackEl.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateQuizProgress();
+          checkAllAnswered();
+        });
+      });
+    });
+
+    updateQuizProgress();
+  }
+
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (resultBar) { resultBar.style.display = 'none'; resultBar.innerHTML = ''; }
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.style.display = 'none';
+    // Reset all buttons and feedback
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      optBtns.forEach(function(btn) {
+        btn.disabled = false;
+        btn.className = 'quiz-opt-btn';
+      });
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (feedbackEl) { feedbackEl.style.display = 'none'; feedbackEl.innerHTML = ''; feedbackEl.className = 'quiz-feedback'; }
+    });
+    lockNext();
+    updateQuizProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+    <div class="lesson-nav">
+      <a href="./foundation-intro.html" class="btn-prev">← Introduction</a>
+      <span class="progress-label">Module 1 of 8</span>
+      <a href="./foundation-mod2.html" class="btn-next">Module 2: Financial Language →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

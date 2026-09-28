@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 5: Building Wealth | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="active">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Module 5</p>
+<h1>Building Wealth</h1>
+<p class="lesson-subtitle">Wealth isn't an accident. It's what happens when you make your money work harder than you do.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>The Core Truth</h3>
+  <p>The wealthy aren't rich because they earn more. They're rich because they invest differently. The average millionaire in America has a modest household income. What separates them from everyone else is that they consistently put money into assets that grow, compound, and generate income over decades. That strategy is available to anyone willing to start.</p>
+</div>
+
+<h2>The Wealth Building Sequence</h2>
+<p>Wealth isn't built in a random order. There's a sequence that maximizes every dollar you direct toward your future. Skipping steps or jumping out of sequence is one of the most common wealth-building mistakes people make.</p>
+
+<table class="rsm-table">
+  <thead><tr><th>Step</th><th>Action</th><th>Why This Order</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Build a $1,000 starter emergency fund</td><td>Stop using credit cards for emergencies</td></tr>
+    <tr><td>2</td><td>Pay off all consumer debt</td><td>Debt interest destroys investment returns</td></tr>
+    <tr><td>3</td><td>Build 3-6 month emergency fund</td><td>Full protection before heavy investing</td></tr>
+    <tr><td>4</td><td>Invest 15% of income into retirement accounts</td><td>Tax advantages and compound growth</td></tr>
+    <tr><td>5</td><td>Save for specific goals (home, college, business)</td><td>Targeted savings with timelines</td></tr>
+    <tr><td>6</td><td>Pay off the mortgage early</td><td>Eliminate all debt completely</td></tr>
+    <tr><td>7</td><td>Build wealth and give generously</td><td>Now you're playing offense</td></tr>
+  </tbody>
+</table>
+
+<h2>The Emergency Fund: Your Financial Foundation</h2>
+<p>Before you invest a single dollar beyond a retirement match, you need a fully funded emergency fund. Three to six months of essential living expenses sitting in a high-yield savings account, accessible but separate from your checking account.</p>
+<p>This isn't optional. It's not money you'll "invest later when you have extra." It's the foundation that keeps your investment plan intact when the car breaks down, you lose a client, or a medical bill arrives. Without an emergency fund, one unexpected expense sends you back to the credit cards, undoing months of debt payoff work.</p>
+<p>Calculate your emergency fund target: add up your monthly essential expenses (housing, food, utilities, transportation, minimum debt payments). Multiply by 3 for a starter fund and by 6 for full protection. That's your target. Work toward it deliberately.</p>
+
+<h2>Understanding Investment Vehicles</h2>
+<p>You don't need to pick individual stocks or time the market. In fact, most professional fund managers can't consistently beat the market over time. What you need is to understand the basic vehicles available to you and use them appropriately.</p>
+
+<h3>Retirement Accounts: Tax-Advantaged Investing</h3>
+<p>These are your most powerful early tools because the government gives you a tax break to use them.</p>
+<ul>
+  <li><strong>401(k) or 403(b):</strong> Employer-sponsored retirement accounts. Contributions reduce your taxable income now. The money grows tax-deferred until retirement. If your employer offers a match, contribute at least enough to get the full match. That's a 50-100% instant return on your money. Nothing beats it.</li>
+  <li><strong>Traditional IRA:</strong> Individual Retirement Account. You contribute pre-tax dollars (deductible in many cases), they grow tax-deferred, and you pay taxes when you withdraw in retirement. 2025 contribution limit: $7,000 per year ($8,000 if you're 50 or older).</li>
+  <li><strong>Roth IRA:</strong> You contribute after-tax dollars, they grow completely tax-free, and qualified withdrawals in retirement are completely tax-free. This is particularly powerful for younger investors who are in lower tax brackets now than they expect to be in retirement.</li>
+</ul>
+
+<h3>Index Funds and ETFs: The Smart Investor's Shortcut</h3>
+<p>Rather than trying to pick winning stocks, index funds let you own a small piece of hundreds or thousands of companies at once. An S&P 500 index fund, for example, gives you exposure to the 500 largest companies in America in a single investment.</p>
+<p>The historical average annual return of the S&P 500 is approximately 10% before inflation, 7% after inflation. No individual stock picking required. No market timing. Just consistent contributions over decades.</p>
+<p>ETFs (Exchange-Traded Funds) work similarly but trade like stocks throughout the day. Both index funds and ETFs typically have very low fees (expense ratios), which matters enormously over decades. A 1% difference in annual fees can cost you tens of thousands of dollars over a 30-year investing horizon.</p>
+
+<div class="callout callout-stat">
+  <div class="stat-num">$1.03M</div>
+  <div class="stat-label">What investing $500/month at 10% annual return becomes over 30 years. You contributed $180,000. The market added $850,000.</div>
+</div>
+
+<h3>Real Estate: Tangible Wealth Creation</h3>
+<p>Real estate has created more millionaires in America than any other asset class. It combines appreciation, rental income, tax advantages, and the ability to use leverage (borrowed money) to control a much larger asset than you could buy outright.</p>
+<p>Your primary residence is NOT an investment in the traditional sense, even though it can appreciate. It doesn't generate income and it carries significant costs. Investment property, rental property, or REITs (Real Estate Investment Trusts) are the real estate wealth-building vehicles to understand.</p>
+
+<h2>Compound Growth in Action</h2>
+<p>Time is the most powerful variable in wealth building. The same dollar invested at 25 becomes something completely different from a dollar invested at 45, even if the rate of return is identical.</p>
+<p>Consider two people. Person A starts investing $400 per month at age 25 and stops at 35, contributing for 10 years before never touching the account again. Person B waits until 35 and invests $400 per month every month until age 65, contributing for 30 years. At 7% average return, Person A ends up with more money at 65 despite contributing for only 10 years, because their money had 40 years to compound instead of 30.</p>
+<p>That's the power of starting. Not perfection. Not the right stock picks. Just starting.</p>
+
+<h2>Diversification: Don't Bet Everything on One Thing</h2>
+<p>Diversification means spreading your money across different types of investments so that no single failure can devastate your portfolio. It's not about playing it safe. It's about playing it smart.</p>
+<ul>
+  <li><strong>Asset class diversification:</strong> Stocks, bonds, real estate, cash. Different assets respond differently to economic conditions.</li>
+  <li><strong>Geographic diversification:</strong> Domestic and international investments. U.S. markets don't always lead global markets.</li>
+  <li><strong>Sector diversification:</strong> Technology, healthcare, financial, consumer goods. Different industries peak and trough at different times.</li>
+  <li><strong>Time diversification:</strong> Dollar-cost averaging. Investing the same amount at regular intervals, regardless of market conditions, reduces the risk of investing a large sum right before a downturn.</li>
+</ul>
+
+<h2>The High-Yield Savings Account</h2>
+<p>Your emergency fund and short-term savings goals shouldn't sit in a traditional savings account earning 0.01% interest. High-yield savings accounts (HYSA) from online banks have consistently offered 4-5% APY or higher. That's the difference between earning $5 per year on $50,000 vs. earning $2,500. Same money. Same effort. Just a different account.</p>
+<p>Open a high-yield savings account today if you don't already have one. Move your emergency fund there. Move your sinking funds there. This is one of the easiest financial wins available to you right now.</p>
+
+<h2>What Wealth Actually Looks Like</h2>
+<p>Wealth isn't a house in a fancy neighborhood or a luxury car in the driveway. Wealth is options. Wealth is being able to walk away from a job that doesn't serve you. Wealth is being able to help your family without going into debt. Wealth is never again making a major life decision based on what you can't afford.</p>
+<p>The technical definition most financial professionals use is financial independence: your investment income covers your living expenses without requiring you to trade your time. That's the target. Not a specific dollar amount in a vacuum, but an amount that generates enough passive income to sustain the life you want.</p>
+
+<div class="callout callout-action">
+  <h3>Your Wealth Building Starting Point</h3>
+  <p>If you have a 401(k) with an employer match and you're not contributing enough to get the full match, fix that today. Log into your HR portal or call HR and increase your contribution. You are leaving free money on the table every single pay period you don't do this. If you don't have access to a 401(k), open a Roth IRA at Fidelity, Vanguard, or Schwab today. It takes 15 minutes.</p>
+</div>
+
+    
+
+<style>
+.rsm-reflection { background: var(--gray-light); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; }
+.rsm-reflection .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-reflection .ref-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.ref-progress { font-size: 0.78rem; color: var(--gray-mid); }
+.ref-q { margin-bottom: 1.5rem; }
+.ref-q .ref-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.5; }
+.ref-q .ref-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.ref-textarea { width: 100%; min-height: 110px; border: 2px solid #ddd; border-radius: 8px; padding: 0.85rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); resize: vertical; transition: border-color 0.2s; background: #fff; }
+.ref-textarea:focus { outline: none; border-color: var(--gold); }
+.ref-textarea.complete { border-color: #2a7f4f; background: #f6fdf9; }
+.ref-feedback { font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.ref-feedback.good { color: #2a7f4f; font-weight: 600; }
+.ref-feedback.warn { color: #b8860b; }
+.ref-submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.ref-word-count { font-size: 0.78rem; color: var(--gray-mid); }
+.btn-ref-submit { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.btn-ref-submit:hover { background: var(--gold); color: var(--navy); }
+.ref-score-bar { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 1.2rem 0 0.3rem; overflow: hidden; }
+.ref-score-fill { height: 6px; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
+.ref-score-label { font-size: 0.8rem; color: var(--gray-mid); }
+.ref-complete-banner { background: var(--navy); color: var(--white); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; display: none; }
+.ref-complete-banner .ref-check { background: var(--gold); color: var(--navy); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+</style>
+
+<div class="rsm-reflection">
+  <div class="ref-header">
+    <span class="ref-title">Reflection Questions</span>
+    <span class="ref-progress" id="refProgress">0/5 answered</span>
+  </div>
+  <div class="ref-score-bar"><div class="ref-score-fill" id="refScoreFill" style="width:0%"></div></div>
+  <div class="ref-score-label" id="refScoreLabel">Complete all questions to finish this module</div>
+  <div style="margin-top:1.5rem;">
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">1</span>Where are you in the wealth building sequence? Which step are you on right now, and what specifically needs to happen to move to the next step?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa1"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc1">0 words</span></div>
+      <div class="ref-feedback" id="refFb1"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">2</span>Do you have an employer 401(k) match you're not fully utilizing? Calculate exactly how much you're leaving on the table each year. Write that number down.</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa2"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc2">0 words</span></div>
+      <div class="ref-feedback" id="refFb2"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">3</span>What's your current emergency fund balance vs. your target? How many months of expenses does it cover? What's your specific plan to reach 3-6 months?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa3"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc3">0 words</span></div>
+      <div class="ref-feedback" id="refFb3"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">4</span>If you invest $300 per month starting today at 8% annual return, what will that be worth in 20 years? Use a compound interest calculator and write down the number. How does that number feel?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa4"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc4">0 words</span></div>
+      <div class="ref-feedback" id="refFb4"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">5</span>What would financial independence mean for your specific life? What would you do differently if money was no longer the deciding factor in your daily choices?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa5"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc5">0 words</span></div>
+      <div class="ref-feedback" id="refFb5"></div>
+    </div></div>
+  <div style="text-align:right;margin-top:1rem;">
+    <button class="btn-ref-submit" id="refSubmitBtn">Submit My Reflections ✓</button>
+  </div>
+  <div class="ref-complete-banner" id="refBanner">
+    <div class="ref-check">✓</div>
+    <div><strong>Module reflection complete!</strong> Your answers are saved in this browser. Move to the next module when you're ready.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MOD_ID = 'mod5';
+  const MIN_WORDS = 15;
+  function countWords(s){ return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+  function save(qid, val){ try { localStorage.setItem('rsm_ref_' + MOD_ID + '_q' + qid, val); } catch(e){} }
+  function load(qid){ try { return localStorage.getItem('rsm_ref_' + MOD_ID + '_q' + qid) || ''; } catch(e){ return ''; } }
+  function updateProgress(){
+    const textareas = document.querySelectorAll('.ref-textarea');
+    let done = 0;
+    textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+    const total = textareas.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const fill = document.getElementById('refScoreFill');
+    const lbl = document.getElementById('refScoreLabel');
+    const prog = document.getElementById('refProgress');
+    const banner = document.getElementById('refBanner');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl) lbl.textContent = done + ' of ' + total + ' questions complete';
+    if(prog) prog.textContent = done + '/' + total + ' answered';
+    if(banner) banner.style.display = (done === total) ? 'flex' : 'none';
+  }
+  function initTextarea(ta, idx){
+    const saved = load(idx);
+    if(saved){ ta.value = saved; }
+    const feedback = document.getElementById('refFb' + idx);
+    const wordCount = document.getElementById('refWc' + idx);
+    function check(){
+      const w = countWords(ta.value);
+      if(wordCount) wordCount.textContent = w + ' words';
+      if(w >= MIN_WORDS){
+        ta.classList.add('complete');
+        if(feedback){ feedback.className='ref-feedback good'; feedback.textContent = '✓ Great response. Keep going!'; }
+      } else if(w > 0){
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback warn'; feedback.textContent = 'Keep going. Aim for at least ' + MIN_WORDS + ' words for a full reflection.'; }
+      } else {
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback'; feedback.textContent = ''; }
+        if(wordCount) wordCount.textContent = '0 words';
+      }
+      save(idx, ta.value);
+      updateProgress();
+    }
+    ta.addEventListener('input', check);
+    check();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.ref-textarea').forEach(function(ta, i){ initTextarea(ta, i+1); });
+    updateProgress();
+    const btn = document.getElementById('refSubmitBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        const textareas = document.querySelectorAll('.ref-textarea');
+        let done = 0;
+        textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+        if(done < textareas.length){
+          alert('Please complete all reflection questions before submitting. Each answer needs at least 15 words.');
+          return;
+        }
+        try { localStorage.setItem('rsm_ref_' + MOD_ID + '_submitted', '1'); } catch(e){}
+        const banner = document.getElementById('refBanner');
+        if(banner){ banner.style.display = 'flex'; banner.scrollIntoView({behavior:'smooth'}); }
+      });
+    }
+  });
+})();
+</script>
+    
+
+<style>
+.rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+.rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-quiz .quiz-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+.quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+.quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.quiz-q:last-of-type { border-bottom: none; }
+.quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+.quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.quiz-options { list-style: none; padding: 0; margin: 0; }
+.quiz-options li { margin-bottom: 0.55rem; }
+.quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+.quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+.quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+.quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn:disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+.quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+.quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+.quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+.quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+.quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+.quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+.quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+.btn-quiz-retry:hover { background: var(--gold-light); }
+</style>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Module Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_mod5">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_mod5" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next module.</p>
+  
+<div class="quiz-q qblock_mod5_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Jasmine is 27, has no consumer debt, and just built her 3-month emergency fund. She has $400/month available to invest. Her employer offers a 401(k) with a 4% match (she earns $50,000/year). She's also considering opening a Roth IRA. According to the wealth building sequence in Module 5, what should she do first?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Open the Roth IRA first because tax-free growth is the best long-term strategy</button></li>
+<li><button class="quiz-opt-btn" type="button">Contribute to the 401(k) up to the full employer match first: a 4% match on $50,000 is $2,000 in free money annually, which is an immediate 100% return</button></li>
+<li><button class="quiz-opt-btn" type="button">Split the $400 evenly between the 401(k) and Roth IRA</button></li>
+<li><button class="quiz-opt-btn" type="button">Pay off her mortgage before investing anything</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod5_0"></div>
+</div>
+<div class="quiz-q qblock_mod5_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Two brothers, Damon and Kevin, both start with $0 in investments. Damon starts investing $350/month at age 25 and stops completely at 35, contributing for 10 years, total contribution $42,000. Kevin starts at 35 and invests $350/month until age 65, contributing for 30 years, total contribution $126,000. Both earn 7% average annual return. At 65, who has more money?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Kevin: he contributed three times as much money</button></li>
+<li><button class="quiz-opt-btn" type="button">Damon: his money had 40 years to compound instead of Kevin's 30, and compound growth is exponential over time</button></li>
+<li><button class="quiz-opt-btn" type="button">They end up with about the same amount because the rate of return is identical</button></li>
+<li><button class="quiz-opt-btn" type="button">Kevin, because investing longer always beats investing earlier with less</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod5_1"></div>
+</div>
+<div class="quiz-q qblock_mod5_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Renee has $45,000 sitting in a traditional savings account at her bank earning 0.02% APY. Her coworker tells her to move it to a high-yield savings account earning 4.8% APY. Renee says 'it's only savings, it doesn't need to earn much.' What is Renee actually leaving on the table each year?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">About $50: not worth switching for</button></li>
+<li><button class="quiz-opt-btn" type="button">About $900: meaningful but not life-changing</button></li>
+<li><button class="quiz-opt-btn" type="button">About $2,151: the difference between $9 in the traditional account and $2,160 in the HYSA, for the same money and zero extra effort</button></li>
+<li><button class="quiz-opt-btn" type="button">About $4,500: savings accounts compound daily so the real difference is even larger</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod5_2"></div>
+</div>
+<div class="quiz-q qblock_mod5_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>Carlos says 'I don't need to diversify, I'm just putting everything into my company's stock because I know the business well.' According to Module 5, what specific risk is Carlos taking that diversification protects against?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Diversification only matters for people with over $100,000 invested</button></li>
+<li><button class="quiz-opt-btn" type="button">Carlos is taking concentration risk: if his company underperforms or fails, his entire investment portfolio and his income could both be wiped out simultaneously</button></li>
+<li><button class="quiz-opt-btn" type="button">His strategy is actually smart because insider knowledge reduces risk</button></li>
+<li><button class="quiz-opt-btn" type="button">Diversification always reduces returns, so Carlos's concentrated approach will likely outperform</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod5_3"></div>
+</div>
+<div class="quiz-q qblock_mod5_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>When calculating her emergency fund target, Brenda adds up her monthly essential expenses: $1,200 rent, $340 car payment, $180 utilities and phone, $400 groceries, $220 in minimum debt payments. She wants a full 6-month emergency fund. What is her target amount?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">$10,200: based on 3 months of expenses</button></li>
+<li><button class="quiz-opt-btn" type="button">$13,440: based on 6 months of non-essential spending only</button></li>
+<li><button class="quiz-opt-btn" type="button">$14,040: based on 6 months of all essential monthly expenses</button></li>
+<li><button class="quiz-opt-btn" type="button">$25,000: she should round up significantly to be safe</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod5_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_mod5"></div>
+  <button class="btn-quiz-retry" id="quizRetry_mod5" type="button">Retry Quiz</button>
+</div>
+
+<script>
+(function(){
+  const MOD_QUIZ_ID = 'mod5';
+  const PASS_THRESHOLD = 0.8;
+  const questions = [{"q": "Jasmine is 27, has no consumer debt, and just built her 3-month emergency fund. She has $400/month available to invest. Her employer offers a 401(k) with a 4% match (she earns $50,000/year). She's also considering opening a Roth IRA. According to the wealth building sequence in Module 5, what should she do first?", "opts": ["Open the Roth IRA first because tax-free growth is the best long-term strategy", "Contribute to the 401(k) up to the full employer match first \u2014 a 4% match on $50,000 is $2,000 in free money annually, which is an immediate 100% return", "Split the $400 evenly between the 401(k) and Roth IRA", "Pay off her mortgage before investing anything"], "correct": 1, "explanation": "The employer match is always first. A 4% match means for every dollar Jasmine contributes up to 4% of her salary, her employer adds another dollar. That's an immediate 100% return before any market gains. She needs to contribute at least $166/month (4% of $50,000 / 12) to capture the full match. Nothing \u2014 not a Roth, not index funds \u2014 offers a guaranteed 100% return. Capture the match first, always.", "hint": "Review the Wealth Building Sequence table, Step 4."}, {"q": "Two brothers, Damon and Kevin, both start with $0 in investments. Damon starts investing $350/month at age 25 and stops completely at 35 \u2014 contributing for 10 years, total contribution $42,000. Kevin starts at 35 and invests $350/month until age 65 \u2014 contributing for 30 years, total contribution $126,000. Both earn 7% average annual return. At 65, who has more money?", "opts": ["Kevin \u2014 he contributed three times as much money", "Damon \u2014 his money had 40 years to compound instead of Kevin's 30, and compound growth is exponential over time", "They end up with about the same amount because the rate of return is identical", "Kevin, because investing longer always beats investing earlier with less"], "correct": 1, "explanation": "This is the most powerful illustration of compound growth. Damon's $42,000 invested for 40 years grows to approximately $924,000. Kevin's $126,000 invested for 30 years grows to approximately $707,000. Damon wins by $217,000 despite contributing $84,000 less \u2014 because time in the market is worth more than amount in the market. Start now, even if the amount is small.", "hint": "Review 'Compound Growth in Action' and the time value of money concept."}, {"q": "Renee has $45,000 sitting in a traditional savings account at her bank earning 0.02% APY. Her coworker tells her to move it to a high-yield savings account earning 4.8% APY. Renee says 'it's only savings, it doesn't need to earn much.' What is Renee actually leaving on the table each year?", "opts": ["About $50 \u2014 not worth switching for", "About $900 \u2014 meaningful but not life-changing", "About $2,151 \u2014 the difference between $9 in the traditional account and $2,160 in the HYSA, for the same money and zero extra effort", "About $4,500 \u2014 savings accounts compound daily so the real difference is even larger"], "correct": 2, "explanation": "$45,000 \u00d7 0.02% = $9/year in traditional savings. $45,000 \u00d7 4.8% = $2,160/year in a HYSA. The difference is $2,151 annually for moving money from one account to another \u2014 a 15-minute task. Over five years that's over $11,000 in lost interest. This is the exact type of information gap that costs people real money without them ever knowing it.", "hint": "Review 'The High-Yield Savings Account' section."}, {"q": "Carlos says 'I don't need to diversify \u2014 I'm just putting everything into my company's stock because I know the business well.' According to Module 5, what specific risk is Carlos taking that diversification protects against?", "opts": ["Diversification only matters for people with over $100,000 invested", "Carlos is taking concentration risk \u2014 if his company underperforms or fails, his entire investment portfolio and his income could both be wiped out simultaneously", "His strategy is actually smart because insider knowledge reduces risk", "Diversification always reduces returns, so Carlos's concentrated approach will likely outperform"], "correct": 1, "explanation": "Concentration risk means having too much exposure to a single asset. Carlos has a double problem: if his company struggles, he could lose his job AND watch his investment portfolio decline at the same time. Diversification across asset classes, geographies, and sectors means no single failure can devastate the whole portfolio. Spreading risk is how you survive the inevitable downturns without being wiped out.", "hint": "Review 'Diversification: Don't Bet Everything on One Thing.'"}, {"q": "When calculating her emergency fund target, Brenda adds up her monthly essential expenses: $1,200 rent, $340 car payment, $180 utilities and phone, $400 groceries, $220 in minimum debt payments. She wants a full 6-month emergency fund. What is her target amount?", "opts": ["$10,200 \u2014 based on 3 months of expenses", "$13,440 \u2014 based on 6 months of non-essential spending only", "$14,040 \u2014 based on 6 months of all essential monthly expenses", "$25,000 \u2014 she should round up significantly to be safe"], "correct": 2, "explanation": "$1,200 + $340 + $180 + $400 + $220 = $2,340/month in essential expenses. $2,340 \u00d7 6 = $14,040 target for a fully funded 6-month emergency fund. This is the amount that keeps her household running for six months with no income \u2014 covering housing, transportation, utilities, food, and debt minimums without touching investments or going into debt.", "hint": "Review 'The Emergency Fund: Your Financial Foundation.'"}];
+  let answered = {};
+
+  function unlockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      btn.style.cursor = 'pointer';
+      btn.title = '';
+    }
+  }
+
+  function lockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+      btn.style.cursor = 'not-allowed';
+      btn.title = 'Pass the module quiz to continue';
+    }
+  }
+
+  function updateQuizProgress() {
+    const total = questions.length;
+    const done = Object.keys(answered).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    const lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = pct + '%';
+    if (lbl) lbl.textContent = done + '/' + total + ' answered';
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(answered).length < questions.length) return;
+    const correct = Object.values(answered).filter(v => v).length;
+    const total = questions.length;
+    const pct = correct / total;
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!resultBar) return;
+    resultBar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      resultBar.className = 'quiz-result-bar pass';
+      resultBar.innerHTML = '<strong>Module Quiz Passed! ' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%)</strong>The Next Module button is now unlocked. Well done.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      resultBar.className = 'quiz-result-bar fail';
+      resultBar.innerHTML = '<strong>' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%). Need 80% to pass.</strong>Review the sections noted in the hints above, then retry the quiz.';
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+
+  function initQuiz() {
+    // Check if already passed
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (resultBar) {
+          resultBar.style.display = 'block';
+          resultBar.className = 'quiz-result-bar pass';
+          resultBar.innerHTML = '<strong>Module Quiz Previously Passed</strong>The Next Module button is unlocked.';
+        }
+        return;
+      }
+    } catch(e) {}
+
+    lockNext();
+
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          const isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          // Style all buttons
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          // Show feedback
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+              feedbackEl.className = 'quiz-feedback correct-fb';
+              feedbackEl.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              feedbackEl.className = 'quiz-feedback wrong-fb';
+              feedbackEl.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateQuizProgress();
+          checkAllAnswered();
+        });
+      });
+    });
+
+    updateQuizProgress();
+  }
+
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (resultBar) { resultBar.style.display = 'none'; resultBar.innerHTML = ''; }
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.style.display = 'none';
+    // Reset all buttons and feedback
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      optBtns.forEach(function(btn) {
+        btn.disabled = false;
+        btn.className = 'quiz-opt-btn';
+      });
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (feedbackEl) { feedbackEl.style.display = 'none'; feedbackEl.innerHTML = ''; feedbackEl.className = 'quiz-feedback'; }
+    });
+    lockNext();
+    updateQuizProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+    <div class="lesson-nav">
+      <a href="./foundation-mod4.html" class="btn-prev">← Module 4: Destroying Debt</a>
+      <span class="progress-label">Module 5 of 8</span>
+      <a href="./foundation-mod6.html" class="btn-next">Module 6: Accountability →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

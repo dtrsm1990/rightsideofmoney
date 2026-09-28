@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Assessment | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="active">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Final Assessment</p>
+<h1>RSM Foundation Course Assessment</h1>
+<p class="lesson-subtitle">This is your mastery check. Take your time. Use what you've learned.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>Before You Begin</h3>
+  <p>This assessment covers all eight modules. It's designed to confirm that you've internalized the core concepts, not to trick you. Read each question carefully. If you get a question wrong, that's a signal to revisit that module before you apply the concept to your real life. Your financial foundation depends on genuinely understanding these ideas, not just completing a quiz.</p>
+</div>
+
+<div id="quiz-container">
+  <div id="quiz-progress-bar" style="background:#e8e8e8;border-radius:4px;height:8px;margin-bottom:2rem;"><div id="quiz-fill" style="background:var(--gold);height:8px;border-radius:4px;width:0%;transition:width 0.4s;"></div></div>
+  <div id="question-area"></div>
+  <div id="result-area" style="display:none;"></div>
+</div>
+
+<style>
+.q-block { margin-bottom: 2rem; }
+.q-block p.q-text { font-weight: 600; color: var(--navy); font-size: 1.05rem; margin-bottom: 1rem; }
+.q-option { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 1.1rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 0.6rem; cursor: pointer; transition: all 0.15s; background: #fff; }
+.q-option:hover { border-color: var(--gold); background: var(--cream); }
+.q-option.selected { border-color: var(--navy); background: rgba(13,31,60,0.05); }
+.q-option.correct { border-color: #2a7f4f; background: #f0faf5; }
+.q-option.incorrect { border-color: #c0392b; background: #fdf3f2; }
+.q-option .opt-letter { background: var(--navy); color: var(--white); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.q-option.correct .opt-letter { background: #2a7f4f; }
+.q-option.incorrect .opt-letter { background: #c0392b; }
+.q-explain { background: var(--cream); border-left: 4px solid var(--gold); border-radius: 0 6px 6px 0; padding: 1rem 1.2rem; margin-top: 0.5rem; font-size: 0.9rem; color: #333; display: none; }
+.btn-quiz { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.8rem 2rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; border: none; margin-top: 1rem; transition: background 0.2s; }
+.btn-quiz:hover { background: var(--gold-light); }
+.q-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+.score-box { text-align: center; padding: 3rem 2rem; }
+.score-big { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 700; color: var(--navy); line-height: 1; }
+.score-label { font-size: 1.1rem; color: var(--gray-mid); margin: 0.5rem 0 1.5rem; }
+.cert-strip { background: var(--navy); color: var(--white); border-radius: 10px; padding: 2rem; margin: 2rem 0; text-align: center; }
+.cert-strip h2 { font-family: 'Playfair Display', serif; color: var(--gold-light); margin-bottom: 0.5rem; }
+</style>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "What is the single most important factor in your FICO credit score?",
+    opts: ["Credit utilization ratio","Payment history","Length of credit history","Number of open accounts"],
+    answer: 1,
+    explain: "Payment history makes up 35% of your FICO score, the largest single factor. Paying on time, every time, is the most powerful thing you can do for your credit."
+  },
+  {
+    q: "The Debt Snowball method pays off debts in which order?",
+    opts: ["Highest interest rate first","Largest balance first","Smallest balance first","Newest debt first"],
+    answer: 2,
+    explain: "The Debt Snowball targets the smallest balance first, generating quick wins and psychological momentum. The Debt Avalanche targets highest interest rate first for maximum interest savings."
+  },
+  {
+    q: "Your net worth is calculated as:",
+    opts: ["Annual income minus annual expenses","Total assets minus total liabilities","Monthly savings times 12","Gross income minus taxes"],
+    answer: 1,
+    explain: "Net worth = Everything you own (assets) minus everything you owe (liabilities). This is your true financial score, not your income."
+  },
+  {
+    q: "Which of the following is the best first step in the wealth building sequence?",
+    opts: ["Open a Roth IRA","Build a $1,000 starter emergency fund","Pay off your mortgage","Buy an investment property"],
+    answer: 1,
+    explain: "The sequence starts with a starter emergency fund so you stop using credit cards when surprises happen. You build the full emergency fund AFTER paying off consumer debt."
+  },
+  {
+    q: "Which is the best description of compound interest?",
+    opts: ["Interest charged only on the principal balance","A fixed monthly fee charged by lenders","Earning interest on both your principal and previously earned interest","The interest rate on a credit card statement"],
+    answer: 2,
+    explain: "Compound interest means you earn interest on your original deposit AND on all the interest already accumulated. Over decades this creates exponential growth, or exponential debt if working against you."
+  },
+  {
+    q: "What does DTI stand for, and what does a DTI above 50% signal?",
+    opts: ["Debt-to-Income ratio; you are in financial crisis territory","Daily Transaction Index; your spending is too frequent","Debt Transfer Initiative; you should consolidate loans","Diversified Tax Investment; you have too many accounts"],
+    answer: 0,
+    explain: "Debt-to-Income ratio. Divide total monthly debt payments by gross monthly income. Above 50% is crisis territory, debt is consuming your income and leaving little room for savings or emergencies."
+  },
+  {
+    q: "In a zero-based budget, what does 'zero' refer to?",
+    opts: ["Your savings balance must be zero","You should have zero debt before budgeting","Every dollar of income is assigned a specific purpose, leaving zero unallocated","Your checking account should reach zero by month end"],
+    answer: 2,
+    explain: "Zero-based budgeting means income minus all assigned uses (spending, saving, investing, debt payoff) equals zero. Every dollar has a job. Nothing floats unaccounted."
+  },
+  {
+    q: "Term life insurance differs from whole life insurance primarily because:",
+    opts: ["Term is more expensive but builds cash value","Term covers you for a specific period and has no cash value; whole life is permanent and accumulates cash value","Term only covers accidents, not illness","Whole life cannot be purchased after age 40"],
+    answer: 1,
+    explain: "Term life insurance provides coverage for a defined period (10, 20, 30 years) at a low premium with no cash value. Whole life is permanent, accumulates cash value, and is significantly more expensive."
+  },
+  {
+    q: "What is dollar-cost averaging?",
+    opts: ["Converting foreign currency at the best available rate","Investing a fixed amount at regular intervals regardless of market conditions","Buying only when stock prices are at a yearly low","Averaging the cost of several purchases to find the cheapest option"],
+    answer: 1,
+    explain: "Dollar-cost averaging means investing the same fixed amount on a regular schedule regardless of market prices. When prices drop, your fixed amount buys more shares. Over time this reduces the average cost per share and removes emotion from investing."
+  },
+  {
+    q: "Which of these best describes an asset (using the RSM definition)?",
+    opts: ["Anything you own that has monetary value","Something that puts money in your pocket or appreciates in value over time","Your primary vehicle if it's paid off","A bank account with money in it"],
+    answer: 1,
+    explain: "An asset puts money in your pocket or grows in value over time. A car typically depreciates and costs money to maintain, it's a liability by this definition even if it's paid off. A rental property that generates income is a true asset."
+  },
+  {
+    q: "Which retirement account allows your money to grow completely tax-free and provides tax-free qualified withdrawals in retirement?",
+    opts: ["Traditional IRA","401(k)","Roth IRA","SEP-IRA"],
+    answer: 2,
+    explain: "A Roth IRA is funded with after-tax dollars, grows tax-free, and qualified withdrawals in retirement are completely tax-free. This is especially powerful for younger investors who expect to be in higher tax brackets in retirement."
+  },
+  {
+    q: "Why is starting a $500/month investment at age 25 more powerful than starting a $1,000/month investment at age 45, even though the monthly amounts differ significantly?",
+    opts: ["Stock prices are always lower in your 20s","25-year-olds get better interest rates from brokerages","Compound growth needs time, 40 years of compounding outweighs higher contributions with only 20 years to compound","Retirement accounts allow higher contribution limits before age 35"],
+    answer: 2,
+    explain: "Time is the most powerful variable in wealth building. Compound growth accelerates exponentially over decades. Starting earlier with less money can produce more wealth than starting later with more money, simply because the money has more time to compound."
+  },
+  {
+    q: "What is a sinking fund?",
+    opts: ["A fund used to pay off debt in bankruptcy proceedings","A savings account dedicated to a specific upcoming expense so it doesn't surprise you","A retirement account for self-employed individuals","An emergency fund held in a money market account"],
+    answer: 1,
+    explain: "A sinking fund is a dedicated savings bucket for a known future expense: car repairs, holiday gifts, annual insurance renewals. You fund it a little each month so when the expense arrives, the money is already there."
+  },
+  {
+    q: "The most common cause of personal bankruptcy in the United States is:",
+    opts: ["Student loan debt","Medical debt and medical bills","Mortgage default","Credit card overspending"],
+    answer: 1,
+    explain: "Medical debt and medical issues are tied to the majority of personal bankruptcies in the U.S. This is why health insurance and an adequate emergency fund are foundational protection tools, not optional extras."
+  },
+  {
+    q: "Which of the following is a key benefit of automating your savings and investments?",
+    opts: ["It earns you higher interest rates than manual transfers","It removes the need for willpower or daily decision-making, making the right action the default","It allows you to skip budgeting entirely","Automated accounts have lower fees than self-managed ones"],
+    answer: 1,
+    explain: "Automation removes the daily decision. When savings and investing happen automatically before you can spend the money, your financial plan executes itself regardless of motivation, discipline, or how stressful your week was."
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = [];
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const pct = Math.round((currentQ / QUESTIONS.length) * 100);
+  document.getElementById('quiz-fill').style.width = pct + '%';
+
+  let html = `<div class="q-block">
+    <p style="font-size:0.8rem;color:var(--gray-mid);margin-bottom:0.5rem;">Question ${currentQ+1} of ${QUESTIONS.length}</p>
+    <p class="q-text">${q.q}</p>`;
+
+  q.opts.forEach((opt, i) => {
+    const letters = ['A','B','C','D'];
+    html += `<div class="q-option" id="opt${i}" onclick="selectAnswer(${i})">
+      <span class="opt-letter">${letters[i]}</span>
+      <span>${opt}</span>
+    </div>`;
+  });
+
+  html += `<div class="q-explain" id="explain">${q.explain}</div>
+  <div class="q-nav">
+    <span id="feedback" style="font-weight:600;font-size:0.9rem;"></span>
+    <button class="btn-quiz" id="nextBtn" style="display:none;" onclick="nextQuestion()">
+      ${currentQ < QUESTIONS.length - 1 ? 'Next Question →' : 'See My Results →'}
+    </button>
+  </div></div>`;
+
+  document.getElementById('question-area').innerHTML = html;
+}
+
+function selectAnswer(i) {
+  if (answered[currentQ] !== undefined) return;
+  answered[currentQ] = i;
+  const q = QUESTIONS[currentQ];
+  const letters = ['A','B','C','D'];
+
+  q.opts.forEach((opt, idx) => {
+    const el = document.getElementById('opt' + idx);
+    if (idx === q.answer) el.classList.add('correct');
+    else if (idx === i && i !== q.answer) el.classList.add('incorrect');
+    el.style.cursor = 'default';
+  });
+
+  if (i === q.answer) {
+    score++;
+    document.getElementById('feedback').style.color = '#2a7f4f';
+    document.getElementById('feedback').textContent = '✓ Correct!';
+  } else {
+    document.getElementById('feedback').style.color = '#c0392b';
+    document.getElementById('feedback').textContent = '✗ Not quite, see explanation below.';
+  }
+
+  document.getElementById('explain').style.display = 'block';
+  document.getElementById('nextBtn').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ < QUESTIONS.length) {
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function showResults() {
+  document.getElementById('quiz-fill').style.width = '100%';
+  document.getElementById('question-area').style.display = 'none';
+  const pct = Math.round((score / QUESTIONS.length) * 100);
+
+  let grade, msg, color;
+  if (pct >= 90) {
+    grade = "Outstanding"; color = "#2a7f4f";
+    msg = "You've mastered the RSM Foundation. These concepts are part of how you think now. The work ahead is application, not review.";
+  } else if (pct >= 75) {
+    grade = "Strong Pass"; color = "var(--navy)";
+    msg = "You have a solid grasp of the foundation. Review the questions you missed, revisit those modules, and make sure the concepts are fully clear before you move forward.";
+  } else if (pct >= 60) {
+    grade = "Keep Building"; color = "var(--gold)";
+    msg = "You're getting there. Go back to the modules where you missed questions and spend more time with the material. The concepts build on each other, so a shaky foundation creates problems later.";
+  } else {
+    grade = "Revisit the Course"; color = "#c0392b";
+    msg = "This material requires another pass. Don't feel discouraged, feeling lost with these concepts is exactly why this course exists. Go back to Module 1 and work through again. The second time through hits differently.";
+  }
+
+  document.getElementById('result-area').style.display = 'block';
+  document.getElementById('result-area').innerHTML = `
+    <div class="score-box">
+      <div class="score-big" style="color:${color};">${pct}%</div>
+      <div class="score-label">${score} of ${QUESTIONS.length} correct &mdash; ${grade}</div>
+      <p style="color:#555;max-width:560px;margin:0 auto 2rem;">${msg}</p>
+
+      <div class="cert-strip">
+        <h2>RSM Foundation Course</h2>
+        <p style="color:rgba(255,255,255,0.8);margin-bottom:0.3rem;">Certificate of Completion</p>
+        <p style="color:var(--gold-light);font-family:'Playfair Display',serif;font-size:1.3rem;margin:1rem 0 0.25rem;">This certifies that you have completed the</p>
+        <p style="color:white;font-size:1rem;margin-bottom:1rem;">RSM Mindset, Financial Literacy &amp; Accountability Foundation Course</p>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.8rem;">Course content by Darrell Thompson &mdash; Right Side of Money</p>
+      </div>
+
+      <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:2rem 0 1rem;">What's Next</h2>
+      <p style="color:#555;text-align:left;max-width:600px;margin:0 auto;">You've completed the foundation. But reading and completing a course is only the beginning. The real work is application. Pick one concept from each module and implement it in the next 30 days. Not all of them. Just one per module. That's eight changes over the next month. Eight changes compounded over a year, over five years, over a lifetime, is how a completely different financial life gets built.</p>
+      <p style="color:#555;text-align:left;max-width:600px;margin:1rem auto 0;">Come back to this course. The module on debt will mean more after you've built your budget. The module on investing will hit harder once you've eliminated consumer debt. This material deepens with every level of progress you make.</p>
+      <p style="margin-top:2rem;"><a href="./foundation-portal.html" class="btn-next" style="text-decoration:none;">← Back to Course Home</a></p>
+    </div>`;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderQuestion();
+});
+</script>
+
+    <div class="lesson-nav">
+      <a href="./foundation-mod8.html" class="btn-prev">← Module 8: Income Growth</a>
+      <span class="progress-label">Final Assessment</span>
+      <span></span>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

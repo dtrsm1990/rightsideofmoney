@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 6: Accountability Systems | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="active">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Module 6</p>
+<h1>Accountability Systems</h1>
+<p class="lesson-subtitle">Knowledge doesn't change your life. Application does. This module bridges the gap.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>The Core Truth</h3>
+  <p>The reason most people don't reach their financial goals isn't a lack of knowledge. It's a lack of execution. You can know exactly what to do and still not do it. Accountability is the system that makes execution automatic, consistent, and sustainable, even when motivation runs out, which it always does eventually.</p>
+</div>
+
+<h2>Why Motivation Isn't Enough</h2>
+<p>You started this course motivated. You had a moment of clarity, a decision, a fire. That's real. But motivation is a feeling, and feelings change. They're affected by bad days, tired mornings, hard weeks, and the slow grind of doing the right thing when results aren't showing up yet.</p>
+<p>The people who win financially don't win because they're more motivated than everyone else. They win because they've built systems that don't require motivation to execute. They automate what can be automated. They have people around them who hold them accountable. They have tracking systems that show them clearly where they are and where they're going. When motivation dips, the system keeps running.</p>
+
+<h2>The Four Pillars of Financial Accountability</h2>
+
+<h3>Pillar 1: Track Everything</h3>
+<p>You can't manage what you don't measure. Every week, you need to know your spending versus your budget, your debt balances compared to last month, and your savings and investment balance. This doesn't have to be complicated. A simple spreadsheet, an app like Mint, YNAB, or EveryDollar, or even a notebook works.</p>
+<p>The act of tracking alone changes behavior. When you know you're going to record every purchase, you make slightly different choices. When you see your restaurant spending in black and white at the end of the month, you respond differently than when it's just a vague feeling that you've been "spending too much."</p>
+
+<h3>Pillar 2: Set Specific, Measurable Goals with Deadlines</h3>
+<p>"I want to save more money" is not a goal. "I'm going to save $5,000 in my emergency fund by December 31st by setting aside $625 per month starting today" is a goal. The difference is specificity, measurement, and a deadline.</p>
+<p>Every financial goal you have needs four components: a specific target (what), a measurable amount (how much), a deadline (by when), and a defined action (what you'll do each month to get there). Without all four, it's a wish, not a plan.</p>
+<p>Write your top three financial goals using this format right now:</p>
+<ul>
+  <li>I will [specific action] to achieve [measurable target] by [deadline] by doing [monthly action].</li>
+</ul>
+
+<h3>Pillar 3: Accountability Partners and Community</h3>
+<p>We behave differently when someone else is watching. Not because we're performing, but because commitment to another person activates a deeper level of follow-through than commitment to ourselves alone. This is why personal trainers work, why Weight Watchers works, and why financial accountability partnerships work.</p>
+<p>Your accountability partner doesn't have to be a financial expert. They need to be someone who will actually ask you the hard questions, celebrate your wins without judgment, and not let you make excuses when you miss a month. They're also working toward their own goals, ideally, so accountability runs both ways.</p>
+<p>What your accountability partner needs to know:</p>
+<ul>
+  <li>Your three main financial goals and their deadlines</li>
+  <li>What you're committing to do each month</li>
+  <li>What you'll report to them and how often (weekly or monthly check-ins work best)</li>
+  <li>What a missed commitment looks like and how you'll get back on track</li>
+</ul>
+
+<h3>Pillar 4: Regular Financial Reviews</h3>
+<p>The weekly money check-in and the monthly financial review are non-negotiable. These aren't punishment. They're the steering wheel. Without them, you're driving blind.</p>
+
+<h4>The Weekly Money Check-In (15-20 minutes)</h4>
+<ul>
+  <li>Review what you spent in the last seven days</li>
+  <li>Compare to your budget for those categories</li>
+  <li>Adjust the rest of the month's spending if needed</li>
+  <li>Check savings and investment balances</li>
+  <li>Note any upcoming irregular expenses to plan for</li>
+</ul>
+
+<h4>The Monthly Financial Review (30-45 minutes)</h4>
+<ul>
+  <li>Total income vs. total spending for the month</li>
+  <li>Budget categories: where did you hit it, where did you miss?</li>
+  <li>Debt balances: is each one lower than last month?</li>
+  <li>Net worth update: are assets up? Are debts down?</li>
+  <li>Set the budget for the coming month before it starts</li>
+</ul>
+
+<h2>Automation as Accountability</h2>
+<p>The strongest accountability system removes the need to make the right decision in the moment. Automation makes the right decision happen automatically, before you can rationalize spending that money on something else.</p>
+<p>The automation priority list:</p>
+<ol>
+  <li>Retirement contributions deducted pre-paycheck (you never see the money)</li>
+  <li>Automatic transfer to emergency fund on payday</li>
+  <li>Automatic transfer to savings/sinking funds on payday</li>
+  <li>Automatic minimum payments on all debts</li>
+  <li>Manual extra debt payment (this one stays manual so you feel it)</li>
+</ol>
+<p>When savings and investing happen automatically before you touch the money, your financial plan executes itself. You're left with the remainder to spend freely within your budget. This is the simplest, most effective accountability system ever built.</p>
+
+<div class="callout callout-stat">
+  <div class="stat-num">92%</div>
+  <div class="stat-label">of people who share their goals with an accountability partner report making meaningful progress. Only 43% of those who keep goals private do.</div>
+</div>
+
+<h2>Handling Setbacks Without Quitting</h2>
+<p>You will miss a month. You'll have an unexpected expense blow your budget. You'll have a week where you didn't track anything and you're afraid to look at what you spent. This is normal. It's going to happen. The question isn't whether you'll have setbacks. It's what you do when you do.</p>
+<p>The answer is always the same: assess without judgment, adjust the plan if needed, and get back on track immediately. A missed month doesn't erase the months you hit. A budget blowout in October doesn't cancel November. The financial journey is measured in years and decades, not weeks. One bad month is a data point, not a destiny.</p>
+<p>What you can't do is use a setback as a reason to quit entirely. That's the pattern that keeps people stuck. They do well for 3 months, have one bad month, feel like a failure, and stop tracking altogether. Months later, they're further back than when they started. One bad month followed by a great month still moves you forward. One bad month followed by quitting moves you backward.</p>
+
+<div class="callout callout-action">
+  <h3>Build Your Accountability System This Week</h3>
+  <p>Three actions this week: (1) Choose your tracking tool and set it up today, whether that's an app, a spreadsheet, or a notebook. (2) Identify your accountability partner and have the conversation this week. Tell them your three goals and agree on a check-in schedule. (3) Schedule your first monthly financial review on your calendar right now. Put it there before you close this page.</p>
+</div>
+
+<h2>Celebrating Progress Without Sabotaging It</h2>
+<p>Progress deserves recognition. If you pay off a debt, that's a real win and it deserves a real celebration. The key is celebrating in a way that doesn't undo the progress you made.</p>
+<p>Create a celebration that fits the milestone: paying off a $500 credit card might earn you a nice dinner out. Paying off $10,000 in debt might earn you a weekend trip. Reaching your emergency fund goal might earn you something you've been wanting that fits your budget. The celebration should feel meaningful without sending you back into the behaviors you're trying to leave behind.</p>
+
+    
+
+<style>
+.rsm-reflection { background: var(--gray-light); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; }
+.rsm-reflection .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-reflection .ref-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.ref-progress { font-size: 0.78rem; color: var(--gray-mid); }
+.ref-q { margin-bottom: 1.5rem; }
+.ref-q .ref-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.5; }
+.ref-q .ref-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.ref-textarea { width: 100%; min-height: 110px; border: 2px solid #ddd; border-radius: 8px; padding: 0.85rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); resize: vertical; transition: border-color 0.2s; background: #fff; }
+.ref-textarea:focus { outline: none; border-color: var(--gold); }
+.ref-textarea.complete { border-color: #2a7f4f; background: #f6fdf9; }
+.ref-feedback { font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.ref-feedback.good { color: #2a7f4f; font-weight: 600; }
+.ref-feedback.warn { color: #b8860b; }
+.ref-submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.ref-word-count { font-size: 0.78rem; color: var(--gray-mid); }
+.btn-ref-submit { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.btn-ref-submit:hover { background: var(--gold); color: var(--navy); }
+.ref-score-bar { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 1.2rem 0 0.3rem; overflow: hidden; }
+.ref-score-fill { height: 6px; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
+.ref-score-label { font-size: 0.8rem; color: var(--gray-mid); }
+.ref-complete-banner { background: var(--navy); color: var(--white); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; display: none; }
+.ref-complete-banner .ref-check { background: var(--gold); color: var(--navy); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+</style>
+
+<div class="rsm-reflection">
+  <div class="ref-header">
+    <span class="ref-title">Reflection Questions</span>
+    <span class="ref-progress" id="refProgress">0/5 answered</span>
+  </div>
+  <div class="ref-score-bar"><div class="ref-score-fill" id="refScoreFill" style="width:0%"></div></div>
+  <div class="ref-score-label" id="refScoreLabel">Complete all questions to finish this module</div>
+  <div style="margin-top:1.5rem;">
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">1</span>What's your current system for tracking spending? Be honest. Is it working? If not, what will you replace it with before next week?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa1"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc1">0 words</span></div>
+      <div class="ref-feedback" id="refFb1"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">2</span>Who is your accountability partner? If you don't have one, who are the two or three people in your life who could fill that role? What's stopping you from asking them?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa2"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc2">0 words</span></div>
+      <div class="ref-feedback" id="refFb2"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">3</span>What has been your biggest financial setback in the past year? What happened when it hit? Did you get back on track or did you quit? What would you do differently this time?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa3"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc3">0 words</span></div>
+      <div class="ref-feedback" id="refFb3"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">4</span>Write out your top three financial goals in the specific format from this module: I will [action] to achieve [target] by [deadline] by doing [monthly action].</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa4"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc4">0 words</span></div>
+      <div class="ref-feedback" id="refFb4"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">5</span>What's one thing you've been telling yourself you 'should' be doing financially that you haven't set up yet? What specifically is stopping you, and what will you do about it today?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa5"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc5">0 words</span></div>
+      <div class="ref-feedback" id="refFb5"></div>
+    </div></div>
+  <div style="text-align:right;margin-top:1rem;">
+    <button class="btn-ref-submit" id="refSubmitBtn">Submit My Reflections ✓</button>
+  </div>
+  <div class="ref-complete-banner" id="refBanner">
+    <div class="ref-check">✓</div>
+    <div><strong>Module reflection complete!</strong> Your answers are saved in this browser. Move to the next module when you're ready.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MOD_ID = 'mod6';
+  const MIN_WORDS = 15;
+  function countWords(s){ return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+  function save(qid, val){ try { localStorage.setItem('rsm_ref_' + MOD_ID + '_q' + qid, val); } catch(e){} }
+  function load(qid){ try { return localStorage.getItem('rsm_ref_' + MOD_ID + '_q' + qid) || ''; } catch(e){ return ''; } }
+  function updateProgress(){
+    const textareas = document.querySelectorAll('.ref-textarea');
+    let done = 0;
+    textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+    const total = textareas.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const fill = document.getElementById('refScoreFill');
+    const lbl = document.getElementById('refScoreLabel');
+    const prog = document.getElementById('refProgress');
+    const banner = document.getElementById('refBanner');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl) lbl.textContent = done + ' of ' + total + ' questions complete';
+    if(prog) prog.textContent = done + '/' + total + ' answered';
+    if(banner) banner.style.display = (done === total) ? 'flex' : 'none';
+  }
+  function initTextarea(ta, idx){
+    const saved = load(idx);
+    if(saved){ ta.value = saved; }
+    const feedback = document.getElementById('refFb' + idx);
+    const wordCount = document.getElementById('refWc' + idx);
+    function check(){
+      const w = countWords(ta.value);
+      if(wordCount) wordCount.textContent = w + ' words';
+      if(w >= MIN_WORDS){
+        ta.classList.add('complete');
+        if(feedback){ feedback.className='ref-feedback good'; feedback.textContent = '✓ Great response. Keep going!'; }
+      } else if(w > 0){
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback warn'; feedback.textContent = 'Keep going. Aim for at least ' + MIN_WORDS + ' words for a full reflection.'; }
+      } else {
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback'; feedback.textContent = ''; }
+        if(wordCount) wordCount.textContent = '0 words';
+      }
+      save(idx, ta.value);
+      updateProgress();
+    }
+    ta.addEventListener('input', check);
+    check();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.ref-textarea').forEach(function(ta, i){ initTextarea(ta, i+1); });
+    updateProgress();
+    const btn = document.getElementById('refSubmitBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        const textareas = document.querySelectorAll('.ref-textarea');
+        let done = 0;
+        textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+        if(done < textareas.length){
+          alert('Please complete all reflection questions before submitting. Each answer needs at least 15 words.');
+          return;
+        }
+        try { localStorage.setItem('rsm_ref_' + MOD_ID + '_submitted', '1'); } catch(e){}
+        const banner = document.getElementById('refBanner');
+        if(banner){ banner.style.display = 'flex'; banner.scrollIntoView({behavior:'smooth'}); }
+      });
+    }
+  });
+})();
+</script>
+    
+
+<style>
+.rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+.rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-quiz .quiz-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+.quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+.quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.quiz-q:last-of-type { border-bottom: none; }
+.quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+.quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.quiz-options { list-style: none; padding: 0; margin: 0; }
+.quiz-options li { margin-bottom: 0.55rem; }
+.quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+.quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+.quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+.quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn:disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+.quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+.quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+.quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+.quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+.quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+.quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+.quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+.btn-quiz-retry:hover { background: var(--gold-light); }
+</style>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Module Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_mod6">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_mod6" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next module.</p>
+  
+<div class="quiz-q qblock_mod6_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Tony has been on his debt payoff plan for four months and hitting his targets. In month five, unexpected car repairs cost $800 and blow his entire budget. He feels like a failure and stops tracking his spending entirely. Six months later, he's deeper in debt than when he started. According to Module 6, what was the critical mistake Tony made after the setback?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">He should have had a larger emergency fund before starting debt payoff</button></li>
+<li><button class="quiz-opt-btn" type="button">Tony's mistake was stopping: one missed month followed by inaction is what turns a temporary setback into a permanent derailment</button></li>
+<li><button class="quiz-opt-btn" type="button">Tony's plan was too aggressive and he set himself up to fail</button></li>
+<li><button class="quiz-opt-btn" type="button">He should have used a different debt payoff method</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod6_0"></div>
+</div>
+<div class="quiz-q qblock_mod6_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Keisha tells her accountability partner: 'I want to save more money this year.' Her partner asks her to make the goal more specific. Which version best meets the goal-setting standard from Module 6?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">'I want to save at least $5,000 this year if possible'</button></li>
+<li><button class="quiz-opt-btn" type="button">'I will save $416/month via automatic transfer every payday to reach $5,000 by December 31st by cutting my dining budget from $400 to $150 monthly'</button></li>
+<li><button class="quiz-opt-btn" type="button">'I'm going to try to put money aside when I can each month'</button></li>
+<li><button class="quiz-opt-btn" type="button">'I want to have a fully funded emergency fund someday'</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod6_1"></div>
+</div>
+<div class="quiz-q qblock_mod6_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Marcus tracks his spending carefully every week and reviews his budget monthly. He has a solid system and clear goals. But every time he hits a rough patch, he quietly abandons his plan for a few weeks before getting back on track. Which of the four accountability pillars is Marcus most clearly missing?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Tracking: he's not monitoring the right metrics</button></li>
+<li><button class="quiz-opt-btn" type="button">Goal setting: his goals aren't specific enough</button></li>
+<li><button class="quiz-opt-btn" type="button">An accountability partner: without someone who will ask him hard questions when he goes quiet, he has no external check on his behavior</button></li>
+<li><button class="quiz-opt-btn" type="button">Regular financial reviews: he should do them weekly instead of monthly</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod6_2"></div>
+</div>
+<div class="quiz-q qblock_mod6_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>Yvonne wants to automate her finances using the sequence from Module 6. She gets paid on the 1st and 15th. She has a 401(k) at work, a savings account, and three bills on autopay. In what order should the money move on payday?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Pay bills first, then transfer to savings, then invest whatever is left</button></li>
+<li><button class="quiz-opt-btn" type="button">401(k) contribution deducted pre-paycheck → automatic transfer to savings on payday → bills on autopay → remainder is spending money</button></li>
+<li><button class="quiz-opt-btn" type="button">Transfer to savings first, then pay bills, then invest whatever is left</button></li>
+<li><button class="quiz-opt-btn" type="button">Invest first, then pay bills, then transfer savings from what's left</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod6_3"></div>
+</div>
+<div class="quiz-q qblock_mod6_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>After six months of strict budgeting and debt payoff, Dana eliminates her $3,400 store credit card. Her husband suggests they celebrate by booking a cruise they've been wanting. Dana wants to celebrate but is nervous about spending. According to Module 6, what's the right approach?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Don't celebrate at all: financial discipline means no rewards until everything is paid off</button></li>
+<li><button class="quiz-opt-btn" type="button">Celebrate in a meaningful way that fits the milestone without undoing the progress: a dinner out or a small meaningful experience, not a cruise that creates new debt</button></li>
+<li><button class="quiz-opt-btn" type="button">Book the cruise: you deserve it after six months of sacrifice</button></li>
+<li><button class="quiz-opt-btn" type="button">Put the celebration money directly toward the next debt instead</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod6_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_mod6"></div>
+  <button class="btn-quiz-retry" id="quizRetry_mod6" type="button">Retry Quiz</button>
+</div>
+
+<script>
+(function(){
+  const MOD_QUIZ_ID = 'mod6';
+  const PASS_THRESHOLD = 0.8;
+  const questions = [{"q": "Tony has been on his debt payoff plan for four months and hitting his targets. In month five, unexpected car repairs cost $800 and blow his entire budget. He feels like a failure and stops tracking his spending entirely. Six months later, he's deeper in debt than when he started. According to Module 6, what was the critical mistake Tony made after the setback?", "opts": ["He should have had a larger emergency fund before starting debt payoff", "Tony's mistake was stopping \u2014 one missed month followed by inaction is what turns a temporary setback into a permanent derailment", "Tony's plan was too aggressive and he set himself up to fail", "He should have used a different debt payoff method"], "correct": 1, "explanation": "The setback itself wasn't the problem \u2014 unexpected expenses happen to everyone on every financial journey. The critical mistake was quitting entirely afterward. One bad month followed by a great month still moves you forward. One bad month followed by abandonment moves you backward. The response to a setback determines the trajectory, not the setback itself.", "hint": "Review 'Handling Setbacks Without Quitting.'"}, {"q": "Keisha tells her accountability partner: 'I want to save more money this year.' Her partner asks her to make the goal more specific. Which version best meets the goal-setting standard from Module 6?", "opts": ["'I want to save at least $5,000 this year if possible'", "'I will save $416/month via automatic transfer every payday to reach $5,000 by December 31st by cutting my dining budget from $400 to $150 monthly'", "'I'm going to try to put money aside when I can each month'", "'I want to have a fully funded emergency fund someday'"], "correct": 1, "explanation": "A real goal has four components: a specific target (what), a measurable amount (how much), a deadline (by when), and a defined action (what you'll do each month). Option B has all four: $416/month, $5,000 target, December 31st deadline, and a specific behavior change (dining budget cut) that funds it. Options A, C, and D are missing at least two of the four components.", "hint": "Review 'Step 2: Set Specific, Measurable Goals with Deadlines' under the Four Pillars."}, {"q": "Marcus tracks his spending carefully every week and reviews his budget monthly. He has a solid system and clear goals. But every time he hits a rough patch, he quietly abandons his plan for a few weeks before getting back on track. Which of the four accountability pillars is Marcus most clearly missing?", "opts": ["Tracking \u2014 he's not monitoring the right metrics", "Goal setting \u2014 his goals aren't specific enough", "An accountability partner \u2014 without someone who will ask him hard questions when he goes quiet, he has no external check on his behavior", "Regular financial reviews \u2014 he should do them weekly instead of monthly"], "correct": 2, "explanation": "Marcus has Pillars 1 (tracking) and 2 (goal-setting) covered. His pattern \u2014 going quiet and slipping when things get hard \u2014 is exactly what an accountability partner prevents. When someone else is expecting a check-in, you don't get to silently disappear for three weeks. The external commitment activates a deeper level of follow-through than internal commitment alone.", "hint": "Review 'Pillar 3: Accountability Partners and Community.'"}, {"q": "Yvonne wants to automate her finances using the sequence from Module 6. She gets paid on the 1st and 15th. She has a 401(k) at work, a savings account, and three bills on autopay. In what order should the money move on payday?", "opts": ["Pay bills first, then transfer to savings, then invest whatever is left", "401(k) contribution deducted pre-paycheck \u2192 automatic transfer to savings on payday \u2192 bills on autopay \u2192 remainder is spending money", "Transfer to savings first, then pay bills, then invest whatever is left", "Invest first, then pay bills, then transfer savings from what's left"], "correct": 1, "explanation": "The correct sequence removes money for future-you before present-you can spend it. The 401(k) deduction happens before the paycheck even arrives. Savings transfer fires automatically on payday before you touch anything. Bills autopay on their due dates. Whatever remains in checking is discretionary. This structure makes the right behavior the automatic default \u2014 no willpower required.", "hint": "Review 'Automation as Accountability' and the automation priority list."}, {"q": "After six months of strict budgeting and debt payoff, Dana eliminates her $3,400 store credit card. Her husband suggests they celebrate by booking a cruise they've been wanting. Dana wants to celebrate but is nervous about spending. According to Module 6, what's the right approach?", "opts": ["Don't celebrate at all \u2014 financial discipline means no rewards until everything is paid off", "Celebrate in a meaningful way that fits the milestone without undoing the progress \u2014 a dinner out or a small meaningful experience, not a cruise that creates new debt", "Book the cruise \u2014 you deserve it after six months of sacrifice", "Put the celebration money directly toward the next debt instead"], "correct": 1, "explanation": "Progress deserves recognition \u2014 that's a stated principle in Module 6. Celebrating wins reinforces the behavior and makes the journey sustainable. The key is proportionality: a $3,400 payoff earns a dinner out or a weekend trip, not a cruise that potentially puts new debt on a card. Celebrate in a way that honors the win without sending you back to the behaviors you're working to leave behind.", "hint": "Review 'Celebrating Progress Without Sabotaging It.'"}];
+  let answered = {};
+
+  function unlockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      btn.style.cursor = 'pointer';
+      btn.title = '';
+    }
+  }
+
+  function lockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+      btn.style.cursor = 'not-allowed';
+      btn.title = 'Pass the module quiz to continue';
+    }
+  }
+
+  function updateQuizProgress() {
+    const total = questions.length;
+    const done = Object.keys(answered).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    const lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = pct + '%';
+    if (lbl) lbl.textContent = done + '/' + total + ' answered';
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(answered).length < questions.length) return;
+    const correct = Object.values(answered).filter(v => v).length;
+    const total = questions.length;
+    const pct = correct / total;
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!resultBar) return;
+    resultBar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      resultBar.className = 'quiz-result-bar pass';
+      resultBar.innerHTML = '<strong>Module Quiz Passed! ' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%)</strong>The Next Module button is now unlocked. Well done.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      resultBar.className = 'quiz-result-bar fail';
+      resultBar.innerHTML = '<strong>' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%). Need 80% to pass.</strong>Review the sections noted in the hints above, then retry the quiz.';
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+
+  function initQuiz() {
+    // Check if already passed
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (resultBar) {
+          resultBar.style.display = 'block';
+          resultBar.className = 'quiz-result-bar pass';
+          resultBar.innerHTML = '<strong>Module Quiz Previously Passed</strong>The Next Module button is unlocked.';
+        }
+        return;
+      }
+    } catch(e) {}
+
+    lockNext();
+
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          const isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          // Style all buttons
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          // Show feedback
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+              feedbackEl.className = 'quiz-feedback correct-fb';
+              feedbackEl.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              feedbackEl.className = 'quiz-feedback wrong-fb';
+              feedbackEl.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateQuizProgress();
+          checkAllAnswered();
+        });
+      });
+    });
+
+    updateQuizProgress();
+  }
+
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (resultBar) { resultBar.style.display = 'none'; resultBar.innerHTML = ''; }
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.style.display = 'none';
+    // Reset all buttons and feedback
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      optBtns.forEach(function(btn) {
+        btn.disabled = false;
+        btn.className = 'quiz-opt-btn';
+      });
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (feedbackEl) { feedbackEl.style.display = 'none'; feedbackEl.innerHTML = ''; feedbackEl.className = 'quiz-feedback'; }
+    });
+    lockNext();
+    updateQuizProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+    <div class="lesson-nav">
+      <a href="./foundation-mod5.html" class="btn-prev">← Module 5: Building Wealth</a>
+      <span class="progress-label">Module 6 of 8</span>
+      <a href="./foundation-mod7.html" class="btn-next">Module 7: Protect Your Wealth →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

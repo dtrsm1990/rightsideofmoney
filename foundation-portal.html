@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Portal | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="active">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Welcome to Your Course</p>
+<h1>RSM Mindset, Financial Literacy &amp; Accountability<br>Foundation Course</h1>
+<p class="lesson-subtitle">Your journey to financial freedom starts right here.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>A message from Darrell</h3>
+  <p>You made a decision that most people never make, you invested in yourself. Not in a get-rich-quick scheme, not in a lottery ticket, not in someone else's dream. You invested in the foundation that makes every other financial move possible. That decision alone puts you ahead of 90% of the people around you who are still waiting for something to change without changing anything. Let's get to work.</p>
+</div>
+
+<h2>What You'll Walk Away With</h2>
+<p>This isn't a course full of inspiration and empty motivation. Every module gives you something real to think about, apply, and build on. By the time you complete the final assessment, you'll have:</p>
+<ul>
+  <li>A clear picture of your current money story and how to rewrite it</li>
+  <li>A working budget you can actually stick to</li>
+  <li>A debt elimination strategy tailored to your situation</li>
+  <li>A basic wealth-building plan, savings, investing, and assets</li>
+  <li>An accountability system that keeps you moving forward without willpower alone</li>
+  <li>A protection plan so everything you build stays protected</li>
+  <li>A roadmap for growing your income to fund your next level</li>
+</ul>
+
+<h2>How to Get the Most Out of This Course</h2>
+<ol>
+  <li><strong>Do the reflection exercises.</strong> Reading isn't learning. Writing is learning. Don't skip the reflection questions at the end of each module.</li>
+  <li><strong>Take your time with each module.</strong> There's no prize for finishing fast. Let each lesson settle before moving on.</li>
+  <li><strong>Come back.</strong> This course is a reference, not a one-time read. The module on debt will mean more once you've built your budget. Come back to earlier lessons as you grow.</li>
+  <li><strong>Apply before you advance.</strong> Each module has action steps. Do them. A concept you apply is worth 10 you just read.</li>
+</ol>
+
+<h2>Your Course Map</h2>
+<table class="rsm-table">
+  <thead><tr><th>Module</th><th>Topic</th><th>Core Skill</th></tr></thead>
+  <tbody>
+    <tr><td>Introduction</td><td>Why This Course Exists</td><td>Context &amp; Commitment</td></tr>
+    <tr><td>Module 1</td><td>Your Money Story &amp; Mindset Reset</td><td>Mindset</td></tr>
+    <tr><td>Module 2</td><td>The Language of Personal Finance</td><td>Financial Literacy</td></tr>
+    <tr><td>Module 3</td><td>Building a Budget That Actually Works</td><td>Planning</td></tr>
+    <tr><td>Module 4</td><td>Destroying Debt</td><td>Debt Strategy</td></tr>
+    <tr><td>Module 5</td><td>Building Wealth</td><td>Wealth Creation</td></tr>
+    <tr><td>Module 6</td><td>Accountability Systems</td><td>Execution</td></tr>
+    <tr><td>Module 7</td><td>Protecting Your Wealth</td><td>Risk Management</td></tr>
+    <tr><td>Module 8</td><td>Income Growth &amp; Your Next Level</td><td>Income Expansion</td></tr>
+    <tr><td>Assessment</td><td>Final Course Assessment</td><td>Mastery Check</td></tr>
+  </tbody>
+</table>
+
+<p>When you're ready, click below to begin.</p>
+
+    <div class="lesson-nav">
+      <span></span>
+      <span class="progress-label">Start here</span>
+      <a href="./foundation-intro.html" class="btn-next">Begin: Introduction →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

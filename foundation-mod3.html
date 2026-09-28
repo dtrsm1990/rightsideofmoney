@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 3: Building a Budget That Actually Works | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="active">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Module 3</p>
+<h1>Building a Budget That Actually Works</h1>
+<p class="lesson-subtitle">A budget isn't a restriction. It's a plan. And plans win.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>The Core Truth</h3>
+  <p>Most people don't have a spending problem. They have a planning problem. When you tell your money where to go before the month starts, it goes there. When you don't, it disappears. A budget is simply a spending plan, and every person who's ever built wealth had one.</p>
+</div>
+
+<h2>Why Budgets Fail (And How Yours Won't)</h2>
+<p>Budgets fail for four reasons: they're too rigid, they don't account for irregular expenses, they aren't reviewed regularly, or they're built on unrealistic numbers. Most budget templates set people up to quit within 30 days because they don't match how real life works.</p>
+<p>The approach in this module is different. It's built around the actual dollars coming into your household each month, your real expenses (not ideal ones), and a system flexible enough to hold up when life happens, because life always happens.</p>
+
+<h2>Step 1: Know Your Real Take-Home Income</h2>
+<p>Start with what actually lands in your bank account. Not your gross salary. Not what you think you make. The exact dollars that hit your checking account each pay period.</p>
+<p>If you're salaried, this is straightforward. If you're hourly, commission-based, or have variable income, take your average monthly take-home from the last three months. Use the lower end if you want a conservative plan.</p>
+<p>Add all income sources: primary job, side income, child support received, any consistent money that comes in. This total is your starting number.</p>
+
+<div class="callout callout-action">
+  <h3>Action: Find Your Real Number</h3>
+  <p>Pull up your bank statements from the last three months. Add up every dollar that came in. Divide by three. That's your monthly income figure for this budget. Be honest. This number has to be real for the plan to work.</p>
+</div>
+
+<h2>Step 2: Map Every Expense</h2>
+<p>This step is where most people get uncomfortable, and it's exactly why they need to do it. You can't control what you can't see. Go through your last 60-90 days of bank and credit card statements and categorize everything that went out.</p>
+
+<h3>Fixed Expenses (Same Amount Every Month)</h3>
+<ul>
+  <li>Rent or mortgage payment</li>
+  <li>Car payment</li>
+  <li>Insurance premiums (auto, life, renters/homeowners)</li>
+  <li>Phone bill</li>
+  <li>Internet</li>
+  <li>Minimum debt payments (credit cards, student loans, personal loans)</li>
+  <li>Subscriptions you'll actually keep</li>
+</ul>
+
+<h3>Variable Expenses (Change Month to Month)</h3>
+<ul>
+  <li>Groceries</li>
+  <li>Gas and transportation</li>
+  <li>Utilities (electric, gas, water)</li>
+  <li>Eating out and entertainment</li>
+  <li>Clothing and personal care</li>
+  <li>Medical copays and prescriptions</li>
+</ul>
+
+<h3>Irregular Expenses (Don't Forget These)</h3>
+<p>This category destroys more budgets than any other because people forget about it. These are the expenses that don't show up every month but they show up every year and they're predictable.</p>
+<ul>
+  <li>Car registration and maintenance</li>
+  <li>Annual insurance payments</li>
+  <li>Holiday gifts and travel</li>
+  <li>Back-to-school costs</li>
+  <li>Birthdays and anniversaries</li>
+  <li>Home repairs and maintenance</li>
+</ul>
+<p>Add up all your irregular annual expenses and divide by 12. That monthly figure needs a line in your budget. When you build it in, these "unexpected" expenses stop wrecking you because they're no longer unexpected.</p>
+
+<h2>The RSM Budget Framework: The 50/20/30 Rule (Modified)</h2>
+<p>The classic 50/30/20 budget rule puts 50% toward needs, 30% toward wants, and 20% toward savings and debt. We modify it based on where you are in your financial journey.</p>
+
+<table class="rsm-table">
+  <thead><tr><th>Category</th><th>Standard</th><th>Debt Payoff Mode</th><th>Wealth Build Mode</th></tr></thead>
+  <tbody>
+    <tr><td>Needs (housing, food, transport, utilities)</td><td>50%</td><td>50%</td><td>45%</td></tr>
+    <tr><td>Wants (dining, entertainment, lifestyle)</td><td>30%</td><td>15%</td><td>25%</td></tr>
+    <tr><td>Savings &amp; Investing</td><td>20%</td><td>15%</td><td>30%</td></tr>
+    <tr><td>Extra Debt Payoff</td><td>0%</td><td>20%</td><td>0%</td></tr>
+  </tbody>
+</table>
+
+<p>These are starting points, not commandments. If your housing costs 55% of your income, that's your reality right now. Work with what's real. The goal is to get the percentages trending in the right direction over time, not to be perfect starting on day one.</p>
+
+<h2>Zero-Based Budgeting: Every Dollar Has a Job</h2>
+<p>Zero-based budgeting means that at the end of the month, your income minus your planned expenses equals zero. That doesn't mean you spend everything. It means every dollar is assigned somewhere, including savings, investments, and debt payoff. Nothing is left unaccounted for because unaccounted-for dollars disappear.</p>
+<p>Income: $4,200<br>
+Total planned expenses and savings: $4,200<br>
+Remaining unallocated: $0</p>
+<p>When you have a surplus after assigning everything, assign it intentionally. Add it to your emergency fund. Put it toward debt. Move it to savings. Just don't leave it floating in your checking account where it'll get spent on things you can't remember by the end of the week.</p>
+
+<h2>Step 3: Build the Actual Budget</h2>
+<p>Now you combine what you've learned. Take your real monthly income. Subtract every expense category. Assign every remaining dollar to savings, investing, or extra debt payoff. Do this before the month starts, not after it's over.</p>
+
+<div class="callout callout-stat">
+  <div class="stat-num">78%</div>
+  <div class="stat-label">of Americans live paycheck to paycheck. A monthly budget is the single most effective tool to break this cycle.</div>
+</div>
+
+<h2>Automating Your Budget</h2>
+<p>The best budget system is one you don't have to remember to execute every day. Automation removes the willpower requirement entirely. Here's the automation sequence that works:</p>
+<ol>
+  <li><strong>Payday:</strong> Your paycheck hits your primary checking account.</li>
+  <li><strong>Automatic transfers fire:</strong> Set up automatic transfers to your savings account, emergency fund, and investment accounts on the day after payday.</li>
+  <li><strong>Bills auto-pay:</strong> Every fixed bill is set to autopay from your checking account on its due date.</li>
+  <li><strong>What's left:</strong> The remaining money in your checking is your spending money for the pay period. When it's gone, it's gone.</li>
+</ol>
+<p>This structure means saving and investing happen first. You're not trying to save what's left over after spending. You're spending what's left over after saving. That one shift is the difference between building wealth and wondering where the money went.</p>
+
+<h2>Budget Categories That Most People Miss</h2>
+<p>Beyond the obvious categories, here are the ones that trip people up and cause budget blowouts:</p>
+<ul>
+  <li><strong>Personal care:</strong> Haircuts, nail appointments, hygiene products. These add up to hundreds per month for most people.</li>
+  <li><strong>Pet expenses:</strong> Food, vet visits, grooming, medication. If you have pets, you need a budget line for them.</li>
+  <li><strong>Children's activities:</strong> Sports, school events, field trips, birthday parties. Separate from the grocery budget.</li>
+  <li><strong>Technology replacements:</strong> Phones, laptops, and devices all eventually need replacing. Start a sinking fund.</li>
+  <li><strong>Professional development:</strong> Courses, certifications, books, conferences. This one pays you back, so don't cut it.</li>
+</ul>
+
+<h2>When the Budget Doesn't Balance</h2>
+<p>If your expenses exceed your income when you map it all out, you have two options: increase income or decrease expenses. There's no third door. But here's how to think about which expenses to cut first.</p>
+<p>Look at every line in your budget through this filter: Is this expense building my future or funding my past? Debt payments fund your past. Subscriptions you forgot about fund nothing. Entertainment, dining out, and lifestyle choices are places where cuts are most available without affecting your quality of life significantly if you're intentional about them.</p>
+<p>Don't cut savings. Don't cut your emergency fund contribution. Don't cut investments, especially if you have an employer match available. Those are the expenses that build the future version of your life.</p>
+
+<h2>The Sinking Fund Strategy</h2>
+<p>A sinking fund is a savings account (or bucket within your savings account) dedicated to a specific future expense. Instead of being blindsided by irregular costs, you fund them in advance.</p>
+<p>Examples of sinking funds worth having:</p>
+<ul>
+  <li>Car repairs and maintenance ($50-100/month)</li>
+  <li>Holiday gifts and travel ($50-150/month depending on your traditions)</li>
+  <li>Medical and dental ($30-75/month)</li>
+  <li>Home repairs if you own your home ($100-200/month)</li>
+  <li>Annual expenses: registration, subscriptions, memberships</li>
+</ul>
+<p>High-yield savings accounts are perfect for sinking funds. Your money earns interest while it waits, and the slight friction of transferring money out makes you think twice before raiding the fund for something else.</p>
+
+<div class="callout callout-action">
+  <h3>Your Assignment Before Module 4</h3>
+  <p>Build your first monthly budget using the steps in this module. Use real numbers from your actual bank statements. Assign every dollar. Identify the one biggest area where money is leaking out without intention. That's your first target. You don't have to fix everything in month one. But you have to see it first.</p>
+</div>
+
+    
+
+<style>
+.rsm-reflection { background: var(--gray-light); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; }
+.rsm-reflection .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-reflection .ref-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.ref-progress { font-size: 0.78rem; color: var(--gray-mid); }
+.ref-q { margin-bottom: 1.5rem; }
+.ref-q .ref-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.5; }
+.ref-q .ref-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.ref-textarea { width: 100%; min-height: 110px; border: 2px solid #ddd; border-radius: 8px; padding: 0.85rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); resize: vertical; transition: border-color 0.2s; background: #fff; }
+.ref-textarea:focus { outline: none; border-color: var(--gold); }
+.ref-textarea.complete { border-color: #2a7f4f; background: #f6fdf9; }
+.ref-feedback { font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.ref-feedback.good { color: #2a7f4f; font-weight: 600; }
+.ref-feedback.warn { color: #b8860b; }
+.ref-submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.ref-word-count { font-size: 0.78rem; color: var(--gray-mid); }
+.btn-ref-submit { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.btn-ref-submit:hover { background: var(--gold); color: var(--navy); }
+.ref-score-bar { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 1.2rem 0 0.3rem; overflow: hidden; }
+.ref-score-fill { height: 6px; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
+.ref-score-label { font-size: 0.8rem; color: var(--gray-mid); }
+.ref-complete-banner { background: var(--navy); color: var(--white); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; display: none; }
+.ref-complete-banner .ref-check { background: var(--gold); color: var(--navy); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+</style>
+
+<div class="rsm-reflection">
+  <div class="ref-header">
+    <span class="ref-title">Reflection Questions</span>
+    <span class="ref-progress" id="refProgress">0/5 answered</span>
+  </div>
+  <div class="ref-score-bar"><div class="ref-score-fill" id="refScoreFill" style="width:0%"></div></div>
+  <div class="ref-score-label" id="refScoreLabel">Complete all questions to finish this module</div>
+  <div style="margin-top:1.5rem;">
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">1</span>What was the biggest surprise when you mapped your actual spending? What were you spending money on that you didn't realize was costing that much?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa1"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc1">0 words</span></div>
+      <div class="ref-feedback" id="refFb1"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">2</span>Which budget mode are you in right now: debt payoff mode or wealth build mode? What would need to change to shift you to the next level?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa2"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc2">0 words</span></div>
+      <div class="ref-feedback" id="refFb2"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">3</span>What irregular expenses have been wrecking your budget? Which ones will you build into a sinking fund starting this month?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa3"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc3">0 words</span></div>
+      <div class="ref-feedback" id="refFb3"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">4</span>What's one subscription or recurring expense you can eliminate today? Pull up your bank statement right now and find it. Write down exactly what it is and how much it costs per year.</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa4"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc4">0 words</span></div>
+      <div class="ref-feedback" id="refFb4"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">5</span>What's your plan for automating your savings? What specific day will you set up the automatic transfer, and how much will it be?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa5"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc5">0 words</span></div>
+      <div class="ref-feedback" id="refFb5"></div>
+    </div></div>
+  <div style="text-align:right;margin-top:1rem;">
+    <button class="btn-ref-submit" id="refSubmitBtn">Submit My Reflections ✓</button>
+  </div>
+  <div class="ref-complete-banner" id="refBanner">
+    <div class="ref-check">✓</div>
+    <div><strong>Module reflection complete!</strong> Your answers are saved in this browser. Move to the next module when you're ready.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MOD_ID = 'mod3';
+  const MIN_WORDS = 15;
+  function countWords(s){ return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+  function save(qid, val){ try { localStorage.setItem('rsm_ref_' + MOD_ID + '_q' + qid, val); } catch(e){} }
+  function load(qid){ try { return localStorage.getItem('rsm_ref_' + MOD_ID + '_q' + qid) || ''; } catch(e){ return ''; } }
+  function updateProgress(){
+    const textareas = document.querySelectorAll('.ref-textarea');
+    let done = 0;
+    textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+    const total = textareas.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const fill = document.getElementById('refScoreFill');
+    const lbl = document.getElementById('refScoreLabel');
+    const prog = document.getElementById('refProgress');
+    const banner = document.getElementById('refBanner');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl) lbl.textContent = done + ' of ' + total + ' questions complete';
+    if(prog) prog.textContent = done + '/' + total + ' answered';
+    if(banner) banner.style.display = (done === total) ? 'flex' : 'none';
+  }
+  function initTextarea(ta, idx){
+    const saved = load(idx);
+    if(saved){ ta.value = saved; }
+    const feedback = document.getElementById('refFb' + idx);
+    const wordCount = document.getElementById('refWc' + idx);
+    function check(){
+      const w = countWords(ta.value);
+      if(wordCount) wordCount.textContent = w + ' words';
+      if(w >= MIN_WORDS){
+        ta.classList.add('complete');
+        if(feedback){ feedback.className='ref-feedback good'; feedback.textContent = '✓ Great response. Keep going!'; }
+      } else if(w > 0){
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback warn'; feedback.textContent = 'Keep going. Aim for at least ' + MIN_WORDS + ' words for a full reflection.'; }
+      } else {
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback'; feedback.textContent = ''; }
+        if(wordCount) wordCount.textContent = '0 words';
+      }
+      save(idx, ta.value);
+      updateProgress();
+    }
+    ta.addEventListener('input', check);
+    check();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.ref-textarea').forEach(function(ta, i){ initTextarea(ta, i+1); });
+    updateProgress();
+    const btn = document.getElementById('refSubmitBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        const textareas = document.querySelectorAll('.ref-textarea');
+        let done = 0;
+        textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+        if(done < textareas.length){
+          alert('Please complete all reflection questions before submitting. Each answer needs at least 15 words.');
+          return;
+        }
+        try { localStorage.setItem('rsm_ref_' + MOD_ID + '_submitted', '1'); } catch(e){}
+        const banner = document.getElementById('refBanner');
+        if(banner){ banner.style.display = 'flex'; banner.scrollIntoView({behavior:'smooth'}); }
+      });
+    }
+  });
+})();
+</script>
+    
+
+<style>
+.rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+.rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-quiz .quiz-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+.quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+.quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.quiz-q:last-of-type { border-bottom: none; }
+.quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+.quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.quiz-options { list-style: none; padding: 0; margin: 0; }
+.quiz-options li { margin-bottom: 0.55rem; }
+.quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+.quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+.quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+.quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn:disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+.quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+.quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+.quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+.quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+.quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+.quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+.quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+.btn-quiz-retry:hover { background: var(--gold-light); }
+</style>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Module Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_mod3">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_mod3" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next module.</p>
+  
+<div class="quiz-q qblock_mod3_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Malik earns $3,600/month net. He sat down and tracked his actual spending for the first time: rent $1,100, car payment $340, insurance $180, phone $85, groceries $420, eating out $380, streaming services $67, gym $45, clothing $210, random purchases $430. His total spending is $3,257. He thinks he's doing fine because he has $343 left over. What does his budget actually reveal?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">He's right: $343 surplus means he's managing well</button></li>
+<li><button class="quiz-opt-btn" type="button">His surplus exists, but $380 in dining out and $430 in untracked purchases suggest significant unintentional spending that could be redirected to savings or debt payoff</button></li>
+<li><button class="quiz-opt-btn" type="button">He needs to cut his grocery budget immediately</button></li>
+<li><button class="quiz-opt-btn" type="button">His rent is too high and he should move</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod3_0"></div>
+</div>
+<div class="quiz-q qblock_mod3_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Keisha builds her first monthly budget and it balances perfectly on paper. Three months later she's blown the budget all three months, each time because of 'unexpected' expenses: $340 car repair in month one, $280 holiday gifts in month two, $190 dental copay in month three. What budgeting concept did Keisha fail to include?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">She needs a higher income before budgeting will work for her</button></li>
+<li><button class="quiz-opt-btn" type="button">Keisha forgot to include sinking funds for predictable irregular expenses: those three costs are annual certainties, not genuine surprises</button></li>
+<li><button class="quiz-opt-btn" type="button">Her fixed expenses are too high</button></li>
+<li><button class="quiz-opt-btn" type="button">She should switch from monthly budgeting to weekly budgeting</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod3_1"></div>
+</div>
+<div class="quiz-q qblock_mod3_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>James earns $4,800/month net and wants to apply the RSM budget framework. He's currently in debt payoff mode. According to the modified 50/20/30 table from Module 3, how should he roughly allocate his income?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">$2,400 needs / $1,440 wants / $960 savings: standard 50/30/20</button></li>
+<li><button class="quiz-opt-btn" type="button">$2,400 needs / $720 wants / $720 savings / $960 extra debt payoff: debt payoff mode allocation</button></li>
+<li><button class="quiz-opt-btn" type="button">$2,400 needs / $1,440 wants / $480 savings / $480 extra debt: a 50/30/10/10 split</button></li>
+<li><button class="quiz-opt-btn" type="button">$1,920 needs / $960 wants / $1,440 savings: wealth build mode since debt is temporary</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod3_2"></div>
+</div>
+<div class="quiz-q qblock_mod3_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>Yvonne sets up the automation sequence from Module 3. On payday, $400 auto-transfers to savings, $200 to her emergency fund sinking account, and $150 to her car repair fund, all before she touches anything. She then pays her fixed bills on autopay. What's left in checking is her spending money for the pay period. Why is this order specifically more effective than saving whatever is left after spending?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">It isn't: manually saving at the end of the month works just as well if you're disciplined</button></li>
+<li><button class="quiz-opt-btn" type="button">Automating first ensures savings and investing happen regardless of willpower or motivation, and spending is naturally limited to what remains rather than savings being limited to what spending leaves behind</button></li>
+<li><button class="quiz-opt-btn" type="button">Automation gives you higher interest rates on savings accounts</button></li>
+<li><button class="quiz-opt-btn" type="button">Banks offer better rates to customers who use automatic transfers</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod3_3"></div>
+</div>
+<div class="quiz-q qblock_mod3_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>Derek reviews his budget and finds his expenses are $400 more than his income every month. He decides the solution is to cut his $60/month gym membership and $15/month music subscription. Will this fix his budget problem?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Yes: cutting any expenses is the right move and those are good starting points</button></li>
+<li><button class="quiz-opt-btn" type="button">No: $75 in cuts against a $400 shortfall leaves a $325 gap still unsolved. He needs to find significantly more to cut, increase his income, or both</button></li>
+<li><button class="quiz-opt-btn" type="button">Yes: small cuts add up over time and this is a good first step that will solve itself</button></li>
+<li><button class="quiz-opt-btn" type="button">He should cancel all subscriptions and memberships before looking at larger expenses</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod3_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_mod3"></div>
+  <button class="btn-quiz-retry" id="quizRetry_mod3" type="button">Retry Quiz</button>
+</div>
+
+<script>
+(function(){
+  const MOD_QUIZ_ID = 'mod3';
+  const PASS_THRESHOLD = 0.8;
+  const questions = [{"q": "Malik earns $3,600/month net. He sat down and tracked his actual spending for the first time: rent $1,100, car payment $340, insurance $180, phone $85, groceries $420, eating out $380, streaming services $67, gym $45, clothing $210, random purchases $430. His total spending is $3,257. He thinks he's doing fine because he has $343 left over. What does his budget actually reveal?", "opts": ["He's right \u2014 $343 surplus means he's managing well", "His surplus exists, but $380 in dining out and $430 in untracked purchases suggest significant unintentional spending that could be redirected to savings or debt payoff", "He needs to cut his grocery budget immediately", "His rent is too high and he should move"], "correct": 1, "explanation": "Malik has a positive cash flow, which is good. But zero-based budgeting means every dollar is assigned intentionally. $380 eating out plus $430 in 'random purchases' = $810/month on spending with no clear purpose. Redirecting even half of that \u2014 $400/month \u2014 to savings or debt payoff would transform his financial trajectory. The budget revealed the leak. Now he has to decide whether to plug it.", "hint": "Review 'Zero-Based Budgeting: Every Dollar Has a Job' and 'Step 2: Map Every Expense.'"}, {"q": "Keisha builds her first monthly budget and it balances perfectly on paper. Three months later she's blown the budget all three months, each time because of 'unexpected' expenses: $340 car repair in month one, $280 holiday gifts in month two, $190 dental copay in month three. What budgeting concept did Keisha fail to include?", "opts": ["She needs a higher income before budgeting will work for her", "Keisha forgot to include sinking funds for predictable irregular expenses \u2014 those three costs are annual certainties, not genuine surprises", "Her fixed expenses are too high", "She should switch from monthly budgeting to weekly budgeting"], "correct": 1, "explanation": "Car repairs, holiday gifts, and dental costs happen every year \u2014 they're irregular but predictable. Sinking funds exist exactly for this. If Keisha sets aside $70/month for car maintenance, $50/month for holidays, and $25/month for medical, all three 'emergencies' are already funded when they arrive. The budget didn't fail. It was incomplete.", "hint": "Review 'The Sinking Fund Strategy' and 'Irregular Expenses (Don't Forget These).'"}, {"q": "James earns $4,800/month net and wants to apply the RSM budget framework. He's currently in debt payoff mode. According to the modified 50/20/30 table from Module 3, how should he roughly allocate his income?", "opts": ["$2,400 needs / $1,440 wants / $960 savings \u2014 standard 50/30/20", "$2,400 needs / $720 wants / $720 savings / $960 extra debt payoff \u2014 debt payoff mode allocation", "$2,400 needs / $1,440 wants / $480 savings / $480 extra debt \u2014 a 50/30/10/10 split", "$1,920 needs / $960 wants / $1,440 savings \u2014 wealth build mode since debt is temporary"], "correct": 1, "explanation": "In debt payoff mode, the RSM framework shifts wants from 30% down to 15% and adds 20% to extra debt payoff. On $4,800: $2,400 needs (50%), $720 wants (15%), $720 savings (15%), $960 extra debt (20%). Lifestyle is compressed temporarily so debt can be eliminated faster. Once debt is gone, that 20% gets redirected to wealth building.", "hint": "Review the RSM Budget Framework table under 'The RSM Budget Framework.'"}, {"q": "Yvonne sets up the automation sequence from Module 3. On payday, $400 auto-transfers to savings, $200 to her emergency fund sinking account, and $150 to her car repair fund \u2014 all before she touches anything. She then pays her fixed bills on autopay. What's left in checking is her spending money for the pay period. Why is this order specifically more effective than saving whatever is left after spending?", "opts": ["It isn't \u2014 manually saving at the end of the month works just as well if you're disciplined", "Automating first ensures savings and investing happen regardless of willpower or motivation, and spending is naturally limited to what remains rather than savings being limited to what spending leaves behind", "Automation gives you higher interest rates on savings accounts", "Banks offer better rates to customers who use automatic transfers"], "correct": 1, "explanation": "The fundamental shift is paying yourself first. When savings happen automatically before spending begins, you're structurally prevented from spending that money. When you try to save what's left after spending, the leftovers are usually smaller than intended because spending expands to fill available money. Automation removes the decision \u2014 and the willpower \u2014 from the equation entirely.", "hint": "Review 'Automating Your Budget' and 'Step 3: Build the Actual Budget.'"}, {"q": "Derek reviews his budget and finds his expenses are $400 more than his income every month. He decides the solution is to cut his $60/month gym membership and $15/month music subscription. Will this fix his budget problem?", "opts": ["Yes \u2014 cutting any expenses is the right move and those are good starting points", "No \u2014 $75 in cuts against a $400 shortfall leaves a $325 gap still unsolved. He needs to find significantly more to cut, increase his income, or both", "Yes \u2014 small cuts add up over time and this is a good first step that will solve itself", "He should cancel all subscriptions and memberships before looking at larger expenses"], "correct": 1, "explanation": "$75 in cuts does not solve a $400 deficit. Derek needs to either find $325 more in spending to cut \u2014 probably in variable expenses like dining, clothing, or entertainment \u2014 or increase his income, or both. Cutting small subscriptions feels productive but if the math doesn't work, the budget doesn't work. He needs to look at his largest spending categories, not his smallest ones.", "hint": "Review 'When the Budget Doesn't Balance.'"}];
+  let answered = {};
+
+  function unlockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      btn.style.cursor = 'pointer';
+      btn.title = '';
+    }
+  }
+
+  function lockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+      btn.style.cursor = 'not-allowed';
+      btn.title = 'Pass the module quiz to continue';
+    }
+  }
+
+  function updateQuizProgress() {
+    const total = questions.length;
+    const done = Object.keys(answered).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    const lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = pct + '%';
+    if (lbl) lbl.textContent = done + '/' + total + ' answered';
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(answered).length < questions.length) return;
+    const correct = Object.values(answered).filter(v => v).length;
+    const total = questions.length;
+    const pct = correct / total;
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!resultBar) return;
+    resultBar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      resultBar.className = 'quiz-result-bar pass';
+      resultBar.innerHTML = '<strong>Module Quiz Passed! ' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%)</strong>The Next Module button is now unlocked. Well done.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      resultBar.className = 'quiz-result-bar fail';
+      resultBar.innerHTML = '<strong>' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%). Need 80% to pass.</strong>Review the sections noted in the hints above, then retry the quiz.';
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+
+  function initQuiz() {
+    // Check if already passed
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (resultBar) {
+          resultBar.style.display = 'block';
+          resultBar.className = 'quiz-result-bar pass';
+          resultBar.innerHTML = '<strong>Module Quiz Previously Passed</strong>The Next Module button is unlocked.';
+        }
+        return;
+      }
+    } catch(e) {}
+
+    lockNext();
+
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          const isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          // Style all buttons
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          // Show feedback
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+              feedbackEl.className = 'quiz-feedback correct-fb';
+              feedbackEl.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              feedbackEl.className = 'quiz-feedback wrong-fb';
+              feedbackEl.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateQuizProgress();
+          checkAllAnswered();
+        });
+      });
+    });
+
+    updateQuizProgress();
+  }
+
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (resultBar) { resultBar.style.display = 'none'; resultBar.innerHTML = ''; }
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.style.display = 'none';
+    // Reset all buttons and feedback
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      optBtns.forEach(function(btn) {
+        btn.disabled = false;
+        btn.className = 'quiz-opt-btn';
+      });
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (feedbackEl) { feedbackEl.style.display = 'none'; feedbackEl.innerHTML = ''; feedbackEl.className = 'quiz-feedback'; }
+    });
+    lockNext();
+    updateQuizProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+    <div class="lesson-nav">
+      <a href="./foundation-mod2.html" class="btn-prev">← Module 2: Financial Language</a>
+      <span class="progress-label">Module 3 of 8</span>
+      <a href="./foundation-mod4.html" class="btn-next">Module 4: Destroying Debt →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 4: Destroying Debt | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="active">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Module 4</p>
+<h1>Destroying Debt</h1>
+<p class="lesson-subtitle">Debt isn't your destiny. It's a math problem. And math problems have solutions.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>The Core Truth</h3>
+  <p>Debt is normal in America. That doesn't make it acceptable. The average American household carries over $100,000 in debt, not counting the mortgage. And they're paying hundreds of dollars every month in interest alone, money that will never build a single asset or fund a single dream. You deserve better than that, and this module shows you exactly how to get there.</p>
+</div>
+
+<h2>Understanding What Debt Is Costing You</h2>
+<p>Before you can get serious about eliminating debt, you need to see clearly what it's costing you. Not just in dollars, but in choices, freedom, and time. Every dollar you pay in interest is a dollar that could have been invested, saved, or used to build something real in your life.</p>
+<p>Here's the exercise: pull up every debt you carry. Write down the balance, the minimum payment, and the interest rate for each one. Then calculate the monthly interest you're paying on each. Add it up. That number, your total monthly interest cost, is what debt is charging you to use your own future income.</p>
+
+<div class="callout callout-stat">
+  <div class="stat-num">$104,215</div>
+  <div class="stat-label">Average American household non-mortgage debt. At 18% average interest, that's nearly $1,500 per month in interest alone.</div>
+</div>
+
+<h2>The Two Battle-Tested Debt Payoff Strategies</h2>
+<p>There are two primary methods for eliminating debt strategically, and both work. The right one for you depends on your psychology as much as your math.</p>
+
+<h3>Strategy 1: The Debt Avalanche (Mathematically Optimal)</h3>
+<p>List all your debts from highest interest rate to lowest. Pay minimums on everything. Throw every extra dollar you have at the highest-interest debt until it's gone. Then roll that full payment (the minimum plus the extra) into the next highest-rate debt. Repeat until everything is paid off.</p>
+<p>The avalanche saves you the most money in interest over time. It's the mathematically superior method. If you're driven by logic and numbers, this is your method.</p>
+
+<h3>Strategy 2: The Debt Snowball (Psychologically Superior)</h3>
+<p>List all your debts from smallest balance to largest, regardless of interest rate. Pay minimums on everything. Throw every extra dollar at the smallest balance until it's gone. Roll that payment into the next smallest balance. Repeat.</p>
+<p>The snowball doesn't save as much interest as the avalanche, but it creates momentum fast. You get wins early. Crossing a debt off the list feels powerful, and that feeling drives continued behavior. Research shows that people who use the snowball method are more likely to actually finish paying off their debt than those who use the avalanche.</p>
+<p>The best strategy is the one you'll stick with. If you need motivation, start with the snowball. If you're numbers-driven and disciplined, use the avalanche. Either one, executed consistently, will get you out of debt.</p>
+
+<table class="rsm-table">
+  <thead><tr><th></th><th>Debt Avalanche</th><th>Debt Snowball</th></tr></thead>
+  <tbody>
+    <tr><td>Order of payoff</td><td>Highest interest rate first</td><td>Smallest balance first</td></tr>
+    <tr><td>Total interest paid</td><td>Lower</td><td>Higher</td></tr>
+    <tr><td>Time to first payoff</td><td>Longer</td><td>Shorter</td></tr>
+    <tr><td>Psychological boost</td><td>Delayed</td><td>Quick wins</td></tr>
+    <tr><td>Best for</td><td>Disciplined, numbers-focused people</td><td>People who need motivation to stay on track</td></tr>
+  </tbody>
+</table>
+
+<h2>Finding the Money to Attack Debt</h2>
+<p>The most common question is: where do I find extra money to put toward debt when I'm already stretched? The answer is usually in the budget you built in Module 3. But here are the specific places to look:</p>
+
+<h3>Immediate Wins</h3>
+<ul>
+  <li><strong>Cancel unused subscriptions:</strong> The average American has 4 subscriptions they forgot they had. Find them, cancel them, redirect that money to debt.</li>
+  <li><strong>Reduce dining out by 50%:</strong> The average household spends $3,000+ per year eating out. Cut it in half for a year and you've found $1,500 for debt payoff.</li>
+  <li><strong>Pause lifestyle upgrades:</strong> New clothes, new gadgets, upgrades to things that still work. A 12-month pause on non-essential purchases can generate thousands in debt-fighting money.</li>
+  <li><strong>Sell what you don't use:</strong> Facebook Marketplace, eBay, and Craigslist can turn clutter into cash. One good sell-off can make a significant extra payment.</li>
+</ul>
+
+<h3>Income Side Strategies</h3>
+<ul>
+  <li><strong>Overtime or extra shifts:</strong> If your job offers it, take it temporarily and dedicate 100% of that income to debt.</li>
+  <li><strong>Side income:</strong> Freelancing, gig work, selling a skill. Even $200-400 extra per month accelerates debt payoff dramatically.</li>
+  <li><strong>Tax refund strategy:</strong> If you get a refund, apply the entire thing to your highest-priority debt. Not a vacation. Not electronics. The debt that's charging you interest every single day.</li>
+</ul>
+
+<h2>Negotiating With Creditors</h2>
+<p>Most people don't know that many debt terms are negotiable. Credit card companies in particular would rather work with you than risk you defaulting entirely. Here's what you can ask for:</p>
+<ul>
+  <li><strong>Lower interest rate:</strong> Call your credit card company. Ask them to lower your APR. If you've been a good customer and have competitive offers from other cards, mention it. This works more often than people think.</li>
+  <li><strong>Balance transfer:</strong> Some cards offer 0% APR on balance transfers for 12-21 months. If you can transfer high-interest debt and pay it down aggressively during the promotional period, you save significant interest. Watch for transfer fees (usually 3-5%) and have a plan to pay it off before the promotional rate expires.</li>
+  <li><strong>Hardship programs:</strong> If you're in genuine financial hardship, many lenders have hardship programs that temporarily reduce payments or waive fees. You have to ask. They won't offer it.</li>
+  <li><strong>Debt settlement:</strong> This is a last resort and has serious credit score implications. But for debts in collections, settling for less than owed is often possible. Get any settlement agreement in writing before you pay.</li>
+</ul>
+
+<div class="callout callout-action">
+  <h3>The Phone Call That Could Save You Thousands</h3>
+  <p>Call your highest-interest credit card right now. Say: "I've been a customer for [X years] and I'd like to request a lower interest rate on my account." You don't need to explain or justify. If they say no, ask to speak to a supervisor. If they still say no, ask what you'd need to do to qualify for a lower rate. The worst they can say is no, and you're no worse off than you are right now.</p>
+</div>
+
+<h2>The Trap of Minimum Payments</h2>
+<p>Minimum payments are designed to keep you in debt as long as possible. That's not cynicism. That's how the business model works. A credit card company makes far more money from a customer who carries a balance and pays minimums for 15 years than from one who pays in full each month.</p>
+<p>On a $10,000 balance at 22% APR, the minimum payment is roughly $250 per month. Pay only minimums and you'll spend over 6 years paying off that debt and pay more than $10,000 in interest, effectively paying for that $10,000 twice. Double your payment to $500 per month and you pay it off in under 2 years and pay less than $2,000 in interest. The math is clear. Minimums are a trap.</p>
+
+<h2>Debt and Your Mental Health</h2>
+<p>Debt is one of the leading causes of stress, anxiety, depression, and relationship strain in America. It's not a personal failure to feel weighed down by it. The system that created this level of consumer debt was designed by some of the smartest financial minds in history, specifically to keep people indebted. You didn't fail. You were targeted.</p>
+<p>But now you're aware. Now you have a plan. And awareness plus a plan plus consistent action is how debt gets destroyed. Not overnight. Not without sacrifice. But absolutely, completely, and permanently.</p>
+
+<div class="callout callout-truth">
+  <h3>The Mindset Shift That Changes Everything</h3>
+  <p>Stop thinking of your debt payoff as a sacrifice and start thinking of it as buying back your future. Every extra payment you make is a month you're buying back. Every interest charge you eliminate is money you're rerouting to your own wealth. You're not giving things up. You're investing in the life you actually want.</p>
+</div>
+
+<h2>Building the Debt Destruction Plan</h2>
+<p>Here's the step-by-step plan you'll execute starting this month:</p>
+<ol>
+  <li>List every debt: name, balance, minimum payment, interest rate.</li>
+  <li>Choose your method: avalanche or snowball. Commit to it.</li>
+  <li>Find your extra money: from the budget, from income increases, or both.</li>
+  <li>Set up minimums on autopay for every debt except your target debt.</li>
+  <li>Throw everything extra at your target debt until it's gone.</li>
+  <li>Celebrate that payoff. It deserves recognition.</li>
+  <li>Roll that freed payment to the next debt. Don't lifestyle-creep that money away.</li>
+  <li>Repeat until every consumer debt is eliminated.</li>
+</ol>
+<p>The timeline depends on how much extra you can apply and how much debt you carry. But with consistent execution, most people can eliminate consumer debt in 2-5 years. Some do it in 18 months. The variable is intensity.</p>
+
+    
+
+<style>
+.rsm-reflection { background: var(--gray-light); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; }
+.rsm-reflection .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-reflection .ref-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.ref-progress { font-size: 0.78rem; color: var(--gray-mid); }
+.ref-q { margin-bottom: 1.5rem; }
+.ref-q .ref-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.5; }
+.ref-q .ref-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.ref-textarea { width: 100%; min-height: 110px; border: 2px solid #ddd; border-radius: 8px; padding: 0.85rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); resize: vertical; transition: border-color 0.2s; background: #fff; }
+.ref-textarea:focus { outline: none; border-color: var(--gold); }
+.ref-textarea.complete { border-color: #2a7f4f; background: #f6fdf9; }
+.ref-feedback { font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.ref-feedback.good { color: #2a7f4f; font-weight: 600; }
+.ref-feedback.warn { color: #b8860b; }
+.ref-submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.ref-word-count { font-size: 0.78rem; color: var(--gray-mid); }
+.btn-ref-submit { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.btn-ref-submit:hover { background: var(--gold); color: var(--navy); }
+.ref-score-bar { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 1.2rem 0 0.3rem; overflow: hidden; }
+.ref-score-fill { height: 6px; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
+.ref-score-label { font-size: 0.8rem; color: var(--gray-mid); }
+.ref-complete-banner { background: var(--navy); color: var(--white); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; display: none; }
+.ref-complete-banner .ref-check { background: var(--gold); color: var(--navy); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+</style>
+
+<div class="rsm-reflection">
+  <div class="ref-header">
+    <span class="ref-title">Reflection Questions</span>
+    <span class="ref-progress" id="refProgress">0/5 answered</span>
+  </div>
+  <div class="ref-score-bar"><div class="ref-score-fill" id="refScoreFill" style="width:0%"></div></div>
+  <div class="ref-score-label" id="refScoreLabel">Complete all questions to finish this module</div>
+  <div style="margin-top:1.5rem;">
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">1</span>Write out your complete debt list: every debt, its balance, its interest rate, and its minimum payment. Total up the monthly interest you're paying. Sit with that number.</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa1"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc1">0 words</span></div>
+      <div class="ref-feedback" id="refFb1"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">2</span>Which method are you choosing: avalanche or snowball? What about your personality led you to that choice?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa2"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc2">0 words</span></div>
+      <div class="ref-feedback" id="refFb2"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">3</span>Where specifically are you finding your extra debt-fighting money? Not 'I'll cut back', what exactly is getting cut and how much does that free up each month?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa3"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc3">0 words</span></div>
+      <div class="ref-feedback" id="refFb3"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">4</span>What's the debt you most want to eliminate first? What will you do the day that debt hits zero?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa4"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc4">0 words</span></div>
+      <div class="ref-feedback" id="refFb4"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">5</span>What would your life look like with zero consumer debt? Describe it specifically: how would your monthly budget change, how would you feel, and what would you do with the freed-up money?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa5"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc5">0 words</span></div>
+      <div class="ref-feedback" id="refFb5"></div>
+    </div></div>
+  <div style="text-align:right;margin-top:1rem;">
+    <button class="btn-ref-submit" id="refSubmitBtn">Submit My Reflections ✓</button>
+  </div>
+  <div class="ref-complete-banner" id="refBanner">
+    <div class="ref-check">✓</div>
+    <div><strong>Module reflection complete!</strong> Your answers are saved in this browser. Move to the next module when you're ready.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MOD_ID = 'mod4';
+  const MIN_WORDS = 15;
+  function countWords(s){ return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+  function save(qid, val){ try { localStorage.setItem('rsm_ref_' + MOD_ID + '_q' + qid, val); } catch(e){} }
+  function load(qid){ try { return localStorage.getItem('rsm_ref_' + MOD_ID + '_q' + qid) || ''; } catch(e){ return ''; } }
+  function updateProgress(){
+    const textareas = document.querySelectorAll('.ref-textarea');
+    let done = 0;
+    textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+    const total = textareas.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const fill = document.getElementById('refScoreFill');
+    const lbl = document.getElementById('refScoreLabel');
+    const prog = document.getElementById('refProgress');
+    const banner = document.getElementById('refBanner');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl) lbl.textContent = done + ' of ' + total + ' questions complete';
+    if(prog) prog.textContent = done + '/' + total + ' answered';
+    if(banner) banner.style.display = (done === total) ? 'flex' : 'none';
+  }
+  function initTextarea(ta, idx){
+    const saved = load(idx);
+    if(saved){ ta.value = saved; }
+    const feedback = document.getElementById('refFb' + idx);
+    const wordCount = document.getElementById('refWc' + idx);
+    function check(){
+      const w = countWords(ta.value);
+      if(wordCount) wordCount.textContent = w + ' words';
+      if(w >= MIN_WORDS){
+        ta.classList.add('complete');
+        if(feedback){ feedback.className='ref-feedback good'; feedback.textContent = '✓ Great response. Keep going!'; }
+      } else if(w > 0){
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback warn'; feedback.textContent = 'Keep going. Aim for at least ' + MIN_WORDS + ' words for a full reflection.'; }
+      } else {
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback'; feedback.textContent = ''; }
+        if(wordCount) wordCount.textContent = '0 words';
+      }
+      save(idx, ta.value);
+      updateProgress();
+    }
+    ta.addEventListener('input', check);
+    check();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.ref-textarea').forEach(function(ta, i){ initTextarea(ta, i+1); });
+    updateProgress();
+    const btn = document.getElementById('refSubmitBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        const textareas = document.querySelectorAll('.ref-textarea');
+        let done = 0;
+        textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+        if(done < textareas.length){
+          alert('Please complete all reflection questions before submitting. Each answer needs at least 15 words.');
+          return;
+        }
+        try { localStorage.setItem('rsm_ref_' + MOD_ID + '_submitted', '1'); } catch(e){}
+        const banner = document.getElementById('refBanner');
+        if(banner){ banner.style.display = 'flex'; banner.scrollIntoView({behavior:'smooth'}); }
+      });
+    }
+  });
+})();
+</script>
+    
+
+<style>
+.rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+.rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-quiz .quiz-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+.quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+.quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.quiz-q:last-of-type { border-bottom: none; }
+.quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+.quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.quiz-options { list-style: none; padding: 0; margin: 0; }
+.quiz-options li { margin-bottom: 0.55rem; }
+.quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+.quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+.quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+.quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn:disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+.quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+.quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+.quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+.quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+.quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+.quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+.quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+.btn-quiz-retry:hover { background: var(--gold-light); }
+</style>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Module Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_mod4">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_mod4" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next module.</p>
+  
+<div class="quiz-q qblock_mod4_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Simone has four debts: a $15,000 student loan at 5%, a $3,200 credit card at 24%, a $900 medical bill at 0%, and a $6,500 personal loan at 14%. She has $300 extra per month for debt payoff. Using the Debt Avalanche method, which debt does she attack first, and why?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">The $900 medical bill: smallest balance, fastest win</button></li>
+<li><button class="quiz-opt-btn" type="button">The $15,000 student loan: largest balance deserves the most attention</button></li>
+<li><button class="quiz-opt-btn" type="button">The $3,200 credit card at 24%: highest interest rate costs her the most money every month</button></li>
+<li><button class="quiz-opt-btn" type="button">The $6,500 personal loan: middle ground between rate and balance</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod4_0"></div>
+</div>
+<div class="quiz-q qblock_mod4_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Using the same scenario as the previous question, Simone's financial coach suggests she use the Debt Snowball instead. In that case, which debt gets attacked first, and what's the main argument for choosing this method over the avalanche?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">The $15,000 student loan: biggest psychological weight to remove</button></li>
+<li><button class="quiz-opt-btn" type="button">The $3,200 credit card: both methods target it first</button></li>
+<li><button class="quiz-opt-btn" type="button">The $900 medical bill: eliminating it fastest creates momentum and early wins that keep her motivated to continue</button></li>
+<li><button class="quiz-opt-btn" type="button">The $6,500 personal loan: it has both a meaningful balance and a significant rate</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod4_1"></div>
+</div>
+<div class="quiz-q qblock_mod4_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Andre has a $7,000 credit card balance at 21% APR. The minimum payment is $175/month. His cousin tells him 'just pay the minimum, it's not a big deal.' According to Module 4, what is the real cost of following that advice?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Paying minimums is fine as long as you don't add new charges</button></li>
+<li><button class="quiz-opt-btn" type="button">At minimum payments only, Andre will spend years paying off that balance and pay thousands more in interest than the original $7,000 balance: likely paying for it twice</button></li>
+<li><button class="quiz-opt-btn" type="button">The minimum payment at 21% is actually quite manageable and this is not a significant concern</button></li>
+<li><button class="quiz-opt-btn" type="button">Minimum payments hurt your credit score</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod4_2"></div>
+</div>
+<div class="quiz-q qblock_mod4_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>Diana has a credit card with a $4,500 balance at 22% APR. She receives a balance transfer offer: 0% APR for 18 months, with a 3% transfer fee. She plans to pay $260/month. Should she take the transfer?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">No: balance transfer fees are always a bad deal</button></li>
+<li><button class="quiz-opt-btn" type="button">No: 0% offers always have hidden fees that wipe out the savings</button></li>
+<li><button class="quiz-opt-btn" type="button">Yes: the $135 transfer fee is far less than the approximately $900+ she'd pay in interest over 18 months at 22%, and at $260/month she'll pay it off before the promotional rate expires</button></li>
+<li><button class="quiz-opt-btn" type="button">Yes, but only if she transfers all her debts at once to maximize the benefit</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod4_3"></div>
+</div>
+<div class="quiz-q qblock_mod4_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>After 14 months of focused effort, Marcus pays off his $2,100 store credit card. His minimum payment had been $65/month and he was paying an extra $200 on top. His friend says he should treat himself and use that $265 freed-up money for a vacation fund now that the card is gone. According to Module 4, what should Marcus do with that money instead?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">His friend is right: he earned the break and should reward himself</button></li>
+<li><button class="quiz-opt-btn" type="button">He should close the paid-off credit card immediately</button></li>
+<li><button class="quiz-opt-btn" type="button">He should roll the entire $265 (former minimum + extra payment) toward his next target debt, keeping his debt payoff momentum intact</button></li>
+<li><button class="quiz-opt-btn" type="button">He should split it: $133 toward the next debt and $132 toward savings</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod4_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_mod4"></div>
+  <button class="btn-quiz-retry" id="quizRetry_mod4" type="button">Retry Quiz</button>
+</div>
+
+<script>
+(function(){
+  const MOD_QUIZ_ID = 'mod4';
+  const PASS_THRESHOLD = 0.8;
+  const questions = [{"q": "Simone has four debts: a $15,000 student loan at 5%, a $3,200 credit card at 24%, a $900 medical bill at 0%, and a $6,500 personal loan at 14%. She has $300 extra per month for debt payoff. Using the Debt Avalanche method, which debt does she attack first, and why?", "opts": ["The $900 medical bill \u2014 smallest balance, fastest win", "The $15,000 student loan \u2014 largest balance deserves the most attention", "The $3,200 credit card at 24% \u2014 highest interest rate costs her the most money every month", "The $6,500 personal loan \u2014 middle ground between rate and balance"], "correct": 2, "explanation": "The Debt Avalanche targets the highest interest rate first regardless of balance. At 24% APR, Simone's credit card is costing her the most money every month she carries a balance. Eliminating it first maximizes interest savings over the life of her debt payoff journey. She pays minimums on everything else and throws all $300 at the credit card until it's gone.", "hint": "Review 'Strategy 1: The Debt Avalanche' under the two debt payoff strategies."}, {"q": "Using the same scenario as the previous question, Simone's financial coach suggests she use the Debt Snowball instead. In that case, which debt gets attacked first, and what's the main argument for choosing this method over the avalanche?", "opts": ["The $15,000 student loan \u2014 biggest psychological weight to remove", "The $3,200 credit card \u2014 both methods target it first", "The $900 medical bill \u2014 eliminating it fastest creates momentum and early wins that keep her motivated to continue", "The $6,500 personal loan \u2014 it has both a meaningful balance and a significant rate"], "correct": 2, "explanation": "The Snowball targets the smallest balance first. The $900 medical bill goes first, not because it's mathematically optimal, but because eliminating it quickly creates a psychological win. Research shows people using the Snowball are more likely to actually complete their debt payoff because early wins build momentum. The best method is the one you'll stick with.", "hint": "Review 'Strategy 2: The Debt Snowball' and the comparison table."}, {"q": "Andre has a $7,000 credit card balance at 21% APR. The minimum payment is $175/month. His cousin tells him 'just pay the minimum, it's not a big deal.' According to Module 4, what is the real cost of following that advice?", "opts": ["Paying minimums is fine as long as you don't add new charges", "At minimum payments only, Andre will spend years paying off that balance and pay thousands more in interest than the original $7,000 balance \u2014 likely paying for it twice", "The minimum payment at 21% is actually quite manageable and this is not a significant concern", "Minimum payments hurt your credit score"], "correct": 1, "explanation": "Minimum payments are designed to keep you in debt as long as possible \u2014 that's the business model. On a $7,000 balance at 21% APR paying only minimums, Andre will spend 5-7 years eliminating it and pay $4,000-6,000 in interest alone, effectively paying for that $7,000 purchase twice or more. Doubling or tripling the minimum payment dramatically reduces both the timeline and the total cost.", "hint": "Review 'The Trap of Minimum Payments.'"}, {"q": "Diana has a credit card with a $4,500 balance at 22% APR. She receives a balance transfer offer: 0% APR for 18 months, with a 3% transfer fee. She plans to pay $260/month. Should she take the transfer?", "opts": ["No \u2014 balance transfer fees are always a bad deal", "No \u2014 0% offers always have hidden fees that wipe out the savings", "Yes \u2014 the $135 transfer fee is far less than the approximately $900+ she'd pay in interest over 18 months at 22%, and at $260/month she'll pay it off before the promotional rate expires", "Yes, but only if she transfers all her debts at once to maximize the benefit"], "correct": 2, "explanation": "The math works clearly in Diana's favor. 3% of $4,500 = $135 fee. At 22% APR, she'd pay roughly $900-1,000 in interest over 18 months. She saves approximately $800 by paying $135 upfront. At $260/month she pays off the $4,635 (balance + fee) in about 18 months \u2014 right before the promotional rate would expire. Key rule: always have a plan to pay it off before the 0% period ends.", "hint": "Review 'Negotiating With Creditors' and the balance transfer section."}, {"q": "After 14 months of focused effort, Marcus pays off his $2,100 store credit card. His minimum payment had been $65/month and he was paying an extra $200 on top. His friend says he should treat himself and use that $265 freed-up money for a vacation fund now that the card is gone. According to Module 4, what should Marcus do with that money instead?", "opts": ["His friend is right \u2014 he earned the break and should reward himself", "He should close the paid-off credit card immediately", "He should roll the entire $265 (former minimum + extra payment) toward his next target debt, keeping his debt payoff momentum intact", "He should split it: $133 toward the next debt and $132 toward savings"], "correct": 2, "explanation": "This is the core mechanic of both the Avalanche and Snowball: when one debt is eliminated, you don't absorb that freed payment back into lifestyle spending. You roll the entire amount \u2014 minimum plus extra \u2014 onto the next target. This is what creates the 'snowball' or 'avalanche' effect. The payment stays the same size. The debt it's aimed at just keeps changing until everything is gone.", "hint": "Review 'Building the Debt Destruction Plan,' step 7 specifically."}];
+  let answered = {};
+
+  function unlockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      btn.style.cursor = 'pointer';
+      btn.title = '';
+    }
+  }
+
+  function lockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+      btn.style.cursor = 'not-allowed';
+      btn.title = 'Pass the module quiz to continue';
+    }
+  }
+
+  function updateQuizProgress() {
+    const total = questions.length;
+    const done = Object.keys(answered).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    const lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = pct + '%';
+    if (lbl) lbl.textContent = done + '/' + total + ' answered';
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(answered).length < questions.length) return;
+    const correct = Object.values(answered).filter(v => v).length;
+    const total = questions.length;
+    const pct = correct / total;
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!resultBar) return;
+    resultBar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      resultBar.className = 'quiz-result-bar pass';
+      resultBar.innerHTML = '<strong>Module Quiz Passed! ' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%)</strong>The Next Module button is now unlocked. Well done.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      resultBar.className = 'quiz-result-bar fail';
+      resultBar.innerHTML = '<strong>' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%). Need 80% to pass.</strong>Review the sections noted in the hints above, then retry the quiz.';
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+
+  function initQuiz() {
+    // Check if already passed
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (resultBar) {
+          resultBar.style.display = 'block';
+          resultBar.className = 'quiz-result-bar pass';
+          resultBar.innerHTML = '<strong>Module Quiz Previously Passed</strong>The Next Module button is unlocked.';
+        }
+        return;
+      }
+    } catch(e) {}
+
+    lockNext();
+
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          const isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          // Style all buttons
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          // Show feedback
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+              feedbackEl.className = 'quiz-feedback correct-fb';
+              feedbackEl.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              feedbackEl.className = 'quiz-feedback wrong-fb';
+              feedbackEl.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateQuizProgress();
+          checkAllAnswered();
+        });
+      });
+    });
+
+    updateQuizProgress();
+  }
+
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (resultBar) { resultBar.style.display = 'none'; resultBar.innerHTML = ''; }
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.style.display = 'none';
+    // Reset all buttons and feedback
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      optBtns.forEach(function(btn) {
+        btn.disabled = false;
+        btn.className = 'quiz-opt-btn';
+      });
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (feedbackEl) { feedbackEl.style.display = 'none'; feedbackEl.innerHTML = ''; feedbackEl.className = 'quiz-feedback'; }
+    });
+    lockNext();
+    updateQuizProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+    <div class="lesson-nav">
+      <a href="./foundation-mod3.html" class="btn-prev">← Module 3: Budget Blueprint</a>
+      <span class="progress-label">Module 4 of 8</span>
+      <a href="./foundation-mod5.html" class="btn-next">Module 5: Building Wealth →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

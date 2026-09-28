@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 8: Income Growth & Your Next Level | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="active">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Module 8</p>
+<h1>Income Growth &amp; Your Next Level</h1>
+<p class="lesson-subtitle">You can't cut your way to wealth. At some point, you have to grow your way there.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>The Core Truth</h3>
+  <p>There's a ceiling to how much you can save. There's no ceiling to how much you can earn. The budgeting, debt elimination, and wealth building strategies in this course work at any income level. But they work faster, and the outcomes are more powerful, when you're also focused on growing what comes in. Your income is not fixed. It's the starting point of a negotiation with the world, and this module teaches you how to win that negotiation.</p>
+</div>
+
+<h2>The Two Tracks of Income Growth</h2>
+<p>Income growth happens on two tracks simultaneously: growing your primary income through career advancement and salary negotiation, and building secondary income streams that operate alongside your main job. The people who build significant wealth fastest are usually running both tracks at once.</p>
+
+<h3>Track 1: Maximize Your Primary Income</h3>
+<p>Most people accept the salary they were offered and wait for annual raises that barely keep up with inflation. That's a choice, and there's a different one available.</p>
+
+<h4>The Art of Salary Negotiation</h4>
+<p>Every salary negotiation you don't do is money you leave on the table. Permanently. Not just this year, but every year after, since raises are typically calculated as a percentage of your current salary. A failure to negotiate a $5,000 starting salary difference can cost you $50,000 or more over a decade when compounded with annual raises.</p>
+<p>The fundamentals of salary negotiation:</p>
+<ul>
+  <li><strong>Know your market value:</strong> Use Glassdoor, LinkedIn Salary, Bureau of Labor Statistics, and conversations with peers in your industry. Know what your role pays in your market before you negotiate anything.</li>
+  <li><strong>Never give a number first:</strong> When asked what salary you're looking for, redirect. "I'd love to understand the full scope of the role first. What's the budgeted range for this position?" Then negotiate from the top of their range.</li>
+  <li><strong>Negotiate every offer:</strong> The initial offer is almost never the final offer. Hiring managers expect negotiation. Not negotiating is leaving money on the table both parties expected you to claim.</li>
+  <li><strong>Negotiate beyond salary:</strong> If salary is fixed, negotiate remote work flexibility, additional PTO, signing bonus, professional development budget, title, or equity. Total compensation includes many components.</li>
+  <li><strong>Ask for raises regularly:</strong> Don't wait for your annual review and hope your manager remembers your contributions. Schedule a meeting. Come prepared with documented wins, market data for your role, and a specific ask.</li>
+</ul>
+
+<h4>Skills-Based Income Growth</h4>
+<p>The fastest way to increase your earning potential is to become more valuable. Every significant skill you add, every certification you earn, every piece of expertise you develop makes you worth more in the market. And unlike savings, there's no limit to how valuable you can become.</p>
+<p>Identify the gap between your current skill set and the skills that command the highest compensation in your industry. Then close that gap strategically, one course, one certification, one project at a time. An investment of $500-2,000 in the right skill can add five to ten times that to your annual earnings.</p>
+
+<h3>Track 2: Building Secondary Income Streams</h3>
+<p>A secondary income stream isn't just extra money. It's insurance. It's options. It's the difference between having to take any job offer you get and being able to be selective. And over time, secondary income streams can grow to rival or exceed primary income, creating the kind of financial freedom where your job becomes a choice, not a requirement.</p>
+
+<h4>Active Secondary Income (Time for Money)</h4>
+<ul>
+  <li><strong>Freelancing your primary skill:</strong> Whatever you do for your employer, you can likely do for others on a contract basis. A graphic designer, accountant, writer, marketer, or IT professional can often earn $50-150+ per hour freelancing the same skills they use at their day job.</li>
+  <li><strong>Consulting:</strong> As you develop expertise in your field, companies will pay for access to that expertise in a structured way. Consulting rates are typically much higher than equivalent employee rates because you're providing solutions without the overhead of employment.</li>
+  <li><strong>Teaching and training:</strong> If you know something others want to know, you can get paid to teach it. Workshops, coaching, tutoring, corporate training. Knowledge has real market value when packaged correctly.</li>
+  <li><strong>Gig economy income:</strong> Not the highest-leverage option but available immediately. Rideshare driving, delivery, task-based platforms like TaskRabbit. These work best as bridge income while building something more sustainable.</li>
+</ul>
+
+<h4>Passive and Semi-Passive Income</h4>
+<ul>
+  <li><strong>Digital products:</strong> Ebooks, templates, courses, printables, tools. You build once and sell repeatedly. The margin is extraordinary once the product exists. The challenge is building an audience to sell to.</li>
+  <li><strong>Content creation:</strong> YouTube, podcasting, blogging, newsletters. Building an audience takes time but creates compounding leverage. An audience of 10,000 engaged followers across platforms creates real monetization opportunities through ads, sponsors, and product sales.</li>
+  <li><strong>Rental income:</strong> Real estate rental, renting out a room, or even renting your car or parking space. Requires upfront capital but generates consistent monthly income with relatively low ongoing time investment.</li>
+  <li><strong>Dividend investing:</strong> Building a portfolio of dividend-paying stocks or funds that generate regular income. This is a long game, but a dividend portfolio generating $1,000-2,000 per month is a meaningful income supplement in retirement and a significant wealth marker on the journey.</li>
+</ul>
+
+<div class="callout callout-stat">
+  <div class="stat-num">3.3x</div>
+  <div class="stat-label">Average income multiple between those with one income stream and those with three or more, according to IRS data analysis.</div>
+</div>
+
+<h2>Building a Personal Brand That Opens Doors</h2>
+<p>In today's economy, your personal brand is your reputation made visible. It's what comes up when someone searches your name. It's the impression you leave on LinkedIn, in professional groups, in your industry circles. And it's one of the most powerful income growth tools available, because it works while you sleep.</p>
+<p>A strong personal brand in your field attracts opportunities rather than requiring you to chase them. Speaking invitations, consulting inquiries, job offers, partnership opportunities, and media mentions all flow toward people who are visibly expert and consistently present in their field.</p>
+<p>Building your brand doesn't require becoming a social media influencer. It requires being visibly excellent at what you do and sharing that excellence in a way that reaches the right people. That could mean LinkedIn posts about your industry, a newsletter on your specialty, speaking at industry events, or contributing to podcasts and publications in your field.</p>
+
+<h2>The Entrepreneurship Option</h2>
+<p>Not everyone is built to be an entrepreneur. That's not a character flaw. But for those who are, building something of your own that can grow beyond the limits of your personal time is the fastest path to significant wealth creation.</p>
+<p>The path most likely to succeed isn't quitting your job and betting everything on an untested idea. It's building a business on the side until the income justifies the leap. Most successful entrepreneurs ran a side hustle alongside their job until the business was generating enough consistent income to replace their salary before they made the full transition.</p>
+<p>The key questions before pursuing entrepreneurship:</p>
+<ul>
+  <li>Is there a market that wants what you're offering, and are you able to reach that market?</li>
+  <li>Can you validate the idea with paying customers before you invest significant time or capital?</li>
+  <li>Do you have enough financial runway (savings, no consumer debt, solid emergency fund) to absorb the uncertainty of early-stage business income?</li>
+  <li>Are you solving a real problem for real people, or building something you want to exist but haven't confirmed others will pay for?</li>
+</ul>
+
+<h2>The Next Level Mindset</h2>
+<p>The biggest income growth barrier most people face isn't a skill gap. It's a belief gap. They don't believe their income can be fundamentally different from where it is today. They see their salary as a fact of life rather than a starting number in an ongoing negotiation with the market.</p>
+<p>Here's what's true: the world rewards value creation. The more value you create for others, in your career, through your business, through your investments, through your expertise, the more the world pays you for it. That's not a platitude. It's a measurable, reproducible pattern across every field, industry, and income level.</p>
+<p>Your income is a lagging indicator of the value you're delivering. Increase the value, increase the skills, increase the visibility, and the income follows. Not always immediately. Not without effort. But consistently, over time, for anyone willing to do the work.</p>
+
+<div class="callout callout-action">
+  <h3>Your Income Growth Action Plan</h3>
+  <p>Three actions to take in the next 30 days: (1) Research market compensation for your role in your area. Pull data from three sources. Know your number before your next review. (2) Identify one skill you could develop in the next 90 days that would meaningfully increase your earning potential. Find a course, certification, or mentorship path to develop it. (3) Brainstorm three income stream ideas that align with your skills and interests. Pick one and spend the next 30 days exploring whether it has a real market.</p>
+</div>
+
+    
+
+<style>
+.rsm-reflection { background: var(--gray-light); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; }
+.rsm-reflection .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-reflection .ref-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.ref-progress { font-size: 0.78rem; color: var(--gray-mid); }
+.ref-q { margin-bottom: 1.5rem; }
+.ref-q .ref-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.5; }
+.ref-q .ref-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.ref-textarea { width: 100%; min-height: 110px; border: 2px solid #ddd; border-radius: 8px; padding: 0.85rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); resize: vertical; transition: border-color 0.2s; background: #fff; }
+.ref-textarea:focus { outline: none; border-color: var(--gold); }
+.ref-textarea.complete { border-color: #2a7f4f; background: #f6fdf9; }
+.ref-feedback { font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.ref-feedback.good { color: #2a7f4f; font-weight: 600; }
+.ref-feedback.warn { color: #b8860b; }
+.ref-submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.ref-word-count { font-size: 0.78rem; color: var(--gray-mid); }
+.btn-ref-submit { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.btn-ref-submit:hover { background: var(--gold); color: var(--navy); }
+.ref-score-bar { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 1.2rem 0 0.3rem; overflow: hidden; }
+.ref-score-fill { height: 6px; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
+.ref-score-label { font-size: 0.8rem; color: var(--gray-mid); }
+.ref-complete-banner { background: var(--navy); color: var(--white); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; display: none; }
+.ref-complete-banner .ref-check { background: var(--gold); color: var(--navy); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+</style>
+
+<div class="rsm-reflection">
+  <div class="ref-header">
+    <span class="ref-title">Reflection Questions</span>
+    <span class="ref-progress" id="refProgress">0/5 answered</span>
+  </div>
+  <div class="ref-score-bar"><div class="ref-score-fill" id="refScoreFill" style="width:0%"></div></div>
+  <div class="ref-score-label" id="refScoreLabel">Complete all questions to finish this module</div>
+  <div style="margin-top:1.5rem;">
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">1</span>When did you last negotiate your salary or ask for a raise? If it's been more than a year, what has that cost you? What's stopping you from asking in the next 90 days?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa1"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc1">0 words</span></div>
+      <div class="ref-feedback" id="refFb1"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">2</span>What skills do you have that the market would pay more for if packaged differently? Think about what people ask you for help with and what comes easily to you that seems hard to others.</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa2"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc2">0 words</span></div>
+      <div class="ref-feedback" id="refFb2"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">3</span>What's one income stream you could start building in the next six months that aligns with your existing skills and interests? What's the first concrete step?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa3"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc3">0 words</span></div>
+      <div class="ref-feedback" id="refFb3"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">4</span>What does your personal brand look like right now? If someone searched your name in your industry, what would they find? What do you want them to find?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa4"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc4">0 words</span></div>
+      <div class="ref-feedback" id="refFb4"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">5</span>Where do you want your income to be in five years? What's the gap between where you are and where you want to be? What specifically has to change to close that gap?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa5"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc5">0 words</span></div>
+      <div class="ref-feedback" id="refFb5"></div>
+    </div></div>
+  <div style="text-align:right;margin-top:1rem;">
+    <button class="btn-ref-submit" id="refSubmitBtn">Submit My Reflections ✓</button>
+  </div>
+  <div class="ref-complete-banner" id="refBanner">
+    <div class="ref-check">✓</div>
+    <div><strong>Module reflection complete!</strong> Your answers are saved in this browser. Move to the next module when you're ready.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MOD_ID = 'mod8';
+  const MIN_WORDS = 15;
+  function countWords(s){ return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+  function save(qid, val){ try { localStorage.setItem('rsm_ref_' + MOD_ID + '_q' + qid, val); } catch(e){} }
+  function load(qid){ try { return localStorage.getItem('rsm_ref_' + MOD_ID + '_q' + qid) || ''; } catch(e){ return ''; } }
+  function updateProgress(){
+    const textareas = document.querySelectorAll('.ref-textarea');
+    let done = 0;
+    textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+    const total = textareas.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const fill = document.getElementById('refScoreFill');
+    const lbl = document.getElementById('refScoreLabel');
+    const prog = document.getElementById('refProgress');
+    const banner = document.getElementById('refBanner');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl) lbl.textContent = done + ' of ' + total + ' questions complete';
+    if(prog) prog.textContent = done + '/' + total + ' answered';
+    if(banner) banner.style.display = (done === total) ? 'flex' : 'none';
+  }
+  function initTextarea(ta, idx){
+    const saved = load(idx);
+    if(saved){ ta.value = saved; }
+    const feedback = document.getElementById('refFb' + idx);
+    const wordCount = document.getElementById('refWc' + idx);
+    function check(){
+      const w = countWords(ta.value);
+      if(wordCount) wordCount.textContent = w + ' words';
+      if(w >= MIN_WORDS){
+        ta.classList.add('complete');
+        if(feedback){ feedback.className='ref-feedback good'; feedback.textContent = '✓ Great response. Keep going!'; }
+      } else if(w > 0){
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback warn'; feedback.textContent = 'Keep going. Aim for at least ' + MIN_WORDS + ' words for a full reflection.'; }
+      } else {
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback'; feedback.textContent = ''; }
+        if(wordCount) wordCount.textContent = '0 words';
+      }
+      save(idx, ta.value);
+      updateProgress();
+    }
+    ta.addEventListener('input', check);
+    check();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.ref-textarea').forEach(function(ta, i){ initTextarea(ta, i+1); });
+    updateProgress();
+    const btn = document.getElementById('refSubmitBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        const textareas = document.querySelectorAll('.ref-textarea');
+        let done = 0;
+        textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+        if(done < textareas.length){
+          alert('Please complete all reflection questions before submitting. Each answer needs at least 15 words.');
+          return;
+        }
+        try { localStorage.setItem('rsm_ref_' + MOD_ID + '_submitted', '1'); } catch(e){}
+        const banner = document.getElementById('refBanner');
+        if(banner){ banner.style.display = 'flex'; banner.scrollIntoView({behavior:'smooth'}); }
+      });
+    }
+  });
+})();
+</script>
+    
+
+<style>
+.rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+.rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-quiz .quiz-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+.quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+.quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.quiz-q:last-of-type { border-bottom: none; }
+.quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+.quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.quiz-options { list-style: none; padding: 0; margin: 0; }
+.quiz-options li { margin-bottom: 0.55rem; }
+.quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+.quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+.quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+.quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn:disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+.quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+.quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+.quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+.quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+.quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+.quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+.quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+.btn-quiz-retry:hover { background: var(--gold-light); }
+</style>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Module Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_mod8">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_mod8" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next module.</p>
+  
+<div class="quiz-q qblock_mod8_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Tanya has been in the same marketing manager role for three years earning $58,000. She's a consistent top performer. Her employer's standard annual raise is 2-3%. She gets a competing offer for $67,000 but prefers her current company. According to Module 8, what should she do?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Accept the competing offer since her current company clearly doesn't value her</button></li>
+<li><button class="quiz-opt-btn" type="button">Take the $67,000 offer: never negotiate, always just move for money</button></li>
+<li><button class="quiz-opt-btn" type="button">Use the competing offer as leverage in a salary negotiation with her current company. Her market value is clearly $67,000+ and she should present that data and ask for a match or meaningful increase</button></li>
+<li><button class="quiz-opt-btn" type="button">Say nothing: asking for more money is risky and could cost her the job she has</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod8_0"></div>
+</div>
+<div class="quiz-q qblock_mod8_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Marcus earns $52,000 as an IT support specialist. He spends his evenings gaming. He's interested in building a side income but says 'I don't have any skills people would pay for outside my job.' Which Module 8 principle most directly challenges this belief?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">He's probably right: most skills employers pay for aren't marketable as freelance services</button></li>
+<li><button class="quiz-opt-btn" type="button">His primary skill (IT support and troubleshooting) is exactly what small businesses and individuals pay freelancers $50-100+/hour for: his belief that his skills aren't marketable is the barrier, not the skills themselves</button></li>
+<li><button class="quiz-opt-btn" type="button">He should develop a completely new skill first before pursuing any side income</button></li>
+<li><button class="quiz-opt-btn" type="button">Gaming is actually a viable income stream so he should pursue streaming</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod8_1"></div>
+</div>
+<div class="quiz-q qblock_mod8_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Diana earns $71,000/year and gets 2.5% annual raises. Her colleague Alex also earns $71,000 but negotiated $76,000 when he was hired into the same role two years ago. Both receive 2.5% annual raises. How does the $5,000 starting salary difference affect them over a 10-year career?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">The gap stays at $5,000: raises are a percentage but the base was only $5,000 apart</button></li>
+<li><button class="quiz-opt-btn" type="button">The gap compresses over time since both get the same percentage increase</button></li>
+<li><button class="quiz-opt-btn" type="button">The gap widens: because raises are calculated on a higher base, Alex compounds the $5,000 difference and earns significantly more over 10 years, and a future employer also sees a higher salary history</button></li>
+<li><button class="quiz-opt-btn" type="button">The difference is negligible when you factor in taxes and benefits</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod8_2"></div>
+</div>
+<div class="quiz-q qblock_mod8_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>Brenda is a licensed CPA with 12 years of experience. She's thinking about side income but doesn't want to drive for rideshare. She has weekends free. According to Module 8's income stream categories, what's the highest-leverage option for someone with Brenda's background?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Rideshare or food delivery on weekends</button></li>
+<li><button class="quiz-opt-btn" type="button">Freelance or consulting accounting work at $75-150+/hour, leveraging her existing expertise and license rather than trading time for low hourly rates in an unrelated field</button></li>
+<li><button class="quiz-opt-btn" type="button">A part-time retail job to keep things simple</button></li>
+<li><button class="quiz-opt-btn" type="button">Selling homemade crafts online</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod8_3"></div>
+</div>
+<div class="quiz-q qblock_mod8_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>Kevin has been posting consistent LinkedIn content about project management for eight months. He's gained 4,200 followers in his industry. A company he's never applied to reaches out about a senior role paying $30,000 more than his current job. According to Module 8, what specifically caused this to happen?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">LinkedIn's algorithm randomly promotes content to recruiters</button></li>
+<li><button class="quiz-opt-btn" type="button">Kevin got lucky: there's no reliable way to engineer this kind of outcome</button></li>
+<li><button class="quiz-opt-btn" type="button">Kevin built a personal brand that made him visibly expert and consistently present in his field: opportunities moved toward him rather than requiring him to chase them</button></li>
+<li><button class="quiz-opt-btn" type="button">His number of followers crossed a threshold that LinkedIn uses to flag candidates</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod8_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_mod8"></div>
+  <button class="btn-quiz-retry" id="quizRetry_mod8" type="button">Retry Quiz</button>
+</div>
+
+<script>
+(function(){
+  const MOD_QUIZ_ID = 'mod8';
+  const PASS_THRESHOLD = 0.8;
+  const questions = [{"q": "Tanya has been in the same marketing manager role for three years earning $58,000. She's a consistent top performer. Her employer's standard annual raise is 2-3%. She gets a competing offer for $67,000 but prefers her current company. According to Module 8, what should she do?", "opts": ["Accept the competing offer since her current company clearly doesn't value her", "Take the $67,000 offer \u2014 never negotiate, always just move for money", "Use the competing offer as leverage in a salary negotiation with her current company. Her market value is clearly $67,000+ and she should present that data and ask for a match or meaningful increase", "Say nothing \u2014 asking for more money is risky and could cost her the job she has"], "correct": 2, "explanation": "This is exactly when negotiation works. Tanya has proof of her market value (the competing offer), a strong track record, and a preferred employer who likely wants to retain her. Companies know it costs $15,000-30,000 to recruit and onboard a replacement. She should present the offer professionally and ask for a match or a number close to it. The worst likely outcome is they say no \u2014 not that she loses her job.", "hint": "Review 'The Art of Salary Negotiation' under Track 1."}, {"q": "Marcus earns $52,000 as an IT support specialist. He spends his evenings gaming. He's interested in building a side income but says 'I don't have any skills people would pay for outside my job.' Which Module 8 principle most directly challenges this belief?", "opts": ["He's probably right \u2014 most skills employers pay for aren't marketable as freelance services", "His primary skill (IT support and troubleshooting) is exactly what small businesses and individuals pay freelancers $50-100+/hour for \u2014 his belief that his skills aren't marketable is the barrier, not the skills themselves", "He should develop a completely new skill first before pursuing any side income", "Gaming is actually a viable income stream so he should pursue streaming"], "correct": 1, "explanation": "Module 8 is direct: whatever you do for your employer, you can likely do for others on a contract basis. IT support, troubleshooting, setup, and network help are in constant demand from small businesses and individuals who can't afford full-time IT staff. Marcus's belief that his skills aren't marketable isn't based on evidence \u2014 it's based on never having tested it. Freelancing his primary skill is one of the highest-leverage moves available to him.", "hint": "Review 'Active Secondary Income (Time for Money)' under Track 2."}, {"q": "Diana earns $71,000/year and gets 2.5% annual raises. Her colleague Alex also earns $71,000 but negotiated $76,000 when he was hired into the same role two years ago. Both receive 2.5% annual raises. How does the $5,000 starting salary difference affect them over a 10-year career?", "opts": ["The gap stays at $5,000 \u2014 raises are a percentage but the base was only $5,000 apart", "The gap compresses over time since both get the same percentage increase", "The gap widens \u2014 because raises are calculated on a higher base, Alex compounds the $5,000 difference and earns significantly more over 10 years, and a future employer also sees a higher salary history", "The difference is negligible when you factor in taxes and benefits"], "correct": 2, "explanation": "This is the compounding effect of starting salary negotiation. At 2.5% annual raises: Year 1 gap = $5,000. Year 5 gap = ~$5,520. Year 10 gap = ~$6,280. Over the full 10 years, Alex earns approximately $55,000 more in cumulative salary. And when Alex moves to a new job, his higher current salary anchors the next negotiation higher. One negotiation at hire creates a compounding lifetime advantage.", "hint": "Review 'The Art of Salary Negotiation' \u2014 specifically why negotiating at hire matters permanently."}, {"q": "Brenda is a licensed CPA with 12 years of experience. She's thinking about side income but doesn't want to drive for rideshare. She has weekends free. According to Module 8's income stream categories, what's the highest-leverage option for someone with Brenda's background?", "opts": ["Rideshare or food delivery on weekends", "Freelance or consulting accounting work at $75-150+/hour, leveraging her existing expertise and license rather than trading time for low hourly rates in an unrelated field", "A part-time retail job to keep things simple", "Selling homemade crafts online"], "correct": 1, "explanation": "High-skill professionals should monetize their primary skill first. Brenda's CPA license and 12 years of experience are worth $75-150/hour or more in the freelance market \u2014 tax preparation, small business bookkeeping, financial consulting. That's the same skill she uses at work, packaged differently. Rideshare or retail pays $15-20/hour. The module is clear: leverage what makes you most valuable, not just what's most available.", "hint": "Review 'Active Secondary Income' and 'Freelancing your primary skill.'"}, {"q": "Kevin has been posting consistent LinkedIn content about project management for eight months. He's gained 4,200 followers in his industry. A company he's never applied to reaches out about a senior role paying $30,000 more than his current job. According to Module 8, what specifically caused this to happen?", "opts": ["LinkedIn's algorithm randomly promotes content to recruiters", "Kevin got lucky \u2014 there's no reliable way to engineer this kind of outcome", "Kevin built a personal brand that made him visibly expert and consistently present in his field \u2014 opportunities moved toward him rather than requiring him to chase them", "His number of followers crossed a threshold that LinkedIn uses to flag candidates"], "correct": 2, "explanation": "This is the personal brand principle in action. Kevin didn't apply. He didn't spray resumes. He showed up consistently in his field with valuable content, and his reputation became visible to people who needed what he knows. A strong personal brand in your field attracts opportunities rather than requiring you to chase them. It works while you sleep \u2014 and it compounds.", "hint": "Review 'Building a Personal Brand That Opens Doors.'"}];
+  let answered = {};
+
+  function unlockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      btn.style.cursor = 'pointer';
+      btn.title = '';
+    }
+  }
+
+  function lockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+      btn.style.cursor = 'not-allowed';
+      btn.title = 'Pass the module quiz to continue';
+    }
+  }
+
+  function updateQuizProgress() {
+    const total = questions.length;
+    const done = Object.keys(answered).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    const lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = pct + '%';
+    if (lbl) lbl.textContent = done + '/' + total + ' answered';
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(answered).length < questions.length) return;
+    const correct = Object.values(answered).filter(v => v).length;
+    const total = questions.length;
+    const pct = correct / total;
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!resultBar) return;
+    resultBar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      resultBar.className = 'quiz-result-bar pass';
+      resultBar.innerHTML = '<strong>Module Quiz Passed! ' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%)</strong>The Next Module button is now unlocked. Well done.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      resultBar.className = 'quiz-result-bar fail';
+      resultBar.innerHTML = '<strong>' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%). Need 80% to pass.</strong>Review the sections noted in the hints above, then retry the quiz.';
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+
+  function initQuiz() {
+    // Check if already passed
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (resultBar) {
+          resultBar.style.display = 'block';
+          resultBar.className = 'quiz-result-bar pass';
+          resultBar.innerHTML = '<strong>Module Quiz Previously Passed</strong>The Next Module button is unlocked.';
+        }
+        return;
+      }
+    } catch(e) {}
+
+    lockNext();
+
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          const isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          // Style all buttons
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          // Show feedback
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+              feedbackEl.className = 'quiz-feedback correct-fb';
+              feedbackEl.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              feedbackEl.className = 'quiz-feedback wrong-fb';
+              feedbackEl.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateQuizProgress();
+          checkAllAnswered();
+        });
+      });
+    });
+
+    updateQuizProgress();
+  }
+
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (resultBar) { resultBar.style.display = 'none'; resultBar.innerHTML = ''; }
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.style.display = 'none';
+    // Reset all buttons and feedback
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      optBtns.forEach(function(btn) {
+        btn.disabled = false;
+        btn.className = 'quiz-opt-btn';
+      });
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (feedbackEl) { feedbackEl.style.display = 'none'; feedbackEl.innerHTML = ''; feedbackEl.className = 'quiz-feedback'; }
+    });
+    lockNext();
+    updateQuizProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+    <div class="lesson-nav">
+      <a href="./foundation-mod7.html" class="btn-prev">← Module 7: Protect Your Wealth</a>
+      <span class="progress-label">Module 8 of 8</span>
+      <a href="./foundation-assessment.html" class="btn-next">Final Assessment →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

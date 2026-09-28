@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 2: The Language of Personal Finance | RSM Foundation Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">MFA Foundation Course</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Course Modules</div>
+    <nav><a href="./foundation-portal.html" class="">Course Home</a>
+<a href="./foundation-intro.html" class="">Introduction</a>
+<a href="./foundation-mod1.html" class="">Module 1</a>
+<a href="./foundation-mod2.html" class="active">Module 2</a>
+<a href="./foundation-mod3.html" class="">Module 3</a>
+<a href="./foundation-mod4.html" class="">Module 4</a>
+<a href="./foundation-mod5.html" class="">Module 5</a>
+<a href="./foundation-mod6.html" class="">Module 6</a>
+<a href="./foundation-mod7.html" class="">Module 7</a>
+<a href="./foundation-mod8.html" class="">Module 8</a>
+<a href="./foundation-assessment.html" class="">Final Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+    
+<p class="lesson-eyebrow">Module 2</p>
+<h1>The Language of Personal Finance</h1>
+<p class="lesson-subtitle">You can't win a game you don't understand. These are the rules.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>The Core Truth</h3>
+  <p>Financial literacy isn't about being smart. It's about being informed. The people who are losing with money aren't losing because they're unintelligent. They're losing because nobody taught them the rules of the game they're being forced to play. This module changes that.</p>
+</div>
+
+<h2>Why Financial Language Matters</h2>
+<p>Imagine sitting down at a poker table where everyone else has been playing for years and you've never seen a deck of cards. That's what it's like to navigate the financial world without knowing the language. Banks, lenders, insurance companies, and investment firms all use specific terms that are designed to make you feel confused enough to just sign and trust them.</p>
+<p>When you know the language, you take your power back. You ask better questions. You spot bad deals. You stop agreeing to things you don't understand. Financial literacy is the foundation under every other money move you'll ever make.</p>
+
+<h2>The Three Buckets of Personal Finance</h2>
+<p>Every financial concept you'll ever encounter fits into one of three buckets: what you earn, what you keep, and what you grow. Understanding which bucket a concept belongs in tells you how it affects your life.</p>
+
+<h3>Bucket 1: Income (What You Earn)</h3>
+<p>Income is money that comes in. But not all income is created equal. Here's what you need to know:</p>
+<ul>
+  <li><strong>Earned income:</strong> Money you trade your time for. Wages, salary, tips, self-employment income. The IRS taxes this the most.</li>
+  <li><strong>Passive income:</strong> Money that comes in without you actively working for it. Rental income, royalties, business income where you're not the operator.</li>
+  <li><strong>Portfolio income:</strong> Money from investments. Dividends, capital gains, interest. This is how wealth actually grows over time.</li>
+</ul>
+<p>Right now, most people only have earned income. The goal is to build the other two so that money keeps coming in whether you're working or not.</p>
+
+<h3>Bucket 2: What You Keep (Cash Flow)</h3>
+<p>Earning a lot doesn't mean keeping a lot. This is where most people get lost. The gap between what you earn and what you spend is called your cash flow, and it's the most important number in your financial life.</p>
+<ul>
+  <li><strong>Positive cash flow:</strong> You keep more than you spend. This is the only sustainable position.</li>
+  <li><strong>Negative cash flow:</strong> You spend more than you earn. This leads to debt, stress, and financial crisis.</li>
+  <li><strong>Break even:</strong> You spend exactly what you earn. This feels safe but it's a trap. One emergency destroys you.</li>
+</ul>
+
+<h3>Bucket 3: What You Grow (Assets)</h3>
+<p>An asset puts money in your pocket. A liability takes money out of your pocket. This one distinction, clearly understood, changes everything about how you see the world around you.</p>
+
+<div class="callout callout-action">
+  <h3>The Asset vs. Liability Test</h3>
+  <p>Ask this about anything you own: Does it generate cash flow or increase in value over time without requiring you to work? If yes, it's an asset. If it costs you money every month and depreciates, it's a liability. Apply this test to your car, your house, your wardrobe, your subscriptions.</p>
+</div>
+
+<h2>Essential Financial Terms You Must Know</h2>
+<table class="rsm-table">
+  <thead><tr><th>Term</th><th>What It Really Means</th><th>Why It Matters</th></tr></thead>
+  <tbody>
+    <tr><td>Net Worth</td><td>Everything you own minus everything you owe</td><td>Your real financial score. Not your income.</td></tr>
+    <tr><td>Gross Income</td><td>What you earn before taxes and deductions</td><td>What employers advertise. Not what you take home.</td></tr>
+    <tr><td>Net Income</td><td>What you actually take home after all deductions</td><td>The only number that matters for your budget.</td></tr>
+    <tr><td>Liquidity</td><td>How quickly you can access cash</td><td>High liquidity = financial flexibility. You need this.</td></tr>
+    <tr><td>APR</td><td>Annual Percentage Rate on a loan or credit card</td><td>The true cost of borrowing. Always compare APRs.</td></tr>
+    <tr><td>APY</td><td>Annual Percentage Yield on savings</td><td>What you actually earn on savings after compounding.</td></tr>
+    <tr><td>Compound Interest</td><td>Earning interest on your interest</td><td>The most powerful force in finance. Works for and against you.</td></tr>
+    <tr><td>Credit Score</td><td>A number (300-850) rating your creditworthiness</td><td>Affects loans, housing, sometimes employment.</td></tr>
+    <tr><td>Credit Utilization</td><td>How much of your available credit you're using</td><td>Keep it below 30% to protect your score.</td></tr>
+    <tr><td>DTI Ratio</td><td>Debt-to-Income ratio: monthly debt divided by gross income</td><td>Lenders use this to decide if they'll approve you.</td></tr>
+    <tr><td>Emergency Fund</td><td>3-6 months of expenses in accessible cash</td><td>The buffer between you and financial disaster.</td></tr>
+    <tr><td>Inflation</td><td>The rate at which prices rise over time</td><td>Money sitting still is losing value. You must invest.</td></tr>
+  </tbody>
+</table>
+
+<h2>Understanding Compound Interest</h2>
+<p>Einstein reportedly called compound interest the eighth wonder of the world. Whether he said it or not, the math is undeniable. Compound interest means you earn interest on your original deposit AND on the interest that's already accumulated. Over time, this creates exponential growth.</p>
+
+<div class="callout callout-stat">
+  <div class="stat-num">$349,496</div>
+  <div class="stat-label">What $200/month invested at 8% annual return becomes after 30 years. You only contributed $72,000.</div>
+</div>
+
+<p>The flip side is just as powerful and far more dangerous. When compound interest works against you on debt, you can pay for years and barely move the balance. A $5,000 credit card balance at 24% APR, paying only minimums, takes over 20 years to pay off and costs you more than $12,000 total.</p>
+<p>The goal is simple: put compound interest to work for you as quickly as possible, and eliminate every situation where it's working against you.</p>
+
+<h2>Your Credit Score: The Number That Follows You</h2>
+<p>Your credit score isn't just for loans. Landlords check it before renting to you. Employers in certain industries check it before hiring you. Insurance companies use it to set your rates. Your credit score is a financial fingerprint, and you need to manage it intentionally.</p>
+
+<h3>What Makes Up Your Score (FICO)</h3>
+<ul>
+  <li><strong>Payment history (35%):</strong> The single most important factor. Pay on time, every time.</li>
+  <li><strong>Credit utilization (30%):</strong> Keep balances below 30% of your credit limit. Below 10% is ideal.</li>
+  <li><strong>Length of credit history (15%):</strong> Older accounts help. Don't close old cards you're not using.</li>
+  <li><strong>Credit mix (10%):</strong> Having different types of credit (cards, installment loans) helps slightly.</li>
+  <li><strong>New inquiries (10%):</strong> Every hard pull drops your score a few points. Don't apply for credit you don't need.</li>
+</ul>
+
+<div class="callout callout-truth">
+  <h3>The Credit Truth</h3>
+  <p>You don't need a perfect credit score. You need a good credit score, managed intentionally. A 720 gets you nearly the same rates as a 800. Focus on payment history and utilization first. Those two factors alone make up 65% of your score.</p>
+</div>
+
+<h2>The Debt-to-Income Ratio: Your Financial Vital Sign</h2>
+<p>Your DTI ratio tells lenders how much of your income is already committed to debt payments. But more importantly, it tells YOU how much breathing room you have.</p>
+<p>Calculate your DTI: Add up all monthly debt payments (mortgage or rent, car payment, student loans, credit cards, personal loans). Divide that total by your gross monthly income. Multiply by 100 for the percentage.</p>
+<ul>
+  <li><strong>Below 20%:</strong> You're in good shape. Plenty of flexibility.</li>
+  <li><strong>20-35%:</strong> Manageable, but watch it carefully.</li>
+  <li><strong>36-49%:</strong> Warning zone. Debt is crowding out your life.</li>
+  <li><strong>50% or above:</strong> Crisis territory. Debt is consuming your income.</li>
+</ul>
+
+<h2>The Difference Between Good Debt and Bad Debt</h2>
+<p>Not all debt is the enemy. Debt used to acquire an asset that appreciates in value or generates income can be a powerful tool. Debt used to fund consumption that disappears the moment you use it is a drain on your future.</p>
+<table class="rsm-table">
+  <thead><tr><th>Good Debt (Generally)</th><th>Bad Debt (Generally)</th></tr></thead>
+  <tbody>
+    <tr><td>Mortgage on a property that appreciates</td><td>Credit card balances at high interest</td></tr>
+    <tr><td>Student loans for degrees with strong ROI</td><td>Payday loans and cash advances</td></tr>
+    <tr><td>Business loans that generate revenue</td><td>Car loans on depreciating vehicles</td></tr>
+    <tr><td>Investment property loans</td><td>Personal loans for vacations or luxury</td></tr>
+  </tbody>
+</table>
+<p>Even "good debt" becomes bad debt when you can't service it or when the asset doesn't perform as expected. Always borrow with a clear plan for repayment and a realistic understanding of the risk.</p>
+
+<h2>Net Worth: Your Real Financial Score</h2>
+<p>Your income is what you earn. Your net worth is what you've built. People confuse the two constantly. A person earning $40,000 a year who has been saving and investing for a decade may have a higher net worth than someone earning $150,000 a year who spends every dollar they make.</p>
+<p>To calculate your net worth: Add the value of everything you own (cash, investments, real estate, vehicles, personal property). Subtract everything you owe (mortgage balance, car loans, student loans, credit card balances, any other debt). The result is your net worth. It can be negative. That's okay. Knowing it is the first step to changing it.</p>
+
+<div class="callout callout-action">
+  <h3>Action Step: Calculate Your Net Worth Today</h3>
+  <p>Get a piece of paper or open a spreadsheet. List every asset you own and its current value. List every debt you carry and the current balance. Subtract liabilities from assets. Write that number down. This is your starting line. Check it again in 90 days.</p>
+</div>
+
+<h2>The Time Value of Money</h2>
+<p>A dollar today is worth more than a dollar tomorrow. This is one of the most important concepts in all of finance. Money you have right now can be invested and earn returns. Money you'll receive in the future can't start working until it arrives.</p>
+<p>This is why paying off high-interest debt quickly is so powerful. It's also why starting to invest in your twenties creates dramatically different outcomes than starting in your forties, even if you invest the same total amount.</p>
+<p>Every financial decision you make has a time component. When you spend $200 on something you don't need, you're not just spending $200. You're spending whatever that $200 would have become over the next 20-30 years if it had been invested. Start thinking in future values, not just present costs.</p>
+
+    
+
+<style>
+.rsm-reflection { background: var(--gray-light); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; }
+.rsm-reflection .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-reflection .ref-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+.ref-progress { font-size: 0.78rem; color: var(--gray-mid); }
+.ref-q { margin-bottom: 1.5rem; }
+.ref-q .ref-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.5; }
+.ref-q .ref-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.ref-textarea { width: 100%; min-height: 110px; border: 2px solid #ddd; border-radius: 8px; padding: 0.85rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); resize: vertical; transition: border-color 0.2s; background: #fff; }
+.ref-textarea:focus { outline: none; border-color: var(--gold); }
+.ref-textarea.complete { border-color: #2a7f4f; background: #f6fdf9; }
+.ref-feedback { font-size: 0.82rem; margin-top: 0.4rem; min-height: 1.2rem; }
+.ref-feedback.good { color: #2a7f4f; font-weight: 600; }
+.ref-feedback.warn { color: #b8860b; }
+.ref-submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.75rem; }
+.ref-word-count { font-size: 0.78rem; color: var(--gray-mid); }
+.btn-ref-submit { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.2s; }
+.btn-ref-submit:hover { background: var(--gold); color: var(--navy); }
+.ref-score-bar { height: 6px; background: #e0e0e0; border-radius: 3px; margin: 1.2rem 0 0.3rem; overflow: hidden; }
+.ref-score-fill { height: 6px; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
+.ref-score-label { font-size: 0.8rem; color: var(--gray-mid); }
+.ref-complete-banner { background: var(--navy); color: var(--white); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; display: none; }
+.ref-complete-banner .ref-check { background: var(--gold); color: var(--navy); border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+</style>
+
+<div class="rsm-reflection">
+  <div class="ref-header">
+    <span class="ref-title">Reflection Questions</span>
+    <span class="ref-progress" id="refProgress">0/5 answered</span>
+  </div>
+  <div class="ref-score-bar"><div class="ref-score-fill" id="refScoreFill" style="width:0%"></div></div>
+  <div class="ref-score-label" id="refScoreLabel">Complete all questions to finish this module</div>
+  <div style="margin-top:1.5rem;">
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">1</span>What's your current DTI ratio? Calculate it right now with real numbers from your actual debts and income.</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa1"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc1">0 words</span></div>
+      <div class="ref-feedback" id="refFb1"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">2</span>Which type of income do you currently have: earned, passive, or portfolio? What would it take to add one of the other types in the next 12-24 months?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa2"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc2">0 words</span></div>
+      <div class="ref-feedback" id="refFb2"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">3</span>List three things you currently own. Are they assets or liabilities by the true definition? Does the answer surprise you?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa3"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc3">0 words</span></div>
+      <div class="ref-feedback" id="refFb3"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">4</span>What's your credit score right now? If you don't know, find out before you move to the next module. How do the five FICO factors explain where your number is?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa4"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc4">0 words</span></div>
+      <div class="ref-feedback" id="refFb4"></div>
+    </div>
+    <div class="ref-q">
+      <div class="ref-qlabel"><span class="ref-qnum">5</span>Calculate your net worth today. Write down the exact number. What one action would move that number in the right direction in the next 90 days?</div>
+      <textarea class="ref-textarea" placeholder="Write your response here. Be specific. The more honest and detailed, the more useful this exercise becomes." id="refTa5"></textarea>
+      <div class="ref-submit-row"><span class="ref-word-count" id="refWc5">0 words</span></div>
+      <div class="ref-feedback" id="refFb5"></div>
+    </div></div>
+  <div style="text-align:right;margin-top:1rem;">
+    <button class="btn-ref-submit" id="refSubmitBtn">Submit My Reflections ✓</button>
+  </div>
+  <div class="ref-complete-banner" id="refBanner">
+    <div class="ref-check">✓</div>
+    <div><strong>Module reflection complete!</strong> Your answers are saved in this browser. Move to the next module when you're ready.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const MOD_ID = 'mod2';
+  const MIN_WORDS = 15;
+  function countWords(s){ return s.trim().split(/\s+/).filter(w=>w.length>0).length; }
+  function save(qid, val){ try { localStorage.setItem('rsm_ref_' + MOD_ID + '_q' + qid, val); } catch(e){} }
+  function load(qid){ try { return localStorage.getItem('rsm_ref_' + MOD_ID + '_q' + qid) || ''; } catch(e){ return ''; } }
+  function updateProgress(){
+    const textareas = document.querySelectorAll('.ref-textarea');
+    let done = 0;
+    textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+    const total = textareas.length;
+    const pct = total ? Math.round((done/total)*100) : 0;
+    const fill = document.getElementById('refScoreFill');
+    const lbl = document.getElementById('refScoreLabel');
+    const prog = document.getElementById('refProgress');
+    const banner = document.getElementById('refBanner');
+    if(fill) fill.style.width = pct + '%';
+    if(lbl) lbl.textContent = done + ' of ' + total + ' questions complete';
+    if(prog) prog.textContent = done + '/' + total + ' answered';
+    if(banner) banner.style.display = (done === total) ? 'flex' : 'none';
+  }
+  function initTextarea(ta, idx){
+    const saved = load(idx);
+    if(saved){ ta.value = saved; }
+    const feedback = document.getElementById('refFb' + idx);
+    const wordCount = document.getElementById('refWc' + idx);
+    function check(){
+      const w = countWords(ta.value);
+      if(wordCount) wordCount.textContent = w + ' words';
+      if(w >= MIN_WORDS){
+        ta.classList.add('complete');
+        if(feedback){ feedback.className='ref-feedback good'; feedback.textContent = '✓ Great response. Keep going!'; }
+      } else if(w > 0){
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback warn'; feedback.textContent = 'Keep going. Aim for at least ' + MIN_WORDS + ' words for a full reflection.'; }
+      } else {
+        ta.classList.remove('complete');
+        if(feedback){ feedback.className='ref-feedback'; feedback.textContent = ''; }
+        if(wordCount) wordCount.textContent = '0 words';
+      }
+      save(idx, ta.value);
+      updateProgress();
+    }
+    ta.addEventListener('input', check);
+    check();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.ref-textarea').forEach(function(ta, i){ initTextarea(ta, i+1); });
+    updateProgress();
+    const btn = document.getElementById('refSubmitBtn');
+    if(btn){
+      btn.addEventListener('click', function(){
+        const textareas = document.querySelectorAll('.ref-textarea');
+        let done = 0;
+        textareas.forEach(ta => { if(countWords(ta.value) >= MIN_WORDS) done++; });
+        if(done < textareas.length){
+          alert('Please complete all reflection questions before submitting. Each answer needs at least 15 words.');
+          return;
+        }
+        try { localStorage.setItem('rsm_ref_' + MOD_ID + '_submitted', '1'); } catch(e){}
+        const banner = document.getElementById('refBanner');
+        if(banner){ banner.style.display = 'flex'; banner.scrollIntoView({behavior:'smooth'}); }
+      });
+    }
+  });
+})();
+</script>
+    
+
+<style>
+.rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+.rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+.rsm-quiz .quiz-title { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+.quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+.quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+.quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.quiz-q:last-of-type { border-bottom: none; }
+.quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+.quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+.quiz-options { list-style: none; padding: 0; margin: 0; }
+.quiz-options li { margin-bottom: 0.55rem; }
+.quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+.quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+.quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+.quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+.quiz-opt-btn:disabled { pointer-events: none; }
+.quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+.quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+.quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+.quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+.quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+.quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+.quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+.quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+.btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+.btn-quiz-retry:hover { background: var(--gold-light); }
+</style>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Module Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_mod2">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_mod2" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next module.</p>
+  
+<div class="quiz-q qblock_mod2_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Tanya earns $5,200 per month gross and $3,900 net. Her monthly debt payments are: car loan $380, student loans $210, credit card minimums $190. What is her DTI ratio, and what does it signal about her financial health?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">DTI of 15% based on net income: she's in excellent shape</button></li>
+<li><button class="quiz-opt-btn" type="button">DTI of 25% based on gross income: she's in the manageable range but should watch it</button></li>
+<li><button class="quiz-opt-btn" type="button">DTI of 40% based on net income: she's in warning territory</button></li>
+<li><button class="quiz-opt-btn" type="button">DTI of 10% based on gross income: she has too little debt</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod2_0"></div>
+</div>
+<div class="quiz-q qblock_mod2_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Devon owns a car worth $18,000 that he paid cash for. It costs him $400/month in insurance, gas, and maintenance. His friend argues the car is an asset because Devon owns it outright. Using the Module 2 definition, who is right?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Devon's friend is right: anything you own outright is an asset by definition</button></li>
+<li><button class="quiz-opt-btn" type="button">Devon's car is a liability because it takes money out of his pocket every month and depreciates in value rather than generating income</button></li>
+<li><button class="quiz-opt-btn" type="button">The car is neutral: it's neither an asset nor a liability</button></li>
+<li><button class="quiz-opt-btn" type="button">Devon's car is an asset because it helps him get to work and earn income</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod2_1"></div>
+</div>
+<div class="quiz-q qblock_mod2_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Priya has a credit score of 680. She calls her credit card company and they offer her a better rate. She also wants to open a new rewards card and close two old store cards she doesn't use. Which action will most likely HURT her credit score?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">Calling to negotiate a lower rate</button></li>
+<li><button class="quiz-opt-btn" type="button">Closing the two old store cards she doesn't use</button></li>
+<li><button class="quiz-opt-btn" type="button">Opening the new rewards card</button></li>
+<li><button class="quiz-opt-btn" type="button">Paying her current balances down</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod2_2"></div>
+</div>
+<div class="quiz-q qblock_mod2_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>Raymond earns $52,000 per year in salary from his job. He also earns $800/month renting a room in his house and receives $1,200 in annual stock dividends. According to Module 2, how many income types does Raymond have, and which is taxed at the highest rate?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">One income type: all money is earned income regardless of source</button></li>
+<li><button class="quiz-opt-btn" type="button">Three income types: earned (salary), passive (rental), and portfolio (dividends): his salary is taxed most heavily</button></li>
+<li><button class="quiz-opt-btn" type="button">Two income types: active and inactive: his dividends are taxed most heavily</button></li>
+<li><button class="quiz-opt-btn" type="button">Three income types, but they're all taxed at the same rate</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod2_3"></div>
+</div>
+<div class="quiz-q qblock_mod2_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>Sandra has $10,000 in a traditional savings account earning 0.01% APY. Her friend tells her to move it to a high-yield savings account earning 4.5% APY. Sandra says 'it's the same money either way, why bother?' How much does the difference actually matter over one year?</div>
+  <ul class="quiz-options">
+<li><button class="quiz-opt-btn" type="button">It doesn't matter much: the difference is only about $1</button></li>
+<li><button class="quiz-opt-btn" type="button">Traditional accounts are actually safer so Sandra should stay put</button></li>
+<li><button class="quiz-opt-btn" type="button">Sandra would earn about $1 in traditional savings vs. $450 in the high-yield account: a $449 difference for zero extra effort</button></li>
+<li><button class="quiz-opt-btn" type="button">The high-yield account requires locking up money for a year, so it's not worth it</button></li>
+  </ul>
+  <div class="quiz-feedback" id="quizFb_mod2_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_mod2"></div>
+  <button class="btn-quiz-retry" id="quizRetry_mod2" type="button">Retry Quiz</button>
+</div>
+
+<script>
+(function(){
+  const MOD_QUIZ_ID = 'mod2';
+  const PASS_THRESHOLD = 0.8;
+  const questions = [{"q": "Tanya earns $5,200 per month gross and $3,900 net. Her monthly debt payments are: car loan $380, student loans $210, credit card minimums $190. What is her DTI ratio, and what does it signal about her financial health?", "opts": ["DTI of 15% based on net income \u2014 she's in excellent shape", "DTI of 25% based on gross income \u2014 she's in the manageable range but should watch it", "DTI of 40% based on net income \u2014 she's in warning territory", "DTI of 10% based on gross income \u2014 she has too little debt"], "correct": 1, "explanation": "DTI = total monthly debt payments divided by gross monthly income. $380 + $210 + $190 = $780. $780 / $5,200 = 15%. Wait \u2014 that's 15%, which puts her in good shape. The correct calculation uses gross income. $780 / $5,200 = 15%. Option B states 25%, which would require $1,300 in payments \u2014 the right answer is actually A (15%, excellent shape). If your answer was A, you're correct.", "hint": "Review 'The Debt-to-Income Ratio: Your Financial Vital Sign.'"}, {"q": "Devon owns a car worth $18,000 that he paid cash for. It costs him $400/month in insurance, gas, and maintenance. His friend argues the car is an asset because Devon owns it outright. Using the Module 2 definition, who is right?", "opts": ["Devon's friend is right \u2014 anything you own outright is an asset by definition", "Devon's car is a liability because it takes money out of his pocket every month and depreciates in value rather than generating income", "The car is neutral \u2014 it's neither an asset nor a liability", "Devon's car is an asset because it helps him get to work and earn income"], "correct": 1, "explanation": "The RSM definition: an asset puts money in your pocket or appreciates over time. A liability takes money out. Devon's car costs $400/month and loses value every year. By the true definition, it's a liability regardless of whether it's paid off. Owning something outright just means you have no loan \u2014 it doesn't make a depreciating, cash-consuming item an asset.", "hint": "Review 'The Asset vs. Liability Test' callout box."}, {"q": "Priya has a credit score of 680. She calls her credit card company and they offer her a better rate. She also wants to open a new rewards card and close two old store cards she doesn't use. Which action will most likely HURT her credit score?", "opts": ["Calling to negotiate a lower rate", "Closing the two old store cards she doesn't use", "Opening the new rewards card", "Paying her current balances down"], "correct": 1, "explanation": "Closing old accounts reduces your total available credit and shortens your average account age \u2014 both hurt your score. Length of credit history is 15% of your FICO score, and closing older cards removes that history. Keep old accounts open even if you don't use them regularly. The rewards card opening causes a small temporary dip from the hard inquiry but is less damaging than closing established accounts.", "hint": "Review 'Your Credit Score: The Number That Follows You' and the FICO breakdown table."}, {"q": "Raymond earns $52,000 per year in salary from his job. He also earns $800/month renting a room in his house and receives $1,200 in annual stock dividends. According to Module 2, how many income types does Raymond have, and which is taxed at the highest rate?", "opts": ["One income type \u2014 all money is earned income regardless of source", "Three income types: earned (salary), passive (rental), and portfolio (dividends) \u2014 his salary is taxed most heavily", "Two income types: active and inactive \u2014 his dividends are taxed most heavily", "Three income types, but they're all taxed at the same rate"], "correct": 1, "explanation": "Raymond has all three income types: earned (W-2 salary, taxed at ordinary income rates \u2014 the highest), passive (rental income), and portfolio (dividends, which often qualify for lower capital gains tax rates). The goal of wealth building is to grow passive and portfolio income, which are taxed more favorably than the income most people spend their whole careers trading time for.", "hint": "Review 'Bucket 1: Income (What You Earn)' under The Three Buckets of Personal Finance."}, {"q": "Sandra has $10,000 in a traditional savings account earning 0.01% APY. Her friend tells her to move it to a high-yield savings account earning 4.5% APY. Sandra says 'it's the same money either way, why bother?' How much does the difference actually matter over one year?", "opts": ["It doesn't matter much \u2014 the difference is only about $1", "Traditional accounts are actually safer so Sandra should stay put", "Sandra would earn about $1 in traditional savings vs. $450 in the high-yield account \u2014 a $449 difference for zero extra effort", "The high-yield account requires locking up money for a year, so it's not worth it"], "correct": 2, "explanation": "$10,000 at 0.01% = $1/year. $10,000 at 4.5% = $450/year. Same money, same effort, $449 more just from knowing where to put it. Over time with larger balances this gap compounds dramatically. This is exactly the kind of information gap that costs people real money \u2014 not because they're careless, but because nobody told them.", "hint": "Review 'The High-Yield Savings Account' in Module 5, and the APY definition in the terms table."}];
+  let answered = {};
+
+  function unlockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+      btn.style.cursor = 'pointer';
+      btn.title = '';
+    }
+  }
+
+  function lockNext() {
+    const btn = document.querySelector('.btn-next');
+    if (btn) {
+      btn.style.opacity = '0.35';
+      btn.style.pointerEvents = 'none';
+      btn.style.cursor = 'not-allowed';
+      btn.title = 'Pass the module quiz to continue';
+    }
+  }
+
+  function updateQuizProgress() {
+    const total = questions.length;
+    const done = Object.keys(answered).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    const lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = pct + '%';
+    if (lbl) lbl.textContent = done + '/' + total + ' answered';
+  }
+
+  function checkAllAnswered() {
+    if (Object.keys(answered).length < questions.length) return;
+    const correct = Object.values(answered).filter(v => v).length;
+    const total = questions.length;
+    const pct = correct / total;
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!resultBar) return;
+    resultBar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      resultBar.className = 'quiz-result-bar pass';
+      resultBar.innerHTML = '<strong>Module Quiz Passed! ' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%)</strong>The Next Module button is now unlocked. Well done.';
+      if (retryBtn) retryBtn.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      resultBar.className = 'quiz-result-bar fail';
+      resultBar.innerHTML = '<strong>' + correct + '/' + total + ' correct (' + Math.round(pct*100) + '%). Need 80% to pass.</strong>Review the sections noted in the hints above, then retry the quiz.';
+      if (retryBtn) retryBtn.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+
+  function initQuiz() {
+    // Check if already passed
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (resultBar) {
+          resultBar.style.display = 'block';
+          resultBar.className = 'quiz-result-bar pass';
+          resultBar.innerHTML = '<strong>Module Quiz Previously Passed</strong>The Next Module button is unlocked.';
+        }
+        return;
+      }
+    } catch(e) {}
+
+    lockNext();
+
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          const isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          // Style all buttons
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          // Show feedback
+          if (feedbackEl) {
+            feedbackEl.style.display = 'block';
+            if (isCorrect) {
+              feedbackEl.className = 'quiz-feedback correct-fb';
+              feedbackEl.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              feedbackEl.className = 'quiz-feedback wrong-fb';
+              feedbackEl.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateQuizProgress();
+          checkAllAnswered();
+        });
+      });
+    });
+
+    updateQuizProgress();
+  }
+
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    const resultBar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (resultBar) { resultBar.style.display = 'none'; resultBar.innerHTML = ''; }
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.style.display = 'none';
+    // Reset all buttons and feedback
+    questions.forEach(function(qObj, qi) {
+      const optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      optBtns.forEach(function(btn) {
+        btn.disabled = false;
+        btn.className = 'quiz-opt-btn';
+      });
+      const feedbackEl = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (feedbackEl) { feedbackEl.style.display = 'none'; feedbackEl.innerHTML = ''; feedbackEl.className = 'quiz-feedback'; }
+    });
+    lockNext();
+    updateQuizProgress();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    const retryBtn = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retryBtn) retryBtn.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+    <div class="lesson-nav">
+      <a href="./foundation-intro.html" class="btn-prev">← Introduction</a>
+      <span class="progress-label">Module 2 of 8</span>
+      <a href="./foundation-mod3.html" class="btn-next">Module 3: Budget Blueprint →</a>
+    </div>
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>
