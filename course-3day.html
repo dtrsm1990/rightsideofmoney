@@ -28,11 +28,11 @@
   .nav-cta:hover{background:var(--gold-light)!important;}
 
   /* HERO */
-  .hero{background:var(--navy);min-height:100vh;padding-top:68px;position:relative;overflow:hidden;display:flex;align-items:center;}
+  .hero{background:var(--navy);min-height:auto;padding-top:60px;padding-bottom:40px;position:relative;overflow:hidden;display:flex;align-items:center;}
   .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 30% 50%,rgba(201,148,26,0.07) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 80% 30%,rgba(42,82,152,0.2) 0%,transparent 60%);}
   .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,148,26,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,148,26,0.03) 1px,transparent 1px);background-size:60px 60px;}
   .hero-bar{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,var(--gold),transparent 60%);}
-  .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:80px 60px;display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:center;width:100%;}
+  .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:32px 40px;display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:center;width:100%;}
 
   /* EMBLEM */
   .emblem-wrap{position:relative;display:flex;justify-content:center;align-items:center;}
@@ -66,7 +66,7 @@
   @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* WHAT YOU GET */
-  .what-section{background:var(--cream);padding:100px 40px;}
+  .what-section{background:var(--cream);padding:40px 40px;}
   .what-inner{max-width:1200px;margin:0 auto;}
   .what-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start;}
   .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
@@ -85,7 +85,7 @@
   .point-text strong{color:var(--navy);font-weight:600;}
 
   /* DARRELL SECTION */
-  .darrell-section{background:var(--navy);padding:80px 40px;position:relative;overflow:hidden;}
+  .darrell-section{background:var(--navy);padding:48px 40px;position:relative;overflow:hidden;}
   .darrell-section::before{content:'';position:absolute;bottom:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,148,26,0.08) 0%,transparent 60%);border-radius:50%;}
   .darrell-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center;position:relative;z-index:2;}
   .darrell-photo{width:100%;max-width:260px;border-radius:4px;display:block;box-shadow:16px 16px 48px rgba(0,0,0,0.4);}
@@ -93,7 +93,7 @@
   .darrell-text p strong{color:var(--white);font-weight:500;}
 
   /* ENROLL CTA */
-  .enroll-section{background:var(--gold);padding:100px 40px;text-align:center;position:relative;overflow:hidden;}
+  .enroll-section{background:var(--gold);padding:56px 40px;text-align:center;position:relative;overflow:hidden;}
   .enroll-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(13,31,60,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(13,31,60,0.06) 1px,transparent 1px);background-size:40px 40px;}
   .enroll-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;}
   .enroll-headline{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--navy);line-height:1.1;margin-bottom:16px;}
@@ -120,9 +120,9 @@
     .nav-links{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;gap:8px;width:100%;}
     .nav-cta{display:inline-flex!important;padding:9px 14px!important;font-size:11px!important;}
     .hero-inner,.what-grid,.darrell-inner{grid-template-columns:1fr;gap:48px;}
-    .hero-inner{padding:60px 24px;}
+    .hero-inner{padding:36px 24px;}
     .emblem-img{max-width:260px;margin:0 auto;}
-    .what-section,.darrell-section,.enroll-section{padding:70px 24px;}
+    .what-section,.darrell-section,.enroll-section{padding:40px 24px;}
     .btn-secondary{margin-left:0;margin-top:12px;display:block;text-align:center;}
     footer .footer-inner{flex-direction:column;text-align:center;}
   }
@@ -432,7 +432,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 }
 .cta-banner {
   background: var(--navy);
-  padding: 60px 24px;
+  padding: 40px 24px;
   text-align: center;
 }
 .cta-banner h2 {
@@ -591,7 +591,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 </section>
 
 <!-- QUOTE -->
-<section style="padding:60px 24px;">
+<section style="padding:36px 24px;">
   <div class="quote-block">
     <blockquote>"Clarity isn't just knowing your numbers. It's knowing your patterns. And once you see a pattern, you can change it."</blockquote>
     <cite>Right Side of Money</cite>
@@ -712,7 +712,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 </section>
 
 <!-- ENROLL FORM -->
-<section id="enroll-form" style="padding:60px 24px;background:var(--white);">
+<section id="enroll-form" style="padding:40px 24px;background:var(--white);">
   <div class="enroll-section">
     <h2>Start the Challenge Today</h2>
     <p class="enroll-sub">Complete the form below. You'll be directed to our secure payment page to finalize your enrollment.</p>
