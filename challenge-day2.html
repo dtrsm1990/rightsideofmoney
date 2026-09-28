@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 2: Break the Money Blocks | 3-Day Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection-q { margin-bottom: 1rem; }
+    .reflection-q label { display: block; color: #444; font-size: 0.95rem; margin-bottom: 0.4rem; font-weight: 500; }
+    .reflection-q textarea { width: 100%; min-height: 80px; padding: 0.75rem; border: 2px solid #ddd; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); resize: vertical; background: var(--white); transition: border-color 0.15s; }
+    .reflection-q textarea:focus { outline: none; border-color: var(--gold); }
+    .btn-save-reflection { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.55rem 1.25rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; margin-top: 0.5rem; }
+    .btn-save-reflection:hover { background: var(--navy-mid); }
+    .reflection-saved { font-size: 0.8rem; color: #2a7f4f; font-weight: 600; margin-left: 0.75rem; display: none; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* QUIZ */
+    .rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+    .rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+    .rsm-quiz .quiz-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+    .quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+    .quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+    .quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+    .quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .quiz-q:last-of-type { border-bottom: none; }
+    .quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+    .quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+    .quiz-options { list-style: none; padding: 0; margin: 0; }
+    .quiz-options li { margin-bottom: 0.55rem; }
+    .quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+    .quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+    .quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+    .quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+    .quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+    .quiz-opt-btn:disabled { pointer-events: none; }
+    .quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+    .quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+    .quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+    .quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+    .quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+    .quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+    .quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+    .quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+    .btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+    .btn-quiz-retry:hover { background: var(--gold-light); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">3-Day Financial Clarity Challenge</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Challenge Days</div>
+    <nav><a href="./challenge-portal.html" class="">Course Home</a>
+<a href="./challenge-day1.html" class="">Day 1: Audit Your Reality</a>
+<a href="./challenge-day2.html" class="active">Day 2: Break the Money Blocks</a>
+<a href="./challenge-day3.html" class="">Day 3: Build the Framework</a>
+<a href="./challenge-assessment.html" class="">Final Assessment</a></nav>
+  </aside>
+  <main class="lesson-main">
+
+<p class="lesson-eyebrow">Day 2 of 3</p>
+<h1>Break the Money Blocks</h1>
+<p class="lesson-subtitle">Your behaviors follow your beliefs. Today we change the beliefs.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>What Day 1 probably showed you</h3>
+  <p>You looked at real numbers yesterday. For most people, that audit reveals that the math of their financial situation isn't the hardest part. The hardest part is explaining why, when they know better, they still do the things that keep them stuck. That's what today is about. Money is 20% math and 80% behavior. And behavior is driven by belief.</p>
+</div>
+
+<h2>Why Money Decisions Are Not Just Math</h2>
+<p>If financial success were purely about math, anyone who passed a basic arithmetic class would be wealthy. But knowing that you should save doesn't make you save. Knowing that credit card interest is costing you money doesn't automatically stop you from using the card. Knowledge and behavior are two different things.</p>
+<p>The gap between knowing and doing is almost always emotional. The decisions we make with money are shaped by fear, shame, excitement, avoidance, status, and dozens of other emotional drivers that have nothing to do with spreadsheets. Until you understand the emotional architecture behind your financial decisions, you're trying to rewire behavior without addressing what's running it.</p>
+<p>Research in behavioral economics consistently shows that people make predictably irrational financial decisions. They spend more with credit cards than cash because the pain of paying is delayed. They avoid opening bills when they're stressed because avoidance temporarily reduces anxiety. They overspend after a difficult week because spending feels like a reward. None of this is weakness. All of it is human. But it becomes a problem when you leave it unexamined.</p>
+
+<h2>Common Money Behaviors</h2>
+<p>Before we look at profiles, it's useful to identify specific behaviors. These are the patterns that show up in the way people actually manage money day to day. You'll likely recognize yourself in several of them.</p>
+<ul>
+  <li><strong>Avoidance:</strong> Ignoring bills, avoiding checking account balances, and putting off financial decisions indefinitely. Avoidance temporarily reduces anxiety but consistently makes the underlying situation worse.</li>
+  <li><strong>Emotional spending:</strong> Using purchases to manage moods. Shopping when stressed, celebrating every small win with a purchase, or buying things to feel temporarily better about a situation that has nothing to do with money.</li>
+  <li><strong>Financial comparison:</strong> Basing spending decisions on what peers, neighbors, or people on social media appear to have. Lifestyle inflation driven by external benchmarks rather than personal values.</li>
+  <li><strong>Delay thinking:</strong> Consistently pushing financial action to a future version of yourself. "When I get a raise." "When the kids are older." "When things settle down." The future version rarely arrives on schedule.</li>
+  <li><strong>All-or-nothing thinking:</strong> Treating a missed savings goal as evidence that the whole plan has failed, then abandoning it entirely instead of simply continuing from where you are.</li>
+</ul>
+
+<h2>The Four Money Profiles</h2>
+<p>Most people's financial behavior falls primarily into one of four patterns. You may recognize yourself in more than one, but one usually dominates. Identifying your profile isn't about labeling yourself. It's about understanding the automatic responses that drive your decisions so you can choose differently.</p>
+
+<h3>Profile 1: The Spender</h3>
+<p>The Spender is oriented toward the present. Spending brings immediate pleasure, status, or relief. The Spender isn't necessarily reckless; they simply weight immediate satisfaction more heavily than future security. The challenge is that the future always arrives. The patterns that feel satisfying now create the constraints of tomorrow.</p>
+<p>The Spender's path forward isn't about eliminating spending. It's about making spending intentional. Give every dollar a job (which we'll build in Day 3) so that spending that happens is spending that was chosen, not spending that just occurred.</p>
+
+<h3>Profile 2: The Money Worrier</h3>
+<p>The Money Worrier is driven by financial anxiety. They may earn a good income and still feel perpetually behind. They obsess over what could go wrong, make decisions from a place of scarcity even when resources are sufficient, and often don't enjoy what they've built because the worry follows them. Paradoxically, some Worriers overspend as a way to manage anxiety. If money causes so much stress, not having it nearby can feel oddly easier.</p>
+<p>The Worrier's path forward is building a real financial safety net (Day 3 addresses this) and developing a structured relationship with their finances that converts abstract worry into concrete action.</p>
+
+<h3>Profile 3: The Money Avoider</h3>
+<p>The Avoider disconnects from money as a topic. They don't check their balances, don't open the financial mail, and don't engage with their financial situation until a crisis forces them to. This isn't laziness. It's usually shame or overwhelm. The Avoider often knows their situation isn't great and has developed avoidance as a protection against confronting how uncomfortable that reality is.</p>
+<p>The work you did in Day 1 is actually the hardest thing for an Avoider to do. If that was you, and you did it anyway, that's real progress. The path forward is building small, non-threatening habits that bring your finances into view regularly without overwhelming you.</p>
+
+<h3>Profile 4: The Wealth Builder</h3>
+<p>The Wealth Builder consistently prioritizes long-term financial growth. They save automatically, invest regularly, and make decisions that their future self will benefit from. They're not necessarily earning more than others. They're just consistent in a way that compounds over time. The Wealth Builder isn't a natural type you're either born with or not. It's a set of habits and systems anyone can build. Day 3 shows you how.</p>
+
+<div class="callout callout-action">
+  <h3>Identify Your Primary Profile</h3>
+  <p>Which profile describes most of your financial behavior right now? Be honest. You're not picking a permanent identity. You're naming the current pattern so you can change it.</p>
+</div>
+
+<h2>Money Block Audit</h2>
+<p>A money block is an unconscious belief or emotional pattern that prevents you from making healthy financial decisions. You've probably heard the word "mindset" so many times it's lost its meaning. But this is specific. Money blocks are individual beliefs, usually absorbed in childhood or early adulthood, that show up as automatic behavior in your financial life.</p>
+<p>Common money blocks include:</p>
+<ul>
+  <li>"Money is the root of all evil" (usually absorbed from a religious or family context and misapplied)</li>
+  <li>"Rich people are greedy, and I don't want to be like that"</li>
+  <li>"People like us don't get wealthy"</li>
+  <li>"I'm just not good with money"</li>
+  <li>"If I have money, people will want something from me"</li>
+  <li>"Wanting more money is selfish"</li>
+  <li>"I'll deal with it when things get better"</li>
+  <li>"I don't deserve financial security because of ___"</li>
+</ul>
+<p>These beliefs feel true because they've been acted on for so long. But they're not facts. They're stories. And stories can be rewritten.</p>
+
+<h3>How to Run Your Money Block Audit</h3>
+<p>Take a piece of paper and complete these sentences without overthinking them. Write whatever comes first.</p>
+<ul>
+  <li>"Money makes people..."</li>
+  <li>"In my family, money was..."</li>
+  <li>"I'll be financially stable when..."</li>
+  <li>"I'm not wealthy because..."</li>
+  <li>"The reason I don't save more is..."</li>
+</ul>
+<p>Read your answers. Look for beliefs that limit rather than open. Look for conditions that conveniently make financial action someone else's responsibility or some future event's prerequisite. Those are your money blocks.</p>
+
+<h2>The Cost of Your Money Habits</h2>
+<p>Money habits have a real cost, and most people have never calculated it. Not the emotional cost; the dollar cost over time.</p>
+<p>If you spend $15 a day on impulse purchases, that's $5,475 a year. Over 10 years, that's $54,750. If that $15 a day had been invested instead, at a 7% average annual return, it would be worth roughly $77,000 after 10 years. That's not a lecture about lattes. That's a demonstration that small habits at scale are large habits. The math doesn't lie.</p>
+
+<div class="callout callout-stat">
+  <div class="stat-num">$77K</div>
+  <div class="stat-label">What $15 a day invested over 10 years at 7% average return becomes. Small habits are large habits at scale.</div>
+</div>
+
+<p>The same principle applies to the habits on the other side. The person who automates a $200 monthly investment has created a wealth-building habit so small it doesn't require willpower. And at 7% over 20 years, that $200 a month grows to over $104,000. This isn't magic. It's math applied to behavior.</p>
+
+<h2>My Money Reset</h2>
+<p>The Money Reset is a commitment to yourself. It's not a budget. It's not a goal. It's a statement about who you're choosing to be with money, starting now.</p>
+<p>A Money Reset statement has three parts:</p>
+<ol>
+  <li><strong>The belief you're releasing:</strong> Name one money block you identified in the audit above and commit to releasing it. Not denying it, not pretending it wasn't real. Releasing it, because it doesn't serve you anymore.</li>
+  <li><strong>The belief you're choosing:</strong> Replace it with something that's both true and useful. Not a platitude. Something you can actually act on. "Money is a tool I can learn to use well" replaces "I'm just not good with money."</li>
+  <li><strong>The one action you're committing to:</strong> Based on what you learned today and yesterday, name one concrete action you're committing to that reflects the new belief.</li>
+</ol>
+
+<div class="callout callout-truth">
+  <h3>The work that matters most</h3>
+  <p>Day 2 is where most financial education skips. They'll tell you what to do with money without ever asking why you don't already do it. The habits you couldn't sustain before weren't failures of willpower. They were attempts to change behavior without changing the belief underneath. Today, you changed the belief. Tomorrow, you build the system.</p>
+</div>
+
+
+<div class="reflection">
+  <h3>Reflection Exercise</h3>
+  
+  <div class="reflection-q">
+    <label>1. Which of the Four Money Profiles resonates most with your current patterns? Why?</label>
+    <textarea id="ref_day2_ref_0" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div class="reflection-q">
+    <label>2. Name one money block you identified in yourself. Where do you think it came from?</label>
+    <textarea id="ref_day2_ref_1" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div class="reflection-q">
+    <label>3. What is one money belief you've been carrying that isn't actually true?</label>
+    <textarea id="ref_day2_ref_2" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div class="reflection-q">
+    <label>4. Write your Money Reset statement: one thing you're committing to change about how you think about money.</label>
+    <textarea id="ref_day2_ref_3" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div style="display:flex;align-items:center;margin-top:0.5rem;">
+    <button class="btn-save-reflection" onclick="saveReflection('day2_ref', 4)">Save My Answers</button>
+    <span class="reflection-saved" id="refSaved_day2_ref">Saved!</span>
+  </div>
+</div>
+<script>
+function saveReflection(modId, count) {
+  for (var i = 0; i < count; i++) {
+    var el = document.getElementById('ref_' + modId + '_' + i);
+    if (el) { try { localStorage.setItem('rsm_ref_' + modId + '_q' + i, el.value); } catch(e) {} }
+  }
+  var saved = document.getElementById('refSaved_' + modId);
+  if (saved) { saved.style.display = 'inline'; setTimeout(function(){ saved.style.display = 'none'; }, 2500); }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  for (var i = 0; i < 4; i++) {
+    var el = document.getElementById('ref_day2_ref_' + i);
+    if (el) { try { el.value = localStorage.getItem('rsm_ref_day2_ref_q' + i) || ''; } catch(e) {} }
+  }
+});
+</script>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Day 2 Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_day2">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_day2" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next section.</p>
+  
+<div class="quiz-q qblock_day2_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Aisha knows she needs to build an emergency fund, but every time she has extra money she spends it on things that feel urgent in the moment. Which money profile does this behavior most closely match?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">The Money Avoider, who stays away from financial decisions altogether</button></li>
+<li><button class="quiz-opt-btn" type="button">The Spender, who prioritizes immediate comfort and pleasure over future security</button></li>
+<li><button class="quiz-opt-btn" type="button">The Money Worrier, who saves obsessively out of fear</button></li>
+<li><button class="quiz-opt-btn" type="button">The Wealth Builder, who invests consistently regardless of emotion</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day2_0"></div>
+</div>
+<div class="quiz-q qblock_day2_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Carlos grew up watching his parents fight about money every month. Now, even though he earns a solid income, he avoids looking at his bank statements and never opens bills right away. What money block is most likely at work?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">A math deficiency: he doesn't understand how to manage money</button></li>
+<li><button class="quiz-opt-btn" type="button">An emotional money block rooted in childhood financial trauma and anxiety</button></li>
+<li><button class="quiz-opt-btn" type="button">A spending addiction that needs medical intervention</button></li>
+<li><button class="quiz-opt-btn" type="button">A lack of financial products: he needs better accounts</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day2_1"></div>
+</div>
+<div class="quiz-q qblock_day2_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Latoya tells herself she'll start saving 'when things calm down.' She's been saying this for three years. According to the Money Block Audit, what is the real problem?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">Her income isn't high enough to save yet</button></li>
+<li><button class="quiz-opt-btn" type="button">She needs a financial advisor to make the decision for her</button></li>
+<li><button class="quiz-opt-btn" type="button">She's operating from a delay belief, a money block that defers action indefinitely</button></li>
+<li><button class="quiz-opt-btn" type="button">Her expenses are genuinely too high and saving isn't realistic right now</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day2_2"></div>
+</div>
+<div class="quiz-q qblock_day2_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>David spends $12 a day on coffee, lunch out, and afternoon snacks. He doesn't think of himself as someone who wastes money. What does calculating the real cost of this habit reveal?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">It's not significant enough to matter since it's under $15 a day</button></li>
+<li><button class="quiz-opt-btn" type="button">Over 12 months, that's $4,380, money that could fund an emergency account or start an investment</button></li>
+<li><button class="quiz-opt-btn" type="button">He should cut all spending on food outside the house immediately</button></li>
+<li><button class="quiz-opt-btn" type="button">It proves he has a spending addiction that needs professional help</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day2_3"></div>
+</div>
+<div class="quiz-q qblock_day2_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>After completing the Money Reset, Shanice writes down one money belief she's carried since childhood: 'People like us don't get to be wealthy.' What should she do with this belief as part of her reset?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">Ignore it. Mindset doesn't affect financial outcomes</button></li>
+<li><button class="quiz-opt-btn" type="button">Acknowledge it, examine where it came from, and consciously replace it with a belief that opens rather than closes doors</button></li>
+<li><button class="quiz-opt-btn" type="button">Agree with it for now and focus only on budgeting</button></li>
+<li><button class="quiz-opt-btn" type="button">Share it with family so everyone understands the limitation</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day2_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_day2"></div>
+  <button class="btn-quiz-retry" id="quizRetry_day2" type="button">Retry</button>
+</div>
+
+<script>
+(function(){
+  var MOD_QUIZ_ID = 'day2';
+  var PASS_THRESHOLD = 0.8;
+  var questions = [{"q": "Aisha knows she needs to build an emergency fund, but every time she has extra money she spends it on things that feel urgent in the moment. Which money profile does this behavior most closely match?", "opts": ["The Money Avoider, who stays away from financial decisions altogether", "The Spender, who prioritizes immediate comfort and pleasure over future security", "The Money Worrier, who saves obsessively out of fear", "The Wealth Builder, who invests consistently regardless of emotion"], "correct": 1, "explanation": "The Spender profile is driven by the present moment. Immediate comfort consistently wins over future security. Recognizing this pattern is step one \u2014 you can't change a behavior you haven't named. Aisha's awareness is already progress.", "hint": "Review: Common Money Behaviors and Four Money Profiles"}, {"q": "Carlos grew up watching his parents fight about money every month. Now, even though he earns a solid income, he avoids looking at his bank statements and never opens bills right away. What money block is most likely at work?", "opts": ["A math deficiency \u2014 he doesn't understand how to manage money", "An emotional money block rooted in childhood financial trauma and anxiety", "A spending addiction that needs medical intervention", "A lack of financial products \u2014 he needs better accounts"], "correct": 1, "explanation": "Money decisions are not just math. Carlos's avoidance is an emotional response to a pattern he absorbed growing up. That's a money block \u2014 an unconscious belief or behavior that protects him from discomfort but keeps him from financial clarity. The block has to be identified before it can be removed.", "hint": "Review: Why Money Decisions Are Not Just Math and Money Block Audit"}, {"q": "Latoya tells herself she'll start saving 'when things calm down.' She's been saying this for three years. According to the Money Block Audit, what is the real problem?", "opts": ["Her income isn't high enough to save yet", "She needs a financial advisor to make the decision for her", "She's operating from a delay belief \u2014 a money block that defers action indefinitely", "Her expenses are genuinely too high and saving isn't realistic right now"], "correct": 2, "explanation": "Delay beliefs are one of the most common money blocks. They feel rational because they're tied to real-life conditions, but 'when things calm down' is a moving target that never arrives. The Money Block Audit reveals that delay is a behavior pattern, not a financial reality.", "hint": "Review: Money Block Audit and The Cost of Your Money Habits"}, {"q": "David spends $12 a day on coffee, lunch out, and afternoon snacks. He doesn't think of himself as someone who wastes money. What does calculating the real cost of this habit reveal?", "opts": ["It's not significant enough to matter since it's under $15 a day", "Over 12 months, that's $4,380 \u2014 money that could fund an emergency account or start an investment", "He should cut all spending on food outside the house immediately", "It proves he has a spending addiction that needs professional help"], "correct": 1, "explanation": "$12 a day multiplied by 365 days is $4,380 a year. That's not a latte lecture \u2014 it's math. The point isn't to punish small pleasures; it's to make the cost visible and let you decide with full information. Most people have never run that number. Running it changes things.", "hint": "Review: The Cost of Your Money Habits"}, {"q": "After completing the Money Reset, Shanice writes down one money belief she's carried since childhood: 'People like us don't get to be wealthy.' What should she do with this belief as part of her reset?", "opts": ["Ignore it \u2014 mindset doesn't affect financial outcomes", "Acknowledge it, examine where it came from, and consciously replace it with a belief that opens rather than closes doors", "Agree with it for now and focus only on budgeting", "Share it with family so everyone understands the limitation"], "correct": 1, "explanation": "Money beliefs don't live in a spreadsheet \u2014 they live in your behavior. Shanice's belief is a money block inherited from her environment, not a financial fact. The reset process asks you to name the belief, trace it to its source, and replace it with one that's actually true and actionable. That's where real change begins.", "hint": "Review: My Money Reset"}];
+  var answered = {};
+
+  function unlockNext() {
+    var btn = document.querySelector('.btn-next');
+    if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; btn.title = ''; }
+  }
+  function lockNext() {
+    var btn = document.querySelector('.btn-next');
+    if (btn) { btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none'; btn.title = 'Pass the knowledge check to continue'; }
+  }
+  function updateProgress() {
+    var done = Object.keys(answered).length;
+    var fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    var lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = (questions.length ? Math.round(done/questions.length*100) : 0) + '%';
+    if (lbl) lbl.textContent = done + '/' + questions.length + ' answered';
+  }
+  function checkAll() {
+    if (Object.keys(answered).length < questions.length) return;
+    var correct = Object.values(answered).filter(function(v){return v;}).length;
+    var pct = correct / questions.length;
+    var bar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    var retry = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!bar) return;
+    bar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      bar.className = 'quiz-result-bar pass';
+      bar.innerHTML = '<strong>Knowledge Check Passed! ' + correct + '/' + questions.length + ' correct (' + Math.round(pct*100) + '%)</strong>Next Day is now unlocked. Well done.';
+      if (retry) retry.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      bar.className = 'quiz-result-bar fail';
+      bar.innerHTML = '<strong>' + correct + '/' + questions.length + ' correct (' + Math.round(pct*100) + '%) -- Need 80% to pass</strong>Review the hints above and retry.';
+      if (retry) retry.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+  function initQuiz() {
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        var bar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (bar) { bar.style.display = 'block'; bar.className = 'quiz-result-bar pass'; bar.innerHTML = '<strong>Knowledge Check Previously Passed</strong>Next Day is unlocked.'; }
+        return;
+      }
+    } catch(e) {}
+    lockNext();
+    questions.forEach(function(qObj, qi) {
+      var optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      var fb = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          var isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          if (fb) {
+            fb.style.display = 'block';
+            if (isCorrect) {
+              fb.className = 'quiz-feedback correct-fb';
+              fb.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              fb.className = 'quiz-feedback wrong-fb';
+              fb.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateProgress(); checkAll();
+        });
+      });
+    });
+    updateProgress();
+  }
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    var bar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (bar) { bar.style.display = 'none'; bar.innerHTML = ''; }
+    var retry = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retry) retry.style.display = 'none';
+    questions.forEach(function(qObj, qi) {
+      document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn').forEach(function(b) { b.disabled = false; b.className = 'quiz-opt-btn'; });
+      var fb = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (fb) { fb.style.display = 'none'; fb.innerHTML = ''; fb.className = 'quiz-feedback'; }
+    });
+    lockNext(); updateProgress();
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    var retry = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retry) retry.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+
+    <div class="lesson-nav">
+      <a href="./challenge-day1.html" class="btn-prev">&larr; Day 1</a>
+      <span class="progress-label">Day 2 of 3</span>
+      <a href="./challenge-day3.html" class="btn-next">Day 3: Build the Framework &rarr;</a>
+    </div>
+
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

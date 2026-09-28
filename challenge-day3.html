@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 3: Build the Framework | 3-Day Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection-q { margin-bottom: 1rem; }
+    .reflection-q label { display: block; color: #444; font-size: 0.95rem; margin-bottom: 0.4rem; font-weight: 500; }
+    .reflection-q textarea { width: 100%; min-height: 80px; padding: 0.75rem; border: 2px solid #ddd; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); resize: vertical; background: var(--white); transition: border-color 0.15s; }
+    .reflection-q textarea:focus { outline: none; border-color: var(--gold); }
+    .btn-save-reflection { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 0.55rem 1.25rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.85rem; cursor: pointer; margin-top: 0.5rem; }
+    .btn-save-reflection:hover { background: var(--navy-mid); }
+    .reflection-saved { font-size: 0.8rem; color: #2a7f4f; font-weight: 600; margin-left: 0.75rem; display: none; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* QUIZ */
+    .rsm-quiz { background: var(--navy); border-radius: 10px; padding: 1.75rem; margin: 2.5rem 0; color: var(--white); }
+    .rsm-quiz .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem; }
+    .rsm-quiz .quiz-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+    .quiz-progress-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+    .quiz-score-bar { height: 5px; background: rgba(255,255,255,0.15); border-radius: 3px; margin: 0.5rem 0 1.5rem; overflow: hidden; }
+    .quiz-score-fill { height: 5px; border-radius: 3px; background: var(--gold); transition: width 0.4s ease; }
+    .quiz-q { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .quiz-q:last-of-type { border-bottom: none; }
+    .quiz-qlabel { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.85rem; line-height: 1.55; }
+    .quiz-qnum { display: inline-block; background: var(--gold); color: var(--navy); border-radius: 50%; width: 24px; height: 24px; font-size: 0.75rem; font-weight: 700; text-align: center; line-height: 24px; margin-right: 0.5rem; flex-shrink: 0; }
+    .quiz-options { list-style: none; padding: 0; margin: 0; }
+    .quiz-options li { margin-bottom: 0.55rem; }
+    .quiz-opt-btn { width: 100%; text-align: left; background: rgba(255,255,255,0.07); border: 2px solid rgba(255,255,255,0.15); border-radius: 7px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--white); cursor: pointer; transition: all 0.15s; line-height: 1.45; }
+    .quiz-opt-btn:hover:not(:disabled) { background: rgba(255,255,255,0.13); border-color: var(--gold); }
+    .quiz-opt-btn.correct { background: rgba(42,127,79,0.3); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+    .quiz-opt-btn.wrong { background: rgba(200,50,50,0.25); border-color: #e57373; color: #ffb0b0; pointer-events: none; }
+    .quiz-opt-btn.reveal-correct { background: rgba(42,127,79,0.2); border-color: #4caf7d; color: #a8f0c4; pointer-events: none; }
+    .quiz-opt-btn:disabled { pointer-events: none; }
+    .quiz-feedback { margin-top: 0.75rem; padding: 0.8rem 1rem; border-radius: 7px; font-size: 0.87rem; line-height: 1.5; display: none; }
+    .quiz-feedback.correct-fb { background: rgba(42,127,79,0.25); border-left: 3px solid #4caf7d; color: #d4f7e5; }
+    .quiz-feedback.wrong-fb { background: rgba(180,40,40,0.25); border-left: 3px solid #e57373; color: #ffd0d0; }
+    .quiz-feedback .fb-hint { margin-top: 0.5rem; font-size: 0.82rem; opacity: 0.85; font-style: italic; }
+    .quiz-result-bar { margin-top: 1.5rem; padding: 1.1rem 1.25rem; border-radius: 8px; font-size: 0.92rem; display: none; }
+    .quiz-result-bar.pass { background: rgba(42,127,79,0.3); border: 1px solid #4caf7d; color: #d4f7e5; }
+    .quiz-result-bar.fail { background: rgba(180,40,40,0.2); border: 1px solid #e57373; color: #ffd0d0; }
+    .quiz-result-bar strong { display: block; font-size: 1rem; margin-bottom: 0.3rem; }
+    .btn-quiz-retry { background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-top: 0.75rem; display: none; }
+    .btn-quiz-retry:hover { background: var(--gold-light); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">3-Day Financial Clarity Challenge</span>
+  <a href="./courses.html" class="exit">← Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Challenge Days</div>
+    <nav><a href="./challenge-portal.html" class="">Course Home</a>
+<a href="./challenge-day1.html" class="">Day 1: Audit Your Reality</a>
+<a href="./challenge-day2.html" class="">Day 2: Break the Money Blocks</a>
+<a href="./challenge-day3.html" class="active">Day 3: Build the Framework</a>
+<a href="./challenge-assessment.html" class="">Final Assessment</a></nav>
+  </aside>
+  <main class="lesson-main">
+
+<p class="lesson-eyebrow">Day 3 of 3</p>
+<h1>Build the Framework</h1>
+<p class="lesson-subtitle">You know your numbers. You know your blocks. Now you build the system that makes the difference permanent.</p>
+<div class="gold-rule"></div>
+
+<div class="callout callout-truth">
+  <h3>This is the day everything connects</h3>
+  <p>Day 1 gave you clarity about where you are. Day 2 helped you identify what's been getting in the way. Day 3 is where you build the machine. Not motivation. Not a mood. A system that works even on the days you don't feel like it. Motivation is a feeling. Systems are structure. Structure outlasts feelings every single time.</p>
+</div>
+
+<h2>Give Every Dollar a Job</h2>
+<p>The foundation of your financial framework is a zero-based budget. Zero-based doesn't mean you spend everything you have. It means that when you subtract every dollar's assigned destination from your monthly income, the result is zero. Every dollar has a job before you spend it.</p>
+<p>This is the opposite of how most people budget, which is to spend first and save whatever is left. The problem with that approach is that there's almost never anything left. Life fills the space. A zero-based budget flips the sequence: you decide intentionally, and then you spend within those decisions.</p>
+
+<h3>How to Build Your Zero-Based Budget</h3>
+<p>Start with your monthly net income from Day 1. Then assign every dollar across these six categories:</p>
+
+<table class="rsm-table">
+  <thead><tr><th>Category</th><th>What It Includes</th><th>Starting Range</th></tr></thead>
+  <tbody>
+    <tr><td>Housing and Utilities</td><td>Rent or mortgage, electricity, water, internet, renters or homeowners insurance</td><td>25 to 35%</td></tr>
+    <tr><td>Transportation</td><td>Car payment, insurance, gas, maintenance, or public transit</td><td>10 to 15%</td></tr>
+    <tr><td>Food</td><td>Groceries and dining out combined</td><td>10 to 15%</td></tr>
+    <tr><td>Debt Payoff</td><td>Minimum payments plus any extra you're putting toward debt</td><td>5 to 15%</td></tr>
+    <tr><td>Savings and Investment</td><td>Emergency fund, retirement contributions, other savings goals</td><td>10 to 20%</td></tr>
+    <tr><td>Personal and Lifestyle</td><td>Clothing, entertainment, subscriptions, personal care, everything else</td><td>5 to 15%</td></tr>
+  </tbody>
+</table>
+
+<p>These ranges are starting points, not laws. Your actual situation, the cost of living where you are, your debt load, your income level, will shift these percentages. What matters is that every dollar is accounted for. When the math equals your income, your budget is complete.</p>
+<p>The first draft is almost always imperfect. That's expected. The goal isn't a perfect first budget. It's a real one that you can refine. A working budget you actually use is worth more than an ideal budget you abandon.</p>
+
+<div class="callout callout-action">
+  <h3>Do This Now</h3>
+  <p>Take your monthly net income from your Day 1 snapshot. Write out all six categories. Assign a dollar amount to each until the total equals your income. That's your budget. Do it in pencil. You'll refine it as you go.</p>
+</div>
+
+<h2>Pay Yourself First</h2>
+<p>Pay Yourself First is the single most powerful habit in personal finance. It means that your savings and investment contributions come out of your paycheck before you pay anyone or anything else. Not from whatever is left over at the end of the month. First. Before bills. Before groceries. Before anything.</p>
+<p>The reason it works is simple: you can't spend money you don't see. When the transfer happens automatically on payday, you never touch it, and your lifestyle adjusts to what remains. When you wait for what's left over, you find that human nature is very good at filling financial space with expenses.</p>
+<p>Even if you can only afford to pay yourself $50 a month right now, that's the habit. Start where you are. The amount grows as your situation improves. The habit itself is what matters.</p>
+
+<h2>Automation: The System That Runs Without Willpower</h2>
+<p>Willpower is a limited resource. Automation is unlimited. When you automate your financial habits, you remove willpower from the equation entirely. The right thing happens whether or not you feel motivated that day.</p>
+<p>Here's how automation works in practice:</p>
+<ul>
+  <li><strong>Payday:</strong> Your net income hits your checking account.</li>
+  <li><strong>Same day or next day:</strong> An automatic transfer moves your savings contribution to a separate savings account. Another moves your investment contribution to your investment account if you have one.</li>
+  <li><strong>Bill due dates:</strong> All fixed monthly bills are set to auto-pay so they never generate late fees or credit damage.</li>
+  <li><strong>What's left:</strong> What remains in checking after savings and bills is what you have for variable spending. You don't have to calculate it. The system calculates it for you.</li>
+</ul>
+<p>Setting this up takes 30 to 60 minutes. It then runs indefinitely without you having to think about it. That 30 minutes may be the highest-return use of your time in this entire challenge.</p>
+
+<h2>The Financial Safety Net</h2>
+<p>Before you invest, before you aggressively pay down debt, before you do anything else, you need a financial safety net. This is a dedicated savings account that holds three to six months of essential living expenses. Not discretionary spending. Essentials: housing, utilities, food, transportation, and minimum debt payments.</p>
+<p>The financial safety net exists to absorb life's disruptions without sending you back into debt. Car repair. Medical bill. Job loss. Unexpected home expense. These things will happen. They happen to everyone. The difference between a temporary setback and a financial spiral is whether you have a cushion when they do.</p>
+
+<div class="callout callout-stat">
+  <div class="stat-num">$1,000</div>
+  <div class="stat-label">Your first emergency fund target. Start here before anything else. This one number keeps most financial emergencies from becoming financial crises.</div>
+</div>
+
+<p>If you don't have an emergency fund yet, your first savings goal is $1,000. That's the starter cushion. It won't cover six months of expenses, but it covers most individual emergencies that would otherwise go on a credit card. Once you have $1,000, you work toward one month of expenses. Then three. Then six. Each milestone meaningfully increases your financial resilience.</p>
+<p>Keep your emergency fund in a high-yield savings account, separate from your everyday checking. Make it slightly inconvenient to access. You want it available for true emergencies, not for when you want something and call it an emergency.</p>
+
+<h2>The Wealth-Building Pipeline</h2>
+<p>Once your emergency fund is established and your budget is working, you build your wealth-building pipeline. This is the sequence by which you grow your financial position over time.</p>
+<ol>
+  <li><strong>Employer match:</strong> If your employer offers a 401(k) match, contribute at least enough to get the full match. This is a 50 to 100% instant return on your money. There's no investment that competes with it.</li>
+  <li><strong>High-interest debt:</strong> Any debt above 7 to 8% interest rate gets paid down aggressively. This debt is costing you more than most investments will earn you.</li>
+  <li><strong>Emergency fund to three months:</strong> If you haven't hit three months of expenses yet, continue building.</li>
+  <li><strong>Roth IRA or traditional IRA:</strong> After the employer match and high-interest debt, maximize your individual retirement account contribution if eligible. For 2026, the IRA contribution limit is $7,000 per year.</li>
+  <li><strong>Back to 401(k):</strong> After your IRA is maxed, contribute more to your 401(k) up to the annual limit.</li>
+  <li><strong>Non-retirement investing:</strong> Once retirement accounts are funded, invest in a taxable brokerage account for additional long-term wealth building.</li>
+</ol>
+<p>You don't have to be at step 6 right now. Most people reading this should be focused on steps 1 through 3. The pipeline is here so you know where you're going and what comes next when you get there.</p>
+
+<h2>The 24-Hour Money Rule</h2>
+<p>Impulse spending is the enemy of every financial plan. Marketers know it. Salespeople are trained to exploit it. The 24-Hour Money Rule is your protection against it.</p>
+<p>The rule is simple: before making any unplanned purchase above a threshold you set (many people use $50, others $100), you wait 24 hours. You don't say no. You say "maybe, but not right now." Then you come back in 24 hours and decide with a clear head.</p>
+<p>The urgency that makes an impulse purchase feel necessary in the moment is almost always artificial. Sales end and restart. "Last one in stock" mysteriously reappears. The item that felt essential on Thursday night feels optional by Friday morning. The 24-Hour Rule gives your rational mind time to catch up with your emotional reaction.</p>
+<p>For larger purchases, extend the window. A 72-hour rule for purchases over $500. A one-week rule for purchases over $1,000. The bigger the decision, the more time the pause buys you.</p>
+
+<h2>The 30-Day Financial Reset</h2>
+<p>The 30-Day Financial Reset is a structured practice, not a punishment. It's a single month during which you run a tighter version of your budget to build momentum, identify leaks, and reset your financial habits.</p>
+<p>During the 30-Day Reset:</p>
+<ul>
+  <li>No new discretionary spending categories. Only what's already in the budget.</li>
+  <li>No impulse purchases. Everything goes through the 24-Hour Rule.</li>
+  <li>Weekly check-ins with your budget to see what's working and what's leaking.</li>
+  <li>All "found money" (overtime, refunds, gifts) goes to savings or debt payoff.</li>
+  <li>No eating out unless it was budgeted in advance.</li>
+</ul>
+<p>At the end of 30 days, you'll have real data on your spending patterns, a proof of concept that your budget works, and probably a meaningful amount of money redirected to something that actually matters to you. After the reset, you return to your full budget, but with the habits recalibrated.</p>
+
+<h2>My Right Side of Money Framework</h2>
+<p>Your Right Side of Money Framework is the personal financial operating system you're building from this challenge. It's not a generic plan. It's yours, built on your numbers, your profile, and your commitment.</p>
+<p>It has five components:</p>
+<ol>
+  <li><strong>My monthly budget:</strong> Built from your Day 1 income and cash flow numbers. Updated monthly.</li>
+  <li><strong>My emergency fund target:</strong> Where you are now and where you're building to.</li>
+  <li><strong>My debt elimination plan:</strong> Which debts, in what order, and how much extra you're putting toward them each month.</li>
+  <li><strong>My savings and investment automation:</strong> What transfers happen on payday, to which accounts, in what amounts.</li>
+  <li><strong>My financial rules:</strong> The personal rules you're committing to, including your 24-Hour Rule threshold, your budget review schedule, and your money reset triggers.</li>
+</ol>
+<p>Write this out. Put it somewhere you'll see it. Your framework is only as powerful as your relationship with it. Review it monthly. Adjust it when your situation changes. Return to this challenge when you need to reset.</p>
+
+<div class="callout callout-truth">
+  <h3>What you've built over three days</h3>
+  <p>You know your exact financial position. You know the beliefs and patterns that have been working against you. And now you have a system that runs whether or not you feel motivated. Most people live their entire lives without doing what you've done in the last three days. The work isn't over. But the foundation is real. Build on it.</p>
+</div>
+
+
+<div class="reflection">
+  <h3>Reflection Exercise</h3>
+  
+  <div class="reflection-q">
+    <label>1. What are the six budget categories you're allocating your income to, and what percentage goes to each?</label>
+    <textarea id="ref_day3_ref_0" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div class="reflection-q">
+    <label>2. What is your first automated savings or investment action and when will you set it up?</label>
+    <textarea id="ref_day3_ref_1" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div class="reflection-q">
+    <label>3. What is your current emergency fund balance and what's your target?</label>
+    <textarea id="ref_day3_ref_2" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div class="reflection-q">
+    <label>4. Write your Right Side of Money Framework statement: the three financial commitments you're carrying out of this challenge.</label>
+    <textarea id="ref_day3_ref_3" placeholder="Write your answer here..."></textarea>
+  </div>
+  <div style="display:flex;align-items:center;margin-top:0.5rem;">
+    <button class="btn-save-reflection" onclick="saveReflection('day3_ref', 4)">Save My Answers</button>
+    <span class="reflection-saved" id="refSaved_day3_ref">Saved!</span>
+  </div>
+</div>
+<script>
+function saveReflection(modId, count) {
+  for (var i = 0; i < count; i++) {
+    var el = document.getElementById('ref_' + modId + '_' + i);
+    if (el) { try { localStorage.setItem('rsm_ref_' + modId + '_q' + i, el.value); } catch(e) {} }
+  }
+  var saved = document.getElementById('refSaved_' + modId);
+  if (saved) { saved.style.display = 'inline'; setTimeout(function(){ saved.style.display = 'none'; }, 2500); }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  for (var i = 0; i < 4; i++) {
+    var el = document.getElementById('ref_day3_ref_' + i);
+    if (el) { try { el.value = localStorage.getItem('rsm_ref_day3_ref_q' + i) || ''; } catch(e) {} }
+  }
+});
+</script>
+
+<div class="rsm-quiz">
+  <div class="quiz-header">
+    <span class="quiz-title">Day 3 Knowledge Check</span>
+    <span class="quiz-progress-label" id="quizProgressLbl_day3">0/5 answered</span>
+  </div>
+  <div class="quiz-score-bar"><div class="quiz-score-fill" id="quizScoreFill_day3" style="width:0%"></div></div>
+  <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);margin:0 0 1.5rem;">Answer all 5 questions. You need 80% (4 of 5 correct) to unlock the next section.</p>
+  
+<div class="quiz-q qblock_day3_0">
+  <div class="quiz-qlabel"><span class="quiz-qnum">1</span>Keisha gets paid on Friday and by the following Wednesday her account is nearly empty. She doesn't know what she spent it on. What is the zero-based budgeting principle designed to solve?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">It forces her to spend less by limiting her to cash only</button></li>
+<li><button class="quiz-opt-btn" type="button">It gives every dollar a specific job before it's spent, so nothing goes unaccounted for</button></li>
+<li><button class="quiz-opt-btn" type="button">It automates her savings so she never sees the money at all</button></li>
+<li><button class="quiz-opt-btn" type="button">It eliminates all discretionary spending until her debt is paid off</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day3_0"></div>
+</div>
+<div class="quiz-q qblock_day3_1">
+  <div class="quiz-qlabel"><span class="quiz-qnum">2</span>Marcus wants to start investing but says he'll 'invest whatever is left over' after monthly expenses. Why is this approach likely to fail?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">Investing only works if you invest large amounts at one time</button></li>
+<li><button class="quiz-opt-btn" type="button">There's rarely anything left over at the end of the month, so 'leftover investing' almost never happens</button></li>
+<li><button class="quiz-opt-btn" type="button">He should pay off all debt before he considers investing at all</button></li>
+<li><button class="quiz-opt-btn" type="button">Investing without a financial advisor is too risky for most people</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day3_1"></div>
+</div>
+<div class="quiz-q qblock_day3_2">
+  <div class="quiz-qlabel"><span class="quiz-qnum">3</span>Danielle has $400 saved. She's wondering whether to start investing it or keep it as her emergency fund. What does the Financial Safety Net principle say she should do first?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">Invest it immediately so it can grow while she builds more savings</button></li>
+<li><button class="quiz-opt-btn" type="button">Split it: $200 to investing, $200 to emergency savings</button></li>
+<li><button class="quiz-opt-btn" type="button">Keep it as the beginning of her emergency fund and build it to cover 3 to 6 months of expenses before investing</button></li>
+<li><button class="quiz-opt-btn" type="button">Use it to pay off her smallest credit card balance first</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day3_2"></div>
+</div>
+<div class="quiz-q qblock_day3_3">
+  <div class="quiz-qlabel"><span class="quiz-qnum">4</span>James comes across a car he wants. He has the cash to buy it outright and it's 20% off today only. He feels pressure to decide immediately. According to the 24-Hour Money Rule, what should he do?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">Buy it immediately. The discount proves it's a good deal</button></li>
+<li><button class="quiz-opt-btn" type="button">Call a friend and ask what they think before deciding</button></li>
+<li><button class="quiz-opt-btn" type="button">Wait at least 24 hours before making any unplanned purchase to separate the emotion from the decision</button></li>
+<li><button class="quiz-opt-btn" type="button">Negotiate for a 30% discount since he's paying cash</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day3_3"></div>
+</div>
+<div class="quiz-q qblock_day3_4">
+  <div class="quiz-qlabel"><span class="quiz-qnum">5</span>Tanya completes the 30-Day Financial Reset and builds her Right Side of Money Framework. What does having a personal financial framework actually do for her long-term?</div>
+  <ul class="quiz-options"><li><button class="quiz-opt-btn" type="button">It guarantees she'll be wealthy within a specific number of years</button></li>
+<li><button class="quiz-opt-btn" type="button">It replaces the need for any financial professional since she now has a plan</button></li>
+<li><button class="quiz-opt-btn" type="button">It gives her a consistent decision-making system so her choices align with her goals instead of her moods</button></li>
+<li><button class="quiz-opt-btn" type="button">It means she never has to revisit her budget again</button></li>
+</ul>
+  <div class="quiz-feedback" id="quizFb_day3_4"></div>
+</div>
+  <div class="quiz-result-bar" id="quizResult_day3"></div>
+  <button class="btn-quiz-retry" id="quizRetry_day3" type="button">Retry</button>
+</div>
+
+<script>
+(function(){
+  var MOD_QUIZ_ID = 'day3';
+  var PASS_THRESHOLD = 0.8;
+  var questions = [{"q": "Keisha gets paid on Friday and by the following Wednesday her account is nearly empty. She doesn't know what she spent it on. What is the zero-based budgeting principle designed to solve?", "opts": ["It forces her to spend less by limiting her to cash only", "It gives every dollar a specific job before it's spent, so nothing goes unaccounted for", "It automates her savings so she never sees the money at all", "It eliminates all discretionary spending until her debt is paid off"], "correct": 1, "explanation": "Zero-based budgeting means income minus every assigned expense and savings dollar equals zero. Not that she's broke \u2014 that every dollar has a destination before it's spent. Keisha's problem isn't income. It's that her dollars don't have jobs. Give them jobs and they stop disappearing.", "hint": "Review: Give Every Dollar a Job"}, {"q": "Marcus wants to start investing but says he'll 'invest whatever is left over' after monthly expenses. Why is this approach likely to fail?", "opts": ["Investing only works if you invest large amounts at one time", "There's rarely anything left over at the end of the month, so 'leftover investing' almost never happens", "He should pay off all debt before he considers investing at all", "Investing without a financial advisor is too risky for most people"], "correct": 1, "explanation": "Pay Yourself First means your savings and investment contributions come out before you spend on anything else. When you wait for what's left over, the answer is almost always nothing \u2014 life fills the space. Automation removes willpower from the equation entirely. Set it and don't touch it.", "hint": "Review: Pay Yourself First and Automation"}, {"q": "Danielle has $400 saved. She's wondering whether to start investing it or keep it as her emergency fund. What does the Financial Safety Net principle say she should do first?", "opts": ["Invest it immediately so it can grow while she builds more savings", "Split it \u2014 $200 to investing, $200 to emergency savings", "Keep it as the beginning of her emergency fund and build it to cover 3 to 6 months of expenses before investing", "Use it to pay off her smallest credit card balance first"], "correct": 2, "explanation": "The financial safety net \u2014 3 to 6 months of essential expenses \u2014 is the foundation under everything else. Without it, one emergency wipes out any investment progress and sends her back into debt. You don't build on a foundation that isn't there yet. Emergency fund first, then investment.", "hint": "Review: The Financial Safety Net"}, {"q": "James comes across a car he wants. He has the cash to buy it outright and it's 20% off today only. He feels pressure to decide immediately. According to the 24-Hour Money Rule, what should he do?", "opts": ["Buy it immediately \u2014 the discount proves it's a good deal", "Call a friend and ask what they think before deciding", "Wait at least 24 hours before making any unplanned purchase to separate the emotion from the decision", "Negotiate for a 30% discount since he's paying cash"], "correct": 2, "explanation": "The 24-Hour Money Rule exists because urgency is a sales tool, not a financial signal. Scarcity creates emotion, and emotion bypasses logic. Waiting 24 hours doesn't mean you won't buy it \u2014 it means you'll buy it with intention, not impulse. Most 'today only' deals are still available tomorrow.", "hint": "Review: The 24-Hour Money Rule"}, {"q": "Tanya completes the 30-Day Financial Reset and builds her Right Side of Money Framework. What does having a personal financial framework actually do for her long-term?", "opts": ["It guarantees she'll be wealthy within a specific number of years", "It replaces the need for any financial professional since she now has a plan", "It gives her a consistent decision-making system so her choices align with her goals instead of her moods", "It means she never has to revisit her budget again"], "correct": 2, "explanation": "A framework isn't a guarantee \u2014 it's a system. Tanya's Right Side of Money Framework means she makes financial decisions against a consistent set of values and rules, not based on how she feels that day. Systems outlast motivation. That's the whole point.", "hint": "Review: My Right Side of Money Framework and The 30-Day Financial Reset"}];
+  var answered = {};
+
+  function unlockNext() {
+    var btn = document.querySelector('.btn-next');
+    if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; btn.title = ''; }
+  }
+  function lockNext() {
+    var btn = document.querySelector('.btn-next');
+    if (btn) { btn.style.opacity = '0.35'; btn.style.pointerEvents = 'none'; btn.title = 'Pass the knowledge check to continue'; }
+  }
+  function updateProgress() {
+    var done = Object.keys(answered).length;
+    var fill = document.getElementById('quizScoreFill_' + MOD_QUIZ_ID);
+    var lbl = document.getElementById('quizProgressLbl_' + MOD_QUIZ_ID);
+    if (fill) fill.style.width = (questions.length ? Math.round(done/questions.length*100) : 0) + '%';
+    if (lbl) lbl.textContent = done + '/' + questions.length + ' answered';
+  }
+  function checkAll() {
+    if (Object.keys(answered).length < questions.length) return;
+    var correct = Object.values(answered).filter(function(v){return v;}).length;
+    var pct = correct / questions.length;
+    var bar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    var retry = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (!bar) return;
+    bar.style.display = 'block';
+    if (pct >= PASS_THRESHOLD) {
+      bar.className = 'quiz-result-bar pass';
+      bar.innerHTML = '<strong>Knowledge Check Passed! ' + correct + '/' + questions.length + ' correct (' + Math.round(pct*100) + '%)</strong>Next Day is now unlocked. Well done.';
+      if (retry) retry.style.display = 'none';
+      unlockNext();
+      try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
+    } else {
+      bar.className = 'quiz-result-bar fail';
+      bar.innerHTML = '<strong>' + correct + '/' + questions.length + ' correct (' + Math.round(pct*100) + '%) -- Need 80% to pass</strong>Review the hints above and retry.';
+      if (retry) retry.style.display = 'inline-block';
+      lockNext();
+    }
+  }
+  function initQuiz() {
+    try {
+      if (localStorage.getItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed') === '1') {
+        unlockNext();
+        var bar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+        if (bar) { bar.style.display = 'block'; bar.className = 'quiz-result-bar pass'; bar.innerHTML = '<strong>Knowledge Check Previously Passed</strong>Next Day is unlocked.'; }
+        return;
+      }
+    } catch(e) {}
+    lockNext();
+    questions.forEach(function(qObj, qi) {
+      var optBtns = document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn');
+      var fb = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      optBtns.forEach(function(btn, oi) {
+        btn.addEventListener('click', function() {
+          if (answered[qi] !== undefined) return;
+          var isCorrect = (oi === qObj.correct);
+          answered[qi] = isCorrect;
+          optBtns.forEach(function(b, bi) {
+            b.disabled = true;
+            if (bi === qObj.correct) b.classList.add(isCorrect ? 'correct' : 'reveal-correct');
+            else if (bi === oi && !isCorrect) b.classList.add('wrong');
+          });
+          if (fb) {
+            fb.style.display = 'block';
+            if (isCorrect) {
+              fb.className = 'quiz-feedback correct-fb';
+              fb.innerHTML = '<strong>Correct!</strong> ' + qObj.explanation;
+            } else {
+              fb.className = 'quiz-feedback wrong-fb';
+              fb.innerHTML = '<strong>Not quite.</strong> ' + qObj.explanation + '<div class="fb-hint">Review hint: ' + qObj.hint + '</div>';
+            }
+          }
+          updateProgress(); checkAll();
+        });
+      });
+    });
+    updateProgress();
+  }
+  function resetQuiz() {
+    answered = {};
+    try { localStorage.removeItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed'); } catch(e) {}
+    var bar = document.getElementById('quizResult_' + MOD_QUIZ_ID);
+    if (bar) { bar.style.display = 'none'; bar.innerHTML = ''; }
+    var retry = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retry) retry.style.display = 'none';
+    questions.forEach(function(qObj, qi) {
+      document.querySelectorAll('.qblock_' + MOD_QUIZ_ID + '_' + qi + ' .quiz-opt-btn').forEach(function(b) { b.disabled = false; b.className = 'quiz-opt-btn'; });
+      var fb = document.getElementById('quizFb_' + MOD_QUIZ_ID + '_' + qi);
+      if (fb) { fb.style.display = 'none'; fb.innerHTML = ''; fb.className = 'quiz-feedback'; }
+    });
+    lockNext(); updateProgress();
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    initQuiz();
+    var retry = document.getElementById('quizRetry_' + MOD_QUIZ_ID);
+    if (retry) retry.addEventListener('click', resetQuiz);
+  });
+})();
+</script>
+
+    <div class="lesson-nav">
+      <a href="./challenge-day2.html" class="btn-prev">&larr; Day 2</a>
+      <span class="progress-label">Day 3 of 3</span>
+      <a href="./challenge-assessment.html" class="btn-next">Final Assessment &rarr;</a>
+    </div>
+
+  </main>
+</div>
+<footer class="course-footer">
+  © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
+</footer>
+</body>
+</html>

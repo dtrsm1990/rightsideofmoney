@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Financial Clarity Final Assessment | Right Side of Money</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0D1F3C;
+  --gold: #C9941A;
+  --gold-lt: #E8B84B;
+  --cream: #FFF8E6;
+  --white: #FFFFFF;
+  --text: #1A1A2E;
+  --muted: #5A5A72;
+  --bg: #F7F5F0;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --navy: #1A3560;
+    --gold: #E8B84B;
+    --gold-lt: #F5D27A;
+    --cream: #1E1A14;
+    --white: #2A2420;
+    --text: #F0EDE8;
+    --muted: #A8A8B8;
+    --bg: #12100E;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --navy: #1A3560;
+  --gold: #E8B84B;
+  --gold-lt: #F5D27A;
+  --cream: #1E1A14;
+  --white: #2A2420;
+  --text: #F0EDE8;
+  --muted: #A8A8B8;
+  --bg: #12100E;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; text-wrap: balance; }
+a { color: var(--gold); }
+a:hover { color: var(--gold-lt); }
+
+/* NAV */
+.site-nav { background: var(--navy); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
+.nav-brand { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a { color: #ccc; text-decoration: none; font-size: 0.875rem; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+/* LAYOUT */
+.course-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 64px); }
+.sidebar { background: var(--navy); padding: 32px 0; }
+.sidebar-heading { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: .12em; padding: 0 20px 8px; }
+.sidebar a { display: block; padding: 10px 20px; color: #bbb; text-decoration: none; font-size: 0.85rem; border-left: 3px solid transparent; transition: all .2s; }
+.sidebar a:hover { color: var(--gold-lt); background: rgba(255,255,255,.04); }
+.sidebar a.active { color: var(--gold); border-left-color: var(--gold); background: rgba(201,148,26,.1); font-weight: 600; }
+.main-content { padding: 48px 32px; max-width: 820px; }
+
+/* HERO */
+.day-hero { background: var(--navy); color: var(--white); padding: 48px 40px; border-radius: 12px; margin-bottom: 40px; }
+.day-hero .badge { display: inline-block; background: var(--gold); color: var(--navy); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
+.day-hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 12px; }
+.day-hero p { color: rgba(255,255,255,.8); font-size: 1rem; }
+
+/* SECTION */
+.content-section { background: var(--white); border-radius: 12px; padding: 36px; margin-bottom: 28px; border: 1px solid rgba(0,0,0,.06); }
+.content-section h2 { color: var(--navy); font-size: 1.4rem; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--gold); }
+.content-section h3 { color: var(--navy); font-size: 1.1rem; margin: 24px 0 10px; }
+.content-section p { margin-bottom: 14px; }
+.content-section ul, .content-section ol { padding-left: 20px; margin-bottom: 14px; }
+.content-section li { margin-bottom: 6px; }
+
+/* QUIZ */
+.quiz-block { background: var(--cream); border: 2px solid var(--gold); border-radius: 12px; padding: 32px; margin: 32px 0; }
+.quiz-block .quiz-title { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1.2rem; margin-bottom: 8px; }
+.quiz-block .quiz-subtitle { color: var(--muted); font-size: 0.875rem; margin-bottom: 24px; }
+.quiz-q-label { font-weight: 600; color: var(--navy); font-size: 0.8rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.quiz-question { font-size: 1rem; color: var(--text); margin-bottom: 14px; font-weight: 500; }
+.quiz-options { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.quiz-opt-btn { width: 100%; text-align: left; background: var(--white); border: 2px solid #ddd; border-radius: 8px; padding: 12px 16px; cursor: pointer; font-size: 0.9rem; color: var(--text); transition: all .2s; font-family: 'DM Sans', sans-serif; }
+.quiz-opt-btn:hover { border-color: var(--gold); }
+.quiz-opt-btn.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+.quiz-opt-btn.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+.quiz-opt-btn:disabled { cursor: default; }
+.quiz-feedback { display: none; padding: 12px 16px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 16px; }
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: #d4edda; color: #155724; }
+.quiz-feedback.wrong { background: #f8d7da; color: #721c24; }
+.quiz-progress { display: flex; align-items: center; gap: 16px; font-size: 0.875rem; color: var(--muted); margin-bottom: 20px; }
+.quiz-score-bar { flex: 1; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+.quiz-score-fill { height: 100%; background: var(--gold); border-radius: 3px; transition: width .4s; }
+.quiz-result { padding: 20px; border-radius: 10px; text-align: center; display: none; }
+.quiz-result.show { display: block; }
+.quiz-result.pass { background: #d4edda; border: 2px solid #28a745; }
+.quiz-result.fail { background: #fff3cd; border: 2px solid #ffc107; }
+.quiz-result h3 { margin-bottom: 8px; }
+.quiz-result p { font-size: 0.9rem; }
+.btn-retry { background: var(--navy); color: var(--white); border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; margin-top: 12px; }
+.nav-btn-wrap { margin-top: 32px; display: flex; gap: 16px; align-items: center; }
+.btn-next { display: inline-block; background: var(--gold); color: var(--navy); font-weight: 700; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 1rem; transition: background .2s; }
+.btn-next:hover { background: var(--gold-lt); color: var(--navy); }
+.btn-next.locked { background: #ccc; color: #888; pointer-events: none; cursor: not-allowed; }
+.btn-back { display: inline-block; color: var(--muted); font-size: 0.9rem; text-decoration: none; }
+
+/* SCORE DISPLAY */
+.score-display { background: var(--navy); color: var(--white); border-radius: 12px; padding: 40px; text-align: center; margin: 32px 0; }
+.score-number { font-size: 4rem; font-family: 'Playfair Display', serif; color: var(--gold); font-weight: 900; line-height: 1; }
+.score-label { font-size: 1rem; color: rgba(255,255,255,.7); margin-top: 8px; }
+.score-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-top: 28px; }
+.score-card { background: rgba(255,255,255,.08); border-radius: 8px; padding: 16px; }
+.score-card .num { font-size: 1.6rem; font-family: 'Playfair Display', serif; color: var(--gold-lt); }
+.score-card .lbl { font-size: 0.75rem; color: rgba(255,255,255,.6); margin-top: 4px; }
+
+/* CERTIFICATE AREA */
+.cert-section { background: var(--white); border: 3px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; margin: 32px 0; }
+.cert-section h2 { color: var(--navy); margin-bottom: 12px; }
+.cert-section p { color: var(--muted); margin-bottom: 20px; }
+
+/* FOOTER */
+.site-footer { background: var(--navy); color: rgba(255,255,255,.5); text-align: center; padding: 24px; font-size: 0.8rem; margin-top: 60px; }
+
+@media (max-width: 700px) {
+  .course-wrap { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main-content { padding: 24px 16px; }
+  .day-hero { padding: 28px 20px; }
+  .content-section { padding: 24px 16px; }
+}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">Right Side of Money</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+<div class="course-wrap">
+<aside class="sidebar">
+<p class="sidebar-heading">3-Day Challenge</p>
+<a href="challenge-portal.html">Course Home</a>
+<a href="challenge-day1.html">Day 1: Audit Your Reality</a>
+<a href="challenge-day2.html">Day 2: Break the Money Blocks</a>
+<a href="challenge-day3.html">Day 3: Build the Framework</a>
+<a href="challenge-assessment.html" class="active">Final Assessment</a>
+
+</aside>
+<main class="main-content">
+
+<div class="day-hero">
+  <span class="badge">Final Assessment</span>
+  <h1>Financial Clarity Score</h1>
+  <p>10 questions across all three days. You need 8 correct (80%) to earn your Financial Clarity Certificate. Take your time. Apply what you've learned.</p>
+</div>
+
+<div class="content-section" style="background: var(--cream);">
+  <h2>Before You Begin</h2>
+  <p>This assessment covers everything from the 3-Day Financial Clarity Challenge: the personal financial audit, net worth, cash flow, money profiles, money blocks, zero-based budgeting, the financial safety net, and your personal framework.</p>
+  <p>You've done the work. You've reflected. You've challenged your beliefs and your habits. This isn't a test of memory. It's a confirmation of understanding. Read each question carefully and trust what you've learned.</p>
+  <p><strong>Pass threshold:</strong> 8 out of 10 (80%). If you don't pass on the first try, you can retake it as many times as you need. The goal is mastery, not speed.</p>
+</div>
+
+<div class="quiz-block" id="fa-quiz-area">
+  <p class="quiz-title">Financial Clarity Final Assessment</p>
+  <p class="quiz-subtitle">10 questions spanning Days 1, 2, and 3</p>
+  <div class="quiz-progress">
+    <span id="fa-progress-label">0 of 10 answered</span>
+    <div class="quiz-score-bar"><div class="quiz-score-fill" id="fa-progress-fill" style="width:0%"></div></div>
+  </div>
+  <p class="quiz-q-label" id="fa-q-num">Question 1 of 10</p>
+  <p class="quiz-question" id="fa-question"></p>
+  <ul class="quiz-options" id="fa-options"></ul>
+  <div class="quiz-feedback" id="fa-feedback"></div>
+  <button class="btn-next" id="fa-next-btn" style="display:none; border:none; cursor:pointer;">Next Question &rarr;</button>
+</div>
+
+<div id="fa-result" style="display:none;">
+  <div class="score-display">
+    <div class="score-number" id="fa-score-num">0%</div>
+    <div class="score-label" id="fa-score-fraction"></div>
+    <div class="score-breakdown">
+      <div class="score-card"><div class="num" id="d1-score">--</div><div class="lbl">Day 1: Audit</div></div>
+      <div class="score-card"><div class="num" id="d2-score">--</div><div class="lbl">Day 2: Blocks</div></div>
+      <div class="score-card"><div class="num" id="d3-score">--</div><div class="lbl">Day 3: Framework</div></div>
+    </div>
+  </div>
+
+  <div id="fa-pass-msg" style="display:none;">
+    <div class="cert-section">
+      <h2>You've Earned It.</h2>
+      <p>You've completed the 3-Day Financial Clarity Challenge with a passing score. That means you didn't just read words on a screen. You engaged, reflected, and proved that the concepts stuck.</p>
+      <p>Financial clarity isn't a destination. It's a daily practice. You now have the language, the framework, and the self-awareness to make better money decisions starting today.</p>
+      <p style="font-weight:600; color: var(--navy);">Your Right Side of Money journey is just beginning. The next step is implementation. Build your budget. Start your emergency fund. Run the numbers. Don't let this be the week you almost changed your financial life.</p>
+      <div style="margin-top: 24px;">
+        <a href="courses.html" class="btn-next">Explore More Courses</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="fa-fail-msg" style="display:none;">
+    <div class="content-section" style="background: #fff3cd; border-color: #ffc107;">
+      <h2 style="color: #856404;">Not Quite Yet. Keep Going.</h2>
+      <p>You didn't hit 80% this time, and that's okay. The score isn't a judgment. It's a map. Look at which questions you missed and go back to those sections in Days 1, 2, and 3.</p>
+      <p>The people who change their financial lives aren't the ones who got everything right on the first try. They're the ones who stayed in it until they did. Retry the assessment below when you're ready.</p>
+      <button class="btn-retry" id="fa-retry-btn">Retake Assessment</button>
+    </div>
+  </div>
+
+  <div id="fa-retry-wrap">
+    <button class="btn-retry" id="fa-retry-btn" style="margin-top:16px;">Retake Assessment</button>
+  </div>
+</div>
+
+<div class="nav-btn-wrap" style="margin-top: 40px;">
+  <a href="challenge-day3.html" class="btn-back">&larr; Back to Day 3</a>
+</div>
+
+
+<script>
+(function() {
+  var QUESTIONS = [{"q": "What is the correct formula for calculating personal net worth?", "opts": ["Monthly income minus monthly expenses", "Total savings plus annual income", "Total assets minus total liabilities", "Gross income minus taxes"], "correct": 2, "explanation": "Net worth = Total Assets minus Total Liabilities. This is your real financial picture \u2014 not what you earn, but what you own minus what you owe. It's the number that shows where you actually stand.", "review": "Day 1: Assets, Liabilities, and Net Worth"}, {"q": "You earn $3,500 a month and your fixed monthly expenses total $2,800. What is your monthly net cash flow?", "opts": ["$700", "$3,500", "$6,300", "$2,800"], "correct": 0, "explanation": "Net cash flow = Income minus all outflows. $3,500 minus $2,800 = $700. That $700 is your working capital for savings, debt payoff, and investment. Knowing this number is the foundation of every financial decision you make.", "review": "Day 1: Income, Cash Flow, and Your Starting Point"}, {"q": "Which of the following best describes a money block?", "opts": ["A legal restriction on how much money you can withdraw from a bank", "A spending limit set by a financial advisor", "An unconscious belief or emotional pattern that prevents healthy financial behavior", "A budget category that you consistently overspend"], "correct": 2, "explanation": "Money blocks are internal, not external. They're the beliefs and emotional patterns you absorbed from your environment that now run your financial behavior in the background. Identifying them is the first step to removing them.", "review": "Day 2: Why Money Decisions Are Not Just Math and Money Block Audit"}, {"q": "A friend says, 'I'm a natural spender. I can't help it, that's just who I am.' What is the most accurate response according to the Four Money Profiles?", "opts": ["He's right \u2014 money profiles are permanent personality traits", "Money profiles describe patterns you've developed, not your permanent identity. Awareness creates the option to change.", "He needs a financial advisor to change this behavior for him", "Spenders are doomed to struggle financially and should accept it"], "correct": 1, "explanation": "The Four Money Profiles describe behavioral patterns, not permanent character flaws. Knowing your profile gives you the awareness to interrupt the pattern. You're not your money story \u2014 you're the person who gets to rewrite it.", "review": "Day 2: Common Money Behaviors and Four Money Profiles"}, {"q": "What does 'Pay Yourself First' mean in practice?", "opts": ["Spend on personal needs before paying bills", "Set aside savings and investment contributions automatically before spending on anything else", "Pay yourself a salary from your business before paying expenses", "Reward yourself with a purchase whenever you hit a financial goal"], "correct": 1, "explanation": "Pay Yourself First means your savings and investment contributions are non-negotiable \u2014 they come out before any discretionary spending. Automated transfers make this frictionless. You never miss what you don't see.", "review": "Day 3: Pay Yourself First and Automation"}, {"q": "How many months of essential expenses does a fully funded emergency fund cover?", "opts": ["1 to 2 months", "6 to 12 months", "3 to 6 months", "Whatever fits in a savings account"], "correct": 2, "explanation": "A fully funded emergency fund covers 3 to 6 months of essential expenses. This is the financial safety net that keeps one bad month from becoming a financial crisis. It's not a luxury \u2014 it's the foundation under everything else.", "review": "Day 3: The Financial Safety Net"}, {"q": "Regina pulls 90 days of bank statements and discovers she spends $340 a month on things she doesn't remember buying. What financial tool is designed to address this?", "opts": ["A credit limit reduction on her cards", "A zero-based budget that assigns every dollar a job before it's spent", "A debt consolidation loan", "A financial advisor who will manage her money for her"], "correct": 1, "explanation": "The zero-based budget closes the leak by giving every dollar an intentional destination. Regina's $340 in mystery spending disappears when each dollar is pre-assigned. The budget isn't a restriction \u2014 it's a permission slip for the life you actually want.", "review": "Day 3: Give Every Dollar a Job"}, {"q": "What is the primary purpose of the 24-Hour Money Rule?", "opts": ["To give stores time to process payment", "To allow you to research a better price on any item", "To separate emotion from financial decisions by introducing a pause before any unplanned purchase", "To comply with consumer protection laws on large purchases"], "correct": 2, "explanation": "The 24-Hour Rule is a circuit breaker between impulse and action. Most of the urgency that drives impulse purchases is manufactured \u2014 by marketing, by social pressure, by in-the-moment emotion. A 24-hour pause lets your logic catch up with your feelings.", "review": "Day 3: The 24-Hour Money Rule"}, {"q": "Completing the Financial Reality Scorecard shows your net worth is negative and your credit score is below 600. What is the most constructive way to interpret this?", "opts": ["As proof that wealth isn't realistic for you", "As a permanent reflection of your character and discipline", "As an accurate starting point \u2014 the honest baseline from which a real plan is built", "As a reason to delay starting any financial plan until the numbers improve"], "correct": 2, "explanation": "Your Financial Reality Scorecard is not a verdict \u2014 it's a starting line. Every person who has ever built wealth started from somewhere, and most started from exactly where you are. The score isn't the problem. Staying there is.", "review": "Day 1: The Financial Reality Scorecard"}, {"q": "What separates someone who finishes the 3-Day Financial Clarity Challenge and changes their financial life from someone who finishes and doesn't?", "opts": ["Their income level", "The city they live in and the cost of living", "Whether they came from a family that understood money", "Whether they build a personal framework and execute it consistently \u2014 not motivation, but a system"], "correct": 3, "explanation": "Motivation fades. Systems don't. The people who change their financial lives aren't the ones who felt the most inspired \u2014 they're the ones who built a framework and worked it even when they didn't feel like it. That's what the Right Side of Money Framework is for.", "review": "Day 3: My Right Side of Money Framework"}];
+  var PASS_COUNT = 8;
+  var TOTAL = 10;
+  var answers = [];
+  var current = 0;
+  var score = 0;
+  var submitted = false;
+
+  function render() {
+    var q = QUESTIONS[current];
+    document.getElementById('fa-q-num').textContent = 'Question ' + (current + 1) + ' of ' + TOTAL;
+    document.getElementById('fa-question').textContent = q.q;
+    var ul = document.getElementById('fa-options');
+    ul.innerHTML = '';
+    q.opts.forEach(function(opt, idx) {
+      var li = document.createElement('li');
+      var btn = document.createElement('button');
+      btn.className = 'quiz-opt-btn';
+      btn.type = 'button';
+      btn.textContent = opt;
+      btn.addEventListener('click', function() { selectAnswer(idx); });
+      li.appendChild(btn);
+      ul.appendChild(li);
+    });
+    document.getElementById('fa-feedback').className = 'quiz-feedback';
+    document.getElementById('fa-feedback').textContent = '';
+    document.getElementById('fa-next-btn').style.display = 'none';
+    updateProgress();
+  }
+
+  function updateProgress() {
+    var pct = (current / TOTAL) * 100;
+    document.getElementById('fa-progress-fill').style.width = pct + '%';
+    document.getElementById('fa-progress-label').textContent = current + ' of ' + TOTAL + ' answered';
+  }
+
+  function selectAnswer(idx) {
+    var q = QUESTIONS[current];
+    answers.push(idx);
+    var btns = document.querySelectorAll('#fa-options .quiz-opt-btn');
+    btns.forEach(function(b, i) {
+      b.disabled = true;
+      if (i === q.correct) b.classList.add('correct');
+      else if (i === idx) b.classList.add('wrong');
+    });
+    var fb = document.getElementById('fa-feedback');
+    if (idx === q.correct) {
+      score++;
+      fb.textContent = 'Correct! ' + q.explanation;
+      fb.className = 'quiz-feedback show correct';
+    } else {
+      fb.textContent = 'Not quite. ' + q.explanation + ' Review: ' + q.review;
+      fb.className = 'quiz-feedback show wrong';
+    }
+    if (current < TOTAL - 1) {
+      document.getElementById('fa-next-btn').style.display = 'inline-block';
+    } else {
+      setTimeout(showResults, 800);
+    }
+  }
+
+  function showResults() {
+    document.getElementById('fa-quiz-area').style.display = 'none';
+    var resultEl = document.getElementById('fa-result');
+    resultEl.style.display = 'block';
+    var pct = Math.round((score / TOTAL) * 100);
+    document.getElementById('fa-score-num').textContent = pct + '%';
+    document.getElementById('fa-score-fraction').textContent = score + ' out of ' + TOTAL + ' correct';
+
+    // Day breakdowns (approximate, questions 1-2 = day1, 3-4 = day2, 5-7 = day3, 8-10 = all)
+    var d1 = [answers[0]===QUESTIONS[0].correct, answers[1]===QUESTIONS[1].correct];
+    var d2 = [answers[2]===QUESTIONS[2].correct, answers[3]===QUESTIONS[3].correct];
+    var d3 = [answers[4]===QUESTIONS[4].correct, answers[5]===QUESTIONS[5].correct, answers[6]===QUESTIONS[6].correct, answers[7]===QUESTIONS[7].correct, answers[8]===QUESTIONS[8].correct, answers[9]===QUESTIONS[9].correct];
+    var d1s = d1.filter(Boolean).length;
+    var d2s = d2.filter(Boolean).length;
+    var d3s = d3.filter(Boolean).length;
+    document.getElementById('d1-score').textContent = d1s + '/' + d1.length;
+    document.getElementById('d2-score').textContent = d2s + '/' + d2.length;
+    document.getElementById('d3-score').textContent = d3s + '/' + d3.length;
+
+    var passEl = document.getElementById('fa-pass-msg');
+    var failEl = document.getElementById('fa-fail-msg');
+    if (score >= PASS_COUNT) {
+      passEl.style.display = 'block';
+      failEl.style.display = 'none';
+      try { localStorage.setItem('rsm_final_passed', '1'); } catch(e) {}
+    } else {
+      passEl.style.display = 'none';
+      failEl.style.display = 'block';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    render();
+    document.getElementById('fa-next-btn').addEventListener('click', function() {
+      current++;
+      render();
+    });
+    document.getElementById('fa-retry-btn').addEventListener('click', function() {
+      current = 0; score = 0; answers = [];
+      document.getElementById('fa-quiz-area').style.display = 'block';
+      document.getElementById('fa-result').style.display = 'none';
+      render();
+    });
+  });
+})();
+</script>
+
+
+</main>
+</div>
+<footer class="site-footer">
+  &copy; 2024 Right Side of Money. All rights reserved. | Empowering financial clarity.
+</footer>
+</body>
+</html>
