@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Foundation Knowledge Assessment | RSM Advance Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Advance Mindset, Financial Literacy &amp; Accountability Program</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">Advance Program</div><nav>
+<a href="./advance-portal.html" class="" data-done="baseline">Program Portal</a>
+<div class="sidebar-group">Module 1</div>
+<a href="./advance-mod1.html" class="" data-done="kc:m1l1,kc:m1l2,kc:m1l3">The Roots of Financial Stagnation</a>
+<a href="./advance-assess1.html" class="sub active" data-done="a:a1">Foundation Knowledge Assessment</a>
+<div class="sidebar-group">Module 2</div>
+<a href="./advance-mod2.html" class="" data-done="kc:m2l1,kc:m2l2,kc:m2l3">Breaking the Cycle of Avoidance</a>
+<a href="./advance-assess2.html" class="sub" data-done="a:a2">Mindset and Fear Assessment</a>
+<div class="sidebar-group">Module 3</div>
+<a href="./advance-mod3.html" class="" data-done="kc:m3l1,kc:m3l2,kc:m3l3">Operational Financial Reality</a>
+<a href="./advance-assess3.html" class="sub" data-done="a:a3">Financial Data Literacy Quiz</a>
+<div class="sidebar-group">Module 4</div>
+<a href="./advance-mod4.html" class="" data-done="kc:m4l1,kc:m4l2,kc:m4l3">The Psychology of Modern Spending</a>
+<a href="./advance-assess4.html" class="sub" data-done="a:a4">Spending Psychology Assessment</a>
+<div class="sidebar-group">Module 5</div>
+<a href="./advance-mod5.html" class="" data-done="kc:m5l1,kc:m5l2">Accountability and Long-Term Success</a>
+<a href="./advance-assess5.html" class="sub" data-done="ap:a5">Course Review Quiz</a>
+<div class="sidebar-group">Final</div>
+<a href="./advance-final-exam.html" class="" data-done="ap:final">Final 90-Day Financial Mastery Exam</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="a-intro"><div class="module-hero"><p class="lesson-eyebrow">Module 1 Assessment</p><h1>Foundation Knowledge Assessment</h1><p>This assessment finds the root beneath your financial symptoms. Part 1 confirms your understanding. Part 2 diagnoses which of four root causes is most active in your life. Part 3 puts your own story into words. Plan for 25 to 35 minutes.</p></div></div>
+<form id="assessForm" novalidate>
+<div class="a-section"><div class="a-section-head"><h3>Participant Information</h3><p>Your report is prepared under this name and sent to this email address and to Darrell.</p></div><div class="a-body"><div class="a-field"><div class="grid2"><div><label>First Name</label><input type="text" id="pFirst" autocomplete="given-name" /></div><div><label>Last Name</label><input type="text" id="pLast" autocomplete="family-name" /></div></div></div><div class="a-field"><label>Email Address</label><input type="email" id="pEmail" autocomplete="email" /></div></div></div>
+<div class="a-section"><div class="a-section-head"><h3>Part 1: Knowledge Section</h3><p>Eight scenario questions covering all three Module 1 lessons. You need 80% (7 of 8) to unlock Module 2.</p></div><div class="a-body"><div class="aq-mc" data-correct="3" data-topic="Lesson 1.1" data-q="Shawn earns $92,000 and feels broke every month. His coworker earns $61,000 and has a growing emergency fund and retirement account. According to the Stagnation Equation, what most likely explains the difference?" data-why="Income is an amplifier. The Stagnation Equation (unexamined beliefs, unmanaged emotions, no operating system) explains why lower earners with systems often outpace higher earners without them." data-hint="Lesson 1.1, The Stagnation Equation"><p class="kc-prompt"><span class="kc-num">1</span><span>Shawn earns $92,000 and feels broke every month. His coworker earns $61,000 and has a growing emergency fund and retirement account. According to the Stagnation Equation, what most likely explains the difference?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">His coworker must have inherited money.</button><button type="button" class="kc-opt" data-i="1">Shawn&#x27;s cost of living must be much higher than his coworker&#x27;s.</button><button type="button" class="kc-opt" data-i="2">Shawn simply needs to earn more before he can build savings.</button><button type="button" class="kc-opt" data-i="3">The combination of beliefs, emotional patterns, and whether each person has an operating system for their money.</button></div></div><div class="aq-mc" data-correct="1" data-topic="Lesson 1.1" data-q="Which of these is a root, rather than a symptom or a behavior?" data-why="Roots are beliefs, identity, and emotional needs. Running short and having no emergency fund are symptoms. Using credit for groceries is a behavior." data-hint="Lesson 1.1, The Three Layers of Every Money Problem"><p class="kc-prompt"><span class="kc-num">2</span><span>Which of these is a root, rather than a symptom or a behavior?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Running out of money before payday.</button><button type="button" class="kc-opt" data-i="1">A belief that &quot;money is for right now because tomorrow isn&#x27;t promised.&quot;</button><button type="button" class="kc-opt" data-i="2">Not having an emergency fund.</button><button type="button" class="kc-opt" data-i="3">Using a credit card to cover groceries at the end of the month.</button></div></div><div class="aq-mc" data-correct="2" data-topic="Lesson 1.2" data-q="Nia gets a $4,000 bonus and feels unsettled until it&#x27;s spent. Which concept explains this?" data-why="The thermostat effect and self-verification make unfamiliar abundance uncomfortable, creating pressure to return to the familiar set point." data-hint="Lesson 1.2, The Financial Thermostat"><p class="kc-prompt"><span class="kc-num">3</span><span>Nia gets a $4,000 bonus and feels unsettled until it&#x27;s spent. Which concept explains this?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Anchoring: the bonus amount set a reference price.</button><button type="button" class="kc-opt" data-i="1">Present bias: she values future money more than current money.</button><button type="button" class="kc-opt" data-i="2">The financial thermostat: her money identity pulls her back to a familiar financial level.</button><button type="button" class="kc-opt" data-i="3">Moral licensing: she felt she had been too disciplined.</button></div></div><div class="aq-mc" data-correct="2" data-topic="Lesson 1.2" data-q="Which money identity is most associated with spending on appearance, like cars, clothes, and vacations shared on social media?" data-why="The Performer ties worth to what people can see. The Builder replacement is: real wealth is quiet." data-hint="Lesson 1.2, The Five RSM Money Identities"><p class="kc-prompt"><span class="kc-num">4</span><span>Which money identity is most associated with spending on appearance, like cars, clothes, and vacations shared on social media?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">The Rescuer</button><button type="button" class="kc-opt" data-i="1">The Avoider</button><button type="button" class="kc-opt" data-i="2">The Performer</button><button type="button" class="kc-opt" data-i="3">The Survivor</button></div></div><div class="aq-mc" data-correct="2" data-topic="Lesson 1.2" data-q="Research on money scripts by Dr. Brad Klontz and colleagues suggests what about our core money beliefs?" data-why="Money scripts are learned, usually early in life, and they drive behavior until they&#x27;re examined. Learned beliefs can be rewritten." data-hint="Lesson 1.2, Where Money Identity Comes From"><p class="kc-prompt"><span class="kc-num">5</span><span>Research on money scripts by Dr. Brad Klontz and colleagues suggests what about our core money beliefs?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">They&#x27;re formed in adulthood through financial education.</button><button type="button" class="kc-opt" data-i="1">They&#x27;re genetic and can&#x27;t be changed.</button><button type="button" class="kc-opt" data-i="2">They&#x27;re usually formed in childhood, operate below awareness, predict adult financial behavior, and can be unlearned.</button><button type="button" class="kc-opt" data-i="3">They only affect people with low incomes.</button></div></div><div class="aq-mc" data-correct="1" data-topic="Lesson 1.3" data-q="Andre notices he shops online most often after arguments with his partner. The shopping makes him feel better for about an hour. Which emotional driver is most likely at work?" data-why="Relief spending seeks calm and control after stress or conflict. The short-lived improvement is the brain&#x27;s reward that keeps the loop going." data-hint="Lesson 1.3, The Six Emotional Spending Drivers"><p class="kc-prompt"><span class="kc-num">6</span><span>Andre notices he shops online most often after arguments with his partner. The shopping makes him feel better for about an hour. Which emotional driver is most likely at work?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Reward</button><button type="button" class="kc-opt" data-i="1">Relief (stress)</button><button type="button" class="kc-opt" data-i="2">Belonging</button><button type="button" class="kc-opt" data-i="3">Love and Guilt</button></div></div><div class="aq-mc" data-correct="1" data-topic="Lesson 1.3" data-q="What is &#x27;urge surfing&#x27;?" data-why="Urges rise, peak, and fade, often within 20 to 30 minutes. Each urge you surf instead of obey weakens the next one." data-hint="Lesson 1.3, Tools to Widen the Gap"><p class="kc-prompt"><span class="kc-num">7</span><span>What is &#x27;urge surfing&#x27;?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Buying something small to prevent a larger purchase.</button><button type="button" class="kc-opt" data-i="1">Noticing an urge, describing it without judgment, and letting it peak and pass without acting on it.</button><button type="button" class="kc-opt" data-i="2">Asking a friend to decide for you.</button><button type="button" class="kc-opt" data-i="3">Browsing online stores to satisfy the urge without buying.</button></div></div><div class="aq-mc" data-correct="3" data-topic="Lesson 1.1" data-q="Which change would most directly address the &#x27;No Operating System&#x27; part of the Stagnation Equation?" data-why="An operating system runs without a fresh decision each time. Automatic transfers are the clearest example." data-hint="Lesson 1.1, the third force"><p class="kc-prompt"><span class="kc-num">8</span><span>Which change would most directly address the &#x27;No Operating System&#x27; part of the Stagnation Equation?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Reading a new book about budgeting.</button><button type="button" class="kc-opt" data-i="1">Promising yourself you&#x27;ll be more careful with money.</button><button type="button" class="kc-opt" data-i="2">Checking prices before every purchase.</button><button type="button" class="kc-opt" data-i="3">Setting up an automatic transfer to savings on every payday.</button></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part 2: Root-Cause Diagnostic</h3><p>Sixteen statements. Choose how often each one is true for you. Answer based on what you actually do, not what you wish you did.</p></div><div class="a-body"><div class="lk" data-dim="belief"><div class="lk-text"><span class="n">1.</span><span>When I think about money, I hear phrases or rules I learned growing up.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="belief"><div class="lk-text"><span class="n">2.</span><span>I feel uncomfortable or guilty about wanting more money.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="belief"><div class="lk-text"><span class="n">3.</span><span>I believe people with my background aren&#x27;t really meant to build wealth.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="belief" data-rev="1"><div class="lk-text"><span class="n">4.</span><span>I have consciously questioned and rewritten the money beliefs I grew up with.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="identity"><div class="lk-text"><span class="n">5.</span><span>When my income goes up, my spending rises to match it within a few months.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="identity"><div class="lk-text"><span class="n">6.</span><span>I describe myself with phrases like &quot;I&#x27;m bad with money&quot; or &quot;I&#x27;m not a numbers person.&quot;</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="identity"><div class="lk-text"><span class="n">7.</span><span>When I have more money than usual, it feels unfamiliar and tends to disappear.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="identity"><div class="lk-text"><span class="n">8.</span><span>I put other people&#x27;s financial needs ahead of building my own foundation.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="emotion"><div class="lk-text"><span class="n">9.</span><span>I spend money to change how I feel.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="emotion"><div class="lk-text"><span class="n">10.</span><span>I make purchases after stressful, lonely, or exhausting moments that I later regret.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="emotion" data-rev="1"><div class="lk-text"><span class="n">11.</span><span>I can name the feeling behind most of my unplanned purchases.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="emotion"><div class="lk-text"><span class="n">12.</span><span>I feel a rush while shopping that fades soon after I buy.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="system" data-rev="1"><div class="lk-text"><span class="n">13.</span><span>Money moves to savings automatically before I have a chance to spend it.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="system"><div class="lk-text"><span class="n">14.</span><span>I save whatever is left at the end of the month, if anything is left.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="system" data-rev="1"><div class="lk-text"><span class="n">15.</span><span>I have a written plan for where my money goes each month.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="system"><div class="lk-text"><span class="n">16.</span><span>My financial progress depends on how motivated I feel that month.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part 3: Written Root Analysis</h3><p>Your words are the most important part of this assessment. They're included in your report and sent to Darrell.</p></div><div class="a-body"><div class="a-field"><label>Finish this sentence honestly and explain it: &quot;People like me and money...&quot;</label><p class="hint">Write the first thing that comes to mind, then explain where you think that belief came from. Minimum 30 words.</p><textarea data-text="w1" data-label="Finish this sentence honestly and explain it: &quot;People like me and money...&quot;" data-min="30"></textarea><div class="wc"></div></div><div class="a-field"><label>Describe the last time you received extra money (raise, bonus, refund, gift). Where did it go, and what does that reveal about your root pattern?</label><p class="hint">Be specific with amounts and timelines. Minimum 30 words.</p><textarea data-text="w2" data-label="Describe the last time you received extra money (raise, bonus, refund, gift). Where did it go, and what does that reveal about your root pattern?" data-min="30"></textarea><div class="wc"></div></div><div class="a-field"><label>Based on Module 1, what do you now believe is the real reason you&#x27;ve been stuck financially?</label><p class="hint">Connect it to the Stagnation Equation, your money identity, or your emotional drivers. Minimum 40 words.</p><textarea data-text="w3" data-label="Based on Module 1, what do you now believe is the real reason you&#x27;ve been stuck financially?" data-min="40"></textarea><div class="wc"></div></div></div></div>
+<div class="submit-box"><p>When you submit, your personal report appears on this page and a copy is sent to Darrell Thompson. Take your time. Honest answers produce an accurate report. There are no right answers in the diagnostic sections, only true ones.</p><button type="submit" class="btn btn-gold" style="font-size:1rem;padding:1rem 2.4rem">Submit and Generate My Report</button><div class="form-error" id="formError"></div></div>
+</form>
+<div id="report" class="report"></div>
+</div>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
+<script>
+window.RSM_PAGE = {id: "assess1", type: "assessment", requires: [{"key": "kc:m1l1", "label": "Lesson 1.1 Knowledge Check", "href": "./advance-mod1.html#lesson-1-1"}, {"key": "kc:m1l2", "label": "Lesson 1.2 Knowledge Check", "href": "./advance-mod1.html#lesson-1-2"}, {"key": "kc:m1l3", "label": "Lesson 1.3 Knowledge Check", "href": "./advance-mod1.html#lesson-1-3"}], assessment: {id: "a1", name: "Foundation Knowledge Assessment", analyze: function(d, H){ var DEFS = {"belief": {"name": "The Inherited Script", "short": "Beliefs you absorbed before you could question them are still making decisions for you.", "what": "You're operating on money rules you didn't choose. They were handed to you through what you saw, heard, and experienced growing up. They feel like truth because they've never been examined. Every financial decision you make is filtered through them first, which means your adult choices are often being made by a much younger version of you.", "origin": "Most likely in the household or community you grew up in. Phrases repeated at the kitchen table, the way adults reacted to bills, the silence around money, or the experience of never having enough. These scripts were often survival strategies that made sense at the time. They just don't serve the life you're trying to build now.", "cost": "Inherited scripts cap your results no matter how much you earn. They show up as guilt when you save, discomfort when you have more, self-sabotage near milestones, and a quiet sense that wealth belongs to other people. The cost is measured in years of stalled progress and opportunities you talked yourself out of.", "reframe": "Old script: \"People like us don't have money.\" New script: \"I didn't inherit wealth. I'm learning the game so the people after me will.\" Write your own version of this rewrite, read it every morning for 30 days, and take one action each day that proves it.", "rx7": ["Write down five money phrases you heard growing up, word for word.", "Next to each one, write whether it helps or hurts the life you want now.", "For the two most harmful, write a replacement belief grounded in facts, not hype.", "Take one small action that contradicts an old script, such as opening a savings account, asking about a retirement match, or saying out loud \"I want to build wealth.\"", "Share one old script and its rewrite with someone you trust."], "rx30": ["Read your rewritten beliefs every morning for 30 days.", "Keep a \"script catch\" log: each time an old script shows up in your thinking, write it down and the rewrite next to it.", "Automate one savings transfer and watch for guilt or discomfort. Name it as the old script, not the truth.", "Have one honest conversation with a family member about the money beliefs you both grew up with.", "Re-read Lesson 1.2 at the end of the month and update your Builder identity statement."], "watch": "Guilt or anxiety right after a financial win. When saving or getting ahead feels wrong, that's the script talking. Don't obey it. Observe it."}, "identity": {"name": "The Identity Ceiling", "short": "Your money identity has a set point, and your finances keep returning to it.", "what": "Your finances are regulated by a thermostat set by your money identity. When you get ahead, something pulls you back: a new expense, a family request, an upgrade, a loss of focus. When you fall behind, you hustle back to \"normal.\" The problem isn't that you can't earn or save. It's that your identity doesn't yet see you as someone who keeps and grows money.", "origin": "Your identity was built from the role you played around money growing up: the one who helps everyone, the one who survives, the one who has to look successful, or the one who doesn't look. It's reinforced every time you describe yourself with phrases like \"I'm bad with money.\" Psychologists call the pull to confirm your self-image self-verification.", "cost": "Raises, bonuses, and windfalls get absorbed instead of building wealth. You may be supporting others at the expense of your own foundation. Over five to ten years, an identity ceiling can cost tens of thousands of dollars in money that came in and simply didn't stay.", "reframe": "Old identity: \"I'm just not good with money.\" New identity: \"I'm a Builder in training. I keep a portion of everything I earn, and I direct my money on purpose.\" Identity changes through evidence, so your job is to collect proof daily.", "rx7": ["Write your old identity statement and your new Builder identity statement side by side.", "Stop using the phrase \"I'm bad with money.\" Replace it with \"I'm learning to manage money well.\"", "Choose three daily proof actions, such as checking your balance, logging purchases, or moving $5 to savings, and do them every day this week.", "If you're a Rescuer, decide on a fixed monthly amount for helping others and write it down.", "Set up an automatic transfer so the next raise or extra income has a job before it arrives."], "rx30": ["Track your proof actions daily and count them at the end of the month.", "Communicate your new boundaries clearly and once, especially around lending or giving.", "Assign any unexpected money (overtime, refunds, gifts) at least 50% to savings or debt before spending any.", "Notice and write down each time you feel the pull back toward your old level. Name it the thermostat.", "At day 30, rewrite your identity statement based on the evidence you've collected."], "watch": "Restlessness or an urge to spend right after your savings reach a new high. That's the thermostat pulling you back to the old setting."}, "emotion": {"name": "The Emotional Spending Loop", "short": "Your feelings are making purchases your plan never approved.", "what": "Spending has become one of your main tools for managing emotions: stress, exhaustion, loneliness, guilt, or the need to feel rewarded. It works for a few hours, which is exactly why it keeps happening. Your budget isn't failing because of math. It's failing because it's competing with feelings, and feelings win when nobody is watching the gap between urge and purchase.", "origin": "Emotional spending is often learned early. Maybe comfort came through treats, gifts replaced time, or shopping was how the adults around you coped. It's reinforced every time spending brings relief, because the brain records that spending solves feelings.", "cost": "Unplanned purchases that add up to hundreds or thousands a month, regret that feeds shame, and shame that feeds more spending. The deeper cost is that the real need, rest, connection, recognition, or calm, never actually gets met.", "reframe": "Old belief: \"I deserve this\" or \"I need this to feel better.\" New belief: \"My feelings are real, and I can meet them in ways that don't cost my future.\" Name the feeling first. Meet the need second. Decide about the purchase last.", "rx7": ["Keep the 7-Day Emotional Spending Journal from Lesson 1.3 without skipping a day.", "Use the HALT check before every unplanned purchase.", "Write down your top emotional driver and three free ways to meet the need behind it.", "Put a 48-hour rule on all non-essential purchases over $50.", "Delete saved payment information from your two most-used shopping sites or apps."], "rx30": ["Practice urge surfing at least five times and log how long each urge lasted.", "Create a small, planned reward budget so reward spending has a safe place to go.", "Identify your highest-risk time of day and build an if-then plan for it.", "Review the journal weekly and total how much you didn't spend by pausing.", "Redirect that amount automatically to savings at the end of the month."], "watch": "Shopping when you're tired, hurt, or alone, especially late at night. If you catch yourself browsing without a specific need, pause and name the feeling."}, "system": {"name": "The Missing Operating System", "short": "Your money runs on intentions and leftovers instead of automatic rules.", "what": "You may understand money well and still not make progress, because nothing in your financial life is automatic. Saving happens if there's money left. Bills get paid when you remember. Progress depends on motivation, and motivation rises and falls. Without a system, every month is a fresh negotiation with yourself, and the negotiation is usually lost to whatever feels urgent.", "origin": "Most people were never taught that money needs a system. Schools rarely teach it, and many families never modeled it. If you grew up where money was handled day to day or crisis to crisis, running without a system feels normal.", "cost": "Savings that never accumulate, late fees and interest from missed dates, and a constant feeling of starting over. Over time, the absence of a system can cost more than any single bad decision, because it quietly blocks compounding.", "reframe": "Old approach: \"I'll save what's left.\" New approach: \"I pay myself first, automatically, and spend what's left.\" Stop relying on memory and motivation. Build rules that run without you.", "rx7": ["Set up one automatic transfer to savings on your next payday. Any amount. $10 counts.", "Schedule every recurring bill for autopay or put each due date on your calendar with a reminder.", "Write a one-page monthly plan: income, fixed bills, savings, and spending categories.", "Choose a day and time for your Weekly Money Meeting and put it on repeat.", "Open a separate savings account, ideally at a different bank, so savings aren't sitting next to spending money."], "rx30": ["Increase your automatic transfer by a small amount after 30 days.", "Hold four Weekly Money Meetings in a row.", "Build a sinking fund for one irregular expense (car maintenance, gifts, annual bills) with its own automatic transfer.", "Track which parts of your system ran without you and which still depend on memory.", "Automate the next piece so your plan depends less on how you feel."], "watch": "Saying \"I'll move money to savings later this month.\" Later rarely arrives. If it isn't automatic, it isn't a system yet."}}; var O = {"patternLabel": "Root-Cause Pattern", "titleSuffix": "Your Foundation Root-Cause Report", "passMsg": "<p>You demonstrated a solid understanding of why people get stuck: the Stagnation Equation, the three layers of every money problem, money identity, and emotional spending. Understanding is necessary, but it isn't sufficient. The diagnostic below shows where these concepts are active in your own life.</p>", "failMsg": "<p>Some core concepts from Module 1 aren't fully locked in yet. That's useful information, not a verdict. The questions below point you to the lesson sections to revisit. You'll need 80% to open Module 2, because every module after this builds on these ideas.</p>", "profileIntro": "The diagnostic measured four root causes of financial stagnation. Higher percentages mean the pattern is more active in your life right now. Red bars are strong patterns, gold bars are present, and green bars are low.", "lowAll": "Your answers show that none of the four root causes is strongly active right now. You likely have examined beliefs, a stable identity, awareness of your emotional triggers, and at least some automatic systems. That foundation is exactly what makes the advanced work in this program possible.", "pairs": {"belief+identity": "Your inherited script created your identity, and your identity keeps proving the script right. Break this pair by collecting evidence: small, repeated actions that contradict the old story.", "emotion+system": "Without a system, every emotional moment becomes a spending decision. Automation protects your money from your feelings. Build the system first, then work on the emotions from a safer position.", "identity+system": "Your identity absorbs any money that isn't already assigned, and without a system, none of it is. Automating savings is the fastest way to raise your thermostat, because it creates new evidence without requiring a daily decision.", "belief+emotion": "Your inherited beliefs create the feelings, and the feelings drive the spending. When you notice an urge, ask: \"Whose voice is this?\" Often it's a script, not a need.", "belief+system": "If you believe planning is for people who have extra, you won't build a system, and without a system you'll never have extra. Break the cycle with one small automatic transfer. It proves the belief wrong in 30 days.", "emotion+identity": "Your identity decides what feels normal, and your emotions spend you back to normal when you get ahead. Watch for spending spikes right after progress. That's where these two patterns meet."}, "writtenIntro": "These are your own words. Read them again slowly. Patterns you can't see in the moment often become obvious when you see them written down. A follow-up question is included for each one.", "follow": {"w1": "Where did you first hear this sentence, and who in your life would be surprised to hear you say the opposite?", "w2": "If that same money arrived next month, what specific system would make sure at least half of it stayed?", "w3": "What is the smallest action you could take in the next 24 hours that directly contradicts this pattern?"}, "nextMsg": "<p>You've identified the roots. Module 2 goes after the force that keeps most people from ever acting on what they discover: avoidance, powered by shame and fear. Bring your root-cause pattern with you. You'll see how it connects.</p>", "nextHref": "./advance-mod2.html", "nextLabel": "Continue to Module 2", "refs": {"lesson-1-1_0": "Lesson 1.1: What are your three biggest financial symptoms right now, stated with specific numbers?", "lesson-1-1_1": "Lesson 1.1: Which part of the Stagnation Equation (beliefs, emotions, or no operating system) do you believe is costing you the most, and what evidence from your own life supports that?", "lesson-1-1_2": "Lesson 1.1: Think about the last raise, bonus, or tax refund you received. Where did it go, and what does that tell you about your current system?", "lesson-1-2_0": "Lesson 1.2: Which money identity is your dominant one, and which is your secondary? What specific memories from childhood do you think created them?", "lesson-1-2_1": "Lesson 1.2: What sentence does your money identity say in your head when you face a financial decision? Write it exactly as you hear it.", "lesson-1-2_2": "Lesson 1.2: Write your new Builder identity statement and the three proof actions you'll take this week.", "lesson-1-3_0": "Lesson 1.3: Think about your last three unplanned purchases. What were you feeling right before each one?", "lesson-1-3_1": "Lesson 1.3: Which of the six emotional spending drivers shows up most often in your life, and what real need is it trying to meet?", "lesson-1-3_2": "Lesson 1.3: Describe a cheaper or free way you could meet that same need the next time the urge appears."}}; return H.standard(d, DEFS, O); }}};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem('rsmadv_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem('rsmadv_' + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+</body>
+</html>

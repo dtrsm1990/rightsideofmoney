@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 4: The Psychology of Modern Spending | RSM Advance Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Advance Mindset, Financial Literacy &amp; Accountability Program</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">Advance Program</div><nav>
+<a href="./advance-portal.html" class="" data-done="baseline">Program Portal</a>
+<div class="sidebar-group">Module 1</div>
+<a href="./advance-mod1.html" class="" data-done="kc:m1l1,kc:m1l2,kc:m1l3">The Roots of Financial Stagnation</a>
+<a href="./advance-assess1.html" class="sub" data-done="a:a1">Foundation Knowledge Assessment</a>
+<div class="sidebar-group">Module 2</div>
+<a href="./advance-mod2.html" class="" data-done="kc:m2l1,kc:m2l2,kc:m2l3">Breaking the Cycle of Avoidance</a>
+<a href="./advance-assess2.html" class="sub" data-done="a:a2">Mindset and Fear Assessment</a>
+<div class="sidebar-group">Module 3</div>
+<a href="./advance-mod3.html" class="" data-done="kc:m3l1,kc:m3l2,kc:m3l3">Operational Financial Reality</a>
+<a href="./advance-assess3.html" class="sub" data-done="a:a3">Financial Data Literacy Quiz</a>
+<div class="sidebar-group">Module 4</div>
+<a href="./advance-mod4.html" class="active" data-done="kc:m4l1,kc:m4l2,kc:m4l3">The Psychology of Modern Spending</a>
+<a href="./advance-assess4.html" class="sub" data-done="a:a4">Spending Psychology Assessment</a>
+<div class="sidebar-group">Module 5</div>
+<a href="./advance-mod5.html" class="" data-done="kc:m5l1,kc:m5l2">Accountability and Long-Term Success</a>
+<a href="./advance-assess5.html" class="sub" data-done="ap:a5">Course Review Quiz</a>
+<div class="sidebar-group">Final</div>
+<a href="./advance-final-exam.html" class="" data-done="ap:final">Final 90-Day Financial Mastery Exam</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="module-hero"><p class="lesson-eyebrow">Module 4 of 5</p><h1>The Psychology of Modern Spending</h1><p>You're spending inside an environment engineered to make you spend. This module shows you the tactics, diagnoses your personal spending drivers, and exposes the true cost of convenience, so you can redesign your environment and your systems to win.</p>
+<ul class="outcomes"><li>Recognize the seven modern shopping tactics and defend against each one</li><li>Diagnose whether stress, boredom, or reward drives your spending and apply the matching fix</li><li>Calculate your convenience premium in dollars and life hours</li><li>Build a friction plan, if-then plans, and at least one system that closes a planning gap</li></ul></div>
+<div class="progress-wrap"><div class="progress-top"><span>Module 4 Progress</span><span id="modLbl">0 of 3 lessons complete</span></div><div class="progress-bar"><div class="progress-fill" id="modFill"></div></div></div>
+<div class="toc"><h3>In This Module</h3><ol><li><a href="#lesson-4-1">The Psychology of Spending</a></li><li><a href="#lesson-4-2">Stress, Boredom, and Reward Spending</a></li><li><a href="#lesson-4-3">Convenience is Costing You More Than You Think</a></li><li><a href="#module-complete">Spending Psychology Assessment</a></li></ol></div>
+<section class="lesson" id="lesson-4-1"><span class="lesson-tag">Lesson 4.1</span>
+<h2 class="lesson-title">The Psychology of Spending</h2><p class="lesson-subtitle">You're not just making purchases. You're walking through an environment engineered to make you buy.</p><div class="gold-rule"></div>
+
+<p>Here's something most people never think about: some of the smartest people in the world, with enormous budgets, spend their careers figuring out how to get you to spend more money, faster, with less thought. Behavioral scientists, data engineers, designers, and marketers test colors, button placement, wording, timing, and prices on millions of people to find what works.</p>
+<p>That isn't a conspiracy. It's business. But it means that when you shop, <strong>you're not in a neutral environment making neutral decisions.</strong> You're in a system designed to reduce your resistance. If you don't understand that system, you'll blame yourself for losing a game you didn't know you were playing.</p>
+
+<div class="callout callout-truth"><h4>The Core Truth</h4><p>Modern spending environments are built to remove friction, create urgency, and make paying feel painless. <strong>Willpower alone can't consistently beat a system designed by experts.</strong> The Builder's advantage isn't more willpower. It's understanding the tactics and redesigning your environment so the tactics lose their grip.</p></div>
+
+<h2>The Pain of Paying (and Why It's Disappearing)</h2>
+<p>Behavioral economists Drazen Prelec and George Loewenstein described something they called the <strong>pain of paying</strong>: the small, real discomfort we feel when money leaves our hands. That discomfort is useful. It's a natural brake on spending.</p>
+<p>Here's the problem. The more abstract the payment, the less it hurts. Handing over cash hurts the most. Swiping a card hurts less. Tapping a phone hurts even less. One-click checkout with a saved card barely registers at all.</p>
+<div class="callout callout-research"><h4>Cards vs. Cash</h4><p>In a well-known experiment, Drazen Prelec and Duncan Simester ran sealed-bid auctions for tickets to sold-out sporting events. Participants told they had to pay with a credit card bid significantly more, in some cases roughly double, compared to those told they had to pay in cash. Same tickets. Same people. The only difference was how painful paying felt.</p></div>
+<p>Every step the industry takes toward "frictionless" payments, including saved cards, digital wallets, subscriptions, and buy now pay later, weakens your natural brake.</p>
+
+<h2>Seven Tactics Built Into Modern Shopping</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Tactic</th><th>How It Works on Your Brain</th><th>Your Defense</th></tr></thead><tbody><tr><td><strong>Artificial Urgency</strong></td><td>Countdown timers, "sale ends tonight," flash deals. Urgency triggers fear of missing out and cuts deliberation short.</td><td>Real deals come back. Apply your 48-hour rule anyway.</td></tr><tr><td><strong>Scarcity Signals</strong></td><td>"Only 2 left!" "14 people are viewing this." Scarcity makes things feel more valuable.</td><td>Ask: would I want this if there were 500 in stock?</td></tr><tr><td><strong>Anchoring</strong></td><td>A crossed-out "was $199" makes $99 feel like a steal, even if it never really sold for $199.</td><td>Judge the price against your plan, not against the anchor.</td></tr><tr><td><strong>Free Shipping Thresholds</strong></td><td>"Spend $15 more for free shipping." You spend $15 to save $6.</td><td>Pay the shipping or wait until you genuinely need more.</td></tr><tr><td><strong>Buy Now, Pay Later</strong></td><td>Splitting $200 into four payments of $50 makes it feel like a $50 decision.</td><td>Evaluate the full price. Four payments are still one purchase.</td></tr><tr><td><strong>Rewards and Points</strong></td><td>Points make spending feel like earning. "I got 2% back!"</td><td>You spent 100% to get 2%. Points only win if you'd have spent the money anyway and pay in full.</td></tr><tr><td><strong>Personalized Feeds</strong></td><td>Algorithms learn what you linger on and show you more of it at the moments you're most likely to buy.</td><td>Unfollow, mute, unsubscribe, and delete shopping apps from your phone.</td></tr></tbody></table></div>
+
+<h2>Mental Shortcuts That Cost You Money</h2>
+<h3>Mental Accounting</h3>
+<p>Economist Richard Thaler, who later won the Nobel Prize in economics, described how people put money into separate mental "buckets" and treat it differently depending on where it came from. A tax refund feels like "free money" and gets spent on things you'd never buy with paycheck money. But a dollar is a dollar. Refund money, bonus money, and birthday money all spend the same and can all build the same wealth.</p>
+<h3>Present Bias</h3>
+<p>Humans tend to overvalue what we get now and undervalue what we get later. $100 today feels much bigger than $100 in a retirement account for 30 years from now, even though that future $100 could be worth far more. This is why saving feels like losing and spending feels like winning. The fix is automation: decide once, while you're thinking clearly, and let the system protect you from present bias every payday.</p>
+<h3>Hedonic Adaptation</h3>
+<p>You met this in Module 1. The new car, new phone, and new couch stop feeling special within weeks or months. The payment doesn't adapt. Knowing this in advance helps you ask: "Will I still be glad I bought this in six months, after it's become normal?"</p>
+
+<h2>Designing Your Environment to Win</h2>
+<p>Since you can't change the tactics, change your exposure to them. This is called <strong>friction design</strong>: deliberately adding small obstacles between you and impulse spending, and removing obstacles between you and saving.</p>
+<ul>
+<li><strong>Delete saved cards</strong> from every shopping site and app. Typing in 16 digits restores some of the pain of paying.</li>
+<li><strong>Remove shopping apps</strong> from your phone's home screen, or delete them entirely.</li>
+<li><strong>Unsubscribe</strong> from retail emails and texts. Every promotion is a trigger you didn't ask for.</li>
+<li><strong>Use a cash or debit envelope</strong> for your most dangerous category. When the envelope is empty, the category is done.</li>
+<li><strong>Automate saving</strong> so it happens before you can spend, and make withdrawing from savings slightly inconvenient, such as keeping it at a separate bank.</li>
+</ul>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Jordan, College Student and Part-Time Retail Associate</div><div class="scenario-body"><h5>The Situation</h5><p>Jordan, 22, follows sneaker accounts and gets release notifications. When a limited drop hits with a countdown timer and "only a few pairs left," Jordan buys within minutes, often using buy now, pay later. Over one year: nine pairs of sneakers, about $1,600, plus two missed BNPL payments with late fees.</p>
+<h5>The Tactics at Work</h5><p>Artificial urgency (countdown timer), scarcity signals (limited drop), personalized feeds (notifications timed to release), and BNPL (split into four payments so each felt small). Jordan wasn't making nine decisions. Jordan was reacting to nine carefully designed triggers.</p>
+<h5>The Redesign</h5><p>Jordan turned off release notifications, removed saved payment info, deleted the BNPL app, and set a rule: one pair per quarter, planned in advance, paid in full with saved cash. Jordan also opened a separate savings account nicknamed "Sneaker Fund" and set a $30 weekly auto-transfer.</p>
+<h5>The Result</h5><p>Jordan bought three pairs the next year, all planned, all paid in cash, and loved every one of them more because each was chosen, not grabbed. The rest of the money built Jordan's first $1,000 emergency fund.</p></div></div>
+
+<div class="callout callout-action"><h4>Your Action Step: Build Your Friction Plan</h4><ol><li>Identify the three places you spend most impulsively (specific apps, stores, websites, or situations).</li>
+<li>For each, add at least two layers of friction from the list above.</li>
+<li>Unsubscribe from at least ten marketing emails or texts this week.</li>
+<li>Look at your last five purchases and identify which tactic, if any, influenced each one.</li></ol></div>
+
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Which shopping tactics work on you most often? Give a specific recent example.</label><textarea data-ref="lesson-4-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Where in your life has paying become so frictionless that you barely notice it?</label><textarea data-ref="lesson-4-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What friction will you add this week, and to which accounts, apps, or habits?</label><textarea data-ref="lesson-4-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="kc" data-kc="m4l1"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
+<div class="kc-q" data-correct="3" data-why="Credit cards reduce the pain of paying, which weakens the natural brake on spending. The same people valued the same tickets higher when payment felt less painful." data-hint="Reread the &#x27;Cards vs. Cash&#x27; research callout."><p class="kc-prompt"><span class="kc-num">1</span><span>In the Prelec and Simester experiment, what happened when participants were told they had to pay with a credit card instead of cash?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">They bid less because credit cards charge interest.</button><button type="button" class="kc-opt" data-i="1">They refused to participate.</button><button type="button" class="kc-opt" data-i="2">They bid the same amount because payment method doesn&#x27;t affect decisions.</button><button type="button" class="kc-opt" data-i="3">They bid significantly more for the same tickets, in some cases roughly double.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="The crossed-out $240 creates an anchor that makes $119 feel like a bargain, regardless of whether it fits her plan or whether it ever sold for $240." data-hint="Which tactic uses a reference price to make another price feel smaller?"><p class="kc-prompt"><span class="kc-num">2</span><span>Tiana sees a jacket marked &quot;Was $240, Now $119&quot; and buys it even though she hadn&#x27;t planned to. Which tactic influenced her most?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Free shipping threshold</button><button type="button" class="kc-opt" data-i="1">Mental accounting</button><button type="button" class="kc-opt" data-i="2">Hedonic adaptation</button><button type="button" class="kc-opt" data-i="3">Anchoring</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="A tax refund is often money you overpaid from your own paychecks. Mental accounting makes it feel like a bonus. Treating it like any other dollar opens up debt payoff, savings, or investing." data-hint="Reread the Mental Accounting section."><p class="kc-prompt"><span class="kc-num">3</span><span>Eric gets a $2,800 tax refund and spends it on a TV and a weekend trip, saying, &quot;It&#x27;s free money.&quot; Which concept explains his thinking?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Anchoring: the refund amount anchored his spending.</button><button type="button" class="kc-opt" data-i="1">Mental accounting: treating money differently based on where it came from, even though a dollar is a dollar.</button><button type="button" class="kc-opt" data-i="2">Present bias: he&#x27;d rather save it for later.</button><button type="button" class="kc-opt" data-i="3">Pain of paying: spending cash made him feel better.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="2" data-why="Friction design adds small obstacles between you and impulse spending. Removing saved cards and apps restores the pause where good decisions happen." data-hint="Which option makes spending slightly harder?"><p class="kc-prompt"><span class="kc-num">4</span><span>Which is the best example of friction design to reduce impulse spending?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Following more brands so you know when sales happen.</button><button type="button" class="kc-opt" data-i="1">Turning on one-click checkout to save time.</button><button type="button" class="kc-opt" data-i="2">Removing saved card numbers from shopping apps and deleting the apps from your home screen.</button><button type="button" class="kc-opt" data-i="3">Signing up for more rewards programs so you earn points on purchases.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="Present bias makes now feel bigger than later. Automation moves the saving decision out of the moment of temptation." data-hint="Reread the Present Bias section."><p class="kc-prompt"><span class="kc-num">5</span><span>Why is automation described as the fix for present bias?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Because it lets you decide once while thinking clearly, so saving happens before present-focused impulses can interfere.</button><button type="button" class="kc-opt" data-i="1">Because automated spending is cheaper than manual spending.</button><button type="button" class="kc-opt" data-i="2">Because automation guarantees higher investment returns.</button><button type="button" class="kc-opt" data-i="3">Because present bias only affects people who don&#x27;t use technology.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+</section>
+<section class="lesson" id="lesson-4-2"><span class="lesson-tag">Lesson 4.2</span>
+<h2 class="lesson-title">Stress, Boredom, and Reward Spending</h2><p class="lesson-subtitle">Three different reasons you spend. Three different solutions. One size fits none.</p><div class="gold-rule"></div>
+
+<p>In Module 1 you learned that emotions drive spending. Now we go deeper into the three drivers that cause the most damage in modern life: <strong>stress</strong>, <strong>boredom</strong>, and <strong>reward</strong>. They're the most common, the most frequent, and the most disguised. They can all look the same on a credit card statement. But they come from completely different places, which means they need completely different solutions.</p>
+<p>If you try to solve boredom spending with stress management, it won't work. If you try to solve reward spending by just "being more disciplined," you'll feel deprived and rebound. <strong>Diagnosing the right driver is half the cure.</strong></p>
+
+<div class="callout callout-truth"><h4>The Core Truth</h4><p>Stress spending is about relief. Boredom spending is about stimulation. Reward spending is about permission. <strong>Each one is meeting a real need, and each one can be met another way.</strong> When you match the solution to the driver, the urge loses its power.</p></div>
+
+<h2>Driver 1: Stress Spending</h2>
+<p><strong>What's happening:</strong> Something feels out of control, and spending gives you a quick hit of relief and a sense of control. The act of choosing and buying is soothing.</p>
+<p><strong>Common signs:</strong> Spending spikes after hard days, arguments, deadlines, bad news, or big life changes. Purchases are often fast and not researched. You may not even remember what you bought.</p>
+<p><strong>Replacement strategies:</strong></p>
+<ul>
+<li>Box breathing (from Module 3) the moment you notice the urge.</li>
+<li>A 10-minute walk. Physical movement is one of the most reliable ways to discharge stress.</li>
+<li>A "control list": three small, free things you can control right now (clean one surface, answer one email, prep tomorrow's lunch).</li>
+<li>Call or text one person you trust.</li>
+</ul>
+
+<h2>Driver 2: Boredom Spending</h2>
+<p><strong>What's happening:</strong> Your brain craves novelty and stimulation. Browsing and buying deliver both. Scrolling leads to shopping because the same apps that entertain you are designed to sell to you.</p>
+<p><strong>Common signs:</strong> Spending happens during downtime: late nights, lunch breaks, weekends with no plans, waiting rooms. You're often browsing without looking for anything specific. "I was just looking" turns into a purchase.</p>
+<p><strong>Replacement strategies:</strong></p>
+<ul>
+<li>Build a "boredom menu": a written list of ten free or low-cost activities you actually enjoy. When bored, pick from the menu.</li>
+<li>Set app time limits on shopping and social media apps during your high-risk hours.</li>
+<li>Replace scrolling with learning: a podcast, a book, a skill. Novelty without a price tag.</li>
+<li>Schedule your downtime so it isn't empty time.</li>
+</ul>
+
+<h2>Driver 3: Reward Spending</h2>
+<p><strong>What's happening:</strong> You feel you've earned something. This often connects to <strong>moral licensing</strong>, a pattern documented by psychologists including Benoit Monin and Dale Miller, where doing something good makes people feel entitled to indulge. "I stuck to my budget all week, so I deserve this." Ironically, success becomes the trigger for setbacks.</p>
+<p><strong>Common signs:</strong> Spending after paydays, promotions, finishing a big project, hitting a savings goal, or finishing a hard week. Phrases like "treat yourself," "I deserve it," and "I earned it."</p>
+<p><strong>Replacement strategies:</strong></p>
+<ul>
+<li><strong>Plan your rewards.</strong> Create a guilt-free "reward budget" every month. Rewards you plan don't derail you. Rewards you grab do.</li>
+<li>Use <strong>non-financial rewards</strong>: an afternoon off, time with people you love, a favorite free activity, sleeping in.</li>
+<li>Tie rewards to your goals: when you hit a savings milestone, reward yourself with something that costs a small, pre-set percentage of what you saved, never more.</li>
+</ul>
+
+<div class="callout callout-research"><h4>Retail Therapy Is Real, and So Is the Bill</h4><p>Research on "retail therapy" has found that shopping can genuinely improve mood in the short term, and that people often shop specifically to repair a bad mood. That's exactly why stress and boredom spending are so sticky: they work, briefly. The goal isn't to deny that. It's to find strategies that deliver the same relief, stimulation, or sense of reward without costing your future.</p></div>
+
+<h2>If-Then Plans: Your Most Powerful Tool</h2>
+<p>Psychologist Peter Gollwitzer's research on <strong>implementation intentions</strong> found that people who make specific "if-then" plans are significantly more likely to follow through on their goals than people who simply set the goal. The reason: the plan decides in advance, so you don't have to decide in the moment when your willpower is weakest.</p>
+<p>Format: <strong>"If [specific trigger], then I will [specific action]."</strong></p>
+<ul>
+<li>"If I open a shopping app after 9:00 p.m., then I'll close it, put my phone on the charger in the kitchen, and read for 15 minutes."</li>
+<li>"If I get paid, then I'll wait 24 hours before buying anything that isn't a bill or groceries."</li>
+<li>"If I have a stressful call with my supervisor, then I'll walk around the building before I do anything else."</li>
+<li>"If I feel like I deserve a reward, then I'll use my monthly reward budget or pick from my free reward list."</li>
+</ul>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Kevin, Warehouse Supervisor</div><div class="scenario-body"><h5>The Situation</h5><p>Kevin, 36, works long shifts and frequent doubles. He noticed that most of his online orders happened between 10:30 p.m. and 1:00 a.m. after work. He'd lie in bed, scroll, and buy: tools, gadgets, supplements, clothing. Roughly $500 to $700 a month. He called it "just unwinding."</p>
+<h5>Diagnosing the Driver</h5><p>His spending journal showed two drivers overlapping. After stressful shifts, it was <strong>stress spending</strong> (relief). On slow days off, it was <strong>boredom spending</strong> (stimulation). On paydays, it was <strong>reward spending</strong> ("I worked 60 hours, I've earned it"). Three drivers, one time slot.</p>
+<h5>The Solutions</h5><p>For stress: a 10-minute shower-and-stretch routine as soon as he got home. For boredom: he set app limits so shopping apps locked at 10:00 p.m., and he started an audiobook series he loved. For reward: a $120 monthly reward budget in a separate account, spent without guilt. His if-then plan: "If I'm in bed and reach for my phone, then I'll open my audiobook app, not a store."</p>
+<h5>The Result</h5><p>Kevin's late-night spending dropped to about $150 a month, including his reward budget. He redirected the difference to an emergency fund and, a year later, had enough saved to cover three months of essential expenses. He also said he was sleeping better, which made the stress smaller in the first place.</p></div></div>
+
+<div class="callout callout-action"><h4>Your Action Step: Build Your Trigger Map and If-Then Plans</h4><ol><li>Review your spending journal from Module 1 and your last 30 days of statements. Label each unplanned purchase as stress, boredom, or reward.</li>
+<li>Note when each type happens: time of day, day of week, location, and who you were with.</li>
+<li>Write at least three if-then plans, one for each driver that applies to you.</li>
+<li>Create your boredom menu of ten free activities.</li>
+<li>Set a monthly reward budget amount that fits your plan, and put it in a separate place.</li></ol></div>
+
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Which of the three drivers (stress, boredom, or reward) shows up most in your spending? Describe a specific example.</label><textarea data-ref="lesson-4-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. When and where do your highest-risk spending moments happen?</label><textarea data-ref="lesson-4-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Write your three if-then plans exactly as you&#x27;ll use them.</label><textarea data-ref="lesson-4-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="kc" data-kc="m4l2"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
+<div class="kc-q" data-correct="1" data-why="Downtime plus a phone plus no specific goal is classic boredom spending. A boredom menu or app time limits during that window fit the driver." data-hint="What need does idle downtime create?"><p class="kc-prompt"><span class="kc-num">1</span><span>Aaliyah notices she shops online almost every time she&#x27;s sitting in the pickup line at her kids&#x27; school, even when she&#x27;s in a good mood. Which driver is most likely?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Stress</button><button type="button" class="kc-opt" data-i="1">Boredom</button><button type="button" class="kc-opt" data-i="2">Reward</button><button type="button" class="kc-opt" data-i="3">Belonging</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="Moral licensing turns success into permission. A planned reward budget lets Victor celebrate without undoing three weeks of progress." data-hint="Reread the Reward Spending section."><p class="kc-prompt"><span class="kc-num">2</span><span>Victor stays under budget for three straight weeks, then spends $400 in one weekend saying, &quot;I&#x27;ve been so good, I earned this.&quot; Which concept explains it?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Moral licensing, where doing well makes people feel entitled to indulge</button><button type="button" class="kc-opt" data-i="1">The ostrich effect</button><button type="button" class="kc-opt" data-i="2">Hedonic adaptation</button><button type="button" class="kc-opt" data-i="3">Anchoring</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="An implementation intention names a specific trigger and a specific response. That&#x27;s what makes it work when willpower is low." data-hint="Look for the format: If [specific trigger], then I will [specific action]."><p class="kc-prompt"><span class="kc-num">3</span><span>Which of these is a properly formed if-then plan?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">&quot;If I get a notification about a sale, then I&#x27;ll delete the notification and add the item to a 48-hour list.&quot;</button><button type="button" class="kc-opt" data-i="1">&quot;Next month I&#x27;ll be better about impulse buys.&quot;</button><button type="button" class="kc-opt" data-i="2">&quot;I&#x27;ll try to spend less when I&#x27;m stressed.&quot;</button><button type="button" class="kc-opt" data-i="3">&quot;I&#x27;m not going to shop online anymore.&quot;</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="Boredom spending seeks novelty and stimulation. Calming techniques address relief, which isn&#x27;t what boredom needs. Match the tool to the driver." data-hint="Reread the opening and the Core Truth."><p class="kc-prompt"><span class="kc-num">4</span><span>Why does trying to fix boredom spending with stress management often fail?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Because each driver meets a different need, so the solution has to match the driver. Boredom needs stimulation, not calming.</button><button type="button" class="kc-opt" data-i="1">Because stress management techniques don&#x27;t work for anyone.</button><button type="button" class="kc-opt" data-i="2">Because boredom spending isn&#x27;t real.</button><button type="button" class="kc-opt" data-i="3">Because boredom spending only happens to young people.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="Planned rewards satisfy the need without breaking the plan. Unplanned rewards are where reward spending does damage." data-hint="Reread the reward replacement strategies."><p class="kc-prompt"><span class="kc-num">5</span><span>What is the purpose of a planned monthly reward budget?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">To avoid ever spending money on yourself.</button><button type="button" class="kc-opt" data-i="1">To give yourself unlimited spending once your bills are paid.</button><button type="button" class="kc-opt" data-i="2">To punish yourself when you go over budget.</button><button type="button" class="kc-opt" data-i="3">To meet the real need for reward in a planned, guilt-free way so rewards don&#x27;t derail your plan.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+</section>
+<section class="lesson" id="lesson-4-3"><span class="lesson-tag">Lesson 4.3</span>
+<h2 class="lesson-title">Convenience is Costing You More Than You Think</h2><p class="lesson-subtitle">Convenience isn't free. It's a premium you pay for not planning.</p><div class="gold-rule"></div>
+
+<p>We live in the most convenient economy in human history. Food shows up at your door. Rides appear in minutes. Anything you want can arrive tomorrow. Bills pay themselves. None of that is bad by itself. Convenience can genuinely improve your life.</p>
+<p>But convenience always has a price, and it's rarely the price on the screen. It's hidden in markups, fees, tips, interest, and most of all, frequency. <strong>The convenience economy makes its money from people who don't plan.</strong> Every time you're tired, rushed, or unprepared, there's an app waiting to charge you for it.</p>
+
+<div class="callout callout-truth"><h4>The Core Truth</h4><p>Convenience is a premium you pay for time, effort, or planning you didn't do. Sometimes that premium is worth it. Often it isn't. <strong>The problem isn't convenience. The problem is unexamined convenience that becomes a default.</strong></p></div>
+
+<h2>The Real Price of a Delivered Meal</h2>
+<p>Let's break down a meal that costs $18.00 if you pick it up at the restaurant. When ordered through a delivery app, the total often looks something like this (fees vary by app, restaurant, location, and membership):</p>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Item</th><th>Amount</th></tr></thead><tbody><tr><td>Menu price in store</td><td>$18.00</td></tr><tr><td>App menu price (restaurants often charge more on delivery apps)</td><td>$21.00</td></tr><tr><td>Service fee</td><td>$3.15</td></tr><tr><td>Delivery fee</td><td>$2.99</td></tr><tr><td>Sales tax on the higher price</td><td>$1.89</td></tr><tr><td>Tip for the driver</td><td>$5.00</td></tr><tr><td><strong>Total</strong></td><td><strong>$34.03</strong></td></tr></tbody></table></div>
+<p>In this example you paid <strong>$16.03 extra</strong>, nearly double, for delivery. Do that three times a week and it's about <strong>$2,500 a year</strong> in convenience premium alone.</p>
+
+<h2>Where Convenience Hides</h2>
+<ul>
+<li><strong>Food delivery and takeout:</strong> Markups, fees, and tips turn affordable meals into expensive ones.</li>
+<li><strong>Daily coffee and grab-and-go:</strong> Individually small, collectively large.</li>
+<li><strong>Rideshare instead of planning:</strong> Short trips that could have been walked, driven, or scheduled.</li>
+<li><strong>Convenience stores:</strong> Paying much more for the same items you could buy at the grocery store, because you didn't plan ahead.</li>
+<li><strong>Auto-renewals:</strong> Convenient for the company. You keep paying because canceling takes effort.</li>
+<li><strong>Stretched financing:</strong> Car loans stretched to 72 or 84 months make the monthly payment convenient while the total interest grows, and you may owe more than the car is worth for years.</li>
+<li><strong>Rent-to-own:</strong> Easy weekly payments that can add up to far more than the item's retail price.</li>
+<li><strong>Payday loans:</strong> The Consumer Financial Protection Bureau has noted that a typical two-week payday loan with a $15 fee per $100 borrowed works out to an annual percentage rate of almost 400%. It's convenient. It's also one of the most expensive forms of borrowing that exists.</li>
+</ul>
+
+<h2>Measure Convenience in Life Hours</h2>
+<p>Here's a way to feel the true cost. Convert every convenience expense into the hours of your life it took to earn it.</p>
+<div class="formula">Life Hours = Cost of Purchase / Your Take-Home Hourly Pay</div>
+<p>If you take home $22 an hour and spend $34 on a delivered meal, that dinner cost you about <strong>1.5 hours of work</strong>. If you spend $400 a month on delivery, that's about <strong>18 hours of your life every month</strong>, more than two full workdays, spent on the convenience premium and the food combined.</p>
+<p>Now ask: is that how you want to spend two workdays of your life each month?</p>
+
+<h2>Smart Convenience vs. Lazy Convenience</h2>
+<p>This lesson isn't anti-convenience. Some convenience is a smart investment. The question is whether it buys you something that matters.</p>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Smart Convenience</th><th>Default Convenience</th></tr></thead><tbody><tr><td>Paying for childcare so you can work more hours or build a business</td><td>Delivery four nights a week because there's no meal plan</td></tr><tr><td>A grocery pickup service that keeps you out of the store and away from impulse buys</td><td>Convenience store runs because you forgot to shop</td></tr><tr><td>Automatic bill pay that prevents late fees</td><td>Auto-renewing subscriptions you don't use</td></tr><tr><td>A rideshare home after a late night instead of driving tired</td><td>Rideshare for short trips out of habit</td></tr></tbody></table></div>
+<p>The test: <strong>Does this convenience give me back time or energy that I use for something more valuable than what it costs?</strong> If yes, it may be smart. If it just replaces planning, it's a leak.</p>
+
+<h2>Rebuild the System, Not Just the Habit</h2>
+<p>Most convenience spending isn't a willpower failure. It's a <strong>planning gap</strong>. You order delivery because it's 7:00 p.m., you're exhausted, and there's no plan for dinner. The fix is to build the system that removes the gap:</p>
+<ul>
+<li><strong>Sunday Setup:</strong> 60 to 90 minutes on Sunday to plan meals and prep for the week.</li>
+<li><strong>The Backup Meal:</strong> Keep two or three fast, cheap meals at home for nights when the plan falls apart.</li>
+<li><strong>The Go Bag:</strong> Water and snacks in your car or bag to eliminate convenience store stops.</li>
+<li><strong>Batch errands:</strong> Plan trips so rideshare becomes the exception.</li>
+<li><strong>Annual subscription review:</strong> Put a reminder on your calendar to review every subscription.</li>
+</ul>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: The Williams Family</div><div class="scenario-body"><h5>The Situation</h5><p>James and Keandra Williams both work full time and have three kids. They estimated their convenience spending at "maybe $300 a month." Their Convenience Audit told a different story.</p>
+<table class="rsm-table"><thead><tr><th>Convenience Category</th><th>Monthly</th></tr></thead><tbody>
+<tr><td>Food delivery and takeout</td><td>$420</td></tr>
+<tr><td>Grab-and-go lunches at work (both)</td><td>$220</td></tr>
+<tr><td>Coffee shop drinks</td><td>$150</td></tr>
+<tr><td>Rideshare</td><td>$140</td></tr>
+<tr><td>Convenience store stops</td><td>$110</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>$1,040</strong></td></tr>
+</tbody></table>
+<h5>The Reality Check</h5><p>$1,040 a month is $12,480 a year. At a hypothetical 7% average annual return, investing that amount monthly for 10 years could grow to roughly $180,000. That's an illustration, not a guarantee, but it made them sit up.</p>
+<h5>The Rebuild</h5><p>They didn't cut everything. They kept one family takeout night a week because it mattered to them (smart convenience). They started a Sunday Setup, packed lunches four days a week, bought a quality coffee maker, and kept a Go Bag in both cars. They set up a Backup Meal shelf in the pantry.</p>
+<h5>The Result</h5><p>Their convenience spending dropped to about $380 a month. They redirected $660 a month: $400 to pay off their car loan early and $260 into their children's education savings. Keandra said, "We didn't lose anything we cared about. We lost the stuff we didn't even notice."</p></div></div>
+
+<div class="callout callout-action"><h4>Your Action Step: Convenience Audit and Rebuild</h4><ol><li>Total your last 30 days of convenience spending by category using your statements.</li>
+<li>Calculate the annual cost and the life hours it represents.</li>
+<li>Label each category as Smart Convenience or Default Convenience.</li>
+<li>Keep one convenience you value. Cut or reduce two. Rebuild one system (Sunday Setup, Backup Meal, Go Bag, or batch errands).</li>
+<li>Redirect the savings automatically to a named goal.</li></ol></div>
+
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. What is your total monthly convenience spending, and how many life hours does it represent?</label><textarea data-ref="lesson-4-3_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which convenience is truly smart for your life, and which ones are just filling a planning gap?</label><textarea data-ref="lesson-4-3_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Which system will you rebuild first, and exactly when will you do it this week?</label><textarea data-ref="lesson-4-3_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="kc" data-kc="m4l3"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
+<div class="kc-q" data-correct="0" data-why="Convenience costs stack in layers. Each looks small, but together they can nearly double the price in an example like this one." data-hint="Review the delivery breakdown table."><p class="kc-prompt"><span class="kc-num">1</span><span>Using the delivery breakdown in this lesson, why did an $18 in-store meal cost about $34 through a delivery app?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Menu markups, service fees, delivery fees, higher sales tax, and a tip all stacked on top of the original price.</button><button type="button" class="kc-opt" data-i="1">Because delivery apps charge exactly double for every item.</button><button type="button" class="kc-opt" data-i="2">Because the restaurant raised prices for everyone that day.</button><button type="button" class="kc-opt" data-i="3">Because the food was higher quality through the app.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="Life Hours = Cost / Take-Home Hourly Pay. $300 / $25 = 12 hours, a workday and a half every month." data-hint="Divide the cost by the hourly take-home pay."><p class="kc-prompt"><span class="kc-num">2</span><span>Monica takes home $25 an hour and spends $300 a month on rideshare. How many life hours does that represent each month?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">3 hours</button><button type="button" class="kc-opt" data-i="1">25 hours</button><button type="button" class="kc-opt" data-i="2">7.5 hours</button><button type="button" class="kc-opt" data-i="3">12 hours</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="Smart convenience buys back time or energy that you invest in something worth more than its cost. The others fill planning gaps." data-hint="Apply the test: does this give back time or energy used for something more valuable?"><p class="kc-prompt"><span class="kc-num">3</span><span>Which is the best example of smart convenience?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Ordering delivery five nights a week because there&#x27;s never a plan for dinner.</button><button type="button" class="kc-opt" data-i="1">Keeping three streaming subscriptions you rarely use.</button><button type="button" class="kc-opt" data-i="2">Taking rideshare two blocks because it&#x27;s faster than walking.</button><button type="button" class="kc-opt" data-i="3">Paying for a few hours of childcare each week so you can build a side business that increases your income.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="A $15 fee on $100 for two weeks, annualized, is close to 400% APR. The convenience of fast cash makes it one of the most expensive borrowing options available." data-hint="Reread the payday loan item in &#x27;Where Convenience Hides.&#x27;"><p class="kc-prompt"><span class="kc-num">4</span><span>According to the CFPB, a typical two-week payday loan with a $15 fee per $100 borrowed works out to what approximate APR?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">About 36%</button><button type="button" class="kc-opt" data-i="1">About 15%</button><button type="button" class="kc-opt" data-i="2">About 100%</button><button type="button" class="kc-opt" data-i="3">Almost 400%</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="When there&#x27;s no dinner plan at 7:00 p.m., delivery wins. Systems like the Sunday Setup and Backup Meal close the gap so you don&#x27;t need willpower in the moment." data-hint="Reread &#x27;Rebuild the System, Not Just the Habit.&#x27;"><p class="kc-prompt"><span class="kc-num">5</span><span>Why does this lesson describe most convenience spending as a planning gap rather than a willpower failure?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Because convenience spending only happens on weekends.</button><button type="button" class="kc-opt" data-i="1">Because convenience purchases often happen when there&#x27;s no plan in place, so building a system removes the moment of temptation.</button><button type="button" class="kc-opt" data-i="2">Because willpower is unlimited if you try hard enough.</button><button type="button" class="kc-opt" data-i="3">Because people who plan never spend money on convenience.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+</section>
+<div class="module-complete" id="module-complete"><p class="lesson-eyebrow" style="color:#E8B84B">Module 4 Checkpoint</p><h2>Spending Psychology Assessment</h2><p>The Spending Psychology Assessment measures five drivers: stress, boredom, reward, convenience dependency, and social and status spending. You'll also calculate your personal convenience premium. Your report identifies your dominant spending driver, shows its financial impact, and gives you a targeted plan to break it.</p>
+<a class="btn btn-gold disabled" id="moduleNext" href="./advance-assess4.html">Begin the Spending Psychology Assessment</a><p class="lock-note" id="moduleLockNote"></p></div>
+<div class="lesson-nav"><a class="btn-prev" href="./advance-assess3.html">&#8592; Financial Data Literacy Quiz</a><span class="progress-label">Module 4 of 5</span><a class="btn-next" href="./advance-assess4.html">Spending Psychology Assessment &#8594;</a></div>
+</div>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
+<script>
+window.RSM_PAGE = {"id": "mod4", "type": "module", "kcs": ["m4l1", "m4l2", "m4l3"], "requires": [{"key": "a:a3", "label": "Financial Data Literacy Quiz", "href": "./advance-assess3.html"}]};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem('rsmadv_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem('rsmadv_' + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+</body>
+</html>

@@ -345,7 +345,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
       <div class="price-note">One time investment. Payment plan available.</div>
       <p class="hero-desc">This is the advanced level. Built for people who have completed the foundational work and are ready to go deeper. <strong>More advanced strategies. Higher accountability standards. Greater results.</strong> This program takes everything from the foundation and builds it into a complete wealth building system.</p>
       <div>
-        <a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank" class="btn-enroll">Enroll Now for &#36;497</a>
+        <a href="#enroll-form" class="btn-enroll">Enroll Now for &#36;497</a>
         <a href="https://dtrsm1990.github.io/rightsideofmoney/contact.html" class="btn-secondary">Ask a Question</a>
       </div>
     </div>
@@ -376,7 +376,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
         <p>Most people struggle financially not because they lack income but because they were never given the right foundation. <strong>Right Side of Money changes that.</strong> Every program is built from real experience, delivered with honesty, and designed to produce real results.</p>
         <p>This is not content you consume and forget. This is a system you implement. Every lesson, every module, and every action step is designed to move you forward in a measurable way.</p>
         <p><strong>Darrell Thompson personally designed every element of this program</strong> based on what he learned the hard way and what he has watched transform the financial lives of everyone who does the work.</p>
-        <a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank" class="btn-enroll" style="font-size:14px;padding:16px 36px;">Enroll Now for &#36;497</a>
+        <a href="#enroll-form" class="btn-enroll" style="font-size:14px;padding:16px 36px;">Enroll Now for &#36;497</a>
       </div>
       <div class="fade-up">
         <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">What You Will Learn</span></div>
@@ -413,6 +413,61 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
   </div>
 </section>
 
+<!-- PROGRAM CURRICULUM -->
+<style>
+.adv-curr{background:var(--navy);padding:100px 40px;position:relative;overflow:hidden;}
+.adv-curr-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+.adv-curr .sec-headline{color:#fff;}
+.adv-curr-lead{font-size:16px;line-height:1.8;color:rgba(255,255,255,0.7);max-width:760px;margin-bottom:44px;font-weight:300;}
+.adv-mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;}
+.adv-mod{background:rgba(255,255,255,0.04);border:1px solid rgba(201,148,26,0.25);border-top:3px solid var(--gold);border-radius:4px;padding:26px 24px;}
+.adv-mod-num{font-family:var(--font-impact);letter-spacing:2px;color:var(--gold);font-size:15px;}
+.adv-mod h3{font-family:var(--font-display);color:#fff;font-size:21px;line-height:1.25;margin:6px 0 14px;}
+.adv-mod ul{list-style:none;margin:0;padding:0;}
+.adv-mod li{font-size:14px;color:rgba(255,255,255,0.72);padding:6px 0 6px 22px;position:relative;line-height:1.5;border-bottom:1px solid rgba(255,255,255,0.06);}
+.adv-mod li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.adv-mod li.adv-assess{color:var(--gold-light);font-weight:500;}
+.adv-mod li.adv-assess::before{content:'\2605';}
+.adv-inc{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.adv-inc div{background:var(--gold);color:var(--navy);padding:20px;border-radius:2px;font-size:14px;line-height:1.5;}
+.adv-inc strong{display:block;font-family:var(--font-display);font-size:18px;margin-bottom:4px;}
+.adv-form{background:#fff;border-radius:6px;padding:36px 32px;text-align:left;box-shadow:0 18px 48px rgba(13,31,60,0.25);margin-top:10px;}
+.adv-form label{display:block;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(13,31,60,0.75);margin-bottom:6px;}
+.adv-form input[type=text],.adv-form input[type=email],.adv-form input[type=tel],.adv-form select,.adv-form textarea{width:100%;padding:13px 15px;border:2px solid #d0cfc8;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:15px;color:#1a1a1a;background:#fff;transition:border-color 0.2s;}
+.adv-form textarea{min-height:88px;resize:vertical;line-height:1.5;}
+.adv-form input:focus,.adv-form select:focus,.adv-form textarea:focus{outline:none;border-color:#C9941A;}
+.adv-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.adv-field{margin-bottom:16px;}
+.adv-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#444;line-height:1.5;margin:6px 0 18px;}
+.adv-check input{margin-top:3px;width:18px;height:18px;flex-shrink:0;accent-color:#0D1F3C;}
+.adv-submit{width:100%;background:#0D1F3C;color:#fff;border:none;border-radius:4px;padding:18px 24px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.adv-submit:hover{background:#C9941A;color:#0D1F3C;}
+.adv-note{font-size:12px;color:rgba(13,31,60,0.55);text-align:center;margin-top:10px;}
+.adv-err{color:#9b2226;font-weight:600;font-size:14px;margin-top:10px;text-align:center;}
+@media (max-width:768px){.adv-curr{padding:70px 24px;}.adv-row{grid-template-columns:1fr;}.adv-form{padding:26px 18px;}}
+</style>
+<section class="adv-curr">
+  <div class="adv-curr-inner">
+    <div class="eyebrow fade-up"><div class="eyebrow-line"></div><span class="eyebrow-text">The Complete Curriculum</span></div>
+    <h2 class="sec-headline fade-up">Five Modules. Fourteen Lessons. Six Assessments. One Changed Financial Life.</h2>
+    <p class="adv-curr-lead fade-up">Every lesson includes deep teaching grounded in behavioral finance and psychology research, real-life case studies, a required action step, guided reflection, and a scenario-based knowledge check with an 80% pass standard. Every module ends with a root-cause assessment that delivers a personalized professional report to you and to Darrell.</p>
+    <div class="adv-mods">
+      <div class="adv-mod fade-up"><div class="adv-mod-num">MODULE 1</div><h3>The Roots of Financial Stagnation</h3><ul><li>The Real Reason You Are Stuck Financially</li><li>Money Identity vs. Income</li><li>Emotional Patterns that Control Spending</li><li class="adv-assess">Foundation Knowledge Assessment</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">MODULE 2</div><h3>Breaking the Cycle of Avoidance</h3><ul><li>Why Avoidance is More Expensive than Mistakes</li><li>Awareness is not Self-Criticism</li><li>Shame, Fear, and Financial Paralysis</li><li class="adv-assess">Mindset and Fear Assessment</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">MODULE 3</div><h3>Operational Financial Reality</h3><ul><li>Guessing vs. Knowing Your Numbers</li><li>Facing Your Financial Reality Without Panic</li><li>Identifying Your Top Money Leaks</li><li class="adv-assess">Financial Data Literacy Quiz</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">MODULE 4</div><h3>The Psychology of Modern Spending</h3><ul><li>The Psychology of Spending</li><li>Stress, Boredom, and Reward Spending</li><li>Convenience is Costing You More Than You Think</li><li class="adv-assess">Spending Psychology Assessment</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">MODULE 5</div><h3>Accountability and Long-Term Success</h3><ul><li>Why Most People Quit at the Awareness Stage</li><li>Consistency Beats Motivation</li><li class="adv-assess">Course Review Quiz</li><li class="adv-assess">Final 90-Day Financial Mastery Exam</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">YOUR RESULT</div><h3>A Personal 90-Day Financial Mastery Plan</h3><ul><li>Day 1 baseline and final growth measurement</li><li>Your complete root-cause financial profile</li><li>Real-world case study analysis</li><li>Your written 90-day plan with automation and accountability</li><li class="adv-assess">Certificate of Completion</li></ul></div>
+    </div>
+    <div class="adv-inc">
+      <div class="fade-up"><strong>6 Personalized Reports</strong>Root-cause diagnosis, what it's costing you, and a 7-day and 30-day prescription after every module.</div>
+      <div class="fade-up"><strong>Your Real Numbers Analyzed</strong>Cash flow, savings rate, emergency runway, interest cost, and your primary pressure point.</div>
+      <div class="fade-up"><strong>Convenience Premium Calculator</strong>See exactly what convenience costs you in dollars and in hours of your life.</div>
+      <div class="fade-up"><strong>Yours to Keep</strong>One-time investment. No recurring fees. Come back to every lesson, tool, and assessment whenever you need it.</div>
+    </div>
+  </div>
+</section>
+
 <!-- DARRELL -->
 <section class="darrell-section">
   <div class="darrell-inner">
@@ -430,13 +485,81 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 </section>
 
 <!-- ENROLL CTA -->
-<div class="enroll-section">
-  <div class="enroll-inner fade-up">
-    <h2 class="enroll-headline">Ready to Get Started?</h2>
-    <p class="enroll-sub">The right side of money is not out of reach. It is just on the other side of the foundation you have not built yet. This program is that foundation. Take the next step right now.</p>
-    <a href="https://rightsideofmoney.wixforms.com/f/7449236242513790023" target="_blank" class="btn-enroll-dark">Enroll Now for &#36;497</a>
+<div class="enroll-section" id="enroll-form">
+  <div class="enroll-inner">
+    <h2 class="enroll-headline">Ready to Go Deeper?</h2>
+    <p class="enroll-sub">Complete your enrollment below. You'll be directed to a secure payment page to complete your $497 enrollment. Once payment is confirmed, Darrell will send your program access within 24 hours.</p>
+    <div id="enrollFormWrap">
+      <form id="enrollForm" class="adv-form" action="https://formspree.io/f/mbglqkyn" method="POST" novalidate>
+        <input type="hidden" name="course" value="RSM Advance Mindset, Financial Literacy and Accountability Program - $497" />
+        <input type="hidden" name="_subject" value="New Enrollment: RSM Advance Program ($497)" />
+        <div class="adv-row">
+          <div class="adv-field"><label for="advFirst">First Name</label><input type="text" id="advFirst" name="first_name" required autocomplete="given-name" /></div>
+          <div class="adv-field"><label for="advLast">Last Name</label><input type="text" id="advLast" name="last_name" required autocomplete="family-name" /></div>
+        </div>
+        <div class="adv-row">
+          <div class="adv-field"><label for="advEmail">Email Address</label><input type="email" id="advEmail" name="email" required autocomplete="email" /></div>
+          <div class="adv-field"><label for="advPhone">Phone Number</label><input type="tel" id="advPhone" name="phone" required autocomplete="tel" /></div>
+        </div>
+        <div class="adv-row">
+          <div class="adv-field"><label for="advCity">City and State</label><input type="text" id="advCity" name="city_state" required autocomplete="address-level2" /></div>
+          <div class="adv-field"><label for="advPrior">Your RSM Experience</label><select id="advPrior" name="rsm_experience" required><option value="">Choose one</option><option>Completed the RSM MFA Foundation Course</option><option>Completed another RSM program or challenge</option><option>Read Creating A Wealth Building Mindset</option><option>New to Right Side of Money</option></select></div>
+        </div>
+        <div class="adv-field"><label for="advGoal">Your number one financial goal for the next 90 days</label><textarea id="advGoal" name="goal_90_days" required></textarea></div>
+        <div class="adv-field"><label for="advObstacle">What's the biggest thing holding you back financially right now?</label><textarea id="advObstacle" name="biggest_obstacle" required></textarea></div>
+        <div class="adv-field"><label for="advWhy">Why is now the right time for you to go deeper?</label><textarea id="advWhy" name="why_now" required></textarea></div>
+        <div class="adv-row">
+          <div class="adv-field"><label for="advTime">Time you can commit each week</label><select id="advTime" name="weekly_time" required><option value="">Choose one</option><option>2 to 3 hours</option><option>3 to 5 hours</option><option>5 or more hours</option></select></div>
+          <div class="adv-field"><label for="advPay">Payment preference</label><select id="advPay" name="payment_preference" required><option value="">Choose one</option><option>Pay in full ($497)</option><option>I'd like to discuss a payment plan</option></select></div>
+        </div>
+        <div class="adv-field"><label for="advRef">How did you hear about this program?</label><select id="advRef" name="referral_source" required><option value="">Choose one</option><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>YouTube</option><option>RSM Wealth Builders community</option><option>The book</option><option>A speaking event</option><option>Referred by a friend or family member</option><option>Email from Darrell</option><option>Other</option></select></div>
+        <label class="adv-check" style="text-transform:none;letter-spacing:0;font-weight:400;"><input type="checkbox" name="commitment" value="Agreed" required /><span>I commit to completing every lesson, action step, and assessment in order. I understand this program is financial education and isn't individualized financial, legal, tax, or mental health advice.</span></label>
+        <button type="submit" class="adv-submit">Submit and Proceed to Payment</button>
+        <p class="adv-note">Your information is kept private and never sold.</p>
+        <div class="adv-err" id="advErr"></div>
+      </form>
+    </div>
+    <div id="enrollConfirm" class="adv-form" style="display:none;text-align:center;">
+      <div style="font-size:2.5rem;color:#C9941A;margin-bottom:0.5rem;">&#10003;</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#0D1F3C;margin-bottom:0.75rem;">You're almost in!</h3>
+      <p style="font-size:1rem;color:rgba(13,31,60,0.75);margin-bottom:1.5rem;line-height:1.6;">Your enrollment has been received. Click below to complete your $497 payment and lock in your spot.</p>
+      <a href="https://pay.bluevine.com/p/a39ac34b5f964e02b08c1d497c199d4d" target="_blank" rel="noopener" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:4px;">Complete Payment: $497 &#8594;</a>
+      <p id="planNote" style="display:none;font-size:0.9rem;color:#0D1F3C;margin-top:1.2rem;line-height:1.6;"><strong>You asked about a payment plan.</strong> Darrell will reach out within 24 hours to set it up with you. You don't need to pay in full right now.</p>
+      <p style="font-size:0.8rem;color:rgba(13,31,60,0.5);margin-top:1rem;">Secure payment powered by BlueVine. Once payment is confirmed, Darrell will send your program access within 24 hours.</p>
+    </div>
   </div>
 </div>
+<script>
+(function(){
+  var form = document.getElementById('enrollForm'); if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = document.getElementById('advErr'); err.textContent = '';
+    var bad = [];
+    form.querySelectorAll('[required]').forEach(function(el){
+      var ok = el.type === 'checkbox' ? el.checked : el.value.trim() !== '';
+      if (el.type === 'email' && ok) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      el.style.borderColor = ok ? '' : '#9b2226';
+      if (!ok) bad.push(el);
+    });
+    if (bad.length){ err.textContent = 'Please complete every field' + (bad.some(function(b){ return b.type === 'checkbox'; }) ? ' and check the commitment box' : '') + '.'; bad[0].focus(); return; }
+    var btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Submitting...'; btn.disabled = true;
+    var fd = new FormData(form);
+    fd.append('_replyto', document.getElementById('advEmail').value.trim());
+    fetch(form.action, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(res){
+      if (!res.ok) throw new Error('bad');
+      document.getElementById('enrollFormWrap').style.display = 'none';
+      document.getElementById('enrollConfirm').style.display = 'block';
+      if (document.getElementById('advPay').value.indexOf('payment plan') > -1) document.getElementById('planNote').style.display = 'block';
+      document.getElementById('enroll-form').scrollIntoView({behavior: 'smooth'});
+    }).catch(function(){
+      btn.textContent = 'Submit and Proceed to Payment'; btn.disabled = false;
+      err.textContent = 'Something went wrong. Please try again or email info@rightsideofmoney.com.';
+    });
+  });
+})();
+</script>
 
 <!-- FOOTER -->
 <footer>

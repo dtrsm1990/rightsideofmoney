@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Financial Data Literacy Quiz | RSM Advance Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Advance Mindset, Financial Literacy &amp; Accountability Program</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">Advance Program</div><nav>
+<a href="./advance-portal.html" class="" data-done="baseline">Program Portal</a>
+<div class="sidebar-group">Module 1</div>
+<a href="./advance-mod1.html" class="" data-done="kc:m1l1,kc:m1l2,kc:m1l3">The Roots of Financial Stagnation</a>
+<a href="./advance-assess1.html" class="sub" data-done="a:a1">Foundation Knowledge Assessment</a>
+<div class="sidebar-group">Module 2</div>
+<a href="./advance-mod2.html" class="" data-done="kc:m2l1,kc:m2l2,kc:m2l3">Breaking the Cycle of Avoidance</a>
+<a href="./advance-assess2.html" class="sub" data-done="a:a2">Mindset and Fear Assessment</a>
+<div class="sidebar-group">Module 3</div>
+<a href="./advance-mod3.html" class="" data-done="kc:m3l1,kc:m3l2,kc:m3l3">Operational Financial Reality</a>
+<a href="./advance-assess3.html" class="sub active" data-done="a:a3">Financial Data Literacy Quiz</a>
+<div class="sidebar-group">Module 4</div>
+<a href="./advance-mod4.html" class="" data-done="kc:m4l1,kc:m4l2,kc:m4l3">The Psychology of Modern Spending</a>
+<a href="./advance-assess4.html" class="sub" data-done="a:a4">Spending Psychology Assessment</a>
+<div class="sidebar-group">Module 5</div>
+<a href="./advance-mod5.html" class="" data-done="kc:m5l1,kc:m5l2">Accountability and Long-Term Success</a>
+<a href="./advance-assess5.html" class="sub" data-done="ap:a5">Course Review Quiz</a>
+<div class="sidebar-group">Final</div>
+<a href="./advance-final-exam.html" class="" data-done="ap:final">Final 90-Day Financial Mastery Exam</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="a-intro"><div class="module-hero"><p class="lesson-eyebrow">Module 3 Assessment</p><h1>Financial Data Literacy Quiz</h1><p>This quiz proves you can work the numbers, then puts your own numbers to work. You'll receive a personalized analysis of your cash flow, savings rate, emergency runway, interest cost, and your primary financial pressure point, with specific 90-day targets. Have your Core 8 page and your Leak Audit in front of you. Plan for 30 to 40 minutes.</p></div></div>
+<form id="assessForm" novalidate>
+<div class="a-section"><div class="a-section-head"><h3>Participant Information</h3><p>Your report is prepared under this name and sent to this email address and to Darrell.</p></div><div class="a-body"><div class="a-field"><div class="grid2"><div><label>First Name</label><input type="text" id="pFirst" autocomplete="given-name" /></div><div><label>Last Name</label><input type="text" id="pLast" autocomplete="family-name" /></div></div></div><div class="a-field"><label>Email Address</label><input type="email" id="pEmail" autocomplete="email" /></div></div></div>
+<div class="a-section"><div class="a-section-head"><h3>Part 1: Calculation and Knowledge</h3><p>Ten real-world calculation and scenario questions. You need 80% (8 of 10) to unlock Module 4. A calculator is allowed and encouraged.</p></div><div class="a-body"><div class="aq-mc" data-correct="2" data-topic="Lesson 3.1" data-q="Darnell takes home $4,600 a month and pays $1,650 in rent. About what share of his take-home goes to housing?" data-why="$1,650 / $4,600 = 0.359, or about 36%. That&#x27;s above the roughly 35% of take-home that often signals a housing squeeze." data-hint="Lesson 3.1, Two Ratios That Tell the Truth Fast"><p class="kc-prompt"><span class="kc-num">1</span><span>Darnell takes home $4,600 a month and pays $1,650 in rent. About what share of his take-home goes to housing?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">About 28%</button><button type="button" class="kc-opt" data-i="1">About 46%</button><button type="button" class="kc-opt" data-i="2">About 36%</button><button type="button" class="kc-opt" data-i="3">About 16%</button></div></div><div class="aq-mc" data-correct="3" data-topic="Lesson 3.1" data-q="Sonia has a $12,000 credit card balance at 19.9% APR. What&#x27;s her approximate monthly interest cost?" data-why="$12,000 x 0.199 = $2,388 a year. Divided by 12, that&#x27;s about $199 a month. The $2,388 option is the yearly cost." data-hint="Lesson 3.1, Monthly Interest Cost formula"><p class="kc-prompt"><span class="kc-num">2</span><span>Sonia has a $12,000 credit card balance at 19.9% APR. What&#x27;s her approximate monthly interest cost?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">About $60</button><button type="button" class="kc-opt" data-i="1">About $2,388</button><button type="button" class="kc-opt" data-i="2">About $119</button><button type="button" class="kc-opt" data-i="3">About $199</button></div></div><div class="aq-mc" data-correct="3" data-topic="Lesson 3.1" data-q="Lamar takes home $5,000 a month and automatically saves $350. What&#x27;s his savings rate?" data-why="$350 / $5,000 x 100 = 7%. A solid start with room to grow toward 10% or more." data-hint="Lesson 3.1, Savings Rate formula"><p class="kc-prompt"><span class="kc-num">3</span><span>Lamar takes home $5,000 a month and automatically saves $350. What&#x27;s his savings rate?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">35%</button><button type="button" class="kc-opt" data-i="1">14%</button><button type="button" class="kc-opt" data-i="2">3.5%</button><button type="button" class="kc-opt" data-i="3">7%</button></div></div><div class="aq-mc" data-correct="1" data-topic="Lesson 3.1" data-q="Janelle has $6,000 in emergency savings and $3,000 in monthly essential expenses. What&#x27;s her emergency runway?" data-why="$6,000 / $3,000 = 2 months. She&#x27;s past the first milestone and building toward the common three-to-six month guideline." data-hint="Lesson 3.1, Emergency Runway formula"><p class="kc-prompt"><span class="kc-num">4</span><span>Janelle has $6,000 in emergency savings and $3,000 in monthly essential expenses. What&#x27;s her emergency runway?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">6 months</button><button type="button" class="kc-opt" data-i="1">2 months</button><button type="button" class="kc-opt" data-i="2">3 months</button><button type="button" class="kc-opt" data-i="3">Half a month</button></div></div><div class="aq-mc" data-correct="0" data-topic="Lesson 3.1" data-q="Kim owns a car worth $12,000, has $21,000 in retirement savings and $5,000 in cash. She owes $46,000 in student loans and car debt. What&#x27;s her net worth?" data-why="Assets: $12,000 + $21,000 + $5,000 = $38,000. Liabilities: $46,000. Net worth: $38,000 minus $46,000 = negative $8,000. A starting line, not a verdict." data-hint="Lesson 3.1, Net Worth formula"><p class="kc-prompt"><span class="kc-num">5</span><span>Kim owns a car worth $12,000, has $21,000 in retirement savings and $5,000 in cash. She owes $46,000 in student loans and car debt. What&#x27;s her net worth?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Negative $8,000</button><button type="button" class="kc-opt" data-i="1">Positive $8,000</button><button type="button" class="kc-opt" data-i="2">Negative $46,000</button><button type="button" class="kc-opt" data-i="3">Positive $38,000</button></div></div><div class="aq-mc" data-correct="3" data-topic="Lesson 3.1" data-q="Over the last six months, Troy&#x27;s commission income was $3,100, $4,800, $3,900, $5,200, $3,300, and $4,400. What should he use as his monthly planning baseline?" data-why="With variable income, plan on the floor so essentials are covered in slow months. Anything above the floor gets assigned a job in advance." data-hint="Lesson 3.1, Monthly Take-Home Income"><p class="kc-prompt"><span class="kc-num">6</span><span>Over the last six months, Troy&#x27;s commission income was $3,100, $4,800, $3,900, $5,200, $3,300, and $4,400. What should he use as his monthly planning baseline?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">$4,117, his average, with no adjustment</button><button type="button" class="kc-opt" data-i="1">$0, because commission income can&#x27;t be planned</button><button type="button" class="kc-opt" data-i="2">$5,200, his best month</button><button type="button" class="kc-opt" data-i="3">About $3,100, his lowest typical month</button></div></div><div class="aq-mc" data-correct="3" data-topic="Lesson 3.3" data-q="Rita pays for four subscriptions: $12.99, $15.49, $9.99, and $17.99 a month. What&#x27;s the approximate annual cost?" data-why="Monthly total: $56.46. Times 12 = $677.52. Annualizing turns forgettable charges into a clear decision." data-hint="Lesson 3.3, The Power of Annualizing"><p class="kc-prompt"><span class="kc-num">7</span><span>Rita pays for four subscriptions: $12.99, $15.49, $9.99, and $17.99 a month. What&#x27;s the approximate annual cost?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">About $1,356</button><button type="button" class="kc-opt" data-i="1">About $56</button><button type="button" class="kc-opt" data-i="2">About $226</button><button type="button" class="kc-opt" data-i="3">About $678</button></div></div><div class="aq-mc" data-correct="1" data-topic="Lesson 3.1" data-q="Victor&#x27;s minimum debt payments are a $450 car payment, $300 on credit cards, and $150 on student loans. He takes home $4,500. What&#x27;s his debt payment ratio?" data-why="$450 + $300 + $150 = $900. $900 / $4,500 = 20%. That&#x27;s high enough to squeeze savings and flexibility." data-hint="Lesson 3.1, Debt Payment Ratio"><p class="kc-prompt"><span class="kc-num">8</span><span>Victor&#x27;s minimum debt payments are a $450 car payment, $300 on credit cards, and $150 on student loans. He takes home $4,500. What&#x27;s his debt payment ratio?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">6.7%</button><button type="button" class="kc-opt" data-i="1">20%</button><button type="button" class="kc-opt" data-i="2">30%</button><button type="button" class="kc-opt" data-i="3">10%</button></div></div><div class="aq-mc" data-correct="1" data-topic="Lesson 3.2" data-q="During a Calm Review, Deborah finds these Red items: a water shutoff notice, a department store card 60 days late, and a gym membership in collections. Using essentials-first triage, what comes first?" data-why="Utilities are one of the four essentials (shelter, food, utilities, transportation). Protect essentials first, then sequence the others with one next action each." data-hint="Lesson 3.2, Triage Red Items With Essentials First"><p class="kc-prompt"><span class="kc-num">9</span><span>During a Calm Review, Deborah finds these Red items: a water shutoff notice, a department store card 60 days late, and a gym membership in collections. Using essentials-first triage, what comes first?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">The department store card</button><button type="button" class="kc-opt" data-i="1">The water shutoff notice</button><button type="button" class="kc-opt" data-i="2">The gym membership collection</button><button type="button" class="kc-opt" data-i="3">All three equally, paid a little each</button></div></div><div class="aq-mc" data-correct="3" data-topic="Lesson 3.3" data-q="Using the lesson&#x27;s illustration, a $200 monthly leak redirected and invested at a hypothetical 7% average annual return for 10 years could grow to roughly how much?" data-why="$200 a month for 10 years is $24,000 in contributions. At a hypothetical 7% average annual return, compounding brings it to roughly $34,600. The difference is what a leak really costs." data-hint="Lesson 3.3, The Power of Annualizing"><p class="kc-prompt"><span class="kc-num">10</span><span>Using the lesson&#x27;s illustration, a $200 monthly leak redirected and invested at a hypothetical 7% average annual return for 10 years could grow to roughly how much?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">About $24,000</button><button type="button" class="kc-opt" data-i="1">About $2,400</button><button type="button" class="kc-opt" data-i="2">About $140,000</button><button type="button" class="kc-opt" data-i="3">About $34,600</button></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part 2: Your Core Numbers</h3><p>Enter your real monthly numbers. Your report will calculate your ratios, runway, interest cost, and primary pressure point. Your figures are sent only to Darrell with your report.</p></div><div class="a-body"><div class="a-field"><label>Monthly take-home income</label><p class="hint">What actually hits your bank account each month. If it varies, use your lowest typical month.</p><input type="number" min="0" step="any" data-num="takehome" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Monthly housing cost</label><p class="hint">Rent or mortgage payment, including any HOA fees.</p><input type="number" min="0" step="any" data-num="housing" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Other fixed monthly bills</label><p class="hint">Utilities, insurance, phone, internet, childcare, and similar bills. Don't include debt payments.</p><input type="number" min="0" step="any" data-num="fixed" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Essential variable spending</label><p class="hint">Monthly average for groceries, gas, and transportation.</p><input type="number" min="0" step="any" data-num="essvar" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Discretionary spending</label><p class="hint">Monthly average for eating out, delivery, shopping, entertainment, subscriptions, and personal spending.</p><input type="number" min="0" step="any" data-num="disc" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Total minimum debt payments</label><p class="hint">Car loans, credit cards, student loans, personal loans. Don't include your mortgage. Enter 0 if none.</p><input type="number" min="0" step="any" data-num="minpay" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Total debt balance (excluding mortgage)</label><p class="hint">Everything you owe except a mortgage. Enter 0 if none.</p><input type="number" min="0" step="any" data-num="debt" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Average interest rate on that debt (%)</label><p class="hint">Estimate a weighted average. Example: enter 18 for 18%. Enter 0 if no debt.</p><input type="number" min="0" step="any" data-num="apr" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Monthly amount saved and invested</label><p class="hint">Include retirement contributions from your paycheck, automatic transfers, and investing. Enter 0 if none.</p><input type="number" min="0" step="any" data-num="saving" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Current emergency savings</label><p class="hint">Cash you could access within a few days without selling investments.</p><input type="number" min="0" step="any" data-num="emergency" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Your top three money leaks, combined monthly total</label><p class="hint">From your Leak Audit in Lesson 3.3.</p><input type="number" min="0" step="any" data-num="leaks" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Where did these numbers come from?</label><p class="hint">Be honest. This affects how your report reads.</p><select data-sel="conf"><option value="">Choose one</option><option value="verified">Verified from 90 days of statements</option><option value="estimated">Mostly estimated</option><option value="guessed">Mostly guessed</option></select></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part 3: Written Analysis</h3><p>Connect your numbers to your patterns.</p></div><div class="a-body"><div class="a-field"><label>Which of your numbers surprised you most, and what does it reveal about a pattern from Modules 1 or 2?</label><p class="hint">Name the number and the pattern. Minimum 30 words.</p><textarea data-text="w1" data-label="Which of your numbers surprised you most, and what does it reveal about a pattern from Modules 1 or 2?" data-min="30"></textarea><div class="wc"></div></div><div class="a-field"><label>List your top three leaks and exactly how you&#x27;ll plug and redirect each one.</label><p class="hint">Use Cancel, Reduce, Replace, Renegotiate, and Redirect. Minimum 30 words.</p><textarea data-text="w2" data-label="List your top three leaks and exactly how you&#x27;ll plug and redirect each one." data-min="30"></textarea><div class="wc"></div></div></div></div>
+<div class="submit-box"><p>When you submit, your personal report appears on this page and a copy is sent to Darrell Thompson. Take your time. Honest answers produce an accurate report. There are no right answers in the diagnostic sections, only true ones.</p><button type="submit" class="btn btn-gold" style="font-size:1rem;padding:1rem 2.4rem">Submit and Generate My Report</button><div class="form-error" id="formError"></div></div>
+</form>
+<div id="report" class="report"></div>
+</div>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
+<script>
+window.RSM_PAGE = {id: "assess3", type: "assessment", requires: [{"key": "kc:m3l1", "label": "Lesson 3.1 Knowledge Check", "href": "./advance-mod3.html#lesson-3-1"}, {"key": "kc:m3l2", "label": "Lesson 3.2 Knowledge Check", "href": "./advance-mod3.html#lesson-3-2"}, {"key": "kc:m3l3", "label": "Lesson 3.3 Knowledge Check", "href": "./advance-mod3.html#lesson-3-3"}], assessment: {id: "a3", name: "Financial Data Literacy Quiz", analyze: function(d, H){
+  var PP = {"cashflow": {"name": "Cash Flow Gap", "short": "You're spending more than you bring in each month, and the gap is likely being covered by credit or savings.", "what": "Your monthly outflow is larger than your take-home income. That means every month, something is filling the gap: a credit card, a loan, savings, or late payments. It isn't always visible because the bills still get paid, but your debt is quietly growing or your cushion is quietly shrinking.", "why": "A negative cash flow is the root that feeds almost every other financial problem. Until it's closed, paying down debt or building savings is like bailing water from a boat with a hole in it. This is priority one.", "rx": ["Within 7 days, list every discretionary expense from your last 30 days and mark each one Keep, Cut, or Reduce.", "Close the gap with the three biggest cuts first. Leaks and convenience spending are usually the fastest wins.", "Freeze new charges on credit cards while the gap exists. Use debit or cash for variable spending.", "Hold a Weekly Money Meeting and track whether you finished each week positive or negative.", "Once positive, send every dollar of surplus to your emergency fund until you reach $1,000."]}, "runway": {"name": "Thin Emergency Runway", "short": "Your emergency savings would cover less than one month of essential expenses.", "what": "If your income stopped or a large expense hit tomorrow, your savings would run out in less than a month. That means ordinary life events, like a car repair, a medical bill, or a slow month, are likely to push you onto credit cards or into late payments.", "why": "Without a cushion, every surprise becomes debt, and debt becomes interest. A thin runway also keeps your nervous system on high alert, which makes emotional and avoidance patterns stronger. Building runway is how you break the cycle of emergencies.", "rx": ["Set up an automatic transfer to a separate emergency savings account on every payday, even $25.", "Redirect your top plugged leak straight into emergency savings.", "Set your first milestone at $1,000 or one month of essentials, whichever is smaller.", "Sell one thing you no longer use and deposit the full amount.", "Keep emergency savings at a different bank than your checking account to add healthy friction."]}, "debt": {"name": "Debt Drag", "short": "Interest and debt payments are consuming a large share of your income.", "what": "A significant part of your monthly income is going to debt payments and interest, money that buys nothing new and builds nothing for your future. Your interest cost alone is effectively a bill you pay for past decisions.", "why": "High-interest debt works like compound growth in reverse. Every month it stays, it charges you again. Reducing it frees up cash flow permanently and delivers a guaranteed return equal to the interest rate you stop paying.", "rx": ["List every debt with balance, minimum, and APR. Circle the highest APR.", "Pay minimums on everything and put every extra dollar toward the highest-APR debt (or the smallest balance first if you need quick wins for motivation).", "Call your highest-rate card issuer and ask for a lower rate or a hardship program.", "Stop adding new balances: remove saved cards and use debit for variable spending.", "When one debt is paid, roll its full payment into the next one."]}, "housing": {"name": "Housing Squeeze", "short": "Housing is taking a larger share of your income than most budgets can comfortably handle.", "what": "A large share of your take-home income goes to housing. When housing is this high, every other category gets squeezed, which makes saving, investing, and absorbing surprises much harder.", "why": "Housing is usually your largest expense and the hardest to change quickly. But it's also where the biggest long-term gains are possible. Even modest changes can free up hundreds of dollars a month.", "rx": ["Calculate your housing ratio each month and track it as your income changes.", "Research options at your next renewal: negotiating rent, a roommate, a different unit, or a move closer to work to cut transportation costs.", "If you own, look into whether your property tax, insurance, or mortgage terms can be improved.", "Protect other categories: keep discretionary spending especially lean while housing is high.", "Focus on income growth. Raising income is often the fastest way to lower the housing ratio."]}, "leaks": {"name": "Leak Pattern", "short": "Your top leaks and discretionary spending are taking a large share of your income.", "what": "A meaningful percentage of your income is flowing out through leaks: subscriptions, convenience, fees, and discretionary spending that doesn't match your goals. Individually small, together they're one of your biggest expenses.", "why": "Leaks are the fastest money you can recover. Plugging them requires no raise, no second job, and no permission from anyone. The key is redirecting the money the same day you plug the leak.", "rx": ["Complete the full Leak Audit from Lesson 3.3 using 90 days of statements.", "Cancel or reduce your top three leaks within 7 days.", "Set an automatic Redirect for the exact amount plugged.", "Add a 48-hour rule to all discretionary purchases over $50.", "Schedule a quarterly subscription review on your calendar."]}, "system": {"name": "No Pay-Yourself-First System", "short": "You're saving less than 5% of your income, so your future is getting whatever is left over.", "what": "Less than 5% of your take-home is going to savings and investing. That usually means saving happens only if there's money left, and there rarely is.", "why": "Your savings rate is the engine of every long-term goal. Without it, you depend on windfalls that may never come. Automating even a small percentage changes the direction of your entire financial life.", "rx": ["Automate a transfer of at least 1% to 3% of take-home on every payday, starting this week.", "Increase it by 1% every 60 to 90 days, or every time you get a raise.", "If your employer offers a retirement match, contribute enough to get the full match.", "Name your savings account after its purpose.", "Treat savings like a bill: it gets paid before discretionary spending."]}, "tracking": {"name": "Tracking Gap", "short": "Some of your numbers were estimated or guessed rather than verified from statements.", "what": "Some or all of the numbers you entered weren't pulled from statements. That means your analysis is directional, not exact, and guesses tend to underestimate spending.", "why": "Every decision you make is only as good as the numbers underneath it. Moving from guessing to knowing is the single most important operational upgrade in this program.", "rx": ["Download 90 days of statements from every account this week.", "Recalculate your Core 8 from real data and update your Core 8 page.", "Compare your verified numbers to what you entered here and note the differences.", "Use a spreadsheet or budgeting app that pulls transactions automatically.", "Update your Core 8 monthly as part of your monthly review."]}};
+  var O = {"passMsg": "<p>You can work the numbers: interest cost, savings rate, runway, ratios, net worth, and annualized leaks. That skill is permanent. You'll use it for the rest of your financial life.</p>", "failMsg": "<p>Some calculations need more practice. The questions below point you to the formulas to review. Financial data literacy is a skill, and skills improve with repetition. You'll need 80% (8 of 10) to open Module 4.</p>", "conf": {"verified": "You pulled your numbers from real statements. That makes this analysis reliable. Keep your Core 8 updated monthly and you'll always know exactly where you stand.", "estimated": "Your numbers are mostly estimates. The analysis is directional, and estimates usually run lower than reality, especially for variable spending. Verify your numbers from 90 days of statements this week and run this analysis again for an exact picture.", "guessed": "Your numbers are mostly guesses. That's honest, and it's also the most important finding in this report. Before anything else, pull 90 days of statements and build your Core 8 from real data. Most people discover their spending is higher than they thought."}, "writtenIntro": "These are your own words. Read them next to your numbers. A follow-up question is included for each one.", "follow": {"w1": "What decision would you make differently this month now that you know this number?", "w2": "What date this week will you make the first redirect, and where will the money go?"}, "nextMsg": "<p>You know your numbers now. Module 4 goes after the forces working against them: the psychology of modern spending, your personal spending drivers, and the true cost of convenience.</p>", "nextHref": "./advance-mod4.html", "nextLabel": "Continue to Module 4", "refs": {"lesson-3-1_0": "Lesson 3.1: Before looking at any statements, write down what you think you spend in a typical month. Then, after reviewing 90 days of statements, write the real number and the difference.", "lesson-3-1_1": "Lesson 3.1: Which of the Core 8 numbers did you not know before this lesson? Why do you think you never tracked it?", "lesson-3-1_2": "Lesson 3.1: What did your real numbers reveal that surprised you most, and how did you feel when you saw it?", "lesson-3-2_0": "Lesson 3.2: How did your body react when you looked at your full financial picture? Describe it specifically.", "lesson-3-2_1": "Lesson 3.2: List your Red items and the one next action you wrote for each.", "lesson-3-2_2": "Lesson 3.2: What story did panic tell you about your numbers, and what does the calm, sorted version say instead?", "lesson-3-3_0": "Lesson 3.3: List your top three money leaks with their monthly and annual cost.", "lesson-3-3_1": "Lesson 3.3: Which leak was hardest to admit, and what need or feeling is it connected to?", "lesson-3-3_2": "Lesson 3.3: Where will you redirect the money you plug, and when will that automatic transfer start?"}};
+  var n = d.num, passed = d.mc.pct >= 80;
+  var ti = n.takehome || 0;
+  var essentials = n.housing + n.fixed + n.essvar + n.minpay;
+  var outflow = essentials + n.disc + n.saving;
+  var surplus = ti - outflow;
+  var sr = ti > 0 ? n.saving / ti * 100 : 0;
+  var runway = essentials > 0 ? n.emergency / essentials : 0;
+  var interest = n.debt * (n.apr / 100) / 12;
+  var hr = ti > 0 ? n.housing / ti * 100 : 0;
+  var dpr = ti > 0 ? n.minpay / ti * 100 : 0;
+  var lr = ti > 0 ? n.leaks / ti * 100 : 0;
+  var ir = ti > 0 ? interest / ti * 100 : 0;
+  var dr = ti > 0 ? n.disc / ti * 100 : 0;
+  var conf = d.sel.conf;
+
+  var flags = [];
+  if (surplus < 0) flags.push('cashflow');
+  if (runway < 1) flags.push('runway');
+  if (ir >= 4 || dpr >= 20) flags.push('debt');
+  if (hr >= 38) flags.push('housing');
+  if (lr >= 8 || dr >= 25) flags.push('leaks');
+  if (sr < 5) flags.push('system');
+  if (conf !== 'verified') flags.push('tracking');
+  var order = ['cashflow','runway','debt','housing','leaks','system','tracking'];
+  flags.sort(function(a,b){ return order.indexOf(a) - order.indexOf(b); });
+  var primary = flags[0];
+
+  function status(ok, warn){ return ok ? '<span style="color:#1d6b3f;font-weight:700">Strong</span>' : (warn ? '<span style="color:#9a6b00;font-weight:700">Watch</span>' : '<span style="color:#9b2226;font-weight:700">Pressure</span>'); }
+  var M = H.money;
+  var rows = [
+    ['Monthly take-home income', M(ti), 'Your planning baseline', '<span style="color:#666">Baseline</span>'],
+    ['Monthly surplus or shortfall', M(surplus), 'Positive every month', status(surplus >= 200, surplus >= 0)],
+    ['Savings rate', Math.round(sr * 10) / 10 + '%', '10% to 20% or more', status(sr >= 10, sr >= 5)],
+    ['Emergency runway', (Math.round(runway * 10) / 10) + ' months', '3 to 6 months of essentials', status(runway >= 3, runway >= 1)],
+    ['Monthly interest cost', M(interest), 'As close to $0 as possible', status(ir < 2, ir < 4)],
+    ['Housing share of take-home', Math.round(hr) + '%', 'About 35% or less of take-home', status(hr < 35, hr < 38)],
+    ['Debt payment ratio', Math.round(dpr) + '%', 'Under 15% of take-home (excluding housing)', status(dpr < 15, dpr < 20)],
+    ['Top 3 leaks as share of income', Math.round(lr * 10) / 10 + '%', 'Under 5%', status(lr < 5, lr < 8)]
+  ];
+  var tbl = '<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Core Number</th><th>Yours</th><th>Builder Benchmark</th><th>Status</th></tr></thead><tbody>' +
+    rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td><strong>' + r[1] + '</strong></td><td>' + r[2] + '</td><td>' + r[3] + '</td></tr>'; }).join('') + '</tbody></table></div>';
+
+  var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+    {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+    {v: M(surplus), l: 'Monthly Cash Flow'},
+    {v: Math.round(sr) + '%', l: 'Savings Rate'},
+    {v: (Math.round(runway * 10) / 10) + ' mo', l: 'Emergency Runway'},
+    {v: M(interest), l: 'Monthly Interest'}]);
+  h += '<h3>Part 1: Calculation and Knowledge</h3>' + (passed ? O.passMsg : O.failMsg) + H.mcReview(d, passed);
+  h += '<h3>Part 2: Your Core Numbers Analysis</h3><p>Here are the numbers you entered, measured against common Builder benchmarks. Benchmarks are general educational guidelines, not rules for every situation. What matters most is the direction your numbers move over the next 90 days.</p>' + tbl;
+  h += '<p><strong>How your money moves each month:</strong> Of your ' + M(ti) + ' take-home, ' + M(essentials) + ' goes to essentials (housing, fixed bills, groceries and transportation, and minimum debt payments), ' + M(n.disc) + ' goes to discretionary spending, and ' + M(n.saving) + ' goes to savings and investing, leaving ' + (surplus >= 0 ? 'a surplus of ' + M(surplus) : 'a shortfall of ' + M(-surplus)) + '.</p>';
+
+  if (primary){
+    var P = PP[primary];
+    h += H.profile('Your Primary Pressure Point', P.name, '<p><strong>What your numbers show:</strong> ' + P.what + '</p><p><strong>Why it matters:</strong> ' + P.why + '</p>');
+    h += H.rx('Your Prescription', P.rx);
+  } else {
+    h += H.profile('Your Primary Pressure Point', 'No Major Pressure Points', '<p>Your numbers meet or approach Builder benchmarks across the board. You have positive cash flow, a real savings rate, a cushion, and manageable debt. Your next level is optimization: raising your savings rate, growing your runway toward six months, and putting surplus to work in long-term investments.</p>');
+  }
+  if (flags.length > 1){
+    h += '<h3>Other Areas Needing Attention</h3>';
+    flags.slice(1).forEach(function(f){ h += '<div class="echo"><b>' + PP[f].name + '</b>' + PP[f].short + '</div>'; });
+  }
+
+  h += '<h3>Your 90-Day Number Targets</h3><p>These targets are calculated from your own numbers. They\'re ambitious but reachable, and they\'ll feed directly into your Final 90-Day Mastery Plan.</p><ul>';
+  var plug = Math.round(n.leaks * 0.6);
+  h += '<li><strong>Plug and redirect ' + M(plug) + ' a month</strong> (60% of your top three leaks). Over 90 days that\'s about ' + M(plug * 3) + ' moved toward your goals.</li>';
+  if (surplus < 0) h += '<li><strong>Close your ' + M(-surplus) + ' monthly gap</strong> within 30 days by cutting discretionary spending, plugging leaks, or both. Until the gap closes, new debt is filling it.</li>';
+  var targetSave = Math.max(n.saving + plug * 0.5, ti * 0.05);
+  h += '<li><strong>Raise your savings rate to at least ' + Math.round(targetSave / (ti || 1) * 100) + '%</strong> (about ' + M(targetSave) + ' a month) with an automatic transfer on payday.</li>';
+  var runTarget = runway < 1 ? Math.min(1000, essentials) : essentials;
+  h += '<li><strong>Emergency fund target: ' + M(n.emergency + runTarget) + '</strong>' + (runway < 1 ? ' (your first milestone)' : ' (one more month of essentials)') + '.</li>';
+  if (n.debt > 0){
+    var extra = Math.max(50, Math.round(plug * 0.5));
+    h += '<li><strong>Add ' + M(extra) + ' a month to your highest-interest debt.</strong> At your average rate of ' + n.apr + '%, your debt costs about ' + M(interest) + ' a month, or ' + M(interest * 12) + ' a year, in interest alone. Every extra dollar toward the highest rate is a guaranteed return equal to that rate.</li>';
+  }
+  h += '</ul>';
+
+  h += '<h3>Data Confidence</h3><p>' + O.conf[conf] + '</p>';
+  h += '<h3>Your Written Responses</h3><p>' + O.writtenIntro + '</p>';
+  Object.keys(d.txt).forEach(function(k){
+    h += '<div class="echo"><b>' + H.esc(d.txt[k].label) + '</b>' + H.esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+    if (O.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + O.follow[k] + '</p>';
+  });
+  h += '<h3>Your Lesson Reflections</h3>' + H.refs(O.refs);
+  h += '<h3>What Comes Next</h3>' + (passed ? O.nextMsg : '<p>Your numbers analysis above is complete and valid. To open Module 4, you need at least 80% on the calculation section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>.</p>');
+  h += '<p style="font-size:0.82rem;color:#666">This analysis is educational and based only on the numbers you entered. It isn\'t individualized financial, tax, or legal advice.</p>';
+
+  var pname = primary ? PP[primary].name : 'No Major Pressure Points';
+  return {title: pname + ': Your Financial Data Report', html: h, passed: passed,
+    score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: pname,
+    next: passed ? {href: O.nextHref, label: O.nextLabel} : null, retake: !passed,
+    store: {primary: pname, surplus: Math.round(surplus), savingsRate: Math.round(sr), runway: Math.round(runway * 10) / 10, interest: Math.round(interest), leaks: n.leaks}};
+}
+}};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem('rsmadv_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem('rsmadv_' + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+</body>
+</html>

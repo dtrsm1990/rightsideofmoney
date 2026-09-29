@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spending Psychology Assessment | RSM Advance Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Advance Mindset, Financial Literacy &amp; Accountability Program</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">Advance Program</div><nav>
+<a href="./advance-portal.html" class="" data-done="baseline">Program Portal</a>
+<div class="sidebar-group">Module 1</div>
+<a href="./advance-mod1.html" class="" data-done="kc:m1l1,kc:m1l2,kc:m1l3">The Roots of Financial Stagnation</a>
+<a href="./advance-assess1.html" class="sub" data-done="a:a1">Foundation Knowledge Assessment</a>
+<div class="sidebar-group">Module 2</div>
+<a href="./advance-mod2.html" class="" data-done="kc:m2l1,kc:m2l2,kc:m2l3">Breaking the Cycle of Avoidance</a>
+<a href="./advance-assess2.html" class="sub" data-done="a:a2">Mindset and Fear Assessment</a>
+<div class="sidebar-group">Module 3</div>
+<a href="./advance-mod3.html" class="" data-done="kc:m3l1,kc:m3l2,kc:m3l3">Operational Financial Reality</a>
+<a href="./advance-assess3.html" class="sub" data-done="a:a3">Financial Data Literacy Quiz</a>
+<div class="sidebar-group">Module 4</div>
+<a href="./advance-mod4.html" class="" data-done="kc:m4l1,kc:m4l2,kc:m4l3">The Psychology of Modern Spending</a>
+<a href="./advance-assess4.html" class="sub active" data-done="a:a4">Spending Psychology Assessment</a>
+<div class="sidebar-group">Module 5</div>
+<a href="./advance-mod5.html" class="" data-done="kc:m5l1,kc:m5l2">Accountability and Long-Term Success</a>
+<a href="./advance-assess5.html" class="sub" data-done="ap:a5">Course Review Quiz</a>
+<div class="sidebar-group">Final</div>
+<a href="./advance-final-exam.html" class="" data-done="ap:final">Final 90-Day Financial Mastery Exam</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="a-intro"><div class="module-hero"><p class="lesson-eyebrow">Module 4 Assessment</p><h1>Spending Psychology Assessment</h1><p>This assessment identifies which of five spending drivers has the most influence over your money, calculates your personal convenience premium in dollars and life hours, and gives you a targeted plan to break your strongest pattern. Plan for 25 to 35 minutes.</p></div></div>
+<form id="assessForm" novalidate>
+<div class="a-section"><div class="a-section-head"><h3>Participant Information</h3><p>Your report is prepared under this name and sent to this email address and to Darrell.</p></div><div class="a-body"><div class="a-field"><div class="grid2"><div><label>First Name</label><input type="text" id="pFirst" autocomplete="given-name" /></div><div><label>Last Name</label><input type="text" id="pLast" autocomplete="family-name" /></div></div></div><div class="a-field"><label>Email Address</label><input type="email" id="pEmail" autocomplete="email" /></div></div></div>
+<div class="a-section"><div class="a-section-head"><h3>Part 1: Knowledge Section</h3><p>Five scenario questions covering Module 4. You need 80% (4 of 5) to unlock Module 5.</p></div><div class="a-body"><div class="aq-mc" data-correct="1" data-topic="Lesson 4.1" data-q="Why do digital wallets and one-click checkout tend to increase spending?" data-why="The more abstract and frictionless the payment, the less it hurts, and the less it hurts, the more people tend to spend." data-hint="Lesson 4.1, The Pain of Paying"><p class="kc-prompt"><span class="kc-num">1</span><span>Why do digital wallets and one-click checkout tend to increase spending?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">They charge hidden fees on every purchase.</button><button type="button" class="kc-opt" data-i="1">They reduce the pain of paying, which weakens the natural brake on spending.</button><button type="button" class="kc-opt" data-i="2">They make prices higher than paying in cash.</button><button type="button" class="kc-opt" data-i="3">They only work at expensive stores.</button></div></div><div class="aq-mc" data-correct="3" data-topic="Lesson 4.1" data-q="A site says &quot;Add $12 more to get free shipping (a $5.99 value).&quot; What&#x27;s the Builder response?" data-why="Free shipping thresholds are a tactic. Spending more than the shipping cost to avoid the shipping cost is a net loss unless you needed the items anyway." data-hint="Lesson 4.1, Seven Tactics Built Into Modern Shopping"><p class="kc-prompt"><span class="kc-num">2</span><span>A site says &quot;Add $12 more to get free shipping (a $5.99 value).&quot; What&#x27;s the Builder response?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Buy two of the same item to be safe.</button><button type="button" class="kc-opt" data-i="1">Add the most expensive item you can find.</button><button type="button" class="kc-opt" data-i="2">Always add the items, because free shipping is a discount.</button><button type="button" class="kc-opt" data-i="3">Pay the shipping or wait until you genuinely need more, because spending $12 to save $5.99 isn&#x27;t a savings.</button></div></div><div class="aq-mc" data-correct="2" data-topic="Lesson 4.2" data-q="Jada notices her spending spikes on paydays and right after she finishes big projects at work. Which driver is most likely, and what&#x27;s the best matched strategy?" data-why="Paydays and accomplishments trigger &#x27;I earned this.&#x27; A planned reward budget meets the need without derailing the plan." data-hint="Lesson 4.2, Driver 3: Reward Spending"><p class="kc-prompt"><span class="kc-num">3</span><span>Jada notices her spending spikes on paydays and right after she finishes big projects at work. Which driver is most likely, and what&#x27;s the best matched strategy?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Stress spending, matched with box breathing.</button><button type="button" class="kc-opt" data-i="1">Boredom spending, matched with app time limits.</button><button type="button" class="kc-opt" data-i="2">Reward spending, matched with a planned monthly reward budget and non-financial rewards.</button><button type="button" class="kc-opt" data-i="3">Convenience spending, matched with meal prep.</button></div></div><div class="aq-mc" data-correct="2" data-topic="Lesson 4.3" data-q="Luis takes home $20 an hour and spends $360 a month on delivery. How many life hours does that represent?" data-why="Life Hours = $360 / $20 = 18 hours, more than two full workdays every month." data-hint="Lesson 4.3, Measure Convenience in Life Hours"><p class="kc-prompt"><span class="kc-num">4</span><span>Luis takes home $20 an hour and spends $360 a month on delivery. How many life hours does that represent?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">36 hours a month</button><button type="button" class="kc-opt" data-i="1">7.2 hours a month</button><button type="button" class="kc-opt" data-i="2">18 hours a month</button><button type="button" class="kc-opt" data-i="3">3.6 hours a month</button></div></div><div class="aq-mc" data-correct="1" data-topic="Lesson 4.2" data-q="According to Gollwitzer&#x27;s research, why do if-then plans work?" data-why="Implementation intentions link a specific trigger to a specific action, making the right response more automatic when willpower is lowest." data-hint="Lesson 4.2, If-Then Plans"><p class="kc-prompt"><span class="kc-num">5</span><span>According to Gollwitzer&#x27;s research, why do if-then plans work?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">They make you feel guilty when you break them.</button><button type="button" class="kc-opt" data-i="1">They decide in advance how you&#x27;ll respond to a specific trigger, so you don&#x27;t rely on willpower in the moment.</button><button type="button" class="kc-opt" data-i="2">They remove all temptation from your environment.</button><button type="button" class="kc-opt" data-i="3">They only work for people with strong self-discipline.</button></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part 2: Spending Driver Diagnostic</h3><p>Twenty statements. Choose how often each one is true for you.</p></div><div class="a-body"><div class="lk" data-dim="stress"><div class="lk-text"><span class="n">1.</span><span>I shop or spend after a stressful day to feel better.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="stress"><div class="lk-text"><span class="n">2.</span><span>When I feel overwhelmed, buying something gives me a sense of control.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="stress"><div class="lk-text"><span class="n">3.</span><span>My spending goes up during stressful periods at work or home.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="stress" data-rev="1"><div class="lk-text"><span class="n">4.</span><span>I have non-spending ways to calm down that I use consistently.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="boredom"><div class="lk-text"><span class="n">5.</span><span>I browse shopping apps or sites when I have nothing else to do.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="boredom"><div class="lk-text"><span class="n">6.</span><span>Scrolling social media leads me to buy things I wasn&#x27;t looking for.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="boredom"><div class="lk-text"><span class="n">7.</span><span>I shop late at night or during downtime out of habit.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="boredom"><div class="lk-text"><span class="n">8.</span><span>Buying new things is one of my main sources of excitement.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="reward"><div class="lk-text"><span class="n">9.</span><span>I tell myself &quot;I deserve this&quot; or &quot;I earned this&quot; before buying something unplanned.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="reward"><div class="lk-text"><span class="n">10.</span><span>My spending increases on or right after payday.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="reward"><div class="lk-text"><span class="n">11.</span><span>After I stick to my budget for a while, I overspend to celebrate.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="reward" data-rev="1"><div class="lk-text"><span class="n">12.</span><span>I have a planned amount for rewards that I stay within.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="convenience"><div class="lk-text"><span class="n">13.</span><span>I order delivery or takeout because I didn&#x27;t plan a meal.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="convenience"><div class="lk-text"><span class="n">14.</span><span>I pay extra for speed or ease without thinking about the total cost.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="convenience"><div class="lk-text"><span class="n">15.</span><span>I make convenience store or grab-and-go stops that I could have avoided with planning.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="convenience" data-rev="1"><div class="lk-text"><span class="n">16.</span><span>I plan meals, errands, and purchases ahead to avoid paying convenience premiums.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="social"><div class="lk-text"><span class="n">17.</span><span>I spend more when I&#x27;m around certain friends, coworkers, or family.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="social"><div class="lk-text"><span class="n">18.</span><span>I buy things partly because of how they&#x27;ll look to other people.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="social"><div class="lk-text"><span class="n">19.</span><span>I feel pressure to keep up with what people around me have or do.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div><div class="lk" data-dim="social"><div class="lk-text"><span class="n">20.</span><span>I say yes to trips, dinners, or events I can&#x27;t afford because I don&#x27;t want to say no.</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">Never</button><button type="button" class="lk-opt" data-v="2">Rarely</button><button type="button" class="lk-opt" data-v="3">Sometimes</button><button type="button" class="lk-opt" data-v="4">Often</button><button type="button" class="lk-opt" data-v="5">Almost always</button></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part 3: Your Convenience Premium Calculator</h3><p>Use your statements from the last 30 days for accuracy.</p></div><div class="a-body"><div class="a-field"><div class="grid2"><div><label>Delivery or takeout orders per week</label><input type="number" min="0" step="any" data-num="deliv_n" data-req="1" inputmode="decimal" /></div><div><label>Average cost per order, all-in ($)</label><input type="number" min="0" step="any" data-num="deliv_avg" data-req="1" inputmode="decimal" /></div><div><label>Coffee or grab-and-go purchases per week</label><input type="number" min="0" step="any" data-num="coffee_n" data-req="1" inputmode="decimal" /></div><div><label>Average cost per purchase ($)</label><input type="number" min="0" step="any" data-num="coffee_avg" data-req="1" inputmode="decimal" /></div></div></div><div class="a-field"><label>Monthly rideshare spending</label><p class="hint">Enter 0 if none.</p><input type="number" min="0" step="any" data-num="ride" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Monthly convenience store spending</label><p class="hint">Snacks, drinks, and items bought at gas stations and corner stores. Enter 0 if none.</p><input type="number" min="0" step="any" data-num="cstore" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Monthly cost of subscriptions you rarely use</label><p class="hint">Enter 0 if none.</p><input type="number" min="0" step="any" data-num="unused" data-req="1" inputmode="decimal" /></div><div class="a-field"><label>Your take-home hourly pay</label><p class="hint">Monthly take-home income divided by the hours you work in a month. Used to calculate life hours.</p><input type="number" min="0" step="any" data-num="hourly" data-req="1" inputmode="decimal" /></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part 4: Written Spending Plan</h3><p>Turn your insight into a plan.</p></div><div class="a-body"><div class="a-field"><label>Describe your most common spending moment in detail: the time, place, feeling, and what you usually buy.</label><p class="hint">The more specific, the more useful. Minimum 30 words.</p><textarea data-text="w1" data-label="Describe your most common spending moment in detail: the time, place, feeling, and what you usually buy." data-min="30"></textarea><div class="wc"></div></div><div class="a-field"><label>Write three if-then plans for your top spending driver.</label><p class="hint">Format: If [specific trigger], then I will [specific action]. Minimum 30 words.</p><textarea data-text="w2" data-label="Write three if-then plans for your top spending driver." data-min="30"></textarea><div class="wc"></div></div><div class="a-field"><label>Which convenience will you keep on purpose, which two will you cut or reduce, and which system will you rebuild?</label><p class="hint">Minimum 30 words.</p><textarea data-text="w3" data-label="Which convenience will you keep on purpose, which two will you cut or reduce, and which system will you rebuild?" data-min="30"></textarea><div class="wc"></div></div></div></div>
+<div class="submit-box"><p>When you submit, your personal report appears on this page and a copy is sent to Darrell Thompson. Take your time. Honest answers produce an accurate report. There are no right answers in the diagnostic sections, only true ones.</p><button type="submit" class="btn btn-gold" style="font-size:1rem;padding:1rem 2.4rem">Submit and Generate My Report</button><div class="form-error" id="formError"></div></div>
+</form>
+<div id="report" class="report"></div>
+</div>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
+<script>
+window.RSM_PAGE = {id: "assess4", type: "assessment", requires: [{"key": "kc:m4l1", "label": "Lesson 4.1 Knowledge Check", "href": "./advance-mod4.html#lesson-4-1"}, {"key": "kc:m4l2", "label": "Lesson 4.2 Knowledge Check", "href": "./advance-mod4.html#lesson-4-2"}, {"key": "kc:m4l3", "label": "Lesson 4.3 Knowledge Check", "href": "./advance-mod4.html#lesson-4-3"}], assessment: {id: "a4", name: "Spending Psychology Assessment", analyze: function(d, H){
+  var DEFS = {"stress": {"name": "The Stress Spender", "short": "Spending is your relief valve when life gets heavy.", "what": "When pressure builds, spending gives you a quick hit of relief and a feeling of control. The act of choosing and buying is soothing, which is exactly why it keeps happening. Your spending likely spikes during hard weeks, after conflict, or around deadlines.", "origin": "Stress spending often develops when there weren't other reliable ways to calm down growing up, or when life has had long stretches of pressure with little relief. The brain learned that buying brings relief, and it offers that solution every time stress shows up.", "cost": "Stress spending tends to happen at the worst possible times: when money is already tight and the stress is often financial. That turns one problem into two, and the added debt creates more stress, feeding the loop.", "reframe": "Old belief: \"I need this to get through today.\" New belief: \"My stress is real, and I have better tools for it than my debit card.\"", "rx7": ["Write down your top three stress triggers from the last 30 days.", "Practice box breathing the moment you notice the urge to spend.", "Create a \"control list\" of three free things you can do to feel in control.", "Write an if-then plan for your most common stress trigger.", "Add a 24-hour wait to any purchase made on a stressful day."], "rx30": ["Build a daily stress outlet that doesn't cost money: a walk, exercise, prayer, journaling, or a call with a friend.", "Track stress-day spending versus normal-day spending for 30 days.", "Reduce financial stress directly by building your emergency fund, which lowers the pressure that triggers spending.", "Review which replacement strategies actually worked and keep those.", "Share your stress triggers with an accountability partner."], "watch": "Reaching for your phone to shop within an hour of a stressful event."}, "boredom": {"name": "The Boredom Spender", "short": "Shopping fills empty time and supplies novelty.", "what": "Your spending often happens during downtime, not because you need something, but because browsing and buying deliver stimulation and novelty. The same apps you use to pass time are designed to sell to you, so scrolling slides into shopping.", "origin": "Boredom spending grows in environments where phones are the default way to fill any gap in the day. Personalized feeds learn what catches your attention and serve more of it. It's not a character flaw. It's a design outcome.", "cost": "Many small, frequent purchases that don't feel significant individually but add up, plus clutter, returns, and a nagging sense of spending without meaning.", "reframe": "Old belief: \"I'm just looking.\" New belief: \"My attention is valuable. I choose where it goes.\"", "rx7": ["Delete or hide shopping apps from your home screen.", "Set daily time limits on social media and shopping apps.", "Create your boredom menu: ten free or low-cost activities you actually enjoy.", "Unsubscribe from at least ten marketing emails and texts.", "Identify your top boredom window and plan something for that time."], "rx30": ["Replace one daily scrolling session with learning: a book, podcast, or skill.", "Keep a \"want list\" instead of buying. Review it once a month.", "Track purchases made during downtime and total them at day 30.", "Plan your weekends so empty time has a purpose.", "Start a low-cost hobby that gives you novelty without a purchase every time."], "watch": "Opening a shopping app with no specific item in mind."}, "reward": {"name": "The Reward Spender", "short": "Success and paydays turn into permission to overspend.", "what": "You tend to spend when you feel you've earned it: paydays, accomplishments, hard weeks, or after sticking to your budget. This is moral licensing: doing well makes you feel entitled to indulge. The irony is that success becomes the trigger for setbacks.", "origin": "Reward spending is often rooted in years of going without, working hard without recognition, or a culture that celebrates with purchases. The need for recognition is real and legitimate. It just doesn't have to be met with unplanned spending.", "cost": "Progress that keeps getting erased. Paydays that disappear quickly. A pattern of \"two steps forward, one step back\" that makes long-term goals feel out of reach.", "reframe": "Old belief: \"I worked hard, so I deserve to spend.\" New belief: \"I worked hard, so I deserve to keep what I earned. My reward is planned, and my future is protected.\"", "rx7": ["Set a monthly reward budget and put it in a separate account or envelope.", "Write a list of ten non-financial rewards.", "Add a 24-hour wait to any purchase on payday.", "Automate savings to leave on payday before you see the balance.", "Write an if-then plan: \"If I feel like I deserve a reward, then I'll use my reward budget or my free reward list.\""], "rx30": ["Tie rewards to milestones: when you hit a savings goal, reward yourself with a small, pre-set percentage of what you saved.", "Track payday spending for two pay cycles and compare.", "Celebrate wins with people and experiences, not only purchases.", "Review your reward budget at the end of the month without guilt.", "Increase your automatic savings each time you earn a raise or bonus."], "watch": "The phrase \"I deserve this\" before an unplanned purchase."}, "convenience": {"name": "The Convenience Spender", "short": "Planning gaps are costing you a premium every week.", "what": "A large part of your spending happens because there's no plan: no dinner plan so you order delivery, no errand plan so you use rideshare, no snacks so you stop at the convenience store. You're paying a premium for planning you didn't do.", "origin": "Busy schedules, long work hours, and a convenience economy that's always one tap away. When you're tired at the end of the day, the easiest option wins, and the easiest option is usually the most expensive.", "cost": "Markups, fees, and tips that can nearly double the price of everyday items, repeated many times a month. See your convenience premium calculation below.", "reframe": "Old belief: \"I don't have time to plan.\" New belief: \"One hour of planning saves me money and stress all week.\"", "rx7": ["Complete the Convenience Audit from Lesson 4.3.", "Plan five dinners for next week and shop for them.", "Stock a Backup Meal shelf with two or three fast, cheap meals.", "Pack a Go Bag with water and snacks for your car or bag.", "Remove saved payment information from delivery apps."], "rx30": ["Make the Sunday Setup a weekly habit.", "Keep one convenience you truly value and plan it on purpose.", "Batch errands to reduce rideshare and extra trips.", "Review and cancel subscriptions you rarely use.", "Redirect your convenience savings automatically to a named goal."], "watch": "Opening a delivery app between 5 and 8 p.m. with no meal plan."}, "social": {"name": "The Social and Status Spender", "short": "Other people's expectations are shaping your spending.", "what": "Your spending rises around certain people or situations, and some purchases are partly about how they look to others. You may say yes to trips, dinners, and events you can't afford because saying no feels harder than paying.", "origin": "The need to belong is one of the strongest human needs. Social media multiplies comparison by showing you everyone's highlight reel. If you grew up without, looking successful can also feel like proof that you made it.", "cost": "Spending that's driven by other people's lives instead of your goals, and the stress of keeping up an image your finances can't support. Real wealth is often invisible. Looking rich and being rich frequently pull in opposite directions.", "reframe": "Old belief: \"I can't be the one who says no.\" New belief: \"My goals are allowed to be different from other people's plans. I'd rather be rich than look rich.\"", "rx7": ["Identify the three people or situations where your spending rises most.", "Write and practice a simple, friendly script for saying no or suggesting a cheaper option.", "Unfollow accounts that trigger comparison.", "Before your next social event, set a spending limit in advance.", "Suggest one free or low-cost alternative to a planned outing."], "rx30": ["Track spending around specific people or events for 30 days.", "Share your financial goals with one close friend who will support them.", "Plan social spending into your monthly budget so it's intentional.", "Notice purchases meant to impress and apply a 48-hour rule.", "Build friendships and activities that don't revolve around spending."], "watch": "Agreeing to plans before checking whether they fit your budget."}};
+  var O = {"patternLabel": "Spending Driver", "titleSuffix": "Your Spending Psychology Report", "passMsg": "<p>You understand how modern spending environments work, how to diagnose your drivers, and how to calculate the true cost of convenience. Here's how those forces show up in your own spending.</p>", "failMsg": "<p>A few concepts from Module 4 need another pass. The questions below point you to the lesson sections to review. You'll need 80% to open Module 5.</p>", "profileIntro": "The diagnostic measured five spending drivers. Higher percentages mean the driver has more influence over your spending right now.", "lowAll": "Your answers show that none of the five spending drivers is strongly active right now. Your spending appears to be mostly intentional and planned. Keep your friction and systems in place, especially during high-stress or high-social seasons.", "pairs": {"stress+reward": "Stress builds all week and reward spending releases it on payday or the weekend. A planned reward budget plus a daily stress outlet breaks both at once.", "boredom+convenience": "Downtime plus no plan is the most expensive combination in modern life. Scheduled downtime and a Sunday Setup close both gaps.", "stress+convenience": "When you're drained, planning feels impossible and convenience feels like self-care. Build systems on your good days that protect you on your hard days.", "social+reward": "Celebrating with others often means spending with others. Plan celebrations in advance with a set amount, and suggest experiences that don't require big spending.", "stress+boredom": "You spend both when life is too much and when it's too little. The common thread is using spending to change how you feel. Your if-then plans need to cover both high-stress and low-stimulation moments.", "boredom+social": "Scrolling exposes you to what everyone else has, then makes it easy to buy. Curate your feed and limit app time to cut both drivers."}, "writtenIntro": "These are your own words. A follow-up question is included for each one.", "follow": {"w1": "What happens in your body right before the purchase? Learning to notice that signal is how you catch the loop early.", "w2": "What will make this plan hard to follow, and what will you do when that happens?", "w3": "How much money do you expect to redirect in the next 30 days, and where will it go?"}, "nextMsg": "<p>You know your drivers and your convenience premium. Module 5 is where it all becomes permanent: moving past awareness into action, and building the consistency systems that make change last.</p>", "nextHref": "./advance-mod5.html", "nextLabel": "Continue to Module 5", "refs": {"lesson-4-1_0": "Lesson 4.1: Which shopping tactics work on you most often? Give a specific recent example.", "lesson-4-1_1": "Lesson 4.1: Where in your life has paying become so frictionless that you barely notice it?", "lesson-4-1_2": "Lesson 4.1: What friction will you add this week, and to which accounts, apps, or habits?", "lesson-4-2_0": "Lesson 4.2: Which of the three drivers (stress, boredom, or reward) shows up most in your spending? Describe a specific example.", "lesson-4-2_1": "Lesson 4.2: When and where do your highest-risk spending moments happen?", "lesson-4-2_2": "Lesson 4.2: Write your three if-then plans exactly as you'll use them.", "lesson-4-3_0": "Lesson 4.3: What is your total monthly convenience spending, and how many life hours does it represent?", "lesson-4-3_1": "Lesson 4.3: Which convenience is truly smart for your life, and which ones are just filling a planning gap?", "lesson-4-3_2": "Lesson 4.3: Which system will you rebuild first, and exactly when will you do it this week?"}};
+  var n = d.num, M = H.money;
+  var weekly = n.deliv_n * n.deliv_avg + n.coffee_n * n.coffee_avg;
+  var monthly = weekly * 52 / 12 + n.ride + n.cstore + n.unused;
+  var annual = monthly * 12;
+  var hourly = n.hourly > 0 ? n.hourly : 0;
+  var hours = hourly ? monthly / hourly : 0;
+  var ten = H.fv(monthly * 0.5, 10);
+  var rows = [
+    ['Food delivery and takeout', M(n.deliv_n * n.deliv_avg * 52 / 12)],
+    ['Coffee and grab-and-go', M(n.coffee_n * n.coffee_avg * 52 / 12)],
+    ['Rideshare', M(n.ride)],
+    ['Convenience store stops', M(n.cstore)],
+    ['Unused or rarely used subscriptions', M(n.unused)]
+  ];
+  var extra = '<h3>Your Convenience Premium</h3><p>Based on the numbers you entered, here\'s what convenience is costing you. Remember that part of this spending buys things you need, like food. The point isn\'t to eliminate it. It\'s to see it clearly and decide which convenience actually earns its price.</p>' +
+    H.tiles([{v: M(monthly), l: 'Per Month'}, {v: M(annual), l: 'Per Year'}, {v: hourly ? Math.round(hours * 10) / 10 + ' hrs' : 'N/A', l: 'Life Hours Per Month'}]) +
+    '<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Category</th><th>Monthly</th></tr></thead><tbody>' + rows.map(function(r){ return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+    (hourly ? '<p>At ' + M(hourly) + ' an hour take-home, your convenience spending costs about <strong>' + Math.round(hours) + ' hours of work every month</strong>, roughly ' + Math.round(hours / 8 * 10) / 10 + ' full workdays.</p>' : '') +
+    '<p><strong>The redirect opportunity:</strong> If you cut your convenience spending in half and automatically invested the difference (' + M(monthly * 0.5) + ' a month), a hypothetical 7% average annual return could grow it to roughly <strong>' + M(ten) + '</strong> over 10 years. That\'s an illustration, not a guarantee, but it shows what these habits are really competing with.</p>';
+  if (d.dims.convenience && d.dims.convenience.pct >= 40) extra += '<p>Your diagnostic also shows an active convenience pattern, so the numbers above aren\'t random. They\'re the result of planning gaps that a Sunday Setup, a Backup Meal, and a Go Bag are built to close.</p>';
+  var o = {}; for (var k in O) o[k] = O[k]; o.extra = extra;
+  var R = H.standard(d, DEFS, o);
+  R.store.convenienceMonthly = Math.round(monthly);
+  return R;
+}
+}};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem('rsmadv_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem('rsmadv_' + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+</body>
+</html>

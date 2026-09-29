@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Final 90-Day Financial Mastery Exam | RSM Advance Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Advance Mindset, Financial Literacy &amp; Accountability Program</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">Advance Program</div><nav>
+<a href="./advance-portal.html" class="" data-done="baseline">Program Portal</a>
+<div class="sidebar-group">Module 1</div>
+<a href="./advance-mod1.html" class="" data-done="kc:m1l1,kc:m1l2,kc:m1l3">The Roots of Financial Stagnation</a>
+<a href="./advance-assess1.html" class="sub" data-done="a:a1">Foundation Knowledge Assessment</a>
+<div class="sidebar-group">Module 2</div>
+<a href="./advance-mod2.html" class="" data-done="kc:m2l1,kc:m2l2,kc:m2l3">Breaking the Cycle of Avoidance</a>
+<a href="./advance-assess2.html" class="sub" data-done="a:a2">Mindset and Fear Assessment</a>
+<div class="sidebar-group">Module 3</div>
+<a href="./advance-mod3.html" class="" data-done="kc:m3l1,kc:m3l2,kc:m3l3">Operational Financial Reality</a>
+<a href="./advance-assess3.html" class="sub" data-done="a:a3">Financial Data Literacy Quiz</a>
+<div class="sidebar-group">Module 4</div>
+<a href="./advance-mod4.html" class="" data-done="kc:m4l1,kc:m4l2,kc:m4l3">The Psychology of Modern Spending</a>
+<a href="./advance-assess4.html" class="sub" data-done="a:a4">Spending Psychology Assessment</a>
+<div class="sidebar-group">Module 5</div>
+<a href="./advance-mod5.html" class="" data-done="kc:m5l1,kc:m5l2">Accountability and Long-Term Success</a>
+<a href="./advance-assess5.html" class="sub" data-done="ap:a5">Course Review Quiz</a>
+<div class="sidebar-group">Final</div>
+<a href="./advance-final-exam.html" class="active" data-done="ap:final">Final 90-Day Financial Mastery Exam</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="a-intro"><div class="module-hero"><p class="lesson-eyebrow">Final Exam</p><h1>Final 90-Day Financial Mastery Exam</h1><p>This is the culmination of the program. You'll prove your mastery across all five modules, measure how much you've grown since Day 1, analyze a real-world household, and build the 90-day plan that turns this program into lasting change. Pass with 80% or higher to earn your Certificate of Completion. Set aside 60 to 75 uninterrupted minutes. Your written answers save on this device as you type.</p></div></div>
+<form id="assessForm" novalidate>
+<div class="a-section"><div class="a-section-head"><h3>Participant Information</h3><p>Your report is prepared under this name and sent to this email address and to Darrell.</p></div><div class="a-body"><div class="a-field"><div class="grid2"><div><label>First Name</label><input type="text" id="pFirst" autocomplete="given-name" /></div><div><label>Last Name</label><input type="text" id="pLast" autocomplete="family-name" /></div></div></div><div class="a-field"><label>Email Address</label><input type="email" id="pEmail" autocomplete="email" /></div></div></div>
+<div class="a-section"><div class="a-section-head"><h3>Part A: Integrated Knowledge Exam</h3><p>Twenty scenario questions that connect all five modules. You need 80% (16 of 20) to pass and earn your certificate.</p></div><div class="a-body"><div class="aq-mc" data-correct="2" data-topic="Integration" data-q="Tamara earns $88,000, has no savings, and every raise disappears within months. She describes herself as &quot;just not a money person.&quot; Which combination of root causes is most likely?" data-why="Her self-description is an identity statement, and disappearing raises show no system assigns new money a job. Both must change together." data-hint="Modules 1 and 5"><p class="kc-prompt"><span class="kc-num">1</span><span>Tamara earns $88,000, has no savings, and every raise disappears within months. She describes herself as &quot;just not a money person.&quot; Which combination of root causes is most likely?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Bad luck with emergencies</button><button type="button" class="kc-opt" data-i="1">A knowledge gap about investing only</button><button type="button" class="kc-opt" data-i="2">An identity ceiling reinforced by no operating system</button><button type="button" class="kc-opt" data-i="3">Low income and high inflation</button></div></div><div class="aq-mc" data-correct="0" data-topic="Integration" data-q="Why does this program address beliefs and emotions before numbers and systems?" data-why="Roots drive behavior. A budget built on top of an unexamined identity or emotional loop usually fails. Understanding the roots makes the systems stick." data-hint="Modules 1 and 3"><p class="kc-prompt"><span class="kc-num">2</span><span>Why does this program address beliefs and emotions before numbers and systems?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Because unexamined beliefs and emotions sabotage even well-designed budgets and systems.</button><button type="button" class="kc-opt" data-i="1">Because numbers don&#x27;t matter.</button><button type="button" class="kc-opt" data-i="2">Because systems are optional.</button><button type="button" class="kc-opt" data-i="3">Because emotions can be eliminated with the right mindset.</button></div></div><div class="aq-mc" data-correct="0" data-topic="Module 1" data-q="Monique buys expensive gifts for her kids every time she works overtime, saying &quot;they shouldn&#x27;t go without because I&#x27;m never home.&quot; Which driver is this?" data-why="Love and Guilt spending tries to repair perceived absence or past struggle with purchases. Time and attention often meet the need better." data-hint="Lesson 1.3"><p class="kc-prompt"><span class="kc-num">3</span><span>Monique buys expensive gifts for her kids every time she works overtime, saying &quot;they shouldn&#x27;t go without because I&#x27;m never home.&quot; Which driver is this?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Love and Guilt</button><button type="button" class="kc-opt" data-i="1">Control</button><button type="button" class="kc-opt" data-i="2">Boredom</button><button type="button" class="kc-opt" data-i="3">Belonging</button></div></div><div class="aq-mc" data-correct="1" data-topic="Module 1" data-q="What is the Builder replacement belief for the Rescuer identity?" data-why="The Builder doesn&#x27;t stop caring. The Builder sets limits that protect the foundation that makes helping possible." data-hint="Lesson 1.2"><p class="kc-prompt"><span class="kc-num">4</span><span>What is the Builder replacement belief for the Rescuer identity?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">&quot;Everyone should solve their own problems.&quot;</button><button type="button" class="kc-opt" data-i="1">&quot;I help most when I&#x27;m stable. I give from overflow, not from my foundation.&quot;</button><button type="button" class="kc-opt" data-i="2">&quot;I&#x27;ll help more once I&#x27;m rich.&quot;</button><button type="button" class="kc-opt" data-i="3">&quot;I&#x27;ll stop helping anyone.&quot;</button></div></div><div class="aq-mc" data-correct="2" data-topic="Module 2" data-q="Greg hasn&#x27;t filed taxes for two years because he thinks he owes. What does Module 2 say about his situation?" data-why="The failure-to-file penalty generally grows each month up to a cap, and interest keeps accruing. Facing it is almost always cheaper." data-hint="Lesson 2.1"><p class="kc-prompt"><span class="kc-num">5</span><span>Greg hasn&#x27;t filed taxes for two years because he thinks he owes. What does Module 2 say about his situation?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Waiting is fine because the IRS forgets old returns.</button><button type="button" class="kc-opt" data-i="1">He should wait until he can pay everything at once.</button><button type="button" class="kc-opt" data-i="2">Avoidance is likely adding penalties and interest. Filing, even with a payment plan, usually costs far less than continuing to wait.</button><button type="button" class="kc-opt" data-i="3">Penalties only apply after five years.</button></div></div><div class="aq-mc" data-correct="0" data-topic="Module 2" data-q="Which approach reflects Module 2&#x27;s teaching on self-compassion?" data-why="Self-compassion isn&#x27;t letting yourself off the hook. It keeps you engaged long enough to change." data-hint="Lesson 2.2"><p class="kc-prompt"><span class="kc-num">6</span><span>Which approach reflects Module 2&#x27;s teaching on self-compassion?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Holding high standards while speaking to yourself with respect, because research shows self-compassion increases motivation to improve.</button><button type="button" class="kc-opt" data-i="1">Ignoring mistakes so you don&#x27;t feel bad.</button><button type="button" class="kc-opt" data-i="2">Lowering your standards so you never fail.</button><button type="button" class="kc-opt" data-i="3">Being as hard on yourself as possible to stay disciplined.</button></div></div><div class="aq-mc" data-correct="0" data-topic="Module 2" data-q="Denise lends money she needs for rent to a relative because she can&#x27;t handle the relative being upset. Which fear response is this?" data-why="Fawning is people-pleasing to avoid conflict, often at your own financial expense." data-hint="Lesson 2.3"><p class="kc-prompt"><span class="kc-num">7</span><span>Denise lends money she needs for rent to a relative because she can&#x27;t handle the relative being upset. Which fear response is this?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Fawn</button><button type="button" class="kc-opt" data-i="1">Flight</button><button type="button" class="kc-opt" data-i="2">Freeze</button><button type="button" class="kc-opt" data-i="3">Fight</button></div></div><div class="aq-mc" data-correct="3" data-topic="Module 3" data-q="The Carters take home $6,200. Essentials are $4,650 and they have $2,325 in emergency savings. What&#x27;s their runway, and what&#x27;s a reasonable first target?" data-why="$2,325 / $4,650 = 0.5 months. Building to one month of essentials is a strong first milestone before moving toward three to six months." data-hint="Lesson 3.1"><p class="kc-prompt"><span class="kc-num">8</span><span>The Carters take home $6,200. Essentials are $4,650 and they have $2,325 in emergency savings. What&#x27;s their runway, and what&#x27;s a reasonable first target?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Two months. They&#x27;re already at the guideline.</button><button type="button" class="kc-opt" data-i="1">Six months. They&#x27;re fully funded.</button><button type="button" class="kc-opt" data-i="2">It can&#x27;t be calculated without their debt balance.</button><button type="button" class="kc-opt" data-i="3">Half a month. A reasonable first target is one full month, about $4,650.</button></div></div><div class="aq-mc" data-correct="3" data-topic="Module 3" data-q="Jerome has $9,600 on a card at 25% APR and $4,000 on a card at 12% APR. He has an extra $300 a month. Mathematically, where does the extra money save the most interest?" data-why="Targeting the highest APR first minimizes total interest. Paying the smallest balance first can build motivation, but the highest rate saves the most money." data-hint="Lesson 3.1 and the Debt Drag prescription"><p class="kc-prompt"><span class="kc-num">9</span><span>Jerome has $9,600 on a card at 25% APR and $4,000 on a card at 12% APR. He has an extra $300 a month. Mathematically, where does the extra money save the most interest?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Neither. He should keep the cash in checking.</button><button type="button" class="kc-opt" data-i="1">The 12% APR card, because it has the smaller balance</button><button type="button" class="kc-opt" data-i="2">Split evenly between both</button><button type="button" class="kc-opt" data-i="3">The 25% APR card, because it charges the highest rate</button></div></div><div class="aq-mc" data-correct="3" data-topic="Module 3" data-q="What&#x27;s the first thing to do when your body reacts with panic during a financial review?" data-why="You can&#x27;t solve money problems from inside a panic response. Calm the body first." data-hint="Lesson 3.2"><p class="kc-prompt"><span class="kc-num">10</span><span>What&#x27;s the first thing to do when your body reacts with panic during a financial review?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Call every creditor at once.</button><button type="button" class="kc-opt" data-i="1">Stop reviewing for a few months.</button><button type="button" class="kc-opt" data-i="2">Push through and make every decision immediately.</button><button type="button" class="kc-opt" data-i="3">Calm your body with box breathing, then continue with the Calm Review steps.</button></div></div><div class="aq-mc" data-correct="0" data-topic="Module 3" data-q="Carla plugs $180 a month in leaks but doesn&#x27;t set up a transfer. What will most likely happen?" data-why="A plugged leak without a redirect is just a leak that moved." data-hint="Lesson 3.3"><p class="kc-prompt"><span class="kc-num">11</span><span>Carla plugs $180 a month in leaks but doesn&#x27;t set up a transfer. What will most likely happen?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">The money gets absorbed by other spending and she has nothing to show for it.</button><button type="button" class="kc-opt" data-i="1">It automatically ends up in savings.</button><button type="button" class="kc-opt" data-i="2">Her credit score will improve.</button><button type="button" class="kc-opt" data-i="3">Her bank will invest it for her.</button></div></div><div class="aq-mc" data-correct="3" data-topic="Module 4" data-q="A store shows &quot;Only 3 left!&quot; and a countdown timer on a jacket. Which tactics are at work?" data-why="Scarcity makes items feel more valuable, and urgency cuts deliberation short. The defense is a waiting rule." data-hint="Lesson 4.1"><p class="kc-prompt"><span class="kc-num">12</span><span>A store shows &quot;Only 3 left!&quot; and a countdown timer on a jacket. Which tactics are at work?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Anchoring and mental accounting</button><button type="button" class="kc-opt" data-i="1">Free shipping thresholds</button><button type="button" class="kc-opt" data-i="2">Hedonic adaptation</button><button type="button" class="kc-opt" data-i="3">Scarcity signals and artificial urgency</button></div></div><div class="aq-mc" data-correct="1" data-topic="Module 4" data-q="Why does buy now, pay later often increase spending?" data-why="Four payments are still one purchase. Evaluating the full price restores clear judgment." data-hint="Lesson 4.1"><p class="kc-prompt"><span class="kc-num">13</span><span>Why does buy now, pay later often increase spending?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">It always charges high interest upfront.</button><button type="button" class="kc-opt" data-i="1">Splitting a purchase into smaller payments makes a large purchase feel like a small decision.</button><button type="button" class="kc-opt" data-i="2">It automatically saves money for you.</button><button type="button" class="kc-opt" data-i="3">It&#x27;s only available for essentials.</button></div></div><div class="aq-mc" data-correct="3" data-topic="Module 4" data-q="Tyrell overspends every payday, saying he earned it. What&#x27;s the best system-level fix?" data-why="Automation removes the money before reward spending can reach it, and a reward budget meets the real need safely." data-hint="Lessons 4.2 and 5.2"><p class="kc-prompt"><span class="kc-num">14</span><span>Tyrell overspends every payday, saying he earned it. What&#x27;s the best system-level fix?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Avoid checking his balance on payday.</button><button type="button" class="kc-opt" data-i="1">Stop getting paid by direct deposit.</button><button type="button" class="kc-opt" data-i="2">Spend everything on payday so he doesn&#x27;t have to think about it.</button><button type="button" class="kc-opt" data-i="3">Automate savings to leave on payday first and create a planned reward budget.</button></div></div><div class="aq-mc" data-correct="0" data-topic="Module 4" data-q="Nina takes home $24 an hour and spends $480 a month on convenience. How many life hours is that?" data-why="$480 / $24 = 20 hours, two and a half workdays every month." data-hint="Lesson 4.3"><p class="kc-prompt"><span class="kc-num">15</span><span>Nina takes home $24 an hour and spends $480 a month on convenience. How many life hours is that?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">20 hours a month</button><button type="button" class="kc-opt" data-i="1">48 hours a month</button><button type="button" class="kc-opt" data-i="2">5 hours a month</button><button type="button" class="kc-opt" data-i="3">11.5 hours a month</button></div></div><div class="aq-mc" data-correct="2" data-topic="Module 5" data-q="Chris has read every lesson and knows exactly what to do, but hasn&#x27;t set up a single automatic transfer. Which stall reason is most likely?" data-why="The insight illusion rewards learning without requiring change. A decision, a system, and a first action within 24 hours break it." data-hint="Lesson 5.1"><p class="kc-prompt"><span class="kc-num">16</span><span>Chris has read every lesson and knows exactly what to do, but hasn&#x27;t set up a single automatic transfer. Which stall reason is most likely?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">All-or-nothing thinking</button><button type="button" class="kc-opt" data-i="1">Too much accountability</button><button type="button" class="kc-opt" data-i="2">The insight illusion: learning feels like progress, so action never starts</button><button type="button" class="kc-opt" data-i="3">Identity threat</button></div></div><div class="aq-mc" data-correct="0" data-topic="Module 5" data-q="Which is the best design for a new savings habit?" data-why="Automation, a minimum viable habit, and accountability combine the strongest consistency systems from Module 5." data-hint="Lesson 5.2"><p class="kc-prompt"><span class="kc-num">17</span><span>Which is the best design for a new savings habit?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">An automatic transfer on payday, a $10 minimum on hard months, and a weekly report to an accountability partner.</button><button type="button" class="kc-opt" data-i="1">Saving a large amount once when motivated.</button><button type="button" class="kc-opt" data-i="2">Saving whatever feels right each month.</button><button type="button" class="kc-opt" data-i="3">Waiting until the new year to start.</button></div></div><div class="aq-mc" data-correct="3" data-topic="Module 5" data-q="Destiny misses her Weekly Money Meeting because of a family emergency. What does the &#x27;never miss twice&#x27; rule say to do?" data-why="One miss is normal. Getting back on track at the next opportunity is what protects the habit." data-hint="Lesson 5.2"><p class="kc-prompt"><span class="kc-num">18</span><span>Destiny misses her Weekly Money Meeting because of a family emergency. What does the &#x27;never miss twice&#x27; rule say to do?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Start the whole program over.</button><button type="button" class="kc-opt" data-i="1">Skip meetings until life calms down.</button><button type="button" class="kc-opt" data-i="2">Double the length of every future meeting as a penalty.</button><button type="button" class="kc-opt" data-i="3">Hold the next scheduled meeting, even a short version, so one miss doesn&#x27;t become a pattern.</button></div></div><div class="aq-mc" data-correct="2" data-topic="Integration" data-q="Why is the final plan in this program built around 90 days?" data-why="Ninety days gives new money habits time to move from effort to automatic." data-hint="Lesson 5.2"><p class="kc-prompt"><span class="kc-num">19</span><span>Why is the final plan in this program built around 90 days?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Because motivation lasts exactly 90 days.</button><button type="button" class="kc-opt" data-i="1">Because banks require 90 days of statements.</button><button type="button" class="kc-opt" data-i="2">Research suggests habits take about 66 days on average to become automatic, and 90 days allows that plus a buffer for real life.</button><button type="button" class="kc-opt" data-i="3">Because 90 days is long enough to become wealthy.</button></div></div><div class="aq-mc" data-correct="0" data-topic="Integration" data-q="Which sequence best reflects the full RSM Advance method?" data-why="Each module builds on the one before it: roots, fear, numbers, drivers, and systems." data-hint="The full program"><p class="kc-prompt"><span class="kc-num">20</span><span>Which sequence best reflects the full RSM Advance method?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Find the root, face the fear, know the numbers, understand the drivers, and install systems with accountability.</button><button type="button" class="kc-opt" data-i="1">Invest first, then pay off debt, then examine beliefs.</button><button type="button" class="kc-opt" data-i="2">Build a budget first and deal with mindset if it fails.</button><button type="button" class="kc-opt" data-i="3">Earn more, spend more, save later.</button></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part B: Growth Measurement</h3><p>Rate yourself today on the same eight areas you rated on Day 1. Be as honest now as you were then. Your report compares the two.</p></div><div class="a-body"><div class="lk scale10" data-key="b1"><div class="lk-text"><span class="n">1.</span><span>How clearly do you know your monthly numbers (income, spending, debt, and savings)?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = No idea</span><span>10 = Know them exactly</span></div></div><div class="lk scale10" data-key="b2"><div class="lk-text"><span class="n">2.</span><span>How comfortable are you looking at your bank and credit card accounts?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = I avoid them completely</span><span>10 = Completely comfortable</span></div></div><div class="lk scale10" data-key="b3"><div class="lk-text"><span class="n">3.</span><span>How much control do you have over emotional or impulse spending?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = No control</span><span>10 = Full control</span></div></div><div class="lk scale10" data-key="b4"><div class="lk-text"><span class="n">4.</span><span>How well do you understand the money beliefs you grew up with and how they affect you today?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not at all</span><span>10 = Completely</span></div></div><div class="lk scale10" data-key="b5"><div class="lk-text"><span class="n">5.</span><span>How automated are your saving and bill paying?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Nothing is automated</span><span>10 = Fully automated</span></div></div><div class="lk scale10" data-key="b6"><div class="lk-text"><span class="n">6.</span><span>How consistent are you with tracking and reviewing your money?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Never</span><span>10 = Every week without fail</span></div></div><div class="lk scale10" data-key="b7"><div class="lk-text"><span class="n">7.</span><span>How calm do you feel about your finances day to day?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Constant stress</span><span>10 = Calm and in control</span></div></div><div class="lk scale10" data-key="b8"><div class="lk-text"><span class="n">8.</span><span>How confident are you that you&#x27;ll reach your financial goals?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not confident at all</span><span>10 = Completely confident</span></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part C: Real-World Case Study</h3><p>Read the case carefully, then apply everything you've learned. Your analysis is sent to Darrell.</p></div><div class="a-body"><div class="a-field"><div class="scenario" style="margin:0"><div class="scenario-head">Case Study: The Reed Household</div><div class="scenario-body">
+<p>Marcus (38, logistics coordinator) and Tanya (36, pharmacy technician) Reed have two children. They take home <strong>$6,400 a month</strong> combined.</p>
+<table class="rsm-table"><thead><tr><th>Monthly Item</th><th>Amount</th></tr></thead><tbody>
+<tr><td>Rent</td><td>$2,050</td></tr><tr><td>Two car payments</td><td>$780</td></tr><tr><td>Utilities, insurance, phones, childcare</td><td>$690</td></tr>
+<tr><td>Groceries and gas</td><td>$1,050</td></tr><tr><td>Discretionary (includes $520 delivery and takeout, $140 in subscriptions)</td><td>$1,420</td></tr>
+<tr><td>Minimum payments on credit cards and student loans</td><td>$430</td></tr><tr><td>Money Tanya sends to her mother and brother</td><td>$300</td></tr>
+<tr><td><strong>Total outflow</strong></td><td><strong>$6,720</strong></td></tr></tbody></table>
+<p>They owe <strong>$14,300 on credit cards at about 24% APR</strong> and $22,000 in student loans at 6%. They have <strong>$600</strong> in savings and save nothing automatically.</p>
+<p>Tanya grew up as the oldest child who helped raise her siblings. She says, "If I have it and they need it, how can I say no?" Marcus hasn't opened a credit card statement in four months. He says it "just stresses him out." He often shops online after 11 p.m. following long shifts. They argue about money about once a week, usually when a bill is late.</p>
+</div></div></div><div class="a-field"><label>Identify the root patterns driving each spouse and explain how their patterns interact.</label><p class="hint">Use the language of Modules 1, 2, and 4. Minimum 40 words.</p><textarea data-text="c1" data-label="Identify the root patterns driving each spouse and explain how their patterns interact." data-min="40"></textarea><div class="wc"></div></div><div class="a-field"><label>What are the three most important moves the Reeds should make in the next 30 days? Use specific numbers.</label><p class="hint">Consider cash flow, interest cost, runway, and leaks. Minimum 40 words.</p><textarea data-text="c2" data-label="What are the three most important moves the Reeds should make in the next 30 days? Use specific numbers." data-min="40"></textarea><div class="wc"></div></div><div class="a-field"><label>Design their operating system: what should be automated, what friction should be added, and how should they hold each other accountable?</label><p class="hint">Use the tools from Modules 2, 4, and 5. Minimum 40 words.</p><textarea data-text="c3" data-label="Design their operating system: what should be automated, what friction should be added, and how should they hold each other accountable?" data-min="40"></textarea><div class="wc"></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Part D: Your 90-Day Financial Mastery Plan</h3><p>This is the most important part of the program. Everything you've learned becomes a specific plan with dates, systems, and accountability.</p></div><div class="a-body"><div class="a-field"><label>My one primary financial decision for the next 90 days</label><p class="hint">One specific, measurable change. Example: "Pay off my $2,800 Discover card" or "Build my emergency fund to $3,000." Minimum 15 words.</p><textarea data-text="p0" data-label="My one primary financial decision for the next 90 days" data-min="15"></textarea><div class="wc"></div></div><div class="a-field"><label>Why this matters to me and to the people I love</label><p class="hint">Go beyond money. What changes in your life and your family's life? Minimum 20 words.</p><textarea data-text="pwhy" data-label="Why this matters to me and to the people I love" data-min="20"></textarea><div class="wc"></div></div><div class="a-field"><label>Days 1 to 30: STABILIZE</label><p class="hint">Close gaps and stop the bleeding: cash flow, Red items, top leaks, first automation. List specific actions and dates. Minimum 25 words.</p><textarea data-text="p1" data-label="Days 1 to 30: STABILIZE" data-min="25"></textarea><div class="wc"></div></div><div class="a-field"><label>Days 31 to 60: SYSTEMIZE</label><p class="hint">Make it automatic: transfers, bill pay, friction, if-then plans, weekly meetings. Minimum 25 words.</p><textarea data-text="p2" data-label="Days 31 to 60: SYSTEMIZE" data-min="25"></textarea><div class="wc"></div></div><div class="a-field"><label>Days 61 to 90: SOLIDIFY</label><p class="hint">Increase and lock in: raise your savings rate, attack debt, review progress, set your next 90 days. Minimum 25 words.</p><textarea data-text="p3" data-label="Days 61 to 90: SOLIDIFY" data-min="25"></textarea><div class="wc"></div></div><div class="a-field"><label>My automatic transfer: amount, destination, and start date</label><p class="hint">Example: "$150 every other Friday to my Ally emergency fund, starting October 10."</p><input type="text" data-text="pauto" data-label="My automatic transfer: amount, destination, and start date" /></div><div class="a-field"><label>My Weekly Money Meeting: day and time</label><p class="hint">Example: "Sundays at 7:00 p.m. with my wife."</p><input type="text" data-text="pmeet" data-label="My Weekly Money Meeting: day and time" /></div><div class="a-field"><label>My accountability partner and what I&#x27;ll report each week</label><p class="hint">Example: "My brother Terrence. I'll text him my credit card balance every Sunday."</p><input type="text" data-text="ppartner" data-label="My accountability partner and what I&#x27;ll report each week" /></div><div class="a-field"><label>My two most important if-then plans</label><p class="hint">Format: If [trigger], then I will [action]. Minimum 20 words.</p><textarea data-text="pif" data-label="My two most important if-then plans" data-min="20"></textarea><div class="wc"></div></div><div class="a-field"><label>One income growth move I&#x27;ll make in the next 90 days</label><p class="hint">Examples: ask for a raise with documented results, earn a certification, start a small side service, or add a second income stream. Minimum 15 words.</p><textarea data-text="pincome" data-label="One income growth move I&#x27;ll make in the next 90 days" data-min="15"></textarea><div class="wc"></div></div><div class="a-field"><label>One protection or legacy move I&#x27;ll make in the next 90 days</label><p class="hint">Examples: review life insurance coverage, update beneficiaries, start a will, open a savings account for a child, or have a money conversation with your kids. Minimum 15 words.</p><textarea data-text="plegacy" data-label="One protection or legacy move I&#x27;ll make in the next 90 days" data-min="15"></textarea><div class="wc"></div></div><div class="a-field"><label>My 90-day reset date</label><p class="hint">The date you'll recalculate your Core 8 and retake your self-rating. Put it on your calendar now.</p><input type="text" data-text="preset" data-label="My 90-day reset date" /></div></div></div>
+<div class="submit-box"><p>When you submit, your full report, your plan, and your certificate (if you pass) appear on this page, and a copy is sent to Darrell Thompson.</p><button type="submit" class="btn btn-gold" style="font-size:1rem;padding:1rem 2.4rem">Submit and Generate My Report</button><div class="form-error" id="formError"></div></div>
+</form>
+<div id="report" class="report"></div>
+</div>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
+<script>
+window.RSM_PAGE = {id: "final", type: "assessment", requires: [{"key": "ap:a5", "label": "Course Review Quiz (80% required)", "href": "./advance-assess5.html"}], assessment: {id: "final", name: "Final 90-Day Financial Mastery Exam", analyze: function(d, H){
+  var BL = {"b1": "Knowing my numbers", "b2": "Comfort looking at accounts", "b3": "Control over emotional spending", "b4": "Understanding my money beliefs", "b5": "Automation", "b6": "Consistent tracking", "b7": "Financial calm", "b8": "Confidence in my goals"};
+  var passed = d.mc.pct >= 80, pct = Math.round(d.mc.pct);
+  var base = H.LS.get('baseline'), pr = H.prior();
+  var h = '';
+  if (passed) h += H.certificate(d.name, 'RSM Advance Mindset, Financial Literacy and Accountability Program', H.today());
+  h += '<h3>Your Results at a Glance</h3>' + H.tiles([{v: d.mc.correct + '/' + d.mc.total, l: 'Exam Score'}, {v: pct + '%', l: passed ? 'Passed (80% required)' : 'Below 80% required'}, {v: '4 of 4', l: 'Exam Parts Completed'}]);
+  h += '<h3>Part A: Integrated Knowledge</h3>';
+  h += passed ? '<p>You passed the Final 90-Day Financial Mastery Exam. You didn\'t just memorize concepts. You applied them across integrated, real-world scenarios that connect mindset, numbers, psychology, and systems. That\'s mastery.</p>' : '<p>You scored ' + pct + '%. You need 80% to pass and earn your certificate. Everything else in this report is complete and valid, including your case study and your 90-day plan, and you can start your plan today. Review the lessons the missed questions point to, then tap <strong>Update My Answers and Resubmit</strong>.</p>';
+  h += H.mcReview(d, passed);
+
+  h += '<h3>Part B: Your Growth Since Day 1</h3>';
+  if (base && base.scale){
+    var tot0 = 0, tot1 = 0, rows = '', best = null, bestD = -99, low = null, lowV = 99;
+    Object.keys(BL).forEach(function(k){ var a = base.scale[k] || 0, b = d.scale[k] || 0, df = b - a; tot0 += a; tot1 += b;
+      if (df > bestD){ bestD = df; best = k; } if (b < lowV){ lowV = b; low = k; }
+      rows += '<tr><td>' + BL[k] + '</td><td>' + a + '</td><td><strong>' + b + '</strong></td><td style="color:' + (df > 0 ? '#1d6b3f' : df < 0 ? '#9b2226' : '#666') + ';font-weight:700">' + (df > 0 ? '+' : '') + df + '</td></tr>'; });
+    var g = tot1 - tot0, gp = tot0 ? Math.round(g / tot0 * 100) : 0;
+    h += H.tiles([{v: tot0 + '/80', l: 'Day 1 Score'}, {v: tot1 + '/80', l: 'Today'}, {v: (g >= 0 ? '+' : '') + gp + '%', l: 'Overall Change'}]);
+    h += '<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Area</th><th>Day 1</th><th>Today</th><th>Change</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+    h += '<p><strong>Your biggest growth:</strong> ' + BL[best] + ' (' + (bestD >= 0 ? '+' : '') + bestD + '). This is evidence of a real identity shift. Protect it with the systems in your plan.</p>';
+    h += '<p><strong>Your next growth edge:</strong> ' + BL[low] + ' (currently ' + lowV + ' out of 10). Build at least one specific action for this area into your first 30 days.</p>';
+    if (g <= 0) h += '<p>Your overall score didn\'t rise. That often happens when people become more honest about their situation. Awareness can make the picture look worse before it gets better. Your 90-day plan is where the scores start moving.</p>';
+  } else {
+    h += '<p>No Day 1 baseline was found on this device, so a before-and-after comparison isn\'t available here. Your current scores are recorded below and sent to Darrell. Use them as the baseline for your 90-day reset.</p><ul>';
+    Object.keys(BL).forEach(function(k){ h += '<li>' + BL[k] + ': <strong>' + d.scale[k] + '/10</strong></li>'; });
+    h += '</ul>';
+  }
+
+  var jr = '';
+  [['a1','Root-cause pattern (Module 1)'],['a2','Mindset and fear pattern (Module 2)'],['a3','Financial pressure point (Module 3)'],['a4','Spending driver (Module 4)']].forEach(function(x){ var r = pr[x[0]]; if (r && r.extra && r.extra.primary) jr += '<li><strong>' + x[1] + ':</strong> ' + H.esc(r.extra.primary) + '</li>'; });
+  if (jr){
+    h += '<h3>Your Complete Financial Profile</h3><p>Across the program, your assessments identified these primary patterns. Together they tell one story: where your stagnation started, what kept you from facing it, where it shows up in your numbers, and what drives it day to day. Your 90-day plan should target each one.</p><ul>' + jr + '</ul>';
+  }
+
+  h += '<h3>Part C: Case Study Analysis</h3><p>Your analysis of the Reed household is below. Strong answers identify Tanya\'s Rescuer identity and Marcus\'s avoidance and late-night stress spending, recognize the $320 monthly shortfall and the credit card interest as the most urgent numbers, and prescribe systems (automation, a fixed family-support amount, friction on late-night shopping, a Weekly Money Meeting) rather than willpower. Compare your answer to that standard.</p>';
+  ['c1','c2','c3'].forEach(function(k){ if (d.txt[k]) h += '<div class="echo"><b>' + H.esc(d.txt[k].label) + '</b>' + H.esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>'; });
+
+  h += '<h3>Part D: Your 90-Day Financial Mastery Plan</h3><p>This is your plan, in your words. Print it. Put it where you\'ll see it. Share it with your accountability partner. Review it at every Weekly Money Meeting.</p>';
+  ['p0','pwhy','p1','p2','p3','pauto','pmeet','ppartner','pif','pincome','plegacy','preset'].forEach(function(k){ if (d.txt[k]) h += '<div class="echo"><b>' + H.esc(d.txt[k].label) + '</b>' + H.esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>'; });
+
+  h += '<h3>Professional Feedback on Your Plan</h3><ul>';
+  h += '<li><strong>Automate first.</strong> Make sure your automatic transfer starts on your very next payday. Plans that start "next month" often don\'t start.</li>';
+  h += '<li><strong>Protect the weekly meeting.</strong> It\'s the heartbeat of your plan. If you only keep one habit on a hard week, keep the 15-minute meeting.</li>';
+  h += '<li><strong>Report weekly.</strong> Send your accountability partner one number every week. Research on goal achievement shows weekly reporting to another person is one of the strongest predictors of follow-through.</li>';
+  h += '<li><strong>Expect the pull back.</strong> Somewhere between day 20 and day 45, your old patterns will push back. That\'s the thermostat. Use your if-then plans, hit your minimum viable habits, and never miss twice.</li>';
+  h += '<li><strong>Measure on day 90.</strong> On your reset date, recalculate your Core 8 and retake the Day 1 self-rating. Then build your next 90 days.</li></ul>';
+
+  h += '<h3>Your Next Level</h3><p>Completing this program puts you in rare company. The next step is structured, proof-based accountability that turns this 90-day plan into a permanent operating system. The <a href="./level1.html">RSM Accountability Program, Level 1: Financial Foundations</a> is built for exactly that. You can also <a href="./discovery-intake.html">book a free discovery call with Darrell</a> to talk about your results, and join the <a href="./community-invite.html">RSM Wealth Builders community</a> to stay connected with others doing the same work.</p>';
+  return {title: passed ? 'Program Complete: Financial Mastery Certified' : 'Final Exam: ' + pct + '%', html: h, passed: passed, cert: passed,
+    score: d.mc.correct + '/' + d.mc.total + ' (' + pct + '%)', profile: passed ? 'Certified' : 'Not yet passed', retake: !passed,
+    next: passed ? {href: './level1.html', label: 'Explore Accountability Level 1'} : null};
+}}};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem('rsmadv_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem('rsmadv_' + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+</body>
+</html>

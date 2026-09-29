@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 5: Accountability and Long-Term Success | RSM Advance Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Advance Mindset, Financial Literacy &amp; Accountability Program</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">Advance Program</div><nav>
+<a href="./advance-portal.html" class="" data-done="baseline">Program Portal</a>
+<div class="sidebar-group">Module 1</div>
+<a href="./advance-mod1.html" class="" data-done="kc:m1l1,kc:m1l2,kc:m1l3">The Roots of Financial Stagnation</a>
+<a href="./advance-assess1.html" class="sub" data-done="a:a1">Foundation Knowledge Assessment</a>
+<div class="sidebar-group">Module 2</div>
+<a href="./advance-mod2.html" class="" data-done="kc:m2l1,kc:m2l2,kc:m2l3">Breaking the Cycle of Avoidance</a>
+<a href="./advance-assess2.html" class="sub" data-done="a:a2">Mindset and Fear Assessment</a>
+<div class="sidebar-group">Module 3</div>
+<a href="./advance-mod3.html" class="" data-done="kc:m3l1,kc:m3l2,kc:m3l3">Operational Financial Reality</a>
+<a href="./advance-assess3.html" class="sub" data-done="a:a3">Financial Data Literacy Quiz</a>
+<div class="sidebar-group">Module 4</div>
+<a href="./advance-mod4.html" class="" data-done="kc:m4l1,kc:m4l2,kc:m4l3">The Psychology of Modern Spending</a>
+<a href="./advance-assess4.html" class="sub" data-done="a:a4">Spending Psychology Assessment</a>
+<div class="sidebar-group">Module 5</div>
+<a href="./advance-mod5.html" class="active" data-done="kc:m5l1,kc:m5l2">Accountability and Long-Term Success</a>
+<a href="./advance-assess5.html" class="sub" data-done="ap:a5">Course Review Quiz</a>
+<div class="sidebar-group">Final</div>
+<a href="./advance-final-exam.html" class="" data-done="ap:final">Final 90-Day Financial Mastery Exam</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="module-hero"><p class="lesson-eyebrow">Module 5 of 5</p><h1>Accountability and Long-Term Success</h1><p>Awareness got you here. Systems and accountability get you the rest of the way. This final module shows you why most people stall after learning and how to make sure you don't, then installs the consistency systems that turn 90 days of effort into a lifetime of results.</p>
+<ul class="outcomes"><li>Identify your stage of change and your biggest stall risk</li><li>Cross the bridge from awareness to action with one specific decision and system</li><li>Install automation, minimum viable habits, habit stacks, and the RSM 90-Day Rhythm</li><li>Prove your mastery in the Course Review Quiz and the Final 90-Day Financial Mastery Exam</li></ul></div>
+<div class="progress-wrap"><div class="progress-top"><span>Module 5 Progress</span><span id="modLbl">0 of 2 lessons complete</span></div><div class="progress-bar"><div class="progress-fill" id="modFill"></div></div></div>
+<div class="toc"><h3>In This Module</h3><ol><li><a href="#lesson-5-1">Why Most People Quit at the Awareness Stage</a></li><li><a href="#lesson-5-2">Consistency Beats Motivation</a></li><li><a href="#module-complete">Course Review Quiz</a></li></ol></div>
+<section class="lesson" id="lesson-5-1"><span class="lesson-tag">Lesson 5.1</span>
+<h2 class="lesson-title">Why Most People Quit at the Awareness Stage</h2><p class="lesson-subtitle">Knowing isn't the same as changing. Most people stop right at the edge of the breakthrough.</p><div class="gold-rule"></div>
+
+<p>You've done something most people never do. You've looked at your beliefs, your identity, your emotions, your fears, your numbers, your leaks, and your spending triggers. You're more aware of your financial life right now than the vast majority of people will ever be.</p>
+<p>And here's the uncomfortable truth: <strong>this is exactly the point where most people quit.</strong> Not because they failed. Because awareness felt like the finish line. They learned so much that it felt like progress, and then life got busy, and six months later nothing had actually changed except that they now knew exactly why they were still stuck.</p>
+<p>This lesson exists so that doesn't happen to you.</p>
+
+<div class="callout callout-truth"><h4>The Core Truth</h4><p>Awareness is the doorway, not the destination. Insight without implementation is just a more educated version of being stuck. <strong>The gap between knowing and doing is where most financial transformations die, and it's where yours is going to be won.</strong></p></div>
+
+<h2>The Stages of Change</h2>
+<p>Psychologists James Prochaska and Carlo DiClemente developed one of the most widely used models of how people change behavior, often called the <strong>Stages of Change</strong>. It's been applied to everything from quitting smoking to managing money. Here's how it looks for your finances:</p>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Stage</th><th>What It Sounds Like</th><th>What It Needs</th></tr></thead><tbody><tr><td><strong>1. Precontemplation</strong></td><td>"My money is fine. Everybody's in debt."</td><td>Awareness that a problem exists</td></tr><tr><td><strong>2. Contemplation</strong></td><td>"I know I need to change. I'm thinking about it."</td><td>A decision and a reason strong enough to act</td></tr><tr><td><strong>3. Preparation</strong></td><td>"I'm setting up my plan and my accounts."</td><td>Specific steps, dates, and tools</td></tr><tr><td><strong>4. Action</strong></td><td>"I'm doing it. The transfers are running."</td><td>Support, tracking, and early wins</td></tr><tr><td><strong>5. Maintenance</strong></td><td>"This is just how I live now."</td><td>Systems, accountability, and relapse plans</td></tr></tbody></table></div>
+<p>Most people who take a financial course end up in <strong>Contemplation</strong>. They know. They want to. They're "thinking about it." And many stay there for years. This program is designed to push you through Preparation and into Action before you finish, and to give you the tools for Maintenance.</p>
+
+<h2>Six Reasons People Stall After Awareness</h2>
+<h3>1. The Insight Illusion</h3>
+<p>Learning feels like doing. Your brain gets a reward from understanding something new, so reading about budgeting can feel almost as satisfying as budgeting. It isn't. Researchers Jeffrey Pfeffer and Robert Sutton wrote about this in business as the <strong>knowing-doing gap</strong>: organizations that talk about, plan for, and study change while never actually changing. People do the same thing.</p>
+<h3>2. The Discomfort Spike</h3>
+<p>Awareness makes things more uncomfortable before they get better. You can no longer spend without noticing. You can't unsee your leaks. That discomfort feels like things are getting worse, so people retreat to the comfort of not knowing. But that discomfort is actually the sign that change has started.</p>
+<h3>3. Identity Threat</h3>
+<p>Real change threatens your old identity. If you've always been the Rescuer, saying no feels like betraying who you are. The old identity fights to survive. Expect it. Plan for it.</p>
+<h3>4. All-or-Nothing Thinking</h3>
+<p>"I went over budget this weekend, so the whole month is ruined." One slip becomes the reason to quit entirely. Builders understand that progress isn't a straight line. A bad day is a data point, not a verdict.</p>
+<h3>5. No System</h3>
+<p>Awareness without a system depends on remembering and wanting. Both fade. Systems don't.</p>
+<h3>6. No Accountability</h3>
+<p>When nobody knows what you committed to, nobody notices when you quietly stop, including you.</p>
+
+<div class="callout callout-research"><h4>The Power of Accountability</h4><p>Psychologist Gail Matthews at Dominican University of California studied goal achievement among working adults. Participants who wrote down their goals, shared specific action commitments with a friend, and sent that friend weekly progress reports accomplished significantly more than participants who only thought about their goals. Writing helped. Sharing helped more. Regular reporting to someone else helped most.</p></div>
+
+<h2>The Bridge From Awareness to Action</h2>
+<p>Here's the five-step bridge I use to move people from knowing to doing:</p>
+<ol>
+<li><strong>Awareness:</strong> You've done this. You know your patterns and your numbers.</li>
+<li><strong>Decision:</strong> Choose one specific change. Not ten. One. "I'm going to stop the late-night online shopping" or "I'm going to build a $1,000 emergency fund."</li>
+<li><strong>Design:</strong> Build the system that makes it happen without willpower: the automatic transfer, the deleted app, the if-then plan, the weekly meeting.</li>
+<li><strong>Do:</strong> Take the first action within 24 hours. Momentum lives in the first day.</li>
+<li><strong>Debrief:</strong> Review weekly. What worked? What didn't? What will you adjust? Report to your accountability partner.</li>
+</ol>
+
+<h2>Choosing Your Accountability Partner</h2>
+<p>A good accountability partner is not someone who will lecture you, and not someone who will let everything slide. Look for someone who:</p>
+<ul>
+<li>Wants to see you win and has no financial stake in your choices</li>
+<li>Can keep what you share private</li>
+<li>Will ask the question even when it's awkward: "Did you do what you said you would?"</li>
+<li>Will celebrate progress without making you feel judged for setbacks</li>
+</ul>
+<p>This could be a friend, a mentor, a spouse (if money isn't already a source of tension between you), or a member of the RSM Wealth Builders community. If you want structured, professional accountability, that's exactly what the RSM Accountability Program is designed for.</p>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Rochelle, Human Resources Specialist</div><div class="scenario-body"><h5>The Situation</h5><p>Rochelle, 39, has read six personal finance books, follows four money influencers, and can explain compound interest better than most people. She has $19,000 in credit card debt, about $2,000 in savings, and hasn't changed anything significant in three years. "I know exactly what to do. I just don't do it."</p>
+<h5>The Diagnosis</h5><p>Rochelle was stuck in Contemplation, caught in the Insight Illusion. Every new book felt like progress. It gave her the reward of learning without the discomfort of changing. She had no system and no accountability. Nobody knew her numbers.</p>
+<h5>The Bridge</h5><p><strong>Decision:</strong> Pay off the smallest card ($2,800) within seven months. <strong>Design:</strong> Automatic $475 payment on the 1st of each month, delete saved cards from shopping sites, stop buying finance books until the card was paid off. <strong>Do:</strong> She set up the autopay that night. <strong>Debrief:</strong> She texted her sister every Sunday with one number: the remaining balance.</p>
+<h5>The Result</h5><p>The card was paid off in just over six months, ahead of her deadline. Rochelle said the Sunday texts were the key. "I didn't want to send my sister the same number two weeks in a row." She rolled that payment into the next card and kept going. Three years of knowing. Six months of doing.</p></div></div>
+
+<div class="callout callout-action"><h4>Your Action Step: Cross the Bridge</h4><ol><li>Identify which of the six stall reasons is your biggest risk.</li>
+<li>Make your <strong>Decision</strong>: one specific financial change you'll make in the next 90 days.</li>
+<li><strong>Design</strong> the system: what will run automatically, what friction will you add, what if-then plan will you use?</li>
+<li><strong>Do</strong> the first action within 24 hours.</li>
+<li>Choose an accountability partner and send them your commitment and your first weekly report date.</li></ol></div>
+
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Which stage of change are you honestly in right now, and what evidence tells you that?</label><textarea data-ref="lesson-5-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which of the six stall reasons is your biggest risk, and how has it stopped you before?</label><textarea data-ref="lesson-5-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Who is your accountability partner, what exactly will you report to them each week, and on what day?</label><textarea data-ref="lesson-5-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="kc" data-kc="m5l1"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
+<div class="kc-q" data-correct="1" data-why="Contemplation is knowing a change is needed while not yet deciding or acting. &#x27;Maybe after the holidays&#x27; is the sound of Contemplation. The next step is a Decision with a date." data-hint="Match his words to the &#x27;What It Sounds Like&#x27; column."><p class="kc-prompt"><span class="kc-num">1</span><span>Dwayne says, &quot;I know I need to fix my spending. I&#x27;ve been thinking about it for a while. Maybe after the holidays.&quot; Which stage of change is he in?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Precontemplation</button><button type="button" class="kc-opt" data-i="1">Contemplation</button><button type="button" class="kc-opt" data-i="2">Action</button><button type="button" class="kc-opt" data-i="3">Maintenance</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="2" data-why="The Insight Illusion rewards learning without requiring change. Her breakthrough came from a decision, a system, and weekly accountability, not new information." data-hint="Reread the first stall reason and her diagnosis."><p class="kc-prompt"><span class="kc-num">2</span><span>Rochelle had read six finance books but hadn&#x27;t changed her behavior in three years. What best describes her situation?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Financial books don&#x27;t contain useful information.</button><button type="button" class="kc-opt" data-i="1">She didn&#x27;t have enough income to make progress.</button><button type="button" class="kc-opt" data-i="2">The Insight Illusion: learning felt like progress, so she kept learning instead of doing.</button><button type="button" class="kc-opt" data-i="3">She needed to read more books to find the right strategy.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="All-or-nothing thinking turns a single slip into a reason to quit. Builders treat a bad day as a data point and get back on plan the next day." data-hint="Which stall reason turns one slip into quitting?"><p class="kc-prompt"><span class="kc-num">3</span><span>Candace overspends on Saturday and decides, &quot;The whole month is ruined, I&#x27;ll start over next month.&quot; Which stall reason is this?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Identity threat</button><button type="button" class="kc-opt" data-i="1">All-or-nothing thinking</button><button type="button" class="kc-opt" data-i="2">No accountability</button><button type="button" class="kc-opt" data-i="3">The insight illusion</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="2" data-why="Each layer (writing, sharing, reporting weekly) added to achievement. Regular reporting to someone else had the strongest effect." data-hint="Reread &#x27;The Power of Accountability&#x27; callout."><p class="kc-prompt"><span class="kc-num">4</span><span>What did Gail Matthews&#x27; research suggest about accountability?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Only professional coaches can provide effective accountability.</button><button type="button" class="kc-opt" data-i="1">Writing goals down has no effect on achievement.</button><button type="button" class="kc-opt" data-i="2">People who wrote goals, shared commitments, and sent weekly progress reports to a friend accomplished significantly more than those who only thought about their goals.</button><button type="button" class="kc-opt" data-i="3">Accountability partners make people less motivated.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="Design converts a decision into automatic behavior: autopay, deleted apps, if-then plans, and weekly meetings. Systems carry you when motivation fades." data-hint="Reread step 3 of the Bridge."><p class="kc-prompt"><span class="kc-num">5</span><span>In the Bridge From Awareness to Action, what&#x27;s the purpose of the Design step?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">To build a system that makes the change happen without relying on willpower.</button><button type="button" class="kc-opt" data-i="1">To tell everyone you know about your goals.</button><button type="button" class="kc-opt" data-i="2">To research every possible strategy before choosing one.</button><button type="button" class="kc-opt" data-i="3">To make the plan look good on paper.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+</section>
+<section class="lesson" id="lesson-5-2"><span class="lesson-tag">Lesson 5.2</span>
+<h2 class="lesson-title">Consistency Beats Motivation</h2><p class="lesson-subtitle">Motivation gets you started. Systems keep you going. Consistency makes you wealthy.</p><div class="gold-rule"></div>
+
+<p>Everybody loves motivation. The New Year's energy. The fired-up feeling after a great video or a powerful talk. The "this time is different" rush. Motivation feels amazing. And it's one of the least reliable forces in human behavior.</p>
+<p>Motivation is an emotion, and emotions come and go. It's high on the first day of the month and low on the 27th. High after payday, low after a bad week. High when you're rested, gone when you're exhausted. <strong>If your financial plan depends on how you feel, your financial plan will fail on the days you feel bad.</strong> And there will be many of those days.</p>
+
+<div class="callout callout-truth"><h4>The Core Truth</h4><p>Wealth is not built in moments of inspiration. It's built in thousands of ordinary days when you did the thing anyway. <strong>Consistency is what motivation looks like when it grows up.</strong> It doesn't depend on feeling. It depends on structure.</p></div>
+
+<h2>Lessons From the Marine Corps</h2>
+<p>In the Marine Corps, nobody asked if you felt motivated to get up at 0500. Nobody asked if you were in the mood for physical training. You got up because that's what the schedule said, and the schedule didn't care about your feelings. What I learned is that discipline isn't about being tough. <strong>It's about removing the decision.</strong> When something is scheduled, expected, and automatic, you don't negotiate with yourself about it. You just do it.</p>
+<p>Money works the same way. The most financially successful people I know don't "decide" to save each month. It's already decided. The transfer runs. The bills are scheduled. The weekly meeting is on the calendar. They don't have more willpower than you. They have fewer decisions.</p>
+
+<h2>How Long Does It Really Take to Build a Habit?</h2>
+<div class="callout callout-research"><h4>The 66-Day Finding</h4><p>You may have heard that it takes 21 days to form a habit. The research tells a different story. In a 2009 study published in the <em>European Journal of Social Psychology</em>, Phillippa Lally and colleagues at University College London tracked people building new daily habits. On average, it took about <strong>66 days</strong> for a behavior to become automatic, with a wide range from 18 days to 254 days depending on the person and the habit. Just as important: <strong>missing a single day did not significantly affect the habit-building process.</strong> What mattered was getting back on track.</p></div>
+<p>This is why the final exam of this program is built around a <strong>90-day plan</strong>. Ninety days gives new money habits time to move from effort to automatic, with a buffer for real life.</p>
+
+<h2>The Five Consistency Systems</h2>
+<h3>1. Automate the Important</h3>
+<p>Pay yourself first, automatically. Set transfers to savings, investments, and extra debt payments on payday, before the money reaches your spending account. Schedule every bill for automatic payment. Automation is consistency that doesn't need you.</p>
+<h3>2. Set a Minimum Viable Habit</h3>
+<p>For every financial habit, set a "floor" you can hit on your worst day. If your plan is a 15-minute money meeting, your floor is opening your banking app and looking at one number. If your plan is saving $100 a paycheck, your floor is $10. On bad days, hit the floor. The streak survives, and so does the identity.</p>
+<h3>3. Stack Your Habits</h3>
+<p>Attach new habits to things you already do every day. "After I pour my morning coffee, I'll check my account balance." "After I get paid, I'll move my transfers." The existing habit becomes the trigger for the new one.</p>
+<h3>4. Never Miss Twice</h3>
+<p>You will miss a day. You'll blow a budget category. You'll skip a money meeting. That's normal, and the research says a single miss doesn't break the habit. The rule is simple: <strong>never miss twice in a row.</strong> One miss is an accident. Two is the start of a new pattern.</p>
+<h3>5. Track Your Streak</h3>
+<p>Mark every day or week you complete your habit on a calendar, app, or wall chart. Seeing the chain grow creates its own motivation, and you won't want to break it.</p>
+
+<h2>The RSM 90-Day Financial Rhythm</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Frequency</th><th>Time</th><th>What You Do</th></tr></thead><tbody><tr><td><strong>Daily</strong></td><td>2 minutes</td><td>Check your main account balance. Log any unplanned purchase and the feeling behind it.</td></tr><tr><td><strong>Weekly</strong></td><td>15 minutes</td><td>Weekly Money Meeting: win, balances, transactions, look-ahead, one action. Send your accountability report.</td></tr><tr><td><strong>Monthly</strong></td><td>60 minutes</td><td>Update your Core 8. Review leaks and subscriptions. Adjust your plan for next month. Celebrate progress with your reward budget.</td></tr><tr><td><strong>Every 90 Days</strong></td><td>2 hours</td><td>Full reset: compare your Core 8 to 90 days ago, update net worth, review goals, set your next 90-day plan.</td></tr></tbody></table></div>
+
+<h2>The Math of Showing Up</h2>
+<p>Consistency compounds in more than one way. Here's what small, steady actions can become:</p>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Consistent Action</th><th>After 90 Days</th><th>After 10 Years (hypothetical 7% average annual return)</th></tr></thead><tbody><tr><td>$25 a week, automated</td><td>$325</td><td>About $18,750</td></tr><tr><td>$50 a week, automated</td><td>$650</td><td>About $37,500</td></tr><tr><td>$100 a week, automated</td><td>$1,300</td><td>About $75,000</td></tr></tbody></table></div>
+<p><em>Illustration only. Returns are hypothetical, not guaranteed, and actual results will vary.</em></p>
+<p>None of those numbers require a raise, a windfall, or perfect motivation. They require a system and time.</p>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Tony and Brianna, Coworkers</div><div class="scenario-body"><h5>The Motivated Sprinter</h5><p>Tony got fired up after a financial seminar. For three weeks he tracked every dollar, cooked every meal, and saved $900. Then he had a rough month at work, stopped tracking, and spent the $900 on a weekend trip "to reset." Next seminar, same cycle. After two years of sprints and crashes, Tony had about $1,200 saved.</p>
+<h5>The Consistent Builder</h5><p>Brianna heard the same seminar. She wasn't as excited. She went home and set up a $50 automatic transfer every Friday and scheduled a 15-minute money meeting on Sunday nights. Some weeks she did nothing else. She never touched the transfer. After two years, Brianna had more than $5,200 in contributions alone, plus interest, plus two raises she routed partly into her transfer.</p>
+<h5>The Lesson</h5><p>Tony had more motivation. Brianna had more money. Tony's plan depended on how he felt. Brianna's plan didn't care how she felt. That's the entire lesson.</p></div></div>
+
+<div class="callout callout-action"><h4>Your Action Step: Install Your Consistency Systems</h4><ol><li>Set up at least one <strong>automatic transfer</strong> to savings or debt payoff on your next payday. Any amount. Start.</li>
+<li>Define your <strong>minimum viable habit</strong> for your most important financial behavior.</li>
+<li>Write one <strong>habit stack</strong>: "After I ______, I will ______."</li>
+<li>Put the <strong>RSM 90-Day Rhythm</strong> on your calendar: daily reminder, weekly meeting, monthly review, and your 90-day reset date.</li>
+<li>Start your <strong>streak tracker</strong> today.</li></ol></div>
+
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Describe a time motivation carried you for a while and then disappeared. What happened to your progress?</label><textarea data-ref="lesson-5-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. What will you automate this week, how much, and on what date will it start?</label><textarea data-ref="lesson-5-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Write your minimum viable habit and your habit stack exactly as you&#x27;ll use them.</label><textarea data-ref="lesson-5-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="kc" data-kc="m5l2"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
+<div class="kc-q" data-correct="3" data-why="The study found an average of about 66 days with a range of 18 to 254. A single missed day didn&#x27;t significantly affect habit formation, which is why &#x27;never miss twice&#x27; matters more than perfection." data-hint="Reread &#x27;The 66-Day Finding.&#x27;"><p class="kc-prompt"><span class="kc-num">1</span><span>Based on the Lally research, what&#x27;s the most accurate statement about building a new habit?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">If you miss one day, you have to start over from the beginning.</button><button type="button" class="kc-opt" data-i="1">Habits form in about one week if you&#x27;re motivated enough.</button><button type="button" class="kc-opt" data-i="2">Every habit takes exactly 21 days to form.</button><button type="button" class="kc-opt" data-i="3">It took about 66 days on average for behaviors to become automatic, with wide variation, and missing one day didn&#x27;t significantly derail the process.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="A minimum viable habit keeps the streak alive on bad days. The behavior and the identity matter more than the amount in a single hard week." data-hint="Reread Consistency System 2."><p class="kc-prompt"><span class="kc-num">2</span><span>Marcus planned to save $150 every paycheck, but this check was short because of reduced hours. What does the minimum viable habit principle suggest?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Skip saving this time and double it next time.</button><button type="button" class="kc-opt" data-i="1">Borrow money so he can still save $150.</button><button type="button" class="kc-opt" data-i="2">Stop saving until his hours go back up.</button><button type="button" class="kc-opt" data-i="3">Save his pre-set floor amount, such as $15, so the habit and the identity continue even on a hard pay period.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="Habit stacking attaches a new behavior to an existing daily habit, so the existing habit becomes the trigger." data-hint="Look for &#x27;After I [current habit], I will [new habit].&#x27;"><p class="kc-prompt"><span class="kc-num">3</span><span>Which is an example of habit stacking?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">&quot;I&#x27;ll try to check my balance more often.&quot;</button><button type="button" class="kc-opt" data-i="1">&quot;After I pour my morning coffee, I&#x27;ll check my account balance.&quot;</button><button type="button" class="kc-opt" data-i="2">&quot;I&#x27;ll check my balance when I feel motivated.&quot;</button><button type="button" class="kc-opt" data-i="3">&quot;I&#x27;ll check my balance once a year during tax season.&quot;</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="Consistency beats intensity. Brianna&#x27;s automation and weekly meeting ran every week. Tony&#x27;s sprints and crashes erased his progress repeatedly." data-hint="Reread &#x27;The Lesson&#x27; in the case study."><p class="kc-prompt"><span class="kc-num">4</span><span>Why did Brianna end up with more money than Tony despite having less motivation?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Her plan was built on automated systems that ran regardless of how she felt, while Tony&#x27;s depended on motivation that came and went.</button><button type="button" class="kc-opt" data-i="1">Brianna got lucky with investments.</button><button type="button" class="kc-opt" data-i="2">Tony didn&#x27;t attend the seminar.</button><button type="button" class="kc-opt" data-i="3">Brianna earned a much higher salary.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="Misses are normal and a single one doesn&#x27;t break a habit. Two in a row starts a new pattern. The rule protects momentum without demanding perfection." data-hint="Reread Consistency System 4."><p class="kc-prompt"><span class="kc-num">5</span><span>What does the &#x27;never miss twice&#x27; rule mean?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">One miss is an accident. Get back on track immediately so a miss doesn&#x27;t become a new pattern.</button><button type="button" class="kc-opt" data-i="1">If you miss twice, you&#x27;ve failed and should quit.</button><button type="button" class="kc-opt" data-i="2">You&#x27;re allowed to miss every other day.</button><button type="button" class="kc-opt" data-i="3">You should punish yourself after every miss so you don&#x27;t miss again.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+</section>
+<div class="module-complete" id="module-complete"><p class="lesson-eyebrow" style="color:#E8B84B">Module 5 Checkpoint</p><h2>Course Review Quiz</h2><p>The Course Review Quiz covers all five modules. You need 80% to unlock the Final 90-Day Financial Mastery Exam, where you'll prove your knowledge, analyze a real-world case, measure your growth since Day 1, and build the 90-day plan that carries this program into the rest of your life.</p>
+<a class="btn btn-gold disabled" id="moduleNext" href="./advance-assess5.html">Begin the Course Review Quiz</a><p class="lock-note" id="moduleLockNote"></p></div>
+<div class="lesson-nav"><a class="btn-prev" href="./advance-assess4.html">&#8592; Spending Psychology Assessment</a><span class="progress-label">Module 5 of 5</span><a class="btn-next" href="./advance-assess5.html">Course Review Quiz &#8594;</a></div>
+</div>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
+<script>
+window.RSM_PAGE = {"id": "mod5", "type": "module", "kcs": ["m5l1", "m5l2"], "requires": [{"key": "a:a4", "label": "Spending Psychology Assessment", "href": "./advance-assess4.html"}]};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem('rsmadv_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem('rsmadv_' + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+</body>
+</html>
