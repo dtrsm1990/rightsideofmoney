@@ -244,7 +244,7 @@ window.QUIZ.classify = function(pct, cp, tags){
 (function(){
 'use strict';
 var Q = window.QUIZ, questions = Q.questions, answers = questions.map(function(){ return null; }), cur = 0, result = null;
-var FORM = 'https://formspree.io/f/xrpbgjbb';
+var FORM = 'https://formspree.io/f/mvkglqlj';
 function $(id){ return document.getElementById(id); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 var cats = []; questions.forEach(function(q){ if (cats.indexOf(q.cat) < 0) cats.push(q.cat); });
