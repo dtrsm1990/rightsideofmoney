@@ -169,7 +169,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
 
 /* FADE */
 .fade-in{animation:fadeIn 0.5s ease;}
-
 .lead-form{margin-top:16px;}
 .lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
 .lead-form input[type=text],.lead-form input[type=email]{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.35);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;}
@@ -177,12 +176,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
 .lead-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.5;}
 .lead-check input{margin-top:3px;accent-color:#C9941A;}
 .lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
+.gate-p{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.7;margin:-12px 0 8px;}
+.gate-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+.gate-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:14px;padding:0;}
+.gate-back:hover{color:#E8B84B;}
+
 #shareCanvas{width:100%;max-width:440px;height:auto;display:block;margin:8px auto 0;border-radius:4px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
 .share-section{text-align:center;}
 .intro-points{max-width:620px;margin:0 auto 36px;text-align:left;display:grid;gap:10px;}
 .intro-points div{font-size:15px;color:rgba(255,255,255,0.75);padding-left:26px;position:relative;line-height:1.6;}
 .intro-points div::before{content:'\2713';position:absolute;left:0;color:#E8B84B;font-weight:700;}
-@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -207,7 +211,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
         <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
       </div>
       <button class="btn-start" onclick="startQuiz()">Take the Quiz Now &rarr;</button>
-      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.3);">No email required. Instant results.</p>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.45);">100% free. Enter your name and email at the end to unlock your full results.</p>
     </div>
   </div>
 </div>
@@ -241,6 +245,54 @@ window.QUIZ.classify = function(pct, cp, tags){
 };
 </script>
 <script>
+/* RSM results gate: name and email required before results are shown */
+(function(){
+  function el(id){ return document.getElementById(id); }
+  window.rsmGate = function(onDone, onBack){
+    var nav = document.querySelector('.quiz-nav');
+    if (nav) nav.style.display = 'none';
+    if (el('progressCount')) el('progressCount').textContent = 'Complete';
+    if (el('progressFill')) el('progressFill').style.width = '100%';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('rsm_lead') || '{}') || {}; } catch(e){ saved = {}; }
+    el('questionContainer').innerHTML =
+      '<div class="question-card gate-card">' +
+      '<div class="q-category">You\'re Done. Your Results Are Ready.</div>' +
+      '<div class="q-text">Unlock Your Full Results</div>' +
+      '<p class="gate-p">Enter your first name and email to see your score, your personal breakdown, and the free guides matched to your result. Darrell receives every result so he can share resources that fit where you are.</p>' +
+      '<form id="gateForm" class="lead-form" novalidate>' +
+      '<div class="lead-row"><input type="text" id="gateName" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" placeholder="Email address" autocomplete="email" /></div>' +
+      '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+      '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Results &rarr;</button>' +
+      '<p class="lead-msg" id="gateMsg"></p>' +
+      '<p class="gate-note">Your information stays private. No spam, ever.</p>' +
+      '<button type="button" class="gate-back" id="gateBack">&#8592; Back to the last question</button>' +
+      '</form></div>';
+    if (saved.name) el('gateName').value = saved.name;
+    if (saved.email) el('gateEmail').value = saved.email;
+    window.scrollTo(0, 0);
+    el('gateBack').addEventListener('click', function(){
+      if (nav) nav.style.display = '';
+      onBack();
+    });
+    el('gateForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = el('gateName').value.trim(), em = el('gateEmail').value.trim();
+      if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+        el('gateMsg').textContent = 'Please enter your first name and a valid email to see your results.';
+        return;
+      }
+      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked};
+      try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
+      if (nav) nav.style.display = '';
+      onDone(lead);
+    });
+  };
+  window.rsmPost = function(url, fd){
+    try { fetch(url, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+
 (function(){
 'use strict';
 var Q = window.QUIZ, questions = Q.questions, answers = questions.map(function(){ return null; }), cur = 0, result = null;
@@ -262,11 +314,11 @@ function render(){
   $('btnNext').innerHTML = cur === questions.length - 1 ? 'See My Results &rarr;' : 'Next &rarr;';
 }
 window.selectOption = function(i){ answers[cur] = i; render(); };
-window.nextQuestion = function(){ if (answers[cur] === null) return; if (cur < questions.length - 1){ cur++; render(); window.scrollTo(0, 0); } else show(); };
+window.nextQuestion = function(){ if (answers[cur] === null) return; if (cur < questions.length - 1){ cur++; render(); window.scrollTo(0, 0); } else rsmGate(function(lead){ show(lead); }, function(){ render(); }); };
 window.prevQuestion = function(){ if (cur > 0){ cur--; render(); } };
 window.retakeQuiz = function(){ answers = questions.map(function(){ return null; }); cur = 0; $('resultsSection').style.display = 'none'; $('startSection').style.display = 'block'; window.scrollTo(0, 0); };
 
-function show(){
+function show(lead){
   var total = 0, max = 0, cs = {}, cm = {}, tags = {};
   cats.forEach(function(c){ cs[c] = 0; cm[c] = 0; });
   questions.forEach(function(q, i){ var o = q.options[answers[i]]; total += o.score; max += 4; cs[q.cat] += o.score; cm[q.cat] += 4; if (o.tag) tags[o.tag] = (tags[o.tag] || 0) + 1; });
@@ -290,10 +342,8 @@ function show(){
   b += '<div class="results-section"><div class="results-section-title">What to Watch For</div><h3>The Patterns Behind Your Result</h3><ul class="beliefs-list">' + R.watch.map(function(w){ return '<li><span class="belief-icon">' + w.icon + '</span><div class="belief-text"><strong>' + esc(w.title) + '</strong>' + esc(w.text) + '</div></li>'; }).join('') + '</ul></div>';
   b += '<div class="results-section"><div class="results-section-title">Your Next Steps</div><h3>Start Here</h3><div class="next-steps">' + R.steps.map(function(s, i){ return '<div class="next-step"><div class="step-num">' + (i + 1) + '</div><div class="step-content"><div class="step-title">' + esc(s.t) + '</div><div class="step-desc">' + esc(s.d) + '</div><a class="step-link" href="' + s.l + '">' + esc(s.lt) + ' &rarr;</a></div></div>'; }).join('') + '</div></div>';
 
-  b += '<div class="results-section" id="leadBox"><div class="results-section-title">Free for Your Result Type</div><h3>Unlock Your Free Guide' + (R.guides.length > 1 ? 's' : '') + '</h3><p>Enter your name and email to download ' + R.guides.map(function(g){ return '<strong style="color:#fff">' + esc(g.t) + '</strong>'; }).join(' and ') + ', chosen specifically for ' + esc(R.plain) + ' results. Darrell will also receive your result so he can share resources that fit where you are.</p>' +
-    '<form id="leadForm" class="lead-form" novalidate><div class="lead-row"><input type="text" id="leadName" placeholder="First name" autocomplete="given-name" /><input type="email" id="leadEmail" placeholder="Email address" autocomplete="email" /></div>' +
-    '<label class="lead-check"><input type="checkbox" id="leadOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
-    '<button type="submit" class="btn-cta-gold" style="border:none;cursor:pointer;width:100%">Unlock My Free Guide</button><p class="lead-msg" id="leadMsg"></p></form><div id="leadDone" style="display:none"></div></div>';
+  b += '<div class="results-section" id="leadBox"><div class="results-section-title">Free for Your Result Type</div><h3>Your Free Guide' + (R.guides.length > 1 ? 's' : '') + ', ' + esc(lead.name) + '</h3><p>These guides were chosen specifically for ' + esc(R.plain) + ' results. Download ' + (R.guides.length > 1 ? 'them' : 'it') + ' now and keep ' + (R.guides.length > 1 ? 'them' : 'it') + ' handy as you take your next steps.</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">' + R.guides.map(function(g){ return '<a class="btn-cta-gold" href="./' + g.f + '" target="_blank" download>Download: ' + esc(g.t) + '</a>'; }).join('') + '</div>' +
+    '<p style="margin-top:16px"><a class="step-link" href="mailto:' + encodeURIComponent(lead.email) + '?subject=' + encodeURIComponent('My ' + Q.title + ' Result: ' + R.plain) + '&body=' + encodeURIComponent('My ' + Q.title + ' result: ' + R.plain + ' (' + pct + '/100)\n\n' + R.tagline + '\n\nMy next steps:\n' + R.steps.map(function(s, i){ return (i + 1) + '. ' + s.t; }).join('\n') + '\n\nRetake or share the quiz: rightsideofmoney.com') + '">Email my results to myself</a></p></div>';
 
   b += '<div class="results-section share-section"><div class="results-section-title">Share Your Result</div><h3>Post Your Result Card</h3><p>Share your result on Facebook, Instagram, or TikTok and challenge your friends to find theirs.</p><canvas id="shareCanvas" width="1080" height="1080"></canvas><div class="cta-buttons" style="margin-top:20px"><button type="button" class="btn-cta-gold" id="shareBtn" style="border:none;cursor:pointer">Share My Result</button><button type="button" class="btn-cta-outline" id="dlBtn" style="cursor:pointer;background:transparent">Download Image</button></div></div>';
 
@@ -301,31 +351,18 @@ function show(){
   b += '<div style="text-align:center;margin-top:24px"><button class="btn-retake" onclick="retakeQuiz()">Retake the Quiz</button> <a class="btn-retake" style="text-decoration:none;display:inline-block;margin-left:8px" href="' + Q.otherQuiz.l + '">' + esc(Q.otherQuiz.t) + '</a></div>';
   if (Q.disclaimer) b += '<p style="font-size:12px;color:rgba(255,255,255,0.35);text-align:center;margin-top:24px;line-height:1.6">' + esc(Q.disclaimer) + '</p>';
   $('resultsBody').innerHTML = b;
-  drawCard(); wireShare(); wireLead();
+  drawCard(); wireShare(); sendLead(lead);
 }
 
-function wireLead(){
-  $('leadForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    var n = $('leadName').value.trim(), em = $('leadEmail').value.trim(), msg = $('leadMsg');
-    if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ msg.textContent = 'Please enter your first name and a valid email.'; return; }
-    var btn = this.querySelector('button'); btn.disabled = true; btn.textContent = 'Unlocking...';
-    var fd = new FormData();
-    fd.append('name', n); fd.append('email', em); fd.append('_replyto', em);
-    fd.append('_subject', 'Quiz Lead | ' + Q.title + ' | ' + n + ' | ' + result.R.plain);
-    fd.append('quiz', Q.title); fd.append('result', result.R.plain); fd.append('score', result.pct + '/100');
-    fd.append('breakdown', Object.keys(result.cp).map(function(c){ return c + ': ' + result.cp[c] + '%'; }).join(' | '));
-    fd.append('email_opt_in', $('leadOpt').checked ? 'Yes' : 'No');
-    fd.append('answers', questions.map(function(q, i){ return (i + 1) + '. ' + q.text + ' | ' + q.options[answers[i]].text; }).join('\n'));
-    function done(ok){
-      $('leadForm').style.display = 'none';
-      var d = $('leadDone');
-      d.innerHTML = '<p style="color:#9be3b5;font-weight:600">' + (ok ? 'Unlocked. Thank you, ' + esc(n) + '!' : 'Your guides are unlocked below.') + '</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">' + result.R.guides.map(function(g){ return '<a class="btn-cta-gold" href="./' + g.f + '" target="_blank" download>Download: ' + esc(g.t) + '</a>'; }).join('') + '</div>' +
-        '<p style="margin-top:16px"><a class="step-link" href="mailto:' + encodeURIComponent(em) + '?subject=' + encodeURIComponent('My ' + Q.title + ' Result: ' + result.R.plain) + '&body=' + encodeURIComponent('My ' + Q.title + ' result: ' + result.R.plain + ' (' + result.pct + '/100)\n\n' + result.R.tagline + '\n\nMy next steps:\n' + result.R.steps.map(function(s, i){ return (i + 1) + '. ' + s.t; }).join('\n') + '\n\nRetake or share the quiz: rightsideofmoney.com') + '">Email my results to myself</a></p>';
-      d.style.display = 'block';
-    }
-    fetch(FORM, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(r){ done(r.ok); }).catch(function(){ done(false); });
-  });
+function sendLead(lead){
+  var fd = new FormData();
+  fd.append('name', lead.name); fd.append('email', lead.email); fd.append('_replyto', lead.email);
+  fd.append('_subject', 'Quiz Lead | ' + Q.title + ' | ' + lead.name + ' | ' + result.R.plain);
+  fd.append('quiz', Q.title); fd.append('result', result.R.plain); fd.append('score', result.pct + '/100');
+  fd.append('breakdown', Object.keys(result.cp).map(function(c){ return c + ': ' + result.cp[c] + '%'; }).join(' | '));
+  fd.append('email_opt_in', lead.opt ? 'Yes' : 'No');
+  fd.append('answers', questions.map(function(q, i){ return (i + 1) + '. ' + q.text + ' | ' + q.options[answers[i]].text; }).join('\n'));
+  rsmPost(FORM, fd);
 }
 
 function wrap(ctx, text, x, y, maxW, lh){

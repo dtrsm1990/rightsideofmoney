@@ -175,6 +175,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
 .lead-check input{margin-top:3px;accent-color:#C9941A;}
 .lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
 @media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
+.gate-p{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.7;margin:-12px 0 8px;}
+.gate-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+.gate-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:14px;padding:0;}
+.gate-back:hover{color:#E8B84B;}
 </style>
 </head>
 <body>
@@ -201,7 +205,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
         <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
       </div>
       <button class="btn-start" onclick="startQuiz()">Take the Quiz Now &rarr;</button>
-      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.3);">No email required. Instant results.</p>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.45);">100% free. Enter your name and email at the end to unlock your full results.</p>
     </div>
   </div>
 </div>
@@ -234,6 +238,55 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
   </div>
 </div>
 
+<script>
+/* RSM results gate: name and email required before results are shown */
+(function(){
+  function el(id){ return document.getElementById(id); }
+  window.rsmGate = function(onDone, onBack){
+    var nav = document.querySelector('.quiz-nav');
+    if (nav) nav.style.display = 'none';
+    if (el('progressCount')) el('progressCount').textContent = 'Complete';
+    if (el('progressFill')) el('progressFill').style.width = '100%';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('rsm_lead') || '{}') || {}; } catch(e){ saved = {}; }
+    el('questionContainer').innerHTML =
+      '<div class="question-card gate-card">' +
+      '<div class="q-category">You\'re Done. Your Results Are Ready.</div>' +
+      '<div class="q-text">Unlock Your Full Results</div>' +
+      '<p class="gate-p">Enter your first name and email to see your score, your personal breakdown, and the free guides matched to your result. Darrell receives every result so he can share resources that fit where you are.</p>' +
+      '<form id="gateForm" class="lead-form" novalidate>' +
+      '<div class="lead-row"><input type="text" id="gateName" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" placeholder="Email address" autocomplete="email" /></div>' +
+      '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+      '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Results &rarr;</button>' +
+      '<p class="lead-msg" id="gateMsg"></p>' +
+      '<p class="gate-note">Your information stays private. No spam, ever.</p>' +
+      '<button type="button" class="gate-back" id="gateBack">&#8592; Back to the last question</button>' +
+      '</form></div>';
+    if (saved.name) el('gateName').value = saved.name;
+    if (saved.email) el('gateEmail').value = saved.email;
+    window.scrollTo(0, 0);
+    el('gateBack').addEventListener('click', function(){
+      if (nav) nav.style.display = '';
+      onBack();
+    });
+    el('gateForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = el('gateName').value.trim(), em = el('gateEmail').value.trim();
+      if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+        el('gateMsg').textContent = 'Please enter your first name and a valid email to see your results.';
+        return;
+      }
+      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked};
+      try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
+      if (nav) nav.style.display = '';
+      onDone(lead);
+    });
+  };
+  window.rsmPost = function(url, fd){
+    try { fetch(url, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+</script>
 <script>
 var questions = [
   // CATEGORY 1: MONEY BELIEFS (Q1-4)
@@ -489,13 +542,13 @@ function selectOption(i){
 
 function nextQuestion(){
   if(current<questions.length-1){current++;renderQuestion();window.scrollTo(0,0);}
-  else{showResults();}
+  else{rsmGate(function(lead){showResults(lead);},function(){renderQuestion();});}
 }
 function prevQuestion(){
   if(current>0){current--;renderQuestion();window.scrollTo(0,0);}
 }
 
-function showResults(){
+function showResults(lead){
   document.getElementById('quizSection').style.display='none';
   document.getElementById('resultsSection').style.display='block';
   window.scrollTo(0,0);
@@ -651,11 +704,10 @@ function showResults(){
     '</div>'+
     '<div class="results-section fade-in" id="leadBox">'+
     '<div class="results-section-title">Free for Your Result Type</div>'+
-    '<h3>Unlock Your Free Guides</h3>'+
-    '<p>Enter your name and email to download '+guides.map(function(g){return '<strong style="color:#fff">'+g.t+'</strong>';}).join(' and ')+', chosen specifically for '+plain+' results. Darrell will also receive your result so he can share resources that fit where you are.</p>'+
-    '<form id="leadForm" class="lead-form" novalidate><div class="lead-row"><input type="text" id="leadName" placeholder="First name" autocomplete="given-name" /><input type="email" id="leadEmail" placeholder="Email address" autocomplete="email" /></div>'+
-    '<label class="lead-check"><input type="checkbox" id="leadOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>'+
-    '<button type="submit" class="btn-cta-gold" style="border:none;cursor:pointer;width:100%">Unlock My Free Guides</button><p class="lead-msg" id="leadMsg"></p></form><div id="leadDone" style="display:none"></div>'+
+    '<h3>Your Free Guides, '+lead.name+'</h3>'+
+    '<p>These guides were chosen specifically for '+plain+' results. Download them now and keep them handy as you take your next steps.</p>'+
+    '<div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">'+guides.map(function(g){return '<a class="btn-cta-gold" href="./'+g.f+'" target="_blank" download>Download: '+g.t+'</a>';}).join('')+'</div>'+
+    '<p style="margin-top:16px"><a class="step-link" href="mailto:'+encodeURIComponent(lead.email)+'?subject='+encodeURIComponent('My Wealth Mindset Quiz Result: '+plain)+'&body='+encodeURIComponent('My Wealth Mindset Quiz result: '+plain+' ('+total+'/'+maxTotal+')\n\n'+tagline+'\n\nMy next steps:\n'+nextSteps.map(function(s){return s.n+'. '+s.t;}).join('\n')+'\n\nRetake or share the quiz: rightsideofmoney.com')+'">Email my results to myself</a></p>'+
     '</div>'+
     '<div class="results-cta fade-in">'+
     '<h3>Ready to Get on the <em>Right Side of Money?</em></h3>'+
@@ -667,29 +719,15 @@ function showResults(){
     '</div>'+
     '<button class="btn-retake" onclick="retakeQuiz()">&#8635; Retake the Quiz</button>';
 
-  // Lead capture: result + answers go to Darrell, guides unlock for the visitor
-  var catLine=categories.map(function(c){return c+': '+(catMax[c]?Math.round(catScores[c]/catMax[c]*100):0)+'%';}).join(' | ');
-  document.getElementById('leadForm').addEventListener('submit',function(e){
-    e.preventDefault();
-    var n=document.getElementById('leadName').value.trim(),em=document.getElementById('leadEmail').value.trim(),msg=document.getElementById('leadMsg');
-    if(!n||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){msg.textContent='Please enter your first name and a valid email.';return;}
-    var btn=this.querySelector('button');btn.disabled=true;btn.textContent='Unlocking...';
-    var fd=new FormData();
-    fd.append('name',n);fd.append('email',em);fd.append('_replyto',em);
-    fd.append('_subject','Quiz Lead | Wealth Mindset Quiz | '+n+' | '+plain);
-    fd.append('quiz','Wealth Mindset Quiz');fd.append('result',plain);fd.append('score',total+'/'+maxTotal+' ('+pct+'%)');
-    fd.append('breakdown',catLine);
-    fd.append('email_opt_in',document.getElementById('leadOpt').checked?'Yes':'No');
-    fd.append('answers',questions.map(function(q,i){return (i+1)+'. '+q.text+' | '+(answers[i]!==null?q.options[answers[i]].text:'(skipped)');}).join('\n'));
-    function done(ok){
-      document.getElementById('leadForm').style.display='none';
-      var d=document.getElementById('leadDone');
-      d.innerHTML='<p style="color:#9be3b5;font-weight:600">'+(ok?'Unlocked. Thank you, '+n.replace(/[<>&"]/g,'')+'!':'Your guides are unlocked below.')+'</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">'+guides.map(function(g){return '<a class="btn-cta-gold" href="./'+g.f+'" target="_blank" download>Download: '+g.t+'</a>';}).join('')+'</div>'+
-        '<p style="margin-top:16px"><a class="step-link" href="mailto:'+encodeURIComponent(em)+'?subject='+encodeURIComponent('My Wealth Mindset Quiz Result: '+plain)+'&body='+encodeURIComponent('My Wealth Mindset Quiz result: '+plain+' ('+total+'/'+maxTotal+')\n\n'+tagline+'\n\nMy next steps:\n'+nextSteps.map(function(s){return s.n+'. '+s.t;}).join('\n')+'\n\nRetake or share the quiz: rightsideofmoney.com')+'">Email my results to myself</a></p>';
-      d.style.display='block';
-    }
-    fetch('https://formspree.io/f/mvkglqlj',{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){done(r.ok);}).catch(function(){done(false);});
-  });
+  // Send result to Darrell
+  var fd=new FormData();
+  fd.append('name',lead.name);fd.append('email',lead.email);fd.append('_replyto',lead.email);
+  fd.append('_subject','Quiz Lead | Wealth Mindset Quiz | '+lead.name+' | '+plain);
+  fd.append('quiz','Wealth Mindset Quiz');fd.append('result',plain);fd.append('score',total+'/'+maxTotal+' ('+pct+'%)');
+  fd.append('breakdown',categories.map(function(c){return c+': '+(catMax[c]?Math.round(catScores[c]/catMax[c]*100):0)+'%';}).join(' | '));
+  fd.append('email_opt_in',lead.opt?'Yes':'No');
+  fd.append('answers',questions.map(function(q,i){return (i+1)+'. '+q.text+' | '+(answers[i]!==null?q.options[answers[i]].text:'(skipped)');}).join('\n'));
+  rsmPost('https://formspree.io/f/mvkglqlj',fd);
 
   // Animate score bar
   setTimeout(function(){
