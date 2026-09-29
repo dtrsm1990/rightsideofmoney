@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investing Readiness Quiz | Right Side of Money</title>
+<meta name="description" content="Are you ready to invest? Take the free Right Side of Money Investing Readiness Quiz by Darrell Thompson and get your personal result in 5 minutes.">
+<meta property="og:title" content="Investing Readiness Quiz | Right Side of Money">
+<meta property="og:description" content="Are you ready to invest? Take the free Right Side of Money Investing Readiness Quiz by Darrell Thompson and get your personal result in 5 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;
+  --navy-mid:#1B3A6B;
+  --gold:#C9941A;
+  --gold-light:#E8B84B;
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.6);
+  --light-bg:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-back{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:#E8B84B;}
+@media(max-width:768px){nav{padding:0 20px;}}
+
+/* HERO */
+.hero{padding:120px 40px 60px;text-align:center;background:linear-gradient(180deg,#0a1628 0%,#0D1F3C 100%);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:220px;color:rgba(201,148,26,0.03);white-space:nowrap;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;}
+.hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:2;}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.hero-title em{font-style:normal;color:#E8B84B;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:32px;}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-meta-item{text-align:center;}
+.hero-meta-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;line-height:1;}
+.hero-meta-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.btn-start{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:20px 56px;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s,transform 0.2s;}
+.btn-start:hover{background:#E8B84B;transform:translateY(-2px);}
+
+/* QUIZ CONTAINER */
+.quiz-wrap{max-width:760px;margin:0 auto;padding:100px 40px 80px;}
+
+/* PROGRESS */
+.progress-bar-wrap{margin-bottom:48px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#C9941A;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#E8B84B;}
+.progress-track{width:100%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,#C9941A,#E8B84B);border-radius:2px;transition:width 0.5s ease;}
+
+/* QUESTION CARD */
+.question-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);border-top:3px solid #C9941A;padding:40px;border-radius:2px;margin-bottom:32px;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-category{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.q-number{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,0.25);margin-bottom:8px;}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:#FFFFFF;line-height:1.4;margin-bottom:32px;}
+
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:18px 24px;border-radius:2px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:16px;text-align:left;}
+.option:hover{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.4);}
+.option.selected{background:rgba(201,148,26,0.12);border-color:#C9941A;border-width:2px;}
+.option-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.option.selected .option-dot{border-color:#C9941A;background:#C9941A;}
+.option.selected .option-dot::after{content:'';width:8px;height:8px;background:#0D1F3C;border-radius:50%;}
+.option-text{font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5;}
+.option.selected .option-text{color:#FFFFFF;font-weight:500;}
+
+/* NAV BUTTONS */
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+.btn-prev{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-prev:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+.btn-prev:disabled{opacity:0.2;cursor:not-allowed;}
+.btn-next{background:#C9941A;border:none;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:14px 36px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-next:hover:not(:disabled){background:#E8B84B;}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* RESULTS */
+.results-wrap{max-width:800px;margin:0 auto;padding:40px 40px 80px;}
+.results-hero{text-align:center;padding:60px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:40px;}
+.results-score-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.results-score{font-family:'Bebas Neue',sans-serif;font-size:96px;color:#E8B84B;line-height:1;margin-bottom:8px;}
+.results-score-max{font-size:20px;color:rgba(255,255,255,0.4);font-weight:300;}
+.results-type{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,40px);font-weight:900;color:#FFFFFF;margin:16px 0 12px;}
+.results-type em{font-style:normal;color:#E8B84B;}
+.results-tagline{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:560px;margin:0 auto 32px;}
+
+/* SCORE BAR */
+.score-visual{max-width:500px;margin:0 auto 32px;}
+.score-bar-track{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin-bottom:12px;}
+.score-bar-fill{height:100%;border-radius:6px;transition:width 1.5s ease;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.score-markers{display:flex;justify-content:space-between;}
+.score-marker{font-size:11px;color:rgba(255,255,255,0.3);font-weight:600;}
+.score-marker.active{color:#E8B84B;}
+
+/* SECTIONS */
+.results-section{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:36px;border-radius:2px;margin-bottom:24px;}
+.results-section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:20px;}
+.results-section h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:16px;}
+.results-section p{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:12px;}
+
+/* CATEGORY BREAKDOWN */
+.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.category-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:2px;}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cat-score-track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.cat-score-fill{height:100%;border-radius:3px;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.cat-score-label{font-size:13px;color:rgba(255,255,255,0.6);}
+.cat-score-label strong{color:#E8B84B;}
+
+/* BLOCKING BELIEFS */
+.beliefs-list{list-style:none;margin-top:16px;}
+.beliefs-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.beliefs-list li:last-child{border-bottom:none;}
+.belief-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.belief-text{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.belief-text strong{color:#FFFFFF;display:block;margin-bottom:4px;}
+
+/* NEXT STEPS */
+.next-steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px;}
+.next-step{display:flex;gap:20px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:20px;border-radius:2px;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#C9941A;line-height:1;flex-shrink:0;width:40px;}
+.step-content{}
+.step-title{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:6px;}
+.step-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.step-link{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C9941A;text-decoration:none;border-bottom:1px solid rgba(201,148,26,0.4);padding-bottom:2px;}
+.step-link:hover{color:#E8B84B;border-color:#E8B84B;}
+
+/* CTA */
+.results-cta{text-align:center;padding:48px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:32px;}
+.results-cta h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.results-cta h3 em{font-style:normal;color:#E8B84B;}
+.results-cta p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:28px;line-height:1.7;}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-gold{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;transition:background 0.25s;}
+.btn-cta-gold:hover{background:#E8B84B;}
+.btn-cta-outline{display:inline-block;background:transparent;color:#C9941A;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;border:2px solid #C9941A;transition:all 0.25s;}
+.btn-cta-outline:hover{background:#C9941A;color:#0D1F3C;}
+
+.btn-retake{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto 40px;transition:all 0.25s;}
+.btn-retake:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+
+/* STATES */
+#quizSection{display:none;}
+#resultsSection{display:none;}
+#startSection{display:block;}
+
+/* MOBILE */
+@media(max-width:768px){
+  .quiz-wrap,.results-wrap{padding:40px 20px 60px;}
+  .question-card{padding:28px 20px;}
+  .category-grid{grid-template-columns:1fr;}
+  .hero{padding:100px 20px 40px;}
+  .results-hero{padding:40px 20px;}
+  .results-section{padding:24px 20px;}
+  .results-cta{padding:32px 20px;}
+}
+
+/* FADE */
+.fade-in{animation:fadeIn 0.5s ease;}
+
+.lead-form{margin-top:16px;}
+.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lead-form input[type=text],.lead-form input[type=email]{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.35);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;}
+.lead-form input:focus{outline:none;border-color:#E8B84B;}
+.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.5;}
+.lead-check input{margin-top:3px;accent-color:#C9941A;}
+.lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+#shareCanvas{width:100%;max-width:440px;height:auto;display:block;margin:8px auto 0;border-radius:4px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.share-section{text-align:center;}
+.intro-points{max-width:620px;margin:0 auto 36px;text-align:left;display:grid;gap:10px;}
+.intro-points div{font-size:15px;color:rgba(255,255,255,0.75);padding-left:26px;position:relative;line-height:1.6;}
+.intro-points div::before{content:'\2713';position:absolute;left:0;color:#E8B84B;font-weight:700;}
+@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <a href="./index.html" class="nav-back">&#8592; Back to Site</a>
+</nav>
+<div id="startSection">
+  <div class="hero">
+    <div class="hero-bg">INVESTING</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Free Assessment by Darrell Thompson</div>
+      <h1 class="hero-title">Are You <em>Ready to Invest?</em></h1>
+      <p class="hero-sub">Investing builds wealth, but only when the timing, knowledge, and mindset are right. Find out exactly where you stand and what your next move should be.</p>
+      <div class="intro-points"><div>Your Investing Readiness Score out of 100</div><div>Your investor type and what it means for you</div><div>A breakdown of your foundation, knowledge, mindset, and plan</div><div>Your personalized next steps and a free guide</div></div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="hero-meta-num">16</div><div class="hero-meta-label">Questions</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">5</div><div class="hero-meta-label">Minutes</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
+      </div>
+      <button class="btn-start" onclick="startQuiz()">Take the Quiz Now &rarr;</button>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.3);">No email required. Instant results.</p>
+    </div>
+  </div>
+</div>
+<div id="quizSection">
+  <div class="quiz-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-top"><span class="progress-label">Your Progress</span><span class="progress-count" id="progressCount">1 of 16</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:5%;"></div></div>
+    </div>
+    <div id="questionContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-prev" id="btnPrev" onclick="prevQuestion()" disabled>&#8592; Previous</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</div>
+<div id="resultsSection">
+  <div class="results-wrap">
+    <div class="results-hero" id="resultsHero"></div>
+    <div id="resultsBody"></div>
+  </div>
+</div>
+<script>
+window.QUIZ = {"title": "Investing Readiness Quiz", "slug": "Investing-Readiness", "scoreLabel": "Your Investing Readiness Score", "questions": [{"cat": "Financial Foundation", "text": "If your income stopped tomorrow, how long could you cover your essential bills from savings?", "options": [{"text": "Less than two weeks", "score": 0}, {"text": "About a month", "score": 1}, {"text": "One to three months", "score": 3}, {"text": "More than three months", "score": 4}]}, {"cat": "Financial Foundation", "text": "Do you carry credit card or other debt charging about 10% interest or more?", "options": [{"text": "Yes, and the balance keeps growing", "score": 0}, {"text": "Yes, a significant balance I'm paying down", "score": 1}, {"text": "A small balance I'll pay off within a few months", "score": 3}, {"text": "No high-interest debt", "score": 4}]}, {"cat": "Financial Foundation", "text": "At the end of a typical month, where do you stand?", "options": [{"text": "I'm short and use credit to cover the gap", "score": 0}, {"text": "I break even with nothing left over", "score": 1}, {"text": "I have some left over but no plan for it", "score": 2}, {"text": "I have money left over and give it a job on purpose", "score": 4}]}, {"cat": "Financial Foundation", "text": "Does your employer offer a retirement match, and are you getting all of it?", "options": [{"text": "I'm not sure what a match is", "score": 0}, {"text": "It's offered, but I don't contribute enough to get the full match", "score": 1}, {"text": "It's not offered, or I'm self-employed", "score": 3}, {"text": "Yes, I get the full match", "score": 4}]}, {"cat": "Investing Knowledge", "text": "Which best describes compound growth?", "options": [{"text": "Your returns start earning returns of their own, so growth speeds up over time", "score": 4}, {"text": "A guaranteed interest rate the bank pays you", "score": 1}, {"text": "Adding money to an account every month", "score": 1}, {"text": "I'm honestly not sure", "score": 0}]}, {"cat": "Investing Knowledge", "text": "What does an index fund do?", "options": [{"text": "It picks the hottest stocks each year", "score": 1}, {"text": "It holds the investments in a market index, like the S&P 500, aiming to match it", "score": 4}, {"text": "It guarantees you won't lose money", "score": 0}, {"text": "I'm not sure", "score": 0}]}, {"cat": "Investing Knowledge", "text": "A fund has a 1% expense ratio. What does that mean?", "options": [{"text": "You pay about 1% of your balance every year to own it", "score": 4}, {"text": "You pay 1% only on your profits", "score": 1}, {"text": "It's a one-time 1% fee", "score": 1}, {"text": "I don't know", "score": 0}]}, {"cat": "Investing Knowledge", "text": "Which is more diversified?", "options": [{"text": "Shares of one great company I believe in", "score": 0}, {"text": "A fund that owns thousands of companies across many industries", "score": 4}, {"text": "Two or three popular tech stocks", "score": 1}, {"text": "They're about the same", "score": 0}]}, {"cat": "Investing Mindset", "text": "The stock market drops 25% in a month. What would you most likely do?", "options": [{"text": "Sell everything to stop the losses", "score": 0, "tag": "fear"}, {"text": "Stop investing until things recover", "score": 1, "tag": "fear"}, {"text": "Keep investing as planned", "score": 4}, {"text": "Put in money I need for bills to buy the dip", "score": 1, "tag": "hype"}]}, {"cat": "Investing Mindset", "text": "A friend says a new coin or stock is \"about to explode.\" What do you do?", "options": [{"text": "Put in a big chunk before it's too late", "score": 0, "tag": "hype"}, {"text": "Put in a little, just in case", "score": 2, "tag": "hype"}, {"text": "Research it first, and most likely pass", "score": 4}, {"text": "Nothing, because investing feels too risky to touch", "score": 1, "tag": "fear"}]}, {"cat": "Investing Mindset", "text": "Which best describes how you feel about investing?", "options": [{"text": "Scared I'll lose everything", "score": 0, "tag": "fear"}, {"text": "Excited to make money fast", "score": 0, "tag": "hype"}, {"text": "Curious, but unsure where to start", "score": 2}, {"text": "Confident it's a long-term wealth tool", "score": 4}]}, {"cat": "Investing Mindset", "text": "How long could you leave invested money alone without touching it?", "options": [{"text": "Less than a year", "score": 0, "tag": "hype"}, {"text": "One to three years", "score": 1}, {"text": "Five to ten years", "score": 3}, {"text": "Ten years or more", "score": 4}]}, {"cat": "Investing Plan", "text": "Do you have a specific goal for investing?", "options": [{"text": "Not really", "score": 0}, {"text": "Just \"have more money\"", "score": 1}, {"text": "A goal, but no amount or date", "score": 2}, {"text": "A specific goal with an amount and a date", "score": 4}]}, {"cat": "Investing Plan", "text": "Do you know which type of account you'd use to invest?", "options": [{"text": "No idea", "score": 0}, {"text": "I've heard of 401(k)s and IRAs but don't know the difference", "score": 1}, {"text": "I know which one, but haven't opened it", "score": 3}, {"text": "I already have the right account set up", "score": 4}]}, {"cat": "Investing Plan", "text": "How would your investing actually happen?", "options": [{"text": "When the market looks good", "score": 0, "tag": "hype"}, {"text": "Whenever I have extra money", "score": 1}, {"text": "I'd move money in manually each month", "score": 3}, {"text": "Automatically, every paycheck", "score": 4}]}, {"cat": "Investing Plan", "text": "Before trusting someone with your money, what do you do?", "options": [{"text": "Go with recommendations from friends or social media", "score": 0}, {"text": "Read online reviews", "score": 1}, {"text": "Ask how they're paid", "score": 3}, {"text": "Verify them on FINRA BrokerCheck or the SEC database and ask if they're a fiduciary", "score": 4}]}], "results": {"foundation": {"name": "The <em>Foundation Builder</em>", "plain": "The Foundation Builder", "card": "Building my financial foundation first so my investments can grow without getting pulled out.", "tagline": "Your drive to invest is real. Right now, your foundation needs to come first so your investments can stay invested long enough to grow.", "description": ["Your answers show that your emergency savings, cash flow, or high-interest debt need attention before investing makes sense. That's not a setback. It's wisdom. Investing on a weak foundation is how people end up selling at the worst possible time or piling on 20%+ credit card debt when an emergency hits.", "The good news: building your foundation <strong style=\"color:#fff\">is</strong> the first stage of investing. Every dollar of high-interest debt you eliminate is a guaranteed return. Every dollar in your emergency fund protects your future investments."], "watch": [{"icon": "\ud83e\uddf1", "title": "Investing before you're protected", "text": "Without a cushion, one car repair or job gap can force you to sell investments at a loss."}, {"icon": "\ud83d\udcb3", "title": "High-interest debt quietly outrunning returns", "text": "Credit card interest often runs above 20%. That's a guaranteed loss no investment can reliably beat."}, {"icon": "\ud83c\udfaf", "title": "Skipping free money", "text": "If your employer offers a match, getting it is one of the few moves that makes sense even while you build."}], "steps": [{"t": "RSM MFA Foundation Course", "d": "Build the complete financial foundation: mindset, budgeting, debt elimination, wealth building, and protection.", "l": "./course-foundation.html", "lt": "Explore the Foundation Course"}, {"t": "3-Day Introduction to Investing Program", "d": "Twelve focused lessons, interactive calculators, and your own written Investing Framework in three days.", "l": "./course-investing.html", "lt": "Explore the Investing Program"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}, {"f": "RSM_Budget_Snapshot_Tool.pdf", "t": "The RSM Budget Snapshot Tool"}]}, "cautious": {"name": "The <em>Cautious Watcher</em>", "plain": "The Cautious Watcher", "card": "Learning the game so fear stops keeping my money on the sidelines.", "tagline": "You're careful, and that's a strength. But fear of losing money may be costing you more than the market ever could.", "description": ["Your foundation is in decent shape, but fear shows up when you think about investing. You may keep money in cash where it feels safe while inflation quietly shrinks its buying power. Psychologists call this loss aversion: losses tend to feel about twice as painful as equal gains feel good.", "The antidote isn't courage. It's knowledge. When you understand diversification, time horizons, and why market drops are normal, fear loses most of its power."], "watch": [{"icon": "\ud83d\uded1", "title": "Waiting for the \"safe\" time", "text": "Markets rarely feel safe. Waiting for comfort usually means missing years of growth."}, {"icon": "\ud83d\udcc9", "title": "Treating a drop as a permanent loss", "text": "A decline only becomes a loss if you sell. Long-term investors plan for drops in advance."}, {"icon": "\ud83d\udd25", "title": "Inflation risk", "text": "Cash that never grows loses buying power every year. Being too safe is its own risk."}], "steps": [{"t": "3-Day Introduction to Investing Program", "d": "Twelve focused lessons, interactive calculators, and your own written Investing Framework in three days.", "l": "./course-investing.html", "lt": "Explore the Investing Program"}, {"t": "Read Creating A Wealth Building Mindset", "d": "The second edition goes deeper on the beliefs and systems behind lasting wealth, including the Family Banking System.", "l": "./book.html", "lt": "Get the Book"}, {"t": "Book a Free Discovery Call", "d": "Talk with Darrell about where you are and the right next step for your situation.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}], "guides": [{"f": "RSM_5_Money_Lies.pdf", "t": "The 5 Money Lies You Were Told Growing Up"}, {"f": "RSM_Wealth_Building_Mindset_Starter_Kit.pdf", "t": "The Wealth Building Mindset Starter Kit"}]}, "chaser": {"name": "The <em>Fast-Money Chaser</em>", "plain": "The Fast-Money Chaser", "card": "Trading hype for a real plan. Consistent, diversified, and built to last.", "tagline": "You're ready to act, and that energy is valuable. Aimed at hype, it can cost you. Aimed at a real plan, it can build wealth.", "description": ["Your answers show a pull toward fast gains: hot tips, big moves, and short timelines. Social media makes it look easy, but it only shows the winners. Most fast-money approaches are closer to gambling than investing, and they're a favorite target of scams and pump-and-dump schemes.", "The same drive that makes you want to act is exactly what consistent, automatic investing needs. Point it at a plan, and it becomes your advantage."], "watch": [{"icon": "\ud83c\udfb0", "title": "Speculation disguised as investing", "text": "Concentrated bets on trending assets can wipe out years of progress in weeks."}, {"icon": "\ud83d\udcf1", "title": "Hype and urgency", "text": "\"Get in before it explodes\" is a sales tactic, not a strategy."}, {"icon": "\u23f1\ufe0f", "title": "Short timelines", "text": "Compounding rewards patience. The biggest gains come in later years that impatient investors never reach."}], "steps": [{"t": "3-Day Introduction to Investing Program", "d": "Twelve focused lessons, interactive calculators, and your own written Investing Framework in three days.", "l": "./course-investing.html", "lt": "Explore the Investing Program"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}, {"t": "Book a Free Discovery Call", "d": "Talk with Darrell about where you are and the right next step for your situation.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}], "guides": [{"f": "RSM_5_Money_Lies.pdf", "t": "The 5 Money Lies You Were Told Growing Up"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "beginner": {"name": "The <em>Curious Beginner</em>", "plain": "The Curious Beginner", "card": "Learning how investing really works, one lesson at a time.", "tagline": "Your foundation and mindset are ready. What you need now is knowledge, and that's the easiest gap to close.", "description": ["You have the right attitude and a reasonable foundation, but some of the basics, like compound growth, index funds, fees, and diversification, aren't fully clear yet. That's completely normal. Most people were never taught this in school or at home.", "The risk for beginners isn't a lack of intelligence. It's that without knowledge, you're easy prey for expensive products and bad advice. A few days of real education changes that."], "watch": [{"icon": "\ud83d\udcb8", "title": "Paying fees you don't see", "text": "A 1% fee instead of a very low one can cost tens of thousands of dollars over a lifetime."}, {"icon": "\ud83e\udde9", "title": "Buying what you can't explain", "text": "If you can't describe what you own in two sentences, pause before buying."}, {"icon": "\ud83e\udd1d", "title": "Trusting the wrong guide", "text": "Verify anyone offering investment advice before they touch your money."}], "steps": [{"t": "3-Day Introduction to Investing Program", "d": "Twelve focused lessons, interactive calculators, and your own written Investing Framework in three days.", "l": "./course-investing.html", "lt": "Explore the Investing Program"}, {"t": "RSM MFA Foundation Course", "d": "Build the complete financial foundation: mindset, budgeting, debt elimination, wealth building, and protection.", "l": "./course-foundation.html", "lt": "Explore the Foundation Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Wealth_Building_Mindset_Starter_Kit.pdf", "t": "The Wealth Building Mindset Starter Kit"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "ready": {"name": "The <em>Ready Investor</em>", "plain": "The Ready Investor", "card": "Foundation set. Knowledge solid. Building wealth on purpose.", "tagline": "You've got the foundation, the knowledge, and the mindset. Now it's about a clear framework and consistent execution.", "description": ["Your answers show a strong foundation, solid investing knowledge, and a healthy long-term mindset. You're ahead of most people. The difference between good and great from here is a written plan: specific goals, the right accounts in the right order, automation, and a rebalancing schedule.", "This is also where you start thinking beyond yourself: protection, legacy, and teaching the next generation."], "watch": [{"icon": "\ud83d\uddfa\ufe0f", "title": "Investing without a written framework", "text": "Knowledge without a plan tends to drift. Write down your goals, accounts, and rules."}, {"icon": "\u2696\ufe0f", "title": "Drift over time", "text": "Without rebalancing, your risk can quietly grow beyond what you intended."}, {"icon": "\ud83c\udfdb\ufe0f", "title": "Protection and legacy gaps", "text": "Building wealth and protecting it are two different jobs. Both matter."}], "steps": [{"t": "3-Day Introduction to Investing Program", "d": "Twelve focused lessons, interactive calculators, and your own written Investing Framework in three days.", "l": "./course-investing.html", "lt": "Explore the Investing Program"}, {"t": "Advance Mindset, Financial Literacy and Accountability Program", "d": "Root-cause assessments, your real numbers, and consistency systems in one deep program.", "l": "./course-advance.html", "lt": "Explore the Advance Program"}, {"t": "Book a Free Discovery Call", "d": "Talk with Darrell about where you are and the right next step for your situation.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}], "guides": [{"f": "RSM_Wealth_Building_Mindset_Starter_Kit.pdf", "t": "The Wealth Building Mindset Starter Kit"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}}, "focus": {"Financial Foundation": "Build your emergency fund and clear high-interest debt so your investments never have to be sold in an emergency.", "Investing Knowledge": "Learn the core concepts: compound growth, diversification, index funds, and fees. It takes days, not years.", "Investing Mindset": "Decide in advance how you'll respond to market drops and hot tips, so emotion doesn't decide for you.", "Investing Plan": "Write a specific goal, choose the right account, and automate your contributions."}, "ctaTitle": "Ready to <em>Learn the Investing Game?</em>", "ctaText": "Your result is the starting line. The next step is real understanding and a plan you can stick with.", "otherQuiz": {"t": "Take the Accountability Style Quiz", "l": "./accountability-quiz.html"}, "disclaimer": "This quiz is for educational purposes only and isn't investment, tax, or legal advice."};
+window.QUIZ.classify = function(pct, cp, tags){
+  if (cp['Financial Foundation'] < 50) return 'foundation';
+  if ((tags.fear || 0) >= 2 && (tags.fear || 0) >= (tags.hype || 0)) return 'cautious';
+  if ((tags.hype || 0) >= 2) return 'chaser';
+  if (cp['Investing Knowledge'] < 60 || pct < 70) return 'beginner';
+  return 'ready';
+};
+</script>
+<script>
+(function(){
+'use strict';
+var Q = window.QUIZ, questions = Q.questions, answers = questions.map(function(){ return null; }), cur = 0, result = null;
+var FORM = 'https://formspree.io/f/xrpbgjbb';
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+var cats = []; questions.forEach(function(q){ if (cats.indexOf(q.cat) < 0) cats.push(q.cat); });
+
+window.startQuiz = function(){ $('startSection').style.display = 'none'; $('quizSection').style.display = 'block'; window.scrollTo(0, 0); render(); };
+function render(){
+  var q = questions[cur];
+  var h = '<div class="question-card"><div class="q-category">' + esc(q.cat) + '</div><div class="q-number">Question ' + (cur + 1) + ' of ' + questions.length + '</div><div class="q-text">' + esc(q.text) + '</div><div class="options">';
+  q.options.forEach(function(o, i){ h += '<div class="option' + (answers[cur] === i ? ' selected' : '') + '" onclick="selectOption(' + i + ')" role="button" tabindex="0"><div class="option-dot"></div><div class="option-text">' + esc(o.text) + '</div></div>'; });
+  $('questionContainer').innerHTML = h + '</div></div>';
+  $('progressCount').textContent = (cur + 1) + ' of ' + questions.length;
+  $('progressFill').style.width = Math.round((cur + 1) / questions.length * 100) + '%';
+  $('btnPrev').disabled = cur === 0;
+  $('btnNext').disabled = answers[cur] === null;
+  $('btnNext').innerHTML = cur === questions.length - 1 ? 'See My Results &rarr;' : 'Next &rarr;';
+}
+window.selectOption = function(i){ answers[cur] = i; render(); };
+window.nextQuestion = function(){ if (answers[cur] === null) return; if (cur < questions.length - 1){ cur++; render(); window.scrollTo(0, 0); } else show(); };
+window.prevQuestion = function(){ if (cur > 0){ cur--; render(); } };
+window.retakeQuiz = function(){ answers = questions.map(function(){ return null; }); cur = 0; $('resultsSection').style.display = 'none'; $('startSection').style.display = 'block'; window.scrollTo(0, 0); };
+
+function show(){
+  var total = 0, max = 0, cs = {}, cm = {}, tags = {};
+  cats.forEach(function(c){ cs[c] = 0; cm[c] = 0; });
+  questions.forEach(function(q, i){ var o = q.options[answers[i]]; total += o.score; max += 4; cs[q.cat] += o.score; cm[q.cat] += 4; if (o.tag) tags[o.tag] = (tags[o.tag] || 0) + 1; });
+  var pct = Math.round(total / max * 100), cp = {};
+  cats.forEach(function(c){ cp[c] = Math.round(cs[c] / cm[c] * 100); });
+  var key = Q.classify(pct, cp, tags), R = Q.results[key];
+  result = {key: key, R: R, pct: pct, cp: cp, tags: tags};
+  $('quizSection').style.display = 'none'; $('resultsSection').style.display = 'block'; window.scrollTo(0, 0);
+
+  var h = '<div class="results-score-label">' + esc(Q.scoreLabel) + '</div><div class="results-score">' + pct + '<span class="results-score-max">/100</span></div>';
+  h += '<div class="score-visual"><div class="score-bar-track"><div class="score-bar-fill" id="scoreFill" style="width:0%"></div></div></div>';
+  h += '<div class="results-type">' + R.name + '</div><p class="results-tagline">' + esc(R.tagline) + '</p>';
+  $('resultsHero').innerHTML = h;
+  setTimeout(function(){ var f = $('scoreFill'); if (f) f.style.width = pct + '%'; }, 100);
+
+  var lowest = cats.slice().sort(function(a, b){ return cp[a] - cp[b]; });
+  var b = '<div class="results-section"><div class="results-section-title">What Your Result Means</div><h3>' + esc(R.plain) + '</h3>' + R.description.map(function(p){ return '<p>' + p + '</p>'; }).join('') + '</div>';
+  b += '<div class="results-section"><div class="results-section-title">Your Breakdown</div><h3>Where You\'re Strong and Where to Focus</h3><div class="category-grid">';
+  cats.forEach(function(c){ b += '<div class="category-card"><div class="cat-name">' + esc(c) + '</div><div class="cat-score-track"><div class="cat-score-fill" style="width:' + Math.max(cp[c], 3) + '%"></div></div><div class="cat-score-label"><strong>' + cp[c] + '%</strong> ' + (cp[c] >= 75 ? 'Strength' : cp[c] >= 50 ? 'Building' : 'Focus area') + '</div></div>'; });
+  b += '</div><p style="margin-top:20px">Your biggest opportunity right now is <strong style="color:#E8B84B">' + esc(lowest[0]) + '</strong>. ' + esc(Q.focus[lowest[0]]) + '</p></div>';
+  b += '<div class="results-section"><div class="results-section-title">What to Watch For</div><h3>The Patterns Behind Your Result</h3><ul class="beliefs-list">' + R.watch.map(function(w){ return '<li><span class="belief-icon">' + w.icon + '</span><div class="belief-text"><strong>' + esc(w.title) + '</strong>' + esc(w.text) + '</div></li>'; }).join('') + '</ul></div>';
+  b += '<div class="results-section"><div class="results-section-title">Your Next Steps</div><h3>Start Here</h3><div class="next-steps">' + R.steps.map(function(s, i){ return '<div class="next-step"><div class="step-num">' + (i + 1) + '</div><div class="step-content"><div class="step-title">' + esc(s.t) + '</div><div class="step-desc">' + esc(s.d) + '</div><a class="step-link" href="' + s.l + '">' + esc(s.lt) + ' &rarr;</a></div></div>'; }).join('') + '</div></div>';
+
+  b += '<div class="results-section" id="leadBox"><div class="results-section-title">Free for Your Result Type</div><h3>Unlock Your Free Guide' + (R.guides.length > 1 ? 's' : '') + '</h3><p>Enter your name and email to download ' + R.guides.map(function(g){ return '<strong style="color:#fff">' + esc(g.t) + '</strong>'; }).join(' and ') + ', chosen specifically for ' + esc(R.plain) + ' results. Darrell will also receive your result so he can share resources that fit where you are.</p>' +
+    '<form id="leadForm" class="lead-form" novalidate><div class="lead-row"><input type="text" id="leadName" placeholder="First name" autocomplete="given-name" /><input type="email" id="leadEmail" placeholder="Email address" autocomplete="email" /></div>' +
+    '<label class="lead-check"><input type="checkbox" id="leadOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+    '<button type="submit" class="btn-cta-gold" style="border:none;cursor:pointer;width:100%">Unlock My Free Guide</button><p class="lead-msg" id="leadMsg"></p></form><div id="leadDone" style="display:none"></div></div>';
+
+  b += '<div class="results-section share-section"><div class="results-section-title">Share Your Result</div><h3>Post Your Result Card</h3><p>Share your result on Facebook, Instagram, or TikTok and challenge your friends to find theirs.</p><canvas id="shareCanvas" width="1080" height="1080"></canvas><div class="cta-buttons" style="margin-top:20px"><button type="button" class="btn-cta-gold" id="shareBtn" style="border:none;cursor:pointer">Share My Result</button><button type="button" class="btn-cta-outline" id="dlBtn" style="cursor:pointer;background:transparent">Download Image</button></div></div>';
+
+  b += '<div class="results-cta"><h3>' + Q.ctaTitle + '</h3><p>' + esc(Q.ctaText) + '</p><div class="cta-buttons"><a class="btn-cta-gold" href="' + R.steps[0].l + '">' + esc(R.steps[0].lt) + '</a><a class="btn-cta-outline" href="./discovery-intake.html">Book a Free Discovery Call</a></div></div>';
+  b += '<div style="text-align:center;margin-top:24px"><button class="btn-retake" onclick="retakeQuiz()">Retake the Quiz</button> <a class="btn-retake" style="text-decoration:none;display:inline-block;margin-left:8px" href="' + Q.otherQuiz.l + '">' + esc(Q.otherQuiz.t) + '</a></div>';
+  if (Q.disclaimer) b += '<p style="font-size:12px;color:rgba(255,255,255,0.35);text-align:center;margin-top:24px;line-height:1.6">' + esc(Q.disclaimer) + '</p>';
+  $('resultsBody').innerHTML = b;
+  drawCard(); wireShare(); wireLead();
+}
+
+function wireLead(){
+  $('leadForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var n = $('leadName').value.trim(), em = $('leadEmail').value.trim(), msg = $('leadMsg');
+    if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ msg.textContent = 'Please enter your first name and a valid email.'; return; }
+    var btn = this.querySelector('button'); btn.disabled = true; btn.textContent = 'Unlocking...';
+    var fd = new FormData();
+    fd.append('name', n); fd.append('email', em); fd.append('_replyto', em);
+    fd.append('_subject', 'Quiz Lead | ' + Q.title + ' | ' + n + ' | ' + result.R.plain);
+    fd.append('quiz', Q.title); fd.append('result', result.R.plain); fd.append('score', result.pct + '/100');
+    fd.append('breakdown', Object.keys(result.cp).map(function(c){ return c + ': ' + result.cp[c] + '%'; }).join(' | '));
+    fd.append('email_opt_in', $('leadOpt').checked ? 'Yes' : 'No');
+    fd.append('answers', questions.map(function(q, i){ return (i + 1) + '. ' + q.text + ' | ' + q.options[answers[i]].text; }).join('\n'));
+    function done(ok){
+      $('leadForm').style.display = 'none';
+      var d = $('leadDone');
+      d.innerHTML = '<p style="color:#9be3b5;font-weight:600">' + (ok ? 'Unlocked. Thank you, ' + esc(n) + '!' : 'Your guides are unlocked below.') + '</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">' + result.R.guides.map(function(g){ return '<a class="btn-cta-gold" href="./' + g.f + '" target="_blank" download>Download: ' + esc(g.t) + '</a>'; }).join('') + '</div>' +
+        '<p style="margin-top:16px"><a class="step-link" href="mailto:' + encodeURIComponent(em) + '?subject=' + encodeURIComponent('My ' + Q.title + ' Result: ' + result.R.plain) + '&body=' + encodeURIComponent('My ' + Q.title + ' result: ' + result.R.plain + ' (' + result.pct + '/100)\n\n' + result.R.tagline + '\n\nMy next steps:\n' + result.R.steps.map(function(s, i){ return (i + 1) + '. ' + s.t; }).join('\n') + '\n\nRetake or share the quiz: rightsideofmoney.com') + '">Email my results to myself</a></p>';
+      d.style.display = 'block';
+    }
+    fetch(FORM, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(r){ done(r.ok); }).catch(function(){ done(false); });
+  });
+}
+
+function wrap(ctx, text, x, y, maxW, lh){
+  var words = text.split(' '), line = '', lines = [];
+  words.forEach(function(w){ var t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line){ lines.push(line); line = w; } else line = t; });
+  if (line) lines.push(line);
+  lines.forEach(function(l, i){ ctx.fillText(l, x, y + i * lh); });
+  return lines.length;
+}
+function drawCard(){
+  var c = $('shareCanvas'), x = c.getContext('2d'), R = result.R, W = 1080;
+  var g = x.createLinearGradient(0, 0, 0, W); g.addColorStop(0, '#0a1628'); g.addColorStop(1, '#1B3A6B'); x.fillStyle = g; x.fillRect(0, 0, W, W);
+  x.strokeStyle = '#C9941A'; x.lineWidth = 14; x.strokeRect(40, 40, W - 80, W - 80);
+  x.strokeStyle = 'rgba(232,184,75,0.4)'; x.lineWidth = 3; x.strokeRect(66, 66, W - 132, W - 132);
+  x.textAlign = 'center';
+  x.fillStyle = '#E8B84B'; x.font = 'bold 34px "DM Sans", Arial, sans-serif'; x.fillText('RIGHT SIDE OF MONEY', W / 2, 160);
+  x.fillStyle = 'rgba(255,255,255,0.75)'; x.font = '600 30px "DM Sans", Arial, sans-serif'; x.fillText('MY ' + Q.title.toUpperCase() + ' RESULT', W / 2, 225);
+  x.fillStyle = '#C9941A'; x.fillRect(W / 2 - 80, 255, 160, 5);
+  x.fillStyle = '#E8B84B'; x.font = 'bold 190px "Bebas Neue", Impact, sans-serif'; x.fillText(result.pct, W / 2, 460);
+  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '32px "DM Sans", Arial, sans-serif'; x.fillText('out of 100', W / 2, 510);
+  x.fillStyle = '#FFFFFF'; x.font = 'bold 70px "Playfair Display", Georgia, serif';
+  var n = wrap(x, R.plain, W / 2, 620, 900, 82);
+  x.fillStyle = 'rgba(255,255,255,0.82)'; x.font = '34px "DM Sans", Arial, sans-serif';
+  wrap(x, R.card, W / 2, 620 + n * 82 + 40, 860, 48);
+  x.fillStyle = '#C9941A'; x.fillRect(140, 900, W - 280, 80);
+  x.fillStyle = '#0D1F3C'; x.font = 'bold 32px "DM Sans", Arial, sans-serif'; x.fillText('What\'s yours? Take the free quiz at rightsideofmoney.com', W / 2, 952, W - 320);
+}
+function wireShare(){
+  var c = $('shareCanvas'), fname = 'RSM-' + Q.slug + '-' + result.key + '.png';
+  $('dlBtn').addEventListener('click', function(){ var a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = fname; document.body.appendChild(a); a.click(); a.remove(); });
+  $('shareBtn').addEventListener('click', function(){
+    var text = 'I\'m ' + result.R.plain + ' on the Right Side of Money ' + Q.title + '. What\'s yours? Take the free quiz at rightsideofmoney.com';
+    c.toBlob(function(blob){
+      try {
+        var file = new File([blob], fname, {type: 'image/png'});
+        if (navigator.canShare && navigator.canShare({files: [file]})){ navigator.share({files: [file], text: text}).catch(function(){}); return; }
+      } catch(e){}
+      if (navigator.share){ navigator.share({text: text, url: location.href}).catch(function(){}); return; }
+      $('dlBtn').click(); alert('Your result card was downloaded. Post it to your favorite platform and tag Right Side of Money.');
+    }, 'image/png');
+  });
+}
+})();
+
+</script>
+</body>
+</html>
