@@ -167,6 +167,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
 
 /* FADE */
 .fade-in{animation:fadeIn 0.5s ease;}
+.lead-form{margin-top:16px;}
+.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lead-form input[type=text],.lead-form input[type=email]{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.35);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;}
+.lead-form input:focus{outline:none;border-color:#E8B84B;}
+.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.5;}
+.lead-check input{margin-top:3px;accent-color:#C9941A;}
+.lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -511,10 +519,10 @@ function showResults(){
   var pct=Math.round(total/maxTotal*100);
 
   // Determine result type
-  var type,tagline,description,beliefs,nextSteps;
+  var type,tagline,description,beliefs,nextSteps,plain,guides;
 
   if(pct<=25){
-    type='The <em>Scarcity Survivor</em>';
+    type='The <em>Scarcity Survivor</em>';plain='The Scarcity Survivor';guides=[{t:'The 5 Money Lies You Were Told Growing Up',f:'RSM_5_Money_Lies.pdf'},{t:'The Wealth Building Mindset Starter Kit',f:'RSM_Wealth_Building_Mindset_Starter_Kit.pdf'}];
     tagline="You're still operating from the financial blueprint you inherited. The ceiling isn't the economy. It's the story you're telling yourself.";
     description="Your results show that deeply rooted money beliefs, likely formed in childhood, are running your financial decisions without your permission. Scarcity thinking, fear of money, and a sense that wealth isn't meant for you are the core patterns showing up across your answers. The good news is this isn't about intelligence or effort. It's about programming, and programming can be changed.";
     beliefs=[
@@ -529,7 +537,7 @@ function showResults(){
       {n:'3',t:'Book a Free Discovery Call',d:"Let's get on a call and talk about where you are and what the right next step looks like for your specific situation.",l:'./discovery-intake.html',lt:'Book Free Call'}
     ];
   } else if(pct<=50){
-    type='The <em>Aware but Anchored</em>';
+    type='The <em>Aware but Anchored</em>';plain='Aware but Anchored';guides=[{t:'The Wealth Building Mindset Starter Kit',f:'RSM_Wealth_Building_Mindset_Starter_Kit.pdf'},{t:'The RSM Budget Snapshot Tool',f:'RSM_Budget_Snapshot_Tool.pdf'}];
     tagline="You see the gap between where you are and where you want to be. Something keeps pulling you back. Let's name it.";
     description="You have real financial awareness and genuine desire to build something different. The problem isn't knowledge. It's that limiting beliefs and inconsistent behavior are creating a gap between what you know and what you actually do. You've had the intention but the follow-through breaks down. The right structure and accountability changes everything.";
     beliefs=[
@@ -544,7 +552,7 @@ function showResults(){
       {n:'3',t:'Join the RSM Community',d:"You need to be in a room with people who are doing the work. Momentum is contagious.",l:'./community-invite.html',lt:'Join Free'}
     ];
   } else if(pct<=75){
-    type='The <em>Builder in Motion</em>';
+    type='The <em>Builder in Motion</em>';plain='The Builder in Motion';guides=[{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'},{t:'The RSM Budget Snapshot Tool',f:'RSM_Budget_Snapshot_Tool.pdf'}];
     tagline="You're already moving. Now it's time to remove the friction that's slowing you down and accelerate.";
     description="You have a solid foundation and real financial awareness. You're making moves and your mindset is mostly working for you. But there are specific gaps, whether in your investment strategy, your wealth vision, your legacy planning, or a few lingering beliefs, that are keeping you from the next level. You don't need to start over. You need to go deeper.";
     beliefs=[
@@ -559,7 +567,7 @@ function showResults(){
       {n:'3',t:'Get the Second Edition',d:"The updated book has deeper content specifically built for where you are right now.",l:'./book-launch.html',lt:'View New Edition'}
     ];
   } else {
-    type='The <em>Wealth Builder</em>';
+    type='The <em>Wealth Builder</em>';plain='The Wealth Builder';guides=[{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'},{t:'The Wealth Building Mindset Starter Kit',f:'RSM_Wealth_Building_Mindset_Starter_Kit.pdf'}];
     tagline="Your mindset is your greatest asset. You've done real work to get here. Now it's time to build the legacy.";
     description="Your score reflects someone who has done genuine work on both their mindset and their financial behavior. You think like a wealth builder, you act like one, and you're already seeing results. The focus now shifts to scale, protection, legacy, and becoming the person in your community who pulls others up. You know better than most that wealth is a direction, not a destination.";
     beliefs=[
@@ -585,7 +593,7 @@ function showResults(){
     catHTML+='<div class="category-card">';
     catHTML+='<div class="cat-name">'+cat+'</div>';
     catHTML+='<div class="cat-score-track"><div class="cat-score-fill" style="width:'+cp+'%;"></div></div>';
-    catHTML+='<div class="cat-score-label"><strong>'+label+'</strong> &mdash; '+cp+'%</div>';
+    catHTML+='<div class="cat-score-label"><strong>'+label+'</strong>: '+cp+'%</div>';
     catHTML+='</div>';
   });
   catHTML+='</div>';
@@ -641,6 +649,14 @@ function showResults(){
     '<h3>What Darrell Recommends Based on Your Score</h3>'+
     stepsHTML+
     '</div>'+
+    '<div class="results-section fade-in" id="leadBox">'+
+    '<div class="results-section-title">Free for Your Result Type</div>'+
+    '<h3>Unlock Your Free Guides</h3>'+
+    '<p>Enter your name and email to download '+guides.map(function(g){return '<strong style="color:#fff">'+g.t+'</strong>';}).join(' and ')+', chosen specifically for '+plain+' results. Darrell will also receive your result so he can share resources that fit where you are.</p>'+
+    '<form id="leadForm" class="lead-form" novalidate><div class="lead-row"><input type="text" id="leadName" placeholder="First name" autocomplete="given-name" /><input type="email" id="leadEmail" placeholder="Email address" autocomplete="email" /></div>'+
+    '<label class="lead-check"><input type="checkbox" id="leadOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>'+
+    '<button type="submit" class="btn-cta-gold" style="border:none;cursor:pointer;width:100%">Unlock My Free Guides</button><p class="lead-msg" id="leadMsg"></p></form><div id="leadDone" style="display:none"></div>'+
+    '</div>'+
     '<div class="results-cta fade-in">'+
     '<h3>Ready to Get on the <em>Right Side of Money?</em></h3>'+
     '<p>Your quiz results are a starting point, not a sentence. Every pattern identified here can be changed with the right knowledge, community, and accountability. That\'s exactly what Right Side of Money was built to provide.</p>'+
@@ -650,6 +666,30 @@ function showResults(){
     '</div>'+
     '</div>'+
     '<button class="btn-retake" onclick="retakeQuiz()">&#8635; Retake the Quiz</button>';
+
+  // Lead capture: result + answers go to Darrell, guides unlock for the visitor
+  var catLine=categories.map(function(c){return c+': '+(catMax[c]?Math.round(catScores[c]/catMax[c]*100):0)+'%';}).join(' | ');
+  document.getElementById('leadForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('leadName').value.trim(),em=document.getElementById('leadEmail').value.trim(),msg=document.getElementById('leadMsg');
+    if(!n||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){msg.textContent='Please enter your first name and a valid email.';return;}
+    var btn=this.querySelector('button');btn.disabled=true;btn.textContent='Unlocking...';
+    var fd=new FormData();
+    fd.append('name',n);fd.append('email',em);fd.append('_replyto',em);
+    fd.append('_subject','Quiz Lead | Wealth Mindset Quiz | '+n+' | '+plain);
+    fd.append('quiz','Wealth Mindset Quiz');fd.append('result',plain);fd.append('score',total+'/'+maxTotal+' ('+pct+'%)');
+    fd.append('breakdown',catLine);
+    fd.append('email_opt_in',document.getElementById('leadOpt').checked?'Yes':'No');
+    fd.append('answers',questions.map(function(q,i){return (i+1)+'. '+q.text+' | '+(answers[i]!==null?q.options[answers[i]].text:'(skipped)');}).join('\n'));
+    function done(ok){
+      document.getElementById('leadForm').style.display='none';
+      var d=document.getElementById('leadDone');
+      d.innerHTML='<p style="color:#9be3b5;font-weight:600">'+(ok?'Unlocked. Thank you, '+n.replace(/[<>&"]/g,'')+'!':'Your guides are unlocked below.')+'</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">'+guides.map(function(g){return '<a class="btn-cta-gold" href="./'+g.f+'" target="_blank" download>Download: '+g.t+'</a>';}).join('')+'</div>'+
+        '<p style="margin-top:16px"><a class="step-link" href="mailto:'+encodeURIComponent(em)+'?subject='+encodeURIComponent('My Wealth Mindset Quiz Result: '+plain)+'&body='+encodeURIComponent('My Wealth Mindset Quiz result: '+plain+' ('+total+'/'+maxTotal+')\n\n'+tagline+'\n\nMy next steps:\n'+nextSteps.map(function(s){return s.n+'. '+s.t;}).join('\n')+'\n\nRetake or share the quiz: rightsideofmoney.com')+'">Email my results to myself</a></p>';
+      d.style.display='block';
+    }
+    fetch('https://formspree.io/f/mvkglqlj',{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){done(r.ok);}).catch(function(){done(false);});
+  });
 
   // Animate score bar
   setTimeout(function(){
