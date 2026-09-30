@@ -289,7 +289,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 <section class="hub-sec"><div class="hub-wrap">
 <div class="unlock" id="unlock">
  <div id="unlockForm"><h3>Unlock All Four Free Guides</h3><p>Enter your name and email and every guide on this page unlocks instantly.</p>
- <form id="resForm" novalidate><div class="unlock-row"><input type="text" id="resName" placeholder="First name" autocomplete="given-name" /><input type="email" id="resEmail" placeholder="Email address" autocomplete="email" /></div>
+ <form id="resForm" novalidate><div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="resCo" name="company" tabindex="-1" autocomplete="off" /></label></div><div class="unlock-row"><input type="text" id="resName" placeholder="First name" autocomplete="given-name" /><input type="email" id="resEmail" placeholder="Email address" autocomplete="email" /></div>
  <label class="unlock-check"><input type="checkbox" id="resOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>
  <button type="submit" class="hub-btn" style="width:100%">Unlock My Free Guides</button><p class="unlock-msg" id="resMsg"></p></form></div>
  <div id="unlockDone" style="display:none"><h3>Your Guides Are Unlocked</h3><p>Download any guide below. Start with the Financial Foundation Checklist if you're not sure where to begin.</p></div>
@@ -307,7 +307,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 
 <script>
 (function(){
-  var KEY = 'rsm_resources_unlocked';
+  var KEY = 'rsm_resources_unlocked', T0 = Date.now();
   function unlocked(){ try { return localStorage.getItem(KEY) === '1'; } catch(e){ return false; } }
   function open(){
     document.querySelectorAll('.dl').forEach(function(a){ a.href = a.getAttribute('data-href'); a.setAttribute('download', ''); a.setAttribute('target', '_blank'); a.classList.remove('locked'); a.textContent = 'Download Free PDF'; });
@@ -320,10 +320,11 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
     var n = document.getElementById('resName').value.trim(), em = document.getElementById('resEmail').value.trim(), msg = document.getElementById('resMsg');
     if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ msg.textContent = 'Please enter your first name and a valid email.'; return; }
     var b = this.querySelector('button'); b.disabled = true; b.textContent = 'Unlocking...';
+    function done(){ try { localStorage.setItem(KEY, '1'); } catch(e){} open(); }
+    if (document.getElementById('resCo').value || (Date.now() - T0) < 3000){ setTimeout(done, 600); return; }
     var fd = new FormData(); fd.append('name', n); fd.append('email', em); fd.append('_replyto', em);
     fd.append('_subject', 'Free Resource Download | ' + n); fd.append('source', 'Free Resource Library (resources.html)');
     fd.append('email_opt_in', document.getElementById('resOpt').checked ? 'Yes' : 'No');
-    function done(){ try { localStorage.setItem(KEY, '1'); } catch(e){} open(); }
     if (document.getElementById('resOpt').checked){ var kf = new FormData(); kf.append('email_address', em); kf.append('fields[first_name]', n); try { fetch('https://app.kit.com/forms/9981618/subscriptions', {method: 'POST', body: kf, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){} }
     fetch('https://formspree.io/f/xrpbgjbb', {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(done).catch(done);
   });

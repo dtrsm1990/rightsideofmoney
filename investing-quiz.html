@@ -247,6 +247,7 @@ window.QUIZ.classify = function(pct, cp, tags){
 <script>
 /* RSM results gate: name and email required before results are shown */
 (function(){
+  var T0 = Date.now();
   function el(id){ return document.getElementById(id); }
   window.rsmGate = function(onDone, onBack){
     var nav = document.querySelector('.quiz-nav');
@@ -261,6 +262,7 @@ window.QUIZ.classify = function(pct, cp, tags){
       '<div class="q-text">Unlock Your Full Results</div>' +
       '<p class="gate-p">Enter your first name and email to see your score, your personal breakdown, and the free guides matched to your result. Darrell receives every result so he can share resources that fit where you are.</p>' +
       '<form id="gateForm" class="lead-form" novalidate>' +
+      '<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="gateCo" name="company" tabindex="-1" autocomplete="off" /></label></div>' +
       '<div class="lead-row"><input type="text" id="gateName" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" placeholder="Email address" autocomplete="email" /></div>' +
       '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
       '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Results &rarr;</button>' +
@@ -282,7 +284,8 @@ window.QUIZ.classify = function(pct, cp, tags){
         el('gateMsg').textContent = 'Please enter your first name and a valid email to see your results.';
         return;
       }
-      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked};
+      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked,
+        bot: !!el('gateCo').value || (Date.now() - T0) < 10000};
       try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
       if (nav) nav.style.display = '';
       onDone(lead);
@@ -378,6 +381,7 @@ function show(lead){
 }
 
 function sendLead(lead){
+  if (lead.bot) return;
   var fd = new FormData();
   fd.append('name', lead.name); fd.append('email', lead.email); fd.append('_replyto', lead.email);
   fd.append('_subject', 'Quiz Lead | ' + Q.title + ' | ' + lead.name + ' | ' + result.R.plain);
