@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Money Tools | Right Side of Money</title>
+<meta name="description" content="Free money calculators from Right Side of Money: Budget Snapshot, Debt Payoff Planner, Emergency Fund Builder, Compound Growth, and Net Worth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0D1F3C;--navy-mid:#1B3A6B;--gold:#C9941A;--gold-light:#E8B84B;
+    --gold-pale:#FDF3DC;--cream:#FAF7F2;--white:#FFFFFF;
+    --gray-100:#F4F4F0;--gray-300:#D0CFC8;--gray-500:#888880;
+    --gray-700:#444440;--dark:#0A0A0A;
+    --font-display:'Playfair Display',Georgia,serif;
+    --font-impact:'Bebas Neue',sans-serif;
+    --font-body:'DM Sans',sans-serif;
+  }
+  html,body{margin:0;padding:0;font-family:var(--font-body);background:var(--dark);color:var(--gray-700);overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+  .nav-logo-top{font-family:var(--font-impact);font-size:22px;letter-spacing:3px;color:var(--white);}
+  .nav-logo-sub{font-size:10px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;font-weight:500;}
+  .nav-links{display:flex;align-items:center;height:68px;gap:24px;list-style:none;}
+  .nav-links li{display:flex;align-items:center;}
+  .nav-links a{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold-light);}
+  .nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:10px 20px;border-radius:2px;font-weight:600!important;display:inline-flex;align-items:center;}
+  .nav-cta:hover{background:var(--gold-light)!important;}
+
+  /* HERO */
+  .hero{background:var(--navy);padding:140px 40px 80px;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(42,82,152,0.2) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 10% 80%,rgba(201,148,26,0.08) 0%,transparent 50%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,148,26,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,148,26,0.03) 1px,transparent 1px);background-size:60px 60px;}
+  .hero-bar{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,var(--gold),transparent 60%);}
+  .hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;text-align:center;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .hero-eyebrow-line{width:40px;height:2px;background:var(--gold);}
+  .hero-eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+  .hero-headline{font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:900;color:var(--white);line-height:1.05;margin-bottom:20px;}
+  .hero-headline em{font-style:normal;color:var(--gold-light);}
+  .hero-sub{font-size:18px;line-height:1.75;color:rgba(255,255,255,0.6);font-weight:300;max-width:700px;margin:0 auto;}
+
+  /* TICKER */
+  .ticker-strip{background:var(--gold);padding:14px 0;overflow:hidden;}
+  .ticker-track{display:flex;gap:60px;animation:ticker 30s linear infinite;white-space:nowrap;}
+  .ticker-item{display:flex;align-items:center;gap:16px;font-family:var(--font-impact);font-size:18px;letter-spacing:2px;color:var(--navy);}
+  .ticker-dot{width:6px;height:6px;background:var(--navy);border-radius:50%;flex-shrink:0;}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* PATH SECTION */
+  .path-section{background:var(--cream);padding:80px 40px;}
+  .path-inner{max-width:1100px;margin:0 auto;}
+  .path-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--gray-300);margin-top:48px;}
+  .path-step{background:var(--white);padding:32px 24px;text-align:center;position:relative;}
+  .path-step-num{font-family:var(--font-impact);font-size:48px;color:rgba(13,31,60,0.08);line-height:1;margin-bottom:8px;}
+  .path-step-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  .path-step-desc{font-size:13px;color:var(--gray-500);line-height:1.5;font-weight:300;}
+  .path-step-accent{width:32px;height:3px;background:var(--gold);margin:0 auto 12px;}
+  .eyebrow{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;}
+  .eyebrow-line{width:32px;height:2px;background:var(--gold);}
+  .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+  .sec-headline{font-family:var(--font-display);font-size:clamp(26px,3vw,42px);font-weight:900;line-height:1.1;margin-bottom:12px;text-align:center;}
+
+  /* FREE COURSES */
+  .free-section{background:var(--navy);padding:100px 40px;position:relative;overflow:hidden;}
+  .free-section::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,148,26,0.08) 0%,transparent 60%);border-radius:50%;}
+  .section-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+  .section-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,148,26,0.12);border:1px solid rgba(201,148,26,0.3);padding:8px 20px;border-radius:2px;margin-bottom:24px;}
+  .section-tag-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;}
+  .section-tag-text{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+  .courses-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(255,255,255,0.06);margin-top:48px;}
+  .course-card{background:var(--navy);border:1px solid rgba(255,255,255,0.04);padding:48px 36px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
+  .course-card:hover{background:rgba(255,255,255,0.04);transform:translateY(-4px);}
+  .course-card.paid{border-color:rgba(201,148,26,0.2);}
+  .course-emblem{width:180px;height:180px;object-fit:contain;margin-bottom:24px;filter:drop-shadow(0 4px 16px rgba(201,148,26,0.3));transition:transform 0.4s;}
+  .course-card:hover .course-emblem{transform:scale(1.08);}
+  .course-badge{display:inline-block;background:rgba(201,148,26,0.12);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:14px;border:1px solid rgba(201,148,26,0.25);}
+  .course-badge.free-badge{background:rgba(201,148,26,0.2);color:var(--gold-light);}
+  .course-title{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);font-weight:900;color:var(--white);margin-bottom:12px;line-height:1.2;}
+  .course-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;margin-bottom:20px;flex-grow:1;}
+  .course-price{font-family:var(--font-impact);font-size:36px;letter-spacing:2px;color:var(--gold);line-height:1;margin-bottom:24px;}
+  .course-price.free{color:var(--gold-light);}
+  .btn-course{display:inline-block;background:var(--gold);color:var(--navy);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;width:100%;}
+  .btn-course:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-2px);}
+  .btn-course-outline{display:inline-block;background:transparent;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:12px 28px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;width:100%;margin-top:10px;}
+  .btn-course-outline:hover{background:var(--gold);color:var(--navy);}
+
+  /* PAID COURSES */
+  .paid-section{background:var(--cream);padding:100px 40px;}
+  .paid-inner{max-width:1100px;margin:0 auto;}
+  .paid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--gray-300);margin-top:48px;}
+  .paid-card{background:var(--white);padding:48px 36px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all 0.3s;}
+  .paid-card:hover{background:var(--navy);transform:translateY(-4px);box-shadow:0 20px 60px rgba(13,31,60,0.15);z-index:2;}
+  .paid-card:hover .paid-title{color:var(--white);}
+  .paid-card:hover .paid-desc{color:rgba(255,255,255,0.55);}
+  .paid-card:hover .paid-badge{background:rgba(201,148,26,0.2);color:var(--gold);}
+  .paid-card:hover .paid-price{color:var(--gold);}
+  .paid-card:hover .btn-paid{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+  .paid-emblem{width:180px;height:180px;object-fit:contain;margin-bottom:24px;filter:drop-shadow(0 4px 16px rgba(13,31,60,0.15));transition:transform 0.4s;}
+  .paid-card:hover .paid-emblem{transform:scale(1.08);filter:drop-shadow(0 4px 16px rgba(201,148,26,0.3));}
+  .paid-badge{display:inline-block;background:var(--gold-pale);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:14px;transition:all 0.3s;}
+  .paid-title{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);font-weight:900;color:var(--navy);margin-bottom:12px;line-height:1.2;transition:color 0.3s;}
+  .paid-desc{font-size:14px;color:var(--gray-500);line-height:1.7;font-weight:300;margin-bottom:20px;flex-grow:1;transition:color 0.3s;}
+  .paid-price{font-family:var(--font-impact);font-size:36px;letter-spacing:2px;color:var(--navy);line-height:1;margin-bottom:24px;transition:color 0.3s;}
+  .btn-paid{display:inline-block;background:var(--navy);color:var(--white);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:2px;border:2px solid var(--navy);transition:all 0.25s;width:100%;}
+  .btn-paid:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+  .btn-more-info-link{display:inline-block;background:transparent;color:var(--navy);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:10px;transition:all 0.25s;width:100%;margin-top:8px;border:1px solid var(--gray-300);}
+  .btn-more-info-link:hover{border-color:var(--navy);}
+  .paid-card:hover .btn-more-info-link{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2);}
+
+  /* ACCOUNTABILITY */
+  .acct-section{background:var(--dark);padding:100px 40px;}
+  .acct-inner{max-width:1100px;margin:0 auto;}
+  .acct-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,0.06);margin-top:48px;}
+  .acct-card{background:var(--navy);border:1px solid rgba(255,255,255,0.04);padding:44px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all 0.3s;}
+  .acct-card.featured{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.3);}
+  .acct-card:hover{background:rgba(255,255,255,0.05);transform:translateY(-4px);}
+  .acct-card.featured:hover{background:rgba(201,148,26,0.12);}
+  .acct-emblem{width:160px;height:160px;object-fit:contain;margin-bottom:20px;filter:drop-shadow(0 4px 16px rgba(201,148,26,0.25));transition:transform 0.4s;}
+  .acct-card:hover .acct-emblem{transform:scale(1.08);}
+  .acct-level{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .acct-title{font-family:var(--font-display);font-size:18px;font-weight:900;color:var(--white);margin-bottom:10px;line-height:1.2;}
+  .acct-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;font-weight:300;margin-bottom:16px;flex-grow:1;}
+  .acct-price{font-family:var(--font-impact);font-size:32px;letter-spacing:2px;color:var(--gold);line-height:1;margin-bottom:8px;}
+  .acct-price-note{font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:20px;font-weight:300;}
+  .btn-acct{display:inline-block;background:transparent;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:12px 24px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;width:100%;}
+  .btn-acct:hover{background:var(--gold);color:var(--navy);transform:translateY(-2px);}
+  .acct-card.featured .btn-acct{background:var(--gold);color:var(--navy);}
+  .acct-card.featured .btn-acct:hover{background:var(--gold-light);border-color:var(--gold-light);}
+  .featured-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:2px;margin-bottom:14px;}
+
+  /* DISCOVERY CTA */
+  .discovery-section{background:var(--gold);padding:80px 40px;text-align:center;position:relative;overflow:hidden;}
+  .discovery-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(13,31,60,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(13,31,60,0.06) 1px,transparent 1px);background-size:40px 40px;}
+  .discovery-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;}
+  .discovery-headline{font-family:var(--font-display);font-size:clamp(28px,3.5vw,46px);font-weight:900;color:var(--navy);line-height:1.1;margin-bottom:16px;}
+  .discovery-sub{font-size:17px;color:rgba(13,31,60,0.7);margin-bottom:36px;font-weight:300;line-height:1.7;}
+  .btn-discovery{display:inline-block;background:var(--navy);color:var(--white);font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:18px 44px;border-radius:2px;border:2px solid var(--navy);transition:all 0.25s;}
+  .btn-discovery:hover{background:transparent;color:var(--navy);transform:translateY(-2px);}
+
+  /* FOOTER */
+  footer{background:var(--dark);padding:48px 40px 32px;border-top:1px solid rgba(255,255,255,0.06);}
+  .footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  .footer-brand{font-family:var(--font-impact);font-size:22px;letter-spacing:3px;color:var(--white);}
+  .footer-brand span{color:var(--gold);}
+  .footer-contact{font-size:13px;color:rgba(255,255,255,0.4);text-align:center;}
+  .footer-contact a{color:var(--gold-light);text-decoration:none;}
+  .footer-copy{font-size:12px;color:rgba(255,255,255,0.25);}
+
+  /* ANIMATIONS */
+  .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .fade-up.visible{opacity:1;transform:translateY(0);}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    nav{padding:12px 20px;height:auto;min-height:60px;flex-direction:column;align-items:center;gap:10px;}
+    .nav-logo{align-items:center;}
+    .nav-logo-top{font-size:17px;}
+    .nav-links{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;gap:8px;width:100%;}
+    
+    .nav-cta{display:inline-flex!important;padding:9px 14px!important;font-size:11px!important;}
+    .hero{padding:120px 24px 60px;}
+    .path-steps{grid-template-columns:1fr 1fr;}
+    .courses-grid,.paid-grid{grid-template-columns:1fr;}
+    .acct-grid{grid-template-columns:1fr;}
+    .path-section,.free-section,.paid-section,.acct-section,.discovery-section{padding:70px 24px;}
+    footer .footer-inner{flex-direction:column;text-align:center;}
+  }
+
+  /* HAMBURGER MENU */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13,31,60,0.98); z-index: 150; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 80px 40px 40px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: var(--font-display); font-size: clamp(22px, 5vw, 32px); font-weight: 700; color: var(--white); text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); width: 100%; text-align: center; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--gold-light); }
+  .mobile-menu a.active { color: var(--gold-light); }
+  .mobile-menu-cta { background: var(--gold) !important; color: var(--navy) !important; border-radius: 2px !important; border: none !important; font-family: var(--font-body) !important; font-size: 15px !important; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; padding: 16px 40px !important; margin-top: 16px; }
+  .mobile-menu-close { position: absolute; top: 20px; right: 24px; font-size: 28px; color: rgba(255,255,255,0.5); cursor: pointer; background: none; border: none; line-height: 1; }
+  @media (max-width: 900px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none !important; }
+  }
+
+
+/* ==RSM NAV FINAL== */
+nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(13,31,60,0.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px!important;height:68px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+.nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:14px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links li{display:flex!important;align-items:center!important;}
+.nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
+.nav-links li a.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 14px!important;border-radius:2px!important;font-weight:700!important;}
+.nav-hamburger{display:none!important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none!important;border:none!important;z-index:99999!important;flex-shrink:0;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.is-open span:nth-child(2){opacity:0;}
+.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-mobile{display:none!important;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex!important;}
+.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
+@media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
+/* ==END RSM NAV== */
+
+.hub-hero{background:var(--navy);padding:150px 40px 80px;text-align:center;position:relative;overflow:hidden;}
+.hub-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 30%,rgba(201,148,26,0.12),transparent 65%);}
+.hub-inner{max-width:900px;margin:0 auto;position:relative;z-index:2;}
+.hub-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hub-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,58px);font-weight:900;color:#fff;line-height:1.08;margin-bottom:20px;}
+.hub-title em{font-style:normal;color:#E8B84B;}
+.hub-sub{font-size:18px;color:rgba(255,255,255,0.72);line-height:1.75;max-width:720px;margin:0 auto;font-weight:300;}
+.hub-sec{background:#FAF7F2;padding:90px 40px;}
+.hub-sec.dark{background:#0A0A0A;}
+.hub-wrap{max-width:1150px;margin:0 auto;}
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+.hub-card{background:#fff;border-top:4px solid #C9941A;border-radius:2px;padding:34px 30px;box-shadow:0 10px 30px rgba(13,31,60,0.08);display:flex;flex-direction:column;}
+.hub-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;border:1px solid rgba(201,148,26,0.4);padding:5px 10px;border-radius:2px;margin-bottom:16px;align-self:flex-start;}
+.hub-card h3{font-family:'Playfair Display',Georgia,serif;font-size:24px;color:#0D1F3C;line-height:1.25;margin-bottom:10px;}
+.hub-card .q{font-size:15px;font-weight:600;color:#0D1F3C;margin-bottom:12px;}
+.hub-card p{font-size:15px;color:#555;line-height:1.7;margin-bottom:16px;font-weight:300;}
+.hub-card ul{list-style:none;margin:0 0 22px;padding:0;}
+.hub-card li{font-size:14px;color:#444;padding:6px 0 6px 22px;position:relative;border-bottom:1px solid #eee;line-height:1.5;}
+.hub-card li::before{content:'\2713';position:absolute;left:0;color:#C9941A;font-weight:700;}
+.hub-meta{display:flex;gap:18px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#888;margin-bottom:20px;}
+.hub-btn{margin-top:auto;display:block;text-align:center;background:#C9941A;color:#0D1F3C;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 20px;border-radius:2px;transition:background 0.2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.hub-btn:hover{background:#E8B84B;}
+.hub-btn.locked{background:#0D1F3C;color:#fff;}
+.hub-h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.5vw,42px);font-weight:900;color:#0D1F3C;text-align:center;margin-bottom:14px;line-height:1.15;}
+.hub-sec.dark .hub-h2{color:#fff;}
+.hub-lead{text-align:center;font-size:16px;color:#666;max-width:680px;margin:0 auto 48px;line-height:1.75;font-weight:300;}
+.hub-sec.dark .hub-lead{color:rgba(255,255,255,0.6);}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.step3{border:1px solid rgba(201,148,26,0.25);padding:28px;border-radius:2px;}
+.step3 .n{font-family:'Bebas Neue',sans-serif;font-size:42px;color:#C9941A;line-height:1;}
+.step3 h4{color:#fff;font-size:17px;margin:8px 0;}
+.step3 p{color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;}
+.unlock{max-width:720px;margin:0 auto 50px;background:#0D1F3C;border-top:4px solid #C9941A;border-radius:2px;padding:36px 34px;text-align:center;box-shadow:0 16px 40px rgba(13,31,60,0.25);}
+.unlock h3{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:26px;margin-bottom:8px;}
+.unlock p{color:rgba(255,255,255,0.7);font-size:15px;margin-bottom:20px;line-height:1.6;}
+.unlock-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.unlock input[type=text],.unlock input[type=email]{width:100%;padding:14px 16px;border:2px solid rgba(201,148,26,0.4);background:rgba(255,255,255,0.06);color:#fff;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:15px;}
+.unlock input:focus{outline:none;border-color:#E8B84B;}
+.unlock-check{display:flex;gap:10px;align-items:flex-start;text-align:left;font-size:13px;color:rgba(255,255,255,0.6);margin:6px 0 16px;line-height:1.5;}
+.unlock-check input{margin-top:3px;accent-color:#C9941A;}
+.unlock-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+.unlock.done h3{color:#E8B84B;}
+@media(max-width:768px){.hub-hero{padding:120px 20px 60px;}.hub-sec{padding:60px 20px;}.unlock{padding:28px 20px;}.unlock-row{grid-template-columns:1fr;}}
+
+.t-jump{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px;}
+.t-jump a{border:1px solid rgba(201,148,26,0.5);color:#E8B84B;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;border-radius:2px;transition:all .2s;}
+.t-jump a:hover{background:#C9941A;color:#0D1F3C;}
+.t-sec{background:#FAF7F2;padding:70px 40px;border-bottom:1px solid #eee4d3;scroll-margin-top:80px;}
+.t-sec.alt{background:#F2EDE3;}
+.t-wrap{max-width:1150px;margin:0 auto;}
+.t-head{margin-bottom:28px;}
+.t-num{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:#C9941A;}
+.t-head h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.4vw,40px);font-weight:900;color:#0D1F3C;line-height:1.15;margin:4px 0 10px;}
+.t-head p{font-size:16px;color:#555;line-height:1.7;max-width:760px;font-weight:300;}
+.t-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px;align-items:start;}
+.t-card{background:#fff;border-top:4px solid #C9941A;border-radius:2px;padding:28px;box-shadow:0 10px 30px rgba(13,31,60,0.08);min-width:0;}
+.t-card h3{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0D1F3C;margin-bottom:16px;}
+.t-row{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid #f0ece4;font-size:14px;color:#333;}
+.t-row.main{border-bottom:2px solid #C9941A;padding-bottom:12px;margin-bottom:8px;font-weight:700;color:#0D1F3C;}
+.t-card input,.t-card select{width:100%;padding:10px 12px;border:1px solid #d9d2c3;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:15px;color:#0D1F3C;background:#fff;}
+.t-card input:focus,.t-card select:focus{outline:none;border-color:#C9941A;box-shadow:0 0 0 3px rgba(201,148,26,0.15);}
+.t-group{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin:18px 0 4px;}
+.t-field{margin-bottom:14px;}
+.t-field label{display:block;font-size:13px;font-weight:600;color:#0D1F3C;margin-bottom:6px;}
+.t-field small{display:block;font-size:12px;color:#888;margin-top:5px;line-height:1.5;}
+.t-debt{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.7fr) minmax(0,1fr);gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f0ece4;}
+.t-debt-head{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,.7fr) minmax(0,1fr);gap:8px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#888;margin-bottom:6px;}
+.t-link{background:none;border:none;color:#C9941A;font-weight:700;font-size:13px;cursor:pointer;padding:6px 0;font-family:'DM Sans',sans-serif;}
+.t-reset{background:none;border:none;color:#999;font-size:12px;cursor:pointer;margin-top:14px;text-decoration:underline;font-family:'DM Sans',sans-serif;}
+.t-empty{color:#777;font-size:15px;line-height:1.7;padding:30px 0;text-align:center;}
+.t-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:22px;}
+.t-tile{background:#0D1F3C;border-radius:2px;padding:16px 14px;min-width:0;}
+.t-tile-l{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.t-tile-v{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1.05;word-break:break-word;}
+.t-tile-n{font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;line-height:1.4;}
+.t-tile.good{border-bottom:3px solid #3d9a5f;}
+.t-tile.bad{border-bottom:3px solid #c2413b;}
+.t-h4{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0D1F3C;margin:22px 0 12px;}
+.t-split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.t-split div{border:1px solid #eee4d3;padding:12px;border-radius:2px;}
+.t-split span{display:block;font-size:12px;color:#666;}
+.t-split strong{display:block;font-size:22px;color:#0D1F3C;}
+.t-split em{font-style:normal;font-size:13px;color:#888;}
+.t-small{font-size:13px;color:#777;line-height:1.65;margin:12px 0;}
+.t-bars{display:flex;flex-direction:column;gap:8px;}
+.t-bar-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.5fr) 118px;gap:10px;align-items:center;font-size:13px;color:#333;}
+.t-bar-lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.t-bar-track{height:14px;}
+.t-bar{height:14px;border-radius:0 4px 4px 0;}
+.t-bar-row:hover .t-bar{filter:brightness(1.15);}
+.t-bar-val{font-weight:600;color:#0D1F3C;white-space:nowrap;text-align:right;}
+.t-dl{display:block;min-width:0;}
+.t-dl span{display:block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#888;margin-bottom:4px;}
+.t-dl-name span{color:#C9941A;}
+.t-bar-val span{color:#888;font-weight:400;margin-left:4px;}
+.t-note{display:flex;gap:12px;align-items:flex-start;border-radius:2px;padding:14px 16px;margin-top:12px;font-size:14px;line-height:1.6;color:#333;background:#f7f5f0;border-left:4px solid #0D1F3C;}
+.t-note strong{color:#0D1F3C;}
+.t-note-i{flex:0 0 22px;height:22px;border-radius:50%;background:#0D1F3C;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.t-note.good{border-left-color:#3d9a5f;}.t-note.good .t-note-i{background:#3d9a5f;}
+.t-note.warn{border-left-color:#C9941A;}.t-note.warn .t-note-i{background:#C9941A;color:#0D1F3C;}
+.t-note.bad{border-left-color:#c2413b;}.t-note.bad .t-note-i{background:#c2413b;}
+.t-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.t-plan{border:1px solid #e3dccd;border-radius:2px;padding:18px;position:relative;}
+.t-plan.best{border:2px solid #C9941A;}
+.t-best{position:absolute;top:-11px;left:16px;background:#C9941A;color:#0D1F3C;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;}
+.t-plan h4{font-family:'Playfair Display',Georgia,serif;font-size:22px;color:#0D1F3C;}
+.t-plan-big{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#0D1F3C;line-height:1.1;}
+.t-plan-sub{font-size:13px;color:#666;margin-bottom:10px;}
+.t-plan-int{font-size:14px;color:#333;margin-bottom:10px;}
+.t-order{margin:0;padding-left:20px;font-size:13px;color:#333;line-height:1.8;}
+.t-order span{color:#999;font-size:12px;}
+.t-prog{height:18px;background:#eee8dc;border-radius:2px;overflow:hidden;}
+.t-prog-fill{height:100%;border-radius:0 4px 4px 0;}
+.t-prog-lab{font-size:13px;color:#555;margin-top:6px;}
+.t-legend{display:flex;gap:18px;font-size:13px;color:#333;margin-bottom:10px;flex-wrap:wrap;}
+.t-legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px;}
+.t-cols{display:flex;align-items:flex-end;gap:6px;height:220px;border-bottom:1px solid #ccc;padding-top:6px;}
+.t-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative;min-width:0;cursor:default;}
+.t-col-stack{display:flex;flex-direction:column;gap:2px;border-radius:4px 4px 0 0;overflow:hidden;min-height:2px;}
+.t-col:hover .t-col-stack{filter:brightness(1.12);}
+.t-col-lab{position:absolute;bottom:-22px;left:0;right:0;text-align:center;font-size:11px;color:#777;white-space:nowrap;}
+.t-cols + *{margin-top:34px;}
+.t-cta{background:#0D1F3C;padding:80px 40px;text-align:center;}
+.t-cta h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.4vw,40px);color:#fff;margin-bottom:12px;}
+.t-cta p{color:rgba(255,255,255,0.7);max-width:640px;margin:0 auto 28px;line-height:1.7;font-size:16px;}
+.t-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.t-cta-btns a{display:inline-block;padding:16px 28px;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;border-radius:2px;}
+.t-cta-btns .g{background:#C9941A;color:#0D1F3C;}
+.t-cta-btns .o{border:1px solid #C9941A;color:#E8B84B;}
+.t-disc{font-size:12px;color:rgba(255,255,255,0.4);max-width:760px;margin:30px auto 0;line-height:1.6;}
+@media(max-width:900px){.t-grid{grid-template-columns:minmax(0,1fr);}}
+@media(max-width:768px){.t-sec{padding:50px 16px;}.t-card{padding:20px 16px;}.t-tiles{grid-template-columns:minmax(0,1fr);}.t-split{grid-template-columns:minmax(0,1fr);}.t-plans{grid-template-columns:minmax(0,1fr);}.t-row{grid-template-columns:minmax(0,1fr) 110px;}.t-bar-row{grid-template-columns:minmax(0,1fr) auto;}.t-dl-name{grid-column:1 / -1;}.t-bar-track{grid-column:1 / -1;order:3;}.t-debt{grid-template-columns:repeat(3,minmax(0,1fr));}.t-cta{padding:60px 20px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
+  <ul class="nav-links"><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./services.html">Services</a></li><li><a href="./accountability.html">Accountability</a></li><li><a href="./courses.html">Courses</a></li><li><a href="./book.html">Book</a></li><li><a href="./speaking.html">Speaking</a></li><li><a href="./community-invite.html">Community</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./quizzes.html" style="color:#E8B84B!important;font-weight:700!important;">Free Quizzes</a></li><li><a href="./resources.html" class="nav-cta">Start Free</a></li></ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+<a href="./index.html">Home</a>
+<a href="./about.html">About</a>
+<a href="./services.html">Services</a>
+<a href="./accountability.html">Accountability</a>
+<a href="./courses.html">Courses</a>
+<a href="./book.html">Book</a>
+<a href="./speaking.html">Speaking</a>
+<a href="./community-invite.html">Community</a>
+<a href="./contact.html">Contact</a>
+<a href="./quizzes.html" style="color:#E8B84B;font-weight:700;">&#9733; Free Quizzes</a>
+<a href="./resources.html" class="nav-mobile-cta">Start Free</a>
+</div>
+
+<section class="hub-hero"><div class="hub-inner">
+<div class="hub-eyebrow">Free Money Tools by Darrell Thompson</div>
+<h1 class="hub-title">Know Your <em>Numbers.</em></h1>
+<p class="hub-sub">You can't change what you won't look at. These five free calculators show you exactly where you stand and exactly what it takes to move forward. No sign-up needed, and your numbers stay private on your own device.</p>
+<div class="t-jump"><a href="#budget">Budget Snapshot</a><a href="#debt">Debt Payoff</a><a href="#ef">Emergency Fund</a><a href="#cg">Compound Growth</a><a href="#nw">Net Worth</a></div>
+</div></section>
+<section class="t-sec" id="budget"><div class="t-wrap">
+<div class="t-head"><div class="t-num">Tool 1 of 5</div><h2>Budget Snapshot</h2><p>See where every dollar of your monthly take-home pay is going, how your needs, wants, and savings balance out, and where your money is leaking.</p></div>
+<div class="t-grid" id="budgetTool"><div class="t-card"><h3>Your Numbers</h3><label class="t-row main"><span>Monthly take-home pay</span><input type="text" inputmode="decimal" id="bInc" data-k="bInc" placeholder="0" /></label><div class="t-small" style="margin:4px 0 6px">What actually lands in your account each month, after taxes and deductions. Enter each expense as a monthly amount.</div><div id="budgetRows"></div><button type="button" class="t-reset" data-reset="budgetTool">Clear this tool</button></div>
+<div class="t-card"><h3>Your Results</h3><div id="budgetOut" aria-live="polite"></div></div></div>
+</div></section><section class="t-sec alt" id="debt"><div class="t-wrap">
+<div class="t-head"><div class="t-num">Tool 2 of 5</div><h2>Debt Payoff Planner</h2><p>Find your debt-free date and compare the two proven payoff methods side by side: snowball (smallest balance first) and avalanche (highest interest first).</p></div>
+<div class="t-grid" id="debtTool"><div class="t-card"><h3>Your Numbers</h3><div id="debtRows"></div><button type="button" class="t-link" id="addDebt">+ Add another debt</button><div class="t-field"><label for="dExtra">Extra you can pay each month, on top of minimums</label><input type="text" inputmode="decimal" id="dExtra" data-k="dExtra" placeholder="0" /><small>Even a small amount makes a big difference. Try $50, $100, or $200 and watch the date change.</small></div><button type="button" class="t-reset" data-reset="debtTool">Clear this tool</button></div>
+<div class="t-card"><h3>Your Results</h3><div id="debtOut" aria-live="polite"></div></div></div>
+</div></section><section class="t-sec" id="ef"><div class="t-wrap">
+<div class="t-head"><div class="t-num">Tool 3 of 5</div><h2>Emergency Fund Builder</h2><p>An emergency fund is what keeps a car repair or a missed paycheck from turning into new debt. Find your target and your timeline to get there.</p></div>
+<div class="t-grid" id="efTool"><div class="t-card"><h3>Your Numbers</h3><div class="t-field"><label for="efExp">Essential monthly expenses</label><input type="text" inputmode="decimal" id="efExp" data-k="efExp" placeholder="0" /><small>Housing, utilities, food, transportation, insurance, and minimum debt payments.</small></div><div class="t-field"><label for="efMonths">How many months should you cover?</label><select id="efMonths" data-k="efMonths"><option value="3">3 months: stable job and a second income in the home</option><option value="6" selected>6 months: the standard for most households</option><option value="9">9 months: single income, commission, or self-employed</option><option value="12">12 months: irregular income or near retirement</option></select></div><div class="t-field"><label for="efHave">Emergency savings you have now</label><input type="text" inputmode="decimal" id="efHave" data-k="efHave" placeholder="0" /></div><div class="t-field"><label for="efAdd">Amount you can add each month</label><input type="text" inputmode="decimal" id="efAdd" data-k="efAdd" placeholder="0" /></div><button type="button" class="t-reset" data-reset="efTool">Clear this tool</button></div>
+<div class="t-card"><h3>Your Results</h3><div id="efOut" aria-live="polite"></div></div></div>
+</div></section><section class="t-sec alt" id="cg"><div class="t-wrap">
+<div class="t-head"><div class="t-num">Tool 4 of 5</div><h2>Compound Growth Calculator</h2><p>See how consistent investing grows over time, how much of your future balance comes from growth instead of your own deposits, and what waiting costs you.</p></div>
+<div class="t-grid" id="cgTool"><div class="t-card"><h3>Your Numbers</h3><div class="t-field"><label for="cgStart">Starting amount</label><input type="text" inputmode="decimal" id="cgStart" data-k="cgStart" placeholder="0" /></div><div class="t-field"><label for="cgMonthly">Monthly contribution</label><input type="text" inputmode="decimal" id="cgMonthly" data-k="cgMonthly" placeholder="0" /></div><div class="t-field"><label for="cgYears">Years to grow</label><input type="text" inputmode="decimal" id="cgYears" data-k="cgYears" placeholder="25" /><small>Up to 50 years.</small></div><div class="t-field"><label for="cgRate">Estimated yearly return (%)</label><input type="text" inputmode="decimal" id="cgRate" data-k="cgRate" placeholder="7" /><small>This is an assumption, not a promise. Try a few rates to see a range.</small></div><button type="button" class="t-reset" data-reset="cgTool">Clear this tool</button></div>
+<div class="t-card"><h3>Your Results</h3><div id="cgOut" aria-live="polite"></div></div></div>
+</div></section><section class="t-sec" id="nw"><div class="t-wrap">
+<div class="t-head"><div class="t-num">Tool 5 of 5</div><h2>Net Worth Calculator</h2><p>Your net worth is what you own minus what you owe. It's the real scoreboard for building wealth, and it's worth checking every few months.</p></div>
+<div class="t-grid" id="nwTool"><div class="t-card"><h3>Your Numbers</h3><div class="t-group">What You Own</div><div id="nwA"></div><div class="t-group">What You Owe</div><div id="nwL"></div><button type="button" class="t-reset" data-reset="nwTool">Clear this tool</button></div>
+<div class="t-card"><h3>Your Results</h3><div id="nwOut" aria-live="polite"></div></div></div>
+</div></section>
+<section class="t-cta"><div class="t-wrap">
+<h2>Numbers Tell You Where You Are. <em style="font-style:normal;color:#E8B84B">Mindset Decides Where You Go.</em></h2>
+<p>Take a free quiz to find out what's really driving your money decisions, grab the free guides, or get the structure and accountability to put these numbers to work.</p>
+<div class="t-cta-btns"><a class="g" href="./quizzes.html">Take a Free Quiz</a><a class="o" href="./resources.html">Get the Free Guides</a><a class="o" href="./courses.html">Explore Programs</a></div>
+<p class="t-disc">These tools are for education only and use simplified, hypothetical calculations. They aren't financial, investment, tax, or legal advice. Your results depend on your actual rates, terms, and circumstances. Your entries are saved only in this browser on this device so they're here when you come back.</p>
+</div></section>
+
+<script>
+(function(){
+'use strict';
+var C_IN = '#3A6AB0', C_GROW = '#B07A0C';
+function $(id){ return document.getElementById(id); }
+function num(id){ var v = parseFloat(String($(id).value).replace(/[$,\s]/g, '')); return isFinite(v) && v > 0 ? v : 0; }
+function money(v){ var neg = v < 0; v = Math.abs(Math.round(v)); return (neg ? '-$' : '$') + v.toLocaleString('en-US'); }
+function pct(v){ return (Math.round(v * 10) / 10).toLocaleString('en-US') + '%'; }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function monthsText(m){ if (m <= 0) return 'now'; var y = Math.floor(m / 12), r = m % 12; var s = []; if (y) s.push(y + (y === 1 ? ' year' : ' years')); if (r) s.push(r + (r === 1 ? ' month' : ' months')); return s.join(', '); }
+function dateAfter(m){ var d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + m); return d.toLocaleDateString('en-US', {month: 'long', year: 'numeric'}); }
+function tile(label, value, note, tone){ return '<div class="t-tile' + (tone ? ' ' + tone : '') + '"><div class="t-tile-l">' + label + '</div><div class="t-tile-v">' + value + '</div>' + (note ? '<div class="t-tile-n">' + note + '</div>' : '') + '</div>'; }
+function note(kind, title, text){ var icon = kind === 'good' ? '&#10003;' : kind === 'warn' ? '!' : 'i'; return '<div class="t-note ' + kind + '"><span class="t-note-i">' + icon + '</span><div><strong>' + title + '</strong> ' + text + '</div></div>'; }
+
+/* ---------- saved inputs (per visitor, this browser only) ---------- */
+var STORE = 'rsm_tools_v1', saved = {};
+try { saved = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch(e){ saved = {}; }
+function persist(){ try { localStorage.setItem(STORE, JSON.stringify(saved)); } catch(e){} }
+function bindSave(root){
+  root.querySelectorAll('input[data-k],select[data-k]').forEach(function(el){
+    var k = el.getAttribute('data-k');
+    if (saved[k] != null) el.value = saved[k];
+    el.addEventListener('input', function(){ saved[k] = el.value; persist(); });
+  });
+}
+
+/* ---------- 1. Budget Snapshot ---------- */
+var BUDGET = [
+  ['Housing (rent or mortgage)', 'need'], ['Utilities and phone', 'need'], ['Groceries', 'need'], ['Transportation (car, gas, transit)', 'need'],
+  ['Insurance (health, auto, life)', 'need'], ['Childcare and education', 'need'], ['Minimum debt payments', 'need'],
+  ['Dining out and entertainment', 'want'], ['Shopping and personal', 'want'], ['Subscriptions', 'want'], ['Giving', 'want'],
+  ['Savings and emergency fund', 'save'], ['Investing and retirement', 'save'], ['Extra debt payoff', 'save']
+];
+function buildBudget(){
+  var h = '';
+  BUDGET.forEach(function(b, i){ h += '<label class="t-row"><span>' + b[0] + '</span><input type="text" inputmode="decimal" id="b' + i + '" data-k="b' + i + '" placeholder="0" /></label>'; });
+  $('budgetRows').innerHTML = h;
+}
+function calcBudget(){
+  var inc = num('bInc'), out = $('budgetOut');
+  if (!inc){ out.innerHTML = '<p class="t-empty">Enter your monthly take-home pay to see your snapshot.</p>'; return; }
+  var tot = 0, grp = {need: 0, want: 0, save: 0}, rows = [];
+  BUDGET.forEach(function(b, i){ var v = num('b' + i); tot += v; grp[b[1]] += v; if (v) rows.push([b[0], v]); });
+  var left = inc - tot;
+  rows.sort(function(a, b){ return b[1] - a[1]; });
+  var h = '<div class="t-tiles">' + tile('Take-home pay', money(inc)) + tile('Planned spending and saving', money(tot)) + tile(left >= 0 ? 'Left to assign' : 'Over budget by', money(Math.abs(left)), left >= 0 ? 'Give every dollar a job.' : 'Spending is higher than income.', left >= 0 ? '' : 'bad') + '</div>';
+  var np = grp.need / inc * 100, wp = grp.want / inc * 100, sp = grp.save / inc * 100;
+  h += '<h4 class="t-h4">Where Your Money Goes</h4><div class="t-split">' +
+    '<div><span>Needs</span><strong>' + pct(np) + '</strong><em>' + money(grp.need) + '</em></div>' +
+    '<div><span>Wants</span><strong>' + pct(wp) + '</strong><em>' + money(grp.want) + '</em></div>' +
+    '<div><span>Savings and debt payoff</span><strong>' + pct(sp) + '</strong><em>' + money(grp.save) + '</em></div></div>';
+  h += '<p class="t-small">A common starting guideline is about 50% needs, 30% wants, and 20% savings and extra debt payoff. Your numbers don\'t have to match it exactly. Use it to spot where your money is out of balance.</p>';
+  if (rows.length){
+    var max = rows[0][1];
+    h += '<h4 class="t-h4">Each Category as a Share of Your Pay</h4><div class="t-bars" role="list">';
+    rows.forEach(function(r){ var p = r[1] / inc * 100; h += '<div class="t-bar-row" role="listitem" title="' + esc(r[0]) + ': ' + money(r[1]) + ' (' + pct(p) + ' of take-home pay)"><div class="t-bar-lab">' + esc(r[0]) + '</div><div class="t-bar-track"><div class="t-bar" style="width:' + Math.max(1.5, r[1] / max * 100) + '%;background:' + C_IN + '"></div></div><div class="t-bar-val">' + money(r[1]) + ' <span>' + pct(p) + '</span></div></div>'; });
+    h += '</div>';
+  }
+  var housing = num('b0') / inc * 100, notes = '';
+  if (left < 0) notes += note('bad', 'You\'re spending more than you bring home.', 'Start with your wants categories. Every dollar you cut there closes the gap without touching your needs.');
+  if (np > 60) notes += note('warn', 'Needs are taking ' + pct(np) + ' of your pay.', 'When needs run well above about 50%, there\'s little room left for savings. Look for your biggest fixed costs: housing, transportation, insurance, and debt payments are where lasting changes happen.');
+  if (housing > 30) notes += note('warn', 'Housing is ' + pct(housing) + ' of your take-home pay.', 'Above about 30%, housing starts squeezing everything else. It\'s hard to change fast, so protect the rest of your budget closely.');
+  if (sp < 10) notes += note('warn', 'You\'re putting ' + pct(sp) + ' toward savings and debt payoff.', 'Aim for at least 10% to start, even if you build up to it a little each month. Pay yourself first, before the wants.');
+  else notes += note('good', 'You\'re putting ' + pct(sp) + ' toward your future.', 'That\'s how wealth gets built: consistently, before anything else gets the money.');
+  if (left > 0) notes += note('info', money(left) + ' has no job yet.', 'Unassigned money tends to disappear. Put it toward your emergency fund, debt payoff, or investing before the month decides for you.');
+  out.innerHTML = h + notes;
+}
+
+/* ---------- 2. Debt Payoff Planner ---------- */
+var DEBT_ROWS = 0;
+function addDebt(d){
+  if (DEBT_ROWS >= 8) return;
+  var i = DEBT_ROWS++;
+  var div = document.createElement('div'); div.className = 't-debt';
+  div.innerHTML = '<label class="t-dl t-dl-name"><span>Debt ' + (i + 1) + '</span><input type="text" id="dn' + i + '" data-k="dn' + i + '" placeholder="Name, e.g. Visa" /></label>' +
+    '<label class="t-dl"><span>Balance</span><input type="text" inputmode="decimal" id="db' + i + '" data-k="db' + i + '" placeholder="0" /></label>' +
+    '<label class="t-dl"><span>APR %</span><input type="text" inputmode="decimal" id="dr' + i + '" data-k="dr' + i + '" placeholder="0" /></label>' +
+    '<label class="t-dl"><span>Min. payment</span><input type="text" inputmode="decimal" id="dm' + i + '" data-k="dm' + i + '" placeholder="0" /></label>';
+  $('debtRows').appendChild(div);
+  if (d){ $('dn' + i).value = d[0]; $('db' + i).value = d[1]; $('dr' + i).value = d[2]; $('dm' + i).value = d[3]; }
+  bindSave(div);
+  div.querySelectorAll('input').forEach(function(el){ el.addEventListener('input', calcDebt); });
+  $('addDebt').style.display = DEBT_ROWS >= 8 ? 'none' : '';
+}
+function readDebts(){
+  var list = [];
+  for (var i = 0; i < DEBT_ROWS; i++){
+    var b = num('db' + i); if (!b) continue;
+    list.push({name: $('dn' + i).value.trim() || 'Debt ' + (i + 1), bal: b, apr: num('dr' + i), min: num('dm' + i)});
+  }
+  return list;
+}
+function simulate(debts, extra, order){
+  var ds = debts.map(function(d){ return {name: d.name, bal: d.bal, r: d.apr / 100 / 12, min: d.min}; });
+  if (order === 'snowball') ds.sort(function(a, b){ return a.bal - b.bal; });
+  else if (order === 'avalanche') ds.sort(function(a, b){ return b.r - a.r || a.bal - b.bal; });
+  var budget = ds.reduce(function(s, d){ return s + d.min; }, 0) + (order ? extra : 0);
+  var month = 0, interest = 0, paidOff = [];
+  while (ds.some(function(d){ return d.bal > 0.005; }) && month < 600){
+    month++;
+    ds.forEach(function(d){ if (d.bal > 0){ var i = d.bal * d.r; d.bal += i; interest += i; } });
+    var avail = order ? budget : Infinity;
+    ds.forEach(function(d){ if (d.bal > 0){ var p = Math.min(d.min, d.bal); if (order) p = Math.min(p, avail); d.bal -= p; if (order) avail -= p; } });
+    if (order){ ds.forEach(function(d){ if (d.bal > 0 && avail > 0){ var p = Math.min(avail, d.bal); d.bal -= p; avail -= p; } }); }
+    ds.forEach(function(d){ if (d.bal <= 0.005 && !d.done){ d.done = true; d.bal = 0; paidOff.push({name: d.name, month: month}); } });
+  }
+  return {months: month, interest: interest, order: paidOff, stuck: month >= 600};
+}
+function calcDebt(){
+  var out = $('debtOut'), debts = readDebts(), extra = num('dExtra');
+  if (!debts.length){ out.innerHTML = '<p class="t-empty">Enter at least one debt with its balance, interest rate, and minimum payment.</p>'; return; }
+  var bad = debts.filter(function(d){ return d.min <= d.bal * d.apr / 100 / 12; });
+  if (bad.length){ out.innerHTML = note('bad', 'Check your minimum payments.', 'For ' + bad.map(function(d){ return esc(d.name); }).join(', ') + ', the minimum payment doesn\'t cover the monthly interest, so the balance would never go down. Enter the actual minimum from your statement.'); return; }
+  var total = debts.reduce(function(s, d){ return s + d.bal; }, 0);
+  var base = simulate(debts, 0, null), sb = simulate(debts, extra, 'snowball'), av = simulate(debts, extra, 'avalanche');
+  function col(title, desc, r, best){
+    return '<div class="t-plan' + (best ? ' best' : '') + '">' + (best ? '<div class="t-best">Saves the most</div>' : '') + '<h4>' + title + '</h4><p class="t-small">' + desc + '</p>' +
+      '<div class="t-plan-big">' + monthsText(r.months) + '</div><div class="t-plan-sub">Debt-free by ' + dateAfter(r.months) + '</div>' +
+      '<div class="t-plan-int">Total interest: <strong>' + money(r.interest) + '</strong></div>' +
+      '<ol class="t-order">' + r.order.map(function(o){ return '<li>' + esc(o.name) + ' <span>month ' + o.month + '</span></li>'; }).join('') + '</ol></div>';
+  }
+  var bestAv = av.interest < sb.interest - 1;
+  var same = sb.order.map(function(o){ return o.name; }).join('|') === av.order.map(function(o){ return o.name; }).join('|');
+  var h = '<div class="t-tiles">' + tile('Total debt', money(total)) + tile('Minimum payments only', monthsText(base.months), money(base.interest) + ' in interest' + (base.stuck ? ' (50+ years)' : '')) + tile('Your monthly payment', money(debts.reduce(function(s, d){ return s + d.min; }, 0) + extra), extra ? 'Minimums plus ' + money(extra) + ' extra' : 'Minimums only') + '</div>';
+  h += '<div class="t-plans">' + col('Snowball', 'Smallest balance first. Quick wins keep you motivated.', sb, false) + col('Avalanche', 'Highest interest rate first. Costs the least over time.', av, bestAv) + '</div>';
+  if (same) h += note('info', 'For your debts, both methods land in the same order,', 'because your smallest balance also has the highest interest rate. That\'s the best of both: quick wins and the lowest cost.');
+  var intSaved = base.interest - Math.min(sb.interest, av.interest);
+  if (extra > 0 && intSaved > 1) h += note('good', 'Your extra ' + money(extra) + ' a month saves about ' + money(intSaved) + ' in interest', 'and gets you out ' + monthsText(base.months - Math.min(sb.months, av.months)) + ' sooner than paying minimums only.');
+  else if (!extra) h += note('info', 'Add an extra monthly amount above.', 'Even $50 or $100 a month on top of your minimums can cut years and thousands of dollars off your payoff.');
+  h += note('info', 'Both methods work.', 'The best plan is the one you\'ll stick with. When a debt is paid off, roll its payment into the next one. That\'s the rollover built into these numbers.');
+  out.innerHTML = h;
+}
+
+/* ---------- 3. Emergency Fund Builder ---------- */
+function calcEF(){
+  var out = $('efOut'), exp = num('efExp'), have = num('efHave'), add = num('efAdd'), m = parseFloat($('efMonths').value) || 6;
+  if (!exp){ out.innerHTML = '<p class="t-empty">Enter your essential monthly expenses to see your target.</p>'; return; }
+  var target = exp * m, gap = Math.max(0, target - have), p = Math.min(100, have / target * 100);
+  var covered = have / exp;
+  var h = '<div class="t-tiles">' + tile('Your target', money(target), m + ' months of essentials') + tile('You have', money(have), covered >= 0.1 ? 'About ' + (Math.round(covered * 10) / 10) + ' months covered' : 'Just getting started') + tile('Still to save', money(gap), gap ? '' : 'Fully funded', gap ? '' : 'good') + '</div>';
+  h += '<div class="t-prog" title="' + pct(p) + ' of your target"><div class="t-prog-fill" style="width:' + Math.max(p, 1) + '%;background:' + C_IN + '"></div></div><div class="t-prog-lab">' + pct(p) + ' of your target</div>';
+  if (gap > 0){
+    if (add > 0){
+      var mo = Math.ceil(gap / add);
+      h += note('info', 'At ' + money(add) + ' a month, you\'ll be fully funded in ' + monthsText(mo) + ',', 'around ' + dateAfter(mo) + '.');
+      if (have < exp){ var m1 = Math.ceil((exp - have) / add); h += note('good', 'First milestone: one full month of expenses.', 'You\'ll hit it in ' + monthsText(m1) + '. That alone turns most emergencies from a crisis into an inconvenience.'); }
+    } else h += note('info', 'Add a monthly amount you can set aside.', 'Automate it on payday so it happens before you can spend it.');
+  } else h += note('good', 'Your emergency fund is fully funded.', 'Keep it in a separate high-yield savings account and redirect that monthly amount toward investing or debt payoff.');
+  h += '<p class="t-small">Essential expenses are what you must pay even in a tough month: housing, utilities, food, transportation, insurance, and minimum debt payments. Keep this money somewhere safe and easy to reach, not invested in the stock market.</p>';
+  out.innerHTML = h;
+}
+
+/* ---------- 4. Compound Growth ---------- */
+function grow(start, monthly, years, rate){
+  var r = rate / 100 / 12, bal = start, contrib = start, pts = [];
+  for (var m = 1; m <= years * 12; m++){ bal = bal * (1 + r) + monthly; contrib += monthly; if (m % 12 === 0) pts.push({y: m / 12, bal: bal, contrib: contrib}); }
+  return {bal: bal, contrib: contrib, pts: pts};
+}
+function calcCG(){
+  var out = $('cgOut'), start = num('cgStart'), monthly = num('cgMonthly'), years = Math.min(50, Math.round(num('cgYears'))), rate = Math.min(15, num('cgRate'));
+  if (!years || (!start && !monthly)){ out.innerHTML = '<p class="t-empty">Enter a starting amount or monthly contribution and the number of years.</p>'; return; }
+  var g = grow(start, monthly, years, rate), growth = g.bal - g.contrib;
+  var h = '<div class="t-tiles">' + tile('Estimated value', money(g.bal), 'After ' + years + ' years at ' + rate + '%') + tile('You put in', money(g.contrib)) + tile('Growth', money(growth), g.contrib ? (Math.round(growth / g.contrib * 100)) + '% on top of what you put in' : '') + '</div>';
+  var step = years <= 12 ? 1 : years <= 30 ? (years <= 20 ? 2 : 3) : 5, pts = g.pts.filter(function(p){ return p.y % step === 0 || p.y === years; });
+  var max = g.bal || 1;
+  h += '<h4 class="t-h4">Your Money Over Time</h4><div class="t-legend"><span><i style="background:' + C_IN + '"></i>What you put in</span><span><i style="background:' + C_GROW + '"></i>Growth</span></div><div class="t-cols">';
+  pts.forEach(function(p){ var gr = Math.max(0, p.bal - p.contrib); h += '<div class="t-col" title="Year ' + p.y + ': ' + money(p.bal) + ' total (' + money(p.contrib) + ' put in, ' + money(gr) + ' growth)"><div class="t-col-stack" style="height:' + (p.bal / max * 100) + '%"><div style="height:' + (gr / p.bal * 100) + '%;background:' + C_GROW + '"></div><div style="flex:1;background:' + C_IN + '"></div></div><div class="t-col-lab">Yr ' + p.y + '</div></div>'; });
+  h += '</div>';
+  if (years > 10){
+    var late = grow(start, monthly, years - 10, rate);
+    h += note('warn', 'The cost of waiting:', 'if you started 10 years later with the same amounts, you\'d have about ' + money(late.bal) + ' instead of ' + money(g.bal) + '. That\'s ' + money(g.bal - late.bal) + ' less, just from lost time.');
+  }
+  h += note('info', 'Time does the heavy lifting.', 'In the early years, most of your balance is money you put in. Later, growth takes over. That\'s compounding: your growth starts earning growth of its own.');
+  h += '<p class="t-small">Hypothetical example for education only. Returns aren\'t guaranteed, real investments go up and down, and this doesn\'t include taxes, fees, or inflation. Not investment advice.</p>';
+  out.innerHTML = h;
+}
+
+/* ---------- 5. Net Worth ---------- */
+var ASSETS = ['Cash, checking, and savings', 'Retirement accounts (401k, TSP, IRA)', 'Other investments', 'Home value', 'Vehicles', 'Other assets'];
+var LIABS = ['Mortgage', 'Auto loans', 'Student loans', 'Credit cards', 'Personal and medical debt', 'Other debts'];
+function buildNW(){
+  $('nwA').innerHTML = ASSETS.map(function(a, i){ return '<label class="t-row"><span>' + a + '</span><input type="text" inputmode="decimal" id="na' + i + '" data-k="na' + i + '" placeholder="0" /></label>'; }).join('');
+  $('nwL').innerHTML = LIABS.map(function(a, i){ return '<label class="t-row"><span>' + a + '</span><input type="text" inputmode="decimal" id="nl' + i + '" data-k="nl' + i + '" placeholder="0" /></label>'; }).join('');
+}
+function calcNW(){
+  var out = $('nwOut'), a = 0, l = 0;
+  ASSETS.forEach(function(x, i){ a += num('na' + i); }); LIABS.forEach(function(x, i){ l += num('nl' + i); });
+  if (!a && !l){ out.innerHTML = '<p class="t-empty">Enter what you own and what you owe to see your net worth.</p>'; return; }
+  var nw = a - l, ratio = a ? l / a * 100 : 0;
+  var h = '<div class="t-tiles">' + tile('Your net worth', money(nw), '', nw < 0 ? 'bad' : 'good') + tile('What you own', money(a)) + tile('What you owe', money(l), a ? pct(ratio) + ' of what you own' : '') + '</div>';
+  if (nw < 0) h += note('info', 'A negative net worth is a starting point, not a verdict.', 'Many people start here, especially with student loans or a new car. Every debt you pay down and every dollar you save moves this number up.');
+  else h += note('good', 'You own more than you owe.', 'Now the goal is to keep this number climbing, mostly through assets that grow, like retirement and investment accounts.');
+  var consumer = num('nl3') + num('nl4');
+  if (consumer > 0) h += note('warn', money(consumer) + ' is in credit card, personal, or medical debt.', 'This is usually the most expensive debt you have. Paying it down gives you a guaranteed return equal to its interest rate.');
+  h += note('info', 'Track this number every 3 to 6 months.', 'Your net worth, not your income, is the real scoreboard for building wealth.');
+  out.innerHTML = h;
+}
+
+/* ---------- wire up ---------- */
+document.addEventListener('DOMContentLoaded', function(){
+  buildBudget(); buildNW();
+  var nd = 0; for (var k in saved) if (/^db\d+$/.test(k) && saved[k]) nd = Math.max(nd, parseInt(k.slice(2), 10) + 1);
+  for (var i = 0; i < Math.max(3, nd); i++) addDebt();
+  $('addDebt').addEventListener('click', function(){ addDebt(); });
+  bindSave(document);
+  [['budgetTool', calcBudget], ['debtTool', calcDebt], ['efTool', calcEF], ['cgTool', calcCG], ['nwTool', calcNW]].forEach(function(t){
+    var root = $(t[0]); root.addEventListener('input', t[1]); root.addEventListener('change', t[1]); t[1]();
+  });
+  document.querySelectorAll('[data-reset]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var root = $(b.getAttribute('data-reset'));
+      root.querySelectorAll('input[data-k]').forEach(function(el){ el.value = ''; delete saved[el.getAttribute('data-k')]; });
+      persist(); root.dispatchEvent(new Event('input'));
+    });
+  });
+});
+})();
+
+</script>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">RIGHT SIDE OF <span>MONEY</span></div>
+    <div class="footer-contact">
+      Darrell Thompson &nbsp;|&nbsp; (951) 223-5716 &nbsp;|&nbsp;
+      <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a> &nbsp;|&nbsp;
+      <a href="./index.html">rightsideofmoney.com</a>
+    </div>
+    <div class="footer-copy">&#169; 2026 Right Side of Money. All Rights Reserved.</div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var btn=document.getElementById("navHamburger");
+  var menu=document.getElementById("navMobile");
+  if(!btn||!menu)return;
+  function open(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function close(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  close();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?close():open();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){close();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){close();});});
+  if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
+})();
+</script>
+
+</body>
+</html>
