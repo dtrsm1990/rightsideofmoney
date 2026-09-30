@@ -125,6 +125,99 @@
 </nav>
   </aside>
   <main class="lesson-main">
+<!-- RSM-WELCOME:START -->
+<style id="rsm-welcome-css">
+.wv{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;align-items:center;background:#0D1F3C;border-top:4px solid #C9941A;border-radius:2px;padding:26px;margin:0 0 32px;box-shadow:0 14px 34px rgba(13,31,60,0.22);}
+.wv-player{position:relative;width:100%;max-width:300px;aspect-ratio:9/16;background:#000;border-radius:4px;overflow:hidden;margin:0 auto;}
+.wv-player iframe,.wv-player>div{position:absolute;inset:0;width:100%!important;height:100%!important;border:0;}
+.wv-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.wv h2{font-family:'Playfair Display',Georgia,serif;color:#fff!important;font-size:clamp(24px,3vw,32px);line-height:1.2;margin:0 0 12px!important;border:0!important;padding:0!important;}
+.wv p{color:rgba(255,255,255,0.78)!important;font-size:15px;line-height:1.7;margin:0 0 12px;}
+.wv-status{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:#E8B84B;margin-top:14px;}
+.wv-status .dot{width:10px;height:10px;border-radius:50%;background:#C9941A;flex:0 0 10px;}
+.wv-status.done{color:#9be3b5;}.wv-status.done .dot{background:#3d9a5f;}
+.wv-bar{height:6px;background:rgba(255,255,255,0.12);border-radius:3px;overflow:hidden;margin-top:10px;}
+.wv-bar div{height:100%;width:0;background:#C9941A;transition:width .4s;}
+.wv-alt{margin-top:12px;font-size:13px;color:rgba(255,255,255,0.6);}
+.wv-alt a,.wv-alt button{color:#E8B84B;background:none;border:0;padding:0;font:inherit;text-decoration:underline;cursor:pointer;}
+.wv-go{display:none;margin-top:16px;background:#C9941A;color:#0D1F3C!important;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 22px;border-radius:2px;}
+.wv.done .wv-go{display:inline-block;}
+body.wv-lock .lesson-main>*:not(#rsmWelcome){opacity:.35;filter:grayscale(.4);pointer-events:none;user-select:none;}
+.wv-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0D1F3C;color:#fff;border:1px solid #C9941A;padding:12px 18px;border-radius:2px;font-size:14px;z-index:9999;box-shadow:0 10px 30px rgba(0,0,0,.3);display:none;max-width:90vw;text-align:center;}
+@media(max-width:760px){.wv{grid-template-columns:minmax(0,1fr);padding:20px 16px;text-align:center;}.wv-player{max-width:260px;}.wv-status{justify-content:center;}}
+</style>
+<section class="wv" id="rsmWelcome" aria-label="Welcome video from Darrell">
+  <div class="wv-player"><div id="rsmWelcomePlayer"></div></div>
+  <div>
+    <div class="wv-eyebrow">Start Here</div>
+    <h2>A Welcome From Darrell</h2>
+    <p>Before you begin the Foundation Course, watch this short welcome from me. I'll tell you what to expect, how to get the most out of every lesson, and why I believe this can change your financial life.</p>
+    <p>Your first lesson unlocks as soon as the video finishes.</p>
+    <div class="wv-status" id="wvStatus"><span class="dot"></span><span id="wvStatusText">Press play to begin</span></div>
+    <div class="wv-bar" aria-hidden="true"><div id="wvBar"></div></div>
+    <div class="wv-alt" id="wvAlt" style="display:none"></div>
+    <a class="wv-go" id="wvGo" href="#">Continue to the Introduction &#8594;</a>
+  </div>
+</section>
+<div class="wv-toast" id="wvToast" role="status"></div>
+<script>
+(function(){
+  var KEY = 'rsm_welcome_video_watched', VID = 'JFkkQAxcUaY', PREFIX = 'foundation-', PORTAL = 'foundation-portal.html';
+  var sec = document.getElementById('rsmWelcome'), txt = document.getElementById('wvStatusText'), st = document.getElementById('wvStatus'), bar = document.getElementById('wvBar'), alt = document.getElementById('wvAlt'), go = document.getElementById('wvGo');
+  function watched(){ try { return localStorage.getItem(KEY) === '1'; } catch(e){ return false; } }
+  function courseLink(a){ var h = a.getAttribute('href') || ''; h = h.split('#')[0]; return h.indexOf('./' + PREFIX) === 0 && h !== './' + PORTAL; }
+  var first = null; document.querySelectorAll('.lesson-main a[href]').forEach(function(a){ if (!first && courseLink(a)) first = a.getAttribute('href'); });
+  if (!first) document.querySelectorAll('a[href]').forEach(function(a){ if (!first && courseLink(a)) first = a.getAttribute('href'); });
+  if (first) go.setAttribute('href', first);
+  function unlock(){
+    try { localStorage.setItem(KEY, '1'); } catch(e){}
+    document.body.classList.remove('wv-lock'); sec.classList.add('done');
+    st.classList.add('done'); txt.textContent = 'Welcome video complete. You\'re ready to begin.'; bar.style.width = '100%'; alt.style.display = 'none';
+  }
+  function toast(m){ var t = document.getElementById('wvToast'); t.textContent = m; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(function(){ t.style.display = 'none'; }, 3500); }
+  document.addEventListener('click', function(e){
+    if (!document.body.classList.contains('wv-lock')) return;
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (a && courseLink(a) && a !== go){ e.preventDefault(); sec.scrollIntoView({behavior: 'smooth', block: 'start'}); toast('Please watch the welcome video first. Your lessons unlock when it finishes.'); }
+  }, true);
+  if (watched()) { unlock(); } else { document.body.classList.add('wv-lock'); }
+
+  var player, dur = 0, seen = 0, last = null, timer = null, ready = false;
+  function fallback(){
+    if (sec.classList.contains('done')) return;
+    alt.style.display = 'block';
+    alt.innerHTML = 'Video not loading? <a href="https://www.youtube.com/watch?v=' + VID + '" target="_blank" rel="noopener" id="wvYT">Watch it on YouTube</a>, then come back here.';
+    document.getElementById('wvYT').addEventListener('click', function(){
+      setTimeout(function(){ alt.innerHTML = 'Finished watching on YouTube? <button type="button" id="wvDone">Yes, I watched the welcome video</button>'; document.getElementById('wvDone').addEventListener('click', unlock); }, 20000);
+    });
+  }
+  function tick(){
+    if (!player || !player.getCurrentTime) return;
+    var t = player.getCurrentTime(); dur = player.getDuration() || dur;
+    if (last !== null && t > last && t - last <= 2.5) seen += (t - last);
+    last = t;
+    if (dur) { var p = Math.min(100, seen / dur * 100); if (!sec.classList.contains('done')) bar.style.width = p + '%'; if (p >= 90 && !sec.classList.contains('done')) { unlock(); } }
+  }
+  window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player('rsmWelcomePlayer', {
+      videoId: VID, playerVars: {rel: 0, modestbranding: 1, playsinline: 1},
+      events: {
+        onReady: function(){ ready = true; },
+        onError: function(){ fallback(); },
+        onStateChange: function(ev){
+          if (ev.data === 1) { if (!sec.classList.contains('done')) txt.textContent = 'Watching...'; clearInterval(timer); timer = setInterval(tick, 1000); last = player.getCurrentTime(); }
+          else { clearInterval(timer); tick(); if (ev.data === 2 && !sec.classList.contains('done')) txt.textContent = 'Paused. Press play to keep going.'; }
+          if (ev.data === 0) { tick(); if (!sec.classList.contains('done')) { if (dur && seen / dur >= 0.9) unlock(); else txt.textContent = 'Please watch the full video without skipping ahead to unlock your lessons.'; } }
+        }
+      }
+    });
+  };
+  var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = fallback; document.head.appendChild(s);
+  setTimeout(function(){ if (!ready) fallback(); }, 10000);
+})();
+</script>
+<!-- RSM-WELCOME:END -->
+
     
 <p class="lesson-eyebrow">Welcome to Your Course</p>
 <h1>RSM Mindset, Financial Literacy &amp; Accountability<br>Foundation Course</h1>

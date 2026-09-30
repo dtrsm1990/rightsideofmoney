@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Program Portal | 3-Day Introduction to Investing</title>
+<title>Challenge Portal | 30-Day Mindset and Money Challenge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -331,33 +331,34 @@ textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
   .mood-opt{font-size:0.66rem;}
 }
 
-.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.7rem;}
-@media (max-width:900px){.calc-grid{grid-template-columns:1fr 1fr;}}
-.disclaimer-box{font-size:0.82rem!important;color:#666!important;border-top:1px solid var(--gray-line);padding-top:0.8rem;margin-top:2rem!important;}
 </style>
 </head>
 <body>
 <div class="top-nav">
   <a href="./index.html" class="brand">Right Side of Money</a>
-  <span class="course-title">3-Day Introduction to Investing Program</span>
+  <span class="course-title">30-Day Mindset &amp; Money Challenge</span>
   <button type="button" class="menu-btn" id="menuBtn">Menu</button>
   <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
 </div>
 <div class="course-wrap">
   <aside class="sidebar">
-<div class="sidebar-heading">3-Day Investing Program</div><nav>
-<a href="./inv-portal.html" class="active" data-done="baseline">Program Portal</a>
-<div class="sidebar-group">Day 1</div>
-<a href="./inv-day1.html" class="" data-done="ap:inv1">Understand the Investing Game</a>
-<a href="./inv-check1.html" class="sub" data-done="ap:inv1">Day 1 Action Exercise and Knowledge Check</a>
-<div class="sidebar-group">Day 2</div>
-<a href="./inv-day2.html" class="" data-done="ap:inv2">Know What You're Investing In</a>
-<a href="./inv-check2.html" class="sub" data-done="ap:inv2">Day 2 Action Exercise and Knowledge Check</a>
-<div class="sidebar-group">Day 3</div>
-<a href="./inv-day3.html" class="" data-done="ap:inv3">Build Your Investing Framework</a>
-<a href="./inv-check3.html" class="sub" data-done="ap:inv3">Day 3 Final Exercise and Knowledge Check</a>
-<div class="sidebar-group">Completion</div>
-<a href="./inv-final.html" class="" data-done="ap:invfinal">Investing Fundamentals Knowledge Check</a>
+<div class="sidebar-heading">30-Day Challenge</div><nav>
+<a href="./c30-portal.html" class="active" data-done="baseline">Challenge Portal</a>
+<div class="sidebar-group">Week 1: Days 1 to 7</div>
+<a href="./c30-week1.html" class="" data-done="day:1,day:2,day:3,day:4,day:5,day:6">Awareness and Foundations</a>
+<a href="./c30-check1.html" class="sub" data-done="day:7">Week 1 Progress Check</a>
+<div class="sidebar-group">Week 2: Days 8 to 14</div>
+<a href="./c30-week2.html" class="" data-done="day:8,day:9,day:10,day:11,day:12,day:13">Consistency and Momentum</a>
+<a href="./c30-check2.html" class="sub" data-done="day:14">Week 2 Progress Check</a>
+<div class="sidebar-group">Week 3: Days 15 to 21</div>
+<a href="./c30-week3.html" class="" data-done="day:15,day:16,day:17,day:18,day:19,day:20">Deepening Financial Awareness</a>
+<a href="./c30-check3.html" class="sub" data-done="day:21">Week 3 Progress Check</a>
+<div class="sidebar-group">Week 4: Days 22 to 28</div>
+<a href="./c30-week4.html" class="" data-done="day:22,day:23,day:24,day:25,day:26,day:27">Mastery and Integration</a>
+<a href="./c30-check4.html" class="sub" data-done="day:28">Week 4 Progress Check</a>
+<div class="sidebar-group">Days 29 and 30</div>
+<a href="./c30-graduation.html" class="" data-done="day:29">Final Review and Graduation</a>
+<a href="./c30-assessment.html" class="sub" data-done="ap:c30final">30-Day Cumulative Challenge Assessment</a>
 </nav>
   </aside>
   <main class="lesson-main">
@@ -387,18 +388,18 @@ body.wv-lock .lesson-main>*:not(#rsmWelcome){opacity:.35;filter:grayscale(.4);po
   <div>
     <div class="wv-eyebrow">Start Here</div>
     <h2>A Welcome From Darrell</h2>
-    <p>Before you begin the Investing Program, watch this short welcome from me. I'll tell you what to expect, how to get the most out of every lesson, and why I believe this can change your financial life.</p>
+    <p>Before you begin the 30-Day Challenge, watch this short welcome from me. I'll tell you what to expect, how to get the most out of every lesson, and why I believe this can change your financial life.</p>
     <p>Your first lesson unlocks as soon as the video finishes.</p>
     <div class="wv-status" id="wvStatus"><span class="dot"></span><span id="wvStatusText">Press play to begin</span></div>
     <div class="wv-bar" aria-hidden="true"><div id="wvBar"></div></div>
     <div class="wv-alt" id="wvAlt" style="display:none"></div>
-    <a class="wv-go" id="wvGo" href="#">Continue to Day 1 &#8594;</a>
+    <a class="wv-go" id="wvGo" href="#">Continue to Week 1 &#8594;</a>
   </div>
 </section>
 <div class="wv-toast" id="wvToast" role="status"></div>
 <script>
 (function(){
-  var KEY = 'rsm_welcome_video_watched', VID = 'JFkkQAxcUaY', PREFIX = 'inv-', PORTAL = 'inv-portal.html';
+  var KEY = 'rsm_welcome_video_watched', VID = 'JFkkQAxcUaY', PREFIX = 'c30-', PORTAL = 'c30-portal.html';
   var sec = document.getElementById('rsmWelcome'), txt = document.getElementById('wvStatusText'), st = document.getElementById('wvStatus'), bar = document.getElementById('wvBar'), alt = document.getElementById('wvAlt'), go = document.getElementById('wvGo');
   function watched(){ try { return localStorage.getItem(KEY) === '1'; } catch(e){ return false; } }
   function courseLink(a){ var h = a.getAttribute('href') || ''; h = h.split('#')[0]; return h.indexOf('./' + PREFIX) === 0 && h !== './' + PORTAL; }
@@ -455,35 +456,51 @@ body.wv-lock .lesson-main>*:not(#rsmWelcome){opacity:.35;filter:grayscale(.4);po
 <!-- RSM-WELCOME:END -->
 
 <div class="a-intro">
-<div class="module-hero"><p class="lesson-eyebrow">Welcome to Your Program</p><h1>3-Day Introduction to Investing Program</h1>
-<p>In three days you'll go from wondering how investing works to having a clear, personal framework for getting started, built on understanding, not hype.</p></div>
-<div class="callout callout-truth"><h4>A Message From Darrell</h4><p>For too long, investing was treated like a private club. Many of our families were never invited in and never taught the rules. That ends here. I'm not going to hand you hot tips or promise overnight riches. I'm going to teach you how the game actually works, so you can make confident decisions for yourself and your family for the rest of your life. Knowledge is your first investment. Let's make it.</p><p style="color:#E8B84B!important;font-weight:600">Darrell Thompson, Founder, Right Side of Money</p></div>
-<h2>How the Program Works</h2>
-<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Day</th><th>Focus</th><th>You'll Finish With</th></tr></thead><tbody><tr><td>Day 1: Understand the Investing Game</td><td>Why investing matters, compound growth, inflation, risk, and your foundation</td><td>Your reasons for investing, your foundation status, and your investing mindset</td></tr><tr><td>Day 2: Know What You're Investing In</td><td>Stocks, bonds, cash, funds, ETFs, REITs, indexes, approaches, and fees</td><td>A comparison of five hypothetical investments and your personal fee analysis</td></tr><tr><td>Day 3: Build Your Investing Framework</td><td>Goals, risk, time horizon, accounts, automation, rebalancing, and research</td><td>Your written Investing Framework and risk profile</td></tr><tr><td>Completion</td><td>Investing Fundamentals Knowledge Check</td><td>Your growth measurement and Certificate of Completion</td></tr></tbody></table></div>
-<h2>What's Inside Each Day</h2>
-<ul><li>Four focused lessons with real-life examples</li><li>Interactive calculators for compound growth, inflation, the Rule of 72, and fees</li><li>An Action Exercise that applies what you learned to your own life</li><li>A scenario-based Knowledge Check. You need 80% to move to the next day</li><li>A personal report emailed to you and to Darrell, with a Right Side of Money Takeaway</li></ul>
-<div class="callout callout-action"><h4>Important: Please Read</h4><p>This program is <strong>financial education</strong>. It isn't personalized investment, tax, or legal advice, and it doesn't recommend any specific security. All examples and returns are hypothetical and for illustration only. Investing involves risk, including the possible loss of money you invest, and past performance doesn't guarantee future results. For advice about your specific situation, consult a properly licensed professional.</p></div>
-<h2>Check In and Record Your Starting Point</h2><p>Rate yourself honestly on six areas. You'll rate yourself again at the end. This takes about 3 minutes.</p>
+<div class="module-hero"><p class="lesson-eyebrow">Welcome to the Challenge</p><h1>30-Day Mindset &amp; Money Challenge</h1>
+<p>Thirty days. One day at a time. By Day 30 you'll know where your money goes and why, you'll talk to yourself about money differently, and you'll have automatic savings running without needing willpower.</p></div>
+<div class="callout callout-truth"><h4>A Message From Darrell</h4><p>When I joined the Marine Corps in 1988, nobody handed me a financial roadmap. I learned one habit at a time, and I learned that small disciplines repeated every day beat big plans that fade by Friday. That's what this challenge is. It isn't about perfection. It's about showing up for 30 days and letting small actions change who you are with money. Do the work, one day at a time, and you'll be amazed at who you are on Day 30.</p><p style="color:#E8B84B!important;font-weight:600">Darrell Thompson, Founder, Right Side of Money</p></div>
+<h2>How the 30 Days Work</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Days</th><th>Week</th><th>Focus</th></tr></thead><tbody><tr><td>1 to 7</td><td>Week 1: Awareness and Foundations</td><td>48-Hour Spending Tracker, your first affirmation, spending drivers, convenience costs, your first automatic transfer</td></tr><tr><td>8 to 14</td><td>Week 2: Consistency and Momentum</td><td>Scaling the tracker, refining affirmations, never miss twice, tracking resistance, leveling up your transfer</td></tr><tr><td>15 to 21</td><td>Week 3: Deepening Financial Awareness</td><td>Spending patterns, affirmations in your daily routine, the power of small transfers, sinking funds, plugging leaks</td></tr><tr><td>22 to 28</td><td>Week 4: Mastery and Integration</td><td>Needs vs. wants, affirmations for future wealth, planning future micro-transfers, your new normal</td></tr><tr><td>29 to 30</td><td>Final Review and Graduation</td><td>Four-week review, sustaining the habit, the Cumulative Assessment, and your certificate</td></tr></tbody></table></div>
+<h2>Your Three Daily Tools</h2>
+<ul>
+<li><strong>The 48-Hour Spending Tracker:</strong> Every week you log every purchase for 48 hours, including how you felt and what drove it. Your tracker builds a live summary of your spending patterns.</li>
+<li><strong>Money Affirmations:</strong> Every week you write or refine an affirmation using the RSM formula, rate how believable it is, and pair it with a proof action.</li>
+<li><strong>Money Moves:</strong> Every week you take one concrete action: your first automatic transfer, then leveling it up, a sinking fund, and a plan for how it grows.</li>
+</ul>
+<h2>How Each Day Works</h2>
+<ol><li>Read the day's lesson or exercise.</li><li>Take the action step.</li><li>Pass the knowledge check on lesson days (80% required).</li><li>Complete the Day Check-In: check your habits, rate your mood, and name one win.</li></ol>
+<p>At the end of each week, a <strong>Progress Check</strong> pulls in your tracker, affirmation, money move, and check-ins, then sends you and Darrell a personal report that identifies your primary pattern and gives you a plan for the next week.</p>
+<h2>Your 30-Day Calendar</h2><div class="cal30"></div>
+<div class="callout callout-action"><h4>Challenge Rules</h4><ol><li>One day at a time, in order.</li><li>Log every purchase during your 48-hour tracking windows, especially the small ones.</li><li>Never miss twice. On hard days, do your minimum day.</li><li>Never cancel a transfer. Lower it if you need to.</li><li>Be honest. Your reports are only as accurate as your answers.</li></ol></div>
+<p style="font-size:0.85rem;color:#666">Your progress saves in this browser on this device. If you switch devices, you can confirm completed steps when prompted. This challenge is educational and isn't individualized financial, legal, tax, or mental health advice.</p>
+<h2>Check In and Record Your Day 1 Baseline</h2>
+<p>Rate yourself honestly on eight areas. On Day 30 you'll rate yourself again, and your final report will show your growth. This takes about 5 minutes.</p>
 </div>
 <form id="assessForm" novalidate>
 <div class="a-section"><div class="a-section-head"><h3>Participant Information</h3><p>Your report is prepared under this name and sent to this email address and to Darrell.</p></div><div class="a-body"><div class="a-field"><div class="grid2"><div><label>First Name</label><input type="text" id="pFirst" autocomplete="given-name" /></div><div><label>Last Name</label><input type="text" id="pLast" autocomplete="family-name" /></div></div></div><div class="a-field"><label>Email Address</label><input type="email" id="pEmail" autocomplete="email" /></div></div></div>
-<div class="a-section"><div class="a-section-head"><h3>Your Starting Point</h3><p>Rate yourself from 1 to 10.</p></div><div class="a-body"><div class="lk scale10" data-key="b1"><div class="lk-text"><span class="n">1.</span><span>How well do you understand how investing grows money over time?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not at all</span><span>10 = Completely</span></div></div><div class="lk scale10" data-key="b2"><div class="lk-text"><span class="n">2.</span><span>How confident are you explaining the difference between stocks, bonds, and funds?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not confident</span><span>10 = Very confident</span></div></div><div class="lk scale10" data-key="b3"><div class="lk-text"><span class="n">3.</span><span>How prepared are you to stay invested if your investments dropped 20%?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = I would panic</span><span>10 = I would stay the course</span></div></div><div class="lk scale10" data-key="b4"><div class="lk-text"><span class="n">4.</span><span>How well do you understand retirement accounts like 401(k)s, TSPs, and IRAs?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not at all</span><span>10 = Completely</span></div></div><div class="lk scale10" data-key="b5"><div class="lk-text"><span class="n">5.</span><span>How clear is your personal investing plan?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = No plan</span><span>10 = Clear written plan</span></div></div><div class="lk scale10" data-key="b6"><div class="lk-text"><span class="n">6.</span><span>How confident are you that you could start investing on your own?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not confident</span><span>10 = Completely confident</span></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Your Why</h3><p></p></div><div class="a-body"><div class="a-field"><label>Why I want to learn about investing</label><p class="hint">Minimum 15 words.</p><textarea data-text="g1" data-label="Why I want to learn about investing" data-min="15"></textarea><div class="wc"></div></div></div></div>
-<div class="submit-box"><p>Your starting point is saved on this device and a copy is sent to Darrell.</p><button type="submit" class="btn btn-gold" style="font-size:1rem;padding:1rem 2.4rem">Record My Starting Point and Begin Day 1</button><div class="form-error" id="formError"></div></div>
+<div class="a-section"><div class="a-section-head"><h3>Day 1 Self-Rating</h3><p>Rate yourself from 1 to 10 on each area. There are no wrong answers.</p></div><div class="a-body"><div class="lk scale10" data-key="b1"><div class="lk-text"><span class="n">1.</span><span>How aware are you of where your money goes each day?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = No idea</span><span>10 = Fully aware</span></div></div><div class="lk scale10" data-key="b2"><div class="lk-text"><span class="n">2.</span><span>How much control do you have over unplanned spending?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = No control</span><span>10 = Full control</span></div></div><div class="lk scale10" data-key="b3"><div class="lk-text"><span class="n">3.</span><span>How positive and intentional is the way you talk to yourself about money?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Very negative</span><span>10 = Intentional and positive</span></div></div><div class="lk scale10" data-key="b4"><div class="lk-text"><span class="n">4.</span><span>How automatic is your saving right now?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Nothing automatic</span><span>10 = Fully automatic</span></div></div><div class="lk scale10" data-key="b5"><div class="lk-text"><span class="n">5.</span><span>How well do you understand what triggers your spending?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not at all</span><span>10 = Completely</span></div></div><div class="lk scale10" data-key="b6"><div class="lk-text"><span class="n">6.</span><span>How consistent are you with daily money habits?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Never consistent</span><span>10 = Every day</span></div></div><div class="lk scale10" data-key="b7"><div class="lk-text"><span class="n">7.</span><span>How calm do you feel about money day to day?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Constant stress</span><span>10 = Calm and in control</span></div></div><div class="lk scale10" data-key="b8"><div class="lk-text"><span class="n">8.</span><span>How confident are you that you can change your financial future?</span></div><div class="lk-opts"><button type="button" class="lk-opt" data-v="1">1</button><button type="button" class="lk-opt" data-v="2">2</button><button type="button" class="lk-opt" data-v="3">3</button><button type="button" class="lk-opt" data-v="4">4</button><button type="button" class="lk-opt" data-v="5">5</button><button type="button" class="lk-opt" data-v="6">6</button><button type="button" class="lk-opt" data-v="7">7</button><button type="button" class="lk-opt" data-v="8">8</button><button type="button" class="lk-opt" data-v="9">9</button><button type="button" class="lk-opt" data-v="10">10</button></div><div class="scale-ends"><span>1 = Not confident</span><span>10 = Completely confident</span></div></div></div></div><div class="a-section"><div class="a-section-head"><h3>Your Commitment</h3><p>Included in your baseline record.</p></div><div class="a-body"><div class="a-field"><label>Why I&#x27;m taking this challenge</label><p class="hint">What made you decide now? Minimum 15 words.</p><textarea data-text="g1" data-label="Why I&#x27;m taking this challenge" data-min="15"></textarea><div class="wc"></div></div><div class="a-field"><label>What I want to be different by Day 30</label><p class="hint">Be specific. Minimum 15 words.</p><textarea data-text="g2" data-label="What I want to be different by Day 30" data-min="15"></textarea><div class="wc"></div></div></div></div>
+<div class="submit-box"><p>Your baseline is saved on this device and a copy is sent to Darrell so he knows you've started.</p><button type="submit" class="btn btn-gold" style="font-size:1rem;padding:1rem 2.4rem">Record My Baseline and Start Day 1</button><div class="form-error" id="formError"></div></div>
 </form>
 <div id="report" class="report"></div>
-<div class="lesson-nav no-print"><span></span><span class="progress-label">Start here</span><a class="btn-next" href="./inv-day1.html">Day 1 &#8594;</a></div>
-<p class="disclaimer-box">Educational content only. Not investment, tax, or legal advice, and not a recommendation to buy or sell any security. Investing involves risk, including possible loss of principal.</p>
+<div class="lesson-nav no-print"><span></span><span class="progress-label">Start here</span><a class="btn-next" href="./c30-week1.html">Week 1 &#8594;</a></div>
   </main>
 </div>
-<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only. Not investment, tax, or legal advice, and not a recommendation to buy or sell any security. Investing involves risk, including possible loss of principal.</footer>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Challenge content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
 <script>
-window.RSM_PAGE = {"id": "portal", "type": "assessment", "requires": [], "aid": "invbaseline", "aname": "Program Check-In", "ns": "inv", "form": "https://formspree.io/f/xbglwylz", "program": "3-Day Introduction to Investing Program", assessment: {id: "invbaseline", name: "Program Check-In", analyze: function(d, H){
-  var BL = {"b1": "Understanding growth over time", "b2": "Explaining stocks, bonds, and funds", "b3": "Staying invested in a downturn", "b4": "Understanding retirement accounts", "b5": "Clarity of my investing plan", "b6": "Confidence to start"}, tot = 0, rows = '';
-  Object.keys(BL).forEach(function(k){ tot += d.scale[k]; rows += '<tr><td>' + BL[k] + '</td><td><strong>' + d.scale[k] + '/10</strong></td></tr>'; });
-  var h = '<h3>Your Starting Point</h3><p>This is your baseline. At the end of Day 3 you\'ll rate yourself again and see how much you\'ve grown.</p>' + H.tiles([{v: tot + '/60', l: 'Baseline Score'}, {v: H.today(), l: 'Recorded'}]) + '<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Area</th><th>Now</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+window.RSM_PAGE = {"id": "portal", "type": "assessment", "requires": [], "aid": "c30baseline", "aname": "Challenge Check-In and Day 1 Baseline", "ns": "c30", "form": "https://formspree.io/f/xyezldyz", "program": "30-Day Mindset and Money Challenge", assessment: {id: "c30baseline", name: "Challenge Check-In and Day 1 Baseline", analyze: function(d, H){
+  var BL = {"b1": "Spending awareness", "b2": "Control over unplanned spending", "b3": "Money self-talk", "b4": "Automatic saving", "b5": "Understanding my triggers", "b6": "Daily consistency", "b7": "Financial calm", "b8": "Confidence in my future"}, tot = 0, rows = '', low = [];
+  Object.keys(BL).forEach(function(k){ var v = d.scale[k]; tot += v; rows += '<tr><td>' + BL[k] + '</td><td><strong>' + v + '/10</strong></td></tr>'; if (v <= 4) low.push(BL[k]); });
+  var h = '<h3>Your Day 1 Baseline</h3><p>This is your starting line, not a grade. On Day 30 you\'ll rate yourself on these same eight areas and see exactly how far you\'ve come.</p>' + H.tiles([{v: tot + '/80', l: 'Baseline Score'}, {v: H.today(), l: 'Recorded'}]) +
+    '<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Area</th><th>Day 1</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  h += '<h3>What Your Baseline Tells Us</h3>';
+  if (tot <= 32) h += '<p>You\'re starting with real weight on your shoulders, and you were honest about it. People who start here often see the biggest change in 30 days, because every day of this challenge will hit something real.</p>';
+  else if (tot <= 56) h += '<p>You have strengths to build on and clear gaps to close. This is the most common starting point, and it\'s exactly who this challenge was built for.</p>';
+  else h += '<p>You\'re starting from a solid place. Your opportunity is to turn good intentions into automatic habits that hold up under pressure.</p>';
+  if (low.length) h += '<p><strong>Your lowest areas right now:</strong> ' + low.join(', ') + '. Watch for the days that address them.</p>';
+  h += '<h3>Your Commitment</h3>';
   Object.keys(d.txt).forEach(function(k){ h += '<div class="echo"><b>' + H.esc(d.txt[k].label) + '</b>' + H.esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>'; });
-  h += '<h3>What Comes Next</h3><p>Day 1 is open. Read each lesson, use the calculators, and then complete the Day 1 Action Exercise and Knowledge Check.</p>';
-  return {title: 'Welcome, ' + d.first + '. Let\'s Learn the Investing Game.', html: h, passed: true, score: tot + '/60', profile: 'Baseline recorded', next: {href: './inv-day1.html', label: 'Begin Day 1'}, saveAs: 'baseline', store: {scale: d.scale, date: H.today()}};
+  h += '<h3>What Comes Next</h3><p>Day 1 is open. Do one day at a time. Read the day, take the action, and complete the Day Check-In. Your 30-day calendar fills in as you go.</p>';
+  return {title: 'Welcome, ' + d.first + '. Your 30 Days Start Now.', html: h, passed: true, score: tot + '/80', profile: 'Baseline recorded', next: {href: './c30-week1.html#day-1', label: 'Begin Day 1'}, saveAs: 'baseline', store: {scale: d.scale, date: H.today()}};
 }}};
 </script>
 <script>
@@ -720,7 +737,7 @@ var H = {
       h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
       if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
     });
-    if (o.refs && Object.keys(o.refs).length) h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
     h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
     return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
       score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
@@ -875,45 +892,195 @@ function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
 <script>
 (function(){
 'use strict';
-var H = window.RSM_H, M = H.money;
+var H = window.RSM_H, LS = H.LS, P = window.RSM_PAGE || {};
 function $(s, r){ return (r || document).querySelector(s); }
 function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
-function num(box, n){ var v = parseFloat(($('[name=' + n + ']', box) || {}).value); return isNaN(v) ? 0 : v; }
-function grow(start, monthly, years, rate){ var r = rate / 100 / 12, b = start, c = start; for (var i = 0; i < years * 12; i++){ b = b * (1 + r) + monthly; c += monthly; } return {end: b, contrib: c}; }
-window.INV_grow = grow;
-function bar(label, v, max, cls){ var p = max > 0 ? Math.max(2, Math.round(v / max * 100)) : 2; return '<div class="dim-row"><div class="dim-top"><span>' + label + '</span><span>' + M(v) + '</span></div><div class="dim-bar"><div class="dim-fill ' + cls + '" style="width:' + p + '%"></div></div></div>'; }
-var calcs = {
-  compound: function(box){
-    var s = num(box, 'start'), m = num(box, 'monthly'), y = num(box, 'years'), r = num(box, 'rate');
-    var g = grow(s, m, y, r), earn = g.end - g.contrib;
-    return H.tiles([{v: M(g.contrib), l: 'You Put In'}, {v: M(earn), l: 'Growth'}, {v: M(g.end), l: 'Hypothetical Total'}]) +
-      bar('Your contributions', g.contrib, g.end, 'mid') + bar('Growth from compounding', Math.max(earn, 0), g.end, 'low') +
-      '<p class="tool-insight">' + (g.contrib > 0 ? 'In this illustration, <strong>' + Math.round(Math.max(earn, 0) / g.end * 100) + '%</strong> of the ending value came from growth, not from your deposits. That\'s compounding: your money earning money on the money it already earned. ' : '') + 'Hypothetical only. Real returns vary year to year, can be negative, and aren\'t guaranteed.</p>';
-  },
-  inflation: function(box){
-    var a = num(box, 'amount'), y = num(box, 'years'), r = num(box, 'rate');
-    var real = a / Math.pow(1 + r / 100, y), need = a * Math.pow(1 + r / 100, y);
-    return H.tiles([{v: M(real), l: 'Buying Power in ' + y + ' Years'}, {v: M(need), l: 'Needed Then to Match Today'}]) +
-      '<p class="tool-insight">At ' + r + '% inflation, ' + M(a) + ' sitting still would buy only about what ' + M(real) + ' buys today after ' + y + ' years. That\'s why money that never grows is quietly shrinking.</p>';
-  },
-  fees: function(box){
-    var s = num(box, 'start'), m = num(box, 'monthly'), y = num(box, 'years'), r = num(box, 'rate'), fa = num(box, 'feeA'), fb = num(box, 'feeB');
-    var a = grow(s, m, y, r - fa), b = grow(s, m, y, r - fb), diff = Math.abs(a.end - b.end), mx = Math.max(a.end, b.end);
-    return H.tiles([{v: M(a.end), l: 'Fund A (' + fa + '% fee)'}, {v: M(b.end), l: 'Fund B (' + fb + '% fee)'}, {v: M(diff), l: 'Difference'}]) +
-      bar('Fund A', a.end, mx, fa <= fb ? 'low' : 'high') + bar('Fund B', b.end, mx, fb < fa ? 'low' : 'high') +
-      '<p class="tool-insight">Same deposits. Same market. The only difference is the annual fee, and over ' + y + ' years it adds up to about <strong>' + M(diff) + '</strong>. Hypothetical illustration using a steady ' + r + '% return before fees.</p>';
-  },
-  r72: function(box){
-    var r = num(box, 'rate'); if (!r) return '';
-    return '<p class="tool-insight">At ' + r + '% a year, money roughly doubles every <strong>' + (Math.round(72 / r * 10) / 10) + ' years</strong>. At 1% in a basic savings account, it would take about 72 years.</p>';
+var esc = H.esc, M = H.money;
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function todayKey(){ var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function dayPage(n){ return n <= 7 ? 'c30-week1.html' : n <= 14 ? 'c30-week2.html' : n <= 21 ? 'c30-week3.html' : n <= 28 ? 'c30-week4.html' : 'c30-graduation.html'; }
+var CHECK_DAYS = {7: 'c30-check1.html', 14: 'c30-check2.html', 21: 'c30-check3.html', 28: 'c30-check4.html', 30: 'c30-assessment.html'};
+
+/* ---------- 30-day calendar ---------- */
+function renderCalendars(){
+  $$('.cal30').forEach(function(c){
+    var html = '', done = 0;
+    for (var n = 1; n <= 30; n++){
+      var st = LS.get('day_' + n), ok = st && st.done; if (ok) done++;
+      var href = './' + (CHECK_DAYS[n] && n !== 30 ? dayPage(n) : dayPage(n)) + '#day-' + n;
+      html += '<a class="cal-day' + (ok ? ' done' : '') + (CHECK_DAYS[n] ? ' check' : '') + '" href="' + href + '"><span class="cd-n">' + n + '</span><span class="cd-s">' + (ok ? '&#10003;' : (CHECK_DAYS[n] ? '&#9733;' : '')) + '</span></a>';
+    }
+    c.innerHTML = '<div class="cal-grid">' + html + '</div><p class="cal-note"><strong>' + done + ' of 30 days complete.</strong> Stars mark your weekly Progress Checks and your final assessment.</p>';
+  });
+  var wf = $('#weekFill'), wl = $('#weekLbl');
+  if (wf && P.days){
+    var d = P.days.filter(function(n){ return (LS.get('day_' + n) || {}).done; }).length;
+    wf.style.width = Math.round(d / P.days.length * 100) + '%';
+    wl.textContent = d + ' of ' + P.days.length + ' days complete';
   }
-};
-$$('[data-calc]').forEach(function(box){
-  var t = box.getAttribute('data-calc'), out = $('.calc-out', box);
-  function run(){ try { out.innerHTML = calcs[t](box); } catch(e){ out.innerHTML = ''; } }
-  $$('input,select', box).forEach(function(el){ el.addEventListener('input', run); el.addEventListener('change', run); });
-  run();
+  var nx = $('#weekNext'), note = $('#weekLockNote');
+  if (nx && P.before){
+    var left = P.before.filter(function(n){ return !(LS.get('day_' + n) || {}).done; });
+    if (!left.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'Every day this week is complete. Your Progress Check is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Complete Day ' + left.join(', Day ') + ' to open your Progress Check.'; }
+  }
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    var ok = keys.length && keys.every(function(k){ var p = k.split(':'); return p[0] === 'day' ? (LS.get('day_' + p[1]) || {}).done : p[0] === 'a' ? (LS.get('assess_' + p[1]) || {}).done : p[0] === 'ap' ? (LS.get('assess_' + p[1]) || {}).passed : p[0] === 'baseline' ? !!LS.get('baseline') : false; });
+    a.classList.toggle('completed', !!ok);
+  });
+  $$('.day-status').forEach(function(s){ var n = s.getAttribute('data-n'), st = LS.get('day_' + n); s.textContent = st && st.done ? 'Completed ' + st.date : 'Not yet complete'; s.classList.toggle('ok', !!(st && st.done)); });
+}
+window.C30_refresh = renderCalendars;
+
+/* ---------- 48-hour spending tracker ---------- */
+var DRIVERS = ['Planned purchase', 'Stress', 'Boredom', 'Reward', 'Convenience', 'Social pressure', 'Habit or autopilot'];
+function trkStats(id){
+  var e = LS.get('trk_' + id, []) || [], t = 0, un = 0, by = {}, wants = 0, wantAmt = 0, big = null;
+  e.forEach(function(x){ var a = +x.amount || 0; t += a; if (x.driver !== 'Planned purchase'){ un += a; } by[x.driver] = (by[x.driver] || 0) + a; if (x.nw === 'Want'){ wants++; wantAmt += a; } if (!big || a > big.amount) big = x; });
+  var top = Object.keys(by).filter(function(k){ return k !== 'Planned purchase'; }).sort(function(a,b){ return by[b] - by[a]; })[0] || null;
+  return {entries: e, count: e.length, total: t, unplanned: un, unplannedPct: t ? un / t * 100 : 0, by: by, top: top, wants: wants, wantAmt: wantAmt, wantPct: t ? wantAmt / t * 100 : 0, big: big};
+}
+window.C30_trkStats = trkStats;
+function summaryHtml(id, needs){
+  var s = trkStats(id);
+  if (!s.count) return '<p class="tool-empty">No entries yet. Log every purchase for 48 hours, including the small ones. Especially the small ones.</p>';
+  var h = H.tiles([{v: String(s.count), l: 'Purchases Logged'}, {v: M(s.total), l: 'Total Spent'}, {v: Math.round(s.unplannedPct) + '%', l: 'Unplanned'}].concat(needs ? [{v: Math.round(s.wantPct) + '%', l: 'Spent on Wants'}] : []));
+  h += '<div class="trk-bars">';
+  Object.keys(s.by).sort(function(a,b){ return s.by[b] - s.by[a]; }).forEach(function(k){ var p = s.total ? Math.round(s.by[k] / s.total * 100) : 0;
+    h += '<div class="dim-row"><div class="dim-top"><span>' + esc(k) + '</span><span>' + M(s.by[k]) + ' (' + p + '%)</span></div><div class="dim-bar"><div class="dim-fill ' + (k === 'Planned purchase' ? 'low' : 'mid') + '" style="width:' + Math.max(p, 3) + '%"></div></div></div>'; });
+  h += '</div>';
+  if (s.top) h += '<p class="tool-insight"><strong>What your 48 hours are telling you:</strong> Your biggest unplanned driver was <strong>' + esc(s.top) + '</strong>, at ' + M(s.by[s.top]) + '. If that pattern repeated every 48 hours for a year, it would add up to about <strong>' + M(s.by[s.top] * 182.5) + '</strong>. That\'s not a verdict. It\'s information, and information is where change starts.</p>';
+  else h += '<p class="tool-insight"><strong>What your 48 hours are telling you:</strong> Every purchase you logged was planned. That\'s real discipline. Keep logging honestly, because the unplanned purchases tend to show up when life gets busy.</p>';
+  return h;
+}
+$$('[data-tracker]').forEach(function(box){
+  var id = box.getAttribute('data-tracker'), needs = box.getAttribute('data-mode') === 'needs';
+  var f = $('.trk-form', box), list = $('.trk-list', box), msg = $('.trk-msg', box);
+  function draw(){
+    var e = LS.get('trk_' + id, []) || [];
+    list.innerHTML = e.length ? '<div class="table-wrap"><table class="rsm-table"><thead><tr><th>When</th><th>Item</th><th>Amount</th><th>Feeling</th><th>Driver</th>' + (needs ? '<th>Need or Want</th>' : '') + '<th></th></tr></thead><tbody>' +
+      e.map(function(x, i){ return '<tr><td>' + esc(x.when) + '</td><td>' + esc(x.item) + '</td><td>' + M(x.amount) + '</td><td>' + esc(x.feeling) + '</td><td>' + esc(x.driver) + '</td>' + (needs ? '<td>' + esc(x.nw || '') + '</td>' : '') + '<td><button type="button" class="trk-del" data-i="' + i + '" aria-label="Remove entry">&#215;</button></td></tr>'; }).join('') + '</tbody></table></div>' : '';
+    $$('.trk-summary[data-for="' + id + '"]').forEach(function(s){ s.innerHTML = summaryHtml(id, s.getAttribute('data-mode') === 'needs' || needs); });
+    renderCalendars();
+  }
+  $('.trk-add', box).addEventListener('click', function(){
+    var v = {when: $('[name=when]', f).value.trim(), item: $('[name=item]', f).value.trim(), amount: parseFloat($('[name=amount]', f).value), feeling: $('[name=feeling]', f).value, driver: $('[name=driver]', f).value};
+    if (needs) v.nw = $('[name=nw]', f).value;
+    if (!v.when || !v.item || !(v.amount >= 0) || isNaN(v.amount) || !v.feeling || !v.driver || (needs && !v.nw)){ msg.textContent = 'Fill in every field for this purchase, then tap Add Purchase.'; msg.className = 'trk-msg err'; return; }
+    var e = LS.get('trk_' + id, []) || []; e.push(v); LS.set('trk_' + id, e);
+    ['when','item','amount'].forEach(function(n){ $('[name=' + n + ']', f).value = ''; });
+    msg.textContent = 'Logged. ' + e.length + ' purchase' + (e.length === 1 ? '' : 's') + ' recorded.'; msg.className = 'trk-msg ok';
+    draw();
+  });
+  list.addEventListener('click', function(ev){ var b = ev.target.closest('.trk-del'); if (!b) return; var e = LS.get('trk_' + id, []) || []; e.splice(+b.getAttribute('data-i'), 1); LS.set('trk_' + id, e); draw(); });
+  draw();
 });
+$$('.trk-summary').forEach(function(s){ s.innerHTML = summaryHtml(s.getAttribute('data-for'), s.getAttribute('data-mode') === 'needs'); });
+
+/* ---------- affirmation builder ---------- */
+var NEG = /\b(not|don't|dont|never|no longer|won't|can't|cannot|stop|quit|avoid)\b/i;
+function affChecks(a){
+  var t = String(a || '').trim();
+  return [
+    {ok: /^i\b/i.test(t), t: 'Starts with "I" so it\'s about you and your choices'},
+    {ok: /\b(am|have|choose|keep|save|build|direct|pay|create|make|know|check|protect|invest|give|manage|plan|track|grow|own|decide|live|earn|deserve|use|stay|follow|move|put|see|trust|handle|lead|teach|hold|become|carry)\b/i.test(t), t: 'Uses present-tense action language (I am, I choose, I build)'},
+    {ok: t && !NEG.test(t), t: 'Stated in the positive (what you do, not what you avoid)'},
+    {ok: words(t) >= 7 && words(t) <= 40, t: 'Specific enough to picture, short enough to remember (7 to 40 words)'}
+  ];
+}
+$$('[data-affirm]').forEach(function(box){
+  var id = box.getAttribute('data-affirm'), out = $('.aff-out', box);
+  var saved = LS.get('aff_' + id);
+  if (saved){ ['old','aff','proof'].forEach(function(k){ $('[name=' + k + ']', box).value = saved[k] || ''; }); $('[name=believe]', box).value = saved.believe || ''; }
+  function show(v){
+    var c = affChecks(v.aff), passed = c.filter(function(x){ return x.ok; }).length;
+    var h = '<div class="aff-card"><div class="aff-label">Your Week ' + id.replace('w','') + ' Money Affirmation</div><div class="aff-text">&ldquo;' + esc(v.aff) + '&rdquo;</div><div class="aff-proof"><strong>Proof action:</strong> ' + esc(v.proof) + '</div></div><ul class="aff-checks">';
+    c.forEach(function(x){ h += '<li class="' + (x.ok ? 'ok' : 'no') + '">' + (x.ok ? '&#10003; ' : '&#9888; ') + x.t + '</li>'; });
+    h += '</ul>';
+    var b = +v.believe;
+    if (passed < 4) h += '<p class="tool-insight">Your affirmation works, and it can be stronger. Adjust the items marked with a warning, then save again.</p>';
+    if (b && b <= 4) h += '<p class="tool-insight"><strong>Believability ' + b + '/10.</strong> That\'s honest, and it matters. An affirmation you don\'t believe at all can trigger pushback in your mind. Try a bridge version: "I\'m learning to..." or "I\'m becoming someone who..." Belief grows from evidence, which is why your proof action matters most.</p>';
+    else if (b && b <= 7) h += '<p class="tool-insight"><strong>Believability ' + b + '/10.</strong> This is the sweet spot: believable enough to accept, big enough to stretch you. Your proof action will move this number up.</p>';
+    else if (b) h += '<p class="tool-insight"><strong>Believability ' + b + '/10.</strong> Strong. Make sure it still stretches you. If it feels too easy, raise the target.</p>';
+    out.innerHTML = h;
+  }
+  if (saved) show(saved);
+  $('.aff-save', box).addEventListener('click', function(){
+    var v = {old: $('[name=old]', box).value.trim(), aff: $('[name=aff]', box).value.trim(), proof: $('[name=proof]', box).value.trim(), believe: $('[name=believe]', box).value};
+    var m = $('.aff-msg', box);
+    if (!v.old || !v.aff || !v.proof || !v.believe){ m.textContent = 'Complete all four fields, then save.'; m.className = 'trk-msg err'; return; }
+    v.date = H.today(); LS.set('aff_' + id, v); m.textContent = 'Saved. Say it out loud every morning this week.'; m.className = 'trk-msg ok'; show(v); renderCalendars();
+  });
+});
+
+/* ---------- money move ---------- */
+var PER_YEAR = {'Every payday (twice a month)': 24, 'Every two weeks': 26, 'Weekly': 52, 'Monthly': 12, 'One time': 1};
+$$('[data-move]').forEach(function(box){
+  var id = box.getAttribute('data-move'), out = $('.mv-out', box), fields = ['amount','freq','dest','start','status','notes'];
+  var saved = LS.get('move_' + id);
+  if (saved) fields.forEach(function(k){ var el = $('[name=' + k + ']', box); if (el) el.value = saved[k] || ''; });
+  function show(v){
+    var yr = (+v.amount || 0) * (PER_YEAR[v.freq] || 0), h = '';
+    h += H.tiles([{v: M(v.amount), l: v.freq}, {v: M(yr), l: v.freq === 'One time' ? 'Total Moved' : 'Per Year'}, {v: M(yr * 5), l: v.freq === 'One time' ? 'One-Time Move' : 'Over 5 Years (before interest)'}]);
+    if (v.status === 'Scheduled and confirmed') h += '<p class="tool-insight"><strong>That\'s a real system.</strong> Money is now moving toward ' + esc(v.dest) + ' without needing your willpower. That\'s how Builders operate.</p>';
+    else if (v.status === 'Set up but not yet run') h += '<p class="tool-insight"><strong>Almost there.</strong> Check your account the day after ' + esc(v.start) + ' to confirm the transfer actually ran. A move isn\'t real until you see it land.</p>';
+    else h += '<p class="tool-insight"><strong>Not set up yet.</strong> Do it today, even at $5. The amount matters far less than the fact that the system exists. Update this form once it\'s scheduled.</p>';
+    out.innerHTML = h;
+  }
+  if (saved) show(saved);
+  $('.mv-save', box).addEventListener('click', function(){
+    var v = {}; fields.forEach(function(k){ var el = $('[name=' + k + ']', box); v[k] = el ? el.value.trim() : ''; });
+    var m = $('.mv-msg', box);
+    if (!v.amount || !v.freq || !v.dest || !v.start || !v.status){ m.textContent = 'Complete amount, frequency, destination, start date, and status, then save.'; m.className = 'trk-msg err'; return; }
+    v.date = H.today(); LS.set('move_' + id, v); m.textContent = 'Saved.'; m.className = 'trk-msg ok'; show(v); renderCalendars();
+  });
+});
+
+/* ---------- daily check-in ---------- */
+function reqMet(box){
+  var miss = [];
+  var kc = box.getAttribute('data-need-kc'); if (kc && !(LS.get('kc_' + kc) || {}).passed) miss.push('pass today\'s knowledge check (80% or higher)');
+  var t = box.getAttribute('data-need-tool');
+  if (t){ var p = t.split(':');
+    if (p[0] === 'trk' && ((LS.get('trk_' + p[1], []) || []).length < +p[2])) miss.push('log at least ' + p[2] + ' purchases in your tracker');
+    if (p[0] === 'aff' && !LS.get('aff_' + p[1])) miss.push('save your affirmation');
+    if (p[0] === 'move' && !LS.get('move_' + p[1])) miss.push('save your money move');
+  }
+  var r = box.getAttribute('data-need-ref');
+  if (r) r.split(',').forEach(function(k){ if (words(LS.get('ref_' + k, '')) < 12) miss.push('write at least 12 words in each reflection above'); });
+  return miss.filter(function(x, i, a){ return a.indexOf(x) === i; });
+}
+$$('[data-day]').forEach(function(box){
+  var n = +box.getAttribute('data-day'), msg = $('.ci-msg', box), st = LS.get('day_' + n);
+  function paint(){ st = LS.get('day_' + n); if (st && st.done){ box.classList.add('is-done'); msg.className = 'ci-msg ok'; msg.innerHTML = 'Day ' + n + ' completed on ' + esc(st.date) + '. ' + (n < 30 ? 'Come back tomorrow for Day ' + (n + 1) + '.' : ''); } }
+  if (st && st.done){ $$('input[type=checkbox]', box).forEach(function(c){ c.checked = (st.habits || []).indexOf(c.value) > -1; }); var w = $('[name=win]', box); if (w) w.value = st.win || ''; if (st.mood){ var mb = $('.mood-opt[data-v="' + st.mood + '"]', box); if (mb) mb.classList.add('selected'); } }
+  paint();
+  box.addEventListener('click', function(e){ var m = e.target.closest('.mood-opt'); if (m){ $$('.mood-opt', box).forEach(function(o){ o.classList.remove('selected'); }); m.classList.add('selected'); } });
+  function finish(){
+    var rec = {done: true, date: H.today(), dkey: todayKey(), habits: $$('input[type=checkbox]:checked', box).map(function(c){ return c.value; }), mood: ($('.mood-opt.selected', box) || {getAttribute: function(){ return ''; }}).getAttribute('data-v'), win: ($('[name=win]', box) || {}).value || ''};
+    LS.set('day_' + n, rec); LS.set('last_done', {n: n, dkey: rec.dkey});
+    paint(); renderCalendars();
+    var nextSec = document.getElementById('day-' + (n + 1));
+    if (nextSec) setTimeout(function(){ nextSec.scrollIntoView({behavior: 'smooth'}); }, 600);
+  }
+  $('.ci-done', box).addEventListener('click', function(){
+    var miss = reqMet(box);
+    if (n > 1 && !(LS.get('day_' + (n - 1)) || {}).done) miss.unshift('complete Day ' + (n - 1) + ' first');
+    if (!($('[name=win]', box) || {}).value || !$('[name=win]', box).value.trim()) miss.push('write one win from today');
+    if (!$('.mood-opt.selected', box)) miss.push('choose how you\'re feeling today');
+    if (miss.length){ msg.className = 'ci-msg err'; msg.textContent = 'Before you complete Day ' + n + ', ' + miss.join('; ') + '.'; return; }
+    var last = LS.get('last_done');
+    if (last && last.dkey === todayKey() && last.n !== n && !box.hasAttribute('data-confirmed')){
+      msg.className = 'ci-msg warn';
+      msg.innerHTML = 'You already completed Day ' + last.n + ' today. This challenge is built one day at a time, because each day gives your new habit a night to settle. If you\'re catching up on days you already lived through, you can continue. <button type="button" class="btn btn-outline ci-confirm" style="margin-top:0.6rem">I\'m catching up. Complete Day ' + n + '</button>';
+      $('.ci-confirm', box).addEventListener('click', function(){ box.setAttribute('data-confirmed', '1'); finish(); });
+      return;
+    }
+    finish();
+  });
+});
+renderCalendars();
 })();
 
 </script>
