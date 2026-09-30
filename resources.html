@@ -324,6 +324,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
     fd.append('_subject', 'Free Resource Download | ' + n); fd.append('source', 'Free Resource Library (resources.html)');
     fd.append('email_opt_in', document.getElementById('resOpt').checked ? 'Yes' : 'No');
     function done(){ try { localStorage.setItem(KEY, '1'); } catch(e){} open(); }
+    if (document.getElementById('resOpt').checked){ var kf = new FormData(); kf.append('email_address', em); kf.append('fields[first_name]', n); try { fetch('https://app.kit.com/forms/9981618/subscriptions', {method: 'POST', body: kf, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){} }
     fetch('https://formspree.io/f/xrpbgjbb', {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(done).catch(done);
   });
 })();

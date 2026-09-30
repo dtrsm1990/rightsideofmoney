@@ -286,6 +286,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
     try { fetch(url, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
   };
 })();
+/* RSM email + list delivery: EmailJS sends results to the participant (Bcc Darrell); Kit adds opted-in people to the list */
+(function(){
+  var EJ = {service: 'service_65dy311', template: 'template_k1l3ysk', key: 'gkDCipr-1PUVhTb5X'};
+  var KIT_FORM = '9981618';
+  var SITE = 'https://rightsideofmoney.com/';
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function abs(u){ return /^https?:/.test(u) ? u : SITE + String(u).replace(/^\.\//, ''); }
+  window.rsmResultEmail = function(o){
+    if (EJ.template.indexOf('__') === 0 || EJ.key.indexOf('__') === 0) return;
+    var breakdown = '<ul>' + o.breakdown.map(function(b){ return '<li><strong>' + esc(b[0]) + ':</strong> ' + b[1] + '%</li>'; }).join('') + '</ul>';
+    var steps = '<ol>' + o.steps.map(function(s){ return '<li><strong>' + esc(s.t) + '</strong><br>' + esc(s.d) + '<br><a href="' + abs(s.l) + '">' + esc(s.lt || 'Learn more') + '</a></li>'; }).join('') + '</ol>';
+    var guides = '<ul>' + o.guides.map(function(g){ return '<li><a href="' + abs(g.f) + '">' + esc(g.t) + '</a></li>'; }).join('') + '</ul>';
+    var body = JSON.stringify({service_id: EJ.service, template_id: EJ.template, user_id: EJ.key, template_params: {
+      to_name: o.name, to_email: o.email, quiz: o.quiz, result: o.result, score: o.score, tagline: o.tagline,
+      breakdown: breakdown, next_steps: steps, guides: guides}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+  window.rsmKit = function(name, email){
+    var fd = new FormData();
+    fd.append('email_address', email); fd.append('fields[first_name]', name);
+    try { fetch('https://app.kit.com/forms/' + KIT_FORM + '/subscriptions', {method: 'POST', body: fd, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
 </script>
 <script>
 var questions = [
@@ -728,6 +751,10 @@ function showResults(lead){
   fd.append('email_opt_in',lead.opt?'Yes':'No');
   fd.append('answers',questions.map(function(q,i){return (i+1)+'. '+q.text+' | '+(answers[i]!==null?q.options[answers[i]].text:'(skipped)');}).join('\n'));
   rsmPost('https://formspree.io/f/mvkglqlj',fd);
+  rsmResultEmail({name:lead.name,email:lead.email,quiz:'Wealth Mindset Quiz',result:plain,score:total+' out of '+maxTotal,tagline:tagline,
+    breakdown:categories.map(function(c){return [c,(catMax[c]?Math.round(catScores[c]/catMax[c]*100):0)];}),
+    steps:nextSteps.map(function(x){return {t:x.t,d:x.d,l:x.l,lt:x.lt};}),guides:guides});
+  if(lead.opt)rsmKit(lead.name,lead.email);
 
   // Animate score bar
   setTimeout(function(){
