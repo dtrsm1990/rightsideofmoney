@@ -85,6 +85,9 @@
   .btn-primary{display:inline-block;background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:16px 36px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;width:100%;text-align:center;}
   .btn-primary:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,148,26,0.35);}
   .btn-primary:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none;}
+  .btn-primary.is-locked{opacity:0.5;cursor:not-allowed;pointer-events:none;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);border-color:rgba(255,255,255,0.2);box-shadow:none;transform:none;}
+  .btn-primary.is-unlocked{animation:unlockPulse 0.6s ease;}
+  @keyframes unlockPulse{0%{transform:scale(0.96);}60%{transform:scale(1.03);}100%{transform:scale(1);}}
 
   .steps{display:grid;gap:14px;margin-bottom:26px;}
   .step{display:flex;gap:14px;align-items:flex-start;}
@@ -128,7 +131,7 @@
 
 <nav>
   <a href="./index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
-  <ul class="nav-links"><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./services.html">Services</a></li><li><a href="./accountability.html">Accountability</a></li><li><a href="./courses.html">Courses</a></li><li><a href="./book.html" class="active">Book</a></li><li><a href="./speaking.html">Speaking</a></li><li><a href="./community-invite.html">Community</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./quizzes.html" style="color:#E8B84B!important;font-weight:700!important;">Free Quizzes</a></li><li><a href="./resources.html" class="nav-cta">Start Free</a></li></ul>
+  <ul class="nav-links"><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./services.html">Services</a></li><li><a href="./accountability.html">Accountability</a></li><li><a href="./courses.html">Courses</a></li><li><a href="./book.html" class="active">Book</a></li><li><a href="./speaking.html">Speaking</a></li><li><a href="./community-invite.html">Community</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./mindset-quiz.html" style="color:#E8B84B!important;font-weight:700!important;">Mindset Quiz</a></li><li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-cta">Start Free</a></li></ul>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile" id="navMobile">
@@ -141,8 +144,8 @@
 <a href="./speaking.html">Speaking</a>
 <a href="./community-invite.html">Community</a>
 <a href="./contact.html">Contact</a>
-<a href="./quizzes.html" style="color:#E8B84B;font-weight:700;">&#9733; Free Quizzes</a>
-<a href="./resources.html" class="nav-mobile-cta">Start Free</a>
+<a href="./mindset-quiz.html" style="color:#E8B84B;font-weight:700;">&#9733; Mindset Quiz</a>
+<a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank" class="nav-mobile-cta">Start Free</a>
 </div>
 
 <!-- ORDER HERO -->
@@ -168,41 +171,18 @@
 
     <div class="content-col">
 
-      <div class="panel" id="pay">
-        <h2>Step 1 &mdash; Reserve Your Copy</h2>
-        <p class="sub">Secure checkout powered by BlueVine.</p>
-
-        <div class="price-row">
-          <span class="price">$25.00</span>
-          <span class="price-detail">USD, total</span>
-        </div>
-
-        <ul class="includes">
-          <li>Signed paperback, Creating A Wealth-Building Mindset, 2nd Edition</li>
-          <li>Shipping &amp; handling included</li>
-          <li>U.S. addresses only</li>
-          <li>Mailed personally by Darrell within 3&ndash;5 business days of your order</li>
-        </ul>
-
-        <a class="btn-primary" href="https://pay.bluevine.com/p/f2a2a52d41314cd3a5bf13e29e29b471" target="_blank" rel="noopener">
-          Pay $25.00 Securely &rarr;
-        </a>
-
-        <p class="shipping-note">After payment, come back to this page and fill out the shipping form below so Darrell knows exactly where to send your book.</p>
-      </div>
-
       <div class="panel" id="ship">
-        <h2>Step 2 &mdash; Tell Us Where to Ship It</h2>
-        <p class="sub">Complete this <strong style="color:rgba(255,255,255,0.85);">after</strong> your payment goes through.</p>
+        <h2>Step 1 &mdash; Tell Us Where to Ship It</h2>
+        <p class="sub">Give us your info first. The payment link unlocks the moment you submit.</p>
 
         <div class="steps">
           <div class="step">
             <div class="step-num">1</div>
-            <p><strong>Pay above</strong> using the secure BlueVine link.</p>
+            <p><strong>Fill out this form</strong> with your name, email, and shipping address.</p>
           </div>
           <div class="step">
             <div class="step-num">2</div>
-            <p><strong>Fill out this form</strong> with your name, email, and shipping address.</p>
+            <p><strong>Pay $25.00</strong> using the secure BlueVine link, it unlocks right after you submit.</p>
           </div>
           <div class="step">
             <div class="step-num">3</div>
@@ -255,9 +235,9 @@
           </div>
 
           <div class="field">
-            <label for="paymentRef">Name or Email Used for Payment</label>
+            <label for="paymentRef">Name or Email You'll Use to Pay</label>
             <input type="text" id="paymentRef" name="Payment Reference" placeholder="So Darrell can match your order to your payment" required>
-            <p class="hint">This helps confirm your $25 payment before it ships. If it's different from above, enter it here.</p>
+            <p class="hint">This helps Darrell confirm your $25 payment once you complete checkout in the next step. If it's different from your name or email above, enter it here.</p>
           </div>
 
           <div class="field">
@@ -268,6 +248,29 @@
           <button type="submit" class="btn-primary" id="submitBtn">Submit My Shipping Info</button>
           <div id="formMsg"></div>
         </form>
+      </div>
+
+      <div class="panel" id="pay">
+        <h2>Step 2 &mdash; Reserve Your Copy</h2>
+        <p class="sub" id="paySub">Submit your shipping info above first. This unlocks the moment you do.</p>
+
+        <div class="price-row">
+          <span class="price">$25.00</span>
+          <span class="price-detail">USD, total</span>
+        </div>
+
+        <ul class="includes">
+          <li>Signed paperback, Creating A Wealth-Building Mindset, 2nd Edition</li>
+          <li>Shipping &amp; handling included</li>
+          <li>U.S. addresses only</li>
+          <li>Mailed personally by Darrell within 3&ndash;5 business days of your order</li>
+        </ul>
+
+        <a class="btn-primary is-locked" href="#ship" id="payBtn" rel="noopener" data-href="https://pay.bluevine.com/p/f2a2a52d41314cd3a5bf13e29e29b471" aria-disabled="true">
+          &#128274; Locked &mdash; Submit Shipping Info First
+        </a>
+
+        <p class="shipping-note" id="payNote">We ask for your shipping info before payment so your book never gets lost in the shuffle. Pay as soon as the button above unlocks.</p>
       </div>
 
     </div>
@@ -303,7 +306,7 @@
           <li><a href="./book.html">Book Overview</a></li>
           <li><a href="./book-launch.html">Author Page</a></li>
           <li><a href="./author-signed-copy.html">Order Signed Copy &#36;25.00</a></li>
-          <li><a href="./mindset-quiz.html">Free Mindset Quiz</a></li>
+          <li><a href="https://rightsideofmoney.wixforms.com/f/7436918505649211038" target="_blank">Free 30-Day Challenge</a></li>
         </ul>
       </div>
       <div>
@@ -359,9 +362,28 @@
     }).then(function(response){
       if (response.ok) {
         form.reset();
-        msg.textContent = "You're all set! Your shipping info has been received. Your signed copy will ship within 3–5 business days.";
+        msg.textContent = "Got it! Now finish up by paying below, your signed copy ships within 3–5 business days after that.";
         msg.className = 'ok';
         btn.textContent = 'Submitted ✓';
+
+        var payBtn = document.getElementById('payBtn');
+        var paySub = document.getElementById('paySub');
+        var payNote = document.getElementById('payNote');
+        var payPanel = document.getElementById('pay');
+        if (payBtn) {
+          payBtn.href = payBtn.getAttribute('data-href');
+          payBtn.target = '_blank';
+          payBtn.rel = 'noopener';
+          payBtn.removeAttribute('aria-disabled');
+          payBtn.classList.remove('is-locked');
+          payBtn.classList.add('is-unlocked');
+          payBtn.innerHTML = 'Pay $25.00 Securely →';
+        }
+        if (paySub) paySub.textContent = "You're unlocked! Complete your payment below to finish the order.";
+        if (payNote) payNote.textContent = "Thanks! Once this payment goes through, Darrell will sign and mail your copy within 3–5 business days.";
+        if (payPanel && payPanel.scrollIntoView) {
+          setTimeout(function(){ payPanel.scrollIntoView({behavior:'smooth', block:'center'}); }, 300);
+        }
       } else {
         response.json().then(function(data){
           msg.textContent = (data.errors ? data.errors.map(function(err){return err.message;}).join(', ') : "Something went wrong. Please try again or email info@rightsideofmoney.com directly.");
