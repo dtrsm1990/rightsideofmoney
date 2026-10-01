@@ -165,6 +165,38 @@
   .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
   .footer-copy span { color: var(--gold); }
   @media (max-width:900px){ .footer-top{grid-template-columns:1fr 1fr;gap:40px;} }
+
+/* ===== LEAVE A REVIEW ===== */
+.lr-wrap{margin-top:70px;display:grid;grid-template-columns:1fr 1.35fr;gap:28px;align-items:start;}
+.lr-card{background:rgba(255,255,255,0.04);border:1px solid rgba(201,148,26,0.25);border-top:3px solid var(--gold);padding:34px 30px;border-radius:2px;}
+.lr-card h3{font-family:var(--font-display);color:var(--white);font-size:26px;line-height:1.25;margin-bottom:10px;}
+.lr-card p.lr-sub{color:rgba(255,255,255,0.72);font-size:15px;line-height:1.7;margin-bottom:22px;}
+.lr-amz{display:block;text-align:center;text-decoration:none;border:1.5px solid var(--gold);color:var(--gold-light);font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:.5px;padding:14px 18px;border-radius:2px;margin-bottom:12px;transition:all .2s;}
+.lr-amz:hover{background:var(--gold);color:var(--navy);}
+.lr-amz.solid{background:var(--gold);color:var(--navy);}
+.lr-amz.solid:hover{background:var(--gold-light);}
+.lr-note{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-top:14px;}
+.lr-form label{display:block;font-size:13px;font-weight:600;letter-spacing:.4px;color:var(--gold-light);margin:16px 0 7px;text-transform:uppercase;}
+.lr-form input[type=text],.lr-form input[type=email],.lr-form select,.lr-form textarea{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);color:var(--white);font-family:var(--font-body);font-size:16px;padding:13px 14px;border-radius:2px;}
+.lr-form select option{color:#0D1F3C;}
+.lr-form textarea{min-height:130px;resize:vertical;line-height:1.6;}
+.lr-form input:focus,.lr-form select:focus,.lr-form textarea:focus{outline:none;border-color:var(--gold);}
+.lr-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.lr-stars{display:flex;gap:6px;}
+.lr-stars button{background:none;border:none;cursor:pointer;font-size:34px;line-height:1;color:rgba(255,255,255,0.22);padding:0 2px;transition:color .15s,transform .15s;}
+.lr-stars button.on{color:var(--gold-light);}
+.lr-stars button:hover{transform:scale(1.12);}
+.lr-check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,0.75);line-height:1.55;margin-top:16px;cursor:pointer;text-transform:none!important;letter-spacing:0!important;font-weight:400!important;}
+.lr-check input{margin-top:4px;width:17px;height:17px;accent-color:var(--gold);flex:0 0 auto;}
+.lr-btn{width:100%;margin-top:22px;background:var(--gold);color:var(--navy);border:none;font-family:var(--font-body);font-weight:700;font-size:16px;letter-spacing:.5px;padding:16px;border-radius:2px;cursor:pointer;}
+.lr-btn:hover{background:var(--gold-light);}
+.lr-btn[disabled]{opacity:.6;cursor:wait;}
+.lr-err{display:none;color:#ffb4a8;font-size:14px;margin-top:12px;}
+.lr-done{display:none;text-align:center;padding:20px 0;}
+.lr-done .tick{width:62px;height:62px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.lr-done h3{margin-bottom:8px;}
+.lr-done p{color:rgba(255,255,255,0.75);font-size:15px;line-height:1.7;}
+@media(max-width:860px){.lr-wrap{grid-template-columns:1fr;}.lr-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -317,6 +349,70 @@
         </div>
       </div>
     </div>
+
+    <!-- LEAVE A REVIEW -->
+    <div class="lr-wrap" id="leave-review">
+      <div class="lr-card">
+        <h3>Read the book? I'd love to hear from you.</h3>
+        <p class="lr-sub">Your honest review helps the next family decide if this book is for them. Amazon reviews make the biggest difference, and you can share yours here too.</p>
+        <a class="lr-amz solid" href="https://www.amazon.com/review/create-review?asin=B0HHW1BTYG" target="_blank" rel="noopener">Review the 2nd Edition on Amazon</a>
+        <a class="lr-amz" href="https://www.amazon.com/review/create-review?asin=B0HHX86HRQ" target="_blank" rel="noopener">Review the 90-Day Workbook on Amazon</a>
+        <p class="lr-note">Got your copy from me directly? You can still review it on Amazon. Your review just won't carry the "Verified Purchase" label.</p>
+      </div>
+
+      <div class="lr-card">
+        <div id="lrFormWrap">
+          <h3>Share your review here</h3>
+          <p class="lr-sub">Reviews are read personally before they're posted on this page.</p>
+          <form class="lr-form" id="lrForm" novalidate>
+            <div class="lr-row">
+              <div><label for="lrName">Your name</label><input type="text" id="lrName" autocomplete="name" required></div>
+              <div><label for="lrLoc">City, State (optional)</label><input type="text" id="lrLoc" autocomplete="address-level2"></div>
+            </div>
+            <label for="lrEmail">Email (never shown)</label>
+            <input type="email" id="lrEmail" autocomplete="email" required>
+            <div class="lr-row">
+              <div>
+                <label for="lrBook">Which book?</label>
+                <select id="lrBook" required>
+                  <option value="Creating a Wealth-Building Mindset, 2nd Edition">2nd Edition</option>
+                  <option value="90-Day Companion Workbook">90-Day Companion Workbook</option>
+                  <option value="Creating a Wealth-Building Mindset, 1st Edition">1st Edition</option>
+                </select>
+              </div>
+              <div>
+                <label for="lrHow">How did you get it?</label>
+                <select id="lrHow">
+                  <option value="Bought on Amazon">Bought on Amazon</option>
+                  <option value="Author signed copy">Author signed copy</option>
+                  <option value="Won or received as a gift">Won it or received it as a gift</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <label>Your rating</label>
+            <div class="lr-stars" id="lrStars" role="radiogroup" aria-label="Star rating">
+              <button type="button" data-v="1" aria-label="1 star">&#9733;</button>
+              <button type="button" data-v="2" aria-label="2 stars">&#9733;</button>
+              <button type="button" data-v="3" aria-label="3 stars">&#9733;</button>
+              <button type="button" data-v="4" aria-label="4 stars">&#9733;</button>
+              <button type="button" data-v="5" aria-label="5 stars">&#9733;</button>
+            </div>
+            <label for="lrText">Your review</label>
+            <textarea id="lrText" placeholder="What stood out to you? What's changed since you read it?" required></textarea>
+            <label class="lr-check"><input type="checkbox" id="lrPermit" checked> You may share my review on this site using my first name, last initial, and city.</label>
+            <button type="submit" class="lr-btn" id="lrBtn">Submit My Review</button>
+            <div class="lr-err" id="lrErr"></div>
+          </form>
+        </div>
+        <div class="lr-done" id="lrDone">
+          <div class="tick">&#10003;</div>
+          <h3>Thank you, <span id="lrHi">friend</span>!</h3>
+          <p>Your review means more than you know. If you haven't already, would you also share it on Amazon? It helps the book reach more families.</p>
+          <a class="lr-amz solid" style="margin-top:20px;" id="lrAmzAfter" href="https://www.amazon.com/review/create-review?asin=B0HHW1BTYG" target="_blank" rel="noopener">Post It on Amazon Too</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -417,5 +513,48 @@
 })();
 </script>
 
+
+<script>
+/* ===== LEAVE A REVIEW ===== */
+(function(){
+  var FORMSPREE_ID = 'xrpbgjbb';   // change to a dedicated reviews form anytime
+  var form = document.getElementById('lrForm'); if(!form) return;
+  var rating = 0, stars = document.querySelectorAll('#lrStars button');
+  function paint(n){ stars.forEach(function(b){ b.classList.toggle('on', +b.dataset.v <= n); }); }
+  stars.forEach(function(b){
+    b.addEventListener('click', function(){ rating = +b.dataset.v; paint(rating); });
+    b.addEventListener('mouseenter', function(){ paint(+b.dataset.v); });
+  });
+  document.getElementById('lrStars').addEventListener('mouseleave', function(){ paint(rating); });
+  var ASINS = {'Creating a Wealth-Building Mindset, 2nd Edition':'B0HHW1BTYG','90-Day Companion Workbook':'B0HHX86HRQ'};
+  function err(m){ var e=document.getElementById('lrErr'); e.textContent=m; e.style.display='block'; }
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault(); document.getElementById('lrErr').style.display='none';
+    var v=function(id){ return document.getElementById(id).value.trim(); };
+    var name=v('lrName'), email=v('lrEmail'), text=v('lrText'), book=v('lrBook');
+    if(!name) return err('Please enter your name.');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return err('Please enter a valid email address.');
+    if(!rating) return err('Please choose a star rating.');
+    if(text.length < 15) return err('Please share a little more in your review.');
+    var btn=document.getElementById('lrBtn'); btn.disabled=true; btn.textContent='Sending...';
+    var d=new FormData();
+    d.append('name',name); d.append('email',email); d.append('location',v('lrLoc'));
+    d.append('book',book); d.append('how_obtained',v('lrHow'));
+    d.append('rating', rating + ' / 5'); d.append('review',text);
+    d.append('ok_to_publish', document.getElementById('lrPermit').checked ? 'Yes' : 'No');
+    d.append('_subject','New Book Review (' + rating + ' stars): ' + name);
+    fetch('https://formspree.io/f/'+FORMSPREE_ID,{method:'POST',body:d,headers:{'Accept':'application/json'}})
+      .then(function(r){
+        if(!r.ok) throw 0;
+        document.getElementById('lrFormWrap').style.display='none';
+        document.getElementById('lrDone').style.display='block';
+        document.getElementById('lrHi').textContent = name.split(' ')[0];
+        if(ASINS[book]) document.getElementById('lrAmzAfter').href='https://www.amazon.com/review/create-review?asin='+ASINS[book];
+        else document.getElementById('lrAmzAfter').href='https://www.amazon.com/dp/B0HHW1BTYG';
+      })
+      .catch(function(){ btn.disabled=false; btn.textContent='Submit My Review'; err("Something went wrong sending your review. Please try again in a moment."); });
+  });
+})();
+</script>
 </body>
 </html>
