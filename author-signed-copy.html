@@ -327,7 +327,11 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+(function(){
+  if (window.emailjs) { emailjs.init({ publicKey: "gkDCipr-1PUVhTb5X" }); }
+})();
 (function(){
   var btn=document.getElementById("navHamburger");
   var menu=document.getElementById("navMobile");
@@ -384,6 +388,32 @@
         if (payPanel && payPanel.scrollIntoView) {
           setTimeout(function(){ payPanel.scrollIntoView({behavior:'smooth', block:'center'}); }, 300);
         }
+
+        if (window.emailjs) {
+          emailjs.send("service_65dy311", "template_6ojlwuk", {
+            full_name: data.get('Full Name') || '',
+            email: data.get('Email') || '',
+            address: data.get('Address Line 1') + (data.get('Address Line 2') ? ', ' + data.get('Address Line 2') : ''),
+            city: data.get('City') || '',
+            state: data.get('State') || '',
+            zip: data.get('ZIP Code') || '',
+            phone: data.get('Phone') || 'Not provided',
+            payment_reference: data.get('Payment Reference') || '',
+            notes: data.get('Signature Request') || 'None',
+            order_date: new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })
+          }).catch(function(err){ console.error('EmailJS notification failed:', err); });
+        }
+
+        var fullName = data.get('Full Name') || '';
+        fetch('https://api.convertkit.com/v3/forms/9990645/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify({
+            api_key: 'EV5he9-GqRghbM17UtabNA',
+            email: data.get('Email') || '',
+            first_name: fullName.split(' ')[0] || ''
+          })
+        }).catch(function(err){ console.error('Kit signup failed:', err); });
       } else {
         response.json().then(function(data){
           msg.textContent = (data.errors ? data.errors.map(function(err){return err.message;}).join(', ') : "Something went wrong. Please try again or email info@rightsideofmoney.com directly.");
