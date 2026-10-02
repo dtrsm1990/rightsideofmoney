@@ -26,7 +26,7 @@ a{color:var(--navy);}
 .top-nav a.exit:hover{color:var(--gold-light);}
 .menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
 /* LAYOUT */
-.course-wrap{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 58px);}
+.course-wrap{display:grid;grid-template-columns:270px minmax(0,1fr);min-height:calc(100vh - 58px);}
 .sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
 .sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
 .sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
@@ -35,7 +35,7 @@ a{color:var(--navy);}
 .sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
 .sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
 .sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
-.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;min-width:0;}
 /* TYPE */
 .lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
 .lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
@@ -233,7 +233,7 @@ textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
 .course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
 .course-footer span{color:var(--gold);}
 @media (max-width:900px){
-  .course-wrap{grid-template-columns:1fr;}
+  .course-wrap{grid-template-columns:minmax(0,1fr);}
   .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
   .sidebar.open{display:block;}
   .menu-btn{display:inline-block;}
@@ -521,15 +521,16 @@ window.RSM_PAGE = {"id": "mod1", "type": "module", "kcs": ["m1l1", "m1l2", "m1l3
 (function(){
 'use strict';
 var P = window.RSM_PAGE || {};
-var FORM_URL = 'https://formspree.io/f/mbglqkyn';
+var FORM_URL = P.form || 'https://formspree.io/f/mbglqkyn';
 var ADMIN_EMAIL = 'info@rightsideofmoney.com';
-var PROGRAM = 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+var PROGRAM = P.program || 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+var NS = 'rsm' + (P.ns || 'adv') + '_';
 
 /* ---------- storage (fails safely) ---------- */
 var LS = {
   ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
-  get: function(k, d){ try { var v = localStorage.getItem('rsmadv_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
-  set: function(k, v){ try { localStorage.setItem('rsmadv_' + k, JSON.stringify(v)); } catch(e){} }
+  get: function(k, d){ try { var v = localStorage.getItem(NS + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch(e){} }
 };
 function $(s, r){ return (r || document).querySelector(s); }
 function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -543,6 +544,7 @@ function isDone(key){
   if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
   if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
   if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  if (t === 'day') return !!(LS.get('day_' + id) || {}).done;
   return false;
 }
 function allDone(list){ return list.every(isDone); }
@@ -756,8 +758,8 @@ var H = {
       next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
   },
   prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
-  certificate: function(name, title, date){
-    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  certificate: function(name, title, date, line){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>' + (line || 'and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.') + '</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
   }
 };
 window.RSM_H = H;

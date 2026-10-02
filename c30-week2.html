@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Week 2: Consistency and Momentum | 30-Day Mindset and Money Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px minmax(0,1fr);min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;min-width:0;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:minmax(0,1fr);}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+
+/* ===== 30-DAY CHALLENGE ===== */
+.cal30{margin:1.5rem 0 2rem;}
+.cal-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;}
+.cal-day{aspect-ratio:1/1;border:2px solid var(--gray-line);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;background:#fff;transition:all 0.15s;min-height:44px;}
+.cal-day:hover{border-color:var(--gold);}
+.cal-day .cd-n{font-weight:700;color:var(--navy);font-size:0.95rem;line-height:1;}
+.cal-day .cd-s{font-size:0.7rem;color:var(--gold);line-height:1;margin-top:3px;min-height:0.7rem;}
+.cal-day.check{border-color:var(--gold);}
+.cal-day.done{background:var(--navy);border-color:var(--navy);}
+.cal-day.done .cd-n{color:#fff;}
+.cal-day.done .cd-s{color:var(--gold-light);}
+.cal-note{font-size:0.88rem!important;color:var(--gray-mid)!important;margin-top:0.7rem!important;}
+.week-banner{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:0.9rem 1.2rem;margin:0 0 2rem;}
+.week-banner span{font-size:0.9rem;color:var(--navy);}
+.day{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.8rem;scroll-margin-top:80px;}
+.day-head{display:flex;align-items:center;gap:1rem;margin-bottom:0.4rem;flex-wrap:wrap;}
+.day-num{background:var(--navy);color:var(--gold-light);font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:2px;font-size:1.05rem;padding:0.35rem 0.9rem;border-radius:4px;border-bottom:3px solid var(--gold);}
+.day-type{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);}
+.day-status{font-size:0.78rem;color:var(--gray-mid);margin-left:auto;}
+.day-status.ok{color:var(--green);font-weight:600;}
+.day h2.day-title{margin-top:0.3rem;font-size:clamp(1.45rem,2.4vw,1.9rem);}
+.tool{border:2px solid var(--gold);border-radius:10px;margin:2rem 0;overflow:hidden;background:#fff;}
+.tool-head{background:var(--gold);color:var(--navy);padding:0.85rem 1.3rem;}
+.tool-head h4{font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:800;margin:0;}
+.tool-head p{margin:0.2rem 0 0!important;font-size:0.88rem!important;color:var(--navy)!important;}
+.tool-body{padding:1.2rem 1.3rem;}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+.tool-grid label,.tool-body label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:0.3rem;}
+.tool-grid .span2{grid-column:span 2;}
+.tool-row{margin-bottom:0.9rem;}
+.trk-msg{font-size:0.88rem;font-weight:600;margin-top:0.6rem;min-height:1em;}
+.trk-msg.ok{color:var(--green);}
+.trk-msg.err{color:var(--red);}
+.trk-del{background:none;border:none;color:var(--red);font-size:1.2rem;cursor:pointer;line-height:1;}
+.tool-empty{font-size:0.92rem!important;color:var(--gray-mid)!important;font-style:italic;}
+.tool-insight{background:var(--gray-light);border-left:4px solid var(--navy);border-radius:6px;padding:0.8rem 1rem;font-size:0.94rem!important;}
+.trk-summary{margin-top:1rem;}
+.aff-card{background:var(--navy);border-radius:10px;padding:1.4rem 1.6rem;margin:0.8rem 0;border-left:5px solid var(--gold);}
+.aff-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-light);font-weight:700;}
+.aff-text{font-family:'Playfair Display',serif;font-size:1.35rem;color:#fff;line-height:1.4;margin:0.5rem 0;}
+.aff-proof{color:rgba(255,255,255,0.8);font-size:0.9rem;}
+.aff-proof strong{color:var(--gold-light)!important;}
+.aff-checks{list-style:none;margin:0.5rem 0 1rem!important;padding:0;}
+.aff-checks li{font-size:0.9rem!important;margin-bottom:0.3rem!important;}
+.aff-checks li.ok{color:var(--green)!important;}
+.aff-checks li.no{color:#9a6b00!important;}
+.checkin{background:var(--navy);border-radius:10px;padding:1.5rem 1.6rem;margin:2.2rem 0 0.5rem;border-top:4px solid var(--gold);}
+.checkin h4{color:var(--gold-light);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.2rem;font-weight:700;}
+.checkin > p{color:rgba(255,255,255,0.75)!important;font-size:0.9rem!important;}
+.ci-habits{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin:0.8rem 0 1rem;}
+.ci-habits label{display:flex;gap:0.6rem;align-items:flex-start;color:#fff;font-size:0.92rem;cursor:pointer;background:rgba(255,255,255,0.06);padding:0.6rem 0.8rem;border-radius:6px;}
+.ci-habits input{width:18px;height:18px;margin-top:2px;accent-color:#C9941A;flex-shrink:0;}
+.ci-label{display:block;color:var(--gold-light);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin:0.6rem 0 0.35rem;}
+.mood-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.4rem;}
+.mood-opt{background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.18);color:#fff;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.78rem 'DM Sans',sans-serif;cursor:pointer;}
+.mood-opt.selected{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:700;}
+.checkin input[type=text]{margin-top:0.2rem;}
+.ci-done{margin-top:1rem;}
+.ci-msg{margin-top:0.8rem;font-size:0.92rem;font-weight:600;min-height:1em;color:rgba(255,255,255,0.85);}
+.ci-msg.ok{color:#9be3b5;}
+.ci-msg.err{color:#ffb4b4;}
+.ci-msg.warn{color:var(--gold-light);font-weight:500;}
+.ci-msg .btn-outline{color:#fff;border-color:rgba(255,255,255,0.6);}
+.checkin.is-done{border-top-color:#2e9b5c;}
+.checkin.is-done .ci-done{display:none;}
+@media (max-width:900px){
+  .cal-grid{grid-template-columns:repeat(6,1fr);}
+  .tool-grid{grid-template-columns:1fr 1fr;}
+  .tool-grid .span2{grid-column:span 2;}
+  .ci-habits{grid-template-columns:1fr;}
+  .mood-opt{font-size:0.66rem;}
+}
+
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">30-Day Mindset &amp; Money Challenge</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">30-Day Challenge</div><nav>
+<a href="./c30-portal.html" class="" data-done="baseline">Challenge Portal</a>
+<div class="sidebar-group">Week 1: Days 1 to 7</div>
+<a href="./c30-week1.html" class="" data-done="day:1,day:2,day:3,day:4,day:5,day:6">Awareness and Foundations</a>
+<a href="./c30-check1.html" class="sub" data-done="day:7">Week 1 Progress Check</a>
+<div class="sidebar-group">Week 2: Days 8 to 14</div>
+<a href="./c30-week2.html" class="active" data-done="day:8,day:9,day:10,day:11,day:12,day:13">Consistency and Momentum</a>
+<a href="./c30-check2.html" class="sub" data-done="day:14">Week 2 Progress Check</a>
+<div class="sidebar-group">Week 3: Days 15 to 21</div>
+<a href="./c30-week3.html" class="" data-done="day:15,day:16,day:17,day:18,day:19,day:20">Deepening Financial Awareness</a>
+<a href="./c30-check3.html" class="sub" data-done="day:21">Week 3 Progress Check</a>
+<div class="sidebar-group">Week 4: Days 22 to 28</div>
+<a href="./c30-week4.html" class="" data-done="day:22,day:23,day:24,day:25,day:26,day:27">Mastery and Integration</a>
+<a href="./c30-check4.html" class="sub" data-done="day:28">Week 4 Progress Check</a>
+<div class="sidebar-group">Days 29 and 30</div>
+<a href="./c30-graduation.html" class="" data-done="day:29">Final Review and Graduation</a>
+<a href="./c30-assessment.html" class="sub" data-done="ap:c30final">30-Day Cumulative Challenge Assessment</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="module-hero"><p class="lesson-eyebrow">Week 2 of 4 | Days 8 to 14</p><h1>Week 2: Consistency and Momentum</h1><p>This week, awareness becomes a habit. You'll scale your tracker, refine your affirmation, protect your momentum on hard days, face your resistance, and grow your automatic transfer.</p><ul class="outcomes"><li>Turn tracking into a habit with habit stacking</li><li>Compare two weeks of spending and see your direction</li><li>Refine your affirmation so it fits and stretches you</li><li>Use the never-miss-twice rule and level up your money move</li></ul></div>
+<div class="progress-wrap"><div class="progress-top"><span>Week 2 Progress</span><span id="weekLbl">0 of 7 days complete</span></div><div class="progress-bar"><div class="progress-fill" id="weekFill"></div></div></div>
+<h3 style="margin-top:0">Your 30-Day Calendar</h3><div class="cal30"></div>
+<div class="week-banner"><span><strong>How to use this week:</strong> Do one day at a time, in order. Read the day, do the action, then complete the Day Check-In. Your tracker, affirmation, and money move save on this device and flow into your Week 2 Progress Check report.</span></div>
+<div class="toc"><h3>This Week</h3><ol start="8"><li><a href="#day-8">Day 8: Scaling the 48-Hour Tracker</a></li><li><a href="#day-9">Day 9: Week 2: 48-Hour Spending Awareness Exercise</a></li><li><a href="#day-10">Day 10: Refining Your Affirmations</a></li><li><a href="#day-11">Day 11: Momentum Principle: Never Miss Twice</a></li><li><a href="#day-12">Day 12: Mindset Reflection: Tracking Resistance</a></li><li><a href="#day-13">Day 13: Week 2 Money Move Exercise: Level Up Your Transfer</a></li><li><a href="#day-14">Day 14: Week 2 Progress Check: Consistency and Momentum</a></li></ol></div>
+<section class="day" id="day-8"><div class="day-head"><span class="day-num">DAY 8</span><span class="day-type">Lesson and Micro Habit</span><span class="day-status" data-n="8"></span></div>
+<h2 class="day-title">Scaling the 48-Hour Tracker</h2><p class="lesson-subtitle">Last week you proved you could see your spending. This week, seeing becomes a habit.</p><div class="gold-rule"></div>
+
+<p>Welcome to Week 2. Last week's 48-Hour Tracker was an experiment. This week it becomes a practice. You're going to track again for 48 hours, but this time with two upgrades: <strong>you'll catch purchases faster</strong>, and <strong>you'll compare this week to last week</strong> so you can see change happening in real numbers.</p>
+
+<div class="callout callout-truth"><h4>Today's Truth</h4><p>Awareness that happens once is an event. Awareness that happens every week is a system. <strong>The goal of Week 2 isn't to track harder. It's to make tracking so normal that you'd feel strange not doing it.</strong></p></div>
+
+<h2>Three Ways to Scale the Tracker</h2>
+<h3>1. Shrink the Delay</h3>
+<p>In Week 1, you probably logged some purchases hours later, or tried to remember them at night. This week, aim to log every purchase <strong>before you leave the store, the drive-thru, or the app</strong>. The closer to the moment, the more honest the feeling you record.</p>
+<h3>2. Attach It to Something You Already Do</h3>
+<p>Habit researchers call this <strong>habit stacking</strong>: linking a new behavior to an existing one. "After I tap my card, I log the purchase." "After I put my car in park, I log what I just bought." The existing action becomes the reminder.</p>
+<h3>3. Track the Near Misses</h3>
+<p>This week, add something new: when you <strong>almost</strong> buy something and don't, write it in your notes. Near misses are wins, and they show you that the gap between urge and purchase is getting wider.</p>
+
+<h2>What to Look for This Week</h2>
+<ul>
+<li>Is your <strong>unplanned percentage</strong> lower than Week 1?</li>
+<li>Did your <strong>top driver</strong> change, or is it the same one?</li>
+<li>Are purchases clustering in the <strong>same time window</strong> as last week?</li>
+<li>Did knowing you had to log a purchase make you <strong>pause</strong> before buying?</li>
+</ul>
+<p>That last one matters. Many people find that tracking alone reduces unplanned spending, because it adds a moment of awareness right before the purchase. Researchers have long observed that the act of monitoring a behavior tends to change it.</p>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Tiana, Customer Service Representative</div><div class="scenario-body"><p>In Week 1, Tiana logged 14 purchases in 48 hours, 10 of them unplanned, mostly boredom at night. In Week 2, she stacked tracking onto a habit she already had: plugging her phone in at night. Before plugging it in, she reviewed the day's purchases.</p>
+<p>Her Week 2 tracker showed 8 purchases, 4 unplanned. She also wrote down 3 near misses. "I literally had stuff in my cart at 11:30 and thought, I'm going to have to write this down, and I closed the app." Same person. Same income. More awareness.</p></div></div>
+
+<div class="callout callout-action"><h4>Your Action Step</h4><ol><li>Choose your habit stack: "After I ______, I log my purchase."</li><li>Track every purchase for the next 48 hours in the Week 2 tracker below.</li><li>Keep a list of near misses in your phone notes.</li></ol></div>
+
+<div class="tool" data-tracker="w2"><div class="tool-head"><h4>Week 2: Your 48-Hour Spending Tracker</h4><p>Log every purchase for 48 hours. Tomorrow you'll compare it to Week 1.</p></div><div class="tool-body">
+<div class="trk-form"><div class="tool-grid">
+<div><label>When</label><input type="text" name="when" placeholder="Example: Tue 7:40 pm" /></div>
+<div class="span2"><label>What You Bought</label><input type="text" name="item" placeholder="Example: Lunch delivery" /></div>
+<div><label>Amount ($)</label><input type="number" name="amount" min="0" step="0.01" inputmode="decimal" /></div>
+<div><label>Feeling Right Before</label><select name="feeling"><option value="">Choose</option><option>Calm</option><option>Stressed</option><option>Tired</option><option>Bored</option><option>Happy or celebrating</option><option>Anxious</option><option>Lonely</option><option>Rushed</option><option>Frustrated</option><option>Sad</option></select></div>
+<div><label>What Drove It</label><select name="driver"><option value="">Choose</option><option>Planned purchase</option><option>Stress</option><option>Boredom</option><option>Reward</option><option>Convenience</option><option>Social pressure</option><option>Habit or autopilot</option></select></div>
+
+</div><button type="button" class="btn btn-navy trk-add" style="margin-top:0.9rem">Add Purchase</button><div class="trk-msg"></div></div>
+<div class="trk-list"></div>
+<div class="trk-summary" data-for="w2"></div>
+</div></div>
+
+<div class="kc" data-kc="c30d8"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. You need 80% (4 of 5) to complete today's lesson.</p>
+<div class="kc-q" data-correct="1" data-why="Habit stacking attaches a new behavior to something you already do, so the existing action becomes the trigger." data-hint="Review Scaling Method 2."><p class="kc-prompt"><span class="kc-num">1</span><span>Deon wants to stop forgetting to log purchases. Which approach uses habit stacking?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">&quot;I&#x27;ll only log big purchases.&quot;</button><button type="button" class="kc-opt" data-i="1">&quot;After I tap my card, I log the purchase in my tracker.&quot;</button><button type="button" class="kc-opt" data-i="2">&quot;I&#x27;ll log everything on Sunday.&quot;</button><button type="button" class="kc-opt" data-i="3">&quot;I&#x27;ll try to remember to log more.&quot;</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="Near misses are evidence of growing control. Recording them builds confidence and identity." data-hint="Reread Scaling Method 3."><p class="kc-prompt"><span class="kc-num">2</span><span>Why does this lesson ask you to track near misses?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Because stores track them too.</button><button type="button" class="kc-opt" data-i="1">Because they&#x27;re wins that show the gap between urge and purchase is getting wider.</button><button type="button" class="kc-opt" data-i="2">To make you feel guilty about almost buying.</button><button type="button" class="kc-opt" data-i="3">Because near misses cost money.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="The act of observing a behavior often changes it. Knowing you&#x27;ll log a purchase creates a pause." data-hint="Reread &#x27;What to Look for This Week.&#x27;"><p class="kc-prompt"><span class="kc-num">3</span><span>Many people notice their unplanned spending drops simply because they&#x27;re tracking. Why?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">It&#x27;s a coincidence.</button><button type="button" class="kc-opt" data-i="1">People stop shopping entirely during a challenge.</button><button type="button" class="kc-opt" data-i="2">Tracking apps block purchases.</button><button type="button" class="kc-opt" data-i="3">Monitoring a behavior adds a moment of awareness right before the action, which tends to change it.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="One week of tracking shows you a pattern. Weekly tracking keeps you in control of it." data-hint="Reread today&#x27;s Truth box."><p class="kc-prompt"><span class="kc-num">4</span><span>What&#x27;s the difference between awareness as an event and awareness as a system?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Systems require expensive software.</button><button type="button" class="kc-opt" data-i="1">There&#x27;s no difference.</button><button type="button" class="kc-opt" data-i="2">Events are more effective than systems.</button><button type="button" class="kc-opt" data-i="3">An event happens once. A system repeats on a schedule until it becomes normal.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="2" data-why="Stacking the habit onto something automatic made awareness consistent, and awareness created a pause before buying." data-hint="Reread Tiana&#x27;s case study."><p class="kc-prompt"><span class="kc-num">5</span><span>Tiana cut her unplanned purchases from 10 to 4 in one week. What made the biggest difference?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">She deleted her bank app.</button><button type="button" class="kc-opt" data-i="1">She got a raise.</button><button type="button" class="kc-opt" data-i="2">She stacked a daily purchase review onto an existing habit and became more aware before buying.</button><button type="button" class="kc-opt" data-i="3">She stopped tracking.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+<div class="checkin" data-day="8" data-need-kc="c30d8"><h4>Day 8 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
+<div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
+<span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
+<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<button type="button" class="btn btn-gold ci-done">Complete Day 8</button><div class="ci-msg"></div></div>
+</section>
+<section class="day" id="day-9"><div class="day-head"><span class="day-num">DAY 9</span><span class="day-type">Week 2 Exercise</span><span class="day-status" data-n="9"></span></div>
+<h2 class="day-title">Week 2: 48-Hour Spending Awareness Exercise</h2><p class="lesson-subtitle">Two weeks of data. Now you can see direction, not just a snapshot.</p><div class="gold-rule"></div>
+
+<p>Finish logging through the end of today, then compare your Week 2 summary to Week 1. One week of data shows you a snapshot. Two weeks shows you <strong>direction</strong>, and direction is what matters.</p>
+
+<div class="callout callout-truth"><h4>Today's Truth</h4><p>You don't need perfect weeks. You need a better direction. <strong>A slightly lower unplanned percentage this week is real progress</strong>, even if the total looks similar.</p></div>
+
+<h2>How to Compare Your Two Weeks</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Question</th><th>What It Tells You</th></tr></thead><tbody><tr><td>Did your unplanned percentage go down?</td><td>Whether awareness is starting to change behavior.</td></tr><tr><td>Did your top driver change?</td><td>If it's the same, that driver is your core pattern. If it changed, you may be catching the first one earlier.</td></tr><tr><td>Did your total go down?</td><td>Helpful, but not the main measure. Life events can raise totals. Focus on the unplanned share.</td></tr><tr><td>How many near misses did you have?</td><td>Your growing ability to pause before buying.</td></tr></tbody></table></div>
+
+<div class="grid2">
+<div class="tool"><div class="tool-head"><h4>Week 1 Summary</h4><p>Pulled automatically from your tracker. Add any purchases you missed before you analyze.</p></div><div class="tool-body"><div class="trk-summary" data-for="w1"></div></div></div>
+<div class="tool"><div class="tool-head"><h4>Week 2 Summary</h4><p>Pulled automatically from your tracker. Add any purchases you missed before you analyze.</p></div><div class="tool-body"><div class="trk-summary" data-for="w2"></div></div></div>
+</div>
+
+<div class="reflection"><h4>Two-Week Comparison</h4><p class="ref-note">Your answers save automatically on this device and are included in your weekly Progress Check report. Write at least a few full sentences.</p><div class="ref-item"><label>1. Compare your two summaries. What changed between Week 1 and Week 2, and what stayed the same?</label><textarea data-ref="d9_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. How many near misses did you have, and what helped you pause in those moments?</label><textarea data-ref="d9_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. If your top driver stayed the same, what is it really about for you? If it changed, what do you think shifted?</label><textarea data-ref="d9_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="checkin" data-day="9" data-need-tool="trk:w2:3" data-need-ref="d9_0,d9_1,d9_2"><h4>Day 9 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
+<div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
+<span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
+<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<button type="button" class="btn btn-gold ci-done">Complete Day 9</button><div class="ci-msg"></div></div>
+</section>
+<section class="day" id="day-10"><div class="day-head"><span class="day-num">DAY 10</span><span class="day-type">Lesson and Exercise</span><span class="day-status" data-n="10"></span></div>
+<h2 class="day-title">Refining Your Affirmations</h2><p class="lesson-subtitle">A week of saying it out loud taught you something. Now you sharpen it.</p><div class="gold-rule"></div>
+
+<p>You've been saying your Week 1 affirmation for a week. Some days it probably felt powerful. Other days it may have felt hollow, awkward, or even untrue. That's valuable feedback. Today you use it to <strong>refine your affirmation</strong> so it fits who you are right now and who you're becoming.</p>
+
+<div class="callout callout-truth"><h4>Today's Truth</h4><p>An affirmation is a tool, not a tattoo. <strong>The best affirmations are revised as you grow.</strong> If yours didn't feel right, that doesn't mean affirmations don't work. It means yours needs a better fit.</p></div>
+
+<h2>Four Signs Your Affirmation Needs Refining</h2>
+<ol>
+<li><strong>Your mind argued back every time.</strong> "Yeah, right." That's a believability problem. Use a bridge phrase: "I'm learning to..." or "I'm becoming someone who..."</li>
+<li><strong>It felt too vague to act on.</strong> "I am abundant" doesn't tell you what to do on Tuesday. Add something concrete: "I keep $20 from every check."</li>
+<li><strong>You forgot to say it.</strong> That's a routine problem, not an affirmation problem. We'll fix routine on Day 17.</li>
+<li><strong>It felt too easy.</strong> If it's a 10 out of 10 and changes nothing, stretch it.</li>
+</ol>
+
+<h2>The Refinement Process</h2>
+<ol>
+<li><strong>Review the evidence.</strong> What did you actually do this week that matched your affirmation? What didn't match?</li>
+<li><strong>Adjust the size.</strong> Too big? Bring it closer. Too small? Stretch it.</li>
+<li><strong>Add specificity.</strong> Include a number, a day, or a behavior.</li>
+<li><strong>Upgrade the proof action.</strong> Choose something slightly bigger than last week's.</li>
+</ol>
+
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Week 1 Version</th><th>Refined Week 2 Version</th><th>What Changed</th></tr></thead><tbody><tr><td>"I am great with money."</td><td>"I'm becoming someone who checks my balance every morning and knows where my money goes."</td><td>More believable, more specific</td></tr><tr><td>"I save money."</td><td>"I pay myself first. $25 moves to my savings every Friday before I spend a dollar."</td><td>Adds a number and a day</td></tr><tr><td>"I don't waste money."</td><td>"I choose where my money goes, and I choose on purpose."</td><td>Stated in the positive</td></tr></tbody></table></div>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Andre, Barber and Shop Owner</div><div class="scenario-body"><p>Andre's Week 1 affirmation was "I am wealthy." He rated it a 3 and said it felt like lying. His refined Week 2 version: "I'm building wealth one chair at a time, and 10% of every day's earnings goes to my business savings." He rated it a 7. The next morning he opened a separate business savings account. "The first one made me feel like a fraud. This one made me feel like a business owner."</p></div></div>
+
+<div class="tool" data-affirm="w2"><div class="tool-head"><h4>Week 2 Money Affirmations Exercise</h4><p>Write the belief you're still working on, your refined affirmation, and a slightly bigger proof action.</p></div><div class="tool-body">
+<div class="tool-row"><label>What my Week 1 affirmation taught me, or the belief I&#x27;m still working on</label><textarea name="old" placeholder="Example: Money never stays with people like me."></textarea></div>
+<div class="tool-row"><label>My refined affirmation</label><textarea name="aff" placeholder="Example: I am someone who keeps a portion of every dollar I earn and directs it on purpose."></textarea></div>
+<div class="tool-grid"><div class="span2"><label>My upgraded proof action for this week</label><input type="text" name="proof" placeholder="Example: Move $10 to savings every Friday" /></div>
+<div><label>How believable is it? (1 to 10)</label><select name="believe"><option value="">Choose</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></div>
+<button type="button" class="btn btn-navy aff-save" style="margin-top:0.9rem">Save My Affirmation</button><div class="trk-msg aff-msg"></div>
+<div class="aff-out"></div></div></div>
+
+<div class="kc" data-kc="c30d10"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. You need 80% (4 of 5) to complete today's lesson.</p>
+<div class="kc-q" data-correct="2" data-why="When the mind argues back, the statement is too far from current belief. A bridge version is believable enough to accept." data-hint="Review Sign 1."><p class="kc-prompt"><span class="kc-num">1</span><span>Every time Kara says &quot;I am rich,&quot; her mind replies, &quot;No you&#x27;re not.&quot; What&#x27;s the best refinement?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Switch to &quot;I&#x27;m not poor.&quot;</button><button type="button" class="kc-opt" data-i="1">Stop using affirmations.</button><button type="button" class="kc-opt" data-i="2">Use a bridge phrase such as &quot;I&#x27;m becoming someone who builds wealth&quot; and pair it with a concrete proof action.</button><button type="button" class="kc-opt" data-i="3">Say it more times each day.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="Specific numbers, timing, and behavior make an affirmation something you can act on this week." data-hint="Look at the &#x27;Add specificity&#x27; step."><p class="kc-prompt"><span class="kc-num">2</span><span>Which refined affirmation is the most actionable?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">&quot;I will be wealthy one day.&quot;</button><button type="button" class="kc-opt" data-i="1">&quot;I am abundant.&quot;</button><button type="button" class="kc-opt" data-i="2">&quot;Money likes me.&quot;</button><button type="button" class="kc-opt" data-i="3">&quot;I pay myself first. $30 moves to savings every payday before I spend anything.&quot;</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="As you collect evidence and grow, your affirmation should grow with you." data-hint="Reread today&#x27;s Truth box."><p class="kc-prompt"><span class="kc-num">3</span><span>What does it mean that an affirmation is &quot;a tool, not a tattoo&quot;?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">It should be revised as you grow instead of kept forever unchanged.</button><button type="button" class="kc-opt" data-i="1">It should be written on your body.</button><button type="button" class="kc-opt" data-i="2">It should never change.</button><button type="button" class="kc-opt" data-i="3">It only works once.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="2" data-why="Forgetting is about routine. Attaching the affirmation to a daily habit fixes it, which is the focus of Day 17." data-hint="Review Sign 3."><p class="kc-prompt"><span class="kc-num">4</span><span>Marcus forgot to say his affirmation most days this week. According to the lesson, what kind of problem is that?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Proof that affirmations don&#x27;t work.</button><button type="button" class="kc-opt" data-i="1">A money problem.</button><button type="button" class="kc-opt" data-i="2">A routine problem, not an affirmation problem.</button><button type="button" class="kc-opt" data-i="3">A believability problem.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="Believability plus specificity plus action is what turns an affirmation into behavior." data-hint="Reread Andre&#x27;s case study."><p class="kc-prompt"><span class="kc-num">5</span><span>Why did Andre&#x27;s refined affirmation work better than &quot;I am wealthy&quot;?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">It mentioned his business.</button><button type="button" class="kc-opt" data-i="1">It was believable, specific to his real life, and tied to an action he could take the next day.</button><button type="button" class="kc-opt" data-i="2">It had a bigger number.</button><button type="button" class="kc-opt" data-i="3">It was longer.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+<div class="checkin" data-day="10" data-need-kc="c30d10" data-need-tool="aff:w2"><h4>Day 10 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
+<div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
+<span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
+<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<button type="button" class="btn btn-gold ci-done">Complete Day 10</button><div class="ci-msg"></div></div>
+</section>
+<section class="day" id="day-11"><div class="day-head"><span class="day-num">DAY 11</span><span class="day-type">Lesson</span><span class="day-status" data-n="11"></span></div>
+<h2 class="day-title">Momentum Principle: Never Miss Twice</h2><p class="lesson-subtitle">You'll miss a day. What you do the day after decides everything.</p><div class="gold-rule"></div>
+
+<p>By Day 11, almost everyone has missed something. A day you didn't log. A morning you forgot your affirmation. A purchase you know was pure stress. This is the exact moment most challenges fall apart, not because the miss was big, but because of what people tell themselves about it: <strong>"I already messed it up, so what's the point?"</strong></p>
+
+<div class="callout callout-truth"><h4>Today's Truth</h4><p>One miss is an accident. Two misses in a row is the start of a new pattern. <strong>Your job isn't to be perfect. Your job is to never miss twice.</strong></p></div>
+
+<h2>What the Research Says About Missing a Day</h2>
+<p>In a 2009 study at University College London, Phillippa Lally and colleagues followed people building new daily habits. On average it took about 66 days for a behavior to become automatic, with a wide range depending on the person and the habit. One of the most useful findings: <strong>missing a single day didn't significantly affect the habit-forming process.</strong> What mattered was getting back on track.</p>
+<p>That means a missed day costs you almost nothing. Quitting after a missed day costs you everything.</p>
+
+<h2>The All-or-Nothing Trap</h2>
+<p>All-or-nothing thinking sounds like this:</p>
+<ul>
+<li>"I overspent on Saturday, so this week is ruined."</li>
+<li>"I skipped two days of tracking, so I'll just start over next month."</li>
+<li>"If I can't do it perfectly, why bother?"</li>
+</ul>
+<p>It feels like high standards. It's actually a hidden exit ramp. It gives you permission to quit while feeling like it's the challenge's fault.</p>
+
+<h2>Your Minimum Day</h2>
+<p>The antidote is a <strong>minimum day</strong>: the smallest version of your habits that still counts on your worst day.</p>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Habit</th><th>Full Version</th><th>Minimum Version</th></tr></thead><tbody><tr><td>Tracking</td><td>Log every purchase with feeling and driver</td><td>Log just the amount and item</td></tr><tr><td>Affirmation</td><td>Say it out loud three times and visualize it</td><td>Say it once while brushing your teeth</td></tr><tr><td>Money move</td><td>Review transfers and add to savings</td><td>Open your bank app and look at your savings balance</td></tr><tr><td>Lesson</td><td>Full lesson and action step</td><td>Read the Truth box and do one action</td></tr></tbody></table></div>
+<p>On hard days, do the minimum. The streak survives, and so does your identity as someone who follows through.</p>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Keisha, Nurse and Mother</div><div class="scenario-body"><p>Keisha worked three 12-hour shifts in a row during Week 2 and missed two days of the challenge. On her old pattern, she would have quit. This time, she did her minimum day on the third day: she logged one purchase, said her affirmation once in the car, and looked at her savings balance. "It took three minutes. But it kept me in it. The next day I did the full thing."</p></div></div>
+
+<div class="callout callout-action"><h4>Your Action Step</h4><ol><li>Write your personal minimum day for all four habits.</li><li>Write this sentence where you'll see it: "I never miss twice."</li><li>If you've already missed a day, do today in full. You're back.</li></ol></div>
+
+<div class="kc" data-kc="c30d11"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
+<p class="kc-intro">Every question is a real-life scenario. You need 80% (4 of 5) to complete today's lesson.</p>
+<div class="kc-q" data-correct="1" data-why="All-or-nothing thinking feels like high standards but works as permission to quit. The fix is to get back on track today." data-hint="Reread &#x27;The All-or-Nothing Trap.&#x27;"><p class="kc-prompt"><span class="kc-num">1</span><span>Jordan missed tracking on Saturday and says, &quot;This week is ruined, I&#x27;ll restart next Monday.&quot; What&#x27;s this?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">A smart reset strategy.</button><button type="button" class="kc-opt" data-i="1">All-or-nothing thinking, a hidden exit ramp that turns one miss into quitting.</button><button type="button" class="kc-opt" data-i="2">The never-miss-twice rule.</button><button type="button" class="kc-opt" data-i="3">Proof the challenge is too hard.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="0" data-why="A single miss barely matters. Quitting after it is what breaks the habit." data-hint="Reread &#x27;What the Research Says.&#x27;"><p class="kc-prompt"><span class="kc-num">2</span><span>What did the Lally habit study find about missing a single day?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">It didn&#x27;t significantly affect the habit-forming process. Getting back on track mattered most.</button><button type="button" class="kc-opt" data-i="1">It doubled the time needed.</button><button type="button" class="kc-opt" data-i="2">It had no effect because habits form in 21 days.</button><button type="button" class="kc-opt" data-i="3">It reset the habit to zero.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="Minimum days keep the streak and identity alive when life is hard." data-hint="Reread &#x27;Your Minimum Day.&#x27;"><p class="kc-prompt"><span class="kc-num">3</span><span>What&#x27;s a minimum day?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">The first day of each week.</button><button type="button" class="kc-opt" data-i="1">The smallest version of your habits that still counts on your worst day.</button><button type="button" class="kc-opt" data-i="2">A day with no spending.</button><button type="button" class="kc-opt" data-i="3">A day off from the challenge.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="3" data-why="The minimum version still records the purchase. It&#x27;s small, but it keeps the habit alive." data-hint="Check the minimum day table."><p class="kc-prompt"><span class="kc-num">4</span><span>Which is a correct minimum version of the tracking habit?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Track only purchases over $100.</button><button type="button" class="kc-opt" data-i="1">Guess the week&#x27;s total on Sunday.</button><button type="button" class="kc-opt" data-i="2">Skip tracking entirely.</button><button type="button" class="kc-opt" data-i="3">Log just the amount and the item.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-q" data-correct="1" data-why="A minimum day kept her streak and identity intact, which made returning easy." data-hint="Reread Keisha&#x27;s case study."><p class="kc-prompt"><span class="kc-num">5</span><span>Keisha worked three long shifts and missed two days. What kept her in the challenge?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Starting the challenge over from Day 1.</button><button type="button" class="kc-opt" data-i="1">Doing a three-minute minimum day instead of quitting, then returning to the full version the next day.</button><button type="button" class="kc-opt" data-i="2">Taking the rest of the week off.</button><button type="button" class="kc-opt" data-i="3">Skipping the Progress Check.</button></div><div class="kc-why" hidden></div></div>
+<div class="kc-foot"><button type="button" class="btn btn-navy kc-submit">Check My Answers</button><button type="button" class="btn btn-outline kc-retake" style="display:none">Retake This Check</button><div class="kc-result"></div></div></div>
+<div class="checkin" data-day="11" data-need-kc="c30d11"><h4>Day 11 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
+<div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
+<span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
+<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<button type="button" class="btn btn-gold ci-done">Complete Day 11</button><div class="ci-msg"></div></div>
+</section>
+<section class="day" id="day-12"><div class="day-head"><span class="day-num">DAY 12</span><span class="day-type">Mindset Reflection</span><span class="day-status" data-n="12"></span></div>
+<h2 class="day-title">Mindset Reflection: Tracking Resistance</h2><p class="lesson-subtitle">The part of you that doesn't want to track is trying to tell you something.</p><div class="gold-rule"></div>
+
+<p>By now you've probably noticed some resistance. Maybe you "forgot" to log certain purchases. Maybe you felt irritated writing down a feeling. Maybe you avoided opening your banking app on a certain day. That resistance isn't laziness. <strong>It's information.</strong> Today we look at it directly.</p>
+
+<div class="callout callout-truth"><h4>Today's Truth</h4><p>Resistance usually shows up right next to the thing that needs to change. <strong>The purchases you don't want to log are often the ones that matter most.</strong></p></div>
+
+<h2>Four Common Forms of Tracking Resistance</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Form</th><th>What It Sounds Like</th><th>What It Often Means</th></tr></thead><tbody><tr><td><strong>Avoidance</strong></td><td>"I'll log it later." (Later never comes.)</td><td>Looking feels uncomfortable, often because of shame or fear about the number.</td></tr><tr><td><strong>Minimizing</strong></td><td>"That one doesn't count. It was only $3."</td><td>Protecting a habit you don't want to examine.</td></tr><tr><td><strong>Irritation</strong></td><td>"This is pointless. I know what I spend."</td><td>Often a defense against discovering you don't know as much as you thought.</td></tr><tr><td><strong>Perfectionism</strong></td><td>"I missed some, so the whole thing is inaccurate."</td><td>All-or-nothing thinking disguised as high standards.</td></tr></tbody></table></div>
+
+<h2>How to Work With Resistance</h2>
+<ol>
+<li><strong>Name it without judging it.</strong> "I notice I didn't want to log that."</li>
+<li><strong>Get curious.</strong> "What was I afraid the entry would say about me?"</li>
+<li><strong>Log it anyway.</strong> Especially that one.</li>
+<li><strong>Notice what happens after.</strong> Most people feel lighter, not heavier, once the thing they avoided is written down.</li>
+</ol>
+<p>Answer the reflection questions below honestly. They'll be part of your Week 2 Progress Check report, and they'll help you and Darrell see what's really underneath your spending.</p>
+
+<div class="reflection"><h4>Tracking Resistance Reflection</h4><p class="ref-note">Your answers save automatically on this device and are included in your weekly Progress Check report. Write at least a few full sentences.</p><div class="ref-item"><label>1. Which purchases, if any, did you not want to log this week? What made those harder to write down?</label><textarea data-ref="d12_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which form of resistance (avoidance, minimizing, irritation, or perfectionism) shows up most for you, and where do you think it comes from?</label><textarea data-ref="d12_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What did you notice after you logged something you didn&#x27;t want to log?</label><textarea data-ref="d12_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="checkin" data-day="12" data-need-ref="d12_0,d12_1,d12_2"><h4>Day 12 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
+<div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
+<span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
+<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<button type="button" class="btn btn-gold ci-done">Complete Day 12</button><div class="ci-msg"></div></div>
+</section>
+<section class="day" id="day-13"><div class="day-head"><span class="day-num">DAY 13</span><span class="day-type">Week 2 Exercise</span><span class="day-status" data-n="13"></span></div>
+<h2 class="day-title">Week 2 Money Move Exercise: Level Up Your Transfer</h2><p class="lesson-subtitle">Your first transfer proved you could do it. Now you prove you can grow it.</p><div class="gold-rule"></div>
+
+<p>Last week you set up your first automatic transfer. This week's money move is simple and powerful: <strong>level it up.</strong> You have three options. Choose one.</p>
+
+<div class="callout callout-truth"><h4>Today's Truth</h4><p>Momentum isn't about big jumps. It's about small, steady increases that you barely feel. <strong>A transfer that grows is a habit that grows.</strong></p></div>
+
+<h2>Choose Your Level-Up</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Option</th><th>What You Do</th><th>Best For</th></tr></thead><tbody><tr><td><strong>Add $5</strong></td><td>Increase your existing transfer by $5 per payday.</td><td>Anyone whose first transfer felt comfortable.</td></tr><tr><td><strong>Add a second transfer</strong></td><td>Keep your first transfer and add a new one on a different day toward a different goal.</td><td>People who want a separate fund for car repairs, holidays, or a specific goal.</td></tr><tr><td><strong>Redirect a win</strong></td><td>Take something you cut in Weeks 1 and 2 (a subscription, fewer delivery orders) and automate that amount to savings.</td><td>Anyone who already reduced a leak.</td></tr></tbody></table></div>
+
+<h2>If Last Week's Transfer Didn't Happen</h2>
+<p>If you didn't get your Week 1 transfer set up, today's level-up is simply <strong>making it real</strong>. Set it up today at any amount. Starting late beats not starting.</p>
+
+<h2>Why Small Increases Work</h2>
+<p>Behavioral economists Richard Thaler and Shlomo Benartzi designed a well-known program called Save More Tomorrow, where employees agreed in advance to increase their retirement savings rate with future raises. Because the increases were small and automatic, most participants stayed in, and savings rates rose substantially over time. The lesson for you: <strong>small, planned increases stick far better than big, sudden ones.</strong></p>
+
+<div class="tool" data-move="w2"><div class="tool-head"><h4>Week 2 Money Move Exercise</h4><p>Record your level-up: the new or increased transfer.</p></div><div class="tool-body">
+<div class="tool-grid">
+<div><label>Amount ($)</label><input type="number" name="amount" min="0" step="0.01" inputmode="decimal" /></div>
+<div><label>Frequency</label><select name="freq"><option value="">Choose</option><option>Every payday (twice a month)</option><option>Every two weeks</option><option>Weekly</option><option>Monthly</option><option>One time</option></select></div>
+<div><label>Start Date</label><input type="date" name="start" /></div>
+<div class="span2"><label>Where the Money Goes</label><input type="text" name="dest" placeholder="Example: Emergency fund at a separate bank" /></div>
+<div><label>Status</label><select name="status"><option value="">Choose</option><option>Scheduled and confirmed</option><option>Set up but not yet run</option><option>Not set up yet</option></select></div>
+</div>
+<div class="tool-row" style="margin-top:0.8rem"><label>Notes (optional)</label><input type="text" name="notes" placeholder="Anything that will help you keep this going" /></div>
+<button type="button" class="btn btn-navy mv-save">Save My Money Move</button><div class="trk-msg mv-msg"></div>
+<div class="mv-out"></div></div></div>
+
+<div class="checkin" data-day="13" data-need-tool="move:w2"><h4>Day 13 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
+<div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
+<span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
+<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<button type="button" class="btn btn-gold ci-done">Complete Day 13</button><div class="ci-msg"></div></div>
+</section>
+<section class="day" id="day-14"><div class="day-head"><span class="day-num">DAY 14</span><span class="day-type">Progress Check</span><span class="day-status" data-n="14"></span></div>
+<h2 class="day-title">Week 2 Progress Check: Consistency and Momentum</h2><p class="lesson-subtitle">Two weeks. Let's measure the momentum you've built.</p><div class="gold-rule"></div>
+
+<p>You're almost halfway through. You've tracked twice, refined your affirmation, learned to never miss twice, faced your resistance, and leveled up your money move. That's consistency, and consistency is where real change starts.</p>
+<p>Your Week 2 Progress Check compares Week 1 and Week 2, measures the resistance patterns that could slow you down, and gives you a personal plan for Week 3.</p>
+
+<div class="module-complete" id="checkbox-2"><p class="lesson-eyebrow" style="color:#E8B84B">Day 14: Week 2 Progress Check</p><h2>Close Out Week 2</h2><p>Your Week 2 Progress Check brings in both weeks of tracking, your refined affirmation, your money move, and your reflections. It identifies your primary resistance pattern and sends you and Darrell a personal report. Completing it marks Day 14 complete.</p>
+<a class="btn btn-gold disabled" id="weekNext" href="./c30-check2.html">Begin the Week 2 Progress Check</a><p class="lock-note" id="weekLockNote"></p></div>
+</section>
+<div class="lesson-nav"><a class="btn-prev" href="./c30-check1.html">&#8592; Week 1 Progress Check</a><span class="progress-label">Week 2 of 4</span><a class="btn-next" href="./c30-check2.html">Week 2 Progress Check &#8594;</a></div></div>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Challenge content by Darrell Thompson | Educational content only, not individualized financial, legal, tax, or mental health advice.</footer>
+<script>
+window.RSM_PAGE = {"id": "week2", "type": "week", "days": [8, 9, 10, 11, 12, 13, 14], "before": [8, 9, 10, 11, 12, 13], "requires": [{"key": "day:7", "label": "Week 1 Progress Check", "href": "./c30-check1.html"}], "ns": "c30", "form": "https://formspree.io/f/xyezldyz", "program": "30-Day Mindset and Money Challenge"};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = P.form || 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = P.program || 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+var NS = 'rsm' + (P.ns || 'adv') + '_';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem(NS + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  if (t === 'day') return !!(LS.get('day_' + id) || {}).done;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date, line){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>' + (line || 'and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.') + '</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+<script>
+(function(){
+'use strict';
+var H = window.RSM_H, LS = H.LS, P = window.RSM_PAGE || {};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+var esc = H.esc, M = H.money;
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function todayKey(){ var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function dayPage(n){ return n <= 7 ? 'c30-week1.html' : n <= 14 ? 'c30-week2.html' : n <= 21 ? 'c30-week3.html' : n <= 28 ? 'c30-week4.html' : 'c30-graduation.html'; }
+var CHECK_DAYS = {7: 'c30-check1.html', 14: 'c30-check2.html', 21: 'c30-check3.html', 28: 'c30-check4.html', 30: 'c30-assessment.html'};
+
+/* ---------- 30-day calendar ---------- */
+function renderCalendars(){
+  $$('.cal30').forEach(function(c){
+    var html = '', done = 0;
+    for (var n = 1; n <= 30; n++){
+      var st = LS.get('day_' + n), ok = st && st.done; if (ok) done++;
+      var href = './' + (CHECK_DAYS[n] && n !== 30 ? dayPage(n) : dayPage(n)) + '#day-' + n;
+      html += '<a class="cal-day' + (ok ? ' done' : '') + (CHECK_DAYS[n] ? ' check' : '') + '" href="' + href + '"><span class="cd-n">' + n + '</span><span class="cd-s">' + (ok ? '&#10003;' : (CHECK_DAYS[n] ? '&#9733;' : '')) + '</span></a>';
+    }
+    c.innerHTML = '<div class="cal-grid">' + html + '</div><p class="cal-note"><strong>' + done + ' of 30 days complete.</strong> Stars mark your weekly Progress Checks and your final assessment.</p>';
+  });
+  var wf = $('#weekFill'), wl = $('#weekLbl');
+  if (wf && P.days){
+    var d = P.days.filter(function(n){ return (LS.get('day_' + n) || {}).done; }).length;
+    wf.style.width = Math.round(d / P.days.length * 100) + '%';
+    wl.textContent = d + ' of ' + P.days.length + ' days complete';
+  }
+  var nx = $('#weekNext'), note = $('#weekLockNote');
+  if (nx && P.before){
+    var left = P.before.filter(function(n){ return !(LS.get('day_' + n) || {}).done; });
+    if (!left.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'Every day this week is complete. Your Progress Check is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Complete Day ' + left.join(', Day ') + ' to open your Progress Check.'; }
+  }
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    var ok = keys.length && keys.every(function(k){ var p = k.split(':'); return p[0] === 'day' ? (LS.get('day_' + p[1]) || {}).done : p[0] === 'a' ? (LS.get('assess_' + p[1]) || {}).done : p[0] === 'ap' ? (LS.get('assess_' + p[1]) || {}).passed : p[0] === 'baseline' ? !!LS.get('baseline') : false; });
+    a.classList.toggle('completed', !!ok);
+  });
+  $$('.day-status').forEach(function(s){ var n = s.getAttribute('data-n'), st = LS.get('day_' + n); s.textContent = st && st.done ? 'Completed ' + st.date : 'Not yet complete'; s.classList.toggle('ok', !!(st && st.done)); });
+}
+window.C30_refresh = renderCalendars;
+
+/* ---------- 48-hour spending tracker ---------- */
+var DRIVERS = ['Planned purchase', 'Stress', 'Boredom', 'Reward', 'Convenience', 'Social pressure', 'Habit or autopilot'];
+function trkStats(id){
+  var e = LS.get('trk_' + id, []) || [], t = 0, un = 0, by = {}, wants = 0, wantAmt = 0, big = null;
+  e.forEach(function(x){ var a = +x.amount || 0; t += a; if (x.driver !== 'Planned purchase'){ un += a; } by[x.driver] = (by[x.driver] || 0) + a; if (x.nw === 'Want'){ wants++; wantAmt += a; } if (!big || a > big.amount) big = x; });
+  var top = Object.keys(by).filter(function(k){ return k !== 'Planned purchase'; }).sort(function(a,b){ return by[b] - by[a]; })[0] || null;
+  return {entries: e, count: e.length, total: t, unplanned: un, unplannedPct: t ? un / t * 100 : 0, by: by, top: top, wants: wants, wantAmt: wantAmt, wantPct: t ? wantAmt / t * 100 : 0, big: big};
+}
+window.C30_trkStats = trkStats;
+function summaryHtml(id, needs){
+  var s = trkStats(id);
+  if (!s.count) return '<p class="tool-empty">No entries yet. Log every purchase for 48 hours, including the small ones. Especially the small ones.</p>';
+  var h = H.tiles([{v: String(s.count), l: 'Purchases Logged'}, {v: M(s.total), l: 'Total Spent'}, {v: Math.round(s.unplannedPct) + '%', l: 'Unplanned'}].concat(needs ? [{v: Math.round(s.wantPct) + '%', l: 'Spent on Wants'}] : []));
+  h += '<div class="trk-bars">';
+  Object.keys(s.by).sort(function(a,b){ return s.by[b] - s.by[a]; }).forEach(function(k){ var p = s.total ? Math.round(s.by[k] / s.total * 100) : 0;
+    h += '<div class="dim-row"><div class="dim-top"><span>' + esc(k) + '</span><span>' + M(s.by[k]) + ' (' + p + '%)</span></div><div class="dim-bar"><div class="dim-fill ' + (k === 'Planned purchase' ? 'low' : 'mid') + '" style="width:' + Math.max(p, 3) + '%"></div></div></div>'; });
+  h += '</div>';
+  if (s.top) h += '<p class="tool-insight"><strong>What your 48 hours are telling you:</strong> Your biggest unplanned driver was <strong>' + esc(s.top) + '</strong>, at ' + M(s.by[s.top]) + '. If that pattern repeated every 48 hours for a year, it would add up to about <strong>' + M(s.by[s.top] * 182.5) + '</strong>. That\'s not a verdict. It\'s information, and information is where change starts.</p>';
+  else h += '<p class="tool-insight"><strong>What your 48 hours are telling you:</strong> Every purchase you logged was planned. That\'s real discipline. Keep logging honestly, because the unplanned purchases tend to show up when life gets busy.</p>';
+  return h;
+}
+$$('[data-tracker]').forEach(function(box){
+  var id = box.getAttribute('data-tracker'), needs = box.getAttribute('data-mode') === 'needs';
+  var f = $('.trk-form', box), list = $('.trk-list', box), msg = $('.trk-msg', box);
+  function draw(){
+    var e = LS.get('trk_' + id, []) || [];
+    list.innerHTML = e.length ? '<div class="table-wrap"><table class="rsm-table"><thead><tr><th>When</th><th>Item</th><th>Amount</th><th>Feeling</th><th>Driver</th>' + (needs ? '<th>Need or Want</th>' : '') + '<th></th></tr></thead><tbody>' +
+      e.map(function(x, i){ return '<tr><td>' + esc(x.when) + '</td><td>' + esc(x.item) + '</td><td>' + M(x.amount) + '</td><td>' + esc(x.feeling) + '</td><td>' + esc(x.driver) + '</td>' + (needs ? '<td>' + esc(x.nw || '') + '</td>' : '') + '<td><button type="button" class="trk-del" data-i="' + i + '" aria-label="Remove entry">&#215;</button></td></tr>'; }).join('') + '</tbody></table></div>' : '';
+    $$('.trk-summary[data-for="' + id + '"]').forEach(function(s){ s.innerHTML = summaryHtml(id, s.getAttribute('data-mode') === 'needs' || needs); });
+    renderCalendars();
+  }
+  $('.trk-add', box).addEventListener('click', function(){
+    var v = {when: $('[name=when]', f).value.trim(), item: $('[name=item]', f).value.trim(), amount: parseFloat($('[name=amount]', f).value), feeling: $('[name=feeling]', f).value, driver: $('[name=driver]', f).value};
+    if (needs) v.nw = $('[name=nw]', f).value;
+    if (!v.when || !v.item || !(v.amount >= 0) || isNaN(v.amount) || !v.feeling || !v.driver || (needs && !v.nw)){ msg.textContent = 'Fill in every field for this purchase, then tap Add Purchase.'; msg.className = 'trk-msg err'; return; }
+    var e = LS.get('trk_' + id, []) || []; e.push(v); LS.set('trk_' + id, e);
+    ['when','item','amount'].forEach(function(n){ $('[name=' + n + ']', f).value = ''; });
+    msg.textContent = 'Logged. ' + e.length + ' purchase' + (e.length === 1 ? '' : 's') + ' recorded.'; msg.className = 'trk-msg ok';
+    draw();
+  });
+  list.addEventListener('click', function(ev){ var b = ev.target.closest('.trk-del'); if (!b) return; var e = LS.get('trk_' + id, []) || []; e.splice(+b.getAttribute('data-i'), 1); LS.set('trk_' + id, e); draw(); });
+  draw();
+});
+$$('.trk-summary').forEach(function(s){ s.innerHTML = summaryHtml(s.getAttribute('data-for'), s.getAttribute('data-mode') === 'needs'); });
+
+/* ---------- affirmation builder ---------- */
+var NEG = /\b(not|don't|dont|never|no longer|won't|can't|cannot|stop|quit|avoid)\b/i;
+function affChecks(a){
+  var t = String(a || '').trim();
+  return [
+    {ok: /^i\b/i.test(t), t: 'Starts with "I" so it\'s about you and your choices'},
+    {ok: /\b(am|have|choose|keep|save|build|direct|pay|create|make|know|check|protect|invest|give|manage|plan|track|grow|own|decide|live|earn|deserve|use|stay|follow|move|put|see|trust|handle|lead|teach|hold|become|carry)\b/i.test(t), t: 'Uses present-tense action language (I am, I choose, I build)'},
+    {ok: t && !NEG.test(t), t: 'Stated in the positive (what you do, not what you avoid)'},
+    {ok: words(t) >= 7 && words(t) <= 40, t: 'Specific enough to picture, short enough to remember (7 to 40 words)'}
+  ];
+}
+$$('[data-affirm]').forEach(function(box){
+  var id = box.getAttribute('data-affirm'), out = $('.aff-out', box);
+  var saved = LS.get('aff_' + id);
+  if (saved){ ['old','aff','proof'].forEach(function(k){ $('[name=' + k + ']', box).value = saved[k] || ''; }); $('[name=believe]', box).value = saved.believe || ''; }
+  function show(v){
+    var c = affChecks(v.aff), passed = c.filter(function(x){ return x.ok; }).length;
+    var h = '<div class="aff-card"><div class="aff-label">Your Week ' + id.replace('w','') + ' Money Affirmation</div><div class="aff-text">&ldquo;' + esc(v.aff) + '&rdquo;</div><div class="aff-proof"><strong>Proof action:</strong> ' + esc(v.proof) + '</div></div><ul class="aff-checks">';
+    c.forEach(function(x){ h += '<li class="' + (x.ok ? 'ok' : 'no') + '">' + (x.ok ? '&#10003; ' : '&#9888; ') + x.t + '</li>'; });
+    h += '</ul>';
+    var b = +v.believe;
+    if (passed < 4) h += '<p class="tool-insight">Your affirmation works, and it can be stronger. Adjust the items marked with a warning, then save again.</p>';
+    if (b && b <= 4) h += '<p class="tool-insight"><strong>Believability ' + b + '/10.</strong> That\'s honest, and it matters. An affirmation you don\'t believe at all can trigger pushback in your mind. Try a bridge version: "I\'m learning to..." or "I\'m becoming someone who..." Belief grows from evidence, which is why your proof action matters most.</p>';
+    else if (b && b <= 7) h += '<p class="tool-insight"><strong>Believability ' + b + '/10.</strong> This is the sweet spot: believable enough to accept, big enough to stretch you. Your proof action will move this number up.</p>';
+    else if (b) h += '<p class="tool-insight"><strong>Believability ' + b + '/10.</strong> Strong. Make sure it still stretches you. If it feels too easy, raise the target.</p>';
+    out.innerHTML = h;
+  }
+  if (saved) show(saved);
+  $('.aff-save', box).addEventListener('click', function(){
+    var v = {old: $('[name=old]', box).value.trim(), aff: $('[name=aff]', box).value.trim(), proof: $('[name=proof]', box).value.trim(), believe: $('[name=believe]', box).value};
+    var m = $('.aff-msg', box);
+    if (!v.old || !v.aff || !v.proof || !v.believe){ m.textContent = 'Complete all four fields, then save.'; m.className = 'trk-msg err'; return; }
+    v.date = H.today(); LS.set('aff_' + id, v); m.textContent = 'Saved. Say it out loud every morning this week.'; m.className = 'trk-msg ok'; show(v); renderCalendars();
+  });
+});
+
+/* ---------- money move ---------- */
+var PER_YEAR = {'Every payday (twice a month)': 24, 'Every two weeks': 26, 'Weekly': 52, 'Monthly': 12, 'One time': 1};
+$$('[data-move]').forEach(function(box){
+  var id = box.getAttribute('data-move'), out = $('.mv-out', box), fields = ['amount','freq','dest','start','status','notes'];
+  var saved = LS.get('move_' + id);
+  if (saved) fields.forEach(function(k){ var el = $('[name=' + k + ']', box); if (el) el.value = saved[k] || ''; });
+  function show(v){
+    var yr = (+v.amount || 0) * (PER_YEAR[v.freq] || 0), h = '';
+    h += H.tiles([{v: M(v.amount), l: v.freq}, {v: M(yr), l: v.freq === 'One time' ? 'Total Moved' : 'Per Year'}, {v: M(yr * 5), l: v.freq === 'One time' ? 'One-Time Move' : 'Over 5 Years (before interest)'}]);
+    if (v.status === 'Scheduled and confirmed') h += '<p class="tool-insight"><strong>That\'s a real system.</strong> Money is now moving toward ' + esc(v.dest) + ' without needing your willpower. That\'s how Builders operate.</p>';
+    else if (v.status === 'Set up but not yet run') h += '<p class="tool-insight"><strong>Almost there.</strong> Check your account the day after ' + esc(v.start) + ' to confirm the transfer actually ran. A move isn\'t real until you see it land.</p>';
+    else h += '<p class="tool-insight"><strong>Not set up yet.</strong> Do it today, even at $5. The amount matters far less than the fact that the system exists. Update this form once it\'s scheduled.</p>';
+    out.innerHTML = h;
+  }
+  if (saved) show(saved);
+  $('.mv-save', box).addEventListener('click', function(){
+    var v = {}; fields.forEach(function(k){ var el = $('[name=' + k + ']', box); v[k] = el ? el.value.trim() : ''; });
+    var m = $('.mv-msg', box);
+    if (!v.amount || !v.freq || !v.dest || !v.start || !v.status){ m.textContent = 'Complete amount, frequency, destination, start date, and status, then save.'; m.className = 'trk-msg err'; return; }
+    v.date = H.today(); LS.set('move_' + id, v); m.textContent = 'Saved.'; m.className = 'trk-msg ok'; show(v); renderCalendars();
+  });
+});
+
+/* ---------- daily check-in ---------- */
+function reqMet(box){
+  var miss = [];
+  var kc = box.getAttribute('data-need-kc'); if (kc && !(LS.get('kc_' + kc) || {}).passed) miss.push('pass today\'s knowledge check (80% or higher)');
+  var t = box.getAttribute('data-need-tool');
+  if (t){ var p = t.split(':');
+    if (p[0] === 'trk' && ((LS.get('trk_' + p[1], []) || []).length < +p[2])) miss.push('log at least ' + p[2] + ' purchases in your tracker');
+    if (p[0] === 'aff' && !LS.get('aff_' + p[1])) miss.push('save your affirmation');
+    if (p[0] === 'move' && !LS.get('move_' + p[1])) miss.push('save your money move');
+  }
+  var r = box.getAttribute('data-need-ref');
+  if (r) r.split(',').forEach(function(k){ if (words(LS.get('ref_' + k, '')) < 12) miss.push('write at least 12 words in each reflection above'); });
+  return miss.filter(function(x, i, a){ return a.indexOf(x) === i; });
+}
+$$('[data-day]').forEach(function(box){
+  var n = +box.getAttribute('data-day'), msg = $('.ci-msg', box), st = LS.get('day_' + n);
+  function paint(){ st = LS.get('day_' + n); if (st && st.done){ box.classList.add('is-done'); msg.className = 'ci-msg ok'; msg.innerHTML = 'Day ' + n + ' completed on ' + esc(st.date) + '. ' + (n < 30 ? 'Come back tomorrow for Day ' + (n + 1) + '.' : ''); } }
+  if (st && st.done){ $$('input[type=checkbox]', box).forEach(function(c){ c.checked = (st.habits || []).indexOf(c.value) > -1; }); var w = $('[name=win]', box); if (w) w.value = st.win || ''; if (st.mood){ var mb = $('.mood-opt[data-v="' + st.mood + '"]', box); if (mb) mb.classList.add('selected'); } }
+  paint();
+  box.addEventListener('click', function(e){ var m = e.target.closest('.mood-opt'); if (m){ $$('.mood-opt', box).forEach(function(o){ o.classList.remove('selected'); }); m.classList.add('selected'); } });
+  function finish(){
+    var rec = {done: true, date: H.today(), dkey: todayKey(), habits: $$('input[type=checkbox]:checked', box).map(function(c){ return c.value; }), mood: ($('.mood-opt.selected', box) || {getAttribute: function(){ return ''; }}).getAttribute('data-v'), win: ($('[name=win]', box) || {}).value || ''};
+    LS.set('day_' + n, rec); LS.set('last_done', {n: n, dkey: rec.dkey});
+    paint(); renderCalendars();
+    var nextSec = document.getElementById('day-' + (n + 1));
+    if (nextSec) setTimeout(function(){ nextSec.scrollIntoView({behavior: 'smooth'}); }, 600);
+  }
+  $('.ci-done', box).addEventListener('click', function(){
+    var miss = reqMet(box);
+    if (n > 1 && !(LS.get('day_' + (n - 1)) || {}).done) miss.unshift('complete Day ' + (n - 1) + ' first');
+    if (!($('[name=win]', box) || {}).value || !$('[name=win]', box).value.trim()) miss.push('write one win from today');
+    if (!$('.mood-opt.selected', box)) miss.push('choose how you\'re feeling today');
+    if (miss.length){ msg.className = 'ci-msg err'; msg.textContent = 'Before you complete Day ' + n + ', ' + miss.join('; ') + '.'; return; }
+    var last = LS.get('last_done');
+    if (last && last.dkey === todayKey() && last.n !== n && !box.hasAttribute('data-confirmed')){
+      msg.className = 'ci-msg warn';
+      msg.innerHTML = 'You already completed Day ' + last.n + ' today. This challenge is built one day at a time, because each day gives your new habit a night to settle. If you\'re catching up on days you already lived through, you can continue. <button type="button" class="btn btn-outline ci-confirm" style="margin-top:0.6rem">I\'m catching up. Complete Day ' + n + '</button>';
+      $('.ci-confirm', box).addEventListener('click', function(){ box.setAttribute('data-confirmed', '1'); finish(); });
+      return;
+    }
+    finish();
+  });
+});
+renderCalendars();
+})();
+
+</script>
+</body>
+</html>
