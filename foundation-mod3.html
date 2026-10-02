@@ -649,5 +649,146 @@ Remaining unallocated: $0</p>
 <footer class="course-footer">
   © 2026 <span>Right Side of Money</span>. All Rights Reserved. | Course content by Darrell Thompson
 </footer>
+<!-- RSM-TRACK:START -->
+<style id="rsm-track-css">
+.rt-card{background:#0D1F3C;border-top:4px solid #C9941A;border-radius:2px;padding:28px;margin:0 0 28px;box-shadow:0 14px 34px rgba(13,31,60,0.22);}
+.rt-card .rt-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.rt-card h2{font-family:'Playfair Display',Georgia,serif;color:#fff!important;font-size:clamp(22px,3vw,30px);margin:0 0 10px!important;border:0!important;padding:0!important;}
+.rt-card p{color:rgba(255,255,255,0.78)!important;font-size:15px;line-height:1.7;margin:0 0 14px;}
+.rt-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-bottom:10px;}
+.rt-card input[type=text],.rt-card input[type=email]{width:100%;padding:13px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(201,148,26,0.4);border-radius:2px;color:#fff;font-size:15px;font-family:inherit;}
+.rt-card input:focus{outline:none;border-color:#E8B84B;}
+.rt-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.65);margin:4px 0 14px;line-height:1.5;}
+.rt-check input{margin-top:3px;accent-color:#C9941A;}
+.rt-btn{background:#C9941A;color:#0D1F3C;border:0;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:15px 26px;border-radius:2px;cursor:pointer;width:100%;font-family:inherit;}
+.rt-btn:hover{background:#E8B84B;}
+.rt-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+.rt-hi{display:flex;gap:12px;align-items:center;background:rgba(201,148,26,0.1);border-left:4px solid #C9941A;padding:12px 16px;margin:0 0 24px;font-size:14px;color:#333;border-radius:2px;}
+.rt-hi strong{color:#0D1F3C;}
+body.rt-lock .lesson-main>*:not(#rtReg):not(script):not(style){display:none!important;}
+body.wv-lock .lesson-main>#rtReg{opacity:1!important;filter:none!important;pointer-events:auto!important;user-select:auto!important;}
+@media(max-width:600px){.rt-row{grid-template-columns:minmax(0,1fr);}}
+</style>
+<script>
+(function(){
+  var C = {"id": "fdn", "name": "RSM Foundation Course", "form": "https://formspree.io/f/xwlpwzzn", "portal": "foundation-portal.html", "kit": "9981618", "kind": "lesson"};
+  var KEY = 'rsm_track_' + C.id;
+  function get(){ try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){ return null; } }
+  function put(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function sent(tag){ try { return localStorage.getItem(KEY + '_sent_' + tag) === '1'; } catch(e){ return false; } }
+  function mark(tag){ try { localStorage.setItem(KEY + '_sent_' + tag, '1'); } catch(e){} }
+  function post(fields){
+    var fd = new FormData(); var who = get() || {};
+    fd.append('name', who.name || 'Unknown student'); fd.append('email', who.email || 'Not provided');
+    if (who.email) fd.append('_replyto', who.email);
+    fd.append('course', C.name);
+    for (var k in fields) fd.append(k, fields[k]);
+    try { fetch(C.form, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
+  }
+  var main = document.querySelector('.lesson-main') || document.querySelector('main') || document.body;
+
+  /* ---------- Course Home: register before starting ---------- */
+  if (C.kind === 'portal') {
+    var me = get();
+    var card = document.createElement('section'); card.className = 'rt-card'; card.id = 'rtReg';
+    if (!me) {
+      card.innerHTML = '<div class="rt-eyebrow">Step 1: Check In</div><h2>Let\'s Get You Started</h2>' +
+        '<p>Enter your name and email to begin the ' + C.name + '. Darrell follows every student\'s progress personally, so this is how he knows you\'ve started and can support you along the way.</p>' +
+        '<form id="rtForm" novalidate><div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><input type="text" id="rtCo" tabindex="-1" autocomplete="off"></div>' +
+        '<div class="rt-row"><input type="text" id="rtFirst" placeholder="First name" autocomplete="given-name"><input type="text" id="rtLast" placeholder="Last name" autocomplete="family-name"></div>' +
+        '<input type="email" id="rtEmail" placeholder="Email you enrolled with" autocomplete="email" style="margin-bottom:10px">' +
+        '<label class="rt-check"><input type="checkbox" id="rtOpt" checked> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+        '<button type="submit" class="rt-btn">Start My Course &rarr;</button><p class="rt-msg" id="rtMsg"></p></form>';
+      main.insertBefore(card, main.firstChild);
+      document.body.classList.add('rt-lock');
+      var T0 = Date.now();
+      document.getElementById('rtForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        var f = document.getElementById('rtFirst').value.trim(), l = document.getElementById('rtLast').value.trim(), em = document.getElementById('rtEmail').value.trim();
+        if (!f || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { document.getElementById('rtMsg').textContent = 'Please enter your first name and a valid email.'; return; }
+        var bot = !!document.getElementById('rtCo').value || (Date.now() - T0) < 3000;
+        var who = {name: (f + ' ' + l).trim(), first: f, email: em, started: new Date().toISOString()};
+        put(who);
+        if (!bot) {
+          post({_subject: 'Course Started | ' + C.name + ' | ' + who.name, event: 'Started the course', started_at: new Date().toLocaleString()});
+          mark('start');
+          if (document.getElementById('rtOpt').checked) {
+            var kf = new FormData(); kf.append('email_address', em); kf.append('fields[first_name]', f);
+            try { fetch('https://app.kit.com/forms/' + C.kit + '/subscriptions', {method: 'POST', body: kf, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(err){}
+          }
+        }
+        document.body.classList.remove('rt-lock');
+        card.className = 'rt-hi'; card.innerHTML = '<span>&#10003;</span><span>Welcome, <strong>' + f.replace(/[<>&"]/g, '') + '</strong>. You\'re checked in. Start with the welcome video below.</span>';
+        card.scrollIntoView({behavior: 'smooth', block: 'start'});
+      });
+      document.addEventListener('click', function(e){
+        if (!document.body.classList.contains('rt-lock')) return;
+        var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+        var h = a.getAttribute('href') || '';
+        if (/\.html/.test(h) && h.indexOf(C.portal) < 0 && !/courses\.html|index\.html|^https?:/.test(h) && a.closest('aside, .lesson-main, .sidebar')) {
+          e.preventDefault(); card.scrollIntoView({behavior: 'smooth', block: 'center'}); document.getElementById('rtMsg').textContent = 'Please check in first so Darrell can follow your progress.';
+        }
+      }, true);
+    } else {
+      card.className = 'rt-hi'; card.innerHTML = '<span>&#10003;</span><span>Welcome back, <strong>' + (me.first || me.name).replace(/[<>&"]/g, '') + '</strong>. Pick up right where you left off.</span>';
+      main.insertBefore(card, main.firstChild);
+    }
+    return;
+  }
+
+  /* ---------- Lesson pages: notify when the knowledge check is passed ---------- */
+  if (C.kind === 'lesson') {
+    if (!get()) {
+      var nb = document.createElement('div'); nb.className = 'rt-hi';
+      nb.innerHTML = '<span>&#9888;</span><span>You haven\'t checked in yet. <a href="./' + C.portal + '" style="color:#B07A0C;font-weight:700">Go to Course Home</a> and enter your name so Darrell can follow your progress.</span>';
+      main.insertBefore(nb, main.firstChild);
+    }
+    var lessonTitle = (document.title || '').split('|')[0].trim();
+    function reflections(){
+      var out = [];
+      main.querySelectorAll('textarea').forEach(function(t, i){
+        var wrap = t.closest('.reflection-q, .ref-q, .reflection-item') || t.parentElement; var lab = wrap ? wrap.querySelector('label, .ref-qlabel, .ref-label, .reflection-label') : null;
+        var q = lab ? lab.textContent.trim().replace(/^\d+[.)]?\s*/, '') : 'Reflection ' + (i + 1);
+        if (t.value.trim()) out.push((i + 1) + '. ' + q + '\n' + t.value.trim());
+      });
+      return out.join('\n\n') || 'No reflections written yet.';
+    }
+    var orig = Storage.prototype.setItem;
+    Storage.prototype.setItem = function(k, v){
+      orig.apply(this, arguments);
+      try {
+        var m = /^rsm_quiz_(.+)_passed$/.exec(k);
+        if (m && String(v) === '1' && !sent('lesson_' + m[1])) {
+          mark('lesson_' + m[1]);
+          var who = get() || {};
+          post({_subject: 'Lesson Completed | ' + C.name + ' | ' + lessonTitle + ' | ' + (who.name || 'Unknown student'), event: 'Passed the knowledge check', lesson: lessonTitle, completed_at: new Date().toLocaleString(), reflections: reflections()});
+        }
+      } catch(e){}
+    };
+    return;
+  }
+
+  /* ---------- Final assessment: notify with the result ---------- */
+  if (C.kind === 'final') {
+    var done = false;
+    function check(){
+      if (done) return;
+      var res = document.getElementById('fa-result') || document.getElementById('result-area');
+      if (!res || res.style.display !== 'block' || !res.textContent.trim()) return;
+      var score = (document.getElementById('fa-score-num') || res.querySelector('.score-big') || {}).textContent || '';
+      if (!score) return;
+      done = true;
+      var detail = res.innerText.replace(/\s+\n/g, '\n').slice(0, 1500);
+      var passEl = document.getElementById('fa-pass-msg');
+      var status = passEl ? (passEl.style.display === 'block' ? 'PASSED' : 'NOT YET PASSED') : '';
+      var who = get() || {};
+      post({_subject: 'Final Assessment | ' + C.name + ' | ' + (who.name || 'Unknown student') + ' | ' + score.trim() + (status ? ' ' + status : ''), event: 'Completed the final assessment', score: score.trim(), status: status, completed_at: new Date().toLocaleString(), result_details: detail});
+      setTimeout(function(){ done = false; }, 4000); /* allow a retake to report again */
+    }
+    new MutationObserver(check).observe(document.body, {subtree: true, attributes: true, attributeFilter: ['style'], childList: true});
+  }
+})();
+</script>
+<!-- RSM-TRACK:END -->
 </body>
 </html>
