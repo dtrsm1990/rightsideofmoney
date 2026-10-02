@@ -534,5 +534,31 @@ menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",functi
 if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
 })();
 </script>
+<script>
+(function(){
+  var form = document.getElementById('speakerForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var btn = form.querySelector('button[type="submit"]'), label = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+    var data = new FormData(form);
+    var name = ((data.get('firstName') || '') + ' ' + (data.get('lastName') || '')).trim();
+    data.append('_subject', 'Speaker Booking Request | ' + name + ' | ' + (data.get('organization') || '') + (data.get('eventDate') ? ' | ' + data.get('eventDate') : ''));
+    if (data.get('email')) data.append('_replyto', data.get('email'));
+    data.append('source_page', 'Speaker Booking Form (speaker-form.html)');
+    function fail(){ if (btn) { btn.disabled = false; btn.textContent = label; } alert('Something went wrong sending your inquiry. Please try again, or email rsmbooking@rightsideofmoney.com directly.'); }
+    fetch('https://formspree.io/f/xpqkkovj', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+      .then(function(r){
+        if (!r.ok) return fail();
+        form.style.display = 'none';
+        var em = document.getElementById('submittedEmail'); if (em) em.textContent = data.get('email') || 'you';
+        var ok = document.getElementById('successMsg'); if (ok) { ok.style.display = 'block'; ok.classList.add('show', 'visible', 'active'); ok.scrollIntoView({behavior: 'smooth', block: 'center'}); }
+      })
+      .catch(fail);
+  });
+})();
+</script>
 </body>
 </html>

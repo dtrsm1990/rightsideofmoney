@@ -340,7 +340,7 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 <div style="background:#FAF7F2;padding:80px 40px;" class="padded">
   <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2.5fr;gap:60px;align-items:center;" class="two-col">
     <div class="fade-up" style="display:flex;justify-content:center;">
-      <img src="https://static.wixstatic.com/media/0f36f8_b271dcf6dbfa4840a249ea558af27e2e~mv2.jpeg" alt="Darrell Thompson" style="width:100%;max-width:240px;border-radius:4px;box-shadow:16px 16px 48px rgba(13,31,60,0.2);">
+      <img src="./darrell-headshot.jpg" alt="Darrell Thompson" style="width:100%;max-width:240px;border-radius:4px;box-shadow:16px 16px 48px rgba(13,31,60,0.2);">
     </div>
     <div class="fade-up">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;"><div style="width:32px;height:2px;background:#C9941A;"></div><span style="font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#C9941A;">Why Darrell</span></div>
@@ -447,127 +447,30 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 })();
 </script>
 <script>
- else {
-    menu.classList.add('open');
+(function(){
+  var ticker = document.getElementById('tickerTrack');
+  if (ticker) {
+    var pos = 0;
+    setInterval(function(){ pos -= 0.5; if (pos < -(ticker.scrollWidth / 2)) pos = 0; ticker.style.transform = 'translateX(' + pos + 'px)'; }, 16);
   }
-}
-
-document.addEventListener('click', function(e) {
-  var menu = document.getElementById('mobileMenu');
-  var btn = document.getElementById('hamburgerBtn');
-  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
-    menu.classList.remove('open');
-  }
-});
-
-var links = document.querySelectorAll(');
-}
-
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(el) {
-    if (el.isIntersecting) el.target.classList.add('visible');
-  });
-}, { threshold: 0.08 });
-var fadeEls = document.querySelectorAll('.fade-up');
-for (var j = 0; j < fadeEls.length; j++) {
-  observer.observe(fadeEls[j]);
-}
-
-var ticker = document.getElementById('tickerTrack');
-if (ticker) {
-  var speed = 0.5;
-  var pos = 0;
-  setInterval(function() {
-    pos -= speed;
-    if (pos < -(ticker.scrollWidth / 2)) pos = 0;
-    ticker.style.transform = 'translateX(' + pos + 'px)';
-  }, 16);
-}
-
-var form = document.getElementById('speakingTopicForm');
-if (form) {
-  form.addEventListener('submit', function(e) {
+  var form = document.getElementById('speakingTopicForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
     e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var btn = form.querySelector('button[type="submit"]'), label = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
     var data = new FormData(form);
-    fetch('https://formspree.io/f/xpqkkovj', {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    }).then(function(r) {
-      if (r.ok) {
-        form.style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      } else {
-        alert('Please email rsmbooking@rightsideofmoney.com directly.');
-      }
-    }).catch(function() {
-      alert('Please email rsmbooking@rightsideofmoney.com directly.');
-    });
+    var name = ((data.get('firstName') || '') + ' ' + (data.get('lastName') || '')).trim();
+    data.append('_subject', 'Speaking Inquiry | ' + (data.get('topic') || 'Topic Page') + ' | ' + name + ' | ' + (data.get('organization') || ''));
+    if (data.get('email')) data.append('_replyto', data.get('email'));
+    data.append('source_page', document.title);
+    function fail(){ if (btn) { btn.disabled = false; btn.textContent = label; } alert('Something went wrong sending your inquiry. Please try again, or email rsmbooking@rightsideofmoney.com directly.'); }
+    fetch('https://formspree.io/f/xpqkkovj', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+      .then(function(r){ if (r.ok) { form.style.display = 'none'; var ok = document.getElementById('formSuccess'); if (ok) { ok.style.display = 'block'; ok.scrollIntoView({behavior: 'smooth', block: 'center'}); } } else { fail(); } })
+      .catch(fail);
   });
-}
-
-  
-  </script><script>
- else {
-    menu.classList.add('open');
-  }
-}
-
-document.addEventListener('click', function(e) {
-  var menu = document.getElementById('mobileMenu');
-  var btn = document.getElementById('hamburgerBtn');
-  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
-    menu.classList.remove('open');
-  }
-});
-
-var links = document.querySelectorAll(');
-}
-
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(el) {
-    if (el.isIntersecting) el.target.classList.add('visible');
-  });
-}, { threshold: 0.08 });
-var fadeEls = document.querySelectorAll('.fade-up');
-for (var j = 0; j < fadeEls.length; j++) {
-  observer.observe(fadeEls[j]);
-}
-
-var ticker = document.getElementById('tickerTrack');
-if (ticker) {
-  var speed = 0.5;
-  var pos = 0;
-  setInterval(function() {
-    pos -= speed;
-    if (pos < -(ticker.scrollWidth / 2)) pos = 0;
-    ticker.style.transform = 'translateX(' + pos + 'px)';
-  }, 16);
-}
-
-var form = document.getElementById('speakingTopicForm');
-if (form) {
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var data = new FormData(form);
-    fetch('https://formspree.io/f/xpqkkovj', {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    }).then(function(r) {
-      if (r.ok) {
-        form.style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      } else {
-        alert('Please email rsmbooking@rightsideofmoney.com directly.');
-      }
-    }).catch(function() {
-      alert('Please email rsmbooking@rightsideofmoney.com directly.');
-    });
-  });
-}
-
-  
-  </script>
+})();
+</script>
 </body>
 </html>
