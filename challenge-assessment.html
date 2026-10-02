@@ -133,6 +133,14 @@ a:hover { color: var(--gold-lt); }
   .day-hero { padding: 28px 20px; }
   .content-section { padding: 24px 16px; }
 }
+
+    /* mobile width fix */
+    .course-wrap{grid-template-columns:260px minmax(0,1fr);}
+    .lesson-main{min-width:0;overflow-wrap:break-word;}
+    @media(max-width:768px){.course-wrap{grid-template-columns:minmax(0,1fr)!important;}.rsm-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
+  
+/* nav wrap fix */
+@media(max-width:768px){.site-nav{flex-wrap:wrap;gap:8px 16px;}.nav-links{flex-wrap:wrap;gap:10px 16px;padding:0;margin:0;}}
 </style>
 </head>
 <body>
