@@ -354,7 +354,7 @@ document.getElementById('acFiles').addEventListener('change', function(){
     }
     var s = A.score(d.m['cp' + N]);
     el.innerHTML = '<div class="ac-done"><span class="ico">&#10003;</span><p><strong>Submitted ' + A.date(sub.at) + '.</strong> Index recorded: ' + s.total + '/100. Darrell is reviewing your evidence. When it\'s verified, he\'ll email your code. If he asks for a revision, resubmit below.</p></div><div id="acCodeBox"></div>' +
-      '<p><button type="button" class="ac-btn ghost" id="acResub">Resubmit With Revisions</button></p>';
+      '<p><button type="button" class="ac-btn ghost" id="acResub">Resubmit With Revisions</button></p>' + '<section class="ac-card"><div class="ac-eyebrow">Your Progress Report</div><h2>' + A.analysis(d, N).title + '</h2><p class="ac-muted">A copy was emailed to you and to Darrell.</p>' + A.analysis(d, N).html + '</section>';
     A.mountCode($('acCodeBox'), N, function(){ location.reload(); });
     form.style.display = 'none';
     $('acResub').addEventListener('click', function(){ form.style.display = 'block'; this.style.display = 'none'; form.scrollIntoView({behavior: 'smooth'}); });
@@ -374,7 +374,8 @@ document.getElementById('acFiles').addEventListener('change', function(){
       checkpoint: 'Checkpoint 2', measurements: A.metricsText(mm), baseline_index: base.total, what_changed: ch, where_i_fell_short: sh, my_standard_next: nx,
       debt_change_since_baseline: A.money((+d.m.cp0.debt) - mm.debt) + ' paid down', emergency_fund_change: A.money(mm.ef - (+d.m.cp0.ef)) + ' added',
       verify_with: 'Open acc1-verify.html to issue the code for this student'}, fl.files).then(function(){
-      A.update(function(x){ var now = new Date().toISOString(); mm.at = now; x.m['cp' + N] = mm; x.cp = x.cp || {}; if (!x.cp[N]) x.cp[N] = {at: now}; else { x.cp[N].resub = (x.cp[N].resub || []).concat(now); } });
+      A.update(function(x){ var now = new Date().toISOString(); mm.at = now; x.m['cp' + N] = mm; x.cp = x.cp || {}; if (!x.cp[N]) x.cp[N] = {at: now}; else { x.cp[N].resub = (x.cp[N].resub || []).concat(now); }  x.cp[N].changed = ch; x.cp[N].short = sh; x.cp[N].next = nx; });
+      A.sendReport(N);
       b.disabled = false; b.textContent = 'Submit Checkpoint 2 for Verification →'; status(); window.scrollTo(0, 0);
     }).catch(function(){ b.disabled = false; b.textContent = 'Submit Checkpoint 2 for Verification →'; fail('Your submission didn\'t go through. Check your connection and file sizes, then try again.'); });
   });

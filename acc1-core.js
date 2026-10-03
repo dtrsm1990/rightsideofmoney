@@ -229,6 +229,108 @@
     el.innerHTML = h;
   };
 
+  /* ---------- Progress Report: numbers + execution record + patterns from the student's own logs ---------- */
+  var REPORT_TPL = 'template_qmceg0h';
+  var THEMES = [
+    {k: 'Dining and food spending', re: /\b(eat(ing)? out|ate out|restaurants?|take ?out|door ?dash|uber ?eats|grubhub|fast food|lunch|dinner|coffee|starbucks|drive[- ]?thru|delivery)\b/i,
+     fix: 'Plan the week\'s meals during your Money Meeting, set a written dining limit, and remove delivery apps for the next phase.'},
+    {k: 'Shopping and impulse buys', re: /\b(amazon|shopping|shopped|impulse|online|sales?|clothes|shoes|target|walmart|cart)\b/i,
+     fix: 'Apply the 24-hour rule to every unplanned purchase and delete saved cards from shopping apps.'},
+    {k: 'Stress and emotions', re: /\b(stress(ed|ful)?|anxious|anxiety|overwhelm(ed|ing)?|tired|exhausted|bored|frustrat(ed|ing)|upset|emotional)\b/i,
+     fix: 'Write one if-then rule for your stress trigger, and put a 24-hour pause between how you feel and what you spend.'},
+    {k: 'Time and consistency', re: /\b(forgot|forget|busy|no time|schedule|behind|procrastinat\w*|missed|slipped)\b/i,
+     fix: 'This needs a calendar, not more effort. Block a fixed daily time for tracking and a fixed weekly time for your Money Meeting, with reminders.'},
+    {k: 'Family and social pressure', re: /\b(family|kids|children|friends?|wife|husband|partner|spouse|birthday|holidays?|party|wedding|relatives?|cousin|mom|dad)\b/i,
+     fix: 'Decide in advance what you\'ll spend when other people are involved, give social spending its own category, and practice saying "that isn\'t in my plan this month."'},
+    {k: 'Unexpected expenses', re: /\b(car|repair|medical|doctor|unexpected|emergency|tow|tires?|broke down|vet|dentist)\b/i,
+     fix: 'Surprises keep hitting your plan. Make the emergency buffer the priority and open sinking funds for the expenses you can predict.'},
+    {k: 'Avoidance', re: /\b(avoid(ed|ing)?|didn'?t (look|check)|ignor(e|ed|ing)|scared|afraid|didn'?t want to|put (it )?off)\b/i,
+     fix: 'Avoidance is showing up in your own words. Look at your accounts for two minutes every day at the same time until it stops feeling like an event.'},
+    {k: 'Income pressure', re: /\b(hours (got )?cut|overtime|paycheck|short on money|not enough money|laid off|lost (my )?job|income)\b/i,
+     fix: 'Income is part of the pressure. Protect your minimums first, track honestly, and identify one income lever to pull this phase.'}
+  ];
+  var FOCUS = {
+    sav: 'Raise your automatic payday transfer, even by $25, and redirect every recovered dollar the same day.',
+    ef: 'Feed the emergency buffer first: one jumpstart deposit this week and a larger automatic transfer.',
+    dti: 'Send every extra dollar to your target debt and ask at least one creditor for a lower rate.',
+    credit: 'Bring each card under 30% utilization and keep every account on autopay.',
+    ontime: 'Put autopay on every minimum payment today. One missed payment can undo weeks of progress.',
+    track: 'Track every day within 24 hours. Attach it to something you already do daily.',
+    budget: 'Hold your Weekly Money Meeting without fail and move money between categories on purpose.',
+    mind: 'Reread your Commitment Contract every Sunday and keep one small promise to yourself every day.'
+  };
+  function eh(t){ return '<div style="font-family:Georgia,serif;font-size:19px;font-weight:bold;color:#0D1F3C;margin:26px 0 10px;padding-top:14px;border-top:1px solid #EEE6D2">' + t + '</div>'; }
+  function ep(t){ return '<p style="margin:0 0 12px;font-size:15px;line-height:1.65;color:#333">' + t + '</p>'; }
+  function arrow(x){ return x > 0 ? '<span style="color:#1A6B3C;font-weight:bold">&#9650; +' + x + '</span>' : x < 0 ? '<span style="color:#9B1C1C;font-weight:bold">&#9660; ' + x + '</span>' : '<span style="color:#888">no change</span>'; }
+  A.analysis = function(d, n){
+    var base = d.m.cp0, cur = d.m['cp' + n], prev = n > 1 ? d.m['cp' + (n - 1)] : base;
+    var sb = A.score(base), sc = A.score(cur), sp = A.score(prev), weeks = 2 * n;
+    var title = n === 4 ? 'Final Results Report' : 'Checkpoint ' + n + ' Progress Report';
+    var h = '';
+    /* headline */
+    h += '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;margin:0 0 6px"><tr>' +
+      '<td style="background:#0D1F3C;padding:16px;text-align:center;width:33%"><div style="font-family:Georgia,serif;font-size:30px;color:#E8B84B;font-weight:bold">' + sc.total + '</div><div style="font-size:11px;letter-spacing:1px;color:#ccc">INDEX NOW</div></td>' +
+      '<td style="background:#0D1F3C;padding:16px;text-align:center;width:33%;border-left:1px solid #24375a"><div style="font-family:Georgia,serif;font-size:30px;color:#E8B84B;font-weight:bold">' + (sc.total - sb.total >= 0 ? '+' : '') + (sc.total - sb.total) + '</div><div style="font-size:11px;letter-spacing:1px;color:#ccc">SINCE BASELINE</div></td>' +
+      '<td style="background:#0D1F3C;padding:16px;text-align:center;border-left:1px solid #24375a"><div style="font-family:Georgia,serif;font-size:30px;color:#E8B84B;font-weight:bold">' + (n > 1 ? ((sc.total - sp.total >= 0 ? '+' : '') + (sc.total - sp.total)) : sb.total) + '</div><div style="font-size:11px;letter-spacing:1px;color:#ccc">' + (n > 1 ? 'SINCE LAST CHECKPOINT' : 'BASELINE INDEX') + '</div></td></tr></table>';
+    /* measures table */
+    h += eh('Measure by Measure');
+    h += '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:13px"><tr style="background:#0D1F3C;color:#E8B84B"><td style="padding:8px">Measure</td><td style="padding:8px">Baseline</td><td style="padding:8px">Now</td><td style="padding:8px">' + (n > 1 ? 'Since last' : 'Change') + '</td></tr>' +
+      sc.parts.map(function(p, i){ return '<tr style="background:' + (i % 2 ? '#F7F5EF' : '#FFF') + '"><td style="padding:8px;font-weight:bold;color:#0D1F3C">' + p.label + '</td><td style="padding:8px;color:#555">' + A.esc(sb.parts[i].raw) + '</td><td style="padding:8px;color:#333">' + A.esc(p.raw) + '</td><td style="padding:8px">' + arrow(Math.round(p.s - sp.parts[i].s)) + '</td></tr>'; }).join('') + '</table>';
+    /* what the numbers say */
+    var gains = sc.parts.map(function(p, i){ return {p: p, g: p.s - sb.parts[i].s}; }).sort(function(a, b){ return b.g - a.g; });
+    var weakest = sc.parts.slice().sort(function(a, b){ return a.s - b.s; })[0];
+    var debt = (+base.debt) - (+cur.debt), ef = (+cur.ef) - (+base.ef);
+    h += eh('What the Numbers Say');
+    h += ep('<strong>Biggest gain:</strong> ' + gains[0].p.label + ' (' + A.esc(gains[0].p.raw) + ').' + (gains[0].g <= 0 ? ' No measure has improved since baseline yet. That has to change in the next phase.' : ''));
+    h += ep('<strong>Weakest measure right now:</strong> ' + weakest.label + ' at ' + A.esc(weakest.raw) + '. The target is ' + weakest.target + '.');
+    h += ep('<strong>Debt:</strong> ' + (debt >= 0 ? A.money(debt) + ' paid down since baseline.' : 'up ' + A.money(-debt) + ' since baseline. New debt breaks the rules of this program; address it in your next log.') +
+      ' <strong>Emergency fund:</strong> ' + (ef >= 0 ? A.money(ef) + ' added.' : 'down ' + A.money(-ef) + '. If it was a true emergency, the fund did its job. Rebuild it now.'));
+    /* execution record */
+    var st = {Done: 0, 'Partially done': 0, 'Not done': 0}, days = 0, mtgY = 0, mtgN = 0, logged = 0;
+    for (var w = 1; w <= weeks; w++){ var L = d.wk && d.wk[w]; if (!L) continue; logged++; st[L.status] = (st[L.status] || 0) + 1; days += +L.days || 0; if (w > 1){ if (L.mtg === 'Yes') mtgY++; else if (L.mtg === 'No') mtgN++; } }
+    var doneRate = logged ? st.Done / logged : 0, trackRate = logged ? days / (7 * logged) : 0;
+    var strikes = A.strikes(d).length;
+    var rating = doneRate >= 0.75 && trackRate >= 0.8 ? 'Strong' : (doneRate < 0.5 || trackRate < 0.5) ? 'Needs immediate correction' : 'Inconsistent';
+    h += eh('Your Execution Record');
+    h += ep('<strong>Execution rating: ' + rating + '.</strong> Field Assignments: ' + st.Done + ' done, ' + st['Partially done'] + ' partial, ' + st['Not done'] + ' not done, out of ' + weeks + ' weeks. Spending tracked on ' + days + ' of ' + (7 * logged) + ' days (' + Math.round(trackRate * 100) + '%). Money Meetings held: ' + mtgY + ' of ' + (mtgY + mtgN) + '. Strikes on record: ' + strikes + '.');
+    /* patterns from their own words */
+    var hits = THEMES.map(function(t){ var wk = []; for (var w = 1; w <= weeks; w++){ var L = d.wk && d.wk[w]; if (L && t.re.test([L.res, L.set, L.drill, L.did].join(' '))) wk.push(w); } return {t: t, wk: wk}; })
+      .filter(function(x){ return x.wk.length; }).sort(function(a, b){ return b.wk.length - a.wk.length; }).slice(0, 3);
+    h += eh('Patterns in Your Own Words');
+    if (hits.length){
+      h += ep('These themes came up in your weekly logs, in your own words:');
+      h += hits.map(function(x){ return '<div style="background:#FBF7EE;border-left:4px solid #C9941A;padding:12px 14px;margin:0 0 10px"><div style="font-weight:bold;color:#0D1F3C;font-size:15px">' + x.t.k + (x.wk.length > 1 ? ' (recurring)' : '') + '</div><div style="font-size:13px;color:#777;margin:2px 0 6px">Mentioned in Week ' + x.wk.join(', Week ') + '</div><div style="font-size:14px;color:#333;line-height:1.6">' + x.t.fix + '</div></div>'; }).join('');
+    } else ep('No recurring obstacle showed up in your logs. Either you\'re executing cleanly, or your logs are too general to show a pattern. Be specific: what happened, when, and what it cost.');
+    var lens = [], nd = [];
+    for (var w2 = 1; w2 <= weeks; w2++){ var L2 = d.wk && d.wk[w2]; if (!L2) continue; lens.push(((L2.res || '') + (L2.set || '')).length); if (L2.status !== 'Done' && L2.set) nd.push('Week ' + w2 + ': "' + A.esc(L2.set.slice(0, 220)) + '"'); }
+    if (lens.length && lens.reduce(function(a, b){ return a + b; }, 0) / lens.length < 60) h += ep('<strong>Note:</strong> your Resistance and Setbacks answers are short. Vague logs hide patterns, and patterns are what you need to see.');
+    if (nd.length) h += ep('<strong>Where you said you fell short:</strong><br>' + nd.join('<br>'));
+    /* their own corrections */
+    var fixes = [];
+    for (var w3 = 2 * n - 1; w3 <= weeks; w3++){ var L3 = d.wk && d.wk[w3]; if (L3 && L3.fix) fixes.push('Week ' + w3 + ': "' + A.esc(L3.fix) + '"'); }
+    var cpn = d.cp && d.cp[n];
+    h += eh(n === 4 ? 'Your Standard for the Next 90 Days' : 'The Standard You Set for Yourself');
+    if (fixes.length) h += ep('<strong>Your corrections:</strong><br>' + fixes.join('<br>'));
+    if (cpn && cpn.next) h += ep('<strong>Your standard going forward:</strong> "' + A.esc(cpn.next) + '"');
+    h += ep('These are your words, not Darrell\'s. Hold yourself to them.');
+    /* focus */
+    h += eh(n === 4 ? 'Your Focus After Graduation' : 'Your Focus for Phase ' + (n + 1));
+    h += '<ol style="margin:0 0 12px 18px;padding:0;font-size:15px;line-height:1.65;color:#333"><li style="margin-bottom:6px"><strong>' + weakest.label + ':</strong> ' + FOCUS[weakest.k] + '</li>' +
+      (hits.length ? '<li style="margin-bottom:6px"><strong>' + hits[0].t.k + ':</strong> ' + hits[0].t.fix + '</li>' : '') +
+      (rating !== 'Strong' ? '<li style="margin-bottom:6px"><strong>Execution:</strong> complete every Field Assignment fully and track all 7 days, every week. Partial work produces partial results.</li>' : '<li style="margin-bottom:6px"><strong>Execution:</strong> your consistency is strong. Protect it. Don\'t let a good phase turn into a relaxed one.</li>') + '</ol>';
+    return {title: title, html: h};
+  };
+  A.sendReport = function(n){
+    if (!REPORT_TPL) return;
+    var d = A.load(); if (!d.me || !d.m || !d.m['cp' + n]) return;
+    var r = A.analysis(d, n);
+    var intro = n === 4 ? 'Here\'s your Final Results Report: eight weeks of your numbers and your own words, side by side. Darrell is reviewing your final evidence now, and your verification decision will come in a separate email.'
+      : 'Here\'s your Checkpoint ' + n + ' Progress Report, built from your measurements and your own weekly logs. Darrell is reviewing your evidence now, and your verification decision will come in a separate email.';
+    var body = JSON.stringify({service_id: 'service_65dy311', template_id: REPORT_TPL, user_id: 'gkDCipr-1PUVhTb5X', template_params: {
+      to_name: d.me.first, to_email: d.me.email, program: PROGRAM, report_title: r.title, intro: intro, report_html: r.html}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+
   /* ---------- verification code entry ---------- */
   A.mountCode = function(el, n, onOk){
     if (!el) return;

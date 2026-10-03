@@ -375,7 +375,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
     A.post({_subject: 'ACC L1 | Week ' + W + ' Log | ' + d.me.first + ' ' + d.me.last + ' | ' + st.value.toUpperCase(), week: 'Week ' + W + ': Take Control of Your Credit', assignment_status: st.value,
       what_i_did: proof, wins: $('lg_win').value.trim(), resistance: $('lg_res').value.trim(), setbacks: $('lg_set').value.trim(), days_tracked: days + ' of 7',
       money_meeting: mt ? mt.value : 'n/a', correction: fix, mindset_drill: drill}).then(function(){
-      A.update(function(x){ x.wk = x.wk || {}; x.wk[W] = {at: new Date().toISOString(), status: st.value}; });
+      A.update(function(x){ x.wk = x.wk || {}; x.wk[W] = {at: new Date().toISOString(), status: st.value, did: proof, win: $('lg_win').value.trim(), res: $('lg_res').value.trim(), set: $('lg_set').value.trim(), days: +days, mtg: mt ? mt.value : '', fix: fix, drill: Array.prototype.map.call(document.querySelectorAll('#acDrill textarea'), function(t){ return t.value.trim(); }).join(' ')}; });
       done(); A.sidebar && A.sidebar();
     }).catch(function(){ b.disabled = false; b.textContent = 'Submit Week ' + W + ' Log →'; fail('That didn\'t send. Check your connection and try again.'); });
   });
