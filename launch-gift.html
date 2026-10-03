@@ -170,7 +170,7 @@
       <p class="sub">Your free access is unlocked. Jump in below.</p>
       <a class="btn" id="goChallenge" href="./challenge-portal.html">Start the 3-Day Financial Clarity Challenge</a>
       <a class="btn outline" id="goInvesting" href="./inv-portal.html">Start the 3-Day Introduction to Investing</a>
-      <p class="tip">Tip: bookmark this page or the program pages so you can come back anytime. Your progress saves on the device you use.</p>
+      <p class="tip">We've emailed you these links too, so you can open your programs on any device. Your progress saves on the device you use.</p>
     </div>
 
     <!-- OFFER ENDED -->
@@ -240,6 +240,27 @@ var KIT_FORM_ID    = '';                               // optional: Kit form ID 
 
   function fail(msg){ var e=$('err'); e.textContent = msg; e.style.display = 'block'; }
 
+  /* Program Access email: direct links they can open on any device (EmailJS template_wor36wk) */
+  function sendAccessEmail(first, email, programs){
+    var SITE = 'https://dtrsm1990.github.io/rightsideofmoney/';
+    var all = {
+      '3-Day Financial Clarity Challenge': SITE + 'challenge-portal.html',
+      '3-Day Introduction to Investing': SITE + 'inv-portal.html'
+    };
+    var rows = programs.filter(function(p){ return all[p]; }).map(function(p){
+      return '<tr><td style="background:#FBF7EE;border-left:4px solid #C9941A;padding:16px 18px">' +
+        '<div style="font-family:Georgia,serif;font-size:18px;color:#0D1F3C;font-weight:bold;margin-bottom:10px">' + p + '</div>' +
+        '<a href="' + all[p] + '" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-weight:bold;font-size:14px;text-decoration:none;padding:12px 22px;border-radius:2px">Start the Program &rarr;</a>' +
+        '<div style="font-size:12px;color:#777;margin-top:10px;word-break:break-all">' + all[p] + '</div></td></tr>' +
+        '<tr><td style="height:12px;line-height:12px;font-size:0">&nbsp;</td></tr>';
+    }).join('');
+    var body = JSON.stringify({service_id: 'service_65dy311', template_id: 'template_wor36wk', user_id: 'gkDCipr-1PUVhTb5X', template_params: {
+      to_name: first.replace(/[<>&"]/g, ''), to_email: email,
+      intro: "Thank you for being there for the launch of Creating a Wealth-Building Mindset, Second Edition. Your free access is ready, and it's yours to keep.",
+      program_links: '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;margin:4px 0 0">' + rows + '</table>'}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  }
+
   $('giftForm').addEventListener('submit', function(ev){
     ev.preventDefault();
     $('err').style.display = 'none';
@@ -274,6 +295,7 @@ var KIT_FORM_ID    = '';                               // optional: Kit form ID 
     fetch('https://formspree.io/f/' + FORMSPREE_ID, { method:'POST', body:data, headers:{ 'Accept':'application/json' } })
       .then(function(r){
         if (!r.ok) throw new Error('bad');
+        sendAccessEmail(first, email, programs);
         try { localStorage.setItem('rsm_launch_gift', JSON.stringify({ first:first, email:email, programs:programs })); } catch(e){}
         showSuccess(first, programs);
         window.scrollTo({ top: $('claim').offsetTop - 20, behavior:'smooth' });

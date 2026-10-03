@@ -510,6 +510,20 @@ body.wv-lock .lesson-main>#rtReg{opacity:1!important;filter:none!important;point
   }
   var main = document.querySelector('.lesson-main') || document.querySelector('main') || document.body;
 
+  /* Program Access email: direct course link they can open on any device (EmailJS template_wor36wk) */
+  function accessEmail(first, email){
+    var url = 'https://dtrsm1990.github.io/rightsideofmoney/' + C.portal;
+    var links = '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;margin:4px 0 0">' +
+      '<tr><td style="background:#FBF7EE;border-left:4px solid #C9941A;padding:16px 18px">' +
+      '<div style="font-family:Georgia,serif;font-size:18px;color:#0D1F3C;font-weight:bold;margin-bottom:10px">' + C.name + '</div>' +
+      '<a href="' + url + '" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-weight:bold;font-size:14px;text-decoration:none;padding:12px 22px;border-radius:2px">Open Course Home &rarr;</a>' +
+      '<div style="font-size:12px;color:#777;margin-top:10px;word-break:break-all">' + url + '</div></td></tr></table>';
+    var body = JSON.stringify({service_id: 'service_65dy311', template_id: 'template_wor36wk', user_id: 'gkDCipr-1PUVhTb5X', template_params: {
+      to_name: first.replace(/[<>&"]/g, ''), to_email: email,
+      intro: "Welcome to the " + C.name + "! You're checked in and ready to go. I'm glad you're here, and I'll be following your progress.",
+      program_links: links}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  }
   /* ---------- Course Home: register before starting ---------- */
   if (C.kind === 'portal') {
     var me = get();
@@ -535,6 +549,7 @@ body.wv-lock .lesson-main>#rtReg{opacity:1!important;filter:none!important;point
         if (!bot) {
           post({_subject: 'Course Started | ' + C.name + ' | ' + who.name, event: 'Started the course', started_at: new Date().toLocaleString()});
           mark('start');
+          accessEmail(f, em);
           if (document.getElementById('rtOpt').checked) {
             var kf = new FormData(); kf.append('email_address', em); kf.append('fields[first_name]', f);
             try { fetch('https://app.kit.com/forms/' + C.kit + '/subscriptions', {method: 'POST', body: kf, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(err){}
