@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>
+/* Launch gift closes at midnight Pacific when October 14 ends. After that, new visitors go to the Courses page.
+   People who already claimed on this device can still open their program links here. */
+(function(){
+  var CLOSE = '2026-10-15T00:00:00-07:00';
+  if (new Date() >= new Date(CLOSE)) {
+    var claimed = false;
+    try { var g = JSON.parse(localStorage.getItem('rsm_launch_gift') || 'null'); claimed = !!(g && g.email); } catch(e){}
+    if (!claimed) location.replace('./courses.html');
+  }
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Launch Night Gift | Right Side of Money</title>
@@ -190,7 +202,7 @@
 <script>
 /* ===================== SETTINGS (edit these) ===================== */
 var ACCESS_CODES   = ['LAUNCHFAMILY'];                 // codes attendees can use (not case sensitive)
-var DEADLINE       = '2026-10-14T23:59:00-07:00';      // offer closes after this (Pacific time)
+var DEADLINE       = '2026-10-15T00:00:00-07:00';      // offer closes at midnight when October 14 ends (Pacific time)
 var DEADLINE_LABEL = 'October 14';
 var FORMSPREE_ID   = 'xrpbgjbb';                       // where registrations are sent
 var KIT_FORM_ID    = '';                               // optional: Kit form ID to also add them to Kit
@@ -200,7 +212,10 @@ var KIT_FORM_ID    = '';                               // optional: Kit form ID 
   var $ = function(id){ return document.getElementById(id); };
   $('deadlineText').textContent = DEADLINE_LABEL;
 
-  if (new Date() > new Date(DEADLINE)) {
+  if (new Date() >= new Date(DEADLINE)) {
+    var past = null;
+    try { past = JSON.parse(localStorage.getItem('rsm_launch_gift') || 'null'); } catch(e){}
+    if (past && past.email) { showSuccess(past.first, past.programs); return; }
     $('formWrap').style.display = 'none';
     $('ended').style.display = 'block';
     return;
