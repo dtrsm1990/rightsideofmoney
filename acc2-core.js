@@ -244,6 +244,73 @@
     el.innerHTML = h;
   };
 
+  /* ---------- worksheets and logs (definitions in acc2-data.js) ---------- */
+  var DATA = window.ACC2_DATA || {weeks: {}, logs: {}};
+  A.data = DATA;
+  A.moduleWs = function(from, to){ var out = []; for (var w = WPP * (from - 1) + 1; w <= WPP * to; w++) (DATA.weeks[w] || []).forEach(function(sp){ out.push({w: w, spec: sp}); }); return out; };
+  A.wsDone = function(d, n){ return A.moduleWs(1, n).filter(function(x){ return window.RSMWS && RSMWS.complete(x.spec, (d.ws || {})[x.spec.id]); }).length; };
+  A.wsMissing = function(d, n){ return A.moduleWs(n, n).filter(function(x){ return !(window.RSMWS && RSMWS.complete(x.spec, (d.ws || {})[x.spec.id])); }).map(function(x){ return 'Week ' + x.w + ': ' + x.spec.title; }); };
+  A.logsFor = function(n){ return Object.keys(DATA.logs).filter(function(k){ return DATA.logs[k].cp === n; }).map(function(k){ return {key: k, spec: DATA.logs[k]}; }); };
+  A.logsActive = function(w){ var p = A.phaseOf(w); return Object.keys(DATA.logs).filter(function(k){ return DATA.logs[k].cp === p && DATA.logs[k].start <= w; }); };
+  A.attach = function(d, n){
+    var ws = A.moduleWs(n, n).map(function(x){ return 'WEEK ' + x.w + '\n' + RSMWS.text(x.spec, (d.ws || {})[x.spec.id]); }).join('\n\n');
+    var lg = A.logsFor(n).map(function(x){ return RSMWS.logText(x.spec, (d.logs || {})[x.key]); }).join('\n\n');
+    return {worksheets: ws, logs: lg};
+  };
+
+  /* ---------- written assessment (student) and Darrell's draft feedback ---------- */
+  function pct(x){ return Math.round(x * 1000) / 10; }
+  function facts(d, n){
+    var base = d.m.cp0, cur = d.m['cp' + n], prev = n > 1 ? d.m['cp' + (n - 1)] : base;
+    var sb = A.score(base), sc = A.score(cur), sp = A.score(prev);
+    var weeks = WPP * n, st = {done: 0, all: 0}, days = 0, lw = 0, rev = 0, revAll = 0, brk = [];
+    for (var w = WPP * (n - 1) + 1; w <= weeks; w++){ var L = d.wk && d.wk[w]; if (!L) continue; st.all++; if (L.status === 'Done') st.done++; if (+L.days >= 0 && L.days !== '' && L.days !== null){ days += +L.days; lw++; } revAll++; if (L.rev === 'Yes') rev++; if (L.brk === 'Yes') brk.push(w); }
+    var gains = sc.parts.map(function(p, i){ return {p: p, g: p.s - sb.parts[i].s}; }).sort(function(a, b){ return b.g - a.g; });
+    var weakest = sc.parts.slice().sort(function(a, b){ return a.s - b.s; })[0];
+    var cr0 = base.inc > 0 ? base.conv / base.inc : 0, cr = cur.inc > 0 ? cur.conv / cur.inc : 0;
+    return {base: base, cur: cur, prev: prev, sb: sb, sc: sc, sp: sp, st: st, logRate: lw ? days / (7 * lw) : 1, revRate: revAll ? rev / revAll : 0, brk: brk, gains: gains, weakest: weakest,
+      cr0: cr0, cr: cr, nwd: A.netWorth(cur) - A.netWorth(base), wsMiss: A.wsMissing(d, n), pcFail: (d.cp && d.cp[n] && d.cp[n].pcFail) || []};
+  }
+  function target(f){
+    var m = f.cur, k = f.weakest.k;
+    if (f.weakest.s >= 95) return 'Every measure in your Index is at or near the Level 2 standard. Your job now is to hold it: same reviews, same logs, same rules, especially when it feels like you don\'t need them anymore.';
+    if (k === 'conv'){ var need = Math.max(0, 0.2 * m.inc - m.conv); return 'Your conversion rate is ' + pct(f.cr) + '%. Converting ' + A.money(need) + ' more a month gets you to 20%. Automate it on payday so it happens before you see it.'; }
+    if (k === 'res'){ var r = Math.max(0, 3 * m.ess - m.res); return 'Your reserve covers ' + (Math.round(m.res / m.ess * 10) / 10) + ' months of essentials. Adding ' + A.money(r) + ' gets you to three months, the foundation every other rule stands on.'; }
+    if (k === 'inv') return 'Only ' + m.inv + ' of the last three months had automated investing. Set one fixed contribution on one fixed date and leave it alone for the next 90 days.';
+    if (k === 'dti'){ var cut = Math.max(0, m.dpay - 0.1 * m.inc); return 'Consumer debt payments take ' + Math.round(m.dpay / m.inc * 100) + '% of your take-home pay. Eliminating ' + A.money(cut) + ' a month in payments gets you under 10%, and every dollar freed becomes conversion.'; }
+    if (k === 'rules'){ var miss = A.RULES.filter(function(r, i){ return !(m.rules && m.rules[i]); }); return 'These rule sets aren\'t in force yet: ' + miss.join(', ') + '. A rule that isn\'t written and followed is just an intention.'; }
+    if (k === 'focus') return 'You\'re protecting ' + m.focus + ' hours a week. The standard is five. Put two fixed wealth blocks on your calendar and treat them like a shift you can\'t miss.';
+    if (k === 'unpl') return 'You made ' + (m.unpl >= 2 ? 'two or more' : 'one') + ' financial commitment' + (m.unpl === 1 ? '' : 's') + ' without your filter and waiting period. That\'s exactly how growth turns into loss. Every opportunity goes through the filter, no exceptions.';
+    var low = 0; (m.mind || []).forEach(function(v, i){ if (v < m.mind[low]) low = i; });
+    return 'Your lowest-rated operator statement is "' + A.MIND[low] + '" Make that one sentence your focus at every Operator Review this module.';
+  }
+  A.assessment = function(d, n){
+    var f = facts(d, n), delta = f.sc.total - f.sb.total, g = f.gains[0], out = [];
+    var p1 = 'Your Wealth System Index moved from ' + f.sb.total + ' to ' + f.sc.total + ' (' + (delta >= 0 ? '+' : '') + delta + ' points)' + (n > 1 ? ', ' + (f.sc.total - f.sp.total >= 0 ? 'up ' : 'down ') + Math.abs(f.sc.total - f.sp.total) + ' since your last scoreboard' : '') + '. ';
+    p1 += g.g > 0 ? 'Your biggest gain is ' + g.p.label + ', now at ' + g.p.raw + '. ' : 'None of your eight measures has improved since baseline yet, and that has to change. ';
+    p1 += 'Your conversion rate went from ' + pct(f.cr0) + '% to ' + pct(f.cr) + '%' + (f.cr >= 0.2 ? ', which meets the Level 2 standard' : '') + ', and your net worth is ' + (f.nwd >= 0 ? 'up ' : 'down ') + A.money(Math.abs(f.nwd)) + ' since baseline' + (f.nwd < 0 ? '. Markets can move net worth against you even when your behavior is right, so judge yourself on conversion and rules first.' : '.');
+    out.push(p1);
+    var strongB = f.st.done >= f.st.all * 0.75 && f.logRate >= 0.8 && f.revRate >= 0.75 && f.brk.length <= 1;
+    var p2 = 'On execution, you completed ' + f.st.done + ' of ' + f.st.all + ' Field Assignments this module, kept your proof logs on ' + Math.round(f.logRate * 100) + '% of days, and held ' + Math.round(f.revRate * 100) + '% of your Operator Reviews. ';
+    if (f.brk.length) p2 += 'You reported a broken rule in Week ' + f.brk.join(' and Week ') + '. Reporting it was the right call; now the system that allowed it has to change. ';
+    if (f.wsMiss.length) p2 += 'Worksheets still incomplete: ' + f.wsMiss.join(', ') + '. ';
+    if (f.pcFail.length) p2 += 'You marked ' + f.pcFail.length + ' pass criteri' + (f.pcFail.length > 1 ? 'a' : 'on') + ' as not met: ' + f.pcFail.join('; ') + '. ';
+    p2 += strongB && delta > 0 ? 'Your behavior and your numbers are moving together. That\'s what operating looks like.' : strongB ? 'Your behavior is at the standard even though the numbers haven\'t caught up. Keep going: results follow behavior, usually with a delay.' : delta > 0 ? 'Your numbers are moving faster than your habits. That\'s a warning, not a win, because results without discipline don\'t last.' : 'Your behavior and your numbers both need correction. The fix starts with the basics: every log, every review, every week.';
+    out.push(p2);
+    out.push((f.weakest.s >= 95 ? '' : 'Your priority for ' + (n === NCP ? 'the next 90 days' : 'Module ' + (n + 1)) + ' is ' + f.weakest.label + '. ') + target(f) + (n === NCP ? ' Keep your Weekly Operator Review on the calendar. Graduation ends the program, not the standard.' : ''));
+    return out;
+  };
+  A.coachDraft = function(d, n){
+    var f = facts(d, n), delta = f.sc.total - f.sb.total, name = d.me.first, g = f.gains[0];
+    var a = name + ', I reviewed your ' + A.cpLabel(n) + ' scoreboard. Your Wealth System Index is ' + f.sc.total + ', ' + (delta >= 0 ? 'up ' : 'down ') + Math.abs(delta) + ' points from your baseline of ' + f.sb.total + '. ' +
+      (g.g > 0 ? 'What stands out most is your ' + g.p.label + ': ' + g.p.raw + '. ' : '') + 'Your conversion rate moved from ' + pct(f.cr0) + '% to ' + pct(f.cr) + '%, and your net worth is ' + (f.nwd >= 0 ? 'up ' : 'down ') + A.money(Math.abs(f.nwd)) + '.';
+    var b = 'Here\'s what I see in your execution. You completed ' + f.st.done + ' of ' + f.st.all + ' Field Assignments, kept your logs on ' + Math.round(f.logRate * 100) + '% of days, and held ' + Math.round(f.revRate * 100) + '% of your Operator Reviews. ' +
+      (f.brk.length ? 'You told me you broke a rule in Week ' + f.brk.join(' and Week ') + '. I respect that you reported it. Now show me what changed so it doesn\'t happen again. ' : 'You reported no broken rules. Keep it that way by keeping your filter in front of every decision. ') +
+      (f.pcFail.length ? 'You were honest that ' + f.pcFail.length + ' pass criteri' + (f.pcFail.length > 1 ? 'a aren\'t' : 'on isn\'t') + ' met yet, and that\'s what we fix before you move on. ' : '');
+    var c = (f.weakest.s >= 95 ? '' : 'Your focus ' + (n === NCP ? 'from here' : 'for Module ' + (n + 1)) + ' is ' + f.weakest.label + '. ') + target(f) + ' We\'ll go over it on your next check-in. Stay on the standard.';
+    return [a, b, c].join('\n\n');
+  };
+
   /* ---------- Progress Report: numbers + execution record + patterns from the student's own logs ---------- */
   var REPORT_TPL = 'template_qmceg0h';
   var THEMES = [
@@ -286,6 +353,8 @@
     h += '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;margin:0 0 6px"><tr>' +
       cell(sc.total, 'INDEX NOW', true) + cell((sc.total - sb.total >= 0 ? '+' : '') + (sc.total - sb.total), 'SINCE BASELINE') +
       cell(n > 1 ? ((sc.total - sp.total >= 0 ? '+' : '') + (sc.total - sp.total)) : sb.total, n > 1 ? 'SINCE LAST CHECKPOINT' : 'BASELINE INDEX') + '</tr></table>';
+    var asm = A.assessment(d, n);
+    h += eh('Your Assessment') + asm.map(ep).join('');
     h += eh('Measure by Measure');
     h += '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:13px"><tr style="background:#0D1F3C;color:#E8B84B"><td style="padding:8px">Measure</td><td style="padding:8px">Baseline</td><td style="padding:8px">Now</td><td style="padding:8px">' + (n > 1 ? 'Since last' : 'Change') + '</td></tr>' +
       sc.parts.map(function(p, i){ return '<tr style="background:' + (i % 2 ? '#F7F5EF' : '#FFF') + '"><td style="padding:8px;font-weight:bold;color:#0D1F3C">' + p.label + '</td><td style="padding:8px;color:#555">' + A.esc(sb.parts[i].raw) + '</td><td style="padding:8px;color:#333">' + A.esc(p.raw) + '</td><td style="padding:8px">' + arrow(Math.round(p.s - sp.parts[i].s)) + '</td></tr>'; }).join('') + '</table>';
@@ -294,16 +363,16 @@
     var nwd = A.netWorth(cur) - A.netWorth(base), invd = (+cur.invbal) - (+base.invbal), resd = (+cur.res) - (+base.res);
     h += eh('What the Numbers Say');
     h += ep('<strong>Biggest gain:</strong> ' + gains[0].p.label + ' (' + A.esc(gains[0].p.raw) + ').' + (gains[0].g <= 0 ? ' No measure has improved since baseline yet. That has to change in the next module.' : ''));
-    h += ep('<strong>Weakest measure right now:</strong> ' + weakest.label + ' at ' + A.esc(weakest.raw) + '. The target is ' + weakest.target + '.');
+    h += ep(weakest.s >= 95 ? '<strong>Every measure is at or above its target.</strong> Hold the standard.' : '<strong>Weakest measure right now:</strong> ' + weakest.label + ' at ' + A.esc(weakest.raw) + '. The target is ' + weakest.target + '.');
     h += ep('<strong>Net worth:</strong> ' + A.money(A.netWorth(cur)) + ', ' + (nwd >= 0 ? 'up ' + A.money(nwd) : 'down ' + A.money(-nwd)) + ' since baseline. <strong>Invested assets:</strong> ' + (invd >= 0 ? 'up ' + A.money(invd) : 'down ' + A.money(-invd)) + '. <strong>Cash reserves:</strong> ' + (resd >= 0 ? 'up ' + A.money(resd) : 'down ' + A.money(-resd)) + '.' +
       (nwd < 0 ? ' Market moves can lower net worth even when your behavior is right. Judge yourself by your conversion rate and your rules, and keep the long view.' : ''));
-    var st = {Done: 0, 'Partially done': 0, 'Not done': 0}, days = 0, revY = 0, revN = 0, brk = 0, logged = 0, brkW = [];
-    for (var w = 1; w <= weeks; w++){ var L = d.wk && d.wk[w]; if (!L) continue; logged++; st[L.status] = (st[L.status] || 0) + 1; days += +L.days || 0; if (L.rev === 'Yes') revY++; else if (L.rev === 'No') revN++; if (L.brk === 'Yes'){ brk++; brkW.push(w); } }
-    var doneRate = logged ? st.Done / logged : 0, logRate = logged ? days / (7 * logged) : 0, revRate = (revY + revN) ? revY / (revY + revN) : 0;
+    var st = {Done: 0, 'Partially done': 0, 'Not done': 0}, days = 0, lw = 0, revY = 0, revN = 0, brk = 0, logged = 0, brkW = [];
+    for (var w = 1; w <= weeks; w++){ var L = d.wk && d.wk[w]; if (!L) continue; logged++; st[L.status] = (st[L.status] || 0) + 1; if (+L.days >= 0 && L.days !== '' && L.days !== null){ days += +L.days; lw++; } if (L.rev === 'Yes') revY++; else if (L.rev === 'No') revN++; if (L.brk === 'Yes'){ brk++; brkW.push(w); } }
+    var doneRate = logged ? st.Done / logged : 0, logRate = lw ? days / (7 * lw) : 1, revRate = (revY + revN) ? revY / (revY + revN) : 0;
     var strikes = A.strikes(d).length;
     var rating = doneRate >= 0.75 && logRate >= 0.8 && revRate >= 0.75 && brk <= 1 ? 'Operator standard' : (doneRate < 0.5 || logRate < 0.5 || brk >= 3) ? 'Needs immediate correction' : 'Inconsistent';
     h += eh('Your Execution Record');
-    h += ep('<strong>Execution rating: ' + rating + '.</strong> Field Assignments: ' + st.Done + ' done, ' + st['Partially done'] + ' partial, ' + st['Not done'] + ' not done, out of ' + weeks + ' weeks. Proof logs kept on ' + days + ' of ' + (7 * logged) + ' days (' + Math.round(logRate * 100) + '%). Weekly Operator Reviews held: ' + revY + ' of ' + (revY + revN) + '. Weeks with a broken rule: ' + brk + (brk ? ' (Week ' + brkW.join(', Week ') + ')' : '') + '. Strikes on record: ' + strikes + '.');
+    h += ep('<strong>Execution rating: ' + rating + '.</strong> Field Assignments: ' + st.Done + ' done, ' + st['Partially done'] + ' partial, ' + st['Not done'] + ' not done, out of ' + weeks + ' weeks. Proof logs kept on ' + days + ' of ' + (7 * lw) + ' days (' + Math.round(logRate * 100) + '%). Worksheets complete: ' + A.wsDone(d, n) + ' of ' + A.moduleWs(1, n).length + '. Weekly Operator Reviews held: ' + revY + ' of ' + (revY + revN) + '. Weeks with a broken rule: ' + brk + (brk ? ' (Week ' + brkW.join(', Week ') + ')' : '') + '. Strikes on record: ' + strikes + '.');
     var hits = THEMES.map(function(t){ var wk = []; for (var w = 1; w <= weeks; w++){ var L = d.wk && d.wk[w]; if (L && t.re.test([L.res, L.set, L.drill, L.did, L.brkd].join(' '))) wk.push(w); } return {t: t, wk: wk}; })
       .filter(function(x){ return x.wk.length; }).sort(function(a, b){ return b.wk.length - a.wk.length; }).slice(0, 3);
     h += eh('Patterns in Your Own Words');

@@ -248,6 +248,51 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
 .ac-callrow strong{color:var(--navy);display:block;}
 .ac-callrow span{font-size:.82rem;color:#777;}
 .ac-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem 1.2rem;margin:.4rem 0 1rem;}
+
+.ws-card{padding:0!important;overflow:hidden;}
+.ws-in{padding:1.6rem 1.75rem;}
+.ws-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.ws-head h2{margin:0 0 .4rem!important;}
+.ws-chip{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:20px;white-space:nowrap;}
+.ws-chip.done{background:#EAF5EE;color:#1A6B3C;}.ws-chip.open{background:#FDF3E1;color:#8a5a00;}
+.ws-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.3rem 0;}
+.ws-t{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px;}
+.ws-t th{background:var(--navy);color:var(--gold-light);text-align:left;padding:.5rem .55rem;font-weight:600;font-size:.8rem;vertical-align:bottom;}
+.ws-t td{border:1px solid #e6dcc4;padding:0;vertical-align:top;background:#fff;}
+.ws-t td input,.ws-t td select{width:100%;border:0!important;padding:.6rem .55rem!important;font:inherit;font-size:.88rem;background:transparent;border-radius:0!important;}
+.ws-t td input:focus,.ws-t td select:focus{outline:2px solid var(--gold);outline-offset:-2px;box-shadow:none!important;}
+.ws-t td .ac-money::before{left:.5rem;}
+.ws-t td .ac-money input{padding-left:1.35rem!important;}
+.lg-t td{padding:.5rem .55rem;font-size:.85rem;}
+.ws-add{background:none;border:0;color:#B07A0C;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;padding:.4rem 0;}
+.ws-list{margin:.2rem 0 0 1.2rem!important;padding:0;}
+.ws-list li{margin:0 0 .45rem!important;}
+.ws-list input{width:100%;padding:.65rem .75rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:.93rem;}
+.ws-yn .ws-ynr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0ebe0;}
+.ws-yn p{margin:0!important;font-size:.93rem!important;}
+.ws-calc{background:var(--cream);border-left:4px solid var(--gold);border-radius:4px;padding:.9rem 1.1rem;margin:0 0 1.1rem;font-size:.93rem;line-height:1.6;color:#333;}
+.ws-suf{display:flex;align-items:center;gap:.5rem;}.ws-suf input{max-width:180px;}.ws-suf span{color:#666;font-weight:600;}
+.ws-sig{font-family:'Playfair Display',serif!important;font-style:italic;font-size:1.15rem!important;}
+.lg-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.1rem;background:#fbfaf6;border:1px solid #efe8d6;border-radius:4px;padding:1rem 1.1rem;margin:.6rem 0 1rem;}
+.lg-form .ac-btn{grid-column:1/-1;justify-self:start;}
+.lg-form .ac-msg{grid-column:1/-1;}
+.lg-del{background:none;border:0;color:#9B1C1C;font-size:1.2rem;cursor:pointer;line-height:1;}
+.ac-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;margin:0 0 2rem;box-shadow:0 14px 34px rgba(13,31,60,.22);}
+.ac-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ac-wslist{list-style:none;margin:.6rem 0 0!important;padding:0;}
+.ac-wslist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.6rem;align-items:center;padding:.55rem .2rem;border-bottom:1px solid #f0ebe0;font-size:.92rem;}
+.ac-wslist a{color:var(--navy);font-weight:600;}
+.wb-ws{border:1px solid #eee;border-left:4px solid var(--gold);border-radius:4px;padding:1.1rem 1.3rem;margin:0 0 1.2rem;background:#fff;page-break-inside:avoid;}
+.wb-ws h3{margin:0 0 .6rem!important;color:var(--navy);}
+.wb-ws h3 small{font-family:'DM Sans',sans-serif;font-size:.8rem;color:#888;font-weight:500;}
+.wb-l{font-weight:700;color:var(--navy);font-size:.88rem!important;margin:.7rem 0 .2rem!important;}
+.wb-v{margin:0!important;white-space:normal;}
+.wb-calc{background:var(--cream);padding:.6rem .8rem;border-radius:4px;font-size:.9rem!important;}
+.wb-yn{list-style:none;margin:0!important;padding:0;}.wb-yn li{font-size:.9rem;padding:.2rem 0;}.wb-yn b{display:inline-block;min-width:2.4rem;color:var(--navy);}
+.wb-sig span{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;}
+.wb-mod{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.5rem;border-bottom:2px solid var(--gold);padding-bottom:.3rem;margin:2rem 0 1rem;}
+@media(max-width:768px){.ws-t{min-width:0;}.ws-t thead{display:none;}.ws-t,.ws-t tbody,.ws-t tr{display:block;width:100%;}.ws-t tr{border:1px solid #e6dcc4;border-left:4px solid var(--gold);border-radius:4px;margin:0 0 .7rem;background:#fff;}.ws-t td{display:grid;grid-template-columns:38% minmax(0,1fr);align-items:center;border:0;border-bottom:1px solid #f1ecdf;}.ws-t td:last-child{border-bottom:0;}.ws-t td::before{content:attr(data-h);font-size:.75rem;font-weight:700;color:var(--navy);padding:.5rem .55rem;line-height:1.3;}.lg-t td{grid-template-columns:38% minmax(0,1fr);}.lg-t td:last-child{display:block;text-align:right;}.lg-t td:last-child::before{content:none;}.ws-in{padding:1.2rem 1rem;}.lg-form{grid-template-columns:minmax(0,1fr);}.ws-yn .ws-ynr{grid-template-columns:minmax(0,1fr);gap:.4rem;}.ws-head{flex-direction:column;gap:.3rem;}}
+@media print{.ws-add,.lg-form,.lg-del{display:none!important;}.wb-ws{box-shadow:none;}}
 @media(max-width:768px){.ac-rules{grid-template-columns:minmax(0,1fr);}.ac-callrow{grid-template-columns:minmax(0,1fr);}.ac-mod{padding:1.3rem 1.2rem;}}
 </style>
 </head>
@@ -261,6 +306,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
   <aside class="sidebar">
     <div class="sidebar-heading">Level 2: Wealth System Accountability</div>
     <nav><a href="./acc2-portal.html" class="">Operations Center</a>
+<a href="./acc2-workbook.html" class="">Your Operator Workbook</a>
 <a href="./acc2-intake.html" data-g="intake" class="">Commitment &amp; Baseline</a>
 <div class="sb-sep">Module 1: Acceleration Control</div>
 <a href="./acc2-week1.html" data-g="w1" class="">Week 1: Why Most People Lose Money</a>
@@ -289,7 +335,8 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
 <h1>Scaling Systems Without Breaking Discipline</h1>
 <p class="lesson-subtitle">You don&#x27;t scale effort. You scale systems, and only the ones that already work.</p>
 <div class="gold-rule"></div>
-<div class="ac-std"><span><b>This week:</b> Teaching, Mindset Drill, Field Assignment, Proof Log, Operator Log</span><span id="acTarget"></span></div>
+<div class="ac-std"><span><b>This week:</b> Teaching, Mindset Drill, Worksheets, Daily Proof Log, Operator Log, Check-In With Darrell</span><span id="acTarget"></span></div>
+
 
 
 <h2>What Scaling Really Means</h2>
@@ -330,14 +377,9 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
   <div class="ac-eyebrow">Field Assignment</div>
   <h2>Do the Work</h2>
   <ol><li>Complete your System Inventory.</li><li>Run the Scaling Eligibility Check on every system, and document the results.</li><li>Write a complete Documented Process for at least one system, detailed enough for someone else to run.</li><li>Start your Controlled Scale Test today on one eligible system, and log it every day through the Final Checkpoint.</li><li>Keep your leverage logs, and hold your Weekly Operator Review.</li></ol>
-  <div class="callout callout-action"><h3>Lesson 3.3 Is Complete Only When You Have</h3><ul class="ac-proof"><li>Your System Inventory</li><li>Your Scaling Eligibility Check results</li><li>Your Documented Process</li><li>Your Controlled Scale Test Log since Week 11</li></ul><p style="margin-top:.6rem">Missing any item means the lesson isn't complete. Keep everything for your Final Checkpoint scoreboard.</p></div>
+  <div class="callout callout-action"><h3>Lesson 3.3 Is Complete Only When You Have</h3><ul class="ac-proof"><li>Your System Inventory</li><li>Your Scaling Eligibility Check results</li><li>Your Documented Process</li><li>Your Controlled Scale Test Log since Week 11</li></ul><p style="margin-top:.6rem">Missing any item means the lesson isn't complete. Your worksheets and daily log are below. They save on this device as you type and go to Darrell automatically with your Final Checkpoint scoreboard. Upload only the screenshots and statements.</p><p style="margin-top:.4rem"><a href="./acc2-workbook.html" style="color:#B07A0C;font-weight:700">Open your Operator Workbook</a> to see or print everything you've completed.</p></div>
 </section>
-<section class="ac-card">
-  <div class="ac-eyebrow">Proof Log</div>
-  <h2>Controlled Scale Test Log</h2>
-  <p><strong>Daily from today through the Final Checkpoint.</strong> Keep it in a notebook, a spreadsheet, or a notes app. One line per day. Upload it at your checkpoint. Every entry needs a date. A log with gaps is reported as it is, and gaps show up in your Progress Report.</p>
-  <div class="ac-scroll"><table class="ac-logt"><thead><tr><th>Date</th><th>The system and the increase</th><th>Result today</th><th>Signs of strain</th><th>Hold, continue, or pull back</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
-</section>
+<section class="ac-card" data-ws="sin"></section><section class="ac-card" data-ws="sec"></section><section class="ac-card" data-ws="dpr"></section><section class="ac-card" data-ws="cst"></section><section class="ac-card" data-log="leverage-awareness-log"></section><section class="ac-card" data-log="leverage-monitor-log"></section><section class="ac-card" data-log="controlled-scale-test-log"></section>
 <section class="ac-card navy" id="acLog">
   <div class="ac-eyebrow">Week 11 Operator Log</div>
   <h2>Report In</h2>
@@ -352,12 +394,13 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
     </div>
     <div class="ac-field"><label for="lg_set" style="color:#fff">Setbacks: what went wrong, and what did it cost?</label><textarea id="lg_set"></textarea></div>
     <div class="ac-grid">
-      <div class="ac-field"><label for="lg_days" style="color:#fff">Days you kept your proof log this week (0 to 7)</label><input type="number" id="lg_days" min="0" max="7" step="1" inputmode="numeric"></div>
+      <div class="ac-field"><label for="lg_days" style="color:#fff">Days you kept your proof log this week (0 to 7)</label><small style="color:rgba(255,255,255,.65)">Filled in from your daily log. Change it only if you logged somewhere else.</small><input type="number" id="lg_days" min="0" max="7" step="1" inputmode="numeric"></div>
       <div class="ac-field"><label style="color:#fff">Did you hold your Weekly Operator Review?</label><div class="ac-radio"><label><input type="radio" name="lg_rev" value="Yes"> Yes</label><label><input type="radio" name="lg_rev" value="No"> No</label></div></div>
     </div>
     <div class="ac-field"><label style="color:#fff">Did any financial decision this week break one of your written rules?</label><div class="ac-radio"><label><input type="radio" name="lg_brk" value="No"> No</label><label><input type="radio" name="lg_brk" value="Yes"> Yes</label></div></div>
     <div class="ac-field" id="lgBrkWrap" style="display:none"><label for="lg_brkd" style="color:#fff">Which rule, what decision, and what it cost</label><textarea id="lg_brkd" style="min-height:80px"></textarea></div>
     <div class="ac-field"><label for="lg_fix" style="color:#fff">Your correction: one thing you'll do differently next week</label><textarea id="lg_fix" style="min-height:80px"></textarea></div>
+    <div class="ac-field"><label for="lg_agenda" style="color:#fff">Your agenda for this week's check-in with Darrell</label><small style="color:rgba(255,255,255,.65)">The one or two things you most need to work through. Darrell reads this before your call.</small><textarea id="lg_agenda" style="min-height:80px"></textarea></div>
     <button type="submit" class="ac-btn wide">Submit Week 11 Log &rarr;</button>
     <p class="ac-msg" id="lg_msg" style="color:#ffb4b4"></p>
   </form>
@@ -368,14 +411,23 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
   </main>
 </div>
 <footer class="course-footer">&copy; 2026 Right Side of Money<span>&reg;</span> &middot; Darrell Thompson &middot; info@rightsideofmoney.com<span class="disc">Educational program only. Not financial, investment, tax, legal, or lending advice.</span></footer>
+<script src="./acc-ws.js"></script>
+<script src="./acc2-data.js"></script>
 <script src="./acc2-core.js"></script>
 <script>
 
 (function(){
-  var A = ACC2, W = 11, P = 3;
+  var A = ACC2, W = 11, P = 3, ACTIVE = ["leverage-awareness-log", "leverage-monitor-log", "controlled-scale-test-log"], D = A.data;
   if (!A.guard({type: 'week', w: W})) return;
   var d = A.load(), DK = 'rsm_acc2_drill_' + W;
   function $(id){ return document.getElementById(id); }
+  (D.weeks[W] || []).forEach(function(sp){ var el = document.querySelector('[data-ws="' + sp.id + '"]'); if (el) RSMWS.render(el, sp, (d.ws || {})[sp.id], function(v){ A.update(function(x){ x.ws = x.ws || {}; x.ws[sp.id] = v; }); }); });
+  var s0 = new Date(d.me.start); s0.setHours(0, 0, 0, 0);
+  var wkFrom = new Date(s0.getTime() + 7 * (W - 1) * 86400000), wkTo = new Date(wkFrom.getTime() + 6 * 86400000), daysEdited = false;
+  function prefill(){ if (!ACTIVE.length || daysEdited || !$('lg_days')) return; var L = A.load().logs || {}; $('lg_days').value = RSMWS.daysBetween(ACTIVE.map(function(k){ return L[k]; }), wkFrom, wkTo); }
+  ACTIVE.forEach(function(k){ var el = document.querySelector('[data-log="' + k + '"]'), sp = D.logs[k]; if (!el) return;
+    RSMWS.renderLog(el, sp, (d.logs || {})[k], function(list){ A.update(function(x){ x.logs = x.logs || {}; x.logs[k] = list; }); prefill(); }, {note: sp.start < W ? 'You started this log in Week ' + sp.start + '. Keep it going every day.' : ''}); });
+  if ($('lg_days') && ACTIVE.length){ $('lg_days').addEventListener('input', function(){ daysEdited = true; }); prefill(); }
   var tgt = new Date(d.me.start); tgt.setDate(tgt.getDate() + 7 * W - 1);
   $('acTarget').innerHTML = '<b>Finish by:</b> ' + A.date(tgt) + (false ? ' &middot; <b>' + A.cpLabel(P) + ' due:</b> ' + A.date(A.deadlines(d)[P].due) : '');
   var saved = {}; try { saved = JSON.parse(localStorage.getItem(DK) || '{}'); } catch(e){}
@@ -396,7 +448,10 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
     var proof = $('lg_proof').value.trim(), fix = $('lg_fix').value.trim(), days = $('lg_days').value.trim(), brkd = $('lg_brkd').value.trim();
     if (proof.length < 20) return fail('Describe what you actually produced and did, with numbers.');
     if (st.value !== 'Done' && $('lg_set').value.trim().length < 15) return fail('If the work isn\'t fully done, tell the truth about why in Setbacks.');
-    if (days === '' || +days < 0 || +days > 7) return fail('Enter how many days you kept your proof log (0 to 7).');
+    if (ACTIVE.length && (days === '' || +days < 0 || +days > 7)) return fail('Enter how many days you kept your proof log (0 to 7).');
+    var wsMiss = (D.weeks[W] || []).filter(function(sp){ return !RSMWS.complete(sp, (A.load().ws || {})[sp.id]); }).map(function(sp){ return sp.title; });
+    if (st.value === 'Done' && wsMiss.length) return fail('You marked Done, but these worksheets aren\'t complete: ' + wsMiss.join(', ') + '. Finish them, or choose Partially and tell the truth in Setbacks.');
+    var agenda = $('lg_agenda').value.trim(); if (agenda.length < 10) return fail('Write your agenda for this week\'s check-in with Darrell.');
     if (!rv) return fail('Tell us whether you held your Weekly Operator Review.');
     if (!bk) return fail('Tell us whether any decision broke one of your written rules.');
     if (bk.value === 'Yes' && brkd.length < 15) return fail('Name the rule you broke, the decision, and what it cost.');
@@ -404,9 +459,9 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
     var drill = Array.prototype.map.call(document.querySelectorAll('#acDrill textarea'), function(t, i){ return (i + 1) + '. ' + t.getAttribute('data-q') + '\n' + (t.value.trim() || '(left blank)'); }).join('\n\n');
     var b = this.querySelector('button'); b.disabled = true; b.textContent = 'Sending...';
     A.post({_subject: 'ACC L2 | Week ' + W + ' Log | ' + d.me.first + ' ' + d.me.last + ' | ' + st.value.toUpperCase() + (bk.value === 'Yes' ? ' | RULE BROKEN' : ''), week: 'Week ' + W + ' (Lesson 3.3): Scaling Systems Without Breaking Discipline', assignment_status: st.value,
-      what_i_did: proof, wins: $('lg_win').value.trim(), resistance: $('lg_res').value.trim(), setbacks: $('lg_set').value.trim(), proof_log_days: days + ' of 7',
+      what_i_did: proof, wins: $('lg_win').value.trim(), resistance: $('lg_res').value.trim(), setbacks: $('lg_set').value.trim(), proof_log_days: ACTIVE.length ? days + ' of 7' : 'No log this week', worksheets_incomplete: wsMiss.length ? wsMiss.join(', ') : 'None', checkin_agenda: agenda,
       operator_review: rv.value, rule_broken: bk.value + (bk.value === 'Yes' ? ': ' + brkd : ''), correction: fix, mindset_drill: drill}).then(function(){
-      A.update(function(x){ x.wk = x.wk || {}; x.wk[W] = {at: new Date().toISOString(), status: st.value, did: proof, win: $('lg_win').value.trim(), res: $('lg_res').value.trim(), set: $('lg_set').value.trim(), days: +days, rev: rv.value, brk: bk.value, brkd: bk.value === 'Yes' ? brkd : '', fix: fix, drill: Array.prototype.map.call(document.querySelectorAll('#acDrill textarea'), function(t){ return t.value.trim(); }).join(' ')}; });
+      A.update(function(x){ x.wk = x.wk || {}; x.wk[W] = {at: new Date().toISOString(), status: st.value, did: proof, win: $('lg_win').value.trim(), res: $('lg_res').value.trim(), set: $('lg_set').value.trim(), days: ACTIVE.length ? +days : -1, agenda: agenda, rev: rv.value, brk: bk.value, brkd: bk.value === 'Yes' ? brkd : '', fix: fix, drill: Array.prototype.map.call(document.querySelectorAll('#acDrill textarea'), function(t){ return t.value.trim(); }).join(' ')}; });
       done(); A.sidebar && A.sidebar();
     }).catch(function(){ b.disabled = false; b.textContent = 'Submit Week ' + W + ' Log →'; fail('That didn\'t send. Check your connection and try again.'); });
   });

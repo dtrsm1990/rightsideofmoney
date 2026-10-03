@@ -248,6 +248,51 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
 .ac-callrow strong{color:var(--navy);display:block;}
 .ac-callrow span{font-size:.82rem;color:#777;}
 .ac-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem 1.2rem;margin:.4rem 0 1rem;}
+
+.ws-card{padding:0!important;overflow:hidden;}
+.ws-in{padding:1.6rem 1.75rem;}
+.ws-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.ws-head h2{margin:0 0 .4rem!important;}
+.ws-chip{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:20px;white-space:nowrap;}
+.ws-chip.done{background:#EAF5EE;color:#1A6B3C;}.ws-chip.open{background:#FDF3E1;color:#8a5a00;}
+.ws-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.3rem 0;}
+.ws-t{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px;}
+.ws-t th{background:var(--navy);color:var(--gold-light);text-align:left;padding:.5rem .55rem;font-weight:600;font-size:.8rem;vertical-align:bottom;}
+.ws-t td{border:1px solid #e6dcc4;padding:0;vertical-align:top;background:#fff;}
+.ws-t td input,.ws-t td select{width:100%;border:0!important;padding:.6rem .55rem!important;font:inherit;font-size:.88rem;background:transparent;border-radius:0!important;}
+.ws-t td input:focus,.ws-t td select:focus{outline:2px solid var(--gold);outline-offset:-2px;box-shadow:none!important;}
+.ws-t td .ac-money::before{left:.5rem;}
+.ws-t td .ac-money input{padding-left:1.35rem!important;}
+.lg-t td{padding:.5rem .55rem;font-size:.85rem;}
+.ws-add{background:none;border:0;color:#B07A0C;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;padding:.4rem 0;}
+.ws-list{margin:.2rem 0 0 1.2rem!important;padding:0;}
+.ws-list li{margin:0 0 .45rem!important;}
+.ws-list input{width:100%;padding:.65rem .75rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:.93rem;}
+.ws-yn .ws-ynr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0ebe0;}
+.ws-yn p{margin:0!important;font-size:.93rem!important;}
+.ws-calc{background:var(--cream);border-left:4px solid var(--gold);border-radius:4px;padding:.9rem 1.1rem;margin:0 0 1.1rem;font-size:.93rem;line-height:1.6;color:#333;}
+.ws-suf{display:flex;align-items:center;gap:.5rem;}.ws-suf input{max-width:180px;}.ws-suf span{color:#666;font-weight:600;}
+.ws-sig{font-family:'Playfair Display',serif!important;font-style:italic;font-size:1.15rem!important;}
+.lg-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.1rem;background:#fbfaf6;border:1px solid #efe8d6;border-radius:4px;padding:1rem 1.1rem;margin:.6rem 0 1rem;}
+.lg-form .ac-btn{grid-column:1/-1;justify-self:start;}
+.lg-form .ac-msg{grid-column:1/-1;}
+.lg-del{background:none;border:0;color:#9B1C1C;font-size:1.2rem;cursor:pointer;line-height:1;}
+.ac-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;margin:0 0 2rem;box-shadow:0 14px 34px rgba(13,31,60,.22);}
+.ac-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ac-wslist{list-style:none;margin:.6rem 0 0!important;padding:0;}
+.ac-wslist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.6rem;align-items:center;padding:.55rem .2rem;border-bottom:1px solid #f0ebe0;font-size:.92rem;}
+.ac-wslist a{color:var(--navy);font-weight:600;}
+.wb-ws{border:1px solid #eee;border-left:4px solid var(--gold);border-radius:4px;padding:1.1rem 1.3rem;margin:0 0 1.2rem;background:#fff;page-break-inside:avoid;}
+.wb-ws h3{margin:0 0 .6rem!important;color:var(--navy);}
+.wb-ws h3 small{font-family:'DM Sans',sans-serif;font-size:.8rem;color:#888;font-weight:500;}
+.wb-l{font-weight:700;color:var(--navy);font-size:.88rem!important;margin:.7rem 0 .2rem!important;}
+.wb-v{margin:0!important;white-space:normal;}
+.wb-calc{background:var(--cream);padding:.6rem .8rem;border-radius:4px;font-size:.9rem!important;}
+.wb-yn{list-style:none;margin:0!important;padding:0;}.wb-yn li{font-size:.9rem;padding:.2rem 0;}.wb-yn b{display:inline-block;min-width:2.4rem;color:var(--navy);}
+.wb-sig span{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;}
+.wb-mod{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.5rem;border-bottom:2px solid var(--gold);padding-bottom:.3rem;margin:2rem 0 1rem;}
+@media(max-width:768px){.ws-t{min-width:0;}.ws-t thead{display:none;}.ws-t,.ws-t tbody,.ws-t tr{display:block;width:100%;}.ws-t tr{border:1px solid #e6dcc4;border-left:4px solid var(--gold);border-radius:4px;margin:0 0 .7rem;background:#fff;}.ws-t td{display:grid;grid-template-columns:38% minmax(0,1fr);align-items:center;border:0;border-bottom:1px solid #f1ecdf;}.ws-t td:last-child{border-bottom:0;}.ws-t td::before{content:attr(data-h);font-size:.75rem;font-weight:700;color:var(--navy);padding:.5rem .55rem;line-height:1.3;}.lg-t td{grid-template-columns:38% minmax(0,1fr);}.lg-t td:last-child{display:block;text-align:right;}.lg-t td:last-child::before{content:none;}.ws-in{padding:1.2rem 1rem;}.lg-form{grid-template-columns:minmax(0,1fr);}.ws-yn .ws-ynr{grid-template-columns:minmax(0,1fr);gap:.4rem;}.ws-head{flex-direction:column;gap:.3rem;}}
+@media print{.ws-add,.lg-form,.lg-del{display:none!important;}.wb-ws{box-shadow:none;}}
 @media(max-width:768px){.ac-rules{grid-template-columns:minmax(0,1fr);}.ac-callrow{grid-template-columns:minmax(0,1fr);}.ac-mod{padding:1.3rem 1.2rem;}}
 </style>
 </head>
@@ -261,6 +306,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
   <aside class="sidebar">
     <div class="sidebar-heading">Level 2: Wealth System Accountability</div>
     <nav><a href="./acc2-portal.html" class="">Operations Center</a>
+<a href="./acc2-workbook.html" class="">Your Operator Workbook</a>
 <a href="./acc2-intake.html" data-g="intake" class="">Commitment &amp; Baseline</a>
 <div class="sb-sep">Module 1: Acceleration Control</div>
 <a href="./acc2-week1.html" data-g="w1" class="">Week 1: Why Most People Lose Money</a>
@@ -298,6 +344,12 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
 <p>A scoreboard removes selective memory, emotional stories, and hindsight. If your behavior is solid, the scoreboard confirms it. If it's weak, the scoreboard exposes it early, while it's still cheap to fix. Exposure is protection.</p>
 </div>
 <form id="acCpForm" novalidate>
+<section class="ac-card">
+  <div class="ac-eyebrow">Before You Submit</div>
+  <h2>Your Worksheets and Daily Logs</h2>
+  <p>Everything below is attached to your scoreboard automatically. Every worksheet has to be complete before you can submit.</p>
+  <ul class="ac-wslist" id="acWsList"></ul>
+</section>
 <section class="ac-card ac-sb">
   <div class="ac-eyebrow">Step 1</div>
   <h2>The Scoreboard</h2>
@@ -340,7 +392,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
   <h2>Show the Evidence</h2>
   <div class="ac-field"><label for="acFiles">Upload your evidence</label>
 <small>Screenshots, photos, or PDFs. Up to 10 files, 25 MB each. Combine worksheets and logs into one PDF if you have more. <strong>Black out every account number, your Social Security number, and your full date of birth before uploading.</strong></small>
-<ul class="ac-proof"><li>All Module 1 worksheets and written frameworks</li><li>All three proof logs, with dates</li><li>Screenshots of your Automated Conversion System (account numbers blacked out)</li><li>Your calendar showing your wealth blocks and Weekly Operator Reviews</li></ul>
+<ul class="ac-proof"><li>Screenshots of every automatic transfer and contribution in your Automated Conversion System (account numbers blacked out)</li><li>A screenshot of your calendar showing your wealth blocks and recurring Weekly Operator Review</li><li>Anything else that proves a worksheet answer, such as a statement showing your take-home pay</li></ul>
 <div class="ac-file"><input type="file" id="acFiles" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv"><div class="ac-filelist" id="acFileList"></div></div></div>
 </section>
 <section class="ac-card">
@@ -366,6 +418,8 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
   </main>
 </div>
 <footer class="course-footer">&copy; 2026 Right Side of Money<span>&reg;</span> &middot; Darrell Thompson &middot; info@rightsideofmoney.com<span class="disc">Educational program only. Not financial, investment, tax, legal, or lending advice.</span></footer>
+<script src="./acc-ws.js"></script>
+<script src="./acc2-data.js"></script>
 <script src="./acc2-core.js"></script>
 <script>
 
@@ -400,6 +454,12 @@ document.getElementById('acFiles').addEventListener('change', function(){
   var sbi = document.querySelectorAll('.sbi');
   function count(){ var c = 0; sbi.forEach(function(x){ if (x.checked) c++; }); $('sbCount').textContent = c + ' of ' + sbi.length + ' complete'; }
   sbi.forEach(function(x){ x.addEventListener('change', count); });
+  (function(){
+    var dd = A.load(), h = '';
+    A.moduleWs(N, N).forEach(function(x){ var ok = RSMWS.complete(x.spec, (dd.ws || {})[x.spec.id]); h += '<li><a href="./acc2-week' + x.w + '.html">Week ' + x.w + ': ' + RSMWS.esc(x.spec.title) + '</a><span class="ws-chip ' + (ok ? 'done' : 'open') + '">' + (ok ? 'Complete' : 'Not finished') + '</span></li>'; });
+    A.logsFor(N).forEach(function(x){ var n = ((dd.logs || {})[x.key] || []).length; h += '<li><a href="./acc2-week' + x.spec.start + '.html">' + RSMWS.esc(x.spec.name) + '</a><span class="ws-chip ' + (n ? 'done' : 'open') + '">' + n + ' day' + (n === 1 ? '' : 's') + ' logged</span></li>'; });
+    $('acWsList').innerHTML = h;
+  })();
   function status(){
     d = A.load();
     var sub = d.cp && d.cp[N], el = $('acCpStatus');
@@ -421,6 +481,8 @@ document.getElementById('acFiles').addEventListener('change', function(){
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var m = $('cp_msg'); m.className = 'ac-msg err'; function fail(t){ m.textContent = t; }
+    var wsm = A.wsMissing(A.load(), N);
+    if (wsm.length) return fail('Finish these worksheets first: ' + wsm.join(', ') + '. Partial completion isn\'t accepted.');
     var miss = Array.prototype.filter.call(sbi, function(x){ return !x.checked; });
     if (miss.length) return fail(miss.length + ' scoreboard item' + (miss.length > 1 ? 's are' : ' is') + ' unchecked. All items are required. Finish the work, then submit.');
     var r = A.readMetrics(form); if (r.err) return fail(r.err);
@@ -431,12 +493,15 @@ document.getElementById('acFiles').addEventListener('change', function(){
     if (pcFail.length && sh.length < 60) return fail('You left ' + pcFail.length + ' pass criteri' + (pcFail.length > 1 ? 'a' : 'on') + ' unchecked. Explain exactly why in "Where did you fall short" so Darrell can review it.');
     if (!$('cp_att').checked) return fail('Confirm that your submission is accurate and your information is protected.');
     var mm = r.m, s = A.score(mm), base = A.score(d.m.cp0), resub = !!(d.cp && d.cp[N]);
+    var dd = JSON.parse(JSON.stringify(A.load())); mm.at = new Date().toISOString(); dd.m['cp' + N] = mm; dd.cp = dd.cp || {}; dd.cp[N] = dd.cp[N] || {at: mm.at}; dd.cp[N].pcFail = pcFail;
+    var att = A.attach(dd, N), draft = A.coachDraft(dd, N);
     var b = this.querySelector('button[type=submit]'); b.disabled = true; b.textContent = 'Uploading your scoreboard...';
     A.post({_subject: 'ACC L2 | Checkpoint 1 ' + (resub ? 'RESUBMITTED' : 'SUBMITTED') + ' | ' + d.me.first + ' ' + d.me.last + ' | Index ' + s.total + ' (' + (s.total - base.total >= 0 ? '+' : '') + (s.total - base.total) + ' vs baseline)' + (pcFail.length ? ' | ' + pcFail.length + ' PASS CRITERIA NOT MET' : ''),
       checkpoint: 'Checkpoint 1', scoreboard: Array.prototype.map.call(sbi, function(x){ return '[x] ' + x.getAttribute('data-i'); }).join('\n'),
       pass_criteria: Array.prototype.map.call(pci, function(x){ return (x.checked ? '[x] ' : '[ ] NOT MET: ') + x.getAttribute('data-i'); }).join('\n'),
       measurements: A.metricsText(mm), baseline_index: base.total, net_worth_change_since_baseline: A.money(A.netWorth(mm) - A.netWorth(d.m.cp0)),
-      what_changed: ch, where_i_fell_short: sh, my_standard_next: nx, verify_with: 'Open acc2-verify.html to issue the code for this student'}, fl.files).then(function(){
+      what_changed: ch, where_i_fell_short: sh, my_standard_next: nx, worksheets: att.worksheets, proof_logs: att.logs,
+      darrell_feedback_draft: draft + '\n\n(Draft for Darrell only. Edit it, then paste it into the notes box in acc2-verify.html.)', verify_with: 'Open acc2-verify.html to issue the code for this student'}, fl.files).then(function(){
       A.update(function(x){ var now = new Date().toISOString(); mm.at = now; x.m['cp' + N] = mm; x.cp = x.cp || {}; if (!x.cp[N]) x.cp[N] = {at: now}; else { x.cp[N].resub = (x.cp[N].resub || []).concat(now); } x.cp[N].changed = ch; x.cp[N].short = sh; x.cp[N].next = nx; x.cp[N].pcFail = pcFail; });
       A.sendReport(N);
       b.disabled = false; b.textContent = 'Submit Checkpoint 1 for Verification →'; status(); window.scrollTo(0, 0);

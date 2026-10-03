@@ -229,6 +229,64 @@
     el.innerHTML = h;
   };
 
+  /* ---------- worksheets and logs (definitions in acc1-data.js) ---------- */
+  var DATA = window.ACC1_DATA || {weeks: {}, logs: {}}, WPP = 2, NCP = 4;
+  A.data = DATA; A.wpp = WPP; A.ncp = NCP;
+  A.moduleWs = function(from, to){ var out = []; for (var w = WPP * (from - 1) + 1; w <= WPP * to; w++) (DATA.weeks[w] || []).forEach(function(sp){ out.push({w: w, spec: sp}); }); return out; };
+  A.wsDone = function(d, n){ return A.moduleWs(1, n).filter(function(x){ return window.RSMWS && RSMWS.complete(x.spec, (d.ws || {})[x.spec.id]); }).length; };
+  A.wsMissing = function(d, n){ return A.moduleWs(n, n).filter(function(x){ return !(window.RSMWS && RSMWS.complete(x.spec, (d.ws || {})[x.spec.id])); }).map(function(x){ return 'Week ' + x.w + ': ' + x.spec.title; }); };
+  A.logKeys = function(){ return Object.keys(DATA.logs); };
+  A.attach = function(d, n){
+    var ws = A.moduleWs(n, n).map(function(x){ return 'WEEK ' + x.w + '\n' + RSMWS.text(x.spec, (d.ws || {})[x.spec.id]); }).join('\n\n');
+    var lg = A.logKeys().map(function(k){ return RSMWS.logText(DATA.logs[k], (d.logs || {})[k]); }).join('\n\n');
+    return {worksheets: ws, logs: lg};
+  };
+
+  /* ---------- written assessment (student) and Darrell's draft feedback ---------- */
+  function facts(d, n){
+    var base = d.m.cp0, cur = d.m['cp' + n], prev = n > 1 ? d.m['cp' + (n - 1)] : base;
+    var sb = A.score(base), sc = A.score(cur), sp = A.score(prev), st = {done: 0, all: 0}, days = 0, lw = 0, mtg = 0, mtgAll = 0;
+    for (var w = WPP * (n - 1) + 1; w <= WPP * n; w++){ var L = d.wk && d.wk[w]; if (!L) continue; st.all++; if (L.status === 'Done') st.done++; days += +L.days || 0; lw++; if (w > 1){ mtgAll++; if (L.mtg === 'Yes') mtg++; } }
+    var gains = sc.parts.map(function(p, i){ return {p: p, g: p.s - sb.parts[i].s}; }).sort(function(a, b){ return b.g - a.g; });
+    var weakest = sc.parts.slice().sort(function(a, b){ return a.s - b.s; })[0];
+    return {base: base, cur: cur, sb: sb, sc: sc, sp: sp, st: st, trackRate: lw ? days / (7 * lw) : 0, mtgRate: mtgAll ? mtg / mtgAll : null, gains: gains, weakest: weakest,
+      debt: (+base.debt) - (+cur.debt), ef: (+cur.ef) - (+base.ef), wsMiss: A.wsMissing(d, n)};
+  }
+  function target(f){
+    var m = f.cur, k = f.weakest.k;
+    if (f.weakest.s >= 95) return 'Every measure in your Index is at or near its target. Your job now is to hold it: same tracking, same meetings, same automation, especially when it feels like you don\'t need them anymore.';
+    if (k === 'sav'){ var need = Math.max(0, 0.15 * m.inc - m.sav); return 'You saved ' + A.money(m.sav) + ' in the last 30 days, ' + Math.round(m.sav / m.inc * 100) + '% of your take-home pay. Saving ' + A.money(need) + ' more a month gets you to 15%. Raise your automatic payday transfer first.'; }
+    if (k === 'ef'){ var r = Math.max(0, m.ess - m.ef); return 'Your emergency fund is ' + A.money(m.ef) + '. Adding ' + A.money(r) + ' gets you to one full month of essentials, the Level 1 target.'; }
+    if (k === 'dti') return 'Minimum debt payments take ' + Math.round(m.dpay / m.inc * 100) + '% of your take-home pay. Every extra dollar goes to your target debt, and every paid-off debt rolls into the next one.';
+    if (k === 'credit') return m.credit ? 'Your credit score is ' + m.credit + '. Keep every card under 30% utilization and every account on autopay, and the score follows.' : 'You don\'t know your credit score yet. Find it this week through your bank or card app. You can\'t improve what you won\'t look at.';
+    if (k === 'ontime') return 'You had a missed or late payment. Put autopay on every minimum payment today. One missed payment can undo weeks of progress.';
+    if (k === 'track') return 'You tracked ' + m.track + ' of the last 14 days. The standard is every day within 24 hours. Attach it to something you already do daily, and use the Daily Spending Log in your lessons.';
+    if (k === 'budget') return 'You kept ' + m.budget + '% of your plan\'s categories on budget. Hold your Weekly Money Meeting without fail, and move money between categories on purpose, not by accident.';
+    var low = 0; (m.mind || []).forEach(function(v, i){ if (v < m.mind[low]) low = i; });
+    return 'Your lowest-rated statement is "' + A.MIND[low] + '" Make it the first thing you look at in every Weekly Money Meeting this phase.';
+  }
+  A.assessment = function(d, n){
+    var f = facts(d, n), delta = f.sc.total - f.sb.total, g = f.gains[0], out = [];
+    out.push('Your Accountability Index moved from ' + f.sb.total + ' to ' + f.sc.total + ' (' + (delta >= 0 ? '+' : '') + delta + ' points)' + (n > 1 ? ', ' + (f.sc.total - f.sp.total >= 0 ? 'up ' : 'down ') + Math.abs(f.sc.total - f.sp.total) + ' since your last checkpoint' : '') + '. ' +
+      (g.g > 0 ? 'Your biggest gain is ' + g.p.label + ', now at ' + g.p.raw + '. ' : 'None of your eight measures has improved since baseline yet, and that has to change. ') +
+      (f.debt >= 0 ? 'You\'ve paid down ' + A.money(f.debt) + ' in debt' : 'Your debt is up ' + A.money(-f.debt)) + ' and ' + (f.ef >= 0 ? 'added ' + A.money(f.ef) + ' to' : 'drawn ' + A.money(-f.ef) + ' from') + ' your emergency fund since baseline.');
+    var strong = f.st.done >= f.st.all && f.trackRate >= 0.85 && (f.mtgRate === null || f.mtgRate >= 1);
+    out.push('On execution, you completed ' + f.st.done + ' of ' + f.st.all + ' Field Assignments this phase and tracked spending on ' + Math.round(f.trackRate * 100) + '% of days' + (f.mtgRate !== null ? ', and you held ' + Math.round(f.mtgRate * 100) + '% of your Weekly Money Meetings' : '') + '. ' +
+      (f.wsMiss.length ? 'Worksheets still incomplete: ' + f.wsMiss.join(', ') + '. ' : '') +
+      (strong && delta > 0 ? 'Your habits and your numbers are moving together. That\'s what accountability looks like.' : strong ? 'Your habits are at the standard even though the numbers haven\'t caught up yet. Keep going. Results follow behavior.' : delta > 0 ? 'Your numbers improved, but your habits aren\'t consistent yet. Numbers without habits don\'t last.' : 'Your habits and your numbers both need correction. Start with the basics: track every day, and hold every meeting.'));
+    out.push((f.weakest.s >= 95 ? '' : 'Your priority for ' + (n === NCP ? 'the next 90 days' : 'Phase ' + (n + 1)) + ' is ' + f.weakest.label + '. ') + target(f));
+    return out;
+  };
+  A.coachDraft = function(d, n){
+    var f = facts(d, n), delta = f.sc.total - f.sb.total, g = f.gains[0];
+    var a = d.me.first + ', I reviewed your ' + (n === NCP ? 'Final Checkpoint' : 'Checkpoint ' + n) + '. Your Accountability Index is ' + f.sc.total + ', ' + (delta >= 0 ? 'up ' : 'down ') + Math.abs(delta) + ' points from your baseline of ' + f.sb.total + '. ' +
+      (g.g > 0 ? 'What stands out most is your ' + g.p.label + ': ' + g.p.raw + '. ' : '') + (f.debt >= 0 ? 'You\'ve paid down ' + A.money(f.debt) + ' in debt' : 'Your debt is up ' + A.money(-f.debt)) + ', and your emergency fund is ' + (f.ef >= 0 ? 'up ' + A.money(f.ef) : 'down ' + A.money(-f.ef)) + '.';
+    var b = 'Here\'s what I see in your execution. You completed ' + f.st.done + ' of ' + f.st.all + ' Field Assignments and tracked ' + Math.round(f.trackRate * 100) + '% of days' + (f.mtgRate !== null ? ', and you held ' + Math.round(f.mtgRate * 100) + '% of your Money Meetings' : '') + '. ' +
+      (f.trackRate < 0.85 ? 'Tracking is the foundation of everything else in this program. I need to see every day logged. ' : 'Your tracking is solid. Don\'t let it slip now that it feels routine. ');
+    var c = (f.weakest.s >= 95 ? '' : 'Your focus ' + (n === NCP ? 'from here' : 'for Phase ' + (n + 1)) + ' is ' + f.weakest.label + '. ') + target(f) + ' Stay on the standard.';
+    return [a, b, c].join('\n\n');
+  };
+
   /* ---------- Progress Report: numbers + execution record + patterns from the student's own logs ---------- */
   var REPORT_TPL = 'template_qmceg0h';
   var THEMES = [
@@ -272,6 +330,7 @@
       '<td style="background:#0D1F3C;padding:16px;text-align:center;width:33%"><div style="font-family:Georgia,serif;font-size:30px;color:#E8B84B;font-weight:bold">' + sc.total + '</div><div style="font-size:11px;letter-spacing:1px;color:#ccc">INDEX NOW</div></td>' +
       '<td style="background:#0D1F3C;padding:16px;text-align:center;width:33%;border-left:1px solid #24375a"><div style="font-family:Georgia,serif;font-size:30px;color:#E8B84B;font-weight:bold">' + (sc.total - sb.total >= 0 ? '+' : '') + (sc.total - sb.total) + '</div><div style="font-size:11px;letter-spacing:1px;color:#ccc">SINCE BASELINE</div></td>' +
       '<td style="background:#0D1F3C;padding:16px;text-align:center;border-left:1px solid #24375a"><div style="font-family:Georgia,serif;font-size:30px;color:#E8B84B;font-weight:bold">' + (n > 1 ? ((sc.total - sp.total >= 0 ? '+' : '') + (sc.total - sp.total)) : sb.total) + '</div><div style="font-size:11px;letter-spacing:1px;color:#ccc">' + (n > 1 ? 'SINCE LAST CHECKPOINT' : 'BASELINE INDEX') + '</div></td></tr></table>';
+    h += eh('Your Assessment') + A.assessment(d, n).map(ep).join('');
     /* measures table */
     h += eh('Measure by Measure');
     h += '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:13px"><tr style="background:#0D1F3C;color:#E8B84B"><td style="padding:8px">Measure</td><td style="padding:8px">Baseline</td><td style="padding:8px">Now</td><td style="padding:8px">' + (n > 1 ? 'Since last' : 'Change') + '</td></tr>' +
@@ -292,7 +351,7 @@
     var strikes = A.strikes(d).length;
     var rating = doneRate >= 0.75 && trackRate >= 0.8 ? 'Strong' : (doneRate < 0.5 || trackRate < 0.5) ? 'Needs immediate correction' : 'Inconsistent';
     h += eh('Your Execution Record');
-    h += ep('<strong>Execution rating: ' + rating + '.</strong> Field Assignments: ' + st.Done + ' done, ' + st['Partially done'] + ' partial, ' + st['Not done'] + ' not done, out of ' + weeks + ' weeks. Spending tracked on ' + days + ' of ' + (7 * logged) + ' days (' + Math.round(trackRate * 100) + '%). Money Meetings held: ' + mtgY + ' of ' + (mtgY + mtgN) + '. Strikes on record: ' + strikes + '.');
+    h += ep('<strong>Execution rating: ' + rating + '.</strong> Worksheets complete: ' + A.wsDone(d, n) + ' of ' + A.moduleWs(1, n).length + '. Field Assignments: ' + st.Done + ' done, ' + st['Partially done'] + ' partial, ' + st['Not done'] + ' not done, out of ' + weeks + ' weeks. Spending tracked on ' + days + ' of ' + (7 * logged) + ' days (' + Math.round(trackRate * 100) + '%). Money Meetings held: ' + mtgY + ' of ' + (mtgY + mtgN) + '. Strikes on record: ' + strikes + '.');
     /* patterns from their own words */
     var hits = THEMES.map(function(t){ var wk = []; for (var w = 1; w <= weeks; w++){ var L = d.wk && d.wk[w]; if (L && t.re.test([L.res, L.set, L.drill, L.did].join(' '))) wk.push(w); } return {t: t, wk: wk}; })
       .filter(function(x){ return x.wk.length; }).sort(function(a, b){ return b.wk.length - a.wk.length; }).slice(0, 3);

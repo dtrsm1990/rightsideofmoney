@@ -227,6 +227,52 @@
 body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;pointer-events:auto!important;user-select:auto!important;}
 .course-footer .disc{display:block;margin-top:.35rem;font-size:.72rem;opacity:.75;}
 @media(max-width:768px){.ac-grid,.ac-stats,.ac-wins{grid-template-columns:minmax(0,1fr);}.ac-bar-row{grid-template-columns:minmax(0,1fr);gap:.35rem;}.ac-lk{grid-template-columns:minmax(0,1fr);}.ac-road li{grid-template-columns:minmax(0,1fr);}.ac-stats{grid-template-columns:repeat(3,minmax(0,1fr));}.ac-stat b{font-size:1.4rem;}.ac-code-row{flex-direction:column;}}
+.ws-card{padding:0!important;overflow:hidden;}
+.ws-in{padding:1.6rem 1.75rem;}
+.ws-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.ws-head h2{margin:0 0 .4rem!important;}
+.ws-chip{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:20px;white-space:nowrap;}
+.ws-chip.done{background:#EAF5EE;color:#1A6B3C;}.ws-chip.open{background:#FDF3E1;color:#8a5a00;}
+.ws-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.3rem 0;}
+.ws-t{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px;}
+.ws-t th{background:var(--navy);color:var(--gold-light);text-align:left;padding:.5rem .55rem;font-weight:600;font-size:.8rem;vertical-align:bottom;}
+.ws-t td{border:1px solid #e6dcc4;padding:0;vertical-align:top;background:#fff;}
+.ws-t td input,.ws-t td select{width:100%;border:0!important;padding:.6rem .55rem!important;font:inherit;font-size:.88rem;background:transparent;border-radius:0!important;}
+.ws-t td input:focus,.ws-t td select:focus{outline:2px solid var(--gold);outline-offset:-2px;box-shadow:none!important;}
+.ws-t td .ac-money::before{left:.5rem;}
+.ws-t td .ac-money input{padding-left:1.35rem!important;}
+.lg-t td{padding:.5rem .55rem;font-size:.85rem;}
+.ws-add{background:none;border:0;color:#B07A0C;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;padding:.4rem 0;}
+.ws-list{margin:.2rem 0 0 1.2rem!important;padding:0;}
+.ws-list li{margin:0 0 .45rem!important;}
+.ws-list input{width:100%;padding:.65rem .75rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:.93rem;}
+.ws-yn .ws-ynr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0ebe0;}
+.ws-yn p{margin:0!important;font-size:.93rem!important;}
+.ws-calc{background:var(--cream);border-left:4px solid var(--gold);border-radius:4px;padding:.9rem 1.1rem;margin:0 0 1.1rem;font-size:.93rem;line-height:1.6;color:#333;}
+.ws-suf{display:flex;align-items:center;gap:.5rem;}.ws-suf input{max-width:180px;}.ws-suf span{color:#666;font-weight:600;}
+.ws-sig{font-family:'Playfair Display',serif!important;font-style:italic;font-size:1.15rem!important;}
+.lg-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.1rem;background:#fbfaf6;border:1px solid #efe8d6;border-radius:4px;padding:1rem 1.1rem;margin:.6rem 0 1rem;}
+.lg-form .ac-btn{grid-column:1/-1;justify-self:start;}
+.lg-form .ac-msg{grid-column:1/-1;}
+.lg-del{background:none;border:0;color:#9B1C1C;font-size:1.2rem;cursor:pointer;line-height:1;}
+.ac-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;margin:0 0 2rem;box-shadow:0 14px 34px rgba(13,31,60,.22);}
+.ac-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ac-wslist{list-style:none;margin:.6rem 0 0!important;padding:0;}
+.ac-wslist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.6rem;align-items:center;padding:.55rem .2rem;border-bottom:1px solid #f0ebe0;font-size:.92rem;}
+.ac-wslist a{color:var(--navy);font-weight:600;}
+.wb-ws{border:1px solid #eee;border-left:4px solid var(--gold);border-radius:4px;padding:1.1rem 1.3rem;margin:0 0 1.2rem;background:#fff;page-break-inside:avoid;}
+.wb-ws h3{margin:0 0 .6rem!important;color:var(--navy);}
+.wb-ws h3 small{font-family:'DM Sans',sans-serif;font-size:.8rem;color:#888;font-weight:500;}
+.wb-l{font-weight:700;color:var(--navy);font-size:.88rem!important;margin:.7rem 0 .2rem!important;}
+.wb-v{margin:0!important;white-space:normal;}
+.wb-calc{background:var(--cream);padding:.6rem .8rem;border-radius:4px;font-size:.9rem!important;}
+.wb-yn{list-style:none;margin:0!important;padding:0;}.wb-yn li{font-size:.9rem;padding:.2rem 0;}.wb-yn b{display:inline-block;min-width:2.4rem;color:var(--navy);}
+.wb-sig span{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;}
+.wb-mod{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.5rem;border-bottom:2px solid var(--gold);padding-bottom:.3rem;margin:2rem 0 1rem;}
+@media(max-width:768px){.ws-t{min-width:0;}.ws-t thead{display:none;}.ws-t,.ws-t tbody,.ws-t tr{display:block;width:100%;}.ws-t tr{border:1px solid #e6dcc4;border-left:4px solid var(--gold);border-radius:4px;margin:0 0 .7rem;background:#fff;}.ws-t td{display:grid;grid-template-columns:38% minmax(0,1fr);align-items:center;border:0;border-bottom:1px solid #f1ecdf;}.ws-t td:last-child{border-bottom:0;}.ws-t td::before{content:attr(data-h);font-size:.75rem;font-weight:700;color:var(--navy);padding:.5rem .55rem;line-height:1.3;}.lg-t td{grid-template-columns:38% minmax(0,1fr);}.lg-t td:last-child{display:block;text-align:right;}.lg-t td:last-child::before{content:none;}.ws-in{padding:1.2rem 1rem;}.lg-form{grid-template-columns:minmax(0,1fr);}.ws-yn .ws-ynr{grid-template-columns:minmax(0,1fr);gap:.4rem;}.ws-head{flex-direction:column;gap:.3rem;}}
+@media print{.ws-add,.lg-form,.lg-del{display:none!important;}.wb-ws{box-shadow:none;}}
+
+.ac-video{position:relative;width:100%;aspect-ratio:16/9;}
 @media print{.top-nav,.sidebar,.course-footer,.no-print{display:none!important;}.course-wrap{display:block;}.lesson-main{padding:0;max-width:none;}}
 </style>
 </head>
@@ -240,6 +286,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
   <aside class="sidebar">
     <div class="sidebar-heading">Level 1: Personal Accountability</div>
     <nav><a href="./acc1-portal.html" class="active">Command Center</a>
+<a href="./acc1-workbook.html" class="">Your Workbook</a>
 <a href="./acc1-intake.html" data-g="intake" class="">Commitment &amp; Baseline</a>
 <div class="sb-sep">Phase 1</div>
 <a href="./acc1-week1.html" data-g="w1" class="">Week 1: The Truth Audit</a>
@@ -393,7 +440,8 @@ body.wv-lock .lesson-main>*:not(#rsmWelcome){opacity:.35;filter:grayscale(.4);po
   <div class="ac-eyebrow">How Level 1 Works</div>
   <h2>8 Weeks. 4 Verified Checkpoints. One Standard.</h2>
   <p>Level 1 rebuilds the foundation every financial result sits on: awareness, control, discipline, and follow-through. It's split into four two-week phases. Each phase ends with a checkpoint where you submit your numbers and your evidence. Darrell reviews every submission personally. When it's verified, you receive a code that unlocks the next phase. Nothing moves forward on a promise.</p>
-  <p>Every week has three parts: a short teaching on what to do and why, a Mindset Drill that confronts the thinking behind your behavior, and a Field Assignment you complete in your real financial life. You close each week with an Accountability Log. It's honest, short, and required.</p>
+  <p>Every week has a short teaching on what to do and why, a Mindset Drill that confronts the thinking behind your behavior, and a Field Assignment built around fill-in worksheets right on the page, with live calculators for your spending, your plan, your debt, and your credit. Your Daily Spending Log lives here too, so you never build a spreadsheet. Everything saves as you type, collects in <a href="./acc1-workbook.html" style="color:#B07A0C;font-weight:700">your Workbook</a>, and goes to Darrell automatically with your checkpoint.</p>
+  <p>You close each week with an Accountability Log. It's honest, short, and required. After every checkpoint you receive a written Progress Report and Darrell's personal written feedback.</p>
 </section>
 
 <section class="ac-card" id="acIndexCard">
@@ -443,6 +491,8 @@ body.wv-lock .lesson-main>*:not(#rsmWelcome){opacity:.35;filter:grayscale(.4);po
   </main>
 </div>
 <footer class="course-footer">&copy; 2026 Right Side of Money<span>&reg;</span> &middot; Darrell Thompson &middot; info@rightsideofmoney.com<span class="disc">Educational program only. Not financial, investment, tax, legal, or credit repair advice.</span></footer>
+<script src="./acc-ws.js"></script>
+<script src="./acc1-data.js"></script>
 <script src="./acc1-core.js"></script>
 <script>
 var WEEKS = ["The Truth Audit", "Cash Flow Command", "Plug the Leaks", "Confront the Debt", "Build the Buffer", "Take Control of Your Credit", "Systems Over Willpower", "Prove It and Lock It In"];
