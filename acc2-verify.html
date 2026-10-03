@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Level 2 Scoreboard Verification | RSM Accountability</title>
+<meta name="robots" content="noindex, nofollow" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',Arial,sans-serif;background:#F4F1EA;color:#1a1a1a;line-height:1.6;padding:24px 16px}
+.wrap{max-width:720px;margin:0 auto}
+header{background:#0D1F3C;border-top:4px solid #C9941A;border-radius:4px;padding:22px 24px;margin-bottom:18px}
+header small{color:#C9941A;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:800}
+header h1{font-family:'Playfair Display',serif;color:#fff;font-size:26px;margin-top:4px}
+header p{color:rgba(255,255,255,.75);font-size:14px;margin-top:6px}
+.card{background:#fff;border-radius:4px;padding:22px 24px;margin-bottom:16px;box-shadow:0 6px 18px rgba(13,31,60,.06)}
+label{display:block;font-weight:700;color:#0D1F3C;font-size:14px;margin:0 0 6px}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:15px;margin-bottom:14px;background:#fff}
+textarea{min-height:110px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+button,.btn{display:inline-block;background:#C9941A;color:#0D1F3C;border:0;font:inherit;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:13px 18px;border-radius:4px;cursor:pointer;text-decoration:none;margin:0 8px 8px 0}
+.btn.ghost{background:transparent;border:2px solid #0D1F3C}
+.code{font-family:'Playfair Display',serif;font-size:34px;color:#0D1F3C;letter-spacing:.06em;margin:4px 0 12px}
+.subj{font-weight:700;color:#0D1F3C;margin-bottom:6px}
+pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-left:4px solid #C9941A;padding:14px 16px;border-radius:4px;margin-bottom:14px}
+.msg{font-size:14px;font-weight:700;min-height:1.2em}.err{color:#9B1C1C}.ok{color:#1A6B3C}
+.note{font-size:13px;color:#666}
+@media(max-width:600px){.row{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body><div class="wrap">
+<header><small>Darrell Only &middot; Do Not Share</small><h1>Level 2 Scoreboard Verification</h1><p>Level 2 only. Review the student's scoreboard in Formspree, then issue a code or request revisions here. Codes are tied to the student's email, so use the exact email from their submission.</p></header>
+<div class="card">
+  <div class="row">
+    <div><label for="vFirst">Student first name</label><input id="vFirst" type="text"></div>
+    <div><label for="vEmail">Student email (from the submission)</label><input id="vEmail" type="email"></div>
+  </div>
+  <label for="vAct">Decision</label>
+  <select id="vAct">
+    <option value="W0">Welcome new student (payment confirmed)</option>
+    <option value="V1">Verify Checkpoint 1 (unlocks Module 2)</option>
+    <option value="V2">Verify Checkpoint 2 (unlocks Module 3)</option>
+    <option value="V3">Verify Final Checkpoint (unlocks graduation)</option>
+    <option value="X1">Revisions needed: Checkpoint 1</option>
+    <option value="X2">Revisions needed: Checkpoint 2</option>
+    <option value="X3">Revisions needed: Final Checkpoint</option>
+    <option value="R1">Reinstate after pause (1st reinstatement)</option>
+    <option value="R2">Reinstate after pause (2nd reinstatement)</option>
+    <option value="R3">Reinstate after pause (3rd reinstatement)</option>
+  </select>
+  <label for="vNotes">Your notes to the student</label>
+  <textarea id="vNotes" placeholder="What stood out, what to fix, or what to focus on next. Required for revisions."></textarea>
+  <button type="button" id="vGo">Create Decision</button>
+  <p class="msg" id="vMsg"></p>
+</div>
+<div class="card" id="vOut" style="display:none">
+  <div id="vCodeWrap"><label>Code</label><div class="code" id="vCode"></div></div>
+  <label>Email to send</label>
+  <div class="subj" id="vSubj"></div>
+  <pre id="vBody"></pre>
+  <a class="btn" id="vMail" href="#">Open in My Email App</a>
+  <button type="button" class="btn ghost" id="vCopy">Copy Email</button>
+  <p class="note">Send it from info@rightsideofmoney.com so the student can reply to you.</p>
+  <p class="msg" id="vCopyMsg"></p>
+</div>
+</div>
+<script src="./acc2-core.js"></script>
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var ACC1 = ACC2, PORTAL = ACC2.site + 'acc2-portal.html';
+  $('vGo').addEventListener('click', function(){
+    var f = $('vFirst').value.trim(), em = $('vEmail').value.trim(), act = $('vAct').value, notes = $('vNotes').value.trim(), m = $('vMsg');
+    m.className = 'msg err';
+    if (!f) { m.textContent = 'Enter the student\'s first name.'; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { m.textContent = 'Enter the exact email from the student\'s submission.'; return; }
+    var t = act.charAt(0), n = +act.charAt(1), subj, body, code = '';
+    var label = ACC2.cpLabel(n);
+    var noteBlock = notes ? '\n\nNotes from Darrell:\n' + notes : '';
+    if (t === 'V'){
+      code = ACC1.code(em, act);
+      subj = label + ' Verified | RSM Accountability Level 2';
+      body = 'Hi ' + f + ',\n\nYour ' + label + ' is verified.\n\nYour verification code: ' + code + '\n\nEnter it in your Operations Center to ' + (n === ACC2.ncp ? 'unlock your Results Report and certificate' : 'unlock Module ' + (n + 1)) + ':\n' + PORTAL + noteBlock + '\n\nStay on the standard.\n\nDarrell Thompson\nRight Side of Money';
+    } else if (t === 'W'){
+      subj = 'Welcome to Level 2 | RSM Accountability Program';
+      body = 'Hi ' + f + ',\n\nYour payment is confirmed, and you\'re officially in Level 2 of the RSM Accountability Program: Wealth System Accountability.\n\nHere\'s your Operations Center:\n' + PORTAL + '\n\nHow to start:\n1. Open the link and check in with this email address: ' + em + '. Use the same email every time, because your verification codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days of checking in.\n\nYour 12-week clock starts the moment you check in, and every deadline will be posted in your Operations Center. Nobody is going to chase you. That\'s the point.' + noteBlock + '\n\nI\'m glad you\'re here. Let\'s get to work.\n\nDarrell Thompson\nRight Side of Money';
+    } else if (t === 'X'){
+      if (notes.length < 10) { m.textContent = 'Write what the student needs to fix. Revisions need clear notes.'; return; }
+      subj = label + ': Revisions Needed | RSM Accountability Level 2';
+      body = 'Hi ' + f + ',\n\nI reviewed your ' + label + ', and it isn\'t verified yet. Here\'s what I need from you:\n\n' + notes + '\n\nOpen your ' + label + ' page, choose Resubmit With Revisions, and upload what\'s missing. Your next module stays locked until it\'s verified.\n\n' + PORTAL + '\n\nDarrell Thompson\nRight Side of Money';
+    } else {
+      code = ACC1.code(em, act);
+      subj = 'You\'re Reinstated | RSM Accountability Level 2';
+      body = 'Hi ' + f + ',\n\nI reviewed your recommitment, and you\'re reinstated.\n\nYour reinstatement code: ' + code + '\n\nEnter it in the Program Paused section of your Operations Center:\n' + PORTAL + '\n\nYour remaining deadlines have been reset on a fresh schedule in your Operations Center. Understand the standard: after this reinstatement, your next strike pauses the program again.' + noteBlock + '\n\nDarrell Thompson\nRight Side of Money';
+    }
+    $('vCodeWrap').style.display = code ? 'block' : 'none';
+    $('vCode').textContent = code; $('vSubj').textContent = 'Subject: ' + subj; $('vBody').textContent = body;
+    $('vMail').href = 'mailto:' + encodeURIComponent(em) + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+    $('vOut').style.display = 'block'; m.className = 'msg ok'; m.textContent = 'Ready. Review the email below, then send it.';
+    $('vOut').scrollIntoView({behavior: 'smooth'});
+  });
+  $('vCopy').addEventListener('click', function(){
+    var txt = $('vSubj').textContent + '\n\n' + $('vBody').textContent;
+    try { navigator.clipboard.writeText(txt).then(function(){ $('vCopyMsg').className = 'msg ok'; $('vCopyMsg').textContent = 'Copied.'; }); } catch(e){ $('vCopyMsg').textContent = 'Select the text above and copy it.'; }
+  });
+})();
+</script>
+</body>
+</html>
