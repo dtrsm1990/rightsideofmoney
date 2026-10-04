@@ -164,8 +164,40 @@
     if (d.me){ fd.append('student', d.me.first + ' ' + d.me.last); fd.append('email', d.me.email); fd.append('program', PROGRAM); fd.append('program_start', A.date(d.me.start)); }
     Object.keys(fields).forEach(function(k){ fd.append(k, fields[k]); });
     (files || []).forEach(function(f, i){ fd.append('evidence_' + (i + 1), f, f.name); });
-    return fetch(FORM, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(r){ if (!r.ok) throw new Error('send'); return r; });
+    function send(body){ return fetch(FORM, {method: 'POST', body: body, headers: {'Accept': 'application/json'}}).then(function(r){ if (!r.ok) throw new Error('send'); return r; }); }
+    if (!files || !files.length) return send(fd);
+    /* If the files can't be attached, still deliver the submission and ask the student to email the evidence. */
+    return send(fd).catch(function(){
+      var fd2 = new FormData();
+      if (d.me){ fd2.append('student', d.me.first + ' ' + d.me.last); fd2.append('email', d.me.email); fd2.append('program', PROGRAM); fd2.append('program_start', A.date(d.me.start)); }
+      Object.keys(fields).forEach(function(k){ fd2.append(k, fields[k]); });
+      fd2.append('evidence_status', 'FILES NOT ATTACHED. Student was asked to email ' + files.length + ' file(s): ' + files.map(function(f){ return f.name; }).join(', '));
+      return send(fd2).then(function(r){ A.evidenceNotice(files); return r; });
+    });
   };
+  A.evidenceNotice = function(files){
+    var el = document.createElement('div');
+    el.setAttribute('role', 'alert');
+    el.style.cssText = 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:10000;max-width:560px;width:calc(100% - 32px);background:#0D1F3C;color:#fff;border:2px solid #C9941A;border-radius:6px;padding:16px 18px;font-size:15px;line-height:1.55;box-shadow:0 16px 40px rgba(0,0,0,.35)';
+    el.innerHTML = '<strong style="color:#E8B84B">Your submission was received, but your files didn\'t attach.</strong><br>Email your ' + files.length + ' evidence file' + (files.length > 1 ? 's' : '') + ' to <a href="mailto:info@rightsideofmoney.com" style="color:#E8B84B">info@rightsideofmoney.com</a> with your name in the subject line. Darrell needs them to verify your work.<br><button type="button" style="margin-top:10px;background:#C9941A;color:#0D1F3C;border:0;font-weight:800;padding:8px 14px;border-radius:4px;cursor:pointer">Got It</button>';
+    el.querySelector('button').addEventListener('click', function(){ el.remove(); });
+    document.body.appendChild(el);
+  };
+  /* Bring every error message into view so a problem never looks like "nothing happened." */
+  document.addEventListener('DOMContentLoaded', function(){
+    if (!window.MutationObserver) return;
+    new MutationObserver(function(list){
+      list.forEach(function(mu){
+        var el = mu.target.nodeType === 1 ? mu.target : mu.target.parentNode;
+        if (!el || !el.closest) return; el = el.closest('.ac-msg');
+        if (!el || !el.textContent.trim() || /\bok\b/.test(el.className)) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < 70 || r.bottom > window.innerHeight - 20) el.scrollIntoView({behavior: 'smooth', block: 'center'});
+        el.style.outline = '2px solid #E8B84B'; el.style.outlineOffset = '4px'; el.style.borderRadius = '2px';
+        setTimeout(function(){ el.style.outline = ''; }, 2500);
+      });
+    }).observe(document.body, {childList: true, characterData: true, subtree: true});
+  });
   A.kit = function(first, email){
     var k = new FormData(); k.append('email_address', email); k.append('fields[first_name]', first);
     try { fetch('https://app.kit.com/forms/' + KIT + '/subscriptions', {method: 'POST', body: k, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){}
