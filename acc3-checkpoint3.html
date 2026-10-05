@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protection Scoreboard | RSM Accountability Program Level 3</title>
+  <meta name="description" content="RSM Accountability Program, Level 3: Total Accountability." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+
+    /* mobile width fix */
+    .course-wrap{grid-template-columns:260px minmax(0,1fr);}
+    .lesson-main{min-width:0;overflow-wrap:break-word;}
+    @media(max-width:768px){.course-wrap{grid-template-columns:minmax(0,1fr)!important;}.rsm-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
+  
+.top-nav .course-title{text-align:center;}
+.sidebar nav a.locked{color:rgba(255,255,255,0.35);}
+.sidebar nav a.locked::after{content:' \1F512';font-size:.75em;}
+.sidebar .sb-sep{color:var(--gold);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;padding:1rem 1.5rem .35rem;opacity:.8;}
+.ac-card{background:#fff;border:1px solid #e6dcc4;border-top:4px solid var(--gold);border-radius:4px;padding:1.6rem 1.75rem;margin:1.8rem 0;box-shadow:0 8px 24px rgba(13,31,60,.06);}
+.ac-card h2{margin-top:0!important;}
+.ac-card.navy{background:var(--navy);border-color:var(--navy);border-top-color:var(--gold);}
+.ac-card.navy h2,.ac-card.navy h3{color:#fff!important;}
+.ac-card.navy p,.ac-card.navy li{color:rgba(255,255,255,.8)!important;}
+.ac-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.ac-muted{color:#777!important;font-size:.92rem;}
+.ac-field{margin:0 0 1.1rem;}
+.ac-field label{display:block;font-weight:600;color:var(--navy);font-size:.95rem;margin-bottom:.35rem;}
+.ac-field small{display:block;color:#777;font-size:.82rem;margin:-.15rem 0 .4rem;line-height:1.45;}
+.ac-field input[type=text],.ac-field input[type=email],.ac-field input[type=number],.ac-field input[type=tel],.ac-field select,.ac-field textarea{width:100%;padding:.75rem .85rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:.95rem;color:#1a1a1a;background:#fff;}
+.ac-field textarea{min-height:110px;resize:vertical;line-height:1.55;}
+.ac-field input:focus,.ac-field select:focus,.ac-field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,148,26,.18);}
+.ac-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.2rem;}
+.ac-money{position:relative;}
+.ac-money::before{content:'$';position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:#999;font-weight:600;}
+.ac-money input{padding-left:1.6rem!important;}
+.ac-last{display:block;font-size:.78rem;color:#B07A0C;margin-top:.3rem;}
+.ac-likert{border:1px solid #eee;border-radius:4px;margin:0 0 1rem;}
+.ac-lk{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.7rem .9rem;border-bottom:1px solid #eee;}
+.ac-lk:last-child{border-bottom:0;}
+.ac-lk:nth-child(even){background:#fafafa;}
+.ac-lk p{margin:0!important;font-size:.92rem!important;}
+.ac-lk .opts{display:flex;gap:.3rem;}
+.ac-lk .opts label{position:relative;}
+.ac-lk .opts input{position:absolute;opacity:0;}
+.ac-lk .opts span{display:flex;width:34px;height:34px;align-items:center;justify-content:center;border:1.5px solid #d9d2c0;border-radius:50%;font-weight:700;font-size:.85rem;color:#666;cursor:pointer;}
+.ac-lk .opts input:checked+span{background:var(--navy);border-color:var(--navy);color:var(--gold-light);}
+.ac-lk .opts input:focus-visible+span{box-shadow:0 0 0 3px rgba(201,148,26,.4);}
+.ac-scale{display:flex;justify-content:space-between;font-size:.75rem;color:#888;padding:.5rem .9rem;background:#f5f5f5;}
+.ac-check{display:flex;gap:.65rem;align-items:flex-start;margin:.6rem 0;font-size:.93rem;color:#333;}
+.ac-check input{margin-top:.3rem;flex:0 0 auto;accent-color:var(--navy);width:17px;height:17px;}
+.ac-radio{display:flex;flex-wrap:wrap;gap:.5rem;}
+.ac-radio label{display:flex;align-items:center;gap:.4rem;border:1.5px solid #d9d2c0;border-radius:4px;padding:.55rem .9rem;font-weight:500!important;cursor:pointer;margin:0!important;font-size:.92rem!important;}
+.ac-radio input{accent-color:var(--navy);}
+.ac-btn{background:var(--gold);color:var(--navy);border:0;font:inherit;font-weight:800;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:.95rem 1.6rem;border-radius:4px;cursor:pointer;}
+.ac-btn:hover{background:var(--gold-light);}
+.ac-btn[disabled]{opacity:.6;cursor:wait;}
+.ac-btn.wide{width:100%;}
+.ac-btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy);}
+.ac-msg{font-size:.92rem;font-weight:600;margin:.7rem 0 0!important;min-height:1.2em;}
+.ac-msg.err{color:#9B1C1C;}.ac-msg.ok{color:#1A6B3C;}
+.ac-done{display:flex;gap:.9rem;align-items:flex-start;background:#EAF5EE;border:1px solid #bfe0cb;border-left:4px solid #1A6B3C;border-radius:4px;padding:1rem 1.2rem;margin:1.4rem 0;}
+.ac-done .ico{font-size:1.3rem;color:#1A6B3C;line-height:1.3;}
+.ac-done p{margin:0!important;color:#1d3b2a!important;}
+.ac-warn{background:#FDF3E1;border:1px solid #f0d9a8;border-left:4px solid var(--gold);border-radius:4px;padding:1rem 1.2rem;margin:1.4rem 0;}
+.ac-warn p{margin:0!important;}
+.ac-lock{text-align:center;background:var(--navy);border-radius:6px;padding:2.6rem 1.8rem;margin:1.5rem 0;}
+.ac-lock-ico{font-size:2rem;margin-bottom:.6rem;}
+.ac-lock h2{color:#fff!important;margin:0 0 .6rem!important;}
+.ac-lock p{color:rgba(255,255,255,.8)!important;max-width:520px;margin:0 auto 1.4rem!important;}
+.ac-code{background:var(--cream);border:1px solid #efdcae;border-radius:4px;padding:1rem 1.1rem;margin:.9rem 0;}
+.ac-code label strong{display:block;color:var(--navy);}
+.ac-code label span{display:block;font-size:.82rem;color:#777;margin-bottom:.5rem;}
+.ac-code-row{display:flex;gap:.5rem;}
+.ac-code-row input{flex:1;min-width:0;padding:.75rem .85rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.ac-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1.5rem 0;}
+.ac-stat{background:var(--navy);border-radius:4px;padding:1rem;text-align:center;}
+.ac-stat b{display:block;font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold-light);line-height:1.1;}
+.ac-stat span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);}
+.ac-next{background:var(--gold);border-radius:4px;padding:1.2rem 1.4rem;margin:1.5rem 0;display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.ac-next p{margin:0!important;color:var(--navy)!important;font-weight:600;}
+.ac-next small{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;}
+.ac-next a{background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:.75rem 1.2rem;border-radius:4px;white-space:nowrap;}
+.ac-road{list-style:none;margin:1rem 0!important;padding:0;}
+.ac-road li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.8rem 1rem;border:1px solid #eee;border-left:4px solid #ddd;border-radius:4px;margin:0 0 .5rem!important;background:#fff;}
+.ac-road li.cp{background:#fbf7ee;border-left-color:var(--gold);}
+.ac-road li a{color:var(--navy);font-weight:700;text-decoration:none;}
+.ac-road li .sub{display:block;font-size:.8rem;color:#888;font-weight:400;}
+.ac-chip{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .6rem;border-radius:20px;white-space:nowrap;}
+.ac-chip.done{background:#EAF5EE;color:#1A6B3C;}.ac-chip.open{background:var(--navy);color:var(--gold-light);}.ac-chip.wait{background:#FDF3E1;color:#8a5a00;}.ac-chip.lock{background:#eee;color:#888;}.ac-chip.late{background:#FBEAEA;color:#9B1C1C;}
+.ac-idx-top{display:flex;gap:1.2rem;align-items:center;margin-bottom:1rem;}
+.ac-idx-num{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:700;color:var(--navy);line-height:1;}
+.ac-idx-num span{font-size:1.1rem;color:#999;}
+.ac-idx-lbl{font-weight:700;color:var(--navy);}
+.ac-idx-d{font-size:.9rem;color:#777;}.ac-idx-d.up{color:#1A6B3C;font-weight:700;}.ac-idx-d.down{color:#9B1C1C;font-weight:700;}
+.ac-legend{display:flex;gap:1.2rem;font-size:.8rem;color:#666;margin:0 0 .8rem;}
+.ac-legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:.35rem;vertical-align:-1px;}
+.ac-legend .lb,.ac-bar.b{background:#3A6AB0;}.ac-legend .ll,.ac-bar.l{background:#B07A0C;}
+.ac-bar-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:1rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0f0f0;}
+.ac-bar-lbl strong{display:block;font-size:.9rem;color:var(--navy);}
+.ac-bar-lbl span{font-size:.76rem;color:#888;}
+.ac-bars{display:grid;gap:3px;}
+.ac-bar{height:9px;border-radius:0 3px 3px 0;}
+.ac-wins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:1.1rem;}
+.ac-wins div{background:var(--cream);border-radius:4px;padding:.9rem 1rem;}
+.ac-wins strong{display:block;font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);}
+.ac-wins span{font-size:.8rem;color:#666;}
+.ac-file{border:2px dashed #d9d2c0;border-radius:4px;padding:1rem;background:#fcfbf7;}
+.ac-file input{width:100%;font:inherit;font-size:.9rem;}
+.ac-filelist{font-size:.85rem;color:#555;margin:.5rem 0 0;}
+.ac-rule{display:grid;grid-template-columns:44px minmax(0,1fr);gap:.9rem;padding:.9rem 0;border-bottom:1px solid #eee;}
+.ac-rule b{display:flex;width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--gold-light);align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;}
+.ac-rule p{margin:0!important;}
+.ac-rule strong{color:var(--navy);}
+.ac-std{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;background:#f7f7f7;border-radius:4px;padding:.9rem 1.1rem;margin:0 0 1.8rem;font-size:.88rem;color:#555;}
+.ac-std b{color:var(--navy);}
+.ac-proof li::marker{color:var(--gold);}
+.cert{border:3px solid var(--gold);outline:1px solid var(--gold);outline-offset:-10px;background:#fff;padding:2.6rem 2rem;text-align:center;margin:2rem 0;}
+.cert .c1{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.cert h2{font-size:1.9rem!important;margin:.6rem 0 1rem!important;}
+.cert .nm{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--navy);border-bottom:1px solid #ddd;display:inline-block;padding:0 1.5rem .4rem;margin:.4rem 0 1rem;}
+.cert .sig{display:flex;justify-content:center;gap:3rem;margin-top:1.6rem;flex-wrap:wrap;font-size:.85rem;color:#555;}
+.cert .sig b{display:block;font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);font-style:italic;}
+.ac-card.navy .ac-field > label,.ac-card.navy .ac-field label[for]{color:#fff;}
+.ac-card.navy .ac-field small{color:rgba(255,255,255,.65);}
+.ac-card.navy .ac-check{color:rgba(255,255,255,.88);}
+.ac-card.navy .ac-radio{background:#fff;padding:.5rem;border-radius:4px;}
+.ac-card.navy .ac-radio label{color:var(--navy)!important;}
+.ac-card.navy p.ac-msg{color:#ffc9c9!important;}
+.ac-card.navy .ac-done p{color:#1d3b2a!important;}
+.ac-card.navy .ac-next p{color:var(--navy)!important;}
+body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;pointer-events:auto!important;user-select:auto!important;}
+.course-footer .disc{display:block;margin-top:.35rem;font-size:.72rem;opacity:.75;}
+@media(max-width:768px){.ac-grid,.ac-stats,.ac-wins{grid-template-columns:minmax(0,1fr);}.ac-bar-row{grid-template-columns:minmax(0,1fr);gap:.35rem;}.ac-lk{grid-template-columns:minmax(0,1fr);}.ac-road li{grid-template-columns:minmax(0,1fr);}.ac-stats{grid-template-columns:repeat(3,minmax(0,1fr));}.ac-stat b{font-size:1.4rem;}.ac-code-row{flex-direction:column;}}
+
+@media print{.top-nav,.sidebar,.course-footer,.no-print{display:none!important;}.course-wrap{display:block;}.lesson-main{padding:0;max-width:none;}}
+
+.ac-mod{background:linear-gradient(135deg,#0D1F3C,#16305a);border-left:5px solid var(--gold);border-radius:4px;padding:1.6rem 1.75rem;margin:0 0 2rem;}
+.ac-mod h2{color:#fff!important;margin:0 0 .7rem!important;}
+.ac-mod p{color:rgba(255,255,255,.82)!important;}
+.ac-mod p:last-child{margin-bottom:0!important;color:var(--gold-light)!important;font-weight:600;}
+.ac-logt{width:100%;border-collapse:collapse;font-size:.85rem;margin:.6rem 0 0;}
+.ac-logt th{background:var(--navy);color:var(--gold-light);text-align:left;padding:.55rem .6rem;font-weight:600;vertical-align:bottom;}
+.ac-logt td{border:1px solid #e6dcc4;height:2rem;background:#fff;}
+.ac-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.ac-cklist{list-style:none;margin:.8rem 0 1rem!important;padding:0;counter-reset:ck;}
+.ac-cklist li{counter-increment:ck;position:relative;padding:.6rem .8rem .6rem 2.6rem;border-bottom:1px solid #eee;font-size:.93rem;}
+.ac-cklist li::before{content:counter(ck);position:absolute;left:.6rem;top:.55rem;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--cream);color:var(--navy);font-weight:800;font-size:.75rem;display:flex;align-items:center;justify-content:center;}
+.ac-sb .ac-check{border-bottom:1px solid #f0ebe0;padding:.35rem 0;margin:0;}
+.ac-sbcount{font-weight:700;color:var(--navy);font-size:.9rem;margin:.6rem 0 0!important;}
+.ac-close{text-align:center;font-size:.72rem;letter-spacing:.2em;font-weight:800;color:var(--gold);margin:1.4rem 0 0!important;}
+.ac-calls{display:grid;gap:.6rem;margin:1rem 0;}
+.ac-callrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;border:1px solid #eee;border-left:4px solid var(--gold);border-radius:4px;padding:.8rem 1rem;background:#fff;}
+.ac-callrow strong{color:var(--navy);display:block;}
+.ac-callrow span{font-size:.82rem;color:#777;}
+.ac-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem 1.2rem;margin:.4rem 0 1rem;}
+
+.ws-card{padding:0!important;overflow:hidden;}
+.ws-in{padding:1.6rem 1.75rem;}
+.ws-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.ws-head h2{margin:0 0 .4rem!important;}
+.ws-chip{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:20px;white-space:nowrap;}
+.ws-chip.done{background:#EAF5EE;color:#1A6B3C;}.ws-chip.open{background:#FDF3E1;color:#8a5a00;}
+.ws-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.3rem 0;}
+.ws-t{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px;}
+.ws-t th{background:var(--navy);color:var(--gold-light);text-align:left;padding:.5rem .55rem;font-weight:600;font-size:.8rem;vertical-align:bottom;}
+.ws-t td{border:1px solid #e6dcc4;padding:0;vertical-align:top;background:#fff;}
+.ws-t td input,.ws-t td select{width:100%;border:0!important;padding:.6rem .55rem!important;font:inherit;font-size:.88rem;background:transparent;border-radius:0!important;}
+.ws-t td input:focus,.ws-t td select:focus{outline:2px solid var(--gold);outline-offset:-2px;box-shadow:none!important;}
+.ws-t td .ac-money::before{left:.5rem;}
+.ws-t td .ac-money input{padding-left:1.35rem!important;}
+.lg-t td{padding:.5rem .55rem;font-size:.85rem;}
+.ws-add{background:none;border:0;color:#B07A0C;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;padding:.4rem 0;}
+.ws-list{margin:.2rem 0 0 1.2rem!important;padding:0;}
+.ws-list li{margin:0 0 .45rem!important;}
+.ws-list input{width:100%;padding:.65rem .75rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:.93rem;}
+.ws-yn .ws-ynr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0ebe0;}
+.ws-yn p{margin:0!important;font-size:.93rem!important;}
+.ws-calc{background:var(--cream);border-left:4px solid var(--gold);border-radius:4px;padding:.9rem 1.1rem;margin:0 0 1.1rem;font-size:.93rem;line-height:1.6;color:#333;}
+.ws-suf{display:flex;align-items:center;gap:.5rem;}.ws-suf input{max-width:180px;}.ws-suf span{color:#666;font-weight:600;}
+.ws-sig{font-family:'Playfair Display',serif!important;font-style:italic;font-size:1.15rem!important;}
+.lg-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.1rem;background:#fbfaf6;border:1px solid #efe8d6;border-radius:4px;padding:1rem 1.1rem;margin:.6rem 0 1rem;}
+.lg-form .ac-btn{grid-column:1/-1;justify-self:start;}
+.lg-form .ac-msg{grid-column:1/-1;}
+.lg-del{background:none;border:0;color:#9B1C1C;font-size:1.2rem;cursor:pointer;line-height:1;}
+.ac-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;margin:0 0 2rem;box-shadow:0 14px 34px rgba(13,31,60,.22);}
+.ac-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ac-wslist{list-style:none;margin:.6rem 0 0!important;padding:0;}
+.ac-wslist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.6rem;align-items:center;padding:.55rem .2rem;border-bottom:1px solid #f0ebe0;font-size:.92rem;}
+.ac-wslist a{color:var(--navy);font-weight:600;}
+.wb-ws{border:1px solid #eee;border-left:4px solid var(--gold);border-radius:4px;padding:1.1rem 1.3rem;margin:0 0 1.2rem;background:#fff;page-break-inside:avoid;}
+.wb-ws h3{margin:0 0 .6rem!important;color:var(--navy);}
+.wb-ws h3 small{font-family:'DM Sans',sans-serif;font-size:.8rem;color:#888;font-weight:500;}
+.wb-l{font-weight:700;color:var(--navy);font-size:.88rem!important;margin:.7rem 0 .2rem!important;}
+.wb-v{margin:0!important;white-space:normal;}
+.wb-calc{background:var(--cream);padding:.6rem .8rem;border-radius:4px;font-size:.9rem!important;}
+.wb-yn{list-style:none;margin:0!important;padding:0;}.wb-yn li{font-size:.9rem;padding:.2rem 0;}.wb-yn b{display:inline-block;min-width:2.4rem;color:var(--navy);}
+.wb-sig span{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;}
+.wb-mod{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.5rem;border-bottom:2px solid var(--gold);padding-bottom:.3rem;margin:2rem 0 1rem;}
+@media(max-width:768px){.ws-t{min-width:0;}.ws-t thead{display:none;}.ws-t,.ws-t tbody,.ws-t tr{display:block;width:100%;}.ws-t tr{border:1px solid #e6dcc4;border-left:4px solid var(--gold);border-radius:4px;margin:0 0 .7rem;background:#fff;}.ws-t td{display:grid;grid-template-columns:38% minmax(0,1fr);align-items:center;border:0;border-bottom:1px solid #f1ecdf;}.ws-t td:last-child{border-bottom:0;}.ws-t td::before{content:attr(data-h);font-size:.75rem;font-weight:700;color:var(--navy);padding:.5rem .55rem;line-height:1.3;}.lg-t td{grid-template-columns:38% minmax(0,1fr);}.lg-t td:last-child{display:block;text-align:right;}.lg-t td:last-child::before{content:none;}.ws-in{padding:1.2rem 1rem;}.lg-form{grid-template-columns:minmax(0,1fr);}.ws-yn .ws-ynr{grid-template-columns:minmax(0,1fr);gap:.4rem;}.ws-head{flex-direction:column;gap:.3rem;}}
+@media print{.ws-add,.lg-form,.lg-del{display:none!important;}.wb-ws{box-shadow:none;}}
+@media(max-width:768px){.ac-rules{grid-template-columns:minmax(0,1fr);}.ac-callrow{grid-template-columns:minmax(0,1fr);}.ac-mod{padding:1.3rem 1.2rem;}}
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Accountability Program &middot; Level 3</span>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Level 3: Total Accountability</div>
+    <nav><a href="./acc3-portal.html" class="">Headquarters</a>
+<a href="./acc3-workbook.html" class="">Your Total Accountability Workbook</a>
+<a href="./acc3-intake.html" data-g="intake" class="">Commitment &amp; Baseline</a>
+<div class="sb-sep">Foundation</div>
+<a href="./acc3-week1.html" data-g="w1" class="">Week 1: The Foundation Audit</a>
+<a href="./acc3-week2.html" data-g="w2" class="">Week 2: The Operator Rulebook</a>
+<a href="./acc3-checkpoint1.html" data-g="c1" class="">Foundation Scoreboard</a>
+<div class="sb-sep">Module 1: Architecture</div>
+<a href="./acc3-week3.html" data-g="w3" class="">Week 3: Ownership vs. Control</a>
+<a href="./acc3-week4.html" data-g="w4" class="">Week 4: Wealth Requires Rules</a>
+<a href="./acc3-week5.html" data-g="w5" class="">Week 5: Decision Authority</a>
+<a href="./acc3-week6.html" data-g="w6" class="">Week 6: Access, Incentives, and Entitlement</a>
+<a href="./acc3-checkpoint2.html" data-g="c2" class="">Architecture Scoreboard</a>
+<div class="sb-sep">Module 2: Protection</div>
+<a href="./acc3-week7.html" data-g="w7" class="">Week 7: Risk Is Not Optional</a>
+<a href="./acc3-week8.html" data-g="w8" class="">Week 8: Risk Transfer</a>
+<a href="./acc3-week9.html" data-g="w9" class="">Week 9: Layered Protection</a>
+<a href="./acc3-week10.html" data-g="w10" class="">Week 10: Legal, Financial, and Personal Shields</a>
+<a href="./acc3-checkpoint3.html" data-g="c3" class="active">Protection Scoreboard</a>
+<div class="sb-sep">Module 3: Legacy</div>
+<a href="./acc3-week11.html" data-g="w11" class="">Week 11: Legacy Is Not Inheritance</a>
+<a href="./acc3-week12.html" data-g="w12" class="">Week 12: Preparing Heirs Without Creating Dependence</a>
+<a href="./acc3-week13.html" data-g="w13" class="">Week 13: Governance, Family Councils, and Conflict</a>
+<a href="./acc3-week14.html" data-g="w14" class="">Week 14: Transfer Structures</a>
+<a href="./acc3-checkpoint4.html" data-g="c4" class="">Final Checkpoint</a>
+<div class="sb-sep">Finish</div>
+<a href="./acc3-graduation.html" data-g="grad" class="">Results &amp; Graduation</a></nav>
+  </aside>
+  <main class="lesson-main">
+
+<p class="lesson-eyebrow">Level 3 &middot; Module 2 &middot; Weeks 7 to 10 &middot; Scoreboard and Lock-In</p>
+<h1>The Protection Scoreboard</h1>
+<p class="lesson-subtitle">This scoreboard confirms that no single event can undo your discipline: every major risk has a response, and every layer of protection has been tested.</p>
+<div class="gold-rule"></div>
+<div class="ac-std"><span id="acDue"></span><span><b>Review:</b> Darrell verifies every scoreboard personally</span></div>
+<div id="acCpStatus"></div>
+<div id="acTeach">
+<h2>Protection Is Proven, Not Assumed</h2>
+<p>Most families believe they're protected until the day they find out they weren't. This scoreboard requires proof: a scored risk register, a coverage inventory compared against today's life, a stress test with real answers, and the documents your family would need, located and current.</p>
+<h2>Gaps Are Expected. Ignored Gaps Aren't.</h2>
+<p>Very few people finish Module 2 with every protection in place, because some fixes take appointments and time. What this scoreboard requires is that every gap is identified, scheduled, and moving. A gap with a date passes. A gap without one doesn't.</p>
+</div>
+<form id="acCpForm" novalidate>
+<section class="ac-card">
+  <div class="ac-eyebrow">Before You Submit</div>
+  <h2>Your Worksheets and Daily Logs</h2>
+  <p>Everything below is attached to your scoreboard automatically. Every worksheet has to be complete before you can submit.</p>
+  <ul class="ac-wslist" id="acWsList"></ul>
+</section>
+<section class="ac-card ac-sb">
+  <div class="ac-eyebrow">Step 1</div>
+  <h2>The Scoreboard</h2>
+  <p>Check each item only if it's complete and you're submitting the proof for it. All 13 items are required. Partial completion isn't accepted.</p>
+  <label class="ac-check"><input type="checkbox" class="sbi" data-i="Risk Register completed and scored"> <span>Risk Register completed and scored</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Single-point failures identified"> <span>Single-point failures identified</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Response plans written for every high-scoring risk"> <span>Response plans written for every high-scoring risk</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Coverage Inventory completed"> <span>Coverage Inventory completed</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Risk response decisions made"> <span>Risk response decisions made</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Coverage reviews scheduled or completed"> <span>Coverage reviews scheduled or completed</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Layered Defense Map completed"> <span>Layered Defense Map completed</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Six stress tests completed"> <span>Six stress tests completed</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Fraud layer installed"> <span>Fraud layer installed</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Document Inventory completed"> <span>Document Inventory completed</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Beneficiary Audit completed and updated"> <span>Beneficiary Audit completed and updated</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Professional team named or meetings scheduled"> <span>Professional team named or meetings scheduled</span></label><label class="ac-check"><input type="checkbox" class="sbi" data-i="Protection Action Log kept daily since Week 7"> <span>Protection Action Log kept daily since Week 7</span></label>
+  <p class="ac-sbcount" id="sbCount">0 of 13 complete</p>
+</section>
+<section class="ac-card">
+  <div class="ac-eyebrow">Step 2</div>
+  <h2>Re-Measure</h2>
+  <p>Same measures as your baseline, measured today. Your last recorded numbers are shown in gold under each field so you can see the change, but enter today's truth.</p>
+  
+<h3>Cash Flow, Reserve, and Debt</h3>
+<div class="ac-grid">
+<div class="ac-field"><label for="m_inc">Monthly take-home income</label><small>Average of your last three months, after taxes and deductions, from every source.</small><div class="ac-money"><input type="number" id="m_inc" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="inc"></span></div>
+<div class="ac-field"><label for="m_conv">Converted in the last 30 days</label><small>Money saved, invested (including payroll retirement contributions), or paid toward debt above the minimums.</small><div class="ac-money"><input type="number" id="m_conv" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="conv"></span></div>
+<div class="ac-field"><label for="m_res">Cash reserves today</label><small>Emergency fund and savings you could reach within a few days. Not retirement accounts.</small><div class="ac-money"><input type="number" id="m_res" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="res"></span></div>
+<div class="ac-field"><label for="m_ess">Monthly essential expenses</label><small>Housing, utilities, food, transportation, insurance, and minimum debt payments.</small><div class="ac-money"><input type="number" id="m_ess" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="ess"></span></div>
+<div class="ac-field"><label for="m_dpay">Monthly consumer debt payments</label><small>Required payments on cards, car loans, student loans, personal loans, and BNPL. Not your mortgage.</small><div class="ac-money"><input type="number" id="m_dpay" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="dpay"></span></div>
+<div class="ac-field"><label for="m_rev">Weekly Wealth Reviews held, last 4 weeks</label><small>A full review of your numbers and decisions against your rules. At baseline, count any real weekly money review you held.</small><select id="m_rev"><option value="">Choose one</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><span class="ac-last" data-last="rev"></span></div>
+</div>
+<h3>Net Worth</h3>
+<div class="ac-grid">
+<div class="ac-field"><label for="m_invbal">Invested assets</label><small>Retirement accounts, brokerage accounts, and other investments, at their current value.</small><div class="ac-money"><input type="number" id="m_invbal" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="invbal"></span></div>
+<div class="ac-field"><label for="m_assets">Total assets</label><small>Everything you own: cash, invested assets, home value, vehicles, business equity.</small><div class="ac-money"><input type="number" id="m_assets" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="assets"></span></div>
+<div class="ac-field"><label for="m_liab">Total liabilities</label><small>Everything you owe, including your mortgage.</small><div class="ac-money"><input type="number" id="m_liab" min="0" step="1" inputmode="decimal"></div><span class="ac-last" data-last="liab"></span></div>
+<div class="ac-field"><label for="m_spf">Single-point failures remaining</label><small>Things that, if they broke, would take everything down: one income, one person who knows everything, one account holding it all.</small><select id="m_spf"><option value="">Choose one</option><option value="0">None</option><option value="1">1</option><option value="2">2</option><option value="3">3 or more</option></select><span class="ac-last" data-last="spf"></span></div>
+</div>
+<h3>Protections in Place</h3>
+<p class="ac-muted">Check only what's actually in place and current. Most people check few of these at baseline. That's why they're here.</p>
+<div class="ac-rules"><label class="ac-check"><input type="checkbox" id="m_prot0"> <span>A will or trust that is current</span></label><label class="ac-check"><input type="checkbox" id="m_prot1"> <span>Beneficiaries reviewed on every account in the last 12 months</span></label><label class="ac-check"><input type="checkbox" id="m_prot2"> <span>A durable financial power of attorney</span></label><label class="ac-check"><input type="checkbox" id="m_prot3"> <span>A healthcare directive and healthcare power of attorney</span></label><label class="ac-check"><input type="checkbox" id="m_prot4"> <span>Life insurance reviewed against what my family would need</span></label><label class="ac-check"><input type="checkbox" id="m_prot5"> <span>Disability income protection reviewed</span></label><label class="ac-check"><input type="checkbox" id="m_prot6"> <span>Property and liability coverage reviewed, including umbrella coverage</span></label><label class="ac-check"><input type="checkbox" id="m_prot7"> <span>A professional team in place (attorney, tax, insurance)</span></label></div>
+<h3>Governance and Continuity in Place</h3>
+<div class="ac-rules"><label class="ac-check"><input type="checkbox" id="m_gov0"> <span>A written Wealth Constitution</span></label><label class="ac-check"><input type="checkbox" id="m_gov1"> <span>A Decision Authority Matrix</span></label><label class="ac-check"><input type="checkbox" id="m_gov2"> <span>A Family Money Request Policy</span></label><label class="ac-check"><input type="checkbox" id="m_gov3"> <span>A named and briefed backup decision-maker</span></label><label class="ac-check"><input type="checkbox" id="m_gov4"> <span>A Continuity Binder a trusted person can find</span></label><label class="ac-check"><input type="checkbox" id="m_gov5"> <span>A family council meeting held in the last 90 days</span></label></div>
+<h3>Total Accountability Mindset</h3>
+<p class="ac-muted">Rate each statement honestly. 1 means strongly disagree, 5 means strongly agree.</p>
+<div class="ac-likert"><div class="ac-scale"><span>1 Strongly disagree</span><span>5 Strongly agree</span></div><div class="ac-lk"><p>1. I know who controls every asset I own, and who would control it if I couldn&#x27;t.</p><div class="opts"><label><input type="radio" name="mind0" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind0" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind0" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind0" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind0" value="5" aria-label="5"><span>5</span></label></div></div><div class="ac-lk"><p>2. My household money decisions follow written rules, even under pressure.</p><div class="opts"><label><input type="radio" name="mind1" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind1" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind1" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind1" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind1" value="5" aria-label="5"><span>5</span></label></div></div><div class="ac-lk"><p>3. I can say no to money requests that break our policy, without guilt.</p><div class="opts"><label><input type="radio" name="mind2" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind2" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind2" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind2" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind2" value="5" aria-label="5"><span>5</span></label></div></div><div class="ac-lk"><p>4. I know exactly what would happen to my family financially if I died or couldn&#x27;t work.</p><div class="opts"><label><input type="radio" name="mind3" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind3" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind3" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind3" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind3" value="5" aria-label="5"><span>5</span></label></div></div><div class="ac-lk"><p>5. I&#x27;ve faced the documents and decisions most people avoid.</p><div class="opts"><label><input type="radio" name="mind4" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind4" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind4" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind4" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind4" value="5" aria-label="5"><span>5</span></label></div></div><div class="ac-lk"><p>6. The people who will inherit from me are being prepared, not just provided for.</p><div class="opts"><label><input type="radio" name="mind5" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind5" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind5" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind5" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind5" value="5" aria-label="5"><span>5</span></label></div></div><div class="ac-lk"><p>7. I review my wealth on a schedule, even when nothing seems wrong.</p><div class="opts"><label><input type="radio" name="mind6" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind6" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind6" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind6" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind6" value="5" aria-label="5"><span>5</span></label></div></div><div class="ac-lk"><p>8. My wealth could keep working if I were gone.</p><div class="opts"><label><input type="radio" name="mind7" value="1" aria-label="1"><span>1</span></label><label><input type="radio" name="mind7" value="2" aria-label="2"><span>2</span></label><label><input type="radio" name="mind7" value="3" aria-label="3"><span>3</span></label><label><input type="radio" name="mind7" value="4" aria-label="4"><span>4</span></label><label><input type="radio" name="mind7" value="5" aria-label="5"><span>5</span></label></div></div></div>
+
+</section>
+<section class="ac-card">
+  <div class="ac-eyebrow">Step 3</div>
+  <h2>Show the Evidence</h2>
+  <div class="ac-field"><label for="acFiles">Upload your evidence</label>
+<small>Screenshots, photos, or PDFs. Up to 10 files, 25 MB each. Combine worksheets and logs into one PDF if you have more. <strong>Black out every account number, your Social Security number, and your full date of birth before uploading.</strong></small>
+<ul class="ac-proof"><li>Proof of scheduled or completed coverage and estate planning reviews</li><li>Proof of credit freezes and two-factor authentication (no account numbers)</li><li>Proof of beneficiary updates (account numbers blacked out)</li></ul>
+<div class="ac-file"><input type="file" id="acFiles" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv"><div class="ac-filelist" id="acFileList"></div></div></div>
+</section>
+<section class="ac-card">
+  <div class="ac-eyebrow">Step 4</div>
+  <h2>Pass Criteria</h2>
+  <p>Protection Scoreboard is complete only when every statement below is true. Check only what you can prove. If any item fails, the phase repeats. That's protection, not punishment.</p>
+  <label class="ac-check"><input type="checkbox" class="pci" data-i="Every major risk has a written response"> <span>Every major risk has a written response</span></label><label class="ac-check"><input type="checkbox" class="pci" data-i="Every coverage gap has a review on the calendar"> <span>Every coverage gap has a review on the calendar</span></label><label class="ac-check"><input type="checkbox" class="pci" data-i="My core documents are located, current, or scheduled"> <span>My core documents are located, current, or scheduled</span></label><label class="ac-check"><input type="checkbox" class="pci" data-i="My beneficiary designations match my intentions"> <span>My beneficiary designations match my intentions</span></label><label class="ac-check"><input type="checkbox" class="pci" data-i="No single event could wipe out my household"> <span>No single event could wipe out my household</span></label>
+</section>
+<section class="ac-card">
+  <div class="ac-eyebrow">Step 5</div>
+  <h2>Account for It</h2>
+  <div class="ac-field"><label for="cp_changed">What changed in this phase? Use numbers.</label><textarea id="cp_changed"></textarea></div>
+  <div class="ac-field"><label for="cp_short">Where did you fall short or break a rule, and why?</label><textarea id="cp_short"></textarea></div>
+  <div class="ac-field"><label for="cp_next">Your standard for the next phase</label><textarea id="cp_next"></textarea></div>
+  <label class="ac-check"><input type="checkbox" id="cp_att"> <span>Everything I'm submitting is true and accurate, and I've blacked out account numbers and personal identifiers.</span></label>
+  <button type="submit" class="ac-btn wide" style="margin-top:.8rem">Submit Protection Scoreboard for Verification &rarr;</button>
+  <p class="ac-msg" id="cp_msg"></p>
+  <p class="ac-close">RISK REGISTERED &middot; LAYERS TESTED &middot; WEALTH PROTECTED</p>
+</section>
+</form>
+<div class="lesson-nav no-print"><a href="./acc3-week10.html" class="btn-prev">&#8592; Week 10</a><a href="./acc3-week11.html" class="btn-next">Week 11 &rarr;</a></div>
+
+  </main>
+</div>
+<footer class="course-footer">&copy; 2026 Right Side of Money<span>&reg;</span> &middot; Darrell Thompson &middot; info@rightsideofmoney.com<span class="disc">Educational program only. Not financial, investment, tax, legal, or insurance advice.</span></footer>
+<script src="./acc-ws.js"></script>
+<script src="./acc3-data.js"></script>
+<script src="./acc3-core.js"></script>
+<script>
+
+function acFiles(){
+  var f = Array.prototype.slice.call(document.getElementById('acFiles').files || []);
+  if (!f.length) return {err: 'Upload at least one piece of evidence. Verification needs proof.'};
+  if (f.length > 10) return {err: 'Upload 10 files or fewer. Combine worksheets and logs into a PDF if you need to.'};
+  for (var i = 0; i < f.length; i++) if (f[i].size > 25 * 1024 * 1024) return {err: '"' + f[i].name + '" is larger than 25 MB. Take a screenshot or compress it.'};
+  return {files: f};
+}
+document.getElementById('acFiles').addEventListener('change', function(){
+  var f = Array.prototype.slice.call(this.files || []);
+  document.getElementById('acFileList').textContent = f.length ? f.length + ' file' + (f.length > 1 ? 's' : '') + ' selected: ' + f.map(function(x){ return x.name; }).join(', ') : '';
+});
+
+(function(){
+  var A = ACC3, N = 3, NCP = A.ncp;
+  if (!A.guard({type: 'cp', n: N})) return;
+  var d = A.load(), form = document.getElementById('acCpForm');
+  function $(id){ return document.getElementById(id); }
+  var dl = A.deadlines(d)[N];
+  $('acDue').innerHTML = '<b>Due:</b> ' + A.date(dl.due) + ' (48-hour grace before a strike)';
+
+  var last = A.latest(d);
+  if (last) document.querySelectorAll('.ac-last').forEach(function(s){
+    var k = s.getAttribute('data-last'), v = last.m[k];
+    if (v === undefined || v === '') return;
+    s.textContent = 'Last recorded: ' + (['inc', 'conv', 'res', 'ess', 'dpay', 'invbal', 'assets', 'liab'].indexOf(k) > -1 ? A.money(v) : k === 'spf' ? (+v === 0 ? 'None' : +v >= 3 ? '3 or more' : v) : k === 'rev' ? v + ' of 4' : v);
+  });
+  if (last){ A.PROT.forEach(function(r, i){ var cb = document.getElementById('m_prot' + i); if (cb && last.m.prot && last.m.prot[i]) cb.checked = true; });
+    A.GOV.forEach(function(r, i){ var cb = document.getElementById('m_gov' + i); if (cb && last.m.gov && last.m.gov[i]) cb.checked = true; }); }
+
+  var sbi = document.querySelectorAll('.sbi');
+  function count(){ var c = 0; sbi.forEach(function(x){ if (x.checked) c++; }); $('sbCount').textContent = c + ' of ' + sbi.length + ' complete'; }
+  sbi.forEach(function(x){ x.addEventListener('change', count); });
+  (function(){
+    var dd = A.load(), h = '';
+    A.moduleWs(N, N).forEach(function(x){ var ok = RSMWS.complete(x.spec, (dd.ws || {})[x.spec.id]); h += '<li><a href="./acc3-week' + x.w + '.html">Week ' + x.w + ': ' + RSMWS.esc(x.spec.title) + '</a><span class="ws-chip ' + (ok ? 'done' : 'open') + '">' + (ok ? 'Complete' : 'Not finished') + '</span></li>'; });
+    A.logsFor(N).forEach(function(x){ var n = ((dd.logs || {})[x.key] || []).length; h += '<li><a href="./acc3-week' + x.spec.start + '.html">' + RSMWS.esc(x.spec.name) + '</a><span class="ws-chip ' + (n ? 'done' : 'open') + '">' + n + ' day' + (n === 1 ? '' : 's') + ' logged</span></li>'; });
+    $('acWsList').innerHTML = h;
+  })();
+  function status(){
+    d = A.load();
+    var sub = d.cp && d.cp[N], el = $('acCpStatus');
+    if (!sub){ el.innerHTML = ''; return; }
+    $('acTeach').style.display = 'none';
+    if (A.verified(d, N)){
+      form.style.display = 'none';
+      el.innerHTML = '<div class="ac-done"><span class="ico">&#10003;</span><p><strong>Verified.</strong> ' + (N === NCP ? 'Your Results Report and certificate are unlocked.' : A.pn[N] + ' is open.') + '</p></div><div class="ac-next"><p><small>Your Next Move</small>' + (N === NCP ? 'See your verified results.' : 'Week ' + A.ps(N + 1) + ' is open.') + '</p><a href="./acc3-week11.html">Continue &rarr;</a></div>';
+      return;
+    }
+    var s = A.score(d.m['cp' + N]), r = A.analysis(d, N);
+    el.innerHTML = '<div class="ac-done"><span class="ico">&#10003;</span><p><strong>Submitted ' + A.date(sub.at) + '.</strong> Index recorded: ' + s.total + '/100. Darrell is reviewing your scoreboard. When it\'s verified, he\'ll email your code. If he asks for a revision, resubmit below.</p></div><div id="acCodeBox"></div>' +
+      '<p><button type="button" class="ac-btn ghost" id="acResub">Resubmit With Revisions</button></p>' + '<section class="ac-card"><div class="ac-eyebrow">Your Progress Report</div><h2>' + r.title + '</h2><p class="ac-muted">A copy was emailed to you and to Darrell.</p>' + r.html + '</section>';
+    A.mountCode($('acCodeBox'), N, function(){ location.reload(); });
+    form.style.display = 'none';
+    $('acResub').addEventListener('click', function(){ form.style.display = 'block'; this.style.display = 'none'; form.scrollIntoView({behavior: 'smooth'}); });
+  }
+  status();
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var m = $('cp_msg'); m.className = 'ac-msg err'; function fail(t){ m.textContent = t; }
+    var wsm = A.wsMissing(A.load(), N);
+    if (wsm.length) return fail('Finish these worksheets first: ' + wsm.join(', ') + '. Partial completion isn\'t accepted.');
+    var miss = Array.prototype.filter.call(sbi, function(x){ return !x.checked; });
+    if (miss.length) return fail(miss.length + ' scoreboard item' + (miss.length > 1 ? 's are' : ' is') + ' unchecked. All items are required. Finish the work, then submit.');
+    var r = A.readMetrics(form); if (r.err) return fail(r.err);
+    var fl = acFiles(); if (fl.err) return fail(fl.err);
+    var pci = document.querySelectorAll('.pci'), pcFail = Array.prototype.filter.call(pci, function(x){ return !x.checked; }).map(function(x){ return x.getAttribute('data-i'); });
+    var ch = $('cp_changed').value.trim(), sh = $('cp_short').value.trim(), nx = $('cp_next').value.trim();
+    if (ch.length < 30 || sh.length < 15 || nx.length < 15) return fail('Answer all three questions in Step 5 with real detail.');
+    if (pcFail.length && sh.length < 60) return fail('You left ' + pcFail.length + ' pass criteri' + (pcFail.length > 1 ? 'a' : 'on') + ' unchecked. Explain exactly why in "Where did you fall short" so Darrell can review it.');
+    if (!$('cp_att').checked) return fail('Confirm that your submission is accurate and your information is protected.');
+    var mm = r.m, s = A.score(mm), base = A.score(d.m.cp0), resub = !!(d.cp && d.cp[N]);
+    var dd = JSON.parse(JSON.stringify(A.load())); mm.at = new Date().toISOString(); dd.m['cp' + N] = mm; dd.cp = dd.cp || {}; dd.cp[N] = dd.cp[N] || {at: mm.at}; dd.cp[N].pcFail = pcFail;
+    var att = A.attach(dd, N), draft = A.coachDraft(dd, N);
+    var b = this.querySelector('button[type=submit]'); b.disabled = true; b.textContent = 'Uploading your scoreboard...';
+    A.post({_subject: 'ACC L3 | Protection Scoreboard ' + (resub ? 'RESUBMITTED' : 'SUBMITTED') + ' | ' + d.me.first + ' ' + d.me.last + ' | Index ' + s.total + ' (' + (s.total - base.total >= 0 ? '+' : '') + (s.total - base.total) + ' vs baseline)' + (pcFail.length ? ' | ' + pcFail.length + ' PASS CRITERIA NOT MET' : ''),
+      checkpoint: 'Protection Scoreboard', scoreboard: Array.prototype.map.call(sbi, function(x){ return '[x] ' + x.getAttribute('data-i'); }).join('\n'),
+      pass_criteria: Array.prototype.map.call(pci, function(x){ return (x.checked ? '[x] ' : '[ ] NOT MET: ') + x.getAttribute('data-i'); }).join('\n'),
+      measurements: A.metricsText(mm), baseline_index: base.total, net_worth_change_since_baseline: A.money(A.netWorth(mm) - A.netWorth(d.m.cp0)),
+      what_changed: ch, where_i_fell_short: sh, my_standard_next: nx, worksheets: att.worksheets, proof_logs: att.logs,
+      darrell_feedback_draft: draft + '\n\n(Draft for Darrell only. Edit it, then paste it into the notes box in acc3-verify.html.)', verify_with: 'Open acc3-verify.html to issue the code for this student'}, fl.files).then(function(){
+      A.update(function(x){ var now = new Date().toISOString(); mm.at = now; x.m['cp' + N] = mm; x.cp = x.cp || {}; if (!x.cp[N]) x.cp[N] = {at: now}; else { x.cp[N].resub = (x.cp[N].resub || []).concat(now); } x.cp[N].changed = ch; x.cp[N].short = sh; x.cp[N].next = nx; x.cp[N].pcFail = pcFail; });
+      A.sendReport(N);
+      b.disabled = false; b.textContent = 'Submit Protection Scoreboard for Verification →'; status(); window.scrollTo(0, 0);
+    }).catch(function(){ b.disabled = false; b.textContent = 'Submit Protection Scoreboard for Verification →'; fail('Your submission didn\'t go through. Check your connection and file sizes, then try again.'); });
+  });
+})();
+
+</script>
+</body>
+</html>

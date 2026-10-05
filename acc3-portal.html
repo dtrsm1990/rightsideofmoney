@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Headquarters | RSM Accountability Program Level 3</title>
+  <meta name="description" content="RSM Accountability Program, Level 3: Total Accountability." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #162d55;
+      --gold: #C9941A;
+      --gold-light: #E8B84B;
+      --white: #ffffff;
+      --cream: #FFF8E6;
+      --gray-light: #f5f5f5;
+      --gray-mid: #666;
+      --text: #1a1a1a;
+    }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+    /* TOP NAV */
+    .top-nav { background: var(--navy); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; min-height: 58px; position: sticky; top: 0; z-index: 200; }
+    .top-nav .brand { color: var(--gold); font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; text-decoration: none; }
+    .top-nav .course-title { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+    .top-nav a.exit { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; }
+    .top-nav a.exit:hover { color: var(--gold-light); }
+
+    /* COURSE LAYOUT */
+    .course-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--navy); padding: 1.5rem 0; overflow-y: auto; position: sticky; top: 58px; height: calc(100vh - 58px); }
+    .sidebar-heading { color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 1.5rem 0.75rem; }
+    .sidebar nav a {
+      display: block; padding: 0.65rem 1.5rem;
+      color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem;
+      border-left: 3px solid transparent; transition: all 0.15s;
+    }
+    .sidebar nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .sidebar nav a.active { color: var(--white); border-left-color: var(--gold); background: rgba(201,148,26,0.1); font-weight: 600; }
+    .sidebar nav a.completed { color: rgba(255,255,255,0.5); }
+    .sidebar nav a.completed::after { content: ' ✓'; color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .lesson-main { padding: 3rem 3.5rem; max-width: 820px; }
+    .lesson-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .lesson-main h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.5rem; }
+    .lesson-subtitle { font-size: 1.1rem; color: var(--gray-mid); margin-bottom: 2rem; font-style: italic; }
+    .gold-rule { width: 50px; height: 3px; background: var(--gold); margin-bottom: 2rem; }
+
+    /* CONTENT BLOCKS */
+    .lesson-main p { color: #333; margin-bottom: 1.2rem; font-size: 1rem; }
+    .lesson-main h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin: 2.2rem 0 0.75rem; font-weight: 700; }
+    .lesson-main h3 { font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .lesson-main ul, .lesson-main ol { margin: 0.75rem 0 1.2rem 1.5rem; }
+    .lesson-main li { margin-bottom: 0.5rem; color: #333; font-size: 1rem; }
+
+    /* CALLOUT BOXES */
+    .callout { border-radius: 8px; padding: 1.5rem 1.75rem; margin: 1.8rem 0; }
+    .callout-truth { background: var(--navy); border-left: 4px solid var(--gold); }
+    .callout-truth p, .callout-truth h3 { color: var(--white); }
+    .callout-truth h3 { color: var(--gold-light); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action { background: var(--cream); border-left: 4px solid var(--gold); }
+    .callout-action h3 { color: var(--navy); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .callout-action p, .callout-action ul, .callout-action li { color: #333; }
+    .callout-stat { background: var(--gold); border-radius: 8px; padding: 1.5rem; text-align: center; margin: 1.8rem 0; }
+    .callout-stat .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .callout-stat .stat-label { color: var(--navy); font-size: 0.9rem; margin-top: 0.3rem; font-weight: 600; }
+
+    /* TABLE */
+    .rsm-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .rsm-table th { background: var(--navy); color: var(--gold-light); padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    .rsm-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e8e8e8; color: #333; }
+    .rsm-table tr:nth-child(even) td { background: var(--gray-light); }
+
+    /* REFLECTION BOX */
+    .reflection { background: var(--gray-light); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+    .reflection h3 { color: var(--navy); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .reflection ol { margin-left: 1.2rem; }
+    .reflection li { color: #444; margin-bottom: 0.6rem; font-size: 0.95rem; }
+
+    /* NAV FOOTER */
+    .lesson-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e8e8e8; flex-wrap: wrap; gap: 1rem; }
+    .btn-prev { display: inline-block; border: 2px solid var(--navy); color: var(--navy); padding: 0.7rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-prev:hover { background: var(--navy); color: var(--white); }
+    .btn-next { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.7rem 1.8rem; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-next:hover { background: var(--gold-light); }
+    .progress-label { font-size: 0.8rem; color: var(--gray-mid); }
+
+    /* FOOTER */
+    .course-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.78rem; }
+    .course-footer span { color: var(--gold); }
+
+    @media (max-width: 768px) {
+      .course-wrap { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .lesson-main { padding: 2rem 1.5rem; }
+    }
+
+    /* mobile width fix */
+    .course-wrap{grid-template-columns:260px minmax(0,1fr);}
+    .lesson-main{min-width:0;overflow-wrap:break-word;}
+    @media(max-width:768px){.course-wrap{grid-template-columns:minmax(0,1fr)!important;}.rsm-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
+  
+.top-nav .course-title{text-align:center;}
+.sidebar nav a.locked{color:rgba(255,255,255,0.35);}
+.sidebar nav a.locked::after{content:' \1F512';font-size:.75em;}
+.sidebar .sb-sep{color:var(--gold);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;padding:1rem 1.5rem .35rem;opacity:.8;}
+.ac-card{background:#fff;border:1px solid #e6dcc4;border-top:4px solid var(--gold);border-radius:4px;padding:1.6rem 1.75rem;margin:1.8rem 0;box-shadow:0 8px 24px rgba(13,31,60,.06);}
+.ac-card h2{margin-top:0!important;}
+.ac-card.navy{background:var(--navy);border-color:var(--navy);border-top-color:var(--gold);}
+.ac-card.navy h2,.ac-card.navy h3{color:#fff!important;}
+.ac-card.navy p,.ac-card.navy li{color:rgba(255,255,255,.8)!important;}
+.ac-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.ac-muted{color:#777!important;font-size:.92rem;}
+.ac-field{margin:0 0 1.1rem;}
+.ac-field label{display:block;font-weight:600;color:var(--navy);font-size:.95rem;margin-bottom:.35rem;}
+.ac-field small{display:block;color:#777;font-size:.82rem;margin:-.15rem 0 .4rem;line-height:1.45;}
+.ac-field input[type=text],.ac-field input[type=email],.ac-field input[type=number],.ac-field input[type=tel],.ac-field select,.ac-field textarea{width:100%;padding:.75rem .85rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:.95rem;color:#1a1a1a;background:#fff;}
+.ac-field textarea{min-height:110px;resize:vertical;line-height:1.55;}
+.ac-field input:focus,.ac-field select:focus,.ac-field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,148,26,.18);}
+.ac-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.2rem;}
+.ac-money{position:relative;}
+.ac-money::before{content:'$';position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:#999;font-weight:600;}
+.ac-money input{padding-left:1.6rem!important;}
+.ac-last{display:block;font-size:.78rem;color:#B07A0C;margin-top:.3rem;}
+.ac-likert{border:1px solid #eee;border-radius:4px;margin:0 0 1rem;}
+.ac-lk{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.7rem .9rem;border-bottom:1px solid #eee;}
+.ac-lk:last-child{border-bottom:0;}
+.ac-lk:nth-child(even){background:#fafafa;}
+.ac-lk p{margin:0!important;font-size:.92rem!important;}
+.ac-lk .opts{display:flex;gap:.3rem;}
+.ac-lk .opts label{position:relative;}
+.ac-lk .opts input{position:absolute;opacity:0;}
+.ac-lk .opts span{display:flex;width:34px;height:34px;align-items:center;justify-content:center;border:1.5px solid #d9d2c0;border-radius:50%;font-weight:700;font-size:.85rem;color:#666;cursor:pointer;}
+.ac-lk .opts input:checked+span{background:var(--navy);border-color:var(--navy);color:var(--gold-light);}
+.ac-lk .opts input:focus-visible+span{box-shadow:0 0 0 3px rgba(201,148,26,.4);}
+.ac-scale{display:flex;justify-content:space-between;font-size:.75rem;color:#888;padding:.5rem .9rem;background:#f5f5f5;}
+.ac-check{display:flex;gap:.65rem;align-items:flex-start;margin:.6rem 0;font-size:.93rem;color:#333;}
+.ac-check input{margin-top:.3rem;flex:0 0 auto;accent-color:var(--navy);width:17px;height:17px;}
+.ac-radio{display:flex;flex-wrap:wrap;gap:.5rem;}
+.ac-radio label{display:flex;align-items:center;gap:.4rem;border:1.5px solid #d9d2c0;border-radius:4px;padding:.55rem .9rem;font-weight:500!important;cursor:pointer;margin:0!important;font-size:.92rem!important;}
+.ac-radio input{accent-color:var(--navy);}
+.ac-btn{background:var(--gold);color:var(--navy);border:0;font:inherit;font-weight:800;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:.95rem 1.6rem;border-radius:4px;cursor:pointer;}
+.ac-btn:hover{background:var(--gold-light);}
+.ac-btn[disabled]{opacity:.6;cursor:wait;}
+.ac-btn.wide{width:100%;}
+.ac-btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy);}
+.ac-msg{font-size:.92rem;font-weight:600;margin:.7rem 0 0!important;min-height:1.2em;}
+.ac-msg.err{color:#9B1C1C;}.ac-msg.ok{color:#1A6B3C;}
+.ac-done{display:flex;gap:.9rem;align-items:flex-start;background:#EAF5EE;border:1px solid #bfe0cb;border-left:4px solid #1A6B3C;border-radius:4px;padding:1rem 1.2rem;margin:1.4rem 0;}
+.ac-done .ico{font-size:1.3rem;color:#1A6B3C;line-height:1.3;}
+.ac-done p{margin:0!important;color:#1d3b2a!important;}
+.ac-warn{background:#FDF3E1;border:1px solid #f0d9a8;border-left:4px solid var(--gold);border-radius:4px;padding:1rem 1.2rem;margin:1.4rem 0;}
+.ac-warn p{margin:0!important;}
+.ac-lock{text-align:center;background:var(--navy);border-radius:6px;padding:2.6rem 1.8rem;margin:1.5rem 0;}
+.ac-lock-ico{font-size:2rem;margin-bottom:.6rem;}
+.ac-lock h2{color:#fff!important;margin:0 0 .6rem!important;}
+.ac-lock p{color:rgba(255,255,255,.8)!important;max-width:520px;margin:0 auto 1.4rem!important;}
+.ac-code{background:var(--cream);border:1px solid #efdcae;border-radius:4px;padding:1rem 1.1rem;margin:.9rem 0;}
+.ac-code label strong{display:block;color:var(--navy);}
+.ac-code label span{display:block;font-size:.82rem;color:#777;margin-bottom:.5rem;}
+.ac-code-row{display:flex;gap:.5rem;}
+.ac-code-row input{flex:1;min-width:0;padding:.75rem .85rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.ac-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1.5rem 0;}
+.ac-stat{background:var(--navy);border-radius:4px;padding:1rem;text-align:center;}
+.ac-stat b{display:block;font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold-light);line-height:1.1;}
+.ac-stat span{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);}
+.ac-next{background:var(--gold);border-radius:4px;padding:1.2rem 1.4rem;margin:1.5rem 0;display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.ac-next p{margin:0!important;color:var(--navy)!important;font-weight:600;}
+.ac-next small{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;}
+.ac-next a{background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:.75rem 1.2rem;border-radius:4px;white-space:nowrap;}
+.ac-road{list-style:none;margin:1rem 0!important;padding:0;}
+.ac-road li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.8rem 1rem;border:1px solid #eee;border-left:4px solid #ddd;border-radius:4px;margin:0 0 .5rem!important;background:#fff;}
+.ac-road li.cp{background:#fbf7ee;border-left-color:var(--gold);}
+.ac-road li a{color:var(--navy);font-weight:700;text-decoration:none;}
+.ac-road li .sub{display:block;font-size:.8rem;color:#888;font-weight:400;}
+.ac-chip{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .6rem;border-radius:20px;white-space:nowrap;}
+.ac-chip.done{background:#EAF5EE;color:#1A6B3C;}.ac-chip.open{background:var(--navy);color:var(--gold-light);}.ac-chip.wait{background:#FDF3E1;color:#8a5a00;}.ac-chip.lock{background:#eee;color:#888;}.ac-chip.late{background:#FBEAEA;color:#9B1C1C;}
+.ac-idx-top{display:flex;gap:1.2rem;align-items:center;margin-bottom:1rem;}
+.ac-idx-num{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:700;color:var(--navy);line-height:1;}
+.ac-idx-num span{font-size:1.1rem;color:#999;}
+.ac-idx-lbl{font-weight:700;color:var(--navy);}
+.ac-idx-d{font-size:.9rem;color:#777;}.ac-idx-d.up{color:#1A6B3C;font-weight:700;}.ac-idx-d.down{color:#9B1C1C;font-weight:700;}
+.ac-legend{display:flex;gap:1.2rem;font-size:.8rem;color:#666;margin:0 0 .8rem;}
+.ac-legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:.35rem;vertical-align:-1px;}
+.ac-legend .lb,.ac-bar.b{background:#3A6AB0;}.ac-legend .ll,.ac-bar.l{background:#B07A0C;}
+.ac-bar-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:1rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0f0f0;}
+.ac-bar-lbl strong{display:block;font-size:.9rem;color:var(--navy);}
+.ac-bar-lbl span{font-size:.76rem;color:#888;}
+.ac-bars{display:grid;gap:3px;}
+.ac-bar{height:9px;border-radius:0 3px 3px 0;}
+.ac-wins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:1.1rem;}
+.ac-wins div{background:var(--cream);border-radius:4px;padding:.9rem 1rem;}
+.ac-wins strong{display:block;font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);}
+.ac-wins span{font-size:.8rem;color:#666;}
+.ac-file{border:2px dashed #d9d2c0;border-radius:4px;padding:1rem;background:#fcfbf7;}
+.ac-file input{width:100%;font:inherit;font-size:.9rem;}
+.ac-filelist{font-size:.85rem;color:#555;margin:.5rem 0 0;}
+.ac-rule{display:grid;grid-template-columns:44px minmax(0,1fr);gap:.9rem;padding:.9rem 0;border-bottom:1px solid #eee;}
+.ac-rule b{display:flex;width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--gold-light);align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;}
+.ac-rule p{margin:0!important;}
+.ac-rule strong{color:var(--navy);}
+.ac-std{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;background:#f7f7f7;border-radius:4px;padding:.9rem 1.1rem;margin:0 0 1.8rem;font-size:.88rem;color:#555;}
+.ac-std b{color:var(--navy);}
+.ac-proof li::marker{color:var(--gold);}
+.cert{border:3px solid var(--gold);outline:1px solid var(--gold);outline-offset:-10px;background:#fff;padding:2.6rem 2rem;text-align:center;margin:2rem 0;}
+.cert .c1{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.cert h2{font-size:1.9rem!important;margin:.6rem 0 1rem!important;}
+.cert .nm{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--navy);border-bottom:1px solid #ddd;display:inline-block;padding:0 1.5rem .4rem;margin:.4rem 0 1rem;}
+.cert .sig{display:flex;justify-content:center;gap:3rem;margin-top:1.6rem;flex-wrap:wrap;font-size:.85rem;color:#555;}
+.cert .sig b{display:block;font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);font-style:italic;}
+.ac-card.navy .ac-field > label,.ac-card.navy .ac-field label[for]{color:#fff;}
+.ac-card.navy .ac-field small{color:rgba(255,255,255,.65);}
+.ac-card.navy .ac-check{color:rgba(255,255,255,.88);}
+.ac-card.navy .ac-radio{background:#fff;padding:.5rem;border-radius:4px;}
+.ac-card.navy .ac-radio label{color:var(--navy)!important;}
+.ac-card.navy p.ac-msg{color:#ffc9c9!important;}
+.ac-card.navy .ac-done p{color:#1d3b2a!important;}
+.ac-card.navy .ac-next p{color:var(--navy)!important;}
+body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;pointer-events:auto!important;user-select:auto!important;}
+.course-footer .disc{display:block;margin-top:.35rem;font-size:.72rem;opacity:.75;}
+@media(max-width:768px){.ac-grid,.ac-stats,.ac-wins{grid-template-columns:minmax(0,1fr);}.ac-bar-row{grid-template-columns:minmax(0,1fr);gap:.35rem;}.ac-lk{grid-template-columns:minmax(0,1fr);}.ac-road li{grid-template-columns:minmax(0,1fr);}.ac-stats{grid-template-columns:repeat(3,minmax(0,1fr));}.ac-stat b{font-size:1.4rem;}.ac-code-row{flex-direction:column;}}
+
+@media print{.top-nav,.sidebar,.course-footer,.no-print{display:none!important;}.course-wrap{display:block;}.lesson-main{padding:0;max-width:none;}}
+
+.ac-mod{background:linear-gradient(135deg,#0D1F3C,#16305a);border-left:5px solid var(--gold);border-radius:4px;padding:1.6rem 1.75rem;margin:0 0 2rem;}
+.ac-mod h2{color:#fff!important;margin:0 0 .7rem!important;}
+.ac-mod p{color:rgba(255,255,255,.82)!important;}
+.ac-mod p:last-child{margin-bottom:0!important;color:var(--gold-light)!important;font-weight:600;}
+.ac-logt{width:100%;border-collapse:collapse;font-size:.85rem;margin:.6rem 0 0;}
+.ac-logt th{background:var(--navy);color:var(--gold-light);text-align:left;padding:.55rem .6rem;font-weight:600;vertical-align:bottom;}
+.ac-logt td{border:1px solid #e6dcc4;height:2rem;background:#fff;}
+.ac-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.ac-cklist{list-style:none;margin:.8rem 0 1rem!important;padding:0;counter-reset:ck;}
+.ac-cklist li{counter-increment:ck;position:relative;padding:.6rem .8rem .6rem 2.6rem;border-bottom:1px solid #eee;font-size:.93rem;}
+.ac-cklist li::before{content:counter(ck);position:absolute;left:.6rem;top:.55rem;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--cream);color:var(--navy);font-weight:800;font-size:.75rem;display:flex;align-items:center;justify-content:center;}
+.ac-sb .ac-check{border-bottom:1px solid #f0ebe0;padding:.35rem 0;margin:0;}
+.ac-sbcount{font-weight:700;color:var(--navy);font-size:.9rem;margin:.6rem 0 0!important;}
+.ac-close{text-align:center;font-size:.72rem;letter-spacing:.2em;font-weight:800;color:var(--gold);margin:1.4rem 0 0!important;}
+.ac-calls{display:grid;gap:.6rem;margin:1rem 0;}
+.ac-callrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;border:1px solid #eee;border-left:4px solid var(--gold);border-radius:4px;padding:.8rem 1rem;background:#fff;}
+.ac-callrow strong{color:var(--navy);display:block;}
+.ac-callrow span{font-size:.82rem;color:#777;}
+.ac-rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.2rem 1.2rem;margin:.4rem 0 1rem;}
+
+.ws-card{padding:0!important;overflow:hidden;}
+.ws-in{padding:1.6rem 1.75rem;}
+.ws-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+.ws-head h2{margin:0 0 .4rem!important;}
+.ws-chip{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .7rem;border-radius:20px;white-space:nowrap;}
+.ws-chip.done{background:#EAF5EE;color:#1A6B3C;}.ws-chip.open{background:#FDF3E1;color:#8a5a00;}
+.ws-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:.3rem 0;}
+.ws-t{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px;}
+.ws-t th{background:var(--navy);color:var(--gold-light);text-align:left;padding:.5rem .55rem;font-weight:600;font-size:.8rem;vertical-align:bottom;}
+.ws-t td{border:1px solid #e6dcc4;padding:0;vertical-align:top;background:#fff;}
+.ws-t td input,.ws-t td select{width:100%;border:0!important;padding:.6rem .55rem!important;font:inherit;font-size:.88rem;background:transparent;border-radius:0!important;}
+.ws-t td input:focus,.ws-t td select:focus{outline:2px solid var(--gold);outline-offset:-2px;box-shadow:none!important;}
+.ws-t td .ac-money::before{left:.5rem;}
+.ws-t td .ac-money input{padding-left:1.35rem!important;}
+.lg-t td{padding:.5rem .55rem;font-size:.85rem;}
+.ws-add{background:none;border:0;color:#B07A0C;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;padding:.4rem 0;}
+.ws-list{margin:.2rem 0 0 1.2rem!important;padding:0;}
+.ws-list li{margin:0 0 .45rem!important;}
+.ws-list input{width:100%;padding:.65rem .75rem;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:.93rem;}
+.ws-yn .ws-ynr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.8rem;align-items:center;padding:.55rem 0;border-bottom:1px solid #f0ebe0;}
+.ws-yn p{margin:0!important;font-size:.93rem!important;}
+.ws-calc{background:var(--cream);border-left:4px solid var(--gold);border-radius:4px;padding:.9rem 1.1rem;margin:0 0 1.1rem;font-size:.93rem;line-height:1.6;color:#333;}
+.ws-suf{display:flex;align-items:center;gap:.5rem;}.ws-suf input{max-width:180px;}.ws-suf span{color:#666;font-weight:600;}
+.ws-sig{font-family:'Playfair Display',serif!important;font-style:italic;font-size:1.15rem!important;}
+.lg-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1.1rem;background:#fbfaf6;border:1px solid #efe8d6;border-radius:4px;padding:1rem 1.1rem;margin:.6rem 0 1rem;}
+.lg-form .ac-btn{grid-column:1/-1;justify-self:start;}
+.lg-form .ac-msg{grid-column:1/-1;}
+.lg-del{background:none;border:0;color:#9B1C1C;font-size:1.2rem;cursor:pointer;line-height:1;}
+.ac-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;margin:0 0 2rem;box-shadow:0 14px 34px rgba(13,31,60,.22);}
+.ac-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ac-wslist{list-style:none;margin:.6rem 0 0!important;padding:0;}
+.ac-wslist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.6rem;align-items:center;padding:.55rem .2rem;border-bottom:1px solid #f0ebe0;font-size:.92rem;}
+.ac-wslist a{color:var(--navy);font-weight:600;}
+.wb-ws{border:1px solid #eee;border-left:4px solid var(--gold);border-radius:4px;padding:1.1rem 1.3rem;margin:0 0 1.2rem;background:#fff;page-break-inside:avoid;}
+.wb-ws h3{margin:0 0 .6rem!important;color:var(--navy);}
+.wb-ws h3 small{font-family:'DM Sans',sans-serif;font-size:.8rem;color:#888;font-weight:500;}
+.wb-l{font-weight:700;color:var(--navy);font-size:.88rem!important;margin:.7rem 0 .2rem!important;}
+.wb-v{margin:0!important;white-space:normal;}
+.wb-calc{background:var(--cream);padding:.6rem .8rem;border-radius:4px;font-size:.9rem!important;}
+.wb-yn{list-style:none;margin:0!important;padding:0;}.wb-yn li{font-size:.9rem;padding:.2rem 0;}.wb-yn b{display:inline-block;min-width:2.4rem;color:var(--navy);}
+.wb-sig span{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;}
+.wb-mod{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.5rem;border-bottom:2px solid var(--gold);padding-bottom:.3rem;margin:2rem 0 1rem;}
+@media(max-width:768px){.ws-t{min-width:0;}.ws-t thead{display:none;}.ws-t,.ws-t tbody,.ws-t tr{display:block;width:100%;}.ws-t tr{border:1px solid #e6dcc4;border-left:4px solid var(--gold);border-radius:4px;margin:0 0 .7rem;background:#fff;}.ws-t td{display:grid;grid-template-columns:38% minmax(0,1fr);align-items:center;border:0;border-bottom:1px solid #f1ecdf;}.ws-t td:last-child{border-bottom:0;}.ws-t td::before{content:attr(data-h);font-size:.75rem;font-weight:700;color:var(--navy);padding:.5rem .55rem;line-height:1.3;}.lg-t td{grid-template-columns:38% minmax(0,1fr);}.lg-t td:last-child{display:block;text-align:right;}.lg-t td:last-child::before{content:none;}.ws-in{padding:1.2rem 1rem;}.lg-form{grid-template-columns:minmax(0,1fr);}.ws-yn .ws-ynr{grid-template-columns:minmax(0,1fr);gap:.4rem;}.ws-head{flex-direction:column;gap:.3rem;}}
+@media print{.ws-add,.lg-form,.lg-del{display:none!important;}.wb-ws{box-shadow:none;}}
+@media(max-width:768px){.ac-rules{grid-template-columns:minmax(0,1fr);}.ac-callrow{grid-template-columns:minmax(0,1fr);}.ac-mod{padding:1.3rem 1.2rem;}}
+</style>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">Accountability Program &middot; Level 3</span>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-heading">Level 3: Total Accountability</div>
+    <nav><a href="./acc3-portal.html" class="active">Headquarters</a>
+<a href="./acc3-workbook.html" class="">Your Total Accountability Workbook</a>
+<a href="./acc3-intake.html" data-g="intake" class="">Commitment &amp; Baseline</a>
+<div class="sb-sep">Foundation</div>
+<a href="./acc3-week1.html" data-g="w1" class="">Week 1: The Foundation Audit</a>
+<a href="./acc3-week2.html" data-g="w2" class="">Week 2: The Operator Rulebook</a>
+<a href="./acc3-checkpoint1.html" data-g="c1" class="">Foundation Scoreboard</a>
+<div class="sb-sep">Module 1: Architecture</div>
+<a href="./acc3-week3.html" data-g="w3" class="">Week 3: Ownership vs. Control</a>
+<a href="./acc3-week4.html" data-g="w4" class="">Week 4: Wealth Requires Rules</a>
+<a href="./acc3-week5.html" data-g="w5" class="">Week 5: Decision Authority</a>
+<a href="./acc3-week6.html" data-g="w6" class="">Week 6: Access, Incentives, and Entitlement</a>
+<a href="./acc3-checkpoint2.html" data-g="c2" class="">Architecture Scoreboard</a>
+<div class="sb-sep">Module 2: Protection</div>
+<a href="./acc3-week7.html" data-g="w7" class="">Week 7: Risk Is Not Optional</a>
+<a href="./acc3-week8.html" data-g="w8" class="">Week 8: Risk Transfer</a>
+<a href="./acc3-week9.html" data-g="w9" class="">Week 9: Layered Protection</a>
+<a href="./acc3-week10.html" data-g="w10" class="">Week 10: Legal, Financial, and Personal Shields</a>
+<a href="./acc3-checkpoint3.html" data-g="c3" class="">Protection Scoreboard</a>
+<div class="sb-sep">Module 3: Legacy</div>
+<a href="./acc3-week11.html" data-g="w11" class="">Week 11: Legacy Is Not Inheritance</a>
+<a href="./acc3-week12.html" data-g="w12" class="">Week 12: Preparing Heirs Without Creating Dependence</a>
+<a href="./acc3-week13.html" data-g="w13" class="">Week 13: Governance, Family Councils, and Conflict</a>
+<a href="./acc3-week14.html" data-g="w14" class="">Week 14: Transfer Structures</a>
+<a href="./acc3-checkpoint4.html" data-g="c4" class="">Final Checkpoint</a>
+<div class="sb-sep">Finish</div>
+<a href="./acc3-graduation.html" data-g="grad" class="">Results &amp; Graduation</a></nav>
+  </aside>
+  <main class="lesson-main">
+
+<p class="lesson-eyebrow">RSM Accountability Program &middot; Level 3</p>
+<h1>Total Accountability</h1>
+<p class="lesson-subtitle">Control, protection, and legacy. Nothing left unexplained, unprotected, or dependent on luck.</p>
+<div class="gold-rule"></div>
+
+<section class="ac-card navy" id="acReg" style="display:none">
+  <div class="ac-eyebrow">Step 1: Check In</div>
+  <h2>Start Your Clock</h2>
+  <p>Enter your name, the email you enrolled with, and the enrollment code from your welcome email. Checking in starts your 14-week clock and sets every deadline in this program. Use the same email every time; your verification codes are tied to it.</p>
+  <form id="acRegForm" novalidate>
+    <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><input type="text" id="acCo" tabindex="-1" autocomplete="off"></div>
+    <div class="ac-grid">
+      <div class="ac-field"><label for="acFirst" style="color:#fff">First name</label><input type="text" id="acFirst" autocomplete="given-name"></div>
+      <div class="ac-field"><label for="acLast" style="color:#fff">Last name</label><input type="text" id="acLast" autocomplete="family-name"></div>
+    </div>
+    <div class="ac-field"><label for="acEmail" style="color:#fff">Email you enrolled with</label><input type="email" id="acEmail" autocomplete="email"></div>
+    <div class="ac-field"><label for="acEnr" style="color:#fff">Enrollment code</label><small style="color:rgba(255,255,255,.65)">It's in your welcome email from Darrell. Don't have one? <a href="mailto:info@rightsideofmoney.com" style="color:#E8B84B">Email Darrell</a>.</small><input type="text" id="acEnr" autocomplete="off" spellcheck="false" placeholder="E1-XXXXXX" style="text-transform:uppercase;letter-spacing:.06em;font-weight:700"></div>
+    <label class="ac-check" style="color:rgba(255,255,255,.85)"><input type="checkbox" id="acOpt" checked> <span>Send me money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>
+    <button type="submit" class="ac-btn wide">Check In and Start My Clock &rarr;</button>
+    <p class="ac-msg" id="acRegMsg" style="color:#ffb4b4"></p>
+  </form>
+  <p style="font-size:.85rem;margin:1rem 0 0">Already started on another device? <a href="#acBackup" style="color:#E8B84B">Restore your progress</a>.</p>
+</section>
+
+<div id="acDash" style="display:none">
+  <div class="ac-stats">
+    <div class="ac-stat"><b id="acDay">0</b><span>Day of 98</span></div>
+    <div class="ac-stat"><b id="acIdxS">--</b><span>Index</span></div>
+    <div class="ac-stat"><b id="acStr">0</b><span>Strikes</span></div>
+  </div>
+  <div class="ac-next" id="acNext"></div>
+  <section class="ac-warn" id="acPause" style="display:none"></section>
+</div>
+
+<!-- RSM-WELCOME:START -->
+<style id="rsm-welcome-css">
+.wv{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;align-items:center;background:#0D1F3C;border-top:4px solid #C9941A;border-radius:2px;padding:26px;margin:0 0 32px;box-shadow:0 14px 34px rgba(13,31,60,0.22);}
+.wv-player{position:relative;width:100%;max-width:300px;aspect-ratio:9/16;background:#000;border-radius:4px;overflow:hidden;margin:0 auto;}
+.wv-player iframe,.wv-player>div{position:absolute;inset:0;width:100%!important;height:100%!important;border:0;}
+.wv-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.wv h2{font-family:'Playfair Display',Georgia,serif;color:#fff!important;font-size:clamp(24px,3vw,32px);line-height:1.2;margin:0 0 12px!important;border:0!important;padding:0!important;}
+.wv p{color:rgba(255,255,255,0.78)!important;font-size:15px;line-height:1.7;margin:0 0 12px;}
+.wv-status{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:#E8B84B;margin-top:14px;}
+.wv-status .dot{width:10px;height:10px;border-radius:50%;background:#C9941A;flex:0 0 10px;}
+.wv-status.done{color:#9be3b5;}.wv-status.done .dot{background:#3d9a5f;}
+.wv-bar{height:6px;background:rgba(255,255,255,0.12);border-radius:3px;overflow:hidden;margin-top:10px;}
+.wv-bar div{height:100%;width:0;background:#C9941A;transition:width .4s;}
+.wv-alt{margin-top:12px;font-size:13px;color:rgba(255,255,255,0.6);}
+.wv-alt a,.wv-alt button{color:#E8B84B;background:none;border:0;padding:0;font:inherit;text-decoration:underline;cursor:pointer;}
+.wv-go{display:none;margin-top:16px;background:#C9941A;color:#0D1F3C!important;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:14px 22px;border-radius:2px;}
+.wv.done .wv-go{display:inline-block;}
+body.wv-lock .lesson-main>*:not(#rsmWelcome){opacity:.35;filter:grayscale(.4);pointer-events:none;user-select:none;}
+.wv-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0D1F3C;color:#fff;border:1px solid #C9941A;padding:12px 18px;border-radius:2px;font-size:14px;z-index:9999;box-shadow:0 10px 30px rgba(0,0,0,.3);display:none;max-width:90vw;text-align:center;}
+@media(max-width:760px){.wv{grid-template-columns:minmax(0,1fr);padding:20px 16px;text-align:center;}.wv-player{max-width:260px;}.wv-status{justify-content:center;}}
+</style>
+<section class="wv" id="rsmWelcome" aria-label="Welcome video from Darrell">
+  <div class="wv-player"><div id="rsmWelcomePlayer"></div></div>
+  <div>
+    <div class="wv-eyebrow">Start Here</div>
+    <h2>A Welcome From Darrell</h2>
+    <p>Before you begin Level 3 of the RSM Accountability Program, watch this short welcome from me. I'll tell you what to expect, how to get the most out of every lesson, and why I believe this can change your financial life.</p>
+    <p>Your first lesson unlocks as soon as the video finishes.</p>
+    <div class="wv-status" id="wvStatus"><span class="dot"></span><span id="wvStatusText">Press play to begin</span></div>
+    <div class="wv-bar" aria-hidden="true"><div id="wvBar"></div></div>
+    <div class="wv-alt" id="wvAlt" style="display:none"></div>
+    <a class="wv-go" id="wvGo" href="#">Continue to Commitment &amp; Baseline &#8594;</a>
+  </div>
+</section>
+<div class="wv-toast" id="wvToast" role="status"></div>
+<script>
+(function(){
+  var KEY = 'rsm_welcome_video_watched', VID = 'JFkkQAxcUaY', PREFIX = 'acc3-', PORTAL = 'acc3-portal.html';
+  var sec = document.getElementById('rsmWelcome'), txt = document.getElementById('wvStatusText'), st = document.getElementById('wvStatus'), bar = document.getElementById('wvBar'), alt = document.getElementById('wvAlt'), go = document.getElementById('wvGo');
+  function watched(){ try { return localStorage.getItem(KEY) === '1'; } catch(e){ return false; } }
+  function courseLink(a){ var h = a.getAttribute('href') || ''; h = h.split('#')[0]; return h.indexOf('./' + PREFIX) === 0 && h !== './' + PORTAL; }
+  var first = null; document.querySelectorAll('.lesson-main a[href]').forEach(function(a){ if (!first && courseLink(a)) first = a.getAttribute('href'); });
+  if (!first) document.querySelectorAll('a[href]').forEach(function(a){ if (!first && courseLink(a)) first = a.getAttribute('href'); });
+  if (first) go.setAttribute('href', first);
+  function unlock(){
+    try { localStorage.setItem(KEY, '1'); } catch(e){}
+    document.body.classList.remove('wv-lock'); sec.classList.add('done');
+    st.classList.add('done'); txt.textContent = 'Welcome video complete. You\'re ready to begin.'; bar.style.width = '100%'; alt.style.display = 'none';
+  }
+  function toast(m){ var t = document.getElementById('wvToast'); t.textContent = m; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(function(){ t.style.display = 'none'; }, 3500); }
+  document.addEventListener('click', function(e){
+    if (!document.body.classList.contains('wv-lock')) return;
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (a && courseLink(a) && a !== go){ e.preventDefault(); sec.scrollIntoView({behavior: 'smooth', block: 'start'}); toast('Please watch the welcome video first. Your lessons unlock when it finishes.'); }
+  }, true);
+  if (watched()) { unlock(); } else { document.body.classList.add('wv-lock'); }
+
+  var player, dur = 0, seen = 0, last = null, timer = null, ready = false;
+  function fallback(){
+    if (sec.classList.contains('done')) return;
+    alt.style.display = 'block';
+    alt.innerHTML = 'Video not loading? <a href="https://www.youtube.com/watch?v=' + VID + '" target="_blank" rel="noopener" id="wvYT">Watch it on YouTube</a>, then come back here.';
+    document.getElementById('wvYT').addEventListener('click', function(){
+      setTimeout(function(){ alt.innerHTML = 'Finished watching on YouTube? <button type="button" id="wvDone">Yes, I watched the welcome video</button>'; document.getElementById('wvDone').addEventListener('click', unlock); }, 20000);
+    });
+  }
+  function tick(){
+    if (!player || !player.getCurrentTime) return;
+    var t = player.getCurrentTime(); dur = player.getDuration() || dur;
+    if (last !== null && t > last && t - last <= 2.5) seen += (t - last);
+    last = t;
+    if (dur) { var p = Math.min(100, seen / dur * 100); if (!sec.classList.contains('done')) bar.style.width = p + '%'; if (p >= 90 && !sec.classList.contains('done')) { unlock(); } }
+  }
+  window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player('rsmWelcomePlayer', {
+      videoId: VID, playerVars: {rel: 0, modestbranding: 1, playsinline: 1},
+      events: {
+        onReady: function(){ ready = true; },
+        onError: function(){ fallback(); },
+        onStateChange: function(ev){
+          if (ev.data === 1) { if (!sec.classList.contains('done')) txt.textContent = 'Watching...'; clearInterval(timer); timer = setInterval(tick, 1000); last = player.getCurrentTime(); }
+          else { clearInterval(timer); tick(); if (ev.data === 2 && !sec.classList.contains('done')) txt.textContent = 'Paused. Press play to keep going.'; }
+          if (ev.data === 0) { tick(); if (!sec.classList.contains('done')) { if (dur && seen / dur >= 0.9) unlock(); else txt.textContent = 'Please watch the full video without skipping ahead to unlock your lessons.'; } }
+        }
+      }
+    });
+  };
+  var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = fallback; document.head.appendChild(s);
+  setTimeout(function(){ if (!ready) fallback(); }, 10000);
+})();
+</script>
+<!-- RSM-WELCOME:END -->
+
+
+<section class="ac-card" id="acHow">
+  <div class="ac-eyebrow">How Level 3 Works</div>
+  <h2>14 Weeks. 4 Phases. 4 Verified Scoreboards.</h2>
+  <p>Level 3 starts with a two-week Foundation that verifies your cash flow, reserve, debt, and rules. Then come three four-week modules: Wealth Architecture and Ownership Control, Wealth Protection and Risk Transfer, and Legacy Transfer and Continuity. Every phase ends with a scoreboard Darrell reviews personally. When it's verified, you receive a code that unlocks the next phase. If it isn't, you revise and resubmit.</p>
+  <p>Every week has a teaching, a Mindset Drill, a Field Assignment built around fill-in worksheets right on the page, and a daily proof log. Everything saves as you type, collects in <a href="./acc3-workbook.html" style="color:#B07A0C;font-weight:700">your Total Accountability Workbook</a>, and goes to Darrell automatically with your scoreboard.</p>
+  <p>You close each week with an Accountability Log, hold your own 45-minute Weekly Wealth Review, and meet with Darrell for a 30-minute one-on-one check-in. Reports are automatic: a weekly report after every log, and a full written Progress Report after every scoreboard.</p>
+</section>
+
+<section class="ac-card" id="acIndexCard">
+  <div class="ac-eyebrow">Your Total Accountability Index</div>
+  <h2>Total Accountability, Measured</h2>
+  <p class="ac-muted">Eight measures, from reserve and protection coverage to governance and single-point failures, scored 0 to 100 at baseline and every scoreboard, plus your net worth. Blue is where you started. Gold is where you are now.</p>
+  <div id="acIndex"></div>
+</section>
+
+<section class="ac-card" id="acRoad">
+  <div class="ac-eyebrow">Your Roadmap</div>
+  <h2>Every Deadline, In Writing</h2>
+  <p class="ac-muted">Deadlines are set when you check in. Each one has a 48-hour grace period, and after that it becomes a strike.</p>
+  <ul class="ac-road" id="acRoadList"></ul>
+  <div id="acCodes"></div>
+</section>
+
+<section class="ac-card" id="acRules">
+  <div class="ac-eyebrow">The Standard</div>
+  <h2>The Rules of Level 3</h2>
+  <div class="ac-rule"><b>1</b><p><strong>Proof over promises.</strong> Every scoreboard requires your frameworks, your logs, and your evidence. Darrell verifies it. If it can't be verified, it didn't happen.</p></div>
+  <div class="ac-rule"><b>2</b><p><strong>Phases lock in order.</strong> The next phase opens only after the last scoreboard is verified. Partial completion isn't accepted, and a scoreboard that fails is repeated.</p></div>
+  <div class="ac-rule"><b>3</b><p><strong>Deadlines are posted, not chased.</strong> Every deadline is on this page from day one. Nobody is going to remind you. Operators run their own calendar.</p></div>
+  <div class="ac-rule"><b>4</b><p><strong>Strikes.</strong> A scoreboard (or your Commitment &amp; Baseline) submitted more than 48 hours after its deadline is a strike. Two strikes pauses your program until you submit a recommitment and Darrell reinstates you. When you're reinstated, your remaining deadlines are reset on a fresh schedule, and the next strike pauses you again.</p></div>
+  <div class="ac-rule"><b>5</b><p><strong>Report every broken rule.</strong> Your weekly log asks whether any decision broke one of your written rules. Reporting it is discipline. Hiding it is the real violation.</p></div>
+  <div class="ac-rule"><b>6</b><p><strong>Protect your information.</strong> Black out account numbers, your Social Security number, and your full date of birth on everything you upload.</p></div>
+  <div class="ac-rule"><b>7</b><p><strong>Education, not advice.</strong> Level 3 teaches you to build, protect, and transfer wealth with your own rules and your own professional team. It isn't legal, tax, investment, or insurance advice. Darrell is a licensed insurance producer, and this program doesn't sell insurance or require you to buy anything from anyone.</p></div>
+</section>
+
+<section class="ac-card" id="acCall">
+  <div class="ac-eyebrow">Your 1:1 With Darrell</div>
+  <h2>Weekly Check-Ins</h2>
+  <p><strong>Every week:</strong> a 30-minute one-on-one check-in with Darrell at a standing time you set once. Your Accountability Log includes your agenda, and Darrell receives your automatic weekly report before the call. Come prepared. These are working sessions.</p>
+  <div id="acCallBox"></div>
+</section>
+
+<section class="ac-card" id="acBackup">
+  <div class="ac-eyebrow">Your Progress</div>
+  <h2>Backup &amp; Restore</h2>
+  <p>Your progress is saved on this device. To continue on another phone or computer, copy your backup code here and paste it into the Headquarters there.</p>
+  <div class="ac-field"><label for="acBk">Backup code</label><textarea id="acBk" style="min-height:80px;font-size:.78rem;font-family:monospace" placeholder="Paste a backup code here to restore, or press Create Backup Code."></textarea></div>
+  <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button type="button" class="ac-btn" id="acBkMake">Create Backup Code</button><button type="button" class="ac-btn ghost" id="acBkLoad">Restore From Code</button></div>
+  <p class="ac-msg" id="acBkMsg"></p>
+</section>
+
+<div class="lesson-nav no-print"><a href="./level3.html" class="btn-prev">&#8592; Program Overview</a><a href="./acc3-intake.html" class="btn-next">Commitment &amp; Baseline &rarr;</a></div>
+
+  </main>
+</div>
+<footer class="course-footer">&copy; 2026 Right Side of Money<span>&reg;</span> &middot; Darrell Thompson &middot; info@rightsideofmoney.com<span class="disc">Educational program only. Not financial, investment, tax, legal, or insurance advice.</span></footer>
+<script src="./acc-ws.js"></script>
+<script src="./acc3-data.js"></script>
+<script src="./acc3-core.js"></script>
+<script>
+var WEEKS = ["The Foundation Audit", "The Operator Rulebook", "Ownership vs. Control", "Wealth Requires Rules", "Decision Authority", "Access, Incentives, and Entitlement", "Risk Is Not Optional", "Risk Transfer", "Layered Protection", "Legal, Financial, and Personal Shields", "Legacy Is Not Inheritance", "Preparing Heirs Without Creating Dependence", "Governance, Family Councils, and Conflict", "Transfer Structures"];
+var SCORE = ["The Foundation Scoreboard", "The Architecture Scoreboard", "The Protection Scoreboard", "The Legacy Scoreboard"];
+var CALLS = [{"n": 1, "title": "Standing Weekly Check-In", "length": "30 minutes, every week", "when": "Opens after your Commitment &amp; Baseline", "desc": "Set the day and time for your weekly one-on-one with Darrell. Fourteen weeks, fourteen check-ins. Your weekly log carries your agenda, and Darrell receives your automatic weekly report before every call."}];
+
+(function(){
+  var A = ACC3, d = A.load(), NCP = A.ncp, PS = A.ps, PE = A.pe, PN = A.pn;
+  var reg = document.getElementById('acReg'), dash = document.getElementById('acDash');
+  function $(id){ return document.getElementById(id); }
+
+  if (!d.me){
+    reg.style.display = 'block';
+    var T0 = Date.now();
+    $('acRegForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var f = $('acFirst').value.trim(), l = $('acLast').value.trim(), em = $('acEmail').value.trim(), msg = $('acRegMsg');
+      if (!f || !l) { msg.textContent = 'Enter your first and last name.'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg.textContent = 'Enter a valid email address.'; return; }
+      var enr = $('acEnr').value.trim().toUpperCase().replace(/\s+/g, '');
+      if (!A.checkCode(enr, em, 'E1')) { msg.textContent = 'That enrollment code doesn\'t match this email. Use the exact email address and code from your welcome email.'; return; }
+      var bot = !!$('acCo').value || (Date.now() - T0) < 3000;
+      var me = {first: f.replace(/[<>&"]/g, ''), last: l.replace(/[<>&"]/g, ''), email: em, start: new Date().toISOString()};
+      A.update(function(x){ x.me = me; x.lvl = 3; x.enr = enr; });
+      if (!bot){
+        A.post({_subject: 'ACC L3 | Program Started | ' + me.first + ' ' + me.last, event: 'Checked in and started the Level 3 clock', started_at: new Date().toLocaleString()}).catch(function(){});
+        A.accessEmail(me.first, me.email);
+        if ($('acOpt').checked) A.kit(me.first, me.email);
+      }
+      location.hash = ''; location.reload();
+    });
+  } else {
+    render();
+  }
+
+  function render(){
+    d = A.load();
+    dash.style.display = 'block';
+    var start = new Date(d.me.start), day = Math.min(98, Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1));
+    $('acDay').textContent = day;
+    var latest = A.latest(d); $('acIdxS').textContent = latest ? A.score(latest.m).total : '--';
+    var strikes = A.strikes(d); $('acStr').textContent = strikes.length;
+    A.renderIndex($('acIndex'));
+    roadmap(strikes);
+    nextMove();
+    callBox();
+    pauseBox(strikes);
+  }
+
+  function chip(cls, t){ return '<span class="ac-chip ' + cls + '">' + t + '</span>'; }
+  function roadmap(strikes){
+    var dl = A.deadlines(d), byId = {}; dl.forEach(function(x){ byId[x.id] = x; });
+    var late = {}; strikes.forEach(function(s){ late[s.id] = true; });
+    var h = '';
+    function due(id){ return 'Due ' + A.date(byId[id].due) + (late[id] ? ' &middot; strike recorded' : ''); }
+    h += '<li class="cp"><div><a href="./acc3-intake.html">Commitment &amp; Baseline</a><span class="sub">' + due('intake') + '</span></div>' + (d.intake ? chip('done', 'Submitted') : chip(late.intake ? 'late' : 'open', late.intake ? 'Overdue' : 'Start here')) + '</li>';
+    for (var p = 1; p <= NCP; p++){
+      for (var w = PS(p); w <= PE(p); w++){
+        var open = A.phaseOpen(d, p), done = A.weekDone(d, w);
+        h += '<li><div><a href="./acc3-week' + w + '.html">Week ' + w + ': ' + WEEKS[w - 1] + '</a><span class="sub">' + PN[p - 1] + '</span></div>' + (done ? chip('done', 'Logged') : open ? chip('open', 'Open') : chip('lock', 'Locked')) + '</li>';
+      }
+      var sub = A.cpSubmitted(d, p), ver = A.verified(d, p), id = 'cp' + p;
+      var c = ver ? chip('done', 'Verified') : sub ? chip('wait', 'Awaiting review') : late[id] ? chip('late', 'Overdue') : A.phaseOpen(d, p) ? chip('open', 'Open') : chip('lock', 'Locked');
+      h += '<li class="cp"><div><a href="./acc3-checkpoint' + p + '.html">' + A.cpLabel(p) + '</a><span class="sub">' + due(id) + '</span></div>' + c + '</li>';
+    }
+    h += '<li><div><a href="./acc3-graduation.html">Results Report &amp; Graduation</a><span class="sub">Unlocks when your Final Checkpoint is verified</span></div>' + (A.verified(d, NCP) ? chip('done', 'Unlocked') : chip('lock', 'Locked')) + '</li>';
+    $('acRoadList').innerHTML = h;
+    var codes = $('acCodes'); codes.innerHTML = '';
+    for (var n = 1; n <= NCP; n++) if (A.cpSubmitted(d, n) && !A.verified(d, n)){ var box = document.createElement('div'); codes.appendChild(box); A.mountCode(box, n, function(){ location.reload(); }); }
+  }
+
+  function nextMove(){
+    var t, href, btn;
+    if (A.paused(d)){ t = 'Your program is paused. Submit your recommitment below.'; href = '#acPause'; btn = 'Recommit'; }
+    else if (!d.intake){ t = 'Sign your Total Accountability Contract and record your baseline.'; href = './acc3-intake.html'; btn = 'Start'; }
+    else {
+      for (var p = 1; p <= NCP && !t; p++){
+        if (A.verified(d, p)) continue;
+        if (!A.phaseOpen(d, p)){ t = 'Waiting on verification of your ' + A.cpLabel(p - 1) + '. Enter your code when it arrives.'; href = '#acRoad'; btn = 'Enter Code'; break; }
+        for (var w = PS(p); w <= PE(p); w++) if (!A.weekDone(d, w)){ t = 'Week ' + w + ': ' + WEEKS[w - 1] + '.'; href = './acc3-week' + w + '.html'; btn = 'Go to Week ' + w; break; }
+        if (t) break;
+        if (!A.cpSubmitted(d, p)){ t = 'Submit your ' + A.cpLabel(p) + '.'; href = './acc3-checkpoint' + p + '.html'; btn = 'Submit'; break; }
+        t = A.cpLabel(p) + ' is with Darrell for review. Enter your code when it arrives.'; href = '#acRoad'; btn = 'Enter Code';
+      }
+      if (!t){ t = 'You did it. Your Results Report and certificate are ready.'; href = './acc3-graduation.html'; btn = 'View Results'; }
+    }
+    $('acNext').innerHTML = '<p><small>Your Next Move</small>' + t + '</p><a href="' + href + '">' + btn + ' &rarr;</a>';
+  }
+
+  function callOpen(n){ return !!d.intake; }
+  function callBox(){
+    var el = $('acCallBox'), formFor = 0, h = '<div class="ac-calls">';
+    CALLS.forEach(function(c){
+      var req = d.call && d.call[c.n], open = callOpen(c.n);
+      if (open && !req && !formFor) formFor = c.n;
+      h += '<div class="ac-callrow"><div><strong>Call ' + c.n + ': ' + c.title + ' (' + c.length + ')</strong><span>' + c.desc + '</span><span style="display:block;margin-top:.25rem;color:#B07A0C">' + c.when + '</span></div>' +
+        (req ? chip('done', 'Requested ' + A.date(req.at)) : open ? chip('open', 'Ready to book') : chip('lock', 'Not yet')) + '</div>';
+    });
+    h += '</div>';
+    if (formFor){
+      var c = CALLS[formFor - 1];
+      h += '<form id="acCallForm" novalidate><h3 style="margin-top:1rem">Request Call ' + c.n + ': ' + c.title + '</h3>' +
+        '<div class="ac-field"><label>Format</label><div class="ac-radio"><label><input type="radio" name="cf" value="Zoom"> Zoom</label><label><input type="radio" name="cf" value="Phone"> Phone</label></div></div>' +
+        '<div class="ac-field"><label for="acPh">Best phone number</label><input type="tel" id="acPh" autocomplete="tel"></div>' +
+        (c.n === 1 ? '<div class="ac-field"><label for="acStand">Your standing weekly check-in time</label><small>The same day and time every week for 14 weeks. Give two options, with your time zone.</small><input type="text" id="acStand" placeholder="Example: Tuesdays 6:30pm PT, or Thursdays 12pm PT"></div>' : '') +
+        '<div class="ac-field"><label for="acTimes">Three times that work for your first check-in (include your time zone)</label><textarea id="acTimes" style="min-height:80px" placeholder="Example: Tue 6pm PT, Wed 12pm PT, Sat 10am PT"></textarea></div>' +
+        '<div class="ac-field"><label for="acIssue">The number one thing you want to solve on this call</label><textarea id="acIssue" style="min-height:80px"></textarea></div>' +
+        '<button type="submit" class="ac-btn">Request My Call &rarr;</button><p class="ac-msg" id="acCallMsg"></p></form>';
+    } else if (!(d.call && d.call[1])) h += '<p class="ac-muted">Your check-in request opens after you submit your Commitment &amp; Baseline.</p>';
+    el.innerHTML = h;
+    var form = $('acCallForm'); if (!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var fmt = document.querySelector('input[name=cf]:checked'), ph = $('acPh').value.trim(), tm = $('acTimes').value.trim(), is = $('acIssue').value.trim(), m = $('acCallMsg');
+      var sd = $('acStand') ? $('acStand').value.trim() : 'n/a';
+      if (!fmt || !ph || tm.length < 8 || is.length < 10 || sd.length < 3){ m.className = 'ac-msg err'; m.textContent = 'Fill in every field so Darrell can schedule you.'; return; }
+      var b = this.querySelector('button'); b.disabled = true; b.textContent = 'Sending...';
+      var c = CALLS[formFor - 1];
+      A.post({_subject: 'ACC L3 | Call ' + c.n + ' Request (' + c.title + ') | ' + d.me.first + ' ' + d.me.last, call: 'Call ' + c.n + ': ' + c.title + ' (' + c.length + ')', format: fmt.value, phone: ph, preferred_times: tm, focus_for_call: is, standing_weekly_checkin: sd}).then(function(){
+        A.update(function(x){ x.call = x.call || {}; x.call[c.n] = {at: new Date().toISOString()}; }); d = A.load(); callBox();
+      }).catch(function(){ b.disabled = false; b.textContent = 'Request My Call →'; m.className = 'ac-msg err'; m.textContent = 'That didn\'t send. Check your connection and try again.'; });
+    });
+  }
+
+  function pauseBox(strikes){
+    var el = $('acPause');
+    if (!A.paused(d)){ el.style.display = 'none'; return; }
+    el.style.display = 'block';
+    var k = (d.rein || 0) + 1;
+    el.innerHTML = '<h3 style="margin-top:0">Program Paused: ' + strikes.length + ' Strikes</h3><p style="margin-bottom:1rem!important">Your work is saved, but nothing moves forward until you recommit. Tell Darrell what happened and what changes now. He\'ll review it and, if he reinstates you, send a reinstatement code.</p>' +
+      (d.recommit && d.recommit[k] ? '<div class="ac-done"><span class="ico">&#10003;</span><p>Recommitment sent ' + A.date(d.recommit[k]) + '. Enter your reinstatement code below when it arrives.</p></div>' :
+      '<form id="acRecForm" novalidate><div class="ac-field"><label for="acWhy">What caused the missed deadlines? No excuses, just the truth.</label><textarea id="acWhy"></textarea></div>' +
+      '<div class="ac-field"><label for="acChange">What specifically changes now so it doesn\'t happen again?</label><textarea id="acChange"></textarea></div>' +
+      '<div class="ac-field"><label for="acSig">Type your full name to recommit</label><input type="text" id="acSig"></div>' +
+      '<button type="submit" class="ac-btn">Submit My Recommitment</button><p class="ac-msg" id="acRecMsg"></p></form>') +
+      '<div class="ac-code"><label for="acRein"><strong>Reinstatement code</strong><span>From Darrell, after he reviews your recommitment.</span></label><div class="ac-code-row"><input id="acRein" type="text" placeholder="R' + k + '-XXXXXX" autocomplete="off"><button type="button" class="ac-btn" id="acReinBtn">Reinstate</button></div><p class="ac-msg" id="acReinMsg"></p></div>';
+    var rf = $('acRecForm');
+    if (rf) rf.addEventListener('submit', function(e){
+      e.preventDefault();
+      var w = $('acWhy').value.trim(), c = $('acChange').value.trim(), s = $('acSig').value.trim(), m = $('acRecMsg');
+      if (w.length < 30 || c.length < 30 || s.length < 3){ m.className = 'ac-msg err'; m.textContent = 'Give real answers (at least a few sentences each) and sign with your full name.'; return; }
+      A.post({_subject: 'ACC L3 | RECOMMITMENT | ' + d.me.first + ' ' + d.me.last + ' | ' + strikes.length + ' strikes', what_happened: w, what_changes: c, signed: s, strikes: strikes.map(function(x){ return x.label; }).join(', '), reinstatement_number: k}).then(function(){
+        A.update(function(x){ x.recommit = x.recommit || {}; x.recommit[k] = new Date().toISOString(); }); d = A.load(); pauseBox(strikes);
+      }).catch(function(){ m.className = 'ac-msg err'; m.textContent = 'That didn\'t send. Try again.'; });
+    });
+    $('acReinBtn').addEventListener('click', function(){
+      var m = $('acReinMsg');
+      if (A.checkCode($('acRein').value, d.me.email, 'R' + k)){ A.reinstate(k); m.className = 'ac-msg ok'; m.textContent = 'Reinstated. Get back to work.'; setTimeout(function(){ location.reload(); }, 900); }
+      else { m.className = 'ac-msg err'; m.textContent = 'That code doesn\'t match.'; }
+    });
+  }
+
+  $('acBkMake').addEventListener('click', function(){
+    var m = $('acBkMsg'); if (!A.load().me){ m.className = 'ac-msg err'; m.textContent = 'Check in first. There\'s nothing to back up yet.'; return; }
+    $('acBk').value = A.exportCode(); $('acBk').select();
+    try { navigator.clipboard.writeText($('acBk').value); m.className = 'ac-msg ok'; m.textContent = 'Backup code created and copied. Paste it in the Headquarters on your other device.'; } catch(e){ m.className = 'ac-msg ok'; m.textContent = 'Backup code created. Copy it and paste it on your other device.'; }
+  });
+  $('acBkLoad').addEventListener('click', function(){
+    var m = $('acBkMsg');
+    if (A.importCode($('acBk').value)){ m.className = 'ac-msg ok'; m.textContent = 'Progress restored.'; setTimeout(function(){ location.reload(); }, 700); }
+    else { m.className = 'ac-msg err'; m.textContent = 'That backup code isn\'t valid for Level 3. Copy the whole code from your Level 3 Headquarters and try again.'; }
+  });
+})();
+
+</script>
+</body>
+</html>

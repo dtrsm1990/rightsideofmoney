@@ -84,6 +84,23 @@
       var b = rows.reduce(function(s, r){ return s + num(r[1]); }, 0), l = rows.reduce(function(s, r){ return s + num(r[2]); }, 0);
       return '<strong>Overall utilization:</strong> ' + Math.round(b / l * 100) + '%. ' + rows.map(function(r){ var u = Math.round(num(r[1]) / num(r[2]) * 100); return esc(r[0]) + ': ' + u + '%' + (u > 30 ? ' (pay down ' + money(num(r[1]) - num(r[2]) * 0.3) + ' to reach 30%)' : ''); }).join(' &middot; '); }
   };
+  CALC.fsnap = function(d){ var inc = num(d.inc), ess = num(d.ess), res = num(d.res), conv = num(d.conv), dp = num(d.dpay); if (!inc || !ess) return 'Enter your income and essential expenses to see your foundation measures.';
+      var mo = (res || 0) / ess, cr = (conv || 0) / inc * 100, dl = (dp || 0) / inc * 100;
+      return '<strong>Reserve:</strong> ' + (Math.round(mo * 10) / 10) + ' months' + (mo >= 6 ? ' (meets the Level 3 standard)' : ' (add ' + money(6 * ess - (res || 0)) + ' to reach 6 months)') +
+        '. <strong>Conversion rate:</strong> ' + (Math.round(cr * 10) / 10) + '%' + (cr >= 20 ? ' (meets the standard)' : ' (convert ' + money(inc * 0.2 - (conv || 0)) + ' more a month to reach 20%)') +
+        '. <strong>Debt load:</strong> ' + Math.round(dl) + '% of take-home' + (dl <= 10 ? ' (meets the standard).' : ' (the standard is 10% or less).'); };
+  CALC.ocmap = function(d){ var rows = (d.rows || []).filter(function(r){ return filled(r[0]); }); if (!rows.length) return 'Add your assets to see your control picture.';
+      var nob = rows.filter(function(r){ return r[5] === 'No' || r[5] === 'Not sure'; }).length, uns = rows.filter(function(r){ return r[1] === 'Not sure'; }).length;
+      return '<strong>' + rows.length + '</strong> assets mapped. <strong>' + nob + '</strong> without a confirmed beneficiary or transfer designation. <strong>' + uns + '</strong> with titling you aren\'t sure about.' + (nob + uns ? ' Each one belongs on your Control Gaps list.' : ' No obvious gaps. Confirm the details with your professionals.'); };
+  CALC.reg = function(d){ var rows = (d.rows || []).filter(function(r){ return filled(r[0]) && num(r[1]) !== null && num(r[2]) !== null; }); if (!rows.length) return 'Score each risk to see which ones need a response plan.';
+      var sc = rows.map(function(r){ return {n: r[0], s: num(r[1]) * num(r[2]), p: filled(r[3])}; }).sort(function(a, b){ return b.s - a.s; }), hi = sc.filter(function(x){ return x.s >= 12; });
+      return '<strong>' + hi.length + '</strong> risk' + (hi.length === 1 ? '' : 's') + ' scored 12 or higher' + (hi.length ? ': ' + hi.map(function(x){ return esc(x.n) + ' (' + x.s + (x.p ? '' : ', needs a plan') + ')'; }).join(' &middot; ') : '') + '. Highest overall: ' + esc(sc[0].n) + ' at ' + sc[0].s + '.'; };
+  CALC.layers = function(d){ var rows = (d.rows || []).filter(function(r){ return filled(r[1]); }); if (!rows.length) return 'Rate each layer to see your protection picture.';
+      var c = {Strong: 0, Partial: 0, Missing: 0}; rows.forEach(function(r){ c[r[1]] = (c[r[1]] || 0) + 1; });
+      return '<strong>' + c.Strong + ' strong, ' + c.Partial + ' partial, ' + c.Missing + ' missing.</strong> ' + (c.Missing ? 'Every missing layer is a place where one event could break through.' : 'Every layer exists. Now make the partial ones strong.'); };
+  CALC.tmap = function(d){ var rows = (d.rows || []).filter(function(r){ return filled(r[0]); }); if (!rows.length) return 'Map your assets to see where structure and intention don\'t match.';
+      var bad = rows.filter(function(r){ return r[3] === 'No' || r[3] === 'Not sure' || r[1] === 'Not sure'; });
+      return '<strong>' + (rows.length - bad.length) + ' of ' + rows.length + '</strong> assets transfer the way you intend.' + (bad.length ? ' Fix first: ' + bad.map(function(r){ return esc(r[0]); }).join(', ') + '.' : ''); };
   W.calc = function(name, d){ try { return CALC[name] ? CALC[name](d || {}) : ''; } catch(e){ return ''; } };
 
   /* ---------- render ---------- */

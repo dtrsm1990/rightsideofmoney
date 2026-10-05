@@ -59,11 +59,12 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
   <p class="note">Send it from info@rightsideofmoney.com. The code only works with the email address you entered above, so a shared code won't let anyone else in.</p>
   <p class="msg" id="eCopyMsg"></p>
 </div>
-<p class="note">Checkpoint verifications for the Accountability Program are still issued in <a href="./acc1-verify.html">Level 1 Verify</a> and <a href="./acc2-verify.html">Level 2 Verify</a>.</p>
+<p class="note">Checkpoint verifications for the Accountability Program are still issued in <a href="./acc1-verify.html">Level 1 Verify</a>, <a href="./acc2-verify.html">Level 2 Verify</a>, and <a href="./acc3-verify.html">Level 3 Verify</a>.</p>
 </div>
 <script src="./acc1-core.js"></script>
 <script>var L1 = window.ACC1;</script>
 <script src="./acc2-core.js"></script>
+<script src="./acc3-core.js"></script>
 <script>
 (function(){
   function $(id){ return document.getElementById(id); }
@@ -72,7 +73,9 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
     {id: 'acc1', name: 'RSM Accountability Program, Level 1', portal: 'acc1-portal.html', code: function(em){ return L1.code(em, 'E1'); },
      start: 'Here\'s your Command Center:\n{URL}\n\nHow to start:\n1. Open the link and check in with this email address: {EM}, and enter your enrollment code: {CODE}. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days of checking in.\n\nYour 8-week clock starts the moment you check in, and every deadline will be posted in your Command Center. Nobody is going to chase you. That\'s the point.'},
     {id: 'acc2', name: 'RSM Accountability Program, Level 2: Wealth System Accountability', portal: 'acc2-portal.html', code: function(em){ return ACC2.code(em, 'E1'); },
-     start: 'Here\'s your Operations Center:\n{URL}\n\nHow to start:\n1. Open the link and check in with this email address: {EM}, and enter your enrollment code: {CODE}. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days, then request your Launch Call.\n\nYour 12-week clock starts the moment you check in, and every deadline will be posted in your Operations Center.'}
+     start: 'Here\'s your Operations Center:\n{URL}\n\nHow to start:\n1. Open the link and check in with this email address: {EM}, and enter your enrollment code: {CODE}. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days, then request your Launch Call.\n\nYour 12-week clock starts the moment you check in, and every deadline will be posted in your Operations Center.'},
+    {id: 'acc3', name: 'RSM Accountability Program, Level 3: Total Accountability', portal: 'acc3-portal.html', code: function(em){ return ACC3.code(em, 'E1'); },
+     start: 'Here\'s your Headquarters:\n{URL}\n\nHow to start:\n1. Open the link and check in with this email address: {EM}, and enter your enrollment code: {CODE}. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days, then set your standing weekly check-in time.\n\nYour 14-week clock starts the moment you check in, and every deadline will be posted in your Headquarters. After each weekly log you submit, your weekly report is generated and sent automatically.'}
   ];
   Object.keys(E.courses).forEach(function(k){
     var c = E.courses[k];
