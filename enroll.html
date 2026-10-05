@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enroll a Student | Right Side of Money</title>
+<meta name="robots" content="noindex, nofollow" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',Arial,sans-serif;background:#F4F1EA;color:#1a1a1a;line-height:1.6;padding:24px 16px}
+.wrap{max-width:720px;margin:0 auto}
+header{background:#0D1F3C;border-top:4px solid #C9941A;border-radius:4px;padding:22px 24px;margin-bottom:18px}
+header small{color:#C9941A;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:800}
+header h1{font-family:'Playfair Display',serif;color:#fff;font-size:26px;margin-top:4px}
+header p{color:rgba(255,255,255,.75);font-size:14px;margin-top:6px}
+.card{background:#fff;border-radius:4px;padding:22px 24px;margin-bottom:16px;box-shadow:0 6px 18px rgba(13,31,60,.06)}
+label{display:block;font-weight:700;color:#0D1F3C;font-size:14px;margin:0 0 6px}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:15px;margin-bottom:14px;background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.kind{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.kind label{display:flex;gap:8px;align-items:center;border:1.5px solid #d9d2c0;border-radius:4px;padding:12px;font-weight:600;cursor:pointer;margin:0}
+.kind input{width:auto;margin:0;accent-color:#0D1F3C}
+button,.btn{display:inline-block;background:#C9941A;color:#0D1F3C;border:0;font:inherit;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:13px 18px;border-radius:4px;cursor:pointer;text-decoration:none;margin:0 8px 8px 0}
+.btn.ghost{background:transparent;border:2px solid #0D1F3C}
+.code{font-family:'Playfair Display',serif;font-size:34px;color:#0D1F3C;letter-spacing:.06em;margin:4px 0 12px}
+.subj{font-weight:700;color:#0D1F3C;margin-bottom:6px}
+pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-left:4px solid #C9941A;padding:14px 16px;border-radius:4px;margin-bottom:14px}
+.msg{font-size:14px;font-weight:700;min-height:1.2em}.err{color:#9B1C1C}.ok{color:#1A6B3C}
+.note{font-size:13px;color:#666}
+@media(max-width:600px){.row,.kind{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script src="./rsm-enroll.js"></script>
+</head>
+<body><div class="wrap">
+<header><small>Darrell Only &middot; Do Not Share</small><h1>Enroll a Student</h1><p>Every course and both Accountability levels. Pick the program, enter the student's name and email, and choose paid or free. You'll get their enrollment code and a welcome email ready to send.</p></header>
+<div class="card">
+  <label for="eProg">Program</label>
+  <select id="eProg"></select>
+  <div class="row">
+    <div><label for="eFirst">Student first name</label><input id="eFirst" type="text" autocomplete="off"></div>
+    <div><label for="eEmail">Student email</label><input id="eEmail" type="email" autocomplete="off"></div>
+  </div>
+  <label>Enrollment type</label>
+  <div class="kind"><label><input type="radio" name="eKind" value="paid" checked> Paid (payment confirmed)</label><label><input type="radio" name="eKind" value="free"> Free (scholarship or guest)</label></div>
+  <label for="eNotes">A personal note (optional)</label>
+  <textarea id="eNotes" placeholder="Anything you want to add to the welcome email."></textarea>
+  <button type="button" id="eGo">Create Enrollment</button>
+  <p class="msg" id="eMsg"></p>
+</div>
+<div class="card" id="eOut" style="display:none">
+  <label>Enrollment code</label><div class="code" id="eCode"></div>
+  <label>Welcome email</label>
+  <div class="subj" id="eSubj"></div>
+  <pre id="eBody"></pre>
+  <a class="btn" id="eMail" href="#">Open in My Email App</a>
+  <button type="button" class="btn ghost" id="eCopy">Copy Email</button>
+  <p class="note">Send it from info@rightsideofmoney.com. The code only works with the email address you entered above, so a shared code won't let anyone else in.</p>
+  <p class="msg" id="eCopyMsg"></p>
+</div>
+<p class="note">Checkpoint verifications for the Accountability Program are still issued in <a href="./acc1-verify.html">Level 1 Verify</a> and <a href="./acc2-verify.html">Level 2 Verify</a>.</p>
+</div>
+<script src="./acc1-core.js"></script>
+<script>var L1 = window.ACC1;</script>
+<script src="./acc2-core.js"></script>
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var E = window.RSMENROLL, SITE = E.site;
+  var PROGS = [
+    {id: 'acc1', name: 'RSM Accountability Program, Level 1', portal: 'acc1-portal.html', code: function(em){ return L1.code(em, 'E1'); },
+     start: 'Here\'s your Command Center:\n{URL}\n\nHow to start:\n1. Open the link and check in with this email address: {EM}, and enter your enrollment code: {CODE}. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days of checking in.\n\nYour 8-week clock starts the moment you check in, and every deadline will be posted in your Command Center. Nobody is going to chase you. That\'s the point.'},
+    {id: 'acc2', name: 'RSM Accountability Program, Level 2: Wealth System Accountability', portal: 'acc2-portal.html', code: function(em){ return ACC2.code(em, 'E1'); },
+     start: 'Here\'s your Operations Center:\n{URL}\n\nHow to start:\n1. Open the link and check in with this email address: {EM}, and enter your enrollment code: {CODE}. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days, then request your Launch Call.\n\nYour 12-week clock starts the moment you check in, and every deadline will be posted in your Operations Center.'}
+  ];
+  Object.keys(E.courses).forEach(function(k){
+    var c = E.courses[k];
+    PROGS.push({id: k, name: c.name, portal: c.portal, code: function(em){ return E.code(em, k); },
+      start: 'Start here:\n{URL}\n\nWhen the course asks, enter this email address: {EM}, and your enrollment code: {CODE}. Use the same email on every device, because your code is tied to it.'});
+  });
+  $('eProg').innerHTML = PROGS.map(function(p, i){ return '<option value="' + i + '">' + p.name + '</option>'; }).join('');
+  $('eGo').addEventListener('click', function(){
+    var p = PROGS[+$('eProg').value], f = $('eFirst').value.trim(), em = $('eEmail').value.trim(), free = document.querySelector('input[name=eKind]:checked').value === 'free', notes = $('eNotes').value.trim(), m = $('eMsg');
+    m.className = 'msg err';
+    if (!f){ m.textContent = 'Enter the student\'s first name.'; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ m.textContent = 'Enter the student\'s email address exactly as they\'ll type it.'; return; }
+    var code = p.code(em), url = SITE + p.portal;
+    var subj = 'Welcome to the ' + p.name + ' | Right Side of Money';
+    var open = free ? 'You\'re enrolled in the ' + p.name + ' at no cost to you. Everything in the program is yours, with the same standard as every other student.' : 'Your payment is confirmed, and you\'re officially enrolled in the ' + p.name + '.';
+    var body = 'Hi ' + f + ',\n\n' + open + '\n\nYour enrollment code: ' + code + '\n\n' + p.start.replace('{URL}', url).replace('{EM}', em).replace('{CODE}', code) +
+      (notes ? '\n\nA note from me:\n' + notes : '') + '\n\nI\'m glad you\'re here. Let\'s get to work.\n\nDarrell Thompson\nRight Side of Money';
+    $('eCode').textContent = code; $('eSubj').textContent = 'Subject: ' + subj; $('eBody').textContent = body;
+    $('eMail').href = 'mailto:' + encodeURIComponent(em) + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+    $('eOut').style.display = 'block'; m.className = 'msg ok'; m.textContent = 'Ready. Review the email below, then send it.';
+    $('eOut').scrollIntoView({behavior: 'smooth'});
+  });
+  $('eCopy').addEventListener('click', function(){
+    var t = $('eSubj').textContent + '\n\n' + $('eBody').textContent;
+    try { navigator.clipboard.writeText(t).then(function(){ $('eCopyMsg').className = 'msg ok'; $('eCopyMsg').textContent = 'Copied.'; }); } catch(e){ $('eCopyMsg').textContent = 'Select the text above and copy it.'; }
+  });
+})();
+</script>
+</body>
+</html>
