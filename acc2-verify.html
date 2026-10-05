@@ -38,7 +38,8 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
   </div>
   <label for="vAct">Decision</label>
   <select id="vAct">
-    <option value="W0">Welcome new student (payment confirmed)</option>
+    <option value="W0">Enroll a paying student (payment confirmed)</option>
+    <option value="W1">Enroll a student free (scholarship or guest)</option>
     <option value="V1">Verify Checkpoint 1 (unlocks Module 2)</option>
     <option value="V2">Verify Checkpoint 2 (unlocks Module 3)</option>
     <option value="V3">Verify Final Checkpoint (unlocks graduation)</option>
@@ -50,7 +51,7 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
     <option value="R3">Reinstate after pause (3rd reinstatement)</option>
   </select>
   <label for="vNotes">Your notes to the student</label>
-  <textarea id="vNotes" placeholder="Paste the darrell_feedback_draft from the student's scoreboard email here, then make it yours. Required for revisions."></textarea>
+  <textarea id="vNotes" placeholder="Paste the darrell_feedback_draft from the student's checkpoint email here, then make it yours. Required for revisions."></textarea>
   <button type="button" id="vGo">Create Decision</button>
   <p class="msg" id="vMsg"></p>
 </div>
@@ -83,8 +84,9 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
       subj = label + ' Verified | RSM Accountability Level 2';
       body = 'Hi ' + f + ',\n\nYour ' + label + ' is verified.\n\nYour verification code: ' + code + '\n\nEnter it in your Operations Center to ' + (n === ACC2.ncp ? 'unlock your Results Report and certificate' : 'unlock Module ' + (n + 1)) + ':\n' + PORTAL + noteBlock + '\n\nStay on the standard.\n\nDarrell Thompson\nRight Side of Money';
     } else if (t === 'W'){
+      code = ACC2.code(em, 'E1');
       subj = 'Welcome to Level 2 | RSM Accountability Program';
-      body = 'Hi ' + f + ',\n\nYour payment is confirmed, and you\'re officially in Level 2 of the RSM Accountability Program: Wealth System Accountability.\n\nHere\'s your Operations Center:\n' + PORTAL + '\n\nHow to start:\n1. Open the link and check in with this email address: ' + em + '. Use the same email every time, because your verification codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days of checking in.\n\nYour 12-week clock starts the moment you check in, and every deadline will be posted in your Operations Center. Nobody is going to chase you. That\'s the point.' + noteBlock + '\n\nI\'m glad you\'re here. Let\'s get to work.\n\nDarrell Thompson\nRight Side of Money';
+      body = 'Hi ' + f + ',\n\n' + (act === 'W1' ? 'You\'re enrolled in Level 2 of the RSM Accountability Program: Wealth System Accountability, at no cost to you. Everything in the program is yours, with the same standard as every other student.' : 'Your payment is confirmed, and you\'re officially in Level 2 of the RSM Accountability Program: Wealth System Accountability.') + '\n\nYour enrollment code: ' + code + '\n\nHere\'s your Operations Center:\n' + PORTAL + '\n\nHow to start:\n1. Open the link and check in with this email address: ' + em + ', and enter your enrollment code: ' + code + '. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days of checking in.\n\nYour 12-week clock starts the moment you check in, and every deadline will be posted in your Operations Center. Nobody is going to chase you. That\'s the point.' + noteBlock + '\n\nI\'m glad you\'re here. Let\'s get to work.\n\nDarrell Thompson\nRight Side of Money';
     } else if (t === 'X'){
       if (notes.length < 10) { m.textContent = 'Write what the student needs to fix. Revisions need clear notes.'; return; }
       subj = label + ': Revisions Needed | RSM Accountability Level 2';

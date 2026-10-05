@@ -227,6 +227,7 @@
 body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;pointer-events:auto!important;user-select:auto!important;}
 .course-footer .disc{display:block;margin-top:.35rem;font-size:.72rem;opacity:.75;}
 @media(max-width:768px){.ac-grid,.ac-stats,.ac-wins{grid-template-columns:minmax(0,1fr);}.ac-bar-row{grid-template-columns:minmax(0,1fr);gap:.35rem;}.ac-lk{grid-template-columns:minmax(0,1fr);}.ac-road li{grid-template-columns:minmax(0,1fr);}.ac-stats{grid-template-columns:repeat(3,minmax(0,1fr));}.ac-stat b{font-size:1.4rem;}.ac-code-row{flex-direction:column;}}
+
 @media print{.top-nav,.sidebar,.course-footer,.no-print{display:none!important;}.course-wrap{display:block;}.lesson-main{padding:0;max-width:none;}}
 
 .ac-mod{background:linear-gradient(135deg,#0D1F3C,#16305a);border-left:5px solid var(--gold);border-radius:4px;padding:1.6rem 1.75rem;margin:0 0 2rem;}
@@ -339,7 +340,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
 <section class="ac-card navy" id="acReg" style="display:none">
   <div class="ac-eyebrow">Step 1: Check In</div>
   <h2>Start Your Clock</h2>
-  <p>Enter the name and email you enrolled with. Checking in starts your 12-week clock and sets every deadline in this program. Use the same email every time; your verification codes are tied to it.</p>
+  <p>Enter your name, the email you enrolled with, and the enrollment code from your welcome email. Checking in starts your 12-week clock and sets every deadline in this program. Use the same email every time; your verification codes are tied to it.</p>
   <form id="acRegForm" novalidate>
     <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><input type="text" id="acCo" tabindex="-1" autocomplete="off"></div>
     <div class="ac-grid">
@@ -347,6 +348,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
       <div class="ac-field"><label for="acLast" style="color:#fff">Last name</label><input type="text" id="acLast" autocomplete="family-name"></div>
     </div>
     <div class="ac-field"><label for="acEmail" style="color:#fff">Email you enrolled with</label><input type="email" id="acEmail" autocomplete="email"></div>
+    <div class="ac-field"><label for="acEnr" style="color:#fff">Enrollment code</label><small style="color:rgba(255,255,255,.65)">It's in your welcome email from Darrell. Don't have one? <a href="mailto:info@rightsideofmoney.com" style="color:#E8B84B">Email Darrell</a>.</small><input type="text" id="acEnr" autocomplete="off" spellcheck="false" placeholder="E1-XXXXXX" style="text-transform:uppercase;letter-spacing:.06em;font-weight:700"></div>
     <label class="ac-check" style="color:rgba(255,255,255,.85)"><input type="checkbox" id="acOpt" checked> <span>Send me money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>
     <button type="submit" class="ac-btn wide">Check In and Start My Clock &rarr;</button>
     <p class="ac-msg" id="acRegMsg" style="color:#ffb4b4"></p>
@@ -536,9 +538,11 @@ var CALLS = [{"n": 1, "title": "Launch Call", "length": "45 minutes", "when": "O
       var f = $('acFirst').value.trim(), l = $('acLast').value.trim(), em = $('acEmail').value.trim(), msg = $('acRegMsg');
       if (!f || !l) { msg.textContent = 'Enter your first and last name.'; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg.textContent = 'Enter a valid email address.'; return; }
+      var enr = $('acEnr').value.trim().toUpperCase().replace(/\s+/g, '');
+      if (!A.checkCode(enr, em, 'E1')) { msg.textContent = 'That enrollment code doesn\'t match this email. Use the exact email address and code from your welcome email.'; return; }
       var bot = !!$('acCo').value || (Date.now() - T0) < 3000;
       var me = {first: f.replace(/[<>&"]/g, ''), last: l.replace(/[<>&"]/g, ''), email: em, start: new Date().toISOString()};
-      A.update(function(x){ x.me = me; x.lvl = 2; });
+      A.update(function(x){ x.me = me; x.lvl = 2; x.enr = enr; });
       if (!bot){
         A.post({_subject: 'ACC L2 | Program Started | ' + me.first + ' ' + me.last, event: 'Checked in and started the Level 2 clock', started_at: new Date().toLocaleString()}).catch(function(){});
         A.accessEmail(me.first, me.email);

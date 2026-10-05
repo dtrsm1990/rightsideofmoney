@@ -38,7 +38,8 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
   </div>
   <label for="vAct">Decision</label>
   <select id="vAct">
-    <option value="W0">Welcome new student (payment confirmed)</option>
+    <option value="W0">Enroll a paying student (payment confirmed)</option>
+    <option value="W1">Enroll a student free (scholarship or guest)</option>
     <option value="V1">Verify Checkpoint 1 (unlocks Phase 2)</option>
     <option value="V2">Verify Checkpoint 2 (unlocks Phase 3)</option>
     <option value="V3">Verify Checkpoint 3 (unlocks Phase 4)</option>
@@ -85,8 +86,9 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
       subj = label + ' Verified | RSM Accountability Level 1';
       body = 'Hi ' + f + ',\n\nYour ' + label + ' is verified.\n\nYour verification code: ' + code + '\n\nEnter it in your Command Center to ' + (n === 4 ? 'unlock your Results Report and certificate' : 'unlock Phase ' + (n + 1)) + ':\n' + PORTAL + noteBlock + '\n\nStay on the standard.\n\nDarrell Thompson\nRight Side of Money';
     } else if (t === 'W'){
+      code = ACC1.code(em, 'E1');
       subj = 'Welcome to Level 1 | RSM Accountability Program';
-      body = 'Hi ' + f + ',\n\nYour payment is confirmed, and you\'re officially in Level 1 of the RSM Accountability Program.\n\nHere\'s your Command Center:\n' + PORTAL + '\n\nHow to start:\n1. Open the link and check in with this email address: ' + em + '. Use the same email every time, because your verification codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days of checking in.\n\nYour 8-week clock starts the moment you check in, and every deadline will be posted in your Command Center. Nobody is going to chase you. That\'s the point.' + noteBlock + '\n\nI\'m glad you\'re here. Let\'s get to work.\n\nDarrell Thompson\nRight Side of Money';
+      body = 'Hi ' + f + ',\n\n' + (act === 'W1' ? 'You\'re enrolled in Level 1 of the RSM Accountability Program at no cost to you. Everything in the program is yours, with the same standard as every other student.' : 'Your payment is confirmed, and you\'re officially in Level 1 of the RSM Accountability Program.') + '\n\nYour enrollment code: ' + code + '\n\nHere\'s your Command Center:\n' + PORTAL + '\n\nHow to start:\n1. Open the link and check in with this email address: ' + em + ', and enter your enrollment code: ' + code + '. Use the same email every time, because your codes are tied to it.\n2. Watch the welcome video.\n3. Complete your Commitment & Baseline within 3 days of checking in.\n\nYour 8-week clock starts the moment you check in, and every deadline will be posted in your Command Center. Nobody is going to chase you. That\'s the point.' + noteBlock + '\n\nI\'m glad you\'re here. Let\'s get to work.\n\nDarrell Thompson\nRight Side of Money';
     } else if (t === 'X'){
       if (notes.length < 10) { m.textContent = 'Write what the student needs to fix. Revisions need clear notes.'; return; }
       subj = label + ': Revisions Needed | RSM Accountability Level 1';

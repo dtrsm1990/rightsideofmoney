@@ -317,7 +317,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
 <section class="ac-card navy" id="acReg" style="display:none">
   <div class="ac-eyebrow">Step 1: Check In</div>
   <h2>Start Your Clock</h2>
-  <p>Enter the name and email you enrolled with. Checking in starts your 8-week clock and sets every deadline in this program. Use the same email every time; your verification codes are tied to it.</p>
+  <p>Enter your name, the email you enrolled with, and the enrollment code from your welcome email. Checking in starts your 8-week clock and sets every deadline in this program. Use the same email every time; your verification codes are tied to it.</p>
   <form id="acRegForm" novalidate>
     <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><input type="text" id="acCo" tabindex="-1" autocomplete="off"></div>
     <div class="ac-grid">
@@ -325,6 +325,7 @@ body.wv-lock .lesson-main>#acReg{opacity:1!important;filter:none!important;point
       <div class="ac-field"><label for="acLast" style="color:#fff">Last name</label><input type="text" id="acLast" autocomplete="family-name"></div>
     </div>
     <div class="ac-field"><label for="acEmail" style="color:#fff">Email you enrolled with</label><input type="email" id="acEmail" autocomplete="email"></div>
+    <div class="ac-field"><label for="acEnr" style="color:#fff">Enrollment code</label><small style="color:rgba(255,255,255,.65)">It's in your welcome email from Darrell. Don't have one? <a href="mailto:info@rightsideofmoney.com" style="color:#E8B84B">Email Darrell</a>.</small><input type="text" id="acEnr" autocomplete="off" spellcheck="false" placeholder="E1-XXXXXX" style="text-transform:uppercase;letter-spacing:.06em;font-weight:700"></div>
     <label class="ac-check" style="color:rgba(255,255,255,.85)"><input type="checkbox" id="acOpt" checked> <span>Send me money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>
     <button type="submit" class="ac-btn wide">Check In and Start My Clock &rarr;</button>
     <p class="ac-msg" id="acRegMsg" style="color:#ffb4b4"></p>
@@ -510,9 +511,11 @@ var WEEKS = ["The Truth Audit", "Cash Flow Command", "Plug the Leaks", "Confront
       var f = $('acFirst').value.trim(), l = $('acLast').value.trim(), em = $('acEmail').value.trim(), msg = $('acRegMsg');
       if (!f || !l) { msg.textContent = 'Enter your first and last name.'; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg.textContent = 'Enter a valid email address.'; return; }
+      var enr = $('acEnr').value.trim().toUpperCase().replace(/\s+/g, '');
+      if (!A.checkCode(enr, em, 'E1')) { msg.textContent = 'That enrollment code doesn\'t match this email. Use the exact email address and code from your welcome email.'; return; }
       var bot = !!$('acCo').value || (Date.now() - T0) < 3000;
       var me = {first: f.replace(/[<>&"]/g, ''), last: l.replace(/[<>&"]/g, ''), email: em, start: new Date().toISOString()};
-      A.update(function(x){ x.me = me; });
+      A.update(function(x){ x.me = me; x.enr = enr; });
       if (!bot){
         A.post({_subject: 'ACC L1 | Program Started | ' + me.first + ' ' + me.last, event: 'Checked in and started the Level 1 clock', started_at: new Date().toLocaleString()}).catch(function(){});
         A.accessEmail(me.first, me.email);

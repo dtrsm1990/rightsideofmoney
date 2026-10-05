@@ -444,7 +444,7 @@
   /* ---------- backup / restore ---------- */
   A.exportCode = function(){ try { return btoa(unescape(encodeURIComponent(JSON.stringify(A.load())))); } catch(e){ return ''; } };
   A.importCode = function(code){
-    try { var d = JSON.parse(decodeURIComponent(escape(atob(String(code).trim())))); if (!d || !d.me || !d.me.email) return false; A.save(d); return true; } catch(e){ return false; }
+    try { var d = JSON.parse(decodeURIComponent(escape(atob(String(code).trim())))); if (!d || !d.me || !d.me.email || !A.checkCode(d.enr, d.me.email, 'E1')) return false; A.save(d); return true; } catch(e){ return false; }
   };
 
   document.addEventListener('DOMContentLoaded', A.sidebar);
