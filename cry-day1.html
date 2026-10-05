@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Day 1: Understand What Crypto Really Is | 5-Day Introduction to Cryptocurrency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;--navy-mid:#162d55;--ink:#0A0A0A;
+  --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+  --white:#ffffff;--cream:#FFF8E6;--gray-light:#f5f5f3;--gray-line:#e6e4dc;--gray-mid:#666;--text:#1a1a1a;
+  --green:#1d6b3f;--green-pale:#e8f4ec;--red:#9b2226;--red-pale:#fbeaea;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.7;}
+a{color:var(--navy);}
+/* TOP NAV */
+.top-nav{background:var(--navy);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:58px;position:sticky;top:0;z-index:200;border-bottom:2px solid var(--gold);}
+.top-nav .brand{color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;}
+.top-nav .course-title{color:rgba(255,255,255,0.75);font-size:0.8rem;text-align:center;}
+.top-nav a.exit{color:rgba(255,255,255,0.6);font-size:0.8rem;text-decoration:none;white-space:nowrap;}
+.top-nav a.exit:hover{color:var(--gold-light);}
+.menu-btn{display:none;background:none;border:1px solid rgba(201,148,26,0.6);color:var(--gold-light);font:600 0.75rem 'DM Sans',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 0.8rem;border-radius:4px;cursor:pointer;}
+/* LAYOUT */
+.course-wrap{display:grid;grid-template-columns:270px minmax(0,1fr);min-height:calc(100vh - 58px);}
+.sidebar{background:var(--navy);padding:1.5rem 0;overflow-y:auto;position:sticky;top:58px;height:calc(100vh - 58px);}
+.sidebar-heading{color:var(--gold);font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 1.5rem 0.75rem;}
+.sidebar-group{color:rgba(255,255,255,0.35);font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:1rem 1.5rem 0.35rem;}
+.sidebar nav a{display:block;padding:0.55rem 1.5rem;color:rgba(255,255,255,0.68);text-decoration:none;font-size:0.84rem;border-left:3px solid transparent;transition:all 0.15s;line-height:1.4;}
+.sidebar nav a:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.sidebar nav a.active{color:var(--white);border-left-color:var(--gold);background:rgba(201,148,26,0.12);font-weight:600;}
+.sidebar nav a.completed::after{content:' \2713';color:var(--gold);}
+.sidebar nav a.sub{padding-left:2.4rem;font-size:0.78rem;color:rgba(255,255,255,0.5);}
+.lesson-main{padding:3rem 3.5rem 2rem;max-width:880px;width:100%;min-width:0;}
+/* TYPE */
+.lesson-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;}
+.lesson-main h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:0.5rem;}
+.lesson-subtitle{font-size:1.1rem;color:var(--gray-mid);margin-bottom:1.6rem;font-style:italic;}
+.gold-rule{width:56px;height:3px;background:var(--gold);margin-bottom:2rem;}
+.lesson-main p{color:#2e2e2e;margin-bottom:1.15rem;font-size:1.02rem;}
+.lesson-main h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--navy);margin:2.3rem 0 0.8rem;font-weight:700;line-height:1.3;}
+.lesson-main h3{font-size:1.06rem;font-weight:700;color:var(--navy);margin:1.6rem 0 0.5rem;}
+.lesson-main ul,.lesson-main ol{margin:0.6rem 0 1.2rem 1.5rem;}
+.lesson-main li{margin-bottom:0.5rem;color:#2e2e2e;font-size:1rem;}
+.lesson-main strong{color:var(--navy);}
+/* MODULE HEADER + LESSON BLOCKS */
+.module-hero{background:var(--navy);color:#fff;border-radius:10px;padding:2rem 2.2rem;margin-bottom:2.2rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold);}
+.module-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(201,148,26,0.25),transparent 65%);}
+.module-hero .lesson-eyebrow{color:var(--gold-light);}
+.module-hero h1{color:#fff!important;margin-bottom:0.6rem;}
+.module-hero p{color:rgba(255,255,255,0.78)!important;margin-bottom:0.6rem!important;}
+.module-hero .outcomes{list-style:none;margin:1rem 0 0!important;display:grid;gap:0.4rem;}
+.module-hero .outcomes li{color:rgba(255,255,255,0.88)!important;font-size:0.95rem;padding-left:1.4rem;position:relative;}
+.module-hero .outcomes li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.progress-wrap{background:var(--gray-light);border:1px solid var(--gray-line);border-radius:8px;padding:1rem 1.2rem;margin:0 0 2.2rem;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;}
+.progress-bar{height:8px;background:#ddd9cc;border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);width:0;transition:width 0.4s;}
+.lesson{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.6rem;scroll-margin-top:80px;}
+.lesson:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.lesson-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:3px;margin-bottom:0.7rem;}
+.lesson h2.lesson-title{margin-top:0;font-size:clamp(1.5rem,2.4vw,1.95rem);}
+.toc{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin:0 0 2rem;}
+.toc h3{margin:0 0 0.5rem!important;font-size:0.75rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.toc ol{margin-bottom:0!important;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:1.4rem 1.7rem;margin:1.8rem 0;}
+.callout h4{font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700;}
+.callout p:last-child,.callout ul:last-child,.callout ol:last-child{margin-bottom:0;}
+.callout-truth{background:var(--navy);border-left:4px solid var(--gold);}
+.callout-truth h4{color:var(--gold-light);}
+.callout-truth p,.callout-truth li{color:rgba(255,255,255,0.9)!important;}
+.callout-truth strong{color:var(--gold-light)!important;}
+.callout-action{background:var(--cream);border-left:4px solid var(--gold);}
+.callout-action h4{color:var(--navy);}
+.callout-research{background:#f2f5fa;border-left:4px solid var(--navy);}
+.callout-research h4{color:var(--navy);}
+.callout-research p{font-size:0.96rem!important;}
+.callout-stat{background:var(--gold);border-radius:8px;padding:1.5rem;text-align:center;margin:1.8rem 0;}
+.callout-stat .stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--navy);line-height:1;}
+.callout-stat .stat-label{color:var(--navy);font-size:0.95rem;margin-top:0.4rem;font-weight:600;}
+.scenario{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.scenario-head{background:var(--ink);color:var(--gold-light);padding:0.8rem 1.4rem;font-size:0.74rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;}
+.scenario-body{padding:1.4rem 1.5rem;background:#fff;}
+.scenario-body h5{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:1rem 0 0.3rem;}
+.scenario-body h5:first-child{margin-top:0;}
+.quote-line{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);border-left:3px solid var(--gold);padding:0.3rem 0 0.3rem 1.2rem;margin:1.8rem 0;font-style:italic;}
+.formula{background:var(--ink);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-weight:600;padding:1rem 1.3rem;border-radius:6px;margin:1rem 0 1.3rem;font-size:0.98rem;}
+.formula span{color:#fff;font-weight:400;}
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.rsm-table{width:100%;border-collapse:collapse;font-size:0.9rem;min-width:520px;}
+.rsm-table th{background:var(--navy);color:var(--gold-light);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+.rsm-table td{padding:0.7rem 1rem;border-bottom:1px solid #e8e8e8;color:#333;vertical-align:top;}
+.rsm-table tr:nth-child(even) td{background:var(--gray-light);}
+/* REFLECTION */
+.reflection{background:var(--gray-light);border-radius:8px;padding:1.5rem;margin:2rem 0;}
+.reflection h4{color:var(--navy);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700;}
+.reflection .ref-note{font-size:0.85rem!important;color:var(--gray-mid)!important;margin-bottom:1rem!important;}
+.ref-item{margin-bottom:1.1rem;}
+.ref-item label{display:block;font-weight:600;color:var(--navy);font-size:0.95rem;margin-bottom:0.4rem;}
+textarea,input[type=text],input[type=email],input[type=number],input[type=tel],input[type=date],select{width:100%;padding:0.75rem 0.9rem;border:2px solid #d0cfc8;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:#fff;transition:border-color 0.2s;}
+textarea{min-height:96px;resize:vertical;line-height:1.55;}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--gold);}
+.saved-note{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;min-height:1em;}
+/* KNOWLEDGE CHECK */
+.kc{border:2px solid var(--navy);border-radius:10px;margin:2.4rem 0 1rem;overflow:hidden;}
+.kc-head{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.kc-title{font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:0.78rem;color:var(--gold-light);}
+.kc-count{font-size:0.8rem;color:rgba(255,255,255,0.7);}
+.kc-intro{padding:1rem 1.3rem 0;font-size:0.9rem!important;color:var(--gray-mid)!important;margin:0!important;}
+.kc-q,.aq-mc{padding:1.2rem 1.3rem;border-bottom:1px solid var(--gray-line);}
+.kc-prompt{font-weight:600;color:var(--navy)!important;margin-bottom:0.8rem!important;display:flex;gap:0.7rem;}
+.kc-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;margin-top:1px;}
+.kc-opts{display:grid;gap:0.5rem;}
+.kc-opt{text-align:left;background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.7rem 0.95rem;font:400 0.95rem/1.5 'DM Sans',sans-serif;color:#2e2e2e;cursor:pointer;transition:all 0.15s;}
+.kc-opt:hover{border-color:var(--gold);}
+.kc-opt.selected{border-color:var(--navy);background:#eef2f8;font-weight:500;}
+.kc-opt.is-correct{border-color:var(--green);background:var(--green-pale);}
+.kc-opt.is-wrong{border-color:var(--red);background:var(--red-pale);}
+.kc-opt:disabled{cursor:default;}
+.kc-why{margin-top:0.8rem;padding:0.8rem 1rem;border-radius:6px;font-size:0.92rem;line-height:1.6;background:var(--gray-light);color:#333;}
+.kc-why.good{border-left:4px solid var(--green);}
+.kc-why.bad{border-left:4px solid var(--red);}
+.kc-why b{color:var(--navy);}
+.kc-foot{padding:1.1rem 1.3rem;background:var(--gray-light);}
+.kc-result{margin-top:0.8rem;font-weight:600;font-size:0.95rem;}
+.kc-result.pass{color:var(--green);}
+.kc-result.fail{color:var(--red);}
+/* BUTTONS */
+.btn{display:inline-block;border:none;cursor:pointer;font:700 0.9rem 'DM Sans',sans-serif;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.7rem;border-radius:6px;transition:all 0.2s;text-align:center;}
+.btn-gold{background:var(--gold);color:var(--navy);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--gold);color:var(--navy);}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--navy);}
+.btn-outline:hover{background:var(--navy);color:#fff;}
+.btn[disabled],.btn.disabled{opacity:0.45;pointer-events:none;}
+.btn-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem;}
+/* MODULE COMPLETE */
+.module-complete{background:var(--navy);border-radius:10px;padding:2rem;margin:3rem 0 1rem;text-align:center;border-top:4px solid var(--gold);}
+.module-complete h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.module-complete p{color:rgba(255,255,255,0.75)!important;}
+.lock-note{font-size:0.85rem!important;color:var(--gold-light)!important;margin-top:0.8rem!important;}
+/* ASSESSMENT */
+.a-section{border:1px solid var(--gray-line);border-radius:10px;margin:2rem 0;overflow:hidden;}
+.a-section-head{background:var(--navy);padding:1rem 1.4rem;}
+.a-section-head h3{color:var(--gold-light)!important;margin:0!important;font-size:0.8rem!important;letter-spacing:0.15em;text-transform:uppercase;}
+.a-section-head p{color:rgba(255,255,255,0.75)!important;margin:0.3rem 0 0!important;font-size:0.9rem!important;}
+.a-body{padding:0.4rem 0;}
+.lk{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.lk:last-child{border-bottom:none;}
+.lk-text{font-weight:500;color:var(--navy);margin-bottom:0.6rem;font-size:0.97rem;display:flex;gap:0.6rem;}
+.lk-text .n{color:var(--gold);font-weight:700;min-width:1.6rem;}
+.lk-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.35rem;}
+.lk-opt{background:#fff;border:2px solid #d9d7ce;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.76rem/1.25 'DM Sans',sans-serif;color:#444;cursor:pointer;transition:all 0.15s;}
+.lk-opt:hover{border-color:var(--gold);}
+.lk-opt.selected{background:var(--navy);border-color:var(--navy);color:#fff;}
+.lk.missing,.aq-mc.missing,.a-field.missing{background:#fff6e0;}
+.scale10 .lk-opts{grid-template-columns:repeat(10,1fr);}
+.scale10 .lk-opt{font-size:0.85rem;padding:0.55rem 0;}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--gray-mid);margin-top:0.25rem;}
+.a-field{padding:1rem 1.4rem;border-bottom:1px solid var(--gray-line);}
+.a-field:last-child{border-bottom:none;}
+.a-field label{display:block;font-weight:600;color:var(--navy);margin-bottom:0.4rem;font-size:0.96rem;}
+.a-field .hint{font-size:0.82rem;color:var(--gray-mid);margin:-0.2rem 0 0.5rem;}
+.wc{font-size:0.75rem;color:var(--gray-mid);margin-top:0.25rem;}
+.wc.ok{color:var(--green);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-box{background:var(--cream);border:1px solid var(--gold);border-radius:10px;padding:1.6rem;margin:2rem 0;text-align:center;}
+.submit-box p{font-size:0.92rem!important;}
+.form-error{color:var(--red);font-weight:600;font-size:0.92rem;margin-top:0.8rem;}
+/* REPORT */
+.report{display:none;margin-top:2rem;}
+.report.show{display:block;}
+.report-head{background:var(--navy);color:#fff;border-radius:10px 10px 0 0;padding:2rem;border-bottom:4px solid var(--gold);}
+.report-head .lesson-eyebrow{color:var(--gold-light);}
+.report-head h2{color:#fff!important;margin:0.2rem 0 0.4rem!important;font-size:1.8rem!important;}
+.report-head p{color:rgba(255,255,255,0.75)!important;margin:0!important;}
+.report-body{border:1px solid var(--gray-line);border-top:none;border-radius:0 0 10px 10px;padding:1.6rem 2rem;}
+.report-body h3{font-family:'Playfair Display',serif;font-size:1.25rem!important;margin:1.8rem 0 0.6rem!important;padding-bottom:0.3rem;border-bottom:2px solid var(--gold-pale);}
+.report-body h3:first-child{margin-top:0.4rem!important;}
+.score-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.8rem;margin:1rem 0 1.4rem;}
+.tile{background:var(--gray-light);border-radius:8px;padding:1rem;text-align:center;border-top:3px solid var(--gold);}
+.tile .v{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1.1;}
+.tile .l{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-mid);margin-top:0.3rem;}
+.dim-row{margin:0.7rem 0;}
+.dim-top{display:flex;justify-content:space-between;font-size:0.9rem;font-weight:600;color:var(--navy);}
+.dim-bar{height:10px;background:#e7e4da;border-radius:5px;overflow:hidden;margin-top:0.3rem;}
+.dim-fill{height:100%;background:var(--gold);}
+.dim-fill.high{background:var(--red);}
+.dim-fill.mid{background:var(--gold);}
+.dim-fill.low{background:var(--green);}
+.profile-card{background:var(--navy);border-radius:10px;padding:1.5rem 1.7rem;margin:1rem 0;border-left:5px solid var(--gold);}
+.profile-card h4{color:var(--gold-light);font-size:0.74rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;}
+.profile-card .pname{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;font-weight:700;margin-bottom:0.5rem;}
+.profile-card p{color:rgba(255,255,255,0.85)!important;}
+.rx{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:1rem 1.3rem;margin:0.8rem 0;}
+.rx h5{font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;}
+.rx ol,.rx ul{margin-bottom:0!important;}
+.echo{background:var(--gray-light);border-radius:6px;padding:0.8rem 1rem;margin:0.5rem 0 1rem;font-size:0.92rem;}
+.echo b{display:block;color:var(--navy);font-size:0.8rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.send-status{margin-top:1rem;font-size:0.9rem;font-weight:600;}
+.send-status.ok{color:var(--green);}
+.send-status.err{color:var(--red);}
+.report-actions{background:var(--gray-light);border-radius:10px;padding:1.4rem;margin-top:1.4rem;}
+.report-actions p{font-size:0.88rem!important;margin-bottom:0.6rem!important;}
+/* CERTIFICATE */
+.certificate{border:10px double var(--gold);background:#fffdf7;padding:2.5rem 2rem;text-align:center;margin:2rem 0;border-radius:4px;}
+.certificate .c-brand{font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:4px;color:var(--gold);font-size:1rem;font-weight:700;}
+.certificate .c-title{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);font-weight:700;margin:0.6rem 0;}
+.certificate .c-name{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--gold);font-style:italic;border-bottom:2px solid var(--gold);display:inline-block;padding:0 1.5rem 0.2rem;margin:0.8rem 0;}
+.certificate p{color:#444!important;margin-bottom:0.5rem!important;}
+.certificate .c-sign{margin-top:1.6rem;display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;font-size:0.85rem;color:#555;}
+.certificate .c-sign div{border-top:1px solid #999;padding-top:0.4rem;min-width:180px;}
+/* GATE */
+.gate{background:var(--navy);border-radius:10px;padding:2rem;margin-bottom:2rem;border-left:5px solid var(--gold);}
+.gate h2{color:#fff!important;margin:0 0 0.6rem!important;}
+.gate p{color:rgba(255,255,255,0.8)!important;}
+.gate .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+.gated-hidden{display:none!important;}
+/* NAV FOOTER */
+.lesson-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2.5rem;border-top:1px solid var(--gray-line);flex-wrap:wrap;gap:1rem;}
+.btn-prev{display:inline-block;border:2px solid var(--navy);color:var(--navy);padding:0.7rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s;}
+.btn-prev:hover{background:var(--navy);color:#fff;}
+.btn-next{display:inline-block;background:var(--gold);color:var(--navy);padding:0.7rem 1.8rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.9rem;transition:background 0.2s;}
+.btn-next:hover{background:var(--gold-light);}
+.progress-label{font-size:0.8rem;color:var(--gray-mid);}
+.course-footer{background:var(--ink);color:rgba(255,255,255,0.5);text-align:center;padding:1.2rem;font-size:0.78rem;}
+.course-footer span{color:var(--gold);}
+@media (max-width:900px){
+  .course-wrap{grid-template-columns:minmax(0,1fr);}
+  .sidebar{display:none;position:fixed;top:58px;left:0;right:0;bottom:0;height:auto;z-index:150;}
+  .sidebar.open{display:block;}
+  .menu-btn{display:inline-block;}
+  .top-nav .course-title{display:none;}
+  .lesson-main{padding:2rem 1.1rem;}
+  .grid2{grid-template-columns:1fr;}
+  .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .lk-opt{font-size:0.66rem;padding:0.45rem 0.1rem;}
+  .scale10 .lk-opts{grid-template-columns:repeat(5,1fr);}
+  .report-body{padding:1.2rem 1rem;}
+  .module-hero{padding:1.6rem 1.3rem;}
+}
+@media print{
+  .top-nav,.sidebar,.lesson-nav,.course-footer,.no-print,.report-actions,form,.gate,.a-intro{display:none!important;}
+  .course-wrap{display:block;}
+  .lesson-main{padding:0;max-width:none;}
+  .report{display:block!important;}
+  .report-head,.profile-card,.callout-truth{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body.print-cert .report-head,body.print-cert .report-body > :not(.certificate){display:none!important;}
+  body.print-cert .report-body{border:none;}
+}
+.profile-card strong,.gate strong,.module-hero strong,.module-complete strong{color:var(--gold-light)!important;}
+
+
+/* ===== 30-DAY CHALLENGE ===== */
+.cal30{margin:1.5rem 0 2rem;}
+.cal-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;}
+.cal-day{aspect-ratio:1/1;border:2px solid var(--gray-line);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;background:#fff;transition:all 0.15s;min-height:44px;}
+.cal-day:hover{border-color:var(--gold);}
+.cal-day .cd-n{font-weight:700;color:var(--navy);font-size:0.95rem;line-height:1;}
+.cal-day .cd-s{font-size:0.7rem;color:var(--gold);line-height:1;margin-top:3px;min-height:0.7rem;}
+.cal-day.check{border-color:var(--gold);}
+.cal-day.done{background:var(--navy);border-color:var(--navy);}
+.cal-day.done .cd-n{color:#fff;}
+.cal-day.done .cd-s{color:var(--gold-light);}
+.cal-note{font-size:0.88rem!important;color:var(--gray-mid)!important;margin-top:0.7rem!important;}
+.week-banner{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:0.9rem 1.2rem;margin:0 0 2rem;}
+.week-banner span{font-size:0.9rem;color:var(--navy);}
+.day{border-top:1px solid var(--gray-line);padding-top:2.2rem;margin-top:2.8rem;scroll-margin-top:80px;}
+.day-head{display:flex;align-items:center;gap:1rem;margin-bottom:0.4rem;flex-wrap:wrap;}
+.day-num{background:var(--navy);color:var(--gold-light);font-family:'Bebas Neue','DM Sans',sans-serif;letter-spacing:2px;font-size:1.05rem;padding:0.35rem 0.9rem;border-radius:4px;border-bottom:3px solid var(--gold);}
+.day-type{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);}
+.day-status{font-size:0.78rem;color:var(--gray-mid);margin-left:auto;}
+.day-status.ok{color:var(--green);font-weight:600;}
+.day h2.day-title{margin-top:0.3rem;font-size:clamp(1.45rem,2.4vw,1.9rem);}
+.tool{border:2px solid var(--gold);border-radius:10px;margin:2rem 0;overflow:hidden;background:#fff;}
+.tool-head{background:var(--gold);color:var(--navy);padding:0.85rem 1.3rem;}
+.tool-head h4{font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:800;margin:0;}
+.tool-head p{margin:0.2rem 0 0!important;font-size:0.88rem!important;color:var(--navy)!important;}
+.tool-body{padding:1.2rem 1.3rem;}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.7rem;}
+.tool-grid label,.tool-body label{display:block;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--navy);margin-bottom:0.3rem;}
+.tool-grid .span2{grid-column:span 2;}
+.tool-row{margin-bottom:0.9rem;}
+.trk-msg{font-size:0.88rem;font-weight:600;margin-top:0.6rem;min-height:1em;}
+.trk-msg.ok{color:var(--green);}
+.trk-msg.err{color:var(--red);}
+.trk-del{background:none;border:none;color:var(--red);font-size:1.2rem;cursor:pointer;line-height:1;}
+.tool-empty{font-size:0.92rem!important;color:var(--gray-mid)!important;font-style:italic;}
+.tool-insight{background:var(--gray-light);border-left:4px solid var(--navy);border-radius:6px;padding:0.8rem 1rem;font-size:0.94rem!important;}
+.trk-summary{margin-top:1rem;}
+.aff-card{background:var(--navy);border-radius:10px;padding:1.4rem 1.6rem;margin:0.8rem 0;border-left:5px solid var(--gold);}
+.aff-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-light);font-weight:700;}
+.aff-text{font-family:'Playfair Display',serif;font-size:1.35rem;color:#fff;line-height:1.4;margin:0.5rem 0;}
+.aff-proof{color:rgba(255,255,255,0.8);font-size:0.9rem;}
+.aff-proof strong{color:var(--gold-light)!important;}
+.aff-checks{list-style:none;margin:0.5rem 0 1rem!important;padding:0;}
+.aff-checks li{font-size:0.9rem!important;margin-bottom:0.3rem!important;}
+.aff-checks li.ok{color:var(--green)!important;}
+.aff-checks li.no{color:#9a6b00!important;}
+.checkin{background:var(--navy);border-radius:10px;padding:1.5rem 1.6rem;margin:2.2rem 0 0.5rem;border-top:4px solid var(--gold);}
+.checkin h4{color:var(--gold-light);font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.2rem;font-weight:700;}
+.checkin > p{color:rgba(255,255,255,0.75)!important;font-size:0.9rem!important;}
+.ci-habits{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin:0.8rem 0 1rem;}
+.ci-habits label{display:flex;gap:0.6rem;align-items:flex-start;color:#fff;font-size:0.92rem;cursor:pointer;background:rgba(255,255,255,0.06);padding:0.6rem 0.8rem;border-radius:6px;}
+.ci-habits input{width:18px;height:18px;margin-top:2px;accent-color:#C9941A;flex-shrink:0;}
+.ci-label{display:block;color:var(--gold-light);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;margin:0.6rem 0 0.35rem;}
+.mood-opts{display:grid;grid-template-columns:repeat(5,1fr);gap:0.4rem;}
+.mood-opt{background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.18);color:#fff;border-radius:6px;padding:0.5rem 0.2rem;font:500 0.78rem 'DM Sans',sans-serif;cursor:pointer;}
+.mood-opt.selected{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:700;}
+.checkin input[type=text]{margin-top:0.2rem;}
+.ci-done{margin-top:1rem;}
+.ci-msg{margin-top:0.8rem;font-size:0.92rem;font-weight:600;min-height:1em;color:rgba(255,255,255,0.85);}
+.ci-msg.ok{color:#9be3b5;}
+.ci-msg.err{color:#ffb4b4;}
+.ci-msg.warn{color:var(--gold-light);font-weight:500;}
+.ci-msg .btn-outline{color:#fff;border-color:rgba(255,255,255,0.6);}
+.checkin.is-done{border-top-color:#2e9b5c;}
+.checkin.is-done .ci-done{display:none;}
+@media (max-width:900px){
+  .cal-grid{grid-template-columns:repeat(6,1fr);}
+  .tool-grid{grid-template-columns:1fr 1fr;}
+  .tool-grid .span2{grid-column:span 2;}
+  .ci-habits{grid-template-columns:1fr;}
+  .mood-opt{font-size:0.66rem;}
+}
+
+
+.calc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.7rem;}
+.calc-grid.c3{grid-template-columns:repeat(3,minmax(0,1fr));}
+.calc-grid.c6{grid-template-columns:repeat(6,minmax(0,1fr));}
+.calc-grid select{width:100%;padding:0.7rem;border:1px solid #d9d2c3;border-radius:4px;font:inherit;background:#fff;}
+@media (max-width:900px){.calc-grid,.calc-grid.c3,.calc-grid.c6{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}}
+.disclaimer-box{font-size:0.82rem!important;color:#666!important;border-top:1px solid var(--gray-line);padding-top:0.8rem;margin-top:2rem!important;}
+.hash-in{width:100%;box-sizing:border-box;padding:0.75rem;border:1px solid #d9d2c3;border-radius:4px;font:inherit;}
+.hash-out{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.82rem;word-break:break-all;background:#0D1F3C;color:#E8B84B;padding:0.8rem 0.9rem;border-radius:4px;margin-top:0.6rem;}
+.addr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem;word-break:break-all;background:#FBF7EE;border-left:4px solid #C9941A;padding:0.6rem 0.8rem;margin:0.4rem 0;}
+.addr b{color:#9b2226;}
+.score-list label{display:flex;gap:0.6rem;align-items:flex-start;padding:0.45rem 0;border-bottom:1px solid #eee;cursor:pointer;font-size:0.95rem;line-height:1.5;}
+.score-list input{margin-top:0.25rem;flex:none;}
+.msg-card{background:#fff;border:1px solid #e3dccb;border-radius:6px;padding:0.9rem 1rem;margin:0.4rem 0 0.8rem;font-size:0.95rem;line-height:1.55;box-shadow:0 4px 14px rgba(13,31,60,0.05);}
+.msg-card .from{font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#B07A0C;margin-bottom:0.35rem;}
+
+</style>
+<script src="./rsm-enroll.js"></script>
+</head>
+<body>
+<div class="top-nav">
+  <a href="./index.html" class="brand">Right Side of Money</a>
+  <span class="course-title">5-Day Introduction to Cryptocurrency</span>
+  <button type="button" class="menu-btn" id="menuBtn">Menu</button>
+  <a href="./courses.html" class="exit">&#8592; Back to Courses</a>
+</div>
+<div class="course-wrap">
+  <aside class="sidebar">
+<div class="sidebar-heading">5-Day Crypto Program</div><nav>
+<a href="./cry-portal.html" class="" data-done="baseline">Program Portal</a>
+<div class="sidebar-group">Day 1</div>
+<a href="./cry-day1.html" class="active" data-done="ap:cry1">Understand What Crypto Really Is</a>
+<a href="./cry-check1.html" class="sub" data-done="ap:cry1">Day 1 Action Exercise and Knowledge Check</a>
+<div class="sidebar-group">Day 2</div>
+<a href="./cry-day2.html" class="" data-done="ap:cry2">Risk, Volatility, and the Real History</a>
+<a href="./cry-check2.html" class="sub" data-done="ap:cry2">Day 2 Action Exercise and Knowledge Check</a>
+<div class="sidebar-group">Day 3</div>
+<a href="./cry-day3.html" class="" data-done="ap:cry3">Scams, Security, and Self-Defense</a>
+<a href="./cry-check3.html" class="sub" data-done="ap:cry3">Day 3 Action Exercise and Knowledge Check</a>
+<div class="sidebar-group">Day 4</div>
+<a href="./cry-day4.html" class="" data-done="ap:cry4">How to Buy, Hold, and Pay Taxes the Right Way</a>
+<a href="./cry-check4.html" class="sub" data-done="ap:cry4">Day 4 Action Exercise and Knowledge Check</a>
+<div class="sidebar-group">Day 5</div>
+<a href="./cry-day5.html" class="" data-done="ap:cry5">Build Your Crypto Investment Policy</a>
+<a href="./cry-check5.html" class="sub" data-done="ap:cry5">Day 5 Final Exercise and Knowledge Check</a>
+<div class="sidebar-group">Completion</div>
+<a href="./cry-final.html" class="" data-done="ap:cryfinal">Crypto Fundamentals Certification Exam</a>
+</nav>
+  </aside>
+  <main class="lesson-main">
+<div id="gate" class="gate" style="display:none"></div><div id="gatedContent">
+<div class="module-hero"><p class="lesson-eyebrow">Day 1 of 5</p><h1>Day 1: Understand What Crypto Really Is</h1><p>Today you learn what crypto actually is: why it exists, how a blockchain works, how bitcoin differs from the thousands of other coins, and where crypto's value really comes from. No hype. No jargon you can't use.</p><ul class="outcomes"><li>Explain why cryptocurrency exists and the trade-offs it brings</li><li>Describe how a blockchain records transactions and why they can't be reversed</li><li>Tell bitcoin, Ethereum, stablecoins, altcoins, and meme coins apart</li><li>Use market cap to see through the "cheap coin" trap</li></ul></div>
+<div class="toc"><h3>Today's Lessons</h3><ol><li><a href="#money-trust-why-crypto">Money, Trust, and Why Crypto Exists</a></li><li><a href="#how-blockchain-works">How a Blockchain Actually Works</a></li><li><a href="#bitcoin-ethereum-market">Bitcoin, Ethereum, Stablecoins, and Everything Else</a></li><li><a href="#what-gives-value">What Gives Crypto Value, and What Doesn't</a></li><li><a href="./cry-check1.html">Day 1 Action Exercise: My Crypto Reality Check and Day 1 Knowledge Check</a></li></ol></div>
+<section class="lesson" id="money-trust-why-crypto"><span class="lesson-tag">Day 1 | Lesson 1</span>
+<h2 class="lesson-title">Money, Trust, and Why Crypto Exists</h2><p class="lesson-subtitle">Before you buy a single coin, understand the problem it was built to solve.</p><div class="gold-rule"></div>
+
+<p>Every form of money runs on one thing: <strong>trust.</strong> A dollar bill is paper. It's worth something because we trust the government that issues it, the banks that hold it, and each other to accept it. For most of history, someone in the middle kept the record of who owns what: a bank, a government, a payment company.</p>
+<p>Cryptocurrency asks a radical question: <strong>what if nobody had to be in the middle?</strong> What if a network of computers, following the same rules, could keep the record of who owns what, and nobody could change it on their own?</p>
+
+<h2>How We Got Here</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Date</th><th>What Happened</th><th>Why It Matters</th></tr></thead><tbody><tr><td><strong>2008</strong></td><td>The global financial crisis. Banks fail, governments bail them out, and trust in the system takes a hit.</td><td>Bitcoin was born in that moment of distrust.</td></tr><tr><td><strong>October 31, 2008</strong></td><td>Someone using the name Satoshi Nakamoto publishes a nine-page paper describing "a peer-to-peer electronic cash system."</td><td>Nobody has ever confirmed who Satoshi is.</td></tr><tr><td><strong>January 3, 2009</strong></td><td>The first block of the Bitcoin network is created. Embedded in it is a newspaper headline about a second bank bailout.</td><td>The message was intentional: this was money outside the banking system.</td></tr><tr><td><strong>May 22, 2010</strong></td><td>A programmer pays 10,000 bitcoin for two pizzas, one of the first real-world purchases.</td><td>At bitcoin's 2025 peak, those coins were worth over a billion dollars.</td></tr><tr><td><strong>2015</strong></td><td>Ethereum launches, adding programmable contracts to the blockchain idea.</td><td>Crypto becomes a platform, not just a currency.</td></tr><tr><td><strong>2024 to 2025</strong></td><td>U.S. regulators approve spot bitcoin and ether funds (ETFs), and Congress passes the first federal stablecoin law.</td><td>Crypto moves into retirement accounts and the mainstream financial system.</td></tr></tbody></table></div>
+
+<h2>What Crypto Promises</h2>
+<ul>
+<li><strong>No middleman required.</strong> You can send value to anyone, anywhere, without a bank's permission.</li>
+<li><strong>A fixed or predictable supply.</strong> Bitcoin's supply is capped at 21 million coins. No one can print more.</li>
+<li><strong>Ownership you control.</strong> If you hold your own keys, nobody can freeze your account.</li>
+<li><strong>A public record.</strong> Every transaction is recorded on a ledger anyone can inspect.</li>
+</ul>
+
+<h2>What Those Promises Cost</h2>
+<p>Every one of those strengths has a flip side, and this program will never show you one without the other:</p>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>The Promise</th><th>The Flip Side</th></tr></thead><tbody><tr><td>No middleman</td><td>No one to call when something goes wrong. No fraud department. No chargebacks.</td></tr><tr><td>You control your money</td><td>You alone are responsible for protecting it. Lose your keys and your money is gone for good.</td></tr><tr><td>Transactions are final</td><td>Send to the wrong address or to a scammer and there's no undo button.</td></tr><tr><td>Outside the traditional system</td><td>No FDIC insurance. No SIPC protection. Fewer of the safeguards you're used to.</td></tr></tbody></table></div>
+
+<div class="callout callout-truth"><h4>The Core Truth</h4><p>Crypto is a new kind of financial technology, not a get-rich-quick button. Some of it may change how money works. A lot of it is speculation, and some of it is fraud. <strong>Your job over these five days is to learn to tell the difference</strong>, and to protect yourself while you do.</p></div>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Two Brothers, Same Headline</div><div class="scenario-body"><p>In early 2021, Jerome and his brother Malik both saw headlines about bitcoin passing $50,000. Malik bought $4,000 worth that week on a tip from a coworker, without knowing what he owned or why. Jerome spent a month learning first, then started with $50 a month.</p>
+<p>When prices fell more than 70% in 2022, Malik panicked and sold for about $1,100. Jerome kept his small, steady plan running because he'd expected volatility from the start. Same asset. Same years. <strong>The difference wasn't the coin. It was the understanding.</strong></p></div></div>
+
+<div class="callout callout-action"><h4>Think About This Before Moving On</h4><p>Why are you interested in crypto right now? Is it the technology, the headlines, a friend's success, or fear of missing out? Be honest. You'll write your answer in today's Action Exercise, and it matters more than you think.</p></div>
+</section>
+<section class="lesson" id="how-blockchain-works"><span class="lesson-tag">Day 1 | Lesson 2</span>
+<h2 class="lesson-title">How a Blockchain Actually Works</h2><p class="lesson-subtitle">You don't need to be a programmer. You do need to understand what you're trusting.</p><div class="gold-rule"></div>
+
+<p>A blockchain is a <strong>shared record book</strong>. Instead of one bank keeping the ledger, thousands of computers around the world each keep a copy. When someone sends crypto, the transaction is broadcast to the network, checked, and added to everyone's copy at the same time.</p>
+
+<h2>The Five Building Blocks</h2>
+<ol>
+<li><strong>Transactions.</strong> "Send 0.01 bitcoin from this address to that address." Each one is signed with the sender's private key, proving it's really them.</li>
+<li><strong>Blocks.</strong> Transactions are grouped into blocks. On Bitcoin, a new block is added about every 10 minutes.</li>
+<li><strong>Hashes.</strong> Each block gets a digital fingerprint called a hash. Change one character in the block and the fingerprint changes completely.</li>
+<li><strong>The chain.</strong> Each block includes the fingerprint of the block before it. Tampering with an old block would break every block after it, and the network would reject it.</li>
+<li><strong>Consensus.</strong> The network agrees on which blocks are valid using a set of rules, so no single person decides.</li>
+</ol>
+
+<h2>Try It: See a Hash Change</h2>
+<div class="tool" data-hash="1"><div class="tool-head"><h4>Live Hash Demo (SHA-256)</h4><p>This is the same fingerprint method Bitcoin uses. Type anything below, then change a single letter and watch the whole fingerprint change.</p></div><div class="tool-body"><input type="text" class="hash-in" value="Pay Tasha $50" aria-label="Text to fingerprint"><div class="hash-out"></div></div></div>
+<p>Try changing <em>$50</em> to <em>$500</em>. The fingerprint changes completely. That's why records on a blockchain are so hard to fake: any change shows up instantly.</p>
+
+<h2>Who Keeps the Network Honest?</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th></th><th>Proof of Work (Bitcoin)</th><th>Proof of Stake (Ethereum and many others)</th></tr></thead><tbody><tr><td><strong>How blocks are added</strong></td><td>"Miners" use powerful computers to solve a math puzzle. The winner adds the block and earns new coins plus fees.</td><td>"Validators" lock up, or stake, their own coins as collateral. They're chosen to add blocks and earn rewards.</td></tr><tr><td><strong>What stops cheating</strong></td><td>Cheating would require more computing power than the rest of the network combined.</td><td>Validators who cheat can lose part of their staked coins.</td></tr><tr><td><strong>Energy use</strong></td><td>Very high. Bitcoin mining uses as much electricity as some countries.</td><td>Low. Ethereum cut its energy use by roughly 99.9% when it switched in September 2022.</td></tr></tbody></table></div>
+
+<h2>Confirmations and Finality</h2>
+<p>When you send crypto, it isn't "done" the instant you tap send. It's done when it's included in a block, and safer with each block added after it. Exchanges often wait for several confirmations before crediting a deposit. Once confirmed, <strong>a transaction can't be reversed by anyone.</strong> Not you, not the exchange, not the police.</p>
+
+<h2>Public Keys, Private Keys, and Addresses</h2>
+<ul>
+<li><strong>Your address</strong> is like an account number. You can share it so people can send you crypto.</li>
+<li><strong>Your private key</strong> is the master password that proves you own what's at that address. Whoever has it controls the money.</li>
+<li><strong>Your recovery phrase</strong> (usually 12 or 24 words) can rebuild your private keys. It's the most valuable thing you'll ever write down.</li>
+</ul>
+<div class="callout callout-truth"><h4>Right Side of Money Principle</h4><p>On a blockchain, <strong>whoever holds the keys owns the money.</strong> That single sentence explains most crypto thefts, most lost fortunes, and most of what you'll learn on Day 3.</p></div>
+</section>
+<section class="lesson" id="bitcoin-ethereum-market"><span class="lesson-tag">Day 1 | Lesson 3</span>
+<h2 class="lesson-title">Bitcoin, Ethereum, Stablecoins, and Everything Else</h2><p class="lesson-subtitle">"Crypto" isn't one thing. It's thousands of very different things wearing the same name.</p><div class="gold-rule"></div>
+
+<p>When someone says they "invested in crypto," that could mean they bought bitcoin, or it could mean they bought a cartoon-dog token created last Tuesday. Those aren't the same risk. Not even close.</p>
+
+<h2>Bitcoin: Digital Scarcity</h2>
+<ul>
+<li><strong>Purpose:</strong> A digital form of money and store of value that no government or company controls.</li>
+<li><strong>Supply:</strong> Capped at 21 million coins. About 95% have already been created.</li>
+<li><strong>The halving:</strong> About every four years, the reward miners earn for new blocks is cut in half. The most recent halving was in April 2024, and the next is expected around 2028.</li>
+<li><strong>Why people own it:</strong> Many treat it as "digital gold": scarce, portable, and hard to seize.</li>
+</ul>
+
+<h2>Ethereum: A Programmable Platform</h2>
+<ul>
+<li><strong>Purpose:</strong> A global computer that runs "smart contracts," programs that execute automatically when conditions are met.</li>
+<li><strong>Ether (ETH)</strong> is the coin used to pay for activity on the network. Those payments are called gas fees.</li>
+<li><strong>What's built on it:</strong> Stablecoins, decentralized finance (DeFi) apps, digital collectibles (NFTs), and thousands of other tokens.</li>
+</ul>
+
+<h2>Stablecoins: Crypto Pegged to a Dollar</h2>
+<p>Stablecoins are tokens designed to stay worth $1. They're used to move dollars on blockchains quickly. The <strong>GENIUS Act</strong>, signed in July 2025, created the first federal rules for U.S. payment stablecoins. Once its rules take effect, by January 2027 at the latest, issuers must hold at least $1 of safe reserves, like cash and Treasury bills, for every $1 issued, and can't pay interest to holders.</p>
+<p>Two warnings. First, stablecoins have <strong>no FDIC insurance</strong>; the law says so directly. Second, not every coin that calls itself "stable" is. In May 2022, TerraUSD, an "algorithmic" stablecoin backed mainly by its own sister token rather than by cash, collapsed to near zero, and tens of billions of dollars in value vanished in days.</p>
+
+<h2>The Crypto Spectrum</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Category</th><th>Examples of the Type</th><th>What Drives It</th><th>Risk Level</th></tr></thead><tbody><tr><td><strong>Bitcoin</strong></td><td>Bitcoin</td><td>Scarcity, adoption, investor demand</td><td>High</td></tr><tr><td><strong>Smart contract platforms</strong></td><td>Ethereum and its competitors</td><td>Network use, developers, fees</td><td>High to very high</td></tr><tr><td><strong>Regulated stablecoins</strong></td><td>Dollar-backed tokens</td><td>Reserves and the issuer's honesty</td><td>Lower, but not zero</td></tr><tr><td><strong>Other tokens ("altcoins")</strong></td><td>Exchange tokens, payment tokens, app tokens</td><td>Usually one company or team</td><td>Very high</td></tr><tr><td><strong>Meme coins</strong></td><td>Joke or celebrity tokens</td><td>Hype and attention only</td><td>Extreme. Most go to zero</td></tr></tbody></table></div>
+<p>Bitcoin alone has often been more than half the value of the entire crypto market. Meanwhile, millions of tokens have been created on launch websites, and the vast majority of them are now worthless or abandoned.</p>
+
+<div class="scenario"><div class="scenario-head">Real-Life Case Study: Danielle and the "Next Bitcoin"</div><div class="scenario-body"><p>Danielle saw a video promising a new token would be "the next bitcoin" and put $1,500 in. The price tripled in three days. On day four, the creators sold their huge share of the supply and the price fell 98% in an hour. That's called a rug pull. Her $1,500 became about $30.</p>
+<p>When she looked back, every warning sign was there: anonymous creators, no real purpose, most of the supply held by a few wallets, and a countdown pushing people to "get in early."</p></div></div>
+
+<div class="callout callout-truth"><h4>Right Side of Money Principle</h4><p>Before you ever say "I invest in crypto," be able to say <strong>exactly which crypto, what it does, and why it should exist in ten years.</strong> If you can't, you're not investing yet. You're guessing.</p></div>
+</section>
+<section class="lesson" id="what-gives-value"><span class="lesson-tag">Day 1 | Lesson 4</span>
+<h2 class="lesson-title">What Gives Crypto Value, and What Doesn't</h2><p class="lesson-subtitle">A stock is a piece of a business. A coin is something else. Know the difference.</p><div class="gold-rule"></div>
+
+<p>When you own a share of stock, you own part of a company with sales, profits, and assets. You can estimate what it's worth from what it earns. <strong>Most crypto doesn't produce earnings.</strong> Bitcoin doesn't pay dividends. There's no company behind it with a profit-and-loss statement. So what makes it worth anything?</p>
+
+<h2>Where Crypto's Value Comes From</h2>
+<ul>
+<li><strong>Scarcity:</strong> A limited, predictable supply that can't be inflated away.</li>
+<li><strong>Network effects:</strong> The more people use and accept it, the more useful it becomes, like a phone network.</li>
+<li><strong>Utility:</strong> Some networks are used for real activity: sending money, settling trades, running applications.</li>
+<li><strong>Security and track record:</strong> Bitcoin has run continuously since 2009 without its core ledger being successfully rewritten.</li>
+<li><strong>Belief and demand:</strong> In the end, the price is what the next buyer will pay. That's powerful when belief grows, and brutal when it fades.</li>
+</ul>
+
+<h2>The Number That Matters Isn't the Price</h2>
+<p>Beginners look at the price per coin. Professionals look at <strong>market capitalization</strong>, the total value of all the coins:</p>
+<div class="formula">Market Cap = Price Per Coin x Number of Coins</div>
+<p>This is why a "cheap" coin isn't a bargain. A token priced at $0.01 with 500 trillion coins in circulation is already "worth" $5 trillion. For that token to reach $1, it would need to be worth $500 trillion, several times more than the entire world economy produces in a year. <strong>It's not going to happen.</strong> The price of one coin tells you almost nothing. Supply tells you the rest.</p>
+
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Common Belief</th><th>The Reality</th></tr></thead><tbody><tr><td>"It's only a penny, so it can easily go to $1."</td><td>Whether it can depends entirely on how many coins exist. Most "penny coins" have supplies in the billions or trillions.</td></tr><tr><td>"I can only afford a fraction of a bitcoin, so it's not for me."</td><td>You can buy a fraction. $25 of bitcoin is fine. Owning a whole coin doesn't matter.</td></tr><tr><td>"It went up 1,000% last year, so it's a winner."</td><td>Past gains say nothing about future value. Many coins that rose 1,000% later fell more than 95%.</td></tr><tr><td>"A celebrity is promoting it, so it must be legit."</td><td>Celebrities have been sued and fined for promoting crypto they were paid to push.</td></tr></tbody></table></div>
+
+<h2>Investing, Speculating, or Gambling?</h2>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th></th><th>Investing</th><th>Speculating</th><th>Gambling</th></tr></thead><tbody><tr><td><strong>Basis</strong></td><td>Understanding of value and a long time horizon</td><td>A bet that the price will rise, with some reasoning</td><td>Hope, tips, or excitement</td></tr><tr><td><strong>Position size</strong></td><td>Planned, and sized to survive large losses</td><td>Small, with money you can lose</td><td>Whatever feels exciting</td></tr><tr><td><strong>Exit plan</strong></td><td>Written rules</td><td>Some rules</td><td>None</td></tr></tbody></table></div>
+<p>Crypto can be any of the three. <strong>Which one you're doing depends on you, not the coin.</strong> By Day 5, you'll have written rules that keep you on the investing side of that table.</p>
+
+<div class="callout callout-research"><h4>A Sober Benchmark</h4><p>Even bitcoin, the largest and most established crypto asset, peaked near $126,000 in October 2025 and fell to around $59,000 by June 2026, a drop of more than 50% in eight months. Smaller coins usually fall much further in the same periods. Expect volatility. Plan for it. Day 2 shows you exactly how.</p></div>
+
+<div class="callout callout-truth"><h4>Right Side of Money Principle</h4><p>Value you can't explain is value you can't hold. <strong>If the only reason you own something is that it's going up, you'll sell it the moment it goes down.</strong></p></div>
+</section>
+<div class="module-complete"><p class="lesson-eyebrow" style="color:#E8B84B">Finish Day 1</p><h2>Day 1 Action Exercise: My Crypto Reality Check</h2><p>Your Day 1 Action Exercise is a reality check: why you're interested, where your information comes from, and whether your financial foundation is ready. Then the Day 1 Knowledge Check confirms what you learned, and a short diagnostic identifies the crypto mindset most likely to drive your decisions. You'll get a personal report, and a copy goes to Darrell.</p>
+<a class="btn btn-gold" href="./cry-check1.html">Begin the Action Exercise and Knowledge Check</a></div>
+<div class="lesson-nav"><a class="btn-prev" href="./cry-portal.html">&#8592; Program Portal</a><span class="progress-label">Day 1 of 5</span><a class="btn-next" href="./cry-check1.html">Day 1 Exercise &#8594;</a></div></div>
+<p class="disclaimer-box">Educational content only. Not investment, tax, or legal advice, and not a recommendation to buy, sell, or hold any cryptocurrency or security. Crypto assets are highly volatile and you can lose all of the money you put in.</p>
+  </main>
+</div>
+<footer class="course-footer">&#169; 2026 <span>Right Side of Money</span>. All Rights Reserved. | Program content by Darrell Thompson | Educational content only. Not investment, tax, or legal advice, and not a recommendation to buy, sell, or hold any cryptocurrency or security. Crypto assets are highly volatile and you can lose all of the money you put in.</footer>
+<script>
+window.RSM_PAGE = {"id": "day1", "type": "day", "requires": [{"key": "baseline", "label": "Program Portal Check-In", "href": "./cry-portal.html"}], "ns": "cry", "form": "https://formspree.io/f/xbglwylz", "program": "5-Day Introduction to Cryptocurrency"};
+</script>
+<script>
+(function(){
+'use strict';
+var P = window.RSM_PAGE || {};
+var FORM_URL = P.form || 'https://formspree.io/f/mbglqkyn';
+var ADMIN_EMAIL = 'info@rightsideofmoney.com';
+var PROGRAM = P.program || 'RSM Advance Mindset, Financial Literacy and Accountability Program';
+var NS = 'rsm' + (P.ns || 'adv') + '_';
+
+/* ---------- storage (fails safely) ---------- */
+var LS = {
+  ok: (function(){ try { var k='__rsmadv'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; } catch(e){ return false; } })(),
+  get: function(k, d){ try { var v = localStorage.getItem(NS + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: function(k, v){ try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch(e){} }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(s){ return String(s || '').trim().split(/\s+/).filter(Boolean).length; }
+function today(){ return new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}); }
+
+function isDone(key){
+  var parts = key.split(':'), t = parts[0], id = parts[1];
+  if (t === 'baseline') return !!LS.get('baseline');
+  if (t === 'kc') return !!(LS.get('kc_' + id) || {}).passed;
+  if (t === 'a') return !!(LS.get('assess_' + id) || {}).done;
+  if (t === 'ap') return !!(LS.get('assess_' + id) || {}).passed;
+  if (t === 'day') return !!(LS.get('day_' + id) || {}).done;
+  return false;
+}
+function allDone(list){ return list.every(isDone); }
+
+/* ---------- mobile menu ---------- */
+var mb = $('#menuBtn'), sb = $('.sidebar');
+if (mb && sb) mb.addEventListener('click', function(){ sb.classList.toggle('open'); mb.textContent = sb.classList.contains('open') ? 'Close' : 'Menu'; });
+
+/* ---------- sidebar completion marks ---------- */
+function markSidebar(){
+  $$('.sidebar a[data-done]').forEach(function(a){
+    var keys = a.getAttribute('data-done').split(',').filter(Boolean);
+    if (keys.length && allDone(keys)) a.classList.add('completed'); else a.classList.remove('completed');
+  });
+}
+markSidebar();
+
+/* ---------- soft gate ---------- */
+(function gate(){
+  var req = P.requires || [];
+  if (!LS.ok || !req.length) return;
+  var missing = req.filter(function(r){ return !isDone(r.key); });
+  if (!missing.length || LS.get('bypass_' + P.id)) return;
+  var g = $('#gate'), content = $('#gatedContent');
+  if (!g || !content) return;
+  content.classList.add('gated-hidden');
+  var html = '<p class="lesson-eyebrow" style="color:#E8B84B">Complete the Previous Step First</p><h2>This section opens after you finish:</h2><ul style="margin:0.6rem 0 1.2rem 1.2rem">';
+  missing.forEach(function(m){ html += '<li style="color:#fff"><a href="' + m.href + '" style="color:#E8B84B;font-weight:600">' + esc(m.label) + '</a></li>'; });
+  html += '</ul><p>This program builds in order on purpose. Each step gives you the self-knowledge the next step depends on. Skipping ahead is how people end up with information and no change.</p>';
+  html += '<div class="btn-row"><a class="btn btn-gold" href="' + missing[0].href + '">Go to ' + esc(missing[0].label) + '</a><button type="button" class="btn btn-outline" id="gateBypass">I completed this on another device</button></div>';
+  g.innerHTML = html; g.style.display = 'block';
+  $('#gateBypass').addEventListener('click', function(){ LS.set('bypass_' + P.id, true); g.style.display = 'none'; content.classList.remove('gated-hidden'); });
+})();
+
+/* ---------- reflections autosave ---------- */
+$$('textarea[data-ref]').forEach(function(ta){
+  var id = ta.getAttribute('data-ref'), note = ta.parentNode.querySelector('.saved-note'), t;
+  ta.value = LS.get('ref_' + id, '') || '';
+  ta.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){ LS.set('ref_' + id, ta.value); if (note) note.textContent = LS.ok ? 'Saved on this device' : ''; }, 400);
+  });
+});
+
+/* ---------- option selection (knowledge checks + assessment MC) ---------- */
+document.addEventListener('click', function(e){
+  var b = e.target.closest('.kc-opt');
+  if (b && !b.disabled){
+    var q = b.closest('.kc-q, .aq-mc');
+    $$('.kc-opt', q).forEach(function(o){ o.classList.remove('selected'); });
+    b.classList.add('selected'); q.classList.remove('missing');
+    var kc = b.closest('.kc'); if (kc) updateKcCount(kc);
+    return;
+  }
+  var l = e.target.closest('.lk-opt');
+  if (l){
+    var row = l.closest('.lk');
+    $$('.lk-opt', row).forEach(function(o){ o.classList.remove('selected'); });
+    l.classList.add('selected'); row.classList.remove('missing');
+  }
+});
+
+/* ---------- lesson knowledge checks ---------- */
+function updateKcCount(kc){
+  var qs = $$('.kc-q', kc), n = qs.filter(function(q){ return $('.kc-opt.selected', q); }).length;
+  var c = $('.kc-count', kc); if (c) c.textContent = n + '/' + qs.length + ' answered';
+}
+function resetKc(kc){
+  $$('.kc-q', kc).forEach(function(q){
+    $$('.kc-opt', q).forEach(function(o){ o.disabled = false; o.classList.remove('selected','is-correct','is-wrong'); });
+    var w = $('.kc-why', q); w.hidden = true; w.className = 'kc-why'; w.innerHTML = '';
+  });
+  var r = $('.kc-result', kc); r.textContent = ''; r.className = 'kc-result';
+  $('.kc-submit', kc).style.display = ''; var rt = $('.kc-retake', kc); if (rt) rt.style.display = 'none';
+  updateKcCount(kc);
+}
+function gradeKc(kc){
+  var id = kc.getAttribute('data-kc'), qs = $$('.kc-q', kc), res = $('.kc-result', kc);
+  var unanswered = qs.filter(function(q){ return !$('.kc-opt.selected', q); });
+  if (unanswered.length){ res.className = 'kc-result fail'; res.textContent = 'Answer all ' + qs.length + ' questions before checking. ' + unanswered.length + ' still open.'; unanswered[0].scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  var correct = 0, results = [];
+  qs.forEach(function(q){
+    var sel = $('.kc-opt.selected', q), ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+    if (ok) correct++; results.push({q:q, ok:ok, sel:sel});
+  });
+  var pct = correct / qs.length, passed = pct >= 0.8;
+  results.forEach(function(r){
+    var w = $('.kc-why', r.q);
+    $$('.kc-opt', r.q).forEach(function(o){ o.disabled = true; });
+    if (passed){
+      $$('.kc-opt', r.q).forEach(function(o){ if (o.getAttribute('data-i') === r.q.getAttribute('data-correct')) o.classList.add('is-correct'); });
+      if (!r.ok) r.sel.classList.add('is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = '<b>' + (r.ok ? 'Correct.' : 'Not quite.') + '</b> ' + r.q.getAttribute('data-why');
+    } else {
+      r.sel.classList.add(r.ok ? 'is-correct' : 'is-wrong');
+      w.className = 'kc-why ' + (r.ok ? 'good' : 'bad');
+      w.innerHTML = r.ok ? '<b>Correct.</b> Hold onto that reasoning.' : '<b>Rethink this one.</b> ' + r.q.getAttribute('data-hint');
+    }
+    w.hidden = false;
+  });
+  var prev = LS.get('kc_' + id) || {};
+  LS.set('kc_' + id, {passed: passed || !!prev.passed, score: correct + '/' + qs.length, date: today()});
+  $('.kc-submit', kc).style.display = 'none';
+  var rt = $('.kc-retake', kc);
+  if (passed){
+    res.className = 'kc-result pass';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). Lesson complete. Read every explanation above, including the ones you got right. The reasoning is the lesson.';
+    if (rt) rt.style.display = 'none';
+  } else {
+    res.className = 'kc-result fail';
+    res.textContent = 'You scored ' + correct + ' out of ' + qs.length + ' (' + Math.round(pct*100) + '%). You need 80% to complete this lesson. Use the hints, reread the lesson sections they point to, and retake the check.';
+    if (rt) rt.style.display = '';
+  }
+  markSidebar(); updateModule();
+}
+$$('.kc').forEach(function(kc){
+  var id = kc.getAttribute('data-kc');
+  $('.kc-submit', kc).addEventListener('click', function(){ gradeKc(kc); });
+  var rt = $('.kc-retake', kc); if (rt) rt.addEventListener('click', function(){ resetKc(kc); kc.scrollIntoView({behavior:'smooth'}); });
+  var st = LS.get('kc_' + id);
+  if (st && st.passed){ var r = $('.kc-result', kc); r.className = 'kc-result pass'; r.textContent = 'Completed on ' + st.date + ' with ' + st.score + '. You can answer again any time to review.'; }
+  updateKcCount(kc);
+});
+
+/* ---------- module progress ---------- */
+function updateModule(){
+  var kcs = P.kcs || []; if (!kcs.length) return;
+  var done = kcs.filter(function(k){ return isDone('kc:' + k); }).length;
+  var fill = $('#modFill'), lbl = $('#modLbl');
+  if (fill) fill.style.width = Math.round(done / kcs.length * 100) + '%';
+  if (lbl) lbl.textContent = done + ' of ' + kcs.length + ' lessons complete';
+  var nx = $('#moduleNext'), note = $('#moduleLockNote');
+  if (nx){
+    if (done === kcs.length){ nx.classList.remove('disabled'); if (note) note.textContent = 'All lessons complete. Your assessment is open.'; }
+    else { nx.classList.add('disabled'); if (note) note.textContent = 'Pass all ' + kcs.length + ' lesson knowledge checks at 80% or higher to open the assessment. ' + (kcs.length - done) + ' remaining.'; }
+  }
+}
+updateModule();
+
+/* ---------- report helpers exposed to page configs ---------- */
+function band(p){ return p >= 65 ? 'high' : (p >= 40 ? 'mid' : 'low'); }
+var H = {
+  esc: esc, band: band, today: today, LS: LS,
+  money: function(n){ n = Number(n) || 0; return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); },
+  pct: function(n){ return Math.round(n) + '%'; },
+  tiles: function(arr){ return '<div class="score-tiles">' + arr.map(function(t){ return '<div class="tile"><div class="v">' + t.v + '</div><div class="l">' + esc(t.l) + '</div></div>'; }).join('') + '</div>'; },
+  rank: function(dims){ return Object.keys(dims).sort(function(a,b){ return dims[b].pct - dims[a].pct; }); },
+  dimBars: function(dims, defs){
+    return H.rank(dims).map(function(k){ var p = Math.round(dims[k].pct), b = band(p);
+      return '<div class="dim-row"><div class="dim-top"><span>' + esc(defs[k].name) + '</span><span>' + p + '% ' + (b === 'high' ? 'Strong pattern' : b === 'mid' ? 'Present' : 'Low') + '</span></div><div class="dim-bar"><div class="dim-fill ' + b + '" style="width:' + Math.max(p,3) + '%"></div></div></div>';
+    }).join('');
+  },
+  profile: function(label, name, html){ return '<div class="profile-card"><h4>' + esc(label) + '</h4><div class="pname">' + esc(name) + '</div>' + html + '</div>'; },
+  rx: function(title, items, ordered){ var t = ordered === false ? 'ul' : 'ol'; return '<div class="rx"><h5>' + esc(title) + '</h5><' + t + '>' + items.map(function(i){ return '<li>' + i + '</li>'; }).join('') + '</' + t + '></div>'; },
+  echo: function(txt){ return Object.keys(txt).map(function(k){ return '<div class="echo"><b>' + esc(txt[k].label) + '</b>' + esc(txt[k].val).replace(/\n/g,'<br>') + '</div>'; }).join(''); },
+  mcReview: function(d, showAnswers){
+    var missed = d.mc.items.filter(function(i){ return !i.ok; });
+    if (!missed.length) return '<p>You answered every knowledge question correctly. That tells me the concepts are clear. Now the work is applying them when you\'re tired, stressed, or tempted, which is exactly what the rest of this report addresses.</p>';
+    return missed.map(function(i){
+      return '<div class="echo"><b>Question: ' + esc(i.q) + '</b>Your answer: ' + esc(i.chosen) + (showAnswers ? '<br><strong>Correct answer:</strong> ' + esc(i.correct) + '<br>' + i.why : '<br><em>Revisit: ' + esc(i.hint) + '</em>') + '</div>';
+    }).join('');
+  },
+  refs: function(map){
+    var out = '';
+    Object.keys(map || {}).forEach(function(k){ var v = LS.get('ref_' + k, ''); if (v && String(v).trim()) out += '<div class="echo"><b>' + esc(map[k]) + '</b>' + esc(v).replace(/\n/g,'<br>') + '</div>'; });
+    return out || '<p>No lesson reflections were saved on this device. If you completed them somewhere else, that work still counts. If you skipped them, go back and write them. The reflections are where the pattern becomes visible.</p>';
+  },
+  fv: function(monthly, years, rate){ var r = (rate || 0.07) / 12, n = years * 12; return monthly * (Math.pow(1 + r, n) - 1) / r; },
+  intensity: function(p){
+    if (p >= 80) return 'Your primary pattern scored ' + p + '%, which is a strong, well-established pattern. It has likely been running for years and shows up in more areas of your financial life than you realize. Expect it to resist change at first. That resistance isn\'t failure. It\'s the pattern protecting itself, and it\'s exactly why your prescription below is specific and small.';
+    if (p >= 65) return 'Your primary pattern scored ' + p + '%, which is a clear, active pattern. It\'s influencing your financial decisions on a regular basis, especially under pressure. The good news: patterns at this level respond quickly to consistent, targeted action. Most people see noticeable change within 30 days of working the prescription.';
+    if (p >= 40) return 'Your primary pattern scored ' + p + '%, which means it\'s present but not dominant. It tends to show up when you\'re tired, stressed, or off routine. Your work is to catch it early, before it gains momentum, and to build systems that protect you on your hardest days.';
+    return 'None of the patterns measured here scored at a level that suggests an active problem. That\'s a strength. Your work is maintenance: keep the systems and awareness that got you here, and watch for early warning signs during high-stress seasons.';
+  },
+  standard: function(d, DEFS, o){
+    var passed = d.mc.total ? d.mc.pct >= 80 : true;
+    var order = H.rank(d.dims), top = order[0], sec = order[1], T = DEFS[top], S = DEFS[sec];
+    var topP = Math.round(d.dims[top].pct), secP = Math.round(d.dims[sec].pct);
+    var strong = order.filter(function(k){ return d.dims[k].pct >= 65; });
+    var h = '<h3>Your Results at a Glance</h3>' + H.tiles([
+      {v: d.mc.correct + '/' + d.mc.total, l: 'Knowledge Score'},
+      {v: Math.round(d.mc.pct) + '%', l: passed ? 'Passed (80% required)' : 'Below the 80% required'},
+      {v: topP + '%', l: 'Primary Pattern Intensity'},
+      {v: String(strong.length), l: 'Strong Patterns Detected'}]);
+    h += '<h3>Part 1: Knowledge</h3>' + (passed ? o.passMsg : o.failMsg) + H.mcReview(d, passed);
+    h += '<h3>Part 2: Your ' + esc(o.patternLabel) + ' Profile</h3><p>' + o.profileIntro + '</p>' + H.dimBars(d.dims, DEFS);
+    if (topP < 40){
+      h += H.profile(o.patternLabel, 'No Dominant Pattern', '<p>' + o.lowAll + '</p><p>Your highest area was <strong>' + esc(T.name) + '</strong> at ' + topP + '%. Read its prescription below as prevention, not repair.</p>');
+    } else {
+      h += H.profile('Primary ' + o.patternLabel, T.name, '<p><strong>What\'s really going on:</strong> ' + T.what + '</p><p><strong>Where it likely started:</strong> ' + T.origin + '</p><p><strong>What it\'s costing you:</strong> ' + T.cost + '</p>');
+    }
+    h += '<h3>Professional Feedback</h3><p>' + H.intensity(topP) + '</p>';
+    if (secP >= 40){
+      var pair = (o.pairs && (o.pairs[top + '+' + sec] || o.pairs[sec + '+' + top])) || ('When ' + T.name + ' and ' + S.name + ' operate together, each one gives the other cover. Work the primary prescription first. As it weakens, the secondary pattern usually loses strength too, because they feed on the same stress.');
+      h += '<p><strong>Secondary pattern: ' + esc(S.name) + ' (' + secP + '%).</strong> ' + S.short + ' ' + pair + '</p>';
+    }
+    h += '<div class="rx"><h5>Your Belief Rewrite</h5><p style="margin:0">' + T.reframe + '</p></div>';
+    h += H.rx('Your 7-Day Prescription', T.rx7) + H.rx('Your 30-Day Prescription', T.rx30);
+    h += '<p><strong>Warning sign to watch for:</strong> ' + T.watch + '</p>';
+    if (o.extra) h += o.extra;
+    h += '<h3>Your Written Responses</h3><p>' + o.writtenIntro + '</p>';
+    Object.keys(d.txt).forEach(function(k){
+      h += '<div class="echo"><b>' + esc(d.txt[k].label) + '</b>' + esc(d.txt[k].val).replace(/\n/g,'<br>') + '</div>';
+      if (o.follow && o.follow[k]) h += '<p style="font-size:0.93rem"><strong>Go deeper:</strong> ' + o.follow[k] + '</p>';
+    });
+    if (o.refs && Object.keys(o.refs).length) h += '<h3>Your Lesson Reflections</h3>' + H.refs(o.refs);
+    h += '<h3>What Comes Next</h3>' + (passed ? o.nextMsg : '<p>Your diagnostic profile above is complete and valid. To open the next module, you need at least 80% on the knowledge section. Revisit the lesson sections listed in Part 1, then tap <strong>Update My Answers and Resubmit</strong>. Your diagnostic and written answers will still be there.</p>');
+    return {title: (topP >= 40 ? T.name : 'Balanced Profile') + ': ' + o.titleSuffix, html: h, passed: passed,
+      score: d.mc.correct + '/' + d.mc.total + ' (' + Math.round(d.mc.pct) + '%)', profile: (topP >= 40 ? T.name : 'No dominant pattern') + ' (' + topP + '%)',
+      next: passed ? {href: o.nextHref, label: o.nextLabel} : null, retake: !passed, store: {primary: T.name, primaryPct: topP, secondary: S.name, secondaryPct: secP}};
+  },
+  prior: function(){ var o = {}; ['a1','a2','a3','a4','a5'].forEach(function(k){ o[k] = LS.get('assess_' + k); }); o.baseline = LS.get('baseline'); return o; },
+  certificate: function(name, title, date, line){
+    return '<div class="certificate"><div class="c-brand">RIGHT SIDE OF MONEY</div><div class="c-title">Certificate of Completion</div><p>This certifies that</p><div class="c-name">' + esc(name) + '</div><p>has successfully completed the</p><p style="font-weight:700;color:#0D1F3C!important;font-size:1.1rem">' + esc(title) + '</p><p>' + (line || 'and passed the 90-Day Financial Mastery Exam, demonstrating command of money psychology, financial data literacy, spending behavior, and accountability systems.') + '</p><div class="c-sign"><div>Darrell Thompson<br>Founder, Right Side of Money</div><div>' + esc(date) + '<br>Date of Completion</div></div></div>';
+  }
+};
+window.RSM_H = H;
+
+/* ---------- assessments ---------- */
+var form = $('#assessForm');
+if (form && P.assessment){
+  var A = P.assessment;
+  var who = LS.get('participant') || {};
+  if ($('#pFirst') && who.first) $('#pFirst').value = who.first;
+  if ($('#pLast') && who.last) $('#pLast').value = who.last;
+  if ($('#pEmail') && who.email) $('#pEmail').value = who.email;
+  var draftKey = 'draft_' + P.id;
+
+  $$('textarea[data-text]').forEach(function(ta){
+    var min = +ta.getAttribute('data-min') || 0, wc = ta.parentNode.querySelector('.wc');
+    var dr = LS.get(draftKey + '_' + ta.getAttribute('data-text')); if (dr) ta.value = dr;
+    function upd(){ var n = words(ta.value); if (wc){ wc.textContent = n + ' words' + (min ? ' (minimum ' + min + ')' : ''); wc.className = 'wc' + (n >= min ? ' ok' : ''); } }
+    ta.addEventListener('input', function(){ upd(); LS.set(draftKey + '_' + ta.getAttribute('data-text'), ta.value); ta.closest('.a-field').classList.remove('missing'); });
+    upd();
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#formError'); err.textContent = '';
+    var missing = [];
+    var d = {mc:{items:[], correct:0, total:0, byTopic:{}}, dims:{}, num:{}, sel:{}, txt:{}, scale:{}};
+    d.first = ($('#pFirst') || {}).value ? $('#pFirst').value.trim() : '';
+    d.last = ($('#pLast') || {}).value ? $('#pLast').value.trim() : '';
+    d.email = ($('#pEmail') || {}).value ? $('#pEmail').value.trim() : '';
+    d.name = (d.first + ' ' + d.last).trim();
+    ['#pFirst','#pLast','#pEmail'].forEach(function(s){ var el = $(s); if (el && !el.value.trim()){ missing.push(el.closest('.a-field') || el); } });
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) missing.push($('#pEmail').closest('.a-field'));
+
+    $$('.aq-mc').forEach(function(q){
+      var sel = $('.kc-opt.selected', q);
+      if (!sel){ missing.push(q); return; }
+      var ok = sel.getAttribute('data-i') === q.getAttribute('data-correct');
+      var t = q.getAttribute('data-topic') || 'General';
+      d.mc.total++; if (ok) d.mc.correct++;
+      d.mc.byTopic[t] = d.mc.byTopic[t] || {c:0, t:0}; d.mc.byTopic[t].t++; if (ok) d.mc.byTopic[t].c++;
+      var corr = $$('.kc-opt', q).filter(function(o){ return o.getAttribute('data-i') === q.getAttribute('data-correct'); })[0];
+      d.mc.items.push({q: q.getAttribute('data-q'), chosen: sel.textContent, correct: corr ? corr.textContent : '', ok: ok, why: q.getAttribute('data-why') || '', hint: q.getAttribute('data-hint') || ''});
+    });
+    d.mc.pct = d.mc.total ? d.mc.correct / d.mc.total * 100 : 0;
+
+    var sums = {};
+    $$('.lk').forEach(function(row){
+      var sel = $('.lk-opt.selected', row);
+      if (!sel){ missing.push(row); return; }
+      var v = +sel.getAttribute('data-v');
+      if (row.hasAttribute('data-key')){ d.scale[row.getAttribute('data-key')] = v; return; }
+      var dim = row.getAttribute('data-dim'); if (row.getAttribute('data-rev') === '1') v = 6 - v;
+      sums[dim] = sums[dim] || {s:0, n:0}; sums[dim].s += v; sums[dim].n++;
+    });
+    Object.keys(sums).forEach(function(k){ var avg = sums[k].s / sums[k].n; d.dims[k] = {avg: avg, pct: (avg - 1) / 4 * 100}; });
+
+    $$('[data-num]').forEach(function(inp){
+      var v = inp.value.trim();
+      if (v === '' && inp.hasAttribute('data-req')){ missing.push(inp.closest('.a-field') || inp); return; }
+      d.num[inp.getAttribute('data-num')] = v === '' ? 0 : parseFloat(v) || 0;
+    });
+    $$('select[data-sel]').forEach(function(s){
+      if (!s.value){ missing.push(s.closest('.a-field') || s); return; }
+      d.sel[s.getAttribute('data-sel')] = s.value;
+    });
+    $$('textarea[data-text]').forEach(function(ta){
+      var min = +ta.getAttribute('data-min') || 0;
+      if (words(ta.value) < min){ missing.push(ta.closest('.a-field')); return; }
+      d.txt[ta.getAttribute('data-text')] = {label: ta.getAttribute('data-label'), val: ta.value.trim()};
+    });
+    $$('input[type=text][data-text]').forEach(function(inp){
+      if (!inp.value.trim()){ missing.push(inp.closest('.a-field')); return; }
+      d.txt[inp.getAttribute('data-text')] = {label: inp.getAttribute('data-label'), val: inp.value.trim()};
+    });
+
+    if (missing.length){
+      missing.forEach(function(m){ if (m && m.classList) m.classList.add('missing'); });
+      err.textContent = missing.length + ' item' + (missing.length > 1 ? 's need' : ' needs') + ' your attention (highlighted). Every question is required, and written answers must meet the minimum word count. Depth is the point.';
+      if (missing[0] && missing[0].scrollIntoView) missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    LS.set('participant', {first: d.first, last: d.last, email: d.email});
+    var R = A.analyze(d, H);
+    renderReport(d, R);
+  });
+}
+
+function renderReport(d, R){
+  var rep = $('#report');
+  var head = '<div class="report-head"><p class="lesson-eyebrow">' + esc(A_name()) + ' | Personal Report</p><h2>' + esc(R.title) + '</h2><p>Prepared for ' + esc(d.name) + ' on ' + today() + '</p></div>';
+  var body = '<div class="report-body" id="reportBody">' + R.html + '</div>';
+  var nextBtn = '';
+  if (R.next) nextBtn = '<a class="btn btn-gold" href="' + R.next.href + '">' + esc(R.next.label) + '</a>';
+  var actions = '<div class="report-actions no-print"><p><strong>Keep this report.</strong> A copy has been submitted to Darrell Thompson. Use the buttons below to email a copy to yourself, save it as a PDF, or copy it.</p><div class="btn-row">' + nextBtn +
+    '<button type="button" class="btn btn-navy" id="emailBtn">Email My Report</button><button type="button" class="btn btn-outline" id="printBtn">Print or Save as PDF</button><button type="button" class="btn btn-outline" id="copyBtn">Copy Report Text</button>' +
+    (R.cert ? '<button type="button" class="btn btn-outline" id="certBtn">Print Certificate Only</button>' : '') +
+    (R.retake ? '<button type="button" class="btn btn-outline" id="retakeBtn">Update My Answers and Resubmit</button>' : '') +
+    '</div><div class="send-status" id="sendStatus">Sending your report to Darrell...</div></div>';
+  rep.innerHTML = head + body + actions;
+  rep.classList.add('show');
+  $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = 'none'; });
+  rep.scrollIntoView({behavior:'smooth'});
+
+  var text = PROGRAM + '\n' + A_name() + ': Personal Report\nParticipant: ' + d.name + ' (' + d.email + ')\nDate: ' + today() + '\n\n' + R.title + '\n\n' + $('#reportBody').innerText.replace(/\n{3,}/g, '\n\n');
+
+  var prev = LS.get('assess_' + P.assessment.id) || {};
+  LS.set('assess_' + P.assessment.id, {done: true, passed: R.passed === undefined ? true : (R.passed || !!prev.passed), score: R.score || '', profile: R.profile || '', date: today(), extra: R.store || null});
+  if (R.saveAs) LS.set(R.saveAs, R.store || true);
+  markSidebar();
+
+  var fd = new FormData();
+  fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
+  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('program', PROGRAM); fd.append('assessment', A_name());
+  fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
+  fd.append('full_report', text);
+  var st = $('#sendStatus');
+  fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
+    if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
+    else throw new Error('bad');
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+
+  $('#emailBtn').addEventListener('click', function(){
+    var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+  });
+  $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
+  $('#copyBtn').addEventListener('click', function(){
+    var b = this;
+    function done(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy Report Text'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+    else { fallbackCopy(text); done(); }
+  });
+  var cb = $('#certBtn'); if (cb) cb.addEventListener('click', function(){ document.body.classList.add('print-cert'); window.print(); setTimeout(function(){ document.body.classList.remove('print-cert'); }, 500); });
+  var rb = $('#retakeBtn'); if (rb) rb.addEventListener('click', function(){ rep.classList.remove('show'); rep.innerHTML = ''; $$('.a-intro, #assessForm').forEach(function(el){ el.style.display = ''; }); $('#assessForm').scrollIntoView({behavior:'smooth'}); });
+}
+function fallbackCopy(t){ var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); }
+function A_name(){ return (P.assessment && P.assessment.name) || 'Assessment'; }
+})();
+
+</script>
+<script>
+(function(){
+'use strict';
+var H = window.RSM_H, M = H.money;
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function num(box, n){ var el = $('[name=' + n + ']', box); var v = parseFloat(el ? el.value : ''); return isNaN(v) ? 0 : v; }
+function val(box, n){ var el = $('[name=' + n + ']', box); return el ? el.value : ''; }
+function pct(x){ return (Math.round(x * 10) / 10) + '%'; }
+function bar(label, v, max, cls, txt){ var p = max > 0 ? Math.max(2, Math.min(100, Math.round(v / max * 100))) : 2; return '<div class="dim-row"><div class="dim-top"><span>' + label + '</span><span>' + (txt || M(v)) + '</span></div><div class="dim-bar"><div class="dim-fill ' + cls + '" style="width:' + p + '%"></div></div></div>'; }
+function grow(start, monthly, years, rate){ var r = rate / 100 / 12, b = start, c = start; for (var i = 0; i < years * 12; i++){ b = b * (1 + r) + monthly; c += monthly; } return {end: b, contrib: c}; }
+window.CRY_grow = grow;
+
+/* 2026 federal brackets (ordinary income) and long-term capital gains thresholds */
+var ORD = {single: [[12400, .10], [50400, .12], [105700, .22], [201775, .24], [256225, .32], [640600, .35], [Infinity, .37]],
+           mfj: [[24800, .10], [100800, .12], [211400, .22], [403550, .24], [512450, .32], [768700, .35], [Infinity, .37]]};
+var LTCG = {single: [[49450, 0], [545500, .15], [Infinity, .20]], mfj: [[98900, 0], [613700, .15], [Infinity, .20]]};
+function stackTax(base, add, table){ var tax = 0, lo = 0; for (var i = 0; i < table.length; i++){ var hi = table[i][0], r = table[i][1]; var a = Math.max(0, Math.min(base + add, hi) - Math.max(base, lo)); tax += a * r; lo = hi; } return tax; }
+window.CRY_tax = function(gain, income, status, longTerm){ if (gain <= 0) return 0; return stackTax(income, gain, (longTerm ? LTCG : ORD)[status] || ORD.single); };
+
+var calcs = {
+  drawdown: function(box){
+    var a = num(box, 'amount'), d = Math.min(num(box, 'drop'), 99.9) / 100;
+    var left = a * (1 - d), need = d < 1 ? d / (1 - d) * 100 : 0;
+    return H.tiles([{v: M(left), l: 'Left After the Drop'}, {v: M(a - left), l: 'Paper Loss'}, {v: pct(need), l: 'Gain Needed to Get Back'}]) +
+      bar('What you put in', a, a, 'mid') + bar('What it\'s worth at the bottom', left, a, 'high') +
+      '<p class="tool-insight">A ' + pct(d * 100) + ' drop doesn\'t need a ' + pct(d * 100) + ' gain to recover. It needs <strong>' + pct(need) + '</strong>, because the gain starts from a smaller base. Bitcoin has fallen more than 75% from a peak at least three times. Size every position so you could live through this number without selling.</p>';
+  },
+  sizing: function(box){
+    var inv = num(box, 'investable'), p = num(box, 'pct') / 100, ess = num(box, 'essentials');
+    var pos = inv * p, l50 = pos * 0.5, l80 = pos * 0.8;
+    var h = H.tiles([{v: M(pos), l: 'Your Crypto Limit'}, {v: M(l50), l: 'Loss at -50%'}, {v: M(l80), l: 'Loss at -80%'}]);
+    if (ess > 0) h += '<p class="tool-insight">An 80% drop would cost you about <strong>' + (Math.round(l80 / ess * 10) / 10) + ' months</strong> of essential expenses. ';
+    else h += '<p class="tool-insight">';
+    h += (p > 0.1 ? 'That\'s more than 10% of your investable money in one of the most volatile asset classes on earth. Ask yourself honestly: would you hold, or would you panic? ' : p > 0.05 ? 'This is on the higher end of what many educators describe for beginners. Make sure your foundation is solid first. ' : 'This is a size most beginners can survive without it changing their life. ') + 'Never count your emergency fund or money you\'ll need within five years as investable.</p>';
+    return h;
+  },
+  dca: function(box){
+    var amt = num(box, 'monthly'), units = 0, spent = 0, prices = [], sum = 0;
+    for (var i = 1; i <= 6; i++){ var pr = num(box, 'p' + i); if (pr > 0){ prices.push(pr); units += amt / pr; spent += amt; sum += pr; } }
+    if (!prices.length || !amt) return '<p class="tool-insight">Enter a monthly amount and at least one price.</p>';
+    var avgCost = spent / units, avgPrice = sum / prices.length, last = prices[prices.length - 1], value = units * last;
+    return H.tiles([{v: M(spent), l: 'Total Invested'}, {v: M(avgCost), l: 'Your Average Cost'}, {v: M(avgPrice), l: 'Average Price'}, {v: M(value), l: 'Value at Last Price'}]) +
+      '<p class="tool-insight">You bought the same dollar amount every month. When the price was low, your money bought more; when it was high, it bought less. Your average cost (' + M(avgCost) + ') is ' + (avgCost < avgPrice ? 'below' : 'equal to') + ' the average price (' + M(avgPrice) + '). That\'s dollar-cost averaging. It doesn\'t prevent losses: ' + (value < spent ? 'here you\'re still down ' + M(spent - value) + ' because the last price is below your average cost.' : 'here you\'re up ' + M(value - spent) + ', but only because the last price is above your average cost.') + '</p>';
+  },
+  fees: function(box){
+    var a = num(box, 'amount'), f = num(box, 'fee') / 100, s = num(box, 'spread') / 100, f2 = num(box, 'fee2') / 100, s2 = num(box, 'spread2') / 100;
+    var c1 = a * (f + s), c2 = a * (f2 + s2);
+    return H.tiles([{v: M(c1), l: 'Platform A Cost'}, {v: M(c2), l: 'Platform B Cost'}, {v: M(Math.abs(c1 - c2)), l: 'Difference Per Buy'}, {v: M(Math.abs(c1 - c2) * 2 * 12), l: 'Yearly (Monthly Buy and Sell)'}]) +
+      bar('Platform A', c1, Math.max(c1, c2), c1 <= c2 ? 'low' : 'high') + bar('Platform B', c2, Math.max(c1, c2), c2 < c1 ? 'low' : 'high') +
+      '<p class="tool-insight">On a ' + M(a) + ' purchase, Platform A takes about ' + pct((f + s) * 100) + ' and Platform B about ' + pct((f2 + s2) * 100) + '. The spread is the hidden part: the gap between the price you pay and the market price. You pay costs again when you sell, so a round trip costs roughly double.</p>';
+  },
+  tax: function(box){
+    var pr = num(box, 'proceeds'), b = num(box, 'basis'), inc = num(box, 'income'), st = val(box, 'status') || 'single', lt = val(box, 'held') === 'long';
+    var g = pr - b;
+    if (g <= 0) return H.tiles([{v: M(g), l: 'Capital Loss'}]) + '<p class="tool-insight">A loss can offset other capital gains, plus up to $3,000 a year of ordinary income, with the rest carried forward. You still report it.</p>';
+    var tS = window.CRY_tax(g, inc, st, false), tL = window.CRY_tax(g, inc, st, true);
+    return H.tiles([{v: M(g), l: 'Your Gain'}, {v: M(lt ? tL : tS), l: lt ? 'Est. Federal Tax (Long-Term)' : 'Est. Federal Tax (Short-Term)'}, {v: M(tS - tL), l: 'Saved by Holding Over a Year'}]) +
+      '<p class="tool-insight">Held one year or less, this gain is taxed at your ordinary income rate: about <strong>' + M(tS) + '</strong>. Held more than one year: about <strong>' + M(tL) + '</strong>. Estimate uses 2026 federal brackets on top of the taxable income you entered. It doesn\'t include state tax or the 3.8% net investment income tax for higher earners. Confirm with a tax professional.</p>';
+  },
+  score: function(box){
+    var boxes = $$('input[type=checkbox]', box), n = boxes.filter(function(c){ return c.checked; }).length, t = boxes.length, p = Math.round(n / t * 100);
+    var grade = p >= 85 ? 'Strong fundamentals on paper' : p >= 60 ? 'Mixed. Proceed only with a small amount, if at all' : p >= 35 ? 'Weak. Most of the evidence isn\'t there' : 'Walk away';
+    return H.tiles([{v: n + '/' + t, l: 'Checks Passed'}, {v: p + '%', l: 'Research Score'}]) + '<p class="tool-insight"><strong>' + grade + '.</strong> A high score doesn\'t mean a coin will go up. It means you know what you\'re buying. A low score with heavy hype is the profile of most coins that went to zero.</p>';
+  }
+};
+$$('[data-calc]').forEach(function(box){
+  var t = box.getAttribute('data-calc'), out = $('.calc-out', box);
+  function run(){ try { out.innerHTML = calcs[t](box); } catch(e){ out.innerHTML = ''; } }
+  $$('input,select', box).forEach(function(el){ el.addEventListener('input', run); el.addEventListener('change', run); });
+  run();
+});
+
+/* live SHA-256 demo */
+$$('[data-hash]').forEach(function(box){
+  var inp = $('.hash-in', box), out = $('.hash-out', box), prev = '';
+  function hex(buf){ return Array.prototype.map.call(new Uint8Array(buf), function(b){ return ('0' + b.toString(16)).slice(-2); }).join(''); }
+  function run(){
+    if (!(window.crypto && crypto.subtle && window.TextEncoder)){ out.textContent = 'Your browser blocks this demo here. Try it on the live site.'; return; }
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(inp.value)).then(function(b){
+      var h = hex(b), diff = 0; if (prev) for (var i = 0; i < 64; i++) if (h[i] !== prev[i]) diff++;
+      out.innerHTML = h + (prev && prev !== h ? '<div style="color:#fff;margin-top:0.4rem;font-family:DM Sans,sans-serif">' + diff + ' of 64 characters changed.</div>' : '');
+      prev = h;
+    });
+  }
+  inp.addEventListener('input', run); run();
+});
+})();
+
+</script>
+</body>
+</html>

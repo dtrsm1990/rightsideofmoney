@@ -1,5 +1,5 @@
 /* RSM course access: enrollment codes for paid and free students, with launch-night guests protected.
-   Loaded in the <head> of every page of the five courses. Codes are tied to the student's email. */
+   Loaded in the <head> of every page of the six courses. Codes are tied to the student's email. */
 (function(){
   var SALT = 'RSM|Enroll|Courses|2026';
   var GIFT_END = new Date('2026-10-15T00:00:00-07:00').getTime();
@@ -9,7 +9,8 @@
     inv: {tag: 'INV', name: '3-Day Introduction to Investing', portal: 'inv-portal.html', prefix: 'inv-', had: 'rsminv_participant', gift: '3-Day Introduction to Investing', sales: 'course-investing.html'},
     fdn: {tag: 'FDN', name: 'RSM Foundation Course', portal: 'foundation-portal.html', prefix: 'foundation-', had: 'rsm_track_fdn', sales: 'course-foundation.html'},
     c30: {tag: 'C30', name: '30-Day Mindset and Money Challenge', portal: 'c30-portal.html', prefix: 'c30-', had: 'rsmc30_participant', sales: 'course-challenge.html'},
-    adv: {tag: 'ADV', name: 'RSM Advance Program', portal: 'advance-portal.html', prefix: 'advance-', had: 'rsmadv_participant', sales: 'course-advance.html'}
+    adv: {tag: 'ADV', name: 'RSM Advance Program', portal: 'advance-portal.html', prefix: 'advance-', had: 'rsmadv_participant', sales: 'course-advance.html'},
+    cry: {tag: 'CRY', name: '5-Day Introduction to Cryptocurrency', portal: 'cry-portal.html', prefix: 'cry-', had: 'rsmcry_participant', sales: 'course-crypto.html'}
   };
   /* Launch-night guests, added after the gift window closes: hashed emails, one list per course. */
   var GIFT_HASHES = {c3d: [], inv: []};

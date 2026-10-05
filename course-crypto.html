@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5-Day Introduction to Cryptocurrency | Right Side of Money</title>
+<meta name="description" content="Five days of honest crypto education: how it works, the real risks, how to spot scams and secure your accounts, how to buy and report it correctly, and your own written Crypto Investment Policy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0D1F3C;--navy-mid:#1B3A6B;--navy-light:#2A5298;
+    --gold:#C9941A;--gold-light:#E8B84B;--gold-pale:#FDF3DC;
+    --cream:#FAF7F2;--white:#FFFFFF;
+    --gray-100:#F4F4F0;--gray-300:#D0CFC8;--gray-500:#888880;
+    --gray-700:#444440;--dark:#0A0A0A;
+    --font-display:'Playfair Display',Georgia,serif;
+    --font-impact:'Bebas Neue',sans-serif;
+    --font-body:'DM Sans',sans-serif;
+  }
+  html,body{margin:0;padding:0;font-family:var(--font-body);background:var(--dark);color:var(--gray-700);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+  .nav-logo-top{font-family:var(--font-impact);font-size:22px;letter-spacing:3px;color:var(--white);}
+  .nav-logo-sub{font-size:10px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;font-weight:500;}
+  .nav-links{display:flex;align-items:center;height:68px;gap:24px;list-style:none;}
+  .nav-links li{display:flex;align-items:center;}
+  .nav-links a{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold-light);}
+  .nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:10px 20px;border-radius:2px;font-weight:600!important;display:inline-flex;align-items:center;}
+  .nav-cta:hover{background:var(--gold-light)!important;}
+
+  /* HERO */
+  .hero{background:var(--navy);min-height:100vh;padding-top:68px;position:relative;overflow:hidden;display:flex;align-items:center;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 30% 50%,rgba(201,148,26,0.07) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 80% 30%,rgba(42,82,152,0.2) 0%,transparent 60%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,148,26,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,148,26,0.03) 1px,transparent 1px);background-size:60px 60px;}
+  .hero-bar{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,var(--gold),transparent 60%);}
+  .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:80px 60px;display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:center;width:100%;}
+
+  /* EMBLEM */
+  .emblem-wrap{position:relative;display:flex;justify-content:center;align-items:center;}
+  .emblem-glow{position:absolute;width:320px;height:320px;background:radial-gradient(circle,rgba(201,148,26,0.2) 0%,transparent 70%);border-radius:50%;}
+  .emblem-img{width:100%;max-width:360px;height:auto;position:relative;z-index:2;filter:drop-shadow(0 8px 32px rgba(201,148,26,0.4));transition:transform 0.4s;}
+  .emblem-img:hover{transform:scale(1.05);}
+  .free-badge{position:absolute;top:-10px;right:-10px;background:var(--gold);color:var(--navy);font-family:var(--font-impact);font-size:22px;letter-spacing:2px;padding:10px 18px;border-radius:2px;z-index:3;box-shadow:0 4px 16px rgba(201,148,26,0.5);}
+
+  /* HERO TEXT */
+  .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .hero-eyebrow-line{width:40px;height:2px;background:var(--gold);}
+  .hero-eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+  .hero-title{font-family:var(--font-display);font-size:clamp(32px,4vw,54px);font-weight:900;color:var(--white);line-height:1.08;margin-bottom:12px;}
+  .hero-title em{font-style:normal;color:var(--gold-light);}
+  .hero-tag{display:inline-block;background:rgba(201,148,26,0.12);border:1px solid rgba(201,148,26,0.3);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:2px;margin-bottom:20px;}
+  .course-price{font-family:var(--font-impact);font-size:56px;letter-spacing:2px;color:var(--gold);line-height:1;margin-bottom:6px;}
+  .free-price{color:var(--gold-light)!important;}
+  .price-note{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:28px;font-weight:300;}
+  .hero-desc{font-size:16px;line-height:1.8;color:rgba(255,255,255,0.65);margin-bottom:36px;font-weight:300;}
+  .hero-desc strong{color:var(--white);font-weight:500;}
+  .btn-enroll{display:inline-block;background:var(--gold);color:var(--navy);font-size:15px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:20px 48px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;}
+  .btn-enroll:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,148,26,0.4);}
+  .btn-secondary{display:inline-block;background:transparent;color:var(--white);font-size:14px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:2px;border:2px solid rgba(255,255,255,0.3);transition:all 0.25s;margin-left:14px;}
+  .btn-secondary:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* TICKER */
+  .ticker-strip{background:var(--gold);padding:14px 0;overflow:hidden;}
+  .ticker-track{display:flex;gap:60px;animation:ticker 28s linear infinite;white-space:nowrap;}
+  .ticker-item{display:flex;align-items:center;gap:16px;font-family:var(--font-impact);font-size:18px;letter-spacing:2px;color:var(--navy);}
+  .ticker-dot{width:6px;height:6px;background:var(--navy);border-radius:50%;flex-shrink:0;}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* WHAT YOU GET */
+  .what-section{background:var(--cream);padding:100px 40px;}
+  .what-inner{max-width:1200px;margin:0 auto;}
+  .what-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start;}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .eyebrow-line{width:32px;height:2px;background:var(--gold);}
+  .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+  .sec-headline{font-family:var(--font-display);font-size:clamp(26px,3vw,42px);font-weight:900;line-height:1.1;color:var(--navy);margin-bottom:20px;}
+  .sec-headline.light{color:var(--white);}
+  .what-desc p{font-size:16px;line-height:1.85;color:var(--gray-700);margin-bottom:18px;font-weight:300;}
+  .what-desc p strong{color:var(--navy);font-weight:600;}
+  .what-desc p:last-of-type{margin-bottom:36px;}
+  .points-grid{display:flex;flex-direction:column;gap:2px;}
+  .point-item{background:var(--white);border-left:3px solid var(--gold);padding:20px 24px;display:flex;align-items:flex-start;gap:14px;transition:all 0.3s;}
+  .point-item:hover{background:var(--gold-pale);transform:translateX(4px);}
+  .point-check{width:24px;height:24px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--navy);font-weight:700;margin-top:1px;}
+  .point-text{font-size:15px;color:var(--gray-700);line-height:1.6;font-weight:300;}
+  .point-text strong{color:var(--navy);font-weight:600;}
+
+  /* DARRELL SECTION */
+  .darrell-section{background:var(--navy);padding:80px 40px;position:relative;overflow:hidden;}
+  .darrell-section::before{content:'';position:absolute;bottom:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,148,26,0.08) 0%,transparent 60%);border-radius:50%;}
+  .darrell-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center;position:relative;z-index:2;}
+  .darrell-photo{width:100%;max-width:260px;border-radius:4px;display:block;box-shadow:16px 16px 48px rgba(0,0,0,0.4);}
+  .darrell-text p{font-size:15px;line-height:1.85;color:rgba(255,255,255,0.65);margin-bottom:16px;font-weight:300;}
+  .darrell-text p strong{color:var(--white);font-weight:500;}
+
+  /* ENROLL CTA */
+  .enroll-section{background:var(--gold);padding:100px 40px;text-align:center;position:relative;overflow:hidden;}
+  .enroll-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(13,31,60,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(13,31,60,0.06) 1px,transparent 1px);background-size:40px 40px;}
+  .enroll-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;}
+  .enroll-headline{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--navy);line-height:1.1;margin-bottom:16px;}
+  .enroll-sub{font-size:17px;color:rgba(13,31,60,0.7);margin-bottom:40px;font-weight:300;line-height:1.7;}
+  .btn-enroll-dark{display:inline-block;background:var(--navy);color:var(--white);font-size:15px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:20px 56px;border-radius:2px;border:2px solid var(--navy);transition:all 0.25s;}
+  .btn-enroll-dark:hover{background:transparent;color:var(--navy);transform:translateY(-2px);}
+
+  /* FOOTER */
+  footer{background:var(--dark);padding:48px 40px 32px;border-top:1px solid rgba(255,255,255,0.06);}
+  .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  .footer-brand{font-family:var(--font-impact);font-size:22px;letter-spacing:3px;color:var(--white);}
+  .footer-brand span{color:var(--gold);}
+  .footer-contact{font-size:13px;color:rgba(255,255,255,0.4);text-align:center;}
+  .footer-contact a{color:var(--gold-light);text-decoration:none;}
+  .footer-copy{font-size:12px;color:rgba(255,255,255,0.25);}
+
+  /* ANIMATIONS */
+  .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .fade-up.visible{opacity:1;transform:translateY(0);}
+
+  /* RESPONSIVE */
+  
+    .nav-logo-top{font-size:17px;}
+    .nav-links{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;gap:8px;width:100%;}
+    .nav-cta{display:inline-flex!important;padding:9px 14px!important;font-size:11px!important;}
+    .hero-inner,.what-grid,.darrell-inner{grid-template-columns:1fr;gap:48px;}
+    .hero-inner{padding:60px 24px;}
+    .emblem-img{max-width:260px;margin:0 auto;}
+    .what-section,.darrell-section,.enroll-section{padding:70px 24px;}
+    .btn-secondary{margin-left:0;margin-top:12px;display:block;text-align:center;}
+    footer .footer-inner{flex-direction:column;text-align:center;}
+  }
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  /* SLIDE DOWN MENU FROM TOP */
+  
+  
+  
+  
+  
+  
+
+  
+    .nav-logo-top { font-size: 16px; }
+    .nav-logo-sub { font-size: 9px; }
+  }
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  }
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  }
+
+  
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex;align-items:center;height:68px;gap:18px;list-style:none;}
+.nav-links li{display:flex;align-items:center;}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:#E8B84B;}
+.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 16px;border-radius:2px;font-weight:700!important;}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:1001;flex-shrink:0;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.is-open span:nth-child(2){opacity:0;}
+.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:999;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex;}
+.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;border:none;}
+
+
+/* ===== DEFINITIVE NAV - DO NOT MODIFY ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex !important;align-items:center;height:68px;gap:16px;list-style:none;flex-wrap:nowrap;}
+.nav-links li{display:flex !important;align-items:center;}
+.nav-links li a{display:block !important;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;white-space:nowrap;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B;}
+.nav-links li a.nav-cta{background:#C9941A !important;color:#0D1F3C !important;padding:9px 14px;border-radius:2px;font-weight:700 !important;}
+.nav-hamburger{display:none !important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:9999;flex-shrink:0;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.is-open span:nth-child(2){opacity:0;}
+.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-mobile{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:9998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex !important;}
+.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;background:rgba(201,148,26,0.05);}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C !important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){
+  nav{padding:0 20px !important;}
+  .nav-links{display:none !important;}
+  .nav-hamburger{display:flex !important;}
+}
+@media screen and (min-width:769px){
+  .nav-links{display:flex !important;}
+  .nav-hamburger{display:none !important;}
+  .nav-mobile{display:none !important;}
+}
+/* ===== END DEFINITIVE NAV ===== */
+
+.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 9999; flex-shrink: 0; }
+.nav-hamburger span { display: block; width: 24px; height: 2px; background: #FFFFFF; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+.nav-hamburger.is-open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.is-open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+.nav-mobile { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(13,31,60,0.99); z-index: 9998; flex-direction: column; padding: 12px 0 20px; border-bottom: 3px solid #C9941A; box-shadow: 0 8px 32px rgba(0,0,0,0.6); }
+.nav-mobile a { font-size: 15px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; padding: 14px 28px; border-bottom: 1px solid rgba(255,255,255,0.07); display: block; }
+.nav-mobile a:hover, .nav-mobile a.active { color: #E8B84B; background: rgba(201,148,26,0.05); }
+.nav-mobile a.nav-mobile-cta { background: #C9941A; color: #0D1F3C !important; margin: 14px 28px 0; padding: 14px 28px; text-align: center; font-weight: 700; border-radius: 2px; }
+/* DEFINITIVE NAV OVERRIDE - FINAL */
+nav { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 9999 !important; background: rgba(13,31,60,0.97) !important; height: 68px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 40px !important; }
+.nav-links { display: flex !important; align-items: center !important; height: 68px !important; gap: 16px !important; list-style: none !important; flex-wrap: nowrap !important; }
+.nav-links li { display: flex !important; align-items: center !important; }
+.nav-links li a { display: block !important; font-size: 11px !important; font-weight: 500 !important; letter-spacing: 1px !important; text-transform: uppercase !important; color: rgba(255,255,255,0.8) !important; text-decoration: none !important; white-space: nowrap !important; }
+.nav-links li a:hover, .nav-links li a.active { color: #E8B84B !important; }
+.nav-links li a.nav-cta { background: #C9941A !important; color: #0D1F3C !important; padding: 9px 14px !important; border-radius: 2px !important; font-weight: 700 !important; }
+.nav-hamburger { display: none !important; }
+.nav-mobile { display: none !important; }
+@media screen and (max-width: 768px) {
+  nav { padding: 0 20px !important; }
+  .nav-links { display: none !important; }
+  .nav-hamburger { display: flex !important; flex-direction: column !important; justify-content: center !important; gap: 5px !important; cursor: pointer !important; padding: 8px !important; background: none !important; border: none !important; z-index: 9999 !important; flex-shrink: 0 !important; }
+}
+@media screen and (min-width: 769px) {
+  .nav-links { display: flex !important; }
+  .nav-hamburger { display: none !important; }
+  .nav-mobile { display: none !important; }
+}
+/* END DEFINITIVE NAV */
+
+/* ==RSM NAV FINAL== */
+nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(13,31,60,0.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px!important;height:68px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+.nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:14px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links li{display:flex!important;align-items:center!important;}
+.nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
+.nav-links li a.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 14px!important;border-radius:2px!important;font-weight:700!important;}
+.nav-hamburger{display:none!important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none!important;border:none!important;z-index:99999!important;flex-shrink:0;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.is-open span:nth-child(2){opacity:0;}
+.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-mobile{display:none!important;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex!important;}
+.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
+@media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
+/* ==END RSM NAV== */
+</style>
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
+  <ul class="nav-links"><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./services.html">Services</a></li><li><a href="./accountability.html">Accountability</a></li><li><a href="./courses.html" class="active">Courses</a></li><li><a href="./book.html">Book</a></li><li><a href="./speaking.html">Speaking</a></li><li><a href="./community-invite.html">Community</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./quizzes.html" style="color:#E8B84B!important;font-weight:700!important;">Free Quizzes</a></li><li><a href="./resources.html" class="nav-cta">Start Free</a></li></ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+<a href="./index.html">Home</a>
+<a href="./about.html">About</a>
+<a href="./services.html">Services</a>
+<a href="./accountability.html">Accountability</a>
+<a href="./courses.html" class="active">Courses</a>
+<a href="./book.html">Book</a>
+<a href="./speaking.html">Speaking</a>
+<a href="./community-invite.html">Community</a>
+<a href="./contact.html">Contact</a>
+<a href="./quizzes.html" style="color:#E8B84B;font-weight:700;">&#9733; Free Quizzes</a>
+<a href="./resources.html" class="nav-mobile-cta">Start Free</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-bar"></div>
+  <div class="hero-inner">
+    <div class="emblem-wrap fade-up">
+      <div class="emblem-glow"></div>
+      <img src="./crypto-emblem.png" alt="5-Day Introduction to Cryptocurrency Emblem" class="emblem-img">
+      <div class="free-badge">$99</div>
+    </div>
+    <div class="fade-up">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Right Side of Money</span>
+      </div>
+      <div class="hero-tag">5-Day Crypto Program</div>
+      <h1 class="hero-title">5-Day Introduction to Cryptocurrency</h1>
+      <div class="course-price">&#36;99</div>
+      <div class="price-note">One-time investment. Five focused days. Yours to keep.</div>
+      <p class="hero-desc">Everyone has an opinion about crypto. Very few people have been taught how it actually works, how people really lose money in it, or how to protect themselves. <strong>This program teaches you all of it, without the hype.</strong> In five days you'll understand blockchains, bitcoin, and stablecoins, know crypto's real risks and the scams behind billions in losses, learn how to buy, store, and report it correctly, and leave with your own written Crypto Investment Policy.</p>
+      <div>
+        <a href="#enroll-form" class="btn-enroll">Enroll Now for $99</a>
+        <a href="./contact.html" class="btn-secondary">Ask a Question</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-dot"></span>5-Day Introduction to Cryptocurrency</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Right Side of Money</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Darrell Thompson</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Financial Literacy. Mindset. Freedom.</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>5-Day Introduction to Cryptocurrency</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Right Side of Money</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Darrell Thompson</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Financial Literacy. Mindset. Freedom.</span>
+  </div>
+</div>
+
+<!-- WHAT YOU GET -->
+<section class="what-section">
+  <div class="what-inner">
+    <div class="what-grid">
+      <div class="what-desc fade-up">
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">What Is Inside</span></div>
+        <h2 class="sec-headline">Understand Crypto Before It Costs You Anything.</h2>
+        <p>Most people struggle financially not because they lack income but because they were never given the right foundation. <strong>Right Side of Money changes that.</strong> Every program is built from real experience, delivered with honesty, and designed to produce real results.</p>
+        <p>This isn't hype, coin picks, or promises of overnight riches. It's five focused days of honest crypto education with current 2026 facts, interactive tools, hands-on drills, and a personal report every day. In 2025, Americans reported more than $11 billion in crypto-related fraud losses to the FBI. <strong>Knowledge is the best protection there is.</strong></p>
+        <p><strong>Darrell Thompson personally designed every element of this program</strong> based on what he learned the hard way and what he has watched transform the financial lives of everyone who does the work.</p>
+        <a href="#enroll-form" class="btn-enroll" style="font-size:14px;padding:16px 36px;">Enroll Now for $99</a>
+      </div>
+      <div class="fade-up">
+        <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">What You Will Learn</span></div>
+        <h2 class="sec-headline">What You'll Be Able to Do.</h2>
+        <div class="points-grid">
+          
+        <div class="point-item">
+          <div class="point-check">&#10003;</div>
+          <div class="point-text"><strong>Explain crypto clearly:</strong> How blockchains work, why transactions are final, and how bitcoin, Ethereum, stablecoins, and meme coins really differ</div>
+        </div>
+<div class="point-item">
+          <div class="point-check">&#10003;</div>
+          <div class="point-text"><strong>See the real risk:</strong> Crypto's largest crashes, the platform failures that cost billions, and why leverage and high yields wipe people out</div>
+        </div>
+<div class="point-item">
+          <div class="point-check">&#10003;</div>
+          <div class="point-text"><strong>Size it safely:</strong> Calculate a position you could survive at an 80% loss, with your own numbers</div>
+        </div>
+<div class="point-item">
+          <div class="point-check">&#10003;</div>
+          <div class="point-text"><strong>Stop scams cold:</strong> Recognize the scams behind billions in losses, lock down your accounts, and protect your keys and recovery phrase</div>
+        </div>
+<div class="point-item">
+          <div class="point-check">&#10003;</div>
+          <div class="point-text"><strong>Buy and report it correctly:</strong> ETFs vs. exchanges vs. self-custody, platform vetting, hidden fees, and 2026 crypto tax rules including Form 1099-DA</div>
+        </div>
+<div class="point-item">
+          <div class="point-check">&#10003;</div>
+          <div class="point-text"><strong>Write your own rules:</strong> A printable twelve-part Crypto Investment Policy that makes your decisions when emotions run high</div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.adv-curr{background:var(--navy);padding:100px 40px;position:relative;overflow:hidden;}
+.adv-curr-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+.adv-curr .sec-headline{color:#fff;}
+.adv-curr-lead{font-size:16px;line-height:1.8;color:rgba(255,255,255,0.7);max-width:760px;margin-bottom:44px;font-weight:300;}
+.adv-mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;}
+.adv-mod{background:rgba(255,255,255,0.04);border:1px solid rgba(201,148,26,0.25);border-top:3px solid var(--gold);border-radius:4px;padding:26px 24px;}
+.adv-mod-num{font-family:var(--font-impact);letter-spacing:2px;color:var(--gold);font-size:15px;}
+.adv-mod h3{font-family:var(--font-display);color:#fff;font-size:21px;line-height:1.25;margin:6px 0 14px;}
+.adv-mod ul{list-style:none;margin:0;padding:0;}
+.adv-mod li{font-size:14px;color:rgba(255,255,255,0.72);padding:6px 0 6px 22px;position:relative;line-height:1.5;border-bottom:1px solid rgba(255,255,255,0.06);}
+.adv-mod li::before{content:'\2713';position:absolute;left:0;color:var(--gold-light);font-weight:700;}
+.adv-mod li.adv-assess{color:var(--gold-light);font-weight:500;}
+.adv-mod li.adv-assess::before{content:'\2605';}
+.adv-inc{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.adv-inc div{background:var(--gold);color:var(--navy);padding:20px;border-radius:2px;font-size:14px;line-height:1.5;}
+.adv-inc strong{display:block;font-family:var(--font-display);font-size:18px;margin-bottom:4px;}
+.adv-form{background:#fff;border-radius:6px;padding:36px 32px;text-align:left;box-shadow:0 18px 48px rgba(13,31,60,0.25);margin-top:10px;}
+.adv-form label{display:block;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(13,31,60,0.75);margin-bottom:6px;}
+.adv-form input[type=text],.adv-form input[type=email],.adv-form input[type=tel],.adv-form select,.adv-form textarea{width:100%;padding:13px 15px;border:2px solid #d0cfc8;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:15px;color:#1a1a1a;background:#fff;transition:border-color 0.2s;}
+.adv-form textarea{min-height:88px;resize:vertical;line-height:1.5;}
+.adv-form input:focus,.adv-form select:focus,.adv-form textarea:focus{outline:none;border-color:#C9941A;}
+.adv-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.adv-field{margin-bottom:16px;}
+.adv-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#444;line-height:1.5;margin:6px 0 18px;}
+.adv-check input{margin-top:3px;width:18px;height:18px;flex-shrink:0;accent-color:#0D1F3C;}
+.adv-submit{width:100%;background:#0D1F3C;color:#fff;border:none;border-radius:4px;padding:18px 24px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.adv-submit:hover{background:#C9941A;color:#0D1F3C;}
+.adv-note{font-size:12px;color:rgba(13,31,60,0.55);text-align:center;margin-top:10px;}
+.adv-err{color:#9b2226;font-weight:600;font-size:14px;margin-top:10px;text-align:center;}
+@media (max-width:768px){.adv-curr{padding:70px 24px;}.adv-row{grid-template-columns:1fr;}.adv-form{padding:26px 18px;}}
+</style>
+<style>
+.adv-mods{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+.inc-sec{background:#fff;padding:100px 40px;}
+.inc-inner{max-width:1100px;margin:0 auto;}
+.inc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:36px;}
+.inc-item{display:flex;gap:16px;align-items:flex-start;background:var(--cream);border-radius:4px;padding:22px 20px;border-top:3px solid var(--gold);}
+.inc-n{font-family:var(--font-display);font-size:40px;line-height:1;color:var(--gold);font-weight:700;min-width:52px;}
+.inc-item strong{display:block;color:var(--navy);font-size:16px;margin-bottom:6px;}
+.inc-item span{font-size:14px;line-height:1.55;color:#444;}
+.inc-h{font-family:var(--font-display);color:var(--navy);font-size:28px;margin:60px 0 18px;}
+.inc-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.inc-t{width:100%;border-collapse:collapse;font-size:15px;min-width:640px;}
+.inc-t th{background:var(--navy);color:var(--gold-light);text-align:left;padding:14px 16px;font-weight:600;}
+.inc-t th:last-child{background:var(--gold);color:var(--navy);}
+.inc-t td{padding:14px 16px;border-bottom:1px solid #eee;vertical-align:top;color:#555;line-height:1.5;}
+.inc-t td:first-child{font-weight:700;color:var(--navy);width:22%;}
+.inc-t td:last-child{background:#FBF7EE;color:var(--navy);}
+.inc-src{font-size:13px;color:#777;margin-top:14px;}
+@media(max-width:1000px){.adv-mods{grid-template-columns:repeat(2,minmax(0,1fr))!important;}.inc-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:700px){.adv-mods{grid-template-columns:minmax(0,1fr)!important;}.inc-sec{padding:70px 24px;}.inc-grid{grid-template-columns:minmax(0,1fr);}}
+</style>
+<section class="adv-curr" id="how">
+  <div class="adv-curr-inner">
+    <div class="eyebrow fade-up"><div class="eyebrow-line"></div><span class="eyebrow-text">Your 5 Days</span></div>
+    <h2 class="sec-headline fade-up">Five Days. Twenty Lessons. One Crypto Investment Policy That's Yours.</h2>
+    <p class="adv-curr-lead fade-up">Each day includes four focused lessons with real cases and current facts, interactive tools, a hands-on Action Exercise, and a Knowledge Check with an 80% pass standard. Every day ends with a personal report delivered to you and to Darrell.</p>
+    <div class="adv-mods">
+      <div class="adv-mod fade-up"><div class="adv-mod-num">DAY 1</div><h3>Understand What Crypto Really Is</h3><ul><li>Money, Trust, and Why Crypto Exists</li><li>How a Blockchain Actually Works</li><li>Bitcoin, Ethereum, Stablecoins, and Everything Else</li><li>What Gives Crypto Value, and What Doesn't</li><li class="adv-assess">Exercise: My Crypto Reality Check</li><li class="adv-assess">Personal Report</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">DAY 2</div><h3>Risk, Volatility, and the Real History</h3><ul><li>Volatility Like You've Never Seen</li><li>When Platforms Fail</li><li>Leverage, Yield, and Fast Losses</li><li>How Much Is Too Much: Position Sizing</li><li class="adv-assess">Exercise: My Risk Limits</li><li class="adv-assess">Personal Report</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">DAY 3</div><h3>Scams, Security, and Self-Defense</h3><ul><li>The Scam Landscape</li><li>Locking Down Your Accounts</li><li>Wallets, Keys, and Your Recovery Phrase</li><li>Sending, Receiving, and Verifying</li><li class="adv-assess">Drill: Scam Detector and Address Check</li><li class="adv-assess">Personal Report</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">DAY 4</div><h3>How to Buy, Hold, and Pay Taxes the Right Way</h3><ul><li>The Ways to Own Crypto, Compared</li><li>How to Vet a Crypto Platform</li><li>Orders, Fees, and Your First Purchase</li><li>Crypto Taxes: What the IRS Expects</li><li class="adv-assess">Exercise: My Platform and Buying Plan</li><li class="adv-assess">Personal Report</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">DAY 5</div><h3>Build Your Crypto Investment Policy</h3><ul><li>A Strategy That Survives Every Cycle</li><li>How to Research Any Coin</li><li>Regulation and the Road Ahead</li><li>Your Crypto Investment Policy</li><li class="adv-assess">Final Exercise: My Written Policy</li><li class="adv-assess">Personal Report</li></ul></div>
+      <div class="adv-mod fade-up"><div class="adv-mod-num">COMPLETION</div><h3>Crypto Fundamentals Certified</h3><ul><li class="adv-assess">25-Question Certification Exam</li><li>Your before-and-after growth measurement</li><li>Your complete crypto investor profile</li><li class="adv-assess">Certificate of Completion</li></ul></div>
+    </div>
+    <p class="adv-curr-lead fade-up" style="margin:40px 0 0;font-size:13px;">Financial education only. Not investment, tax, or legal advice, and no cryptocurrency or security is recommended. Crypto assets are highly volatile, aren't FDIC insured or SIPC protected when held directly, and can lose all of their value. All examples are hypothetical or historical.</p>
+  </div>
+</section>
+
+<section class="inc-sec" id="included">
+  <div class="inc-inner">
+    <div class="eyebrow fade-up"><div class="eyebrow-line"></div><span class="eyebrow-text">Everything Included</span></div>
+    <h2 class="sec-headline fade-up">What $99 Gets You</h2>
+    <div class="inc-grid">
+      <div class="inc-item fade-up"><div class="inc-n">20</div><div><strong>Lessons</strong><span>Blockchains, bitcoin, stablecoins, crashes, platform failures, leverage, scams, security, wallets, buying, fees, taxes, research, regulation, and strategy.</span></div></div>
+      <div class="inc-item fade-up"><div class="inc-n">7</div><div><strong>Interactive tools</strong><span>A live hash demo, drawdown and recovery math, position sizing, dollar-cost averaging, platform cost comparison, a 2026 tax estimator, and a coin research scorecard.</span></div></div>
+      <div class="inc-item fade-up"><div class="inc-n">4</div><div><strong>Hands-on drills</strong><span>Evaluate five real-world style offers, vet four platforms, judge eight scam messages, and verify wallet addresses character by character.</span></div></div>
+      <div class="inc-item fade-up"><div class="inc-n">6</div><div><strong>Personal reports</strong><span>Your crypto mindset, risk limits, Security Score, buying and tax plan, printable policy, and certification results, emailed to you and to Darrell.</span></div></div>
+      <div class="inc-item fade-up"><div class="inc-n">97</div><div><strong>Scenario questions</strong><span>Daily drills and Knowledge Checks with an 80% standard, plus a 25-question certification exam, with an explanation for every answer.</span></div></div>
+      <div class="inc-item fade-up"><div class="inc-n">1</div><div><strong>Written Crypto Investment Policy</strong><span>Twelve parts, stress-tested against an 80% crash, ready to print and follow for life.</span></div></div>
+    </div>
+    <h3 class="inc-h fade-up">How This Program Compares</h3>
+    <div class="inc-tw fade-up"><table class="inc-t"><thead><tr><th></th><th>Typical Crypto Course or Video Series</th><th>RSM 5-Day Crypto Program</th></tr></thead><tbody>
+      <tr><td>Goal</td><td>Get you excited to buy</td><td><strong>Make you impossible to fool, whether you buy or not</strong></td></tr>
+      <tr><td>Coin picks</td><td>Often the main selling point</td><td><strong>None. You learn to research any coin yourself</strong></td></tr>
+      <tr><td>Risk coverage</td><td>A disclaimer at the end</td><td><strong>A full day on crashes, platform failures, leverage, and position sizing</strong></td></tr>
+      <tr><td>Scams and security</td><td>A few tips</td><td><strong>A full day, with a scam detector drill and a personal Security Score</strong></td></tr>
+      <tr><td>Taxes</td><td>Rarely covered</td><td><strong>2026 brackets, Form 1099-DA, and a tax estimator</strong></td></tr>
+      <tr><td>Your work</td><td>Watch and forget</td><td><strong>Exercises, drills, and an 80% standard every day</strong></td></tr>
+      <tr><td>What you keep</td><td>Your notes</td><td><strong>Six personal reports, a written Crypto Investment Policy, and a certificate</strong></td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+
+<!-- DARRELL -->
+<section class="darrell-section">
+  <div class="darrell-inner">
+    <div class="fade-up">
+      <img src="./darrell-headshot.jpg" alt="Darrell Thompson" class="darrell-photo">
+    </div>
+    <div class="darrell-text fade-up">
+      <div class="eyebrow" style="margin-bottom:16px;"><div class="eyebrow-line"></div><span class="eyebrow-text" style="color:var(--gold);">Your Instructor</span></div>
+      <h2 class="sec-headline light" style="margin-bottom:20px;">Darrell Thompson</h2>
+      <p>Darrell is a retired United States Marine, the founder of Right Side of Money, a College Adjunct Professor, a California licensed real estate professional, a licensed insurance producer, and the author of <strong>Creating A Wealth Building Mindset, 2nd Edition.</strong></p>
+      <p>He does not teach theory. He teaches what he has personally lived, built, invested in, and proven in the real world. Everything in this program comes from a life spent learning and applying financial truth the hard way and then dedicating himself to making sure nobody else has to go through it without the right foundation.</p>
+      <p><strong>When Darrell teaches it, he has lived it. That is the difference.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ENROLL CTA -->
+<div class="enroll-section" id="enroll-form">
+  <div class="enroll-inner">
+    <h2 class="enroll-headline">Ready to Learn Crypto the Right Way?</h2>
+    <p class="enroll-sub">Complete your enrollment below. You'll be directed to a secure payment page to complete your $99 enrollment. Once payment is confirmed, Darrell will send your program access within 24 hours.</p>
+    <div id="enrollFormWrap">
+      <form id="enrollForm" class="adv-form" action="https://formspree.io/f/xbglwylz" method="POST" novalidate>
+        <input type="hidden" name="course" value="5-Day Introduction to Cryptocurrency - $99" />
+        <input type="hidden" name="_subject" value="New Enrollment: 5-Day Introduction to Cryptocurrency ($99)" />
+        <div class="adv-row">
+          <div class="adv-field"><label for="advFirst">First Name</label><input type="text" id="advFirst" name="first_name" required autocomplete="given-name" /></div>
+          <div class="adv-field"><label for="advLast">Last Name</label><input type="text" id="advLast" name="last_name" required autocomplete="family-name" /></div>
+        </div>
+        <div class="adv-row">
+          <div class="adv-field"><label for="advEmail">Email Address</label><input type="email" id="advEmail" name="email" required autocomplete="email" /></div>
+          <div class="adv-field"><label for="advPhone">Phone Number</label><input type="tel" id="advPhone" name="phone" required autocomplete="tel" /></div>
+        </div>
+        <div class="adv-row">
+          <div class="adv-field"><label for="advCity">City and State</label><input type="text" id="advCity" name="city_state" required autocomplete="address-level2" /></div>
+          <div class="adv-field"><label for="advPrior">Your Crypto Experience</label><select id="advPrior" name="rsm_experience" required><option value="">Choose one</option><option>I've never owned crypto</option><option>I own a little crypto but don't fully understand it</option><option>I own crypto and want to protect it better</option><option>I've lost money in crypto before</option><option>I'm here to protect my family from crypto scams</option></select></div>
+        </div>
+        <div class="adv-field"><label for="advGoal">What do you want to understand or be able to do after this program?</label><textarea id="advGoal" name="goal_90_days" required></textarea></div>
+        <div class="adv-field"><label for="advObstacle">What concerns you most about crypto right now?</label><textarea id="advObstacle" name="biggest_obstacle" required></textarea></div>
+        <div class="adv-field"><label for="advWhy">Why is now the right time for you to learn?</label><textarea id="advWhy" name="why_now" required></textarea></div>
+        <div class="adv-row">
+          <div class="adv-field"><label for="advTime">When you plan to complete the program</label><select id="advTime" name="weekly_time" required><option value="">Choose one</option><option>Five days in a row</option><option>Over one week</option><option>Over two weeks</option></select></div>
+          <div class="adv-field"><label for="advPay">Payment preference</label><select id="advPay" name="payment_preference" required><option value="">Choose one</option><option>Pay in full ($99)</option></select></div>
+        </div>
+        <div class="adv-field"><label for="advRef">How did you hear about this program?</label><select id="advRef" name="referral_source" required><option value="">Choose one</option><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>YouTube</option><option>RSM Wealth Builders community</option><option>Creating A Wealth Building Mindset, 2nd Edition</option><option>A speaking event</option><option>Referred by a friend or family member</option><option>Email from Darrell</option><option>Other</option></select></div>
+        <label class="adv-check" style="text-transform:none;letter-spacing:0;font-weight:400;"><input type="checkbox" name="commitment" value="Agreed" required /><span>I commit to completing every lesson, exercise, and knowledge check in order. I understand this program is financial education, isn't individualized investment, tax, or legal advice, and doesn't recommend any cryptocurrency or security.</span></label>
+        <button type="submit" class="adv-submit">Submit and Proceed to Payment</button>
+        <p class="adv-note">Your information is kept private and never sold.</p>
+        <div class="adv-err" id="advErr"></div>
+      </form>
+    </div>
+    <div id="enrollConfirm" class="adv-form" style="display:none;text-align:center;">
+      <div style="font-size:2.5rem;color:#C9941A;margin-bottom:0.5rem;">&#10003;</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#0D1F3C;margin-bottom:0.75rem;">You're almost in!</h3>
+      <p style="font-size:1rem;color:rgba(13,31,60,0.75);margin-bottom:1.5rem;line-height:1.6;">Your enrollment has been received. Click below to complete your $99 payment and lock in your spot.</p>
+      <a href="https://pay.bluevine.com/p/f3ecc3423ef34c3dae2473321531a832" target="_blank" rel="noopener" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:4px;">Complete Payment: $99 &#8594;</a>
+      <p id="planNote" style="display:none;font-size:0.9rem;color:#0D1F3C;margin-top:1.2rem;line-height:1.6;"><strong>You asked about a payment plan.</strong> Darrell will reach out within 24 hours to set it up with you. You don't need to pay in full right now.</p>
+      <p style="font-size:0.8rem;color:rgba(13,31,60,0.5);margin-top:1rem;">Secure payment powered by BlueVine. Once payment is confirmed, Darrell will send your program access within 24 hours.</p>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('enrollForm'); if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = document.getElementById('advErr'); err.textContent = '';
+    var bad = [];
+    form.querySelectorAll('[required]').forEach(function(el){
+      var ok = el.type === 'checkbox' ? el.checked : el.value.trim() !== '';
+      if (el.type === 'email' && ok) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      el.style.borderColor = ok ? '' : '#9b2226';
+      if (!ok) bad.push(el);
+    });
+    if (bad.length){ err.textContent = 'Please complete every field' + (bad.some(function(b){ return b.type === 'checkbox'; }) ? ' and check the commitment box' : '') + '.'; bad[0].focus(); return; }
+    var btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Submitting...'; btn.disabled = true;
+    var fd = new FormData(form);
+    fd.append('_replyto', document.getElementById('advEmail').value.trim());
+    fetch(form.action, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(res){
+      if (!res.ok) throw new Error('bad');
+      document.getElementById('enrollFormWrap').style.display = 'none';
+      document.getElementById('enrollConfirm').style.display = 'block';
+      if (document.getElementById('advPay').value.indexOf('payment plan') > -1) document.getElementById('planNote').style.display = 'block';
+      document.getElementById('enroll-form').scrollIntoView({behavior: 'smooth'});
+    }).catch(function(){
+      btn.textContent = 'Submit and Proceed to Payment'; btn.disabled = false;
+      err.textContent = 'Something went wrong. Please try again or email info@rightsideofmoney.com.';
+    });
+  });
+})();
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">RIGHT SIDE OF <span>MONEY</span></div>
+    <div class="footer-contact">
+      Darrell Thompson &nbsp;|&nbsp; (951) 223-5716 &nbsp;|&nbsp;
+      <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a>
+    </div>
+    <div class="footer-copy">&#169; 2026 Right Side of Money. All Rights Reserved.</div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+(function(){
+  var btn=document.getElementById("navHamburger");
+  var menu=document.getElementById("navMobile");
+  if(!btn||!menu)return;
+  function open(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function close(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  close();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?close():open();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){close();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){close();});});
+  if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
+})();
+</script>
+
+</body>
+</html>
