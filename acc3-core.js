@@ -5,7 +5,7 @@
   var KEY = 'rsm_acc3_v1';
   var FORM = 'https://formspree.io/f/xrpbgjbb';
   var KIT = '9981618';
-  var SITE = 'https://dtrsm1990.github.io/rightsideofmoney/';
+  var SITE = 'https://rightsideofmoney.com/';
   var SALT = 'RSM|ACC3|Total|2026';
   var DAY = 86400000, GRACE = 2 * DAY, NCP = 4, CYCLE = 28, PH = [[1, 2], [3, 6], [7, 10], [11, 14]], PN = ['Foundation', 'Module 1', 'Module 2', 'Module 3'], NW = 14;
   function PS(n){ return PH[n - 1][0]; } function PE(n){ return PH[n - 1][1]; }

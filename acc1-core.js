@@ -5,7 +5,7 @@
   var KEY = 'rsm_acc1_v1';
   var FORM = 'https://formspree.io/f/xrpbgjbb';
   var KIT = '9981618';
-  var SITE = 'https://dtrsm1990.github.io/rightsideofmoney/';
+  var SITE = 'https://rightsideofmoney.com/';
   var SALT = 'RSM|ACC1|Semper|2026';
   var DAY = 86400000, GRACE = 2 * DAY;
   var PROGRAM = 'RSM Accountability Program, Level 1';
