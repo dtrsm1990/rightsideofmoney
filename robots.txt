@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /enroll.html
+Disallow: /roster.html
+
+Sitemap: https://rightsideofmoney.com/sitemap.xml

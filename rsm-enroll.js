@@ -3,7 +3,7 @@
 (function(){
   var SALT = 'RSM|Enroll|Courses|2026';
   var GIFT_END = new Date('2026-10-15T00:00:00-07:00').getTime();
-  var SITE = 'https://dtrsm1990.github.io/rightsideofmoney/';
+  var SITE = 'https://rightsideofmoney.com/';
   var COURSES = {
     c3d: {tag: 'C3D', name: '3-Day Financial Clarity Challenge', portal: 'challenge-portal.html', prefix: 'challenge-', had: 'rsm_track_c3d', gift: '3-Day Financial Clarity Challenge', sales: 'course-3day.html'},
     inv: {tag: 'INV', name: '3-Day Introduction to Investing', portal: 'inv-portal.html', prefix: 'inv-', had: 'rsminv_participant', gift: '3-Day Introduction to Investing', sales: 'course-investing.html'},
