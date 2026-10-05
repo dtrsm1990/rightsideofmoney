@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is This a Crypto Scam? Free Assessment | Right Side of Money</title>
+<meta name="description" content="Could you spot a crypto scam before it costs you? Take Darrell Thompson's free 5-minute Crypto Scam Check, get your Scam Defense Score, and download the free RSM Crypto Scam Red Flags Guide.">
+<meta property="og:title" content="Is This a Crypto Scam? Free Assessment | Right Side of Money">
+<meta property="og:description" content="Could you spot a crypto scam before it costs you? Take Darrell Thompson's free 5-minute Crypto Scam Check, get your Scam Defense Score, and download the free RSM Crypto Scam Red Flags Guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;
+  --navy-mid:#1B3A6B;
+  --gold:#C9941A;
+  --gold-light:#E8B84B;
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.6);
+  --light-bg:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-back{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:#E8B84B;}
+@media(max-width:768px){nav{padding:0 20px;}}
+
+/* HERO */
+.hero{padding:120px 40px 60px;text-align:center;background:linear-gradient(180deg,#0a1628 0%,#0D1F3C 100%);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:220px;color:rgba(201,148,26,0.03);white-space:nowrap;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;}
+.hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:2;}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.hero-title em{font-style:normal;color:#E8B84B;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:32px;}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-meta-item{text-align:center;}
+.hero-meta-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;line-height:1;}
+.hero-meta-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.btn-start{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:20px 56px;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s,transform 0.2s;}
+.btn-start:hover{background:#E8B84B;transform:translateY(-2px);}
+
+/* QUIZ CONTAINER */
+.quiz-wrap{max-width:760px;margin:0 auto;padding:100px 40px 80px;}
+
+/* PROGRESS */
+.progress-bar-wrap{margin-bottom:48px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#C9941A;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#E8B84B;}
+.progress-track{width:100%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,#C9941A,#E8B84B);border-radius:2px;transition:width 0.5s ease;}
+
+/* QUESTION CARD */
+.question-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);border-top:3px solid #C9941A;padding:40px;border-radius:2px;margin-bottom:32px;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-category{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.q-number{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,0.25);margin-bottom:8px;}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:#FFFFFF;line-height:1.4;margin-bottom:32px;}
+
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:18px 24px;border-radius:2px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:16px;text-align:left;}
+.option:hover{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.4);}
+.option.selected{background:rgba(201,148,26,0.12);border-color:#C9941A;border-width:2px;}
+.option-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.option.selected .option-dot{border-color:#C9941A;background:#C9941A;}
+.option.selected .option-dot::after{content:'';width:8px;height:8px;background:#0D1F3C;border-radius:50%;}
+.option-text{font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5;}
+.option.selected .option-text{color:#FFFFFF;font-weight:500;}
+
+/* NAV BUTTONS */
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+.btn-prev{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-prev:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+.btn-prev:disabled{opacity:0.2;cursor:not-allowed;}
+.btn-next{background:#C9941A;border:none;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:14px 36px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-next:hover:not(:disabled){background:#E8B84B;}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* RESULTS */
+.results-wrap{max-width:800px;margin:0 auto;padding:40px 40px 80px;}
+.results-hero{text-align:center;padding:60px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:40px;}
+.results-score-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.results-score{font-family:'Bebas Neue',sans-serif;font-size:96px;color:#E8B84B;line-height:1;margin-bottom:8px;}
+.results-score-max{font-size:20px;color:rgba(255,255,255,0.4);font-weight:300;}
+.results-type{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,40px);font-weight:900;color:#FFFFFF;margin:16px 0 12px;}
+.results-type em{font-style:normal;color:#E8B84B;}
+.results-tagline{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:560px;margin:0 auto 32px;}
+
+/* SCORE BAR */
+.score-visual{max-width:500px;margin:0 auto 32px;}
+.score-bar-track{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin-bottom:12px;}
+.score-bar-fill{height:100%;border-radius:6px;transition:width 1.5s ease;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.score-markers{display:flex;justify-content:space-between;}
+.score-marker{font-size:11px;color:rgba(255,255,255,0.3);font-weight:600;}
+.score-marker.active{color:#E8B84B;}
+
+/* SECTIONS */
+.results-section{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:36px;border-radius:2px;margin-bottom:24px;}
+.results-section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:20px;}
+.results-section h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:16px;}
+.results-section p{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:12px;}
+
+/* CATEGORY BREAKDOWN */
+.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.category-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:2px;}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cat-score-track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.cat-score-fill{height:100%;border-radius:3px;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.cat-score-label{font-size:13px;color:rgba(255,255,255,0.6);}
+.cat-score-label strong{color:#E8B84B;}
+
+/* BLOCKING BELIEFS */
+.beliefs-list{list-style:none;margin-top:16px;}
+.beliefs-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.beliefs-list li:last-child{border-bottom:none;}
+.belief-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.belief-text{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.belief-text strong{color:#FFFFFF;display:block;margin-bottom:4px;}
+
+/* NEXT STEPS */
+.next-steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px;}
+.next-step{display:flex;gap:20px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:20px;border-radius:2px;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#C9941A;line-height:1;flex-shrink:0;width:40px;}
+.step-content{}
+.step-title{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:6px;}
+.step-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.step-link{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C9941A;text-decoration:none;border-bottom:1px solid rgba(201,148,26,0.4);padding-bottom:2px;}
+.step-link:hover{color:#E8B84B;border-color:#E8B84B;}
+
+/* CTA */
+.results-cta{text-align:center;padding:48px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:32px;}
+.results-cta h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.results-cta h3 em{font-style:normal;color:#E8B84B;}
+.results-cta p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:28px;line-height:1.7;}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-gold{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;transition:background 0.25s;}
+.btn-cta-gold:hover{background:#E8B84B;}
+.btn-cta-outline{display:inline-block;background:transparent;color:#C9941A;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;border:2px solid #C9941A;transition:all 0.25s;}
+.btn-cta-outline:hover{background:#C9941A;color:#0D1F3C;}
+
+.btn-retake{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto 40px;transition:all 0.25s;}
+.btn-retake:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+
+/* STATES */
+#quizSection{display:none;}
+#resultsSection{display:none;}
+#startSection{display:block;}
+
+/* MOBILE */
+@media(max-width:768px){
+  .quiz-wrap,.results-wrap{padding:40px 20px 60px;}
+  .question-card{padding:28px 20px;}
+  .category-grid{grid-template-columns:1fr;}
+  .hero{padding:100px 20px 40px;}
+  .results-hero{padding:40px 20px;}
+  .results-section{padding:24px 20px;}
+  .results-cta{padding:32px 20px;}
+}
+
+/* FADE */
+.fade-in{animation:fadeIn 0.5s ease;}
+.lead-form{margin-top:16px;}
+.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lead-form input[type=text],.lead-form input[type=email]{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.35);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;}
+.lead-form input:focus{outline:none;border-color:#E8B84B;}
+.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.5;}
+.lead-check input{margin-top:3px;accent-color:#C9941A;}
+.lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
+.gate-p{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.7;margin:-12px 0 8px;}
+.gate-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+.gate-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:14px;padding:0;}
+.gate-back:hover{color:#E8B84B;}
+
+#shareCanvas{width:100%;max-width:440px;height:auto;display:block;margin:8px auto 0;border-radius:4px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.share-section{text-align:center;}
+.intro-points{max-width:620px;margin:0 auto 36px;text-align:left;display:grid;gap:10px;}
+.intro-points div{font-size:15px;color:rgba(255,255,255,0.75);padding-left:26px;position:relative;line-height:1.6;}
+.intro-points div::before{content:'\2713';position:absolute;left:0;color:#E8B84B;font-weight:700;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <a href="./index.html" class="nav-back">&#8592; Back to Site</a>
+</nav>
+<div id="startSection">
+  <div class="hero">
+    <div class="hero-bg">SCAM CHECK</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Free Assessment by Darrell Thompson</div>
+      <h1 class="hero-title">Is This a <em>Crypto Scam?</em></h1>
+      <p class="hero-sub">Americans reported more than $11 billion in crypto-related fraud losses to the FBI in 2025. Most victims weren't careless. They were targeted by professionals. Sixteen real-life situations will show you how well you, and the people you love, would hold up.</p>
+      <div class="intro-points"><div>Your Scam Defense Score out of 100</div><div>Your result type, from Open Target to Scam Shield</div><div>Your scores in spotting scams, account security, wallet safety, and pressure habits</div><div>The free RSM Crypto Scam Red Flags Guide to print and share with your family</div></div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="hero-meta-num">16</div><div class="hero-meta-label">Questions</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">5</div><div class="hero-meta-label">Minutes</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
+      </div>
+      <button class="btn-start" onclick="startQuiz()">Check My Scam Defense &rarr;</button>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.45);">100% free. Enter your name and email at the end to unlock your full results.</p>
+    </div>
+  </div>
+</div>
+<div id="quizSection">
+  <div class="quiz-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-top"><span class="progress-label">Your Progress</span><span class="progress-count" id="progressCount">1 of 16</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:5%;"></div></div>
+    </div>
+    <div id="questionContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-prev" id="btnPrev" onclick="prevQuestion()" disabled>&#8592; Previous</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</div>
+<div id="resultsSection">
+  <div class="results-wrap">
+    <div class="results-hero" id="resultsHero"></div>
+    <div id="resultsBody"></div>
+  </div>
+</div>
+<script>
+window.QUIZ = {"title": "Is This a Crypto Scam?", "slug": "Crypto-Scam-Check", "scoreLabel": "Your Scam Defense Score", "questions": [{"cat": "Spotting Scams", "text": "A text says: \"Your exchange account is locked due to suspicious activity. Verify within 30 minutes or it will be closed,\" with a link. What do you do?", "options": [{"text": "Tap the link and log in quickly before it closes", "score": 0, "tag": "urgency"}, {"text": "Reply to the text and ask if it's real", "score": 1}, {"text": "Ignore the link and open the official app or my bookmark to check", "score": 4}, {"text": "Forward it to a friend and ask what they think", "score": 2}]}, {"cat": "Spotting Scams", "text": "Someone you met online three weeks ago, who's been kind and attentive, shows you profits from a trading platform and offers to guide you. What is this most likely?", "options": [{"text": "A lucky break. They clearly care about me", "score": 0, "tag": "trust"}, {"text": "Worth trying with a small amount first", "score": 0, "tag": "trust"}, {"text": "Worth it if they show me more proof", "score": 1, "tag": "trust"}, {"text": "A relationship investment scam. I don't send money", "score": 4}]}, {"cat": "Spotting Scams", "text": "A caller says he's with the sheriff's office. There's a warrant in your name, and to avoid arrest you must deposit your savings at a crypto ATM while he stays on the line. What do you do?", "options": [{"text": "Follow his instructions so I don't get arrested", "score": 0, "tag": "urgency"}, {"text": "Deposit part of it to buy time", "score": 0, "tag": "urgency"}, {"text": "Ask for his badge number while staying on the line", "score": 1, "tag": "trust"}, {"text": "Hang up and call the agency using a number I look up myself", "score": 4}]}, {"cat": "Spotting Scams", "text": "A livestream shows a famous tech executive saying: \"Send any amount of crypto to this address and we'll send back double. Today only.\" What is it?", "options": [{"text": "A real promotion from a big company", "score": 0, "tag": "trust"}, {"text": "Worth testing with a small amount", "score": 0, "tag": "urgency"}, {"text": "Probably real if lots of people are watching", "score": 1, "tag": "trust"}, {"text": "A scam, often using a deepfake video. Nobody doubles your money", "score": 4}]}, {"cat": "Account Security", "text": "How do you handle passwords on your email and financial accounts?", "options": [{"text": "I use the same one or two passwords everywhere", "score": 0, "tag": "convenience"}, {"text": "A few variations of the same password", "score": 1, "tag": "convenience"}, {"text": "Mostly different passwords I try to remember", "score": 2}, {"text": "A unique password for every account, stored in a password manager", "score": 4}]}, {"cat": "Account Security", "text": "What protects your logins beyond the password?", "options": [{"text": "Nothing beyond the password", "score": 0, "tag": "convenience"}, {"text": "Codes sent to my email", "score": 1}, {"text": "Text-message codes", "score": 1}, {"text": "An authenticator app or a physical security key", "score": 4}]}, {"cat": "Account Security", "text": "Has your phone carrier account been locked with a port-out PIN or number lock to stop SIM swapping?", "options": [{"text": "I don't know what that is", "score": 0}, {"text": "No", "score": 1, "tag": "convenience"}, {"text": "Not yet, but I plan to", "score": 2}, {"text": "Yes", "score": 4}]}, {"cat": "Account Security", "text": "Someone from \"support\" asks for your two-factor code or your wallet's recovery words so they can fix a problem. What do you do?", "options": [{"text": "Give them what they ask for. They're support", "score": 0, "tag": "trust"}, {"text": "Give the code, but not the recovery words", "score": 1, "tag": "trust"}, {"text": "Ask them to prove who they are first", "score": 1, "tag": "trust"}, {"text": "Never share either one with anyone. Real support never asks", "score": 4}]}, {"cat": "Wallet and Sending Safety", "text": "If you have a crypto wallet, where is your recovery phrase?", "options": [{"text": "A photo on my phone or in a notes app", "score": 0, "tag": "convenience"}, {"text": "Emailed to myself or saved in the cloud", "score": 0, "tag": "convenience"}, {"text": "On paper in one place", "score": 2}, {"text": "On paper or metal in two secure places, or I don't have a wallet yet and know never to store it digitally", "score": 4}]}, {"cat": "Wallet and Sending Safety", "text": "You're sending crypto to a new address for the first time. What do you do?", "options": [{"text": "Copy it from my transaction history and send it all", "score": 0, "tag": "convenience"}, {"text": "Check the first and last few characters, then send it all", "score": 1}, {"text": "Paste it from the message they sent and send it", "score": 0}, {"text": "Confirm the network, check the full address, and send a small test first", "score": 4}]}, {"cat": "Wallet and Sending Safety", "text": "A platform shows your balance has grown a lot, but says you must pay a \"tax\" or \"unlock fee\" before you can withdraw. What do you do?", "options": [{"text": "Pay it so I can get my profits", "score": 0, "tag": "trust"}, {"text": "Pay part of it and negotiate", "score": 0, "tag": "trust"}, {"text": "Contact the platform's support for help", "score": 1}, {"text": "Stop. It's a fake platform. I report it and pay nothing", "score": 4}]}, {"cat": "Wallet and Sending Safety", "text": "After losing money to a scam, a company contacts you offering to recover it for an upfront fee. What is this?", "options": [{"text": "A real chance to get my money back", "score": 0, "tag": "trust"}, {"text": "Worth it if they have good reviews", "score": 1, "tag": "trust"}, {"text": "Fine if I only pay after they recover it", "score": 1}, {"text": "A recovery scam. I ignore it and report it", "score": 4}]}, {"cat": "Pressure Habits", "text": "When someone says you must act right now or lose money, what usually happens?", "options": [{"text": "I act quickly. I don't want to lose anything", "score": 0, "tag": "urgency"}, {"text": "It depends on who's asking", "score": 1, "tag": "trust"}, {"text": "I feel the pressure, but I try to slow down", "score": 2}, {"text": "I always pause, hang up, and verify first", "score": 4}]}, {"cat": "Pressure Habits", "text": "Before a big money decision, do you talk it through with someone you trust?", "options": [{"text": "Never. My money is my business", "score": 0, "tag": "secrecy"}, {"text": "Only after I've already decided", "score": 1, "tag": "secrecy"}, {"text": "Sometimes", "score": 2}, {"text": "Always, before I decide", "score": 4}]}, {"cat": "Pressure Habits", "text": "Do you and your family have a plan for scam calls, like a family code word or a rule to call each other before moving money?", "options": [{"text": "No, and I've never thought about it", "score": 0}, {"text": "I've thought about it, but nothing's in place", "score": 1}, {"text": "We've talked about it, but there's no real plan", "score": 2}, {"text": "Yes, we have a code word and clear rules", "score": 4}]}, {"cat": "Pressure Habits", "text": "Where does most of your crypto information come from?", "options": [{"text": "Social media, influencers, or group chats", "score": 0, "tag": "trust"}, {"text": "Friends, family, or coworkers", "score": 1}, {"text": "News articles", "score": 2}, {"text": "Regulators, official sources, or structured education", "score": 4}]}], "results": {"target": {"name": "The <em>Open Target</em>", "plain": "The Open Target", "card": "I found my blind spots before a scammer did. Now I'm closing them.", "tagline": "Right now, a professional scammer would have an easier time with you than you'd want. The good news: every gap in your answers is fixable this week.", "description": ["Your answers show several openings scammers rely on: acting under pressure, trusting the wrong signals, and security gaps that make accounts easy to take over. This isn't about intelligence. Crypto scams are run by organized professionals who do this all day, and they cost Americans more than $11 billion in 2025.", "Start with your free Red Flags Guide today. Set up the security checklist, put the Three Refrigerator Rules where you'll see them, and agree on a family code word. Those steps alone close most of the doors scammers use."], "watch": [{"icon": "\ud83d\udea8", "title": "Acting before verifying", "text": "Every major scam depends on you moving money before you check. The 10-Minute Rule stops almost all of them."}, {"icon": "\ud83d\udd13", "title": "Easy account takeover", "text": "Reused passwords and text codes are how most crypto accounts get emptied."}, {"icon": "\ud83e\udd1d", "title": "Misplaced trust", "text": "Official-sounding callers, kind strangers, and celebrity videos are the three disguises scammers use most."}], "steps": [{"t": "5-Day Introduction to Cryptocurrency", "d": "A full day on scams and security with hands-on drills, plus how crypto really works, its real risks, and your own written Crypto Investment Policy. $99.", "l": "./course-crypto.html", "lt": "See the Crypto Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}, {"t": "Book a Free Discovery Call", "d": "Talk with Darrell about where you are and the right next step for your situation.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}], "guides": [{"f": "RSM_Crypto_Scam_Red_Flags.pdf", "t": "The RSM Crypto Scam Red Flags Guide"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "trusting": {"name": "The <em>Trusting Heart</em>", "plain": "The Trusting Heart", "card": "I lead with trust. Now I verify before I act.", "tagline": "You believe people, and that's a good quality. It's also exactly the quality relationship and impersonation scams are built to use.", "description": ["Your answers show a pattern of giving trust to people who sound official, seem caring, or appear popular. The two categories of fraud that cost Americans the most, relationship investment scams and government impersonation, both work by earning trust first and asking for money second.", "You don't have to become suspicious of everyone. You just need one rule: trust, then verify, every time money is involved. Hang up and call back on a number you look up yourself, and never take investment advice from someone you haven't met in person."], "watch": [{"icon": "\ud83d\udcac", "title": "Online relationships that turn to money", "text": "Weeks of kindness followed by an investment tip is the signature of the most costly crypto scam in the country."}, {"icon": "\ud83d\udcde", "title": "Official-sounding callers", "text": "Real agencies never ask you to pay or protect money with crypto."}, {"icon": "\u2b50", "title": "Popularity as proof", "text": "Big followings, celebrity videos, and crowded livestreams can all be faked."}], "steps": [{"t": "5-Day Introduction to Cryptocurrency", "d": "A full day on scams and security with hands-on drills, plus how crypto really works, its real risks, and your own written Crypto Investment Policy. $99.", "l": "./course-crypto.html", "lt": "See the Crypto Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}, {"t": "Book a Free Discovery Call", "d": "Talk with Darrell about where you are and the right next step for your situation.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}], "guides": [{"f": "RSM_Crypto_Scam_Red_Flags.pdf", "t": "The RSM Crypto Scam Red Flags Guide"}, {"f": "RSM_5_Money_Lies.pdf", "t": "The 5 Money Lies You Were Told Growing Up"}]}, "rushed": {"name": "The <em>Quick Reactor</em>", "plain": "The Quick Reactor", "card": "Urgency used to move me. Now it's my signal to stop.", "tagline": "When someone says \"right now,\" you tend to move. Scammers manufacture urgency on purpose, because it shuts down careful thinking.", "description": ["Your answers show that pressure and deadlines push you to act before you've had a chance to notice the warning signs. Locked accounts, arrest threats, \"today only\" offers: they're all designed to get your money moving before your judgment catches up.", "Your protection is the 10-Minute Rule. No real emergency is harmed by ten minutes of checking. Hang up, close the app, verify with a number or bookmark you trust, and tell one person what's happening."], "watch": [{"icon": "\u23f1\ufe0f", "title": "Fake deadlines", "text": "\"30 minutes or your account is closed\" is a sales tactic, not a fact."}, {"icon": "\ud83d\udcf2", "title": "Links in urgent messages", "text": "Log in only from your bookmark or the official app, never from a link."}, {"icon": "\u260e\ufe0f", "title": "Staying on the line", "text": "No legitimate person keeps you on the phone while you move money."}], "steps": [{"t": "5-Day Introduction to Cryptocurrency", "d": "A full day on scams and security with hands-on drills, plus how crypto really works, its real risks, and your own written Crypto Investment Policy. $99.", "l": "./course-crypto.html", "lt": "See the Crypto Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}, {"t": "Book a Free Discovery Call", "d": "Talk with Darrell about where you are and the right next step for your situation.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}], "guides": [{"f": "RSM_Crypto_Scam_Red_Flags.pdf", "t": "The RSM Crypto Scam Red Flags Guide"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "exposed": {"name": "The <em>Unlocked Door</em>", "plain": "The Unlocked Door", "card": "I spot scams well. Now my accounts are locked down too.", "tagline": "You recognize scams better than most people. But your accounts and keys are easier to break into than they should be.", "description": ["Your answers show good instincts about scams, but gaps in account and wallet security: reused passwords, text-message codes, no carrier lock, or a recovery phrase stored digitally. You can avoid every phishing text and still lose everything to a data breach and a SIM swap.", "This is the easiest kind of risk to fix. In about 30 minutes you can set up a password manager, switch to an authenticator app, add a port-out PIN with your phone carrier, and move your recovery phrase onto paper. Your free guide has the full checklist."], "watch": [{"icon": "\ud83d\udd11", "title": "Reused passwords", "text": "One breached website can open every account where you used the same password."}, {"icon": "\ud83d\udcf1", "title": "Text-message codes", "text": "SIM swaps let criminals receive your codes. Use an authenticator app or security key."}, {"icon": "\u2601\ufe0f", "title": "Digital recovery phrases", "text": "A photo, note, or cloud copy of your phrase is one hack away from an empty wallet."}], "steps": [{"t": "5-Day Introduction to Cryptocurrency", "d": "A full day on scams and security with hands-on drills, plus how crypto really works, its real risks, and your own written Crypto Investment Policy. $99.", "l": "./course-crypto.html", "lt": "See the Crypto Course"}, {"t": "Take the Investing Readiness Quiz", "d": "Find out whether your foundation, knowledge, and mindset are ready for investing of any kind.", "l": "./investing-quiz.html", "lt": "Take the Investing Quiz"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Crypto_Scam_Red_Flags.pdf", "t": "The RSM Crypto Scam Red Flags Guide"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "aware": {"name": "The <em>Alert Learner</em>", "plain": "The Alert Learner", "card": "I can spot most crypto scams. I'm closing the last few gaps.", "tagline": "You're ahead of most people. You recognize the major scams and you have solid habits. A few gaps remain, and those are exactly where professionals look.", "description": ["Your answers show real awareness and good security habits, with a few weak spots. Scammers don't need you to fail every test. They only need one moment: a rushed decision, one reused password, or one message that looks just real enough.", "Review the areas where you scored lowest, finish the security checklist in your free guide, and share the Three Refrigerator Rules with someone you love who may be more vulnerable than you."], "watch": [{"icon": "\ud83c\udfaf", "title": "The one weak spot", "text": "Scams succeed through the single gap you haven't closed yet."}, {"icon": "\ud83d\udc75", "title": "Family members", "text": "Older relatives are targeted most. Your knowledge can protect them."}, {"icon": "\ud83d\udd04", "title": "New tricks", "text": "Deepfakes and fake support sites keep evolving. Keep your rules simple and constant."}], "steps": [{"t": "5-Day Introduction to Cryptocurrency", "d": "A full day on scams and security with hands-on drills, plus how crypto really works, its real risks, and your own written Crypto Investment Policy. $99.", "l": "./course-crypto.html", "lt": "See the Crypto Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}, {"t": "Read Creating A Wealth Building Mindset, 2nd Edition", "d": "The second edition goes deeper on the beliefs and systems behind lasting wealth, including the Family Banking System.", "l": "./book.html", "lt": "Get the Book"}], "guides": [{"f": "RSM_Crypto_Scam_Red_Flags.pdf", "t": "The RSM Crypto Scam Red Flags Guide"}, {"f": "RSM_5_Money_Lies.pdf", "t": "The 5 Money Lies You Were Told Growing Up"}]}, "shield": {"name": "The <em>Scam Shield</em>", "plain": "The Scam Shield", "card": "Scammers would have a hard time with me. Now I'm protecting my family too.", "tagline": "You recognize the scams, you verify before you act, and your accounts are locked down. You're exactly who you'd want watching out for your family.", "description": ["Your answers show strong scam awareness, solid security, and the right habits under pressure. That puts you in a strong position, and in a position to protect others. The people most likely to be targeted are often parents, grandparents, and friends who don't know what you know.", "Share your free Red Flags Guide with them this week. Help them set up the security checklist, agree on a family code word, and put the Three Refrigerator Rules on their refrigerator."], "watch": [{"icon": "\ud83e\uddd3", "title": "Vulnerable loved ones", "text": "People over 60 reported $7.7 billion in fraud losses in 2025."}, {"icon": "\ud83d\ude0c", "title": "Overconfidence", "text": "Even experts get caught when they're tired, distracted, or rushed. Keep your rules."}, {"icon": "\ud83c\udd95", "title": "Changing tactics", "text": "Scams evolve. Your principles shouldn't."}], "steps": [{"t": "5-Day Introduction to Cryptocurrency", "d": "A full day on scams and security with hands-on drills, plus how crypto really works, its real risks, and your own written Crypto Investment Policy. $99.", "l": "./course-crypto.html", "lt": "See the Crypto Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}, {"t": "Book a Free Discovery Call", "d": "Talk with Darrell about where you are and the right next step for your situation.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}], "guides": [{"f": "RSM_Crypto_Scam_Red_Flags.pdf", "t": "The RSM Crypto Scam Red Flags Guide"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}}, "focus": {"Spotting Scams": "Learn the seven red flags and the scams behind billions in losses, so you recognize them in seconds.", "Account Security": "Set up a password manager, an authenticator app, and a carrier PIN. It takes about 30 minutes.", "Wallet and Sending Safety": "Keep your recovery phrase offline, verify every address, and never pay to withdraw your own money.", "Pressure Habits": "Use the 10-Minute Rule, talk big decisions through with someone you trust, and set up a family code word."}, "ctaTitle": "Protect Your Money. <em>Protect Your Family.</em>", "ctaText": "Your result is the starting line. The 5-Day Introduction to Cryptocurrency gives you a full day of hands-on scam and security training, plus everything else you need to know about crypto.", "otherQuiz": {"t": "Take the Investing Readiness Quiz", "l": "./investing-quiz.html"}, "disclaimer": "This assessment is for educational purposes only and isn't investment, tax, or legal advice. Fraud figures are from the FBI Internet Crime Complaint Center 2025 report."};
+window.QUIZ.classify = function(pct, cp, tags){
+  if (pct < 50) return 'target';
+  var tr = tags.trust || 0, ur = tags.urgency || 0;
+  if (tr >= 2 && tr >= ur) return 'trusting';
+  if (ur >= 2) return 'rushed';
+  if (cp['Account Security'] < 60 || cp['Wallet and Sending Safety'] < 60) return 'exposed';
+  if (pct < 85) return 'aware';
+  return 'shield';
+};
+</script>
+<script>
+/* RSM results gate: name and email required before results are shown */
+(function(){
+  var T0 = Date.now();
+  function el(id){ return document.getElementById(id); }
+  window.rsmGate = function(onDone, onBack){
+    var nav = document.querySelector('.quiz-nav');
+    if (nav) nav.style.display = 'none';
+    if (el('progressCount')) el('progressCount').textContent = 'Complete';
+    if (el('progressFill')) el('progressFill').style.width = '100%';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('rsm_lead') || '{}') || {}; } catch(e){ saved = {}; }
+    el('questionContainer').innerHTML =
+      '<div class="question-card gate-card">' +
+      '<div class="q-category">You\'re Done. Your Results Are Ready.</div>' +
+      '<div class="q-text">Unlock Your Full Results</div>' +
+      '<p class="gate-p">Enter your first name and email to see your score, your personal breakdown, and the free guides matched to your result. Darrell receives every result so he can share resources that fit where you are.</p>' +
+      '<form id="gateForm" class="lead-form" novalidate>' +
+      '<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="gateCo" name="company" tabindex="-1" autocomplete="off" /></label></div>' +
+      '<div class="lead-row"><input type="text" id="gateName" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" placeholder="Email address" autocomplete="email" /></div>' +
+      '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+      '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Results &rarr;</button>' +
+      '<p class="lead-msg" id="gateMsg"></p>' +
+      '<p class="gate-note">Your information stays private. No spam, ever.</p>' +
+      '<button type="button" class="gate-back" id="gateBack">&#8592; Back to the last question</button>' +
+      '</form></div>';
+    if (saved.name) el('gateName').value = saved.name;
+    if (saved.email) el('gateEmail').value = saved.email;
+    window.scrollTo(0, 0);
+    el('gateBack').addEventListener('click', function(){
+      if (nav) nav.style.display = '';
+      onBack();
+    });
+    el('gateForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = el('gateName').value.trim(), em = el('gateEmail').value.trim();
+      if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+        el('gateMsg').textContent = 'Please enter your first name and a valid email to see your results.';
+        return;
+      }
+      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked,
+        bot: !!el('gateCo').value || (Date.now() - T0) < 10000};
+      try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
+      if (nav) nav.style.display = '';
+      onDone(lead);
+    });
+  };
+  window.rsmPost = function(url, fd){
+    try { fetch(url, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+/* RSM email + list delivery: EmailJS sends results to the participant (Bcc Darrell); Kit adds opted-in people to the list */
+(function(){
+  var EJ = {service: 'service_65dy311', template: 'template_k1l3ysk', key: 'gkDCipr-1PUVhTb5X'};
+  var KIT_FORM = '9981618';
+  var SITE = 'https://dtrsm1990.github.io/rightsideofmoney/';
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function abs(u){ return /^https?:/.test(u) ? u : SITE + String(u).replace(/^\.\//, ''); }
+  window.rsmResultEmail = function(o){
+    if (EJ.template.indexOf('__') === 0 || EJ.key.indexOf('__') === 0) return;
+    var breakdown = '<ul>' + o.breakdown.map(function(b){ return '<li><strong>' + esc(b[0]) + ':</strong> ' + b[1] + '%</li>'; }).join('') + '</ul>';
+    var steps = '<ol>' + o.steps.map(function(s){ return '<li><strong>' + esc(s.t) + '</strong><br>' + esc(s.d) + '<br><a href="' + abs(s.l) + '">' + esc(s.lt || 'Learn more') + '</a></li>'; }).join('') + '</ol>';
+    var guides = '<ul>' + o.guides.map(function(g){ return '<li><a href="' + abs(g.f) + '">' + esc(g.t) + '</a></li>'; }).join('') + '</ul>';
+    var body = JSON.stringify({service_id: EJ.service, template_id: EJ.template, user_id: EJ.key, template_params: {
+      to_name: o.name, to_email: o.email, quiz: o.quiz, result: o.result, score: o.score, tagline: o.tagline,
+      breakdown: breakdown, next_steps: steps, guides: guides}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+  window.rsmKit = function(name, email){
+    var fd = new FormData();
+    fd.append('email_address', email); fd.append('fields[first_name]', name);
+    try { fetch('https://app.kit.com/forms/' + KIT_FORM + '/subscriptions', {method: 'POST', body: fd, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+
+(function(){
+'use strict';
+var Q = window.QUIZ, questions = Q.questions, answers = questions.map(function(){ return null; }), cur = 0, result = null;
+var FORM = 'https://formspree.io/f/mvkglqlj';
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+var cats = []; questions.forEach(function(q){ if (cats.indexOf(q.cat) < 0) cats.push(q.cat); });
+
+window.startQuiz = function(){ $('startSection').style.display = 'none'; $('quizSection').style.display = 'block'; window.scrollTo(0, 0); render(); };
+function render(){
+  var q = questions[cur];
+  var h = '<div class="question-card"><div class="q-category">' + esc(q.cat) + '</div><div class="q-number">Question ' + (cur + 1) + ' of ' + questions.length + '</div><div class="q-text">' + esc(q.text) + '</div><div class="options">';
+  q.options.forEach(function(o, i){ h += '<div class="option' + (answers[cur] === i ? ' selected' : '') + '" onclick="selectOption(' + i + ')" role="button" tabindex="0"><div class="option-dot"></div><div class="option-text">' + esc(o.text) + '</div></div>'; });
+  $('questionContainer').innerHTML = h + '</div></div>';
+  $('progressCount').textContent = (cur + 1) + ' of ' + questions.length;
+  $('progressFill').style.width = Math.round((cur + 1) / questions.length * 100) + '%';
+  $('btnPrev').disabled = cur === 0;
+  $('btnNext').disabled = answers[cur] === null;
+  $('btnNext').innerHTML = cur === questions.length - 1 ? 'See My Results &rarr;' : 'Next &rarr;';
+}
+window.selectOption = function(i){ answers[cur] = i; render(); };
+window.nextQuestion = function(){ if (answers[cur] === null) return; if (cur < questions.length - 1){ cur++; render(); window.scrollTo(0, 0); } else rsmGate(function(lead){ show(lead); }, function(){ render(); }); };
+window.prevQuestion = function(){ if (cur > 0){ cur--; render(); } };
+window.retakeQuiz = function(){ answers = questions.map(function(){ return null; }); cur = 0; $('resultsSection').style.display = 'none'; $('startSection').style.display = 'block'; window.scrollTo(0, 0); };
+
+function show(lead){
+  var total = 0, max = 0, cs = {}, cm = {}, tags = {};
+  cats.forEach(function(c){ cs[c] = 0; cm[c] = 0; });
+  questions.forEach(function(q, i){ var o = q.options[answers[i]]; total += o.score; max += 4; cs[q.cat] += o.score; cm[q.cat] += 4; if (o.tag) tags[o.tag] = (tags[o.tag] || 0) + 1; });
+  var pct = Math.round(total / max * 100), cp = {};
+  cats.forEach(function(c){ cp[c] = Math.round(cs[c] / cm[c] * 100); });
+  var key = Q.classify(pct, cp, tags), R = Q.results[key];
+  result = {key: key, R: R, pct: pct, cp: cp, tags: tags};
+  $('quizSection').style.display = 'none'; $('resultsSection').style.display = 'block'; window.scrollTo(0, 0);
+
+  var h = '<div class="results-score-label">' + esc(Q.scoreLabel) + '</div><div class="results-score">' + pct + '<span class="results-score-max">/100</span></div>';
+  h += '<div class="score-visual"><div class="score-bar-track"><div class="score-bar-fill" id="scoreFill" style="width:0%"></div></div></div>';
+  h += '<div class="results-type">' + R.name + '</div><p class="results-tagline">' + esc(R.tagline) + '</p>';
+  $('resultsHero').innerHTML = h;
+  setTimeout(function(){ var f = $('scoreFill'); if (f) f.style.width = pct + '%'; }, 100);
+
+  var lowest = cats.slice().sort(function(a, b){ return cp[a] - cp[b]; });
+  var b = '<div class="results-section"><div class="results-section-title">What Your Result Means</div><h3>' + esc(R.plain) + '</h3>' + R.description.map(function(p){ return '<p>' + p + '</p>'; }).join('') + '</div>';
+  b += '<div class="results-section"><div class="results-section-title">Your Breakdown</div><h3>Where You\'re Strong and Where to Focus</h3><div class="category-grid">';
+  cats.forEach(function(c){ b += '<div class="category-card"><div class="cat-name">' + esc(c) + '</div><div class="cat-score-track"><div class="cat-score-fill" style="width:' + Math.max(cp[c], 3) + '%"></div></div><div class="cat-score-label"><strong>' + cp[c] + '%</strong> ' + (cp[c] >= 75 ? 'Strength' : cp[c] >= 50 ? 'Building' : 'Focus area') + '</div></div>'; });
+  b += '</div><p style="margin-top:20px">Your biggest opportunity right now is <strong style="color:#E8B84B">' + esc(lowest[0]) + '</strong>. ' + esc(Q.focus[lowest[0]]) + '</p></div>';
+  b += '<div class="results-section"><div class="results-section-title">What to Watch For</div><h3>The Patterns Behind Your Result</h3><ul class="beliefs-list">' + R.watch.map(function(w){ return '<li><span class="belief-icon">' + w.icon + '</span><div class="belief-text"><strong>' + esc(w.title) + '</strong>' + esc(w.text) + '</div></li>'; }).join('') + '</ul></div>';
+  b += '<div class="results-section"><div class="results-section-title">Your Next Steps</div><h3>Start Here</h3><div class="next-steps">' + R.steps.map(function(s, i){ return '<div class="next-step"><div class="step-num">' + (i + 1) + '</div><div class="step-content"><div class="step-title">' + esc(s.t) + '</div><div class="step-desc">' + esc(s.d) + '</div><a class="step-link" href="' + s.l + '">' + esc(s.lt) + ' &rarr;</a></div></div>'; }).join('') + '</div></div>';
+
+  b += '<div class="results-section" id="leadBox"><div class="results-section-title">Free for Your Result Type</div><h3>Your Free Guide' + (R.guides.length > 1 ? 's' : '') + ', ' + esc(lead.name) + '</h3><p>These guides were chosen specifically for ' + esc(R.plain) + ' results. Download ' + (R.guides.length > 1 ? 'them' : 'it') + ' now and keep ' + (R.guides.length > 1 ? 'them' : 'it') + ' handy as you take your next steps.</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">' + R.guides.map(function(g){ return '<a class="btn-cta-gold" href="./' + g.f + '" target="_blank" download>Download: ' + esc(g.t) + '</a>'; }).join('') + '</div>' +
+    '<p style="margin-top:16px"><a class="step-link" href="mailto:' + encodeURIComponent(lead.email) + '?subject=' + encodeURIComponent('My ' + Q.title + ' Result: ' + R.plain) + '&body=' + encodeURIComponent('My ' + Q.title + ' result: ' + R.plain + ' (' + pct + '/100)\n\n' + R.tagline + '\n\nMy next steps:\n' + R.steps.map(function(s, i){ return (i + 1) + '. ' + s.t; }).join('\n') + '\n\nRetake or share the quiz: rightsideofmoney.com') + '">Email my results to myself</a></p></div>';
+
+  b += '<div class="results-section share-section"><div class="results-section-title">Share Your Result</div><h3>Post Your Result Card</h3><p>Share your result on Facebook, Instagram, or TikTok and challenge your friends to find theirs.</p><canvas id="shareCanvas" width="1080" height="1080"></canvas><div class="cta-buttons" style="margin-top:20px"><button type="button" class="btn-cta-gold" id="shareBtn" style="border:none;cursor:pointer">Share My Result</button><button type="button" class="btn-cta-outline" id="dlBtn" style="cursor:pointer;background:transparent">Download Image</button></div></div>';
+
+  b += '<div class="results-cta"><h3>' + Q.ctaTitle + '</h3><p>' + esc(Q.ctaText) + '</p><div class="cta-buttons"><a class="btn-cta-gold" href="' + R.steps[0].l + '">' + esc(R.steps[0].lt) + '</a><a class="btn-cta-outline" href="./discovery-intake.html">Book a Free Discovery Call</a></div></div>';
+  b += '<div style="text-align:center;margin-top:24px"><button class="btn-retake" onclick="retakeQuiz()">Retake the Quiz</button> <a class="btn-retake" style="text-decoration:none;display:inline-block;margin-left:8px" href="' + Q.otherQuiz.l + '">' + esc(Q.otherQuiz.t) + '</a></div>';
+  if (Q.disclaimer) b += '<p style="font-size:12px;color:rgba(255,255,255,0.35);text-align:center;margin-top:24px;line-height:1.6">' + esc(Q.disclaimer) + '</p>';
+  $('resultsBody').innerHTML = b;
+  drawCard(); wireShare(); sendLead(lead);
+}
+
+function sendLead(lead){
+  if (lead.bot) return;
+  var fd = new FormData();
+  fd.append('name', lead.name); fd.append('email', lead.email); fd.append('_replyto', lead.email);
+  fd.append('_subject', 'Quiz Lead | ' + Q.title + ' | ' + lead.name + ' | ' + result.R.plain);
+  fd.append('quiz', Q.title); fd.append('result', result.R.plain); fd.append('score', result.pct + '/100');
+  fd.append('breakdown', Object.keys(result.cp).map(function(c){ return c + ': ' + result.cp[c] + '%'; }).join(' | '));
+  fd.append('email_opt_in', lead.opt ? 'Yes' : 'No');
+  fd.append('answers', questions.map(function(q, i){ return (i + 1) + '. ' + q.text + ' | ' + q.options[answers[i]].text; }).join('\n'));
+  rsmPost(FORM, fd);
+  rsmResultEmail({name: lead.name, email: lead.email, quiz: Q.title, result: result.R.plain, score: result.pct + ' out of 100', tagline: result.R.tagline,
+    breakdown: Object.keys(result.cp).map(function(c){ return [c, result.cp[c]]; }), steps: result.R.steps, guides: result.R.guides});
+  if (lead.opt) rsmKit(lead.name, lead.email);
+}
+
+function wrap(ctx, text, x, y, maxW, lh){
+  var words = text.split(' '), line = '', lines = [];
+  words.forEach(function(w){ var t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line){ lines.push(line); line = w; } else line = t; });
+  if (line) lines.push(line);
+  lines.forEach(function(l, i){ ctx.fillText(l, x, y + i * lh); });
+  return lines.length;
+}
+function drawCard(){
+  var c = $('shareCanvas'), x = c.getContext('2d'), R = result.R, W = 1080;
+  var g = x.createLinearGradient(0, 0, 0, W); g.addColorStop(0, '#0a1628'); g.addColorStop(1, '#1B3A6B'); x.fillStyle = g; x.fillRect(0, 0, W, W);
+  x.strokeStyle = '#C9941A'; x.lineWidth = 14; x.strokeRect(40, 40, W - 80, W - 80);
+  x.strokeStyle = 'rgba(232,184,75,0.4)'; x.lineWidth = 3; x.strokeRect(66, 66, W - 132, W - 132);
+  x.textAlign = 'center';
+  x.fillStyle = '#E8B84B'; x.font = 'bold 34px "DM Sans", Arial, sans-serif'; x.fillText('RIGHT SIDE OF MONEY', W / 2, 160);
+  x.fillStyle = 'rgba(255,255,255,0.75)'; x.font = '600 30px "DM Sans", Arial, sans-serif'; x.fillText('MY ' + Q.title.toUpperCase() + ' RESULT', W / 2, 225);
+  x.fillStyle = '#C9941A'; x.fillRect(W / 2 - 80, 255, 160, 5);
+  x.fillStyle = '#E8B84B'; x.font = 'bold 190px "Bebas Neue", Impact, sans-serif'; x.fillText(result.pct, W / 2, 460);
+  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '32px "DM Sans", Arial, sans-serif'; x.fillText('out of 100', W / 2, 510);
+  x.fillStyle = '#FFFFFF'; x.font = 'bold 70px "Playfair Display", Georgia, serif';
+  var n = wrap(x, R.plain, W / 2, 620, 900, 82);
+  x.fillStyle = 'rgba(255,255,255,0.82)'; x.font = '34px "DM Sans", Arial, sans-serif';
+  wrap(x, R.card, W / 2, 620 + n * 82 + 40, 860, 48);
+  x.fillStyle = '#C9941A'; x.fillRect(140, 900, W - 280, 80);
+  x.fillStyle = '#0D1F3C'; x.font = 'bold 32px "DM Sans", Arial, sans-serif'; x.fillText('What\'s yours? Take the free quiz at rightsideofmoney.com', W / 2, 952, W - 320);
+}
+function wireShare(){
+  var c = $('shareCanvas'), fname = 'RSM-' + Q.slug + '-' + result.key + '.png';
+  $('dlBtn').addEventListener('click', function(){ var a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = fname; document.body.appendChild(a); a.click(); a.remove(); });
+  $('shareBtn').addEventListener('click', function(){
+    var text = 'I\'m ' + result.R.plain + ' on the Right Side of Money ' + Q.title + '. What\'s yours? Take the free quiz at rightsideofmoney.com';
+    c.toBlob(function(blob){
+      try {
+        var file = new File([blob], fname, {type: 'image/png'});
+        if (navigator.canShare && navigator.canShare({files: [file]})){ navigator.share({files: [file], text: text}).catch(function(){}); return; }
+      } catch(e){}
+      if (navigator.share){ navigator.share({text: text, url: location.href}).catch(function(){}); return; }
+      $('dlBtn').click(); alert('Your result card was downloaded. Post it to your favorite platform and tag Right Side of Money.');
+    }, 'image/png');
+  });
+}
+})();
+
+</script>
+</body>
+</html>
