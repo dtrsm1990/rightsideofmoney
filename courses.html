@@ -378,9 +378,10 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
         <div class="course-badge">Intro Program</div>
         <div class="course-title">5-Day Introduction to Cryptocurrency</div>
         <p class="course-desc">Understand crypto before it costs you anything. How blockchains work, crypto's real risks, the scams behind billions in losses, how to buy, store, and report it correctly, and your own written Crypto Investment Policy. No hype. No coin picks.</p>
-        <div class="course-price">$99</div>
+        <div class="course-price" data-founding="&lt;span style=&quot;text-decoration:line-through;text-decoration-thickness:3px;opacity:0.55;font-size:0.6em;margin-right:14px;&quot;&gt;$99&lt;/span&gt;$79">$99</div>
+        <div data-founding-show style="display:none;color:#E8B84B;font-weight:700;font-size:14px;margin:-4px 0 14px;">Founding price through Sunday, Oct 18</div>
         <a href="./course-crypto.html" class="btn-course">Learn More</a>
-        <a href="./course-crypto.html#enroll-form" class="btn-course-outline">Enroll Now for $99</a>
+        <a href="./course-crypto.html#enroll-form" class="btn-course-outline" data-founding="Enroll Now for $79">Enroll Now for $99</a>
       </div>
 
     </div>
@@ -515,5 +516,16 @@ nav{position:fixed!important;top:0!important;left:0!important;right:0!important;
 })();
 </script>
 
+<script>
+/* Founding price: $79 through Sunday, Oct 18, 2026 at 11:59 PM PT. After that the page shows $99 automatically. */
+(function(){
+  if (Date.now() >= Date.UTC(2026, 9, 19, 7, 0, 0)) return;
+  var q = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  q('[data-founding]').forEach(function(e){ e.innerHTML = e.getAttribute('data-founding'); });
+  q('[data-founding-value]').forEach(function(e){ e.value = e.getAttribute('data-founding-value'); });
+  q('[data-founding-href]').forEach(function(e){ e.href = e.getAttribute('data-founding-href'); });
+  q('[data-founding-show]').forEach(function(e){ e.style.display = ''; });
+})();
+</script>
 </body>
 </html>
