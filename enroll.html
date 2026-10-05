@@ -40,8 +40,9 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
   <select id="eProg"></select>
   <div class="row">
     <div><label for="eFirst">Student first name</label><input id="eFirst" type="text" autocomplete="off"></div>
-    <div><label for="eEmail">Student email</label><input id="eEmail" type="email" autocomplete="off"></div>
+    <div><label for="eLast">Student last name</label><input id="eLast" type="text" autocomplete="off"></div>
   </div>
+  <label for="eEmail">Student email</label><input id="eEmail" type="email" autocomplete="off">
   <label>Enrollment type</label>
   <div class="kind"><label><input type="radio" name="eKind" value="paid" checked> Paid (payment confirmed)</label><label><input type="radio" name="eKind" value="free"> Free (scholarship or guest)</label></div>
   <label for="eNotes">A personal note (optional)</label>
@@ -59,6 +60,7 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
   <p class="note">Send it from info@rightsideofmoney.com. The code only works with the email address you entered above, so a shared code won't let anyone else in.</p>
   <p class="msg" id="eCopyMsg"></p>
 </div>
+<p class="note"><a href="./roster.html" style="color:#B07A0C;font-weight:700">Open your Student Roster</a> to see everyone enrolled, applicants who haven't paid yet, and your quiz leads.</p>
 <p class="note">Checkpoint verifications for the Accountability Program are still issued in <a href="./acc1-verify.html">Level 1 Verify</a>, <a href="./acc2-verify.html">Level 2 Verify</a>, and <a href="./acc3-verify.html">Level 3 Verify</a>.</p>
 </div>
 <script src="./acc1-core.js"></script>
@@ -96,6 +98,9 @@ pre{white-space:pre-wrap;font:inherit;font-size:14px;background:#FBF7EE;border-l
     $('eCode').textContent = code; $('eSubj').textContent = 'Subject: ' + subj; $('eBody').textContent = body;
     $('eMail').href = 'mailto:' + encodeURIComponent(em) + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
     $('eOut').style.display = 'block'; m.className = 'msg ok'; m.textContent = 'Ready. Review the email below, then send it.';
+    var ln = $('eLast').value.trim(), fd = new FormData();
+    [['_subject', 'RSM Enrollment | ' + p.name + ' | ' + f + (ln ? ' ' + ln : '') + (free ? ' | FREE' : ' | PAID')], ['record_type', 'Enrollment Issued'], ['program', p.name], ['first_name', f], ['last_name', ln], ['email', em], ['enrollment_type', free ? 'Free' : 'Paid'], ['enrollment_code', code], ['issued_at', new Date().toISOString()]].forEach(function(x){ fd.append(x[0], x[1]); });
+    fetch('https://formspree.io/f/xrpbgjbb', {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(res){ if (!res.ok) throw 0; m.textContent = 'Ready, and logged to your enrollment roster. Review the email below, then send it.'; }).catch(function(){ m.className = 'msg err'; m.textContent = 'The email below is ready, but the roster log didn\'t save. Check your connection and click Create Enrollment again.'; });
     $('eOut').scrollIntoView({behavior: 'smooth'});
   });
   $('eCopy').addEventListener('click', function(){

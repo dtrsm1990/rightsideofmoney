@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Roster | Right Side of Money</title>
+<meta name="robots" content="noindex, nofollow" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',Arial,sans-serif;background:#F4F1EA;color:#1a1a1a;line-height:1.55;padding:24px 16px}
+.wrap{max-width:1180px;margin:0 auto}
+header{background:#0D1F3C;border-top:4px solid #C9941A;border-radius:4px;padding:22px 24px;margin-bottom:18px}
+header small{color:#C9941A;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:800}
+header h1{font-family:'Playfair Display',serif;color:#fff;font-size:26px;margin-top:4px}
+header p{color:rgba(255,255,255,.78);font-size:14px;margin-top:6px;max-width:760px}
+.card{background:#fff;border-radius:4px;padding:20px 22px;margin-bottom:16px;box-shadow:0 6px 18px rgba(13,31,60,.06)}
+h2{font-family:'Playfair Display',serif;color:#0D1F3C;font-size:20px;margin-bottom:8px}
+ol.how{margin:6px 0 0 20px;font-size:14px;color:#333}ol.how li{margin-bottom:4px}
+.drop{border:2px dashed #C9941A;border-radius:6px;background:#FBF7EE;padding:28px 18px;text-align:center;cursor:pointer;margin-top:14px;transition:background .2s}
+.drop.over{background:#f3e6c4}
+.drop strong{display:block;color:#0D1F3C;font-size:17px;margin-bottom:4px}
+.drop span{font-size:13px;color:#666}
+.files{font-size:13px;color:#1A6B3C;margin-top:10px;font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.tile{background:#fff;border-top:3px solid #C9941A;border-radius:4px;padding:14px 16px;box-shadow:0 6px 18px rgba(13,31,60,.06)}
+.tile .v{font-family:'Playfair Display',serif;font-size:28px;color:#0D1F3C;line-height:1.1}
+.tile .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#777;font-weight:700;margin-top:4px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.bar input,.bar select{padding:10px 12px;border:1.5px solid #d9d2c0;border-radius:4px;font:inherit;font-size:14px;background:#fff;min-width:0}
+.bar input{flex:1 1 220px}
+.btn{display:inline-block;background:#C9941A;color:#0D1F3C;border:0;font:inherit;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:11px 14px;border-radius:4px;cursor:pointer}
+.btn.ghost{background:transparent;border:2px solid #0D1F3C}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.tabs button{background:#fff;border:2px solid #0D1F3C;color:#0D1F3C;font:inherit;font-weight:700;font-size:13px;padding:9px 14px;border-radius:4px;cursor:pointer}
+.tabs button.on{background:#0D1F3C;color:#E8B84B}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+th{background:#0D1F3C;color:#E8B84B;text-align:left;padding:10px 12px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid #eee;vertical-align:top}
+tr:nth-child(even) td{background:#FBF9F4}
+.pill{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:20px;white-space:nowrap}
+.p-paid{background:#e3f1e8;color:#1A6B3C}.p-free{background:#e7eef8;color:#1d4f91}.p-active{background:#fff3d6;color:#8a5a00}.p-applied{background:#fdecec;color:#9B1C1C}
+.sub{font-size:12px;color:#777}
+.flag{font-size:12px;color:#9B1C1C;font-weight:700}
+.empty{text-align:center;color:#777;padding:30px 10px}
+.note{font-size:13px;color:#666;margin-top:10px}
+@media print{body{background:#fff;padding:0}.card.setup,.bar,.tabs,.no-print{display:none!important}table{min-width:0;font-size:11px}}
+@media(max-width:600px){header h1{font-size:22px}}
+</style>
+</head>
+<body><div class="wrap">
+<header><small>Darrell Only &middot; Do Not Share</small><h1>Student Roster</h1><p>Everyone enrolled in your courses and Accountability levels, who applied but hasn't enrolled, and every quiz lead, built from your Formspree exports. Your files are read only inside this browser. Nothing is uploaded or saved anywhere.</p></header>
+
+<div class="card setup">
+  <h2>How to Update Your Roster</h2>
+  <ol class="how">
+    <li>Log in to <strong>formspree.io</strong>. For each form, open <strong>Submissions</strong> and choose <strong>Export</strong> to download a CSV file. Export every form you want included.</li>
+    <li>Drop all of the CSV files into the box below at once, or tap the box to choose them.</li>
+    <li>Your roster appears instantly. Use <strong>Download Roster</strong> to save it as a spreadsheet, or <strong>Print</strong> to keep a copy.</li>
+  </ol>
+  <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose CSV files"><strong>Drop your Formspree CSV files here</strong><span>or tap to choose files. You can add more files anytime.</span></div>
+  <input type="file" id="file" accept=".csv,text/csv" multiple hidden>
+  <p class="files" id="files"></p>
+  <p class="note">Enrollments you create on the <a href="./enroll.html">Enroll a Student</a> page are logged automatically and show up here as Paid or Free. Students who started before that logging existed show as Active, based on their course activity.</p>
+</div>
+
+<div id="out" style="display:none">
+  <div class="tiles" id="tiles"></div>
+  <div class="tabs no-print" id="tabs"><button class="on" data-t="students">Students</button><button data-t="follow">Follow-Up</button><button data-t="leads">Quiz Leads</button></div>
+  <div class="bar">
+    <input type="search" id="q" placeholder="Search by name or email">
+    <select id="fProg"><option value="">All programs</option></select>
+    <select id="fStat"><option value="">All statuses</option><option>Enrolled (Paid)</option><option>Enrolled (Free)</option><option>Active</option><option>Applied</option></select>
+    <button class="btn" id="dl">Download Roster</button>
+    <button class="btn ghost" id="pr">Print</button>
+  </div>
+  <div class="card" style="padding:0"><div class="tw" id="tbl"></div></div>
+</div>
+</div>
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var ROWS = [], FILES = [], TAB = 'students', SORT = {k: 'last', d: -1};
+
+  /* ---------- CSV parsing (handles quotes, commas, and line breaks in answers) ---------- */
+  function parseCSV(text){
+    text = text.replace(/^﻿/, '');
+    var rows = [], row = [], f = '', q = false;
+    for (var i = 0; i < text.length; i++){
+      var c = text[i];
+      if (q){ if (c === '"'){ if (text[i + 1] === '"'){ f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true;
+      else if (c === ','){ row.push(f); f = ''; }
+      else if (c === '\n' || c === '\r'){ if (c === '\r' && text[i + 1] === '\n') i++; row.push(f); rows.push(row); row = []; f = ''; }
+      else f += c;
+    }
+    if (f !== '' || row.length){ row.push(f); rows.push(row); }
+    if (!rows.length) return [];
+    var head = rows[0].map(function(h){ return h.trim(); });
+    return rows.slice(1).filter(function(r){ return r.some(function(v){ return v.trim(); }); }).map(function(r){ var o = {}; head.forEach(function(h, j){ o[h] = (r[j] || '').trim(); }); return o; });
+  }
+  function pick(o, keys){
+    var ks = Object.keys(o);
+    for (var i = 0; i < keys.length; i++){ for (var j = 0; j < ks.length; j++){ if (ks[j].toLowerCase() === keys[i] && o[ks[j]]) return o[ks[j]]; } }
+    return '';
+  }
+  function findDate(o){
+    var ks = Object.keys(o), pref = /^(_?date|created(_at)?|submitted(_at)?|received(_at)?|timestamp|time|submission date|created at|submitted at|issued_at)$/i;
+    for (var i = 0; i < ks.length; i++) if (pref.test(ks[i]) && o[ks[i]]){ var d = new Date(o[ks[i]]); if (!isNaN(d)) return d; }
+    for (i = 0; i < ks.length; i++) if (/date|time|created|submitted|_at$/i.test(ks[i]) && !/program_start/i.test(ks[i]) && o[ks[i]]){ d = new Date(o[ks[i]]); if (!isNaN(d)) return d; }
+    return null;
+  }
+
+  /* ---------- program names ---------- */
+  var PROGS = [
+    [/level\s*3|acc l3/i, 'Accountability Level 3: Total Accountability'],
+    [/level\s*2|acc l2/i, 'Accountability Level 2: Wealth System Accountability'],
+    [/level\s*1|acc l1/i, 'Accountability Level 1: Personal Accountability'],
+    [/crypto/i, '5-Day Introduction to Cryptocurrency'],
+    [/investing/i, '3-Day Introduction to Investing'],
+    [/clarity|3-day financial|challenge-portal/i, '3-Day Financial Clarity Challenge'],
+    [/30-day|mindset and money challenge/i, '30-Day Mindset and Money Challenge'],
+    [/advance/i, 'RSM Advance Program'],
+    [/foundation/i, 'RSM MFA Foundation Course'],
+    [/understanding money|intro/i, 'Introduction to Understanding Money']
+  ];
+  function progName(s){ for (var i = 0; i < PROGS.length; i++) if (PROGS[i][0].test(s)) return PROGS[i][1]; return ''; }
+
+  /* ---------- classify each submission ---------- */
+  function ingest(o){
+    var email = (pick(o, ['email', '_replyto', 'email_address', 'to_email']) || '').toLowerCase();
+    if (!/@/.test(email)) return;
+    var first = pick(o, ['first_name', 'first']), last = pick(o, ['last_name', 'last']);
+    var name = (first || last) ? (first + ' ' + last).trim() : pick(o, ['name', 'student', 'to_name', 'full_name']);
+    var subj = pick(o, ['_subject', 'subject']), date = findDate(o);
+    var quiz = pick(o, ['quiz']);
+    if (quiz || /^quiz lead/i.test(subj)){
+      ROWS.push({kind: 'lead', email: email, name: name, quiz: quiz || subj.split('|')[1] || '', result: pick(o, ['result']), score: pick(o, ['score']), opt: pick(o, ['email_opt_in']), date: date});
+      return;
+    }
+    var progRaw = pick(o, ['program', 'course']) + ' ' + subj, prog = progName(progRaw);
+    if (!prog) return;
+    var rec = pick(o, ['record_type']), kind, label;
+    if (/enrollment issued/i.test(rec)){ kind = 'enroll'; label = (pick(o, ['enrollment_type']) || 'Paid').toLowerCase().indexOf('free') > -1 ? 'free' : 'paid'; }
+    else if (/^new (enrollment|application)/i.test(subj) || (pick(o, ['phone']) && (pick(o, ['first_name']) || pick(o, ['commitment'])))) { kind = 'apply'; label = subj || 'Application'; }
+    else { kind = 'act'; label = pick(o, ['assessment', 'week']) || subj.replace(/^(ACC L\d \| |RSM \| )/, '').split('|')[0].trim() || 'Activity'; }
+    ROWS.push({kind: kind, email: email, name: name, prog: prog, label: label, score: pick(o, ['score']), date: date});
+  }
+
+  /* ---------- build the roster ---------- */
+  function build(){
+    var S = {}, L = {};
+    ROWS.forEach(function(r){
+      if (r.kind === 'lead'){
+        var l = L[r.email] || (L[r.email] = {email: r.email, name: r.name, quizzes: [], last: null, opt: ''});
+        if (r.name && !l.name) l.name = r.name;
+        l.quizzes.push((r.quiz || '').trim() + (r.result ? ': ' + r.result : '') + (r.score ? ' (' + r.score + ')' : ''));
+        if (r.opt) l.opt = r.opt;
+        if (r.date && (!l.last || r.date > l.last)) l.last = r.date;
+        return;
+      }
+      var k = r.email + '|' + r.prog, s = S[k] || (S[k] = {email: r.email, name: '', prog: r.prog, enroll: null, enrolled: null, applied: null, acts: [], last: null, lastWhat: ''});
+      if (r.name && (!s.name || s.name.indexOf(' ') < 0)) s.name = r.name;
+      if (r.kind === 'enroll'){ s.enroll = r.label; if (r.date && (!s.enrolled || r.date < s.enrolled)) s.enrolled = r.date; }
+      else if (r.kind === 'apply'){ if (r.date && (!s.applied || r.date < s.applied)) s.applied = r.date; if (!s.applied && !r.date) s.applied = 'yes'; }
+      else { s.acts.push(r); if (r.date && (!s.last || r.date > s.last)){ s.last = r.date; s.lastWhat = r.label + (r.score ? ' (' + r.score + ')' : ''); } else if (!s.lastWhat) s.lastWhat = r.label; }
+    });
+    var students = Object.keys(S).map(function(k){
+      var s = S[k];
+      s.status = s.enroll === 'paid' ? 'Enrolled (Paid)' : s.enroll === 'free' ? 'Enrolled (Free)' : s.acts.length ? 'Active' : 'Applied';
+      s.steps = s.acts.length;
+      s.started = s.acts.reduce(function(m, a){ return a.date && (!m || a.date < m) ? a.date : m; }, null);
+      s.ref = s.last || s.enrolled || (s.applied instanceof Date ? s.applied : null);
+      return s;
+    });
+    return {students: students, leads: Object.keys(L).map(function(k){ return L[k]; })};
+  }
+
+  function d(x){ return x instanceof Date ? x.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''; }
+  function days(x){ return x instanceof Date ? Math.floor((Date.now() - x.getTime()) / 86400000) : null; }
+  function pill(s){ var c = {'Enrolled (Paid)': 'p-paid', 'Enrolled (Free)': 'p-free', 'Active': 'p-active', 'Applied': 'p-applied'}[s]; return '<span class="pill ' + c + '">' + esc(s) + '</span>'; }
+
+  var DATA = {students: [], leads: []};
+  function render(){
+    DATA = build();
+    var st = DATA.students, people = {}, paid = 0, free = 0, act = 0, app = 0;
+    st.forEach(function(s){ if (s.status !== 'Applied') people[s.email] = 1; if (s.status === 'Enrolled (Paid)') paid++; else if (s.status === 'Enrolled (Free)') free++; else if (s.status === 'Active') act++; else app++; });
+    $('tiles').innerHTML = [[Object.keys(people).length, 'Students'], [paid, 'Paid Enrollments'], [free, 'Free Enrollments'], [act, 'Active, No Enrollment Log'], [app, 'Applied, Not Enrolled'], [DATA.leads.length, 'Quiz Leads']].map(function(t){ return '<div class="tile"><div class="v">' + t[0] + '</div><div class="l">' + t[1] + '</div></div>'; }).join('');
+    var progs = {}; st.forEach(function(s){ progs[s.prog] = 1; });
+    var cur = $('fProg').value;
+    $('fProg').innerHTML = '<option value="">All programs</option>' + Object.keys(progs).sort().map(function(p){ return '<option' + (p === cur ? ' selected' : '') + '>' + esc(p) + '</option>'; }).join('');
+    $('out').style.display = 'block';
+    table();
+  }
+
+  function rowsFor(){
+    var q = $('q').value.trim().toLowerCase(), fp = $('fProg').value, fs = $('fStat').value;
+    function match(o){ return !q || (o.name || '').toLowerCase().indexOf(q) > -1 || o.email.indexOf(q) > -1; }
+    if (TAB === 'leads') return DATA.leads.filter(match);
+    var list = DATA.students.filter(function(s){ return match(s) && (!fp || s.prog === fp) && (!fs || s.status === fs); });
+    if (TAB === 'follow') list = list.filter(function(s){ return s.flag = followFlag(s); });
+    return list;
+  }
+  function followFlag(s){
+    if (s.status === 'Applied'){ var a = s.applied instanceof Date ? days(s.applied) : null; return 'Applied' + (a !== null ? ' ' + a + ' day' + (a === 1 ? '' : 's') + ' ago' : '') + ', not enrolled yet. Check for payment and follow up.'; }
+    if ((s.status.indexOf('Enrolled') === 0) && !s.steps){ var e = days(s.enrolled); return e !== null && e >= 2 ? 'Enrolled ' + e + ' days ago and hasn\'t started. Reach out.' : ''; }
+    var l = days(s.last); if (l !== null && l >= 7) return 'No activity in ' + l + ' days. Check in.';
+    return '';
+  }
+  function sortList(list){
+    var k = SORT.k, dir = SORT.d;
+    return list.slice().sort(function(a, b){
+      var x = a[k], y = b[k];
+      if (x instanceof Date || y instanceof Date){ x = x ? x.getTime() : 0; y = y ? y.getTime() : 0; }
+      else { x = (x == null ? '' : x).toString().toLowerCase(); y = (y == null ? '' : y).toString().toLowerCase(); if (k === 'steps'){ x = +a.steps; y = +b.steps; } }
+      return x < y ? -dir : x > y ? dir : 0;
+    });
+  }
+  function table(){
+    var list = sortList(rowsFor()), h;
+    if (TAB === 'leads'){
+      if (!SORT.lead){ SORT = {k: 'last', d: -1, lead: 1}; list = sortList(list); }
+      h = '<table><thead><tr><th data-k="name">Name</th><th data-k="email">Email</th><th data-k="quizzes">Quizzes Taken and Results</th><th data-k="opt">Email Opt-In</th><th data-k="last">Last Quiz</th></tr></thead><tbody>' +
+        list.map(function(l){ return '<tr><td><strong>' + esc(l.name) + '</strong></td><td>' + esc(l.email) + '</td><td>' + l.quizzes.map(esc).join('<br>') + '</td><td>' + esc(l.opt) + '</td><td>' + d(l.last) + '</td></tr>'; }).join('') + '</tbody></table>';
+    } else {
+      h = '<table><thead><tr><th data-k="name">Student</th><th data-k="prog">Program</th><th data-k="status">Status</th><th data-k="enrolled">Enrolled</th><th data-k="steps">Steps Done</th><th data-k="last">Last Activity</th></tr></thead><tbody>' +
+        list.map(function(s){ return '<tr><td><strong>' + esc(s.name || '(no name)') + '</strong><div class="sub">' + esc(s.email) + '</div></td><td>' + esc(s.prog) + '</td><td>' + pill(s.status) + '</td><td>' + (d(s.enrolled) || (s.status === 'Applied' ? '<span class="sub">Applied ' + d(s.applied) + '</span>' : '<span class="sub">Started ' + d(s.started) + '</span>')) + '</td><td>' + s.steps + '</td><td>' + (s.last ? d(s.last) + '<div class="sub">' + esc(s.lastWhat) + '</div>' : '<span class="sub">None yet</span>') + (TAB === 'follow' && s.flag ? '<div class="flag">' + esc(s.flag) + '</div>' : '') + '</td></tr>'; }).join('') + '</tbody></table>';
+    }
+    $('tbl').innerHTML = list.length ? h : '<p class="empty">' + (TAB === 'follow' ? 'Nobody needs a follow-up right now.' : 'No matches.') + '</p>';
+    Array.prototype.forEach.call(document.querySelectorAll('th[data-k]'), function(th){ th.addEventListener('click', function(){ var k = th.getAttribute('data-k'); SORT = {k: k, d: SORT.k === k ? -SORT.d : 1, lead: SORT.lead}; table(); }); });
+  }
+
+  function csvCell(v){ v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  $('dl').addEventListener('click', function(){
+    var list = sortList(rowsFor()), out;
+    if (TAB === 'leads') out = [['Name', 'Email', 'Quizzes and Results', 'Email Opt-In', 'Last Quiz']].concat(list.map(function(l){ return [l.name, l.email, l.quizzes.join(' / '), l.opt, d(l.last)]; }));
+    else out = [['Name', 'Email', 'Program', 'Status', 'Enrolled', 'Applied', 'Steps Done', 'Last Activity', 'Last Step', 'Follow-Up']].concat(list.map(function(s){ return [s.name, s.email, s.prog, s.status, d(s.enrolled), d(s.applied), s.steps, d(s.last), s.lastWhat, followFlag(s)]; }));
+    var blob = new Blob(['﻿' + out.map(function(r){ return r.map(csvCell).join(','); }).join('\r\n')], {type: 'text/csv'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'RSM-' + (TAB === 'leads' ? 'Quiz-Leads' : TAB === 'follow' ? 'Follow-Up' : 'Student-Roster') + '-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  $('pr').addEventListener('click', function(){ window.print(); });
+  ['q', 'fProg', 'fStat'].forEach(function(id){ $(id).addEventListener('input', table); $(id).addEventListener('change', table); });
+  Array.prototype.forEach.call(document.querySelectorAll('#tabs button'), function(b){ b.addEventListener('click', function(){
+    TAB = b.getAttribute('data-t'); SORT = {k: 'last', d: -1, lead: TAB === 'leads' ? 1 : 0};
+    Array.prototype.forEach.call(document.querySelectorAll('#tabs button'), function(x){ x.classList.toggle('on', x === b); });
+    $('fProg').style.display = $('fStat').style.display = TAB === 'leads' ? 'none' : '';
+    table();
+  }); });
+
+  function load(list){
+    var files = Array.prototype.filter.call(list, function(f){ return /\.csv$/i.test(f.name) || /csv/.test(f.type); });
+    if (!files.length){ $('files').style.color = '#9B1C1C'; $('files').textContent = 'Those don\'t look like CSV files. Export each Formspree form as CSV and try again.'; return; }
+    var n = files.length;
+    files.forEach(function(f){
+      var r = new FileReader();
+      r.onload = function(){ if (FILES.indexOf(f.name) < 0){ FILES.push(f.name); parseCSV(r.result).forEach(ingest); } if (--n === 0){ $('files').style.color = ''; $('files').textContent = 'Loaded: ' + FILES.join(', '); render(); } };
+      r.readAsText(f);
+    });
+  }
+  var drop = $('drop');
+  drop.addEventListener('click', function(){ $('file').click(); });
+  drop.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); $('file').click(); } });
+  $('file').addEventListener('change', function(){ load(this.files); this.value = ''; });
+  ['dragenter', 'dragover'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function(e){ load(e.dataTransfer.files); });
+})();
+</script>
+</body>
+</html>
