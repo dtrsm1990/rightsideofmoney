@@ -366,7 +366,7 @@ table.plan tr.tot td{font-weight:700;background:var(--cream);}
 <script>
 (function(){
 'use strict';
-var KEY = 'rsm_tracker_v1', FORM = 'https://formspree.io/f/mvkglqlj', KIT_TRACKER = '10010432', T0 = Date.now();
+var KEY = 'rsm_tracker_v1', FORM = 'https://formspree.io/f/mvkglqlj', T0 = Date.now();
 var CATS = [
  ['housing','Housing','&#127968;'],['utilities','Utilities & Phone','&#128161;'],['transportation','Transportation','&#128663;'],['groceries','Groceries','&#128722;'],
  ['dining','Dining Out & Delivery','&#127828;'],['debt','Debt Payments','&#128179;'],['savings','Savings & Investing','&#127974;'],['insurance','Insurance & Health','&#129658;'],
@@ -417,7 +417,7 @@ $('fStart').addEventListener('submit', function(e){
   try { localStorage.setItem('rsm_lead', JSON.stringify({name: n, email: em})); } catch(err){}
   if (!bot){
     post({name: n, email: em, _replyto: em, _subject: 'Tracker Signup | 30-Day Money Tracker | ' + n, quiz: '30-Day Money Tracker', result: 'Started tracker', daily_emails: D.me.daily ? 'Yes' : 'No', start_date: D.me.start});
-    if (D.me.daily){ var kf = new FormData(); kf.append('email_address', em); kf.append('fields[first_name]', n); try { fetch('https://app.kit.com/forms/' + KIT_TRACKER + '/subscriptions', {method: 'POST', body: kf, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(err){} }
+    if (D.me.daily && typeof rsmKit === 'function') rsmKit(n, em);
   }
   buildSetup(); show('vSetup');
 });
