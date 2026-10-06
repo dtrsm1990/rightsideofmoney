@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Protection Readiness Assessment | Right Side of Money</title>
+<meta name="description" content="If something happened to you tomorrow, would your family be okay? Take Darrell Thompson's free Family Protection Readiness Assessment, get your score and gap report, and download the free Family Emergency Binder Checklist.">
+<meta property="og:title" content="Family Protection Readiness Assessment | Right Side of Money">
+<meta property="og:description" content="If something happened to you tomorrow, would your family be okay? Take Darrell Thompson's free Family Protection Readiness Assessment, get your score and gap report, and download the free Family Emergency Binder Checklist.">
+<link rel="canonical" href="https://rightsideofmoney.com/family-protection-quiz.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Right Side of Money">
+<meta property="og:url" content="https://rightsideofmoney.com/family-protection-quiz.html">
+<meta property="og:image" content="https://rightsideofmoney.com/rsm-share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rightsideofmoney.com/rsm-share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;
+  --navy-mid:#1B3A6B;
+  --gold:#C9941A;
+  --gold-light:#E8B84B;
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.6);
+  --light-bg:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-back{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:#E8B84B;}
+@media(max-width:768px){nav{padding:0 20px;}}
+
+/* HERO */
+.hero{padding:120px 40px 60px;text-align:center;background:linear-gradient(180deg,#0a1628 0%,#0D1F3C 100%);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:220px;color:rgba(201,148,26,0.03);white-space:nowrap;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;}
+.hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:2;}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.hero-title em{font-style:normal;color:#E8B84B;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:32px;}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-meta-item{text-align:center;}
+.hero-meta-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;line-height:1;}
+.hero-meta-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.btn-start{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:20px 56px;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s,transform 0.2s;}
+.btn-start:hover{background:#E8B84B;transform:translateY(-2px);}
+
+/* QUIZ CONTAINER */
+.quiz-wrap{max-width:760px;margin:0 auto;padding:100px 40px 80px;}
+
+/* PROGRESS */
+.progress-bar-wrap{margin-bottom:48px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#C9941A;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#E8B84B;}
+.progress-track{width:100%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,#C9941A,#E8B84B);border-radius:2px;transition:width 0.5s ease;}
+
+/* QUESTION CARD */
+.question-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);border-top:3px solid #C9941A;padding:40px;border-radius:2px;margin-bottom:32px;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-category{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.q-number{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,0.25);margin-bottom:8px;}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:#FFFFFF;line-height:1.4;margin-bottom:32px;}
+
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:18px 24px;border-radius:2px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:16px;text-align:left;}
+.option:hover{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.4);}
+.option.selected{background:rgba(201,148,26,0.12);border-color:#C9941A;border-width:2px;}
+.option-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.option.selected .option-dot{border-color:#C9941A;background:#C9941A;}
+.option.selected .option-dot::after{content:'';width:8px;height:8px;background:#0D1F3C;border-radius:50%;}
+.option-text{font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5;}
+.option.selected .option-text{color:#FFFFFF;font-weight:500;}
+
+/* NAV BUTTONS */
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+.btn-prev{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-prev:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+.btn-prev:disabled{opacity:0.2;cursor:not-allowed;}
+.btn-next{background:#C9941A;border:none;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:14px 36px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-next:hover:not(:disabled){background:#E8B84B;}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* RESULTS */
+.results-wrap{max-width:800px;margin:0 auto;padding:40px 40px 80px;}
+.results-hero{text-align:center;padding:60px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:40px;}
+.results-score-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.results-score{font-family:'Bebas Neue',sans-serif;font-size:96px;color:#E8B84B;line-height:1;margin-bottom:8px;}
+.results-score-max{font-size:20px;color:rgba(255,255,255,0.4);font-weight:300;}
+.results-type{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,40px);font-weight:900;color:#FFFFFF;margin:16px 0 12px;}
+.results-type em{font-style:normal;color:#E8B84B;}
+.results-tagline{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:560px;margin:0 auto 32px;}
+
+/* SCORE BAR */
+.score-visual{max-width:500px;margin:0 auto 32px;}
+.score-bar-track{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin-bottom:12px;}
+.score-bar-fill{height:100%;border-radius:6px;transition:width 1.5s ease;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.score-markers{display:flex;justify-content:space-between;}
+.score-marker{font-size:11px;color:rgba(255,255,255,0.3);font-weight:600;}
+.score-marker.active{color:#E8B84B;}
+
+/* SECTIONS */
+.results-section{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:36px;border-radius:2px;margin-bottom:24px;}
+.results-section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:20px;}
+.results-section h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:16px;}
+.results-section p{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:12px;}
+
+/* CATEGORY BREAKDOWN */
+.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.category-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:2px;}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cat-score-track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.cat-score-fill{height:100%;border-radius:3px;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.cat-score-label{font-size:13px;color:rgba(255,255,255,0.6);}
+.cat-score-label strong{color:#E8B84B;}
+
+/* BLOCKING BELIEFS */
+.beliefs-list{list-style:none;margin-top:16px;}
+.beliefs-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.beliefs-list li:last-child{border-bottom:none;}
+.belief-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.belief-text{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.belief-text strong{color:#FFFFFF;display:block;margin-bottom:4px;}
+
+/* NEXT STEPS */
+.next-steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px;}
+.next-step{display:flex;gap:20px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:20px;border-radius:2px;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#C9941A;line-height:1;flex-shrink:0;width:40px;}
+.step-content{}
+.step-title{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:6px;}
+.step-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.step-link{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C9941A;text-decoration:none;border-bottom:1px solid rgba(201,148,26,0.4);padding-bottom:2px;}
+.step-link:hover{color:#E8B84B;border-color:#E8B84B;}
+
+/* CTA */
+.results-cta{text-align:center;padding:48px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:32px;}
+.results-cta h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.results-cta h3 em{font-style:normal;color:#E8B84B;}
+.results-cta p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:28px;line-height:1.7;}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-gold{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;transition:background 0.25s;}
+.btn-cta-gold:hover{background:#E8B84B;}
+.btn-cta-outline{display:inline-block;background:transparent;color:#C9941A;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;border:2px solid #C9941A;transition:all 0.25s;}
+.btn-cta-outline:hover{background:#C9941A;color:#0D1F3C;}
+
+.btn-retake{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto 40px;transition:all 0.25s;}
+.btn-retake:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+
+/* STATES */
+#quizSection{display:none;}
+#resultsSection{display:none;}
+#startSection{display:block;}
+
+/* MOBILE */
+@media(max-width:768px){
+  .quiz-wrap,.results-wrap{padding:40px 20px 60px;}
+  .question-card{padding:28px 20px;}
+  .category-grid{grid-template-columns:1fr;}
+  .hero{padding:100px 20px 40px;}
+  .results-hero{padding:40px 20px;}
+  .results-section{padding:24px 20px;}
+  .results-cta{padding:32px 20px;}
+}
+
+/* FADE */
+.fade-in{animation:fadeIn 0.5s ease;}
+.lead-form{margin-top:16px;}
+.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lead-form input[type=text],.lead-form input[type=email]{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.35);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;}
+.lead-form input:focus{outline:none;border-color:#E8B84B;}
+.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.5;}
+.lead-check input{margin-top:3px;accent-color:#C9941A;}
+.lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
+.gate-p{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.7;margin:-12px 0 8px;}
+.gate-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+.gate-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:14px;padding:0;}
+.gate-back:hover{color:#E8B84B;}
+
+#shareCanvas{width:100%;max-width:440px;height:auto;display:block;margin:8px auto 0;border-radius:4px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.share-section{text-align:center;}
+.intro-points{max-width:620px;margin:0 auto 36px;text-align:left;display:grid;gap:10px;}
+.intro-points div{font-size:15px;color:rgba(255,255,255,0.75);padding-left:26px;position:relative;line-height:1.6;}
+.intro-points div::before{content:'\2713';position:absolute;left:0;color:#E8B84B;font-weight:700;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <a href="./index.html" class="nav-back">&#8592; Back to Site</a>
+</nav>
+<div id="startSection">
+  <div class="hero">
+    <div class="hero-bg">PROTECTION</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Free Assessment by Darrell Thompson</div>
+      <h1 class="hero-title">If Something Happened Tomorrow, <em>Would Your Family Be Okay?</em></h1>
+      <p class="hero-sub">Nearly half of American households say they'd feel the financial impact within six months if their primary wage earner died. Only about one in four Americans has a will. Sixteen honest questions will show you exactly where your family stands and what to fix first.</p>
+      <div class="intro-points"><div>Your Family Protection Score out of 100</div><div>Your result type, from Exposed Family to Family Shield</div><div>Your scores in savings, income protection, paperwork, family access, and debt and legacy</div><div>The free Family Emergency Binder Checklist, with a coverage worksheet and family meeting guide</div></div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="hero-meta-num">16</div><div class="hero-meta-label">Questions</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">5</div><div class="hero-meta-label">Minutes</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
+      </div>
+      <button class="btn-start" onclick="startQuiz()">Check My Family's Readiness &rarr;</button>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.45);">100% free. Enter your name and email at the end to unlock your full results.</p>
+    </div>
+  </div>
+</div>
+<div id="quizSection">
+  <div class="quiz-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-top"><span class="progress-label">Your Progress</span><span class="progress-count" id="progressCount">1 of 16</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:5%;"></div></div>
+    </div>
+    <div id="questionContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-prev" id="btnPrev" onclick="prevQuestion()" disabled>&#8592; Previous</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</div>
+<div id="resultsSection">
+  <div class="results-wrap">
+    <div class="results-hero" id="resultsHero"></div>
+    <div id="resultsBody"></div>
+  </div>
+</div>
+<script>
+window.QUIZ = {"title": "Family Protection Readiness Assessment", "slug": "Family-Protection-Readiness", "scoreLabel": "Your Family Protection Score", "questions": [{"cat": "Emergency Cushion", "text": "If your household income stopped tomorrow, how long could you cover essential bills from savings?", "options": [{"text": "Less than two weeks", "score": 0, "tag": "fragile"}, {"text": "About a month", "score": 1, "tag": "fragile"}, {"text": "One to three months", "score": 2}, {"text": "Three to six months or more", "score": 4}]}, {"cat": "Emergency Cushion", "text": "A $2,000 emergency hits this month: a car repair, a funeral trip, a medical bill. How would you pay for it?", "options": [{"text": "I honestly don't know", "score": 0, "tag": "fragile"}, {"text": "A credit card I couldn't pay off right away", "score": 1, "tag": "fragile"}, {"text": "Borrow from family or a retirement account", "score": 1}, {"text": "Savings, without touching my bills", "score": 4}]}, {"cat": "Emergency Cushion", "text": "Is your emergency money kept separate from your everyday checking account?", "options": [{"text": "I don't have emergency money yet", "score": 0, "tag": "fragile"}, {"text": "No, it's all in one account", "score": 1}, {"text": "Yes, but I dip into it for non-emergencies", "score": 2}, {"text": "Yes, in its own account that I only use for real emergencies", "score": 4}]}, {"cat": "Income Protection", "text": "If you died tomorrow, how would the people who depend on your income be taken care of?", "options": [{"text": "They wouldn't be. There's no plan", "score": 0, "tag": "unprotected"}, {"text": "My job's life insurance, I think", "score": 1, "tag": "unprotected"}, {"text": "A policy I own, but I'm not sure it's enough", "score": 2}, {"text": "Coverage I chose on purpose to replace my income for years, or no one depends on my income and final expenses are covered", "score": 4}]}, {"cat": "Income Protection", "text": "If you have life insurance through your job, what happens to it if you leave or lose that job?", "options": [{"text": "I didn't know it could end", "score": 0, "tag": "unprotected"}, {"text": "It probably ends, but I haven't thought about it", "score": 1, "tag": "unprotected"}, {"text": "I know it may end, and I'd deal with it then", "score": 2}, {"text": "I know the answer, and I don't rely on job coverage alone, or I don't need it", "score": 4}]}, {"cat": "Income Protection", "text": "Do you know roughly how much coverage your family would actually need?", "options": [{"text": "No idea", "score": 0, "tag": "avoid"}, {"text": "I picked a round number that sounded good", "score": 1}, {"text": "I used a quick rule of thumb", "score": 3}, {"text": "I added up debts, years of income, the mortgage, and education to get a real number", "score": 4}]}, {"cat": "Income Protection", "text": "If an illness or injury kept you from working for six months, what would replace your paycheck?", "options": [{"text": "Nothing. We'd fall behind fast", "score": 0, "tag": "unprotected"}, {"text": "Savings for a few weeks, then trouble", "score": 1, "tag": "unprotected"}, {"text": "Some coverage through work, but I don't know the details", "score": 2}, {"text": "Disability coverage I understand, plus savings", "score": 4}]}, {"cat": "Paperwork", "text": "Do you have a current will, including a named guardian if you have children under 18?", "options": [{"text": "No, and I've put it off", "score": 0, "tag": "avoid"}, {"text": "No, I didn't think I needed one yet", "score": 1}, {"text": "Yes, but it's out of date", "score": 2}, {"text": "Yes, it's current, or I have a trust that covers it", "score": 4}]}, {"cat": "Paperwork", "text": "When did you last check the beneficiaries on your life insurance, retirement accounts, and bank accounts?", "options": [{"text": "I'm not sure I ever named any", "score": 0, "tag": "scattered"}, {"text": "Years ago, before major life changes", "score": 1, "tag": "scattered"}, {"text": "Within the last few years", "score": 3}, {"text": "Within the last year, or after my last big life change", "score": 4}]}, {"cat": "Paperwork", "text": "If you were in the hospital and couldn't speak for yourself, who could legally make decisions for you?", "options": [{"text": "I don't know", "score": 0, "tag": "avoid"}, {"text": "My family would figure it out", "score": 1, "tag": "scattered"}, {"text": "I've chosen someone but haven't put it in writing", "score": 2}, {"text": "I have a signed power of attorney and health care directive", "score": 4}]}, {"cat": "Family Access", "text": "If something happened to you, could the person closest to you find every account, policy, and bill?", "options": [{"text": "No. I handle everything, and it's all in my head", "score": 0, "tag": "scattered"}, {"text": "They'd find some of it eventually", "score": 1, "tag": "scattered"}, {"text": "Most of it, with some digging", "score": 2}, {"text": "Yes. It's all written down in one place they know about", "score": 4}]}, {"cat": "Family Access", "text": "Could your family get into your phone, email, and online accounts if they had to?", "options": [{"text": "No way", "score": 0, "tag": "scattered"}, {"text": "Maybe a few of them", "score": 1}, {"text": "Yes, but only because I share my passwords loosely", "score": 2}, {"text": "Yes, through a password manager emergency contact or legacy contact I set up", "score": 4}]}, {"cat": "Family Access", "text": "Have you talked with your family about what to do if something happens to you?", "options": [{"text": "No, I don't like thinking about it", "score": 0, "tag": "avoid"}, {"text": "Not really. They'd figure it out", "score": 1, "tag": "avoid"}, {"text": "We've talked a little, but there's no real plan", "score": 2}, {"text": "Yes, we've talked it through, and they know where everything is", "score": 4}]}, {"cat": "Debt and Legacy", "text": "If you died tomorrow, what would happen to your debts?", "options": [{"text": "I have no idea", "score": 0, "tag": "avoid"}, {"text": "My family would probably have to pay them", "score": 1, "tag": "unprotected"}, {"text": "Some would be covered, but not all", "score": 2}, {"text": "They'd be paid off by insurance or assets, or I have little debt", "score": 4}]}, {"cat": "Debt and Legacy", "text": "Do you have a co-signer, a joint account, or a co-signed loan for someone else?", "options": [{"text": "Yes, and we've never talked about what happens if one of us dies", "score": 1}, {"text": "Yes, and I'm not sure who'd be responsible", "score": 0, "tag": "scattered"}, {"text": "Yes, and we have a plan for it", "score": 3}, {"text": "No co-signed debt, or it's fully covered", "score": 4}]}, {"cat": "Debt and Legacy", "text": "Is anything set aside, or being built, for your children or grandchildren's future?", "options": [{"text": "Nothing yet, and I don't know where to start", "score": 0}, {"text": "I want to, but bills come first right now", "score": 1}, {"text": "A little, without a real plan", "score": 2}, {"text": "Yes, on purpose, with a plan, or it doesn't apply to me", "score": 4}]}], "results": {"exposed": {"name": "The <em>Exposed Family</em>", "plain": "The Exposed Family", "card": "I found my family's gaps before a crisis did. Now I'm closing them.", "tagline": "Right now, one death, disability, or lost job could put your family in serious financial trouble. You're not alone in this, and every gap on this list is fixable.", "description": ["Your answers show gaps in several areas at once: savings, income protection, paperwork, and how much your family would know if something happened. Nearly half of American households say they'd feel the financial impact within six months if their primary wage earner died. Your results put your family in that group.", "Don't try to fix everything this week. Start with your free Family Emergency Binder Checklist. Write down where everything is, check your beneficiaries, and start a small emergency fund. Then work through the rest one gap at a time."], "watch": [{"icon": "\ud83d\udca5", "title": "One event away", "text": "Without savings or income protection, a single emergency can turn into years of debt."}, {"icon": "\ud83d\udcc2", "title": "A family left guessing", "text": "If it's all in your head, your family will spend months searching instead of grieving."}, {"icon": "\ud83d\ude48", "title": "Putting it off", "text": "Most families who are caught unprepared meant to get to it. The plan you start today is the one that counts."}], "steps": [{"t": "Book a Free Discovery Call", "d": "Walk through your gap report with Darrell and get a clear, honest plan for closing your biggest gaps first. No pressure, no product pitch.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}, {"t": "RSM MFA Foundation Course", "d": "Build the complete financial foundation: mindset, budgeting, debt elimination, wealth building, and protection.", "l": "./course-foundation.html", "lt": "Explore the Foundation Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Family_Emergency_Binder.pdf", "t": "The RSM Family Emergency Binder Checklist"}, {"f": "RSM_Budget_Snapshot_Tool.pdf", "t": "The RSM Budget Snapshot Tool"}]}, "unprotected": {"name": "The <em>Unprotected Provider</em>", "plain": "The Unprotected Provider", "card": "My family depends on my income. Now I'm making sure they always will.", "tagline": "Your family depends on your paycheck, but almost nothing would replace it if you died or couldn't work. That's the most expensive gap there is.", "description": ["Your answers show that income protection is your biggest gap. Many families rely on life insurance through work, which is often just one or two times salary and usually ends or changes when the job does. Others have nothing at all, often because they assume coverage costs far more than it does. About three in four Americans overestimate the cost of life insurance.", "Start by finding your real number. Your free checklist includes a simple worksheet: add up debts, the years of income your family would need, the mortgage, and education, then subtract what you already have. Once you know the number, you can make a clear decision instead of a guess."], "watch": [{"icon": "\ud83c\udfe2", "title": "Coverage tied to your job", "text": "Employer coverage is a good start, but it often isn't enough and may not follow you if you leave."}, {"icon": "\ud83e\ude7a", "title": "Disability", "text": "A disability during your working years is more likely than most people think, and it stops the paycheck while the bills keep coming."}, {"icon": "\ud83c\udfb2", "title": "Guessing the amount", "text": "A round number that \"sounds good\" can leave your family years short."}], "steps": [{"t": "Book a Free Discovery Call", "d": "Walk through your gap report with Darrell and get a clear, honest plan for closing your biggest gaps first. No pressure, no product pitch.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}, {"t": "RSM MFA Foundation Course", "d": "Build the complete financial foundation: mindset, budgeting, debt elimination, wealth building, and protection.", "l": "./course-foundation.html", "lt": "Explore the Foundation Course"}, {"t": "Read Creating A Wealth Building Mindset, 2nd Edition", "d": "The second edition goes deeper on the beliefs and systems behind lasting wealth, including the Family Banking System.", "l": "./book.html", "lt": "Get the Book"}], "guides": [{"f": "RSM_Family_Emergency_Binder.pdf", "t": "The RSM Family Emergency Binder Checklist"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "scattered": {"name": "The <em>Scattered File</em>", "plain": "The Scattered File", "card": "I've built protection. Now my family can actually find it and use it.", "tagline": "You may have protection in place, but your family couldn't find it, access it, or claim it quickly. Protection your family can't find doesn't protect them.", "description": ["Your answers show that the paperwork and access side of your plan has gaps: outdated or missing beneficiaries, no written list of accounts and policies, no power of attorney, or passwords nobody else can reach. Only about one in four Americans has a will, and outdated beneficiaries are one of the most common reasons money goes to the wrong person or gets stuck in court.", "This is the fastest gap to close. In one weekend you can build your Family Emergency Binder, update every beneficiary, and set up a legacy contact on your phone and password manager. Your free checklist walks you through it."], "watch": [{"icon": "\ud83d\udcdd", "title": "Beneficiaries out of date", "text": "Beneficiary forms generally control who gets life insurance and retirement money, even over a will."}, {"icon": "\ud83d\udd10", "title": "Locked accounts", "text": "Without access, your family may not even know an account exists."}, {"icon": "\u2696\ufe0f", "title": "No legal decision-maker", "text": "Without a power of attorney and health care directive, your family may need a court to act for you."}], "steps": [{"t": "Book a Free Discovery Call", "d": "Walk through your gap report with Darrell and get a clear, honest plan for closing your biggest gaps first. No pressure, no product pitch.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}, {"t": "RSM MFA Foundation Course", "d": "Build the complete financial foundation: mindset, budgeting, debt elimination, wealth building, and protection.", "l": "./course-foundation.html", "lt": "Explore the Foundation Course"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Family_Emergency_Binder.pdf", "t": "The RSM Family Emergency Binder Checklist"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "thin": {"name": "The <em>Thin Cushion</em>", "plain": "The Thin Cushion", "card": "Building the cushion that keeps small emergencies from becoming big ones.", "tagline": "Your bigger protections may be in decent shape, but your cash cushion is thin. Small emergencies are the ones most likely to knock your family off course.", "description": ["Your answers show that savings is your weakest area. Without a cushion, a car repair, a medical bill, or a short job gap goes straight onto a credit card or into a retirement account, and that turns a temporary problem into long-term debt.", "Start small and automatic. A separate savings account, a set amount moved on every payday, and a first target of one month of essential bills. Then build toward three to six months. Your free guides show you how."], "watch": [{"icon": "\ud83d\udcb3", "title": "Emergencies on credit", "text": "High-interest debt from one emergency can take years to pay off."}, {"icon": "\ud83c\udfe6", "title": "Raiding retirement", "text": "Early withdrawals can bring taxes and penalties and cost decades of growth."}, {"icon": "\ud83d\udd04", "title": "Mixing accounts", "text": "Emergency money kept in checking tends to quietly disappear."}], "steps": [{"t": "RSM MFA Foundation Course", "d": "Build the complete financial foundation: mindset, budgeting, debt elimination, wealth building, and protection.", "l": "./course-foundation.html", "lt": "Explore the Foundation Course"}, {"t": "Book a Free Discovery Call", "d": "Walk through your gap report with Darrell and get a clear, honest plan for closing your biggest gaps first. No pressure, no product pitch.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Budget_Snapshot_Tool.pdf", "t": "The RSM Budget Snapshot Tool"}, {"f": "RSM_Family_Emergency_Binder.pdf", "t": "The RSM Family Emergency Binder Checklist"}]}, "almost": {"name": "The <em>Almost Ready</em>", "plain": "The Almost Ready", "card": "My family is mostly protected. I'm closing the last few gaps.", "tagline": "You're ahead of most families. Most of your protection is in place. A few gaps remain, and those are exactly where plans tend to fail.", "description": ["Your answers show solid savings, real protection, and much of the paperwork done. The gaps that remain are usually the quiet ones: a beneficiary that hasn't been updated since a marriage, divorce, or new baby, a family that doesn't know where things are, or coverage that hasn't kept up with your income.", "Review the areas where you scored lowest, then hold a short family meeting. Walk the person closest to you through your binder so they'd know exactly what to do. Your free checklist includes a simple agenda."], "watch": [{"icon": "\ud83d\uddd3\ufe0f", "title": "Plans that go stale", "text": "Every marriage, divorce, birth, move, or new job is a reason to review."}, {"icon": "\ud83d\udc65", "title": "The family conversation", "text": "A plan only works if the people who need it know it exists."}, {"icon": "\ud83d\udcc8", "title": "Coverage that lags", "text": "As your income and lifestyle grow, your protection needs to grow with them."}], "steps": [{"t": "Book a Free Discovery Call", "d": "Walk through your gap report with Darrell and get a clear, honest plan for closing your biggest gaps first. No pressure, no product pitch.", "l": "./discovery-intake.html", "lt": "Book a Free Call"}, {"t": "Read Creating A Wealth Building Mindset, 2nd Edition", "d": "The second edition goes deeper on the beliefs and systems behind lasting wealth, including the Family Banking System.", "l": "./book.html", "lt": "Get the Book"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Family_Emergency_Binder.pdf", "t": "The RSM Family Emergency Binder Checklist"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}, "shield": {"name": "The <em>Family Shield</em>", "plain": "The Family Shield", "card": "My family is protected, and I'm building what comes next.", "tagline": "Your cushion, your protection, your paperwork, and your family conversation are all in place. Your family would be okay. That's rare.", "description": ["Your answers show a family that's truly prepared: real savings, income protection sized on purpose, current legal documents, and a family that knows what to do. That puts you in a small minority of households.", "Your next step is legacy: building something that lasts beyond you and teaching the next generation how to protect and grow it. The Family Banking System in Creating A Wealth Building Mindset 2nd Edition is a good place to start."], "watch": [{"icon": "\ud83d\udd01", "title": "Annual review", "text": "Keep your binder and beneficiaries current every year."}, {"icon": "\ud83c\udf31", "title": "Teaching the next generation", "text": "Protection lasts longest when your children understand it."}, {"icon": "\ud83e\udd1d", "title": "Helping others", "text": "Your parents, siblings, or friends may not be as ready as you are."}], "steps": [{"t": "Read Creating A Wealth Building Mindset, 2nd Edition", "d": "The second edition goes deeper on the beliefs and systems behind lasting wealth, including the Family Banking System.", "l": "./book.html", "lt": "Get the Book"}, {"t": "See the Full Accountability Program", "d": "Three levels, earned not bought, from financial foundations to elite wealth accountability.", "l": "./accountability.html", "lt": "View All Levels"}, {"t": "Join the RSM Wealth Builders Community", "d": "Free, daily financial truth and a community of people doing this exact work.", "l": "./community-invite.html", "lt": "Join Free"}], "guides": [{"f": "RSM_Family_Emergency_Binder.pdf", "t": "The RSM Family Emergency Binder Checklist"}, {"f": "RSM_Financial_Foundation_Checklist.pdf", "t": "The RSM Financial Foundation Checklist"}]}}, "focus": {"Emergency Cushion": "Open a separate savings account, automate a deposit every payday, and build to one month of essential bills first.", "Income Protection": "Find your real coverage number with the worksheet in your free checklist, and know what happens to job coverage if you leave.", "Paperwork": "Get a will with a named guardian, update every beneficiary, and sign a power of attorney and health care directive.", "Family Access": "Build your Family Emergency Binder, set up legacy contacts for your digital accounts, and walk your family through it.", "Debt and Legacy": "Know which debts your family could be responsible for, and start building something for the next generation, even if it's small."}, "ctaTitle": "Would Your Family <em>Be Okay?</em>", "ctaText": "Your result is the starting line. Close your biggest gap first, then the next one. Book a free call with Darrell to walk through your results and build a plan.", "otherQuiz": {"t": "Take the Is This a Crypto Scam? Check", "l": "./crypto-scam-quiz.html"}, "disclaimer": "This assessment is for educational purposes only and isn't insurance, legal, tax, or financial advice. It doesn't recommend or sell any insurance product. Darrell Thompson is a licensed insurance producer; coverage needs and legal requirements vary by person and state. Statistics: 2026 Insurance Barometer Study (LIMRA and Life Happens); Caring.com 2025 Wills and Estate Planning Survey."};
+window.QUIZ.classify = function(pct, cp, tags){
+  if (pct < 45) return 'exposed';
+  if (cp['Income Protection'] < 50) return 'unprotected';
+  if (cp['Paperwork'] < 50 || cp['Family Access'] < 50) return 'scattered';
+  if (cp['Emergency Cushion'] < 50) return 'thin';
+  if (pct < 85 || Object.keys(cp).some(function(k){ return cp[k] < 75; })) return 'almost';
+  return 'shield';
+};
+</script>
+<script>
+/* RSM results gate: name and email required before results are shown */
+(function(){
+  var T0 = Date.now();
+  function el(id){ return document.getElementById(id); }
+  window.rsmGate = function(onDone, onBack){
+    var nav = document.querySelector('.quiz-nav');
+    if (nav) nav.style.display = 'none';
+    if (el('progressCount')) el('progressCount').textContent = 'Complete';
+    if (el('progressFill')) el('progressFill').style.width = '100%';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('rsm_lead') || '{}') || {}; } catch(e){ saved = {}; }
+    el('questionContainer').innerHTML =
+      '<div class="question-card gate-card">' +
+      '<div class="q-category">You\'re Done. Your Results Are Ready.</div>' +
+      '<div class="q-text">Unlock Your Full Results</div>' +
+      '<p class="gate-p">Enter your first name and email to see your score, your personal breakdown, and the free guides matched to your result. Darrell receives every result so he can share resources that fit where you are.</p>' +
+      '<form id="gateForm" class="lead-form" novalidate>' +
+      '<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="gateCo" name="company" tabindex="-1" autocomplete="off" /></label></div>' +
+      '<div class="lead-row"><input type="text" id="gateName" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" placeholder="Email address" autocomplete="email" /></div>' +
+      '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+      '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Results &rarr;</button>' +
+      '<p class="lead-msg" id="gateMsg"></p>' +
+      '<p class="gate-note">Your information stays private. No spam, ever.</p>' +
+      '<button type="button" class="gate-back" id="gateBack">&#8592; Back to the last question</button>' +
+      '</form></div>';
+    if (saved.name) el('gateName').value = saved.name;
+    if (saved.email) el('gateEmail').value = saved.email;
+    window.scrollTo(0, 0);
+    el('gateBack').addEventListener('click', function(){
+      if (nav) nav.style.display = '';
+      onBack();
+    });
+    el('gateForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = el('gateName').value.trim(), em = el('gateEmail').value.trim();
+      if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+        el('gateMsg').textContent = 'Please enter your first name and a valid email to see your results.';
+        return;
+      }
+      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked,
+        bot: !!el('gateCo').value || (Date.now() - T0) < 10000};
+      try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
+      if (nav) nav.style.display = '';
+      onDone(lead);
+    });
+  };
+  window.rsmPost = function(url, fd){
+    try { fetch(url, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+/* RSM email + list delivery: EmailJS sends results to the participant (Bcc Darrell); Kit adds opted-in people to the list */
+(function(){
+  var EJ = {service: 'service_65dy311', template: 'template_k1l3ysk', key: 'gkDCipr-1PUVhTb5X'};
+  var KIT_FORM = '9981618';
+  var SITE = 'https://rightsideofmoney.com/';
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function abs(u){ return /^https?:/.test(u) ? u : SITE + String(u).replace(/^\.\//, ''); }
+  window.rsmResultEmail = function(o){
+    if (EJ.template.indexOf('__') === 0 || EJ.key.indexOf('__') === 0) return;
+    var breakdown = '<ul>' + o.breakdown.map(function(b){ return '<li><strong>' + esc(b[0]) + ':</strong> ' + b[1] + '%</li>'; }).join('') + '</ul>';
+    var steps = '<ol>' + o.steps.map(function(s){ return '<li><strong>' + esc(s.t) + '</strong><br>' + esc(s.d) + '<br><a href="' + abs(s.l) + '">' + esc(s.lt || 'Learn more') + '</a></li>'; }).join('') + '</ol>';
+    var guides = '<ul>' + o.guides.map(function(g){ return '<li><a href="' + abs(g.f) + '">' + esc(g.t) + '</a></li>'; }).join('') + '</ul>';
+    var body = JSON.stringify({service_id: EJ.service, template_id: EJ.template, user_id: EJ.key, template_params: {
+      to_name: o.name, to_email: o.email, quiz: o.quiz, result: o.result, score: o.score, tagline: o.tagline,
+      breakdown: breakdown, next_steps: steps, guides: guides}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+  window.rsmKit = function(name, email){
+    var fd = new FormData();
+    fd.append('email_address', email); fd.append('fields[first_name]', name);
+    try { fetch('https://app.kit.com/forms/' + KIT_FORM + '/subscriptions', {method: 'POST', body: fd, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+
+(function(){
+'use strict';
+var Q = window.QUIZ, questions = Q.questions, answers = questions.map(function(){ return null; }), cur = 0, result = null;
+var FORM = 'https://formspree.io/f/mvkglqlj';
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+var cats = []; questions.forEach(function(q){ if (cats.indexOf(q.cat) < 0) cats.push(q.cat); });
+
+window.startQuiz = function(){ $('startSection').style.display = 'none'; $('quizSection').style.display = 'block'; window.scrollTo(0, 0); render(); };
+function render(){
+  var q = questions[cur];
+  var h = '<div class="question-card"><div class="q-category">' + esc(q.cat) + '</div><div class="q-number">Question ' + (cur + 1) + ' of ' + questions.length + '</div><div class="q-text">' + esc(q.text) + '</div><div class="options">';
+  q.options.forEach(function(o, i){ h += '<div class="option' + (answers[cur] === i ? ' selected' : '') + '" onclick="selectOption(' + i + ')" role="button" tabindex="0"><div class="option-dot"></div><div class="option-text">' + esc(o.text) + '</div></div>'; });
+  $('questionContainer').innerHTML = h + '</div></div>';
+  $('progressCount').textContent = (cur + 1) + ' of ' + questions.length;
+  $('progressFill').style.width = Math.round((cur + 1) / questions.length * 100) + '%';
+  $('btnPrev').disabled = cur === 0;
+  $('btnNext').disabled = answers[cur] === null;
+  $('btnNext').innerHTML = cur === questions.length - 1 ? 'See My Results &rarr;' : 'Next &rarr;';
+}
+window.selectOption = function(i){ answers[cur] = i; render(); };
+window.nextQuestion = function(){ if (answers[cur] === null) return; if (cur < questions.length - 1){ cur++; render(); window.scrollTo(0, 0); } else rsmGate(function(lead){ show(lead); }, function(){ render(); }); };
+window.prevQuestion = function(){ if (cur > 0){ cur--; render(); } };
+window.retakeQuiz = function(){ answers = questions.map(function(){ return null; }); cur = 0; $('resultsSection').style.display = 'none'; $('startSection').style.display = 'block'; window.scrollTo(0, 0); };
+
+function show(lead){
+  var total = 0, max = 0, cs = {}, cm = {}, tags = {};
+  cats.forEach(function(c){ cs[c] = 0; cm[c] = 0; });
+  questions.forEach(function(q, i){ var o = q.options[answers[i]]; total += o.score; max += 4; cs[q.cat] += o.score; cm[q.cat] += 4; if (o.tag) tags[o.tag] = (tags[o.tag] || 0) + 1; });
+  var pct = Math.round(total / max * 100), cp = {};
+  cats.forEach(function(c){ cp[c] = Math.round(cs[c] / cm[c] * 100); });
+  var key = Q.classify(pct, cp, tags), R = Q.results[key];
+  result = {key: key, R: R, pct: pct, cp: cp, tags: tags};
+  $('quizSection').style.display = 'none'; $('resultsSection').style.display = 'block'; window.scrollTo(0, 0);
+
+  var h = '<div class="results-score-label">' + esc(Q.scoreLabel) + '</div><div class="results-score">' + pct + '<span class="results-score-max">/100</span></div>';
+  h += '<div class="score-visual"><div class="score-bar-track"><div class="score-bar-fill" id="scoreFill" style="width:0%"></div></div></div>';
+  h += '<div class="results-type">' + R.name + '</div><p class="results-tagline">' + esc(R.tagline) + '</p>';
+  $('resultsHero').innerHTML = h;
+  setTimeout(function(){ var f = $('scoreFill'); if (f) f.style.width = pct + '%'; }, 100);
+
+  var lowest = cats.slice().sort(function(a, b){ return cp[a] - cp[b]; });
+  var b = '<div class="results-section"><div class="results-section-title">What Your Result Means</div><h3>' + esc(R.plain) + '</h3>' + R.description.map(function(p){ return '<p>' + p + '</p>'; }).join('') + '</div>';
+  b += '<div class="results-section"><div class="results-section-title">Your Breakdown</div><h3>Where You\'re Strong and Where to Focus</h3><div class="category-grid">';
+  cats.forEach(function(c){ b += '<div class="category-card"><div class="cat-name">' + esc(c) + '</div><div class="cat-score-track"><div class="cat-score-fill" style="width:' + Math.max(cp[c], 3) + '%"></div></div><div class="cat-score-label"><strong>' + cp[c] + '%</strong> ' + (cp[c] >= 75 ? 'Strength' : cp[c] >= 50 ? 'Building' : 'Focus area') + '</div></div>'; });
+  b += '</div><p style="margin-top:20px">Your biggest opportunity right now is <strong style="color:#E8B84B">' + esc(lowest[0]) + '</strong>. ' + esc(Q.focus[lowest[0]]) + '</p></div>';
+  b += '<div class="results-section"><div class="results-section-title">What to Watch For</div><h3>The Patterns Behind Your Result</h3><ul class="beliefs-list">' + R.watch.map(function(w){ return '<li><span class="belief-icon">' + w.icon + '</span><div class="belief-text"><strong>' + esc(w.title) + '</strong>' + esc(w.text) + '</div></li>'; }).join('') + '</ul></div>';
+  b += '<div class="results-section"><div class="results-section-title">Your Next Steps</div><h3>Start Here</h3><div class="next-steps">' + R.steps.map(function(s, i){ return '<div class="next-step"><div class="step-num">' + (i + 1) + '</div><div class="step-content"><div class="step-title">' + esc(s.t) + '</div><div class="step-desc">' + esc(s.d) + '</div><a class="step-link" href="' + s.l + '">' + esc(s.lt) + ' &rarr;</a></div></div>'; }).join('') + '</div></div>';
+
+  b += '<div class="results-section" id="leadBox"><div class="results-section-title">Free for Your Result Type</div><h3>Your Free Guide' + (R.guides.length > 1 ? 's' : '') + ', ' + esc(lead.name) + '</h3><p>These guides were chosen specifically for ' + esc(R.plain) + ' results. Download ' + (R.guides.length > 1 ? 'them' : 'it') + ' now and keep ' + (R.guides.length > 1 ? 'them' : 'it') + ' handy as you take your next steps.</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">' + R.guides.map(function(g){ return '<a class="btn-cta-gold" href="./' + g.f + '" target="_blank" download>Download: ' + esc(g.t) + '</a>'; }).join('') + '</div>' +
+    '<p style="margin-top:16px"><a class="step-link" href="mailto:' + encodeURIComponent(lead.email) + '?subject=' + encodeURIComponent('My ' + Q.title + ' Result: ' + R.plain) + '&body=' + encodeURIComponent('My ' + Q.title + ' result: ' + R.plain + ' (' + pct + '/100)\n\n' + R.tagline + '\n\nMy next steps:\n' + R.steps.map(function(s, i){ return (i + 1) + '. ' + s.t; }).join('\n') + '\n\nRetake or share the quiz: rightsideofmoney.com') + '">Email my results to myself</a></p></div>';
+
+  b += '<div class="results-section share-section"><div class="results-section-title">Share Your Result</div><h3>Post Your Result Card</h3><p>Share your result on Facebook, Instagram, or TikTok and challenge your friends to find theirs.</p><canvas id="shareCanvas" width="1080" height="1080"></canvas><div class="cta-buttons" style="margin-top:20px"><button type="button" class="btn-cta-gold" id="shareBtn" style="border:none;cursor:pointer">Share My Result</button><button type="button" class="btn-cta-outline" id="dlBtn" style="cursor:pointer;background:transparent">Download Image</button></div></div>';
+
+  b += '<div class="results-cta"><h3>' + Q.ctaTitle + '</h3><p>' + esc(Q.ctaText) + '</p><div class="cta-buttons"><a class="btn-cta-gold" href="' + R.steps[0].l + '">' + esc(R.steps[0].lt) + '</a><a class="btn-cta-outline" href="./discovery-intake.html">Book a Free Discovery Call</a></div></div>';
+  b += '<div style="text-align:center;margin-top:24px"><button class="btn-retake" onclick="retakeQuiz()">Retake the Quiz</button> <a class="btn-retake" style="text-decoration:none;display:inline-block;margin-left:8px" href="' + Q.otherQuiz.l + '">' + esc(Q.otherQuiz.t) + '</a></div>';
+  if (Q.disclaimer) b += '<p style="font-size:12px;color:rgba(255,255,255,0.35);text-align:center;margin-top:24px;line-height:1.6">' + esc(Q.disclaimer) + '</p>';
+  $('resultsBody').innerHTML = b;
+  drawCard(); wireShare(); sendLead(lead);
+}
+
+function sendLead(lead){
+  if (lead.bot) return;
+  var fd = new FormData();
+  fd.append('name', lead.name); fd.append('email', lead.email); fd.append('_replyto', lead.email);
+  fd.append('_subject', 'Quiz Lead | ' + Q.title + ' | ' + lead.name + ' | ' + result.R.plain);
+  fd.append('quiz', Q.title); fd.append('result', result.R.plain); fd.append('score', result.pct + '/100');
+  fd.append('breakdown', Object.keys(result.cp).map(function(c){ return c + ': ' + result.cp[c] + '%'; }).join(' | '));
+  fd.append('email_opt_in', lead.opt ? 'Yes' : 'No');
+  fd.append('answers', questions.map(function(q, i){ return (i + 1) + '. ' + q.text + ' | ' + q.options[answers[i]].text; }).join('\n'));
+  rsmPost(FORM, fd);
+  rsmResultEmail({name: lead.name, email: lead.email, quiz: Q.title, result: result.R.plain, score: result.pct + ' out of 100', tagline: result.R.tagline,
+    breakdown: Object.keys(result.cp).map(function(c){ return [c, result.cp[c]]; }), steps: result.R.steps, guides: result.R.guides});
+  if (lead.opt) rsmKit(lead.name, lead.email);
+}
+
+function wrap(ctx, text, x, y, maxW, lh){
+  var words = text.split(' '), line = '', lines = [];
+  words.forEach(function(w){ var t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line){ lines.push(line); line = w; } else line = t; });
+  if (line) lines.push(line);
+  lines.forEach(function(l, i){ ctx.fillText(l, x, y + i * lh); });
+  return lines.length;
+}
+function drawCard(){
+  var c = $('shareCanvas'), x = c.getContext('2d'), R = result.R, W = 1080;
+  var g = x.createLinearGradient(0, 0, 0, W); g.addColorStop(0, '#0a1628'); g.addColorStop(1, '#1B3A6B'); x.fillStyle = g; x.fillRect(0, 0, W, W);
+  x.strokeStyle = '#C9941A'; x.lineWidth = 14; x.strokeRect(40, 40, W - 80, W - 80);
+  x.strokeStyle = 'rgba(232,184,75,0.4)'; x.lineWidth = 3; x.strokeRect(66, 66, W - 132, W - 132);
+  x.textAlign = 'center';
+  x.fillStyle = '#E8B84B'; x.font = 'bold 34px "DM Sans", Arial, sans-serif'; x.fillText('RIGHT SIDE OF MONEY', W / 2, 160);
+  x.fillStyle = 'rgba(255,255,255,0.75)'; x.font = '600 30px "DM Sans", Arial, sans-serif'; x.fillText('MY ' + Q.title.toUpperCase() + ' RESULT', W / 2, 225);
+  x.fillStyle = '#C9941A'; x.fillRect(W / 2 - 80, 255, 160, 5);
+  x.fillStyle = '#E8B84B'; x.font = 'bold 190px "Bebas Neue", Impact, sans-serif'; x.fillText(result.pct, W / 2, 460);
+  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '32px "DM Sans", Arial, sans-serif'; x.fillText('out of 100', W / 2, 510);
+  x.fillStyle = '#FFFFFF'; x.font = 'bold 70px "Playfair Display", Georgia, serif';
+  var n = wrap(x, R.plain, W / 2, 620, 900, 82);
+  x.fillStyle = 'rgba(255,255,255,0.82)'; x.font = '34px "DM Sans", Arial, sans-serif';
+  wrap(x, R.card, W / 2, 620 + n * 82 + 40, 860, 48);
+  x.fillStyle = '#C9941A'; x.fillRect(140, 900, W - 280, 80);
+  x.fillStyle = '#0D1F3C'; x.font = 'bold 32px "DM Sans", Arial, sans-serif'; x.fillText('What\'s yours? Take the free quiz at rightsideofmoney.com', W / 2, 952, W - 320);
+}
+function wireShare(){
+  var c = $('shareCanvas'), fname = 'RSM-' + Q.slug + '-' + result.key + '.png';
+  $('dlBtn').addEventListener('click', function(){ var a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = fname; document.body.appendChild(a); a.click(); a.remove(); });
+  $('shareBtn').addEventListener('click', function(){
+    var text = 'I\'m ' + result.R.plain + ' on the Right Side of Money ' + Q.title + '. What\'s yours? Take the free quiz at rightsideofmoney.com';
+    c.toBlob(function(blob){
+      try {
+        var file = new File([blob], fname, {type: 'image/png'});
+        if (navigator.canShare && navigator.canShare({files: [file]})){ navigator.share({files: [file], text: text}).catch(function(){}); return; }
+      } catch(e){}
+      if (navigator.share){ navigator.share({text: text, url: location.href}).catch(function(){}); return; }
+      $('dlBtn').click(); alert('Your result card was downloaded. Post it to your favorite platform and tag Right Side of Money.');
+    }, 'image/png');
+  });
+}
+})();
+
+</script>
+</body>
+</html>
