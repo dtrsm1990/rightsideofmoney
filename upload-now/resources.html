@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Resources | Right Side of Money</title>
+<meta name="description" content="Download five free guides from Darrell Thompson: the Financial Foundation Checklist, the 5 Money Lies, the Wealth Building Mindset Starter Kit, the Budget Snapshot Tool, and the Crypto Scam Red Flags Guide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0D1F3C;--navy-mid:#1B3A6B;--gold:#C9941A;--gold-light:#E8B84B;
+    --gold-pale:#FDF3DC;--cream:#FAF7F2;--white:#FFFFFF;
+    --gray-100:#F4F4F0;--gray-300:#D0CFC8;--gray-500:#888880;
+    --gray-700:#444440;--dark:#0A0A0A;
+    --font-display:'Playfair Display',Georgia,serif;
+    --font-impact:'Bebas Neue',sans-serif;
+    --font-body:'DM Sans',sans-serif;
+  }
+  html,body{margin:0;padding:0;font-family:var(--font-body);background:var(--dark);color:var(--gray-700);overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;}
+  .nav-logo-top{font-family:var(--font-impact);font-size:22px;letter-spacing:3px;color:var(--white);}
+  .nav-logo-sub{font-size:10px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;font-weight:500;}
+  .nav-links{display:flex;align-items:center;height:68px;gap:24px;list-style:none;}
+  .nav-links li{display:flex;align-items:center;}
+  .nav-links a{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.8);text-decoration:none;transition:color 0.2s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold-light);}
+  .nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:10px 20px;border-radius:2px;font-weight:600!important;display:inline-flex;align-items:center;}
+  .nav-cta:hover{background:var(--gold-light)!important;}
+
+  /* HERO */
+  .hero{background:var(--navy);padding:140px 40px 80px;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(42,82,152,0.2) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 10% 80%,rgba(201,148,26,0.08) 0%,transparent 50%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,148,26,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,148,26,0.03) 1px,transparent 1px);background-size:60px 60px;}
+  .hero-bar{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,var(--gold),transparent 60%);}
+  .hero-inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;text-align:center;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .hero-eyebrow-line{width:40px;height:2px;background:var(--gold);}
+  .hero-eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+  .hero-headline{font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:900;color:var(--white);line-height:1.05;margin-bottom:20px;}
+  .hero-headline em{font-style:normal;color:var(--gold-light);}
+  .hero-sub{font-size:18px;line-height:1.75;color:rgba(255,255,255,0.6);font-weight:300;max-width:700px;margin:0 auto;}
+
+  /* TICKER */
+  .ticker-strip{background:var(--gold);padding:14px 0;overflow:hidden;}
+  .ticker-track{display:flex;gap:60px;animation:ticker 30s linear infinite;white-space:nowrap;}
+  .ticker-item{display:flex;align-items:center;gap:16px;font-family:var(--font-impact);font-size:18px;letter-spacing:2px;color:var(--navy);}
+  .ticker-dot{width:6px;height:6px;background:var(--navy);border-radius:50%;flex-shrink:0;}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* PATH SECTION */
+  .path-section{background:var(--cream);padding:80px 40px;}
+  .path-inner{max-width:1100px;margin:0 auto;}
+  .path-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--gray-300);margin-top:48px;}
+  .path-step{background:var(--white);padding:32px 24px;text-align:center;position:relative;}
+  .path-step-num{font-family:var(--font-impact);font-size:48px;color:rgba(13,31,60,0.08);line-height:1;margin-bottom:8px;}
+  .path-step-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  .path-step-desc{font-size:13px;color:var(--gray-500);line-height:1.5;font-weight:300;}
+  .path-step-accent{width:32px;height:3px;background:var(--gold);margin:0 auto 12px;}
+  .eyebrow{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px;}
+  .eyebrow-line{width:32px;height:2px;background:var(--gold);}
+  .eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+  .sec-headline{font-family:var(--font-display);font-size:clamp(26px,3vw,42px);font-weight:900;line-height:1.1;margin-bottom:12px;text-align:center;}
+
+  /* FREE COURSES */
+  .free-section{background:var(--navy);padding:100px 40px;position:relative;overflow:hidden;}
+  .free-section::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,148,26,0.08) 0%,transparent 60%);border-radius:50%;}
+  .section-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+  .section-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,148,26,0.12);border:1px solid rgba(201,148,26,0.3);padding:8px 20px;border-radius:2px;margin-bottom:24px;}
+  .section-tag-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;}
+  .section-tag-text{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+  .courses-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(255,255,255,0.06);margin-top:48px;}
+  .course-card{background:var(--navy);border:1px solid rgba(255,255,255,0.04);padding:48px 36px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;}
+  .course-card:hover{background:rgba(255,255,255,0.04);transform:translateY(-4px);}
+  .course-card.paid{border-color:rgba(201,148,26,0.2);}
+  .course-emblem{width:180px;height:180px;object-fit:contain;margin-bottom:24px;filter:drop-shadow(0 4px 16px rgba(201,148,26,0.3));transition:transform 0.4s;}
+  .course-card:hover .course-emblem{transform:scale(1.08);}
+  .course-badge{display:inline-block;background:rgba(201,148,26,0.12);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:14px;border:1px solid rgba(201,148,26,0.25);}
+  .course-badge.free-badge{background:rgba(201,148,26,0.2);color:var(--gold-light);}
+  .course-title{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);font-weight:900;color:var(--white);margin-bottom:12px;line-height:1.2;}
+  .course-desc{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;margin-bottom:20px;flex-grow:1;}
+  .course-price{font-family:var(--font-impact);font-size:36px;letter-spacing:2px;color:var(--gold);line-height:1;margin-bottom:24px;}
+  .course-price.free{color:var(--gold-light);}
+  .btn-course{display:inline-block;background:var(--gold);color:var(--navy);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;width:100%;}
+  .btn-course:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-2px);}
+  .btn-course-outline{display:inline-block;background:transparent;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:12px 28px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;width:100%;margin-top:10px;}
+  .btn-course-outline:hover{background:var(--gold);color:var(--navy);}
+
+  /* PAID COURSES */
+  .paid-section{background:var(--cream);padding:100px 40px;}
+  .paid-inner{max-width:1100px;margin:0 auto;}
+  .paid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--gray-300);margin-top:48px;}
+  .paid-card{background:var(--white);padding:48px 36px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all 0.3s;}
+  .paid-card:hover{background:var(--navy);transform:translateY(-4px);box-shadow:0 20px 60px rgba(13,31,60,0.15);z-index:2;}
+  .paid-card:hover .paid-title{color:var(--white);}
+  .paid-card:hover .paid-desc{color:rgba(255,255,255,0.55);}
+  .paid-card:hover .paid-badge{background:rgba(201,148,26,0.2);color:var(--gold);}
+  .paid-card:hover .paid-price{color:var(--gold);}
+  .paid-card:hover .btn-paid{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+  .paid-emblem{width:180px;height:180px;object-fit:contain;margin-bottom:24px;filter:drop-shadow(0 4px 16px rgba(13,31,60,0.15));transition:transform 0.4s;}
+  .paid-card:hover .paid-emblem{transform:scale(1.08);filter:drop-shadow(0 4px 16px rgba(201,148,26,0.3));}
+  .paid-badge{display:inline-block;background:var(--gold-pale);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:2px;margin-bottom:14px;transition:all 0.3s;}
+  .paid-title{font-family:var(--font-display);font-size:clamp(18px,2vw,24px);font-weight:900;color:var(--navy);margin-bottom:12px;line-height:1.2;transition:color 0.3s;}
+  .paid-desc{font-size:14px;color:var(--gray-500);line-height:1.7;font-weight:300;margin-bottom:20px;flex-grow:1;transition:color 0.3s;}
+  .paid-price{font-family:var(--font-impact);font-size:36px;letter-spacing:2px;color:var(--navy);line-height:1;margin-bottom:24px;transition:color 0.3s;}
+  .btn-paid{display:inline-block;background:var(--navy);color:var(--white);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:2px;border:2px solid var(--navy);transition:all 0.25s;width:100%;}
+  .btn-paid:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+  .btn-more-info-link{display:inline-block;background:transparent;color:var(--navy);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:10px;transition:all 0.25s;width:100%;margin-top:8px;border:1px solid var(--gray-300);}
+  .btn-more-info-link:hover{border-color:var(--navy);}
+  .paid-card:hover .btn-more-info-link{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2);}
+
+  /* ACCOUNTABILITY */
+  .acct-section{background:var(--dark);padding:100px 40px;}
+  .acct-inner{max-width:1100px;margin:0 auto;}
+  .acct-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,0.06);margin-top:48px;}
+  .acct-card{background:var(--navy);border:1px solid rgba(255,255,255,0.04);padding:44px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:all 0.3s;}
+  .acct-card.featured{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.3);}
+  .acct-card:hover{background:rgba(255,255,255,0.05);transform:translateY(-4px);}
+  .acct-card.featured:hover{background:rgba(201,148,26,0.12);}
+  .acct-emblem{width:160px;height:160px;object-fit:contain;margin-bottom:20px;filter:drop-shadow(0 4px 16px rgba(201,148,26,0.25));transition:transform 0.4s;}
+  .acct-card:hover .acct-emblem{transform:scale(1.08);}
+  .acct-level{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .acct-title{font-family:var(--font-display);font-size:18px;font-weight:900;color:var(--white);margin-bottom:10px;line-height:1.2;}
+  .acct-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;font-weight:300;margin-bottom:16px;flex-grow:1;}
+  .acct-price{font-family:var(--font-impact);font-size:32px;letter-spacing:2px;color:var(--gold);line-height:1;margin-bottom:8px;}
+  .acct-price-note{font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:20px;font-weight:300;}
+  .btn-acct{display:inline-block;background:transparent;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:12px 24px;border-radius:2px;border:2px solid var(--gold);transition:all 0.25s;width:100%;}
+  .btn-acct:hover{background:var(--gold);color:var(--navy);transform:translateY(-2px);}
+  .acct-card.featured .btn-acct{background:var(--gold);color:var(--navy);}
+  .acct-card.featured .btn-acct:hover{background:var(--gold-light);border-color:var(--gold-light);}
+  .featured-tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:2px;margin-bottom:14px;}
+
+  /* DISCOVERY CTA */
+  .discovery-section{background:var(--gold);padding:80px 40px;text-align:center;position:relative;overflow:hidden;}
+  .discovery-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(13,31,60,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(13,31,60,0.06) 1px,transparent 1px);background-size:40px 40px;}
+  .discovery-inner{position:relative;z-index:2;max-width:700px;margin:0 auto;}
+  .discovery-headline{font-family:var(--font-display);font-size:clamp(28px,3.5vw,46px);font-weight:900;color:var(--navy);line-height:1.1;margin-bottom:16px;}
+  .discovery-sub{font-size:17px;color:rgba(13,31,60,0.7);margin-bottom:36px;font-weight:300;line-height:1.7;}
+  .btn-discovery{display:inline-block;background:var(--navy);color:var(--white);font-size:14px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;padding:18px 44px;border-radius:2px;border:2px solid var(--navy);transition:all 0.25s;}
+  .btn-discovery:hover{background:transparent;color:var(--navy);transform:translateY(-2px);}
+
+  /* FOOTER */
+  footer{background:var(--dark);padding:48px 40px 32px;border-top:1px solid rgba(255,255,255,0.06);}
+  .footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  .footer-brand{font-family:var(--font-impact);font-size:22px;letter-spacing:3px;color:var(--white);}
+  .footer-brand span{color:var(--gold);}
+  .footer-contact{font-size:13px;color:rgba(255,255,255,0.4);text-align:center;}
+  .footer-contact a{color:var(--gold-light);text-decoration:none;}
+  .footer-copy{font-size:12px;color:rgba(255,255,255,0.25);}
+
+  /* ANIMATIONS */
+  .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .fade-up.visible{opacity:1;transform:translateY(0);}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    nav{padding:12px 20px;height:auto;min-height:60px;flex-direction:column;align-items:center;gap:10px;}
+    .nav-logo{align-items:center;}
+    .nav-logo-top{font-size:17px;}
+    .nav-links{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:center;gap:8px;width:100%;}
+    
+    .nav-cta{display:inline-flex!important;padding:9px 14px!important;font-size:11px!important;}
+    .hero{padding:120px 24px 60px;}
+    .path-steps{grid-template-columns:1fr 1fr;}
+    .courses-grid,.paid-grid{grid-template-columns:1fr;}
+    .acct-grid{grid-template-columns:1fr;}
+    .path-section,.free-section,.paid-section,.acct-section,.discovery-section{padding:70px 24px;}
+    footer .footer-inner{flex-direction:column;text-align:center;}
+  }
+
+  /* HAMBURGER MENU */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(13,31,60,0.98); z-index: 150; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 80px 40px 40px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-family: var(--font-display); font-size: clamp(22px, 5vw, 32px); font-weight: 700; color: var(--white); text-decoration: none; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); width: 100%; text-align: center; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--gold-light); }
+  .mobile-menu a.active { color: var(--gold-light); }
+  .mobile-menu-cta { background: var(--gold) !important; color: var(--navy) !important; border-radius: 2px !important; border: none !important; font-family: var(--font-body) !important; font-size: 15px !important; font-weight: 700 !important; letter-spacing: 1px; text-transform: uppercase; padding: 16px 40px !important; margin-top: 16px; }
+  .mobile-menu-close { position: absolute; top: 20px; right: 24px; font-size: 28px; color: rgba(255,255,255,0.5); cursor: pointer; background: none; border: none; line-height: 1; }
+  @media (max-width: 900px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none !important; }
+  }
+
+
+/* ==RSM NAV FINAL== */
+nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:99999!important;background:rgba(13,31,60,0.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px!important;height:68px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;}
+.nav-logo{display:flex!important;flex-direction:column!important;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF!important;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B!important;text-transform:uppercase;font-weight:500;}
+.nav-links{display:flex!important;align-items:center!important;height:68px!important;gap:14px!important;list-style:none!important;flex-wrap:nowrap!important;}
+.nav-links li{display:flex!important;align-items:center!important;}
+.nav-links li a{display:block!important;font-size:11px!important;font-weight:500!important;letter-spacing:1px!important;text-transform:uppercase!important;color:rgba(255,255,255,0.8)!important;text-decoration:none!important;white-space:nowrap!important;}
+.nav-links li a:hover,.nav-links li a.active{color:#E8B84B!important;}
+.nav-links li a.nav-cta{background:#C9941A!important;color:#0D1F3C!important;padding:9px 14px!important;border-radius:2px!important;font-weight:700!important;}
+.nav-hamburger{display:none!important;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;background:none!important;border:none!important;z-index:99999!important;flex-shrink:0;}
+.nav-hamburger span{display:block;width:24px;height:2px;background:#FFFFFF;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-hamburger.is-open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-hamburger.is-open span:nth-child(2){opacity:0;}
+.nav-hamburger.is-open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.nav-mobile{display:none!important;position:fixed;top:68px;left:0;right:0;background:rgba(13,31,60,0.99);z-index:99998;flex-direction:column;padding:12px 0 20px;border-bottom:3px solid #C9941A;box-shadow:0 8px 32px rgba(0,0,0,0.6);}
+.nav-mobile.is-open{display:flex!important;}
+.nav-mobile a{font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.85);text-decoration:none;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,0.07);display:block;}
+.nav-mobile a:hover,.nav-mobile a.active{color:#E8B84B;}
+.nav-mobile a.nav-mobile-cta{background:#C9941A;color:#0D1F3C!important;margin:14px 28px 0;padding:14px 28px;text-align:center;font-weight:700;border-radius:2px;}
+@media screen and (max-width:768px){nav{padding:0 20px!important;}.nav-links{display:none!important;}.nav-hamburger{display:flex!important;}}
+@media screen and (min-width:769px){.nav-links{display:flex!important;}.nav-hamburger{display:none!important;}.nav-mobile{display:none!important;}}
+/* ==END RSM NAV== */
+
+.hub-hero{background:var(--navy);padding:150px 40px 80px;text-align:center;position:relative;overflow:hidden;}
+.hub-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 30%,rgba(201,148,26,0.12),transparent 65%);}
+.hub-inner{max-width:900px;margin:0 auto;position:relative;z-index:2;}
+.hub-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hub-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,5vw,58px);font-weight:900;color:#fff;line-height:1.08;margin-bottom:20px;}
+.hub-title em{font-style:normal;color:#E8B84B;}
+.hub-sub{font-size:18px;color:rgba(255,255,255,0.72);line-height:1.75;max-width:720px;margin:0 auto;font-weight:300;}
+.hub-sec{background:#FAF7F2;padding:90px 40px;}
+.hub-sec.dark{background:#0A0A0A;}
+.hub-wrap{max-width:1150px;margin:0 auto;}
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+.hub-card{background:#fff;border-top:4px solid #C9941A;border-radius:2px;padding:34px 30px;box-shadow:0 10px 30px rgba(13,31,60,0.08);display:flex;flex-direction:column;}
+.hub-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;border:1px solid rgba(201,148,26,0.4);padding:5px 10px;border-radius:2px;margin-bottom:16px;align-self:flex-start;}
+.hub-card h3{font-family:'Playfair Display',Georgia,serif;font-size:24px;color:#0D1F3C;line-height:1.25;margin-bottom:10px;}
+.hub-card .q{font-size:15px;font-weight:600;color:#0D1F3C;margin-bottom:12px;}
+.hub-card p{font-size:15px;color:#555;line-height:1.7;margin-bottom:16px;font-weight:300;}
+.hub-card ul{list-style:none;margin:0 0 22px;padding:0;}
+.hub-card li{font-size:14px;color:#444;padding:6px 0 6px 22px;position:relative;border-bottom:1px solid #eee;line-height:1.5;}
+.hub-card li::before{content:'\2713';position:absolute;left:0;color:#C9941A;font-weight:700;}
+.hub-meta{display:flex;gap:18px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#888;margin-bottom:20px;}
+.hub-btn{margin-top:auto;display:block;text-align:center;background:#C9941A;color:#0D1F3C;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 20px;border-radius:2px;transition:background 0.2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.hub-btn:hover{background:#E8B84B;}
+.hub-btn.locked{background:#0D1F3C;color:#fff;}
+.hub-h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3.5vw,42px);font-weight:900;color:#0D1F3C;text-align:center;margin-bottom:14px;line-height:1.15;}
+.hub-sec.dark .hub-h2{color:#fff;}
+.hub-lead{text-align:center;font-size:16px;color:#666;max-width:680px;margin:0 auto 48px;line-height:1.75;font-weight:300;}
+.hub-sec.dark .hub-lead{color:rgba(255,255,255,0.6);}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.step3{border:1px solid rgba(201,148,26,0.25);padding:28px;border-radius:2px;}
+.step3 .n{font-family:'Bebas Neue',sans-serif;font-size:42px;color:#C9941A;line-height:1;}
+.step3 h4{color:#fff;font-size:17px;margin:8px 0;}
+.step3 p{color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;}
+.unlock{max-width:720px;margin:0 auto 50px;background:#0D1F3C;border-top:4px solid #C9941A;border-radius:2px;padding:36px 34px;text-align:center;box-shadow:0 16px 40px rgba(13,31,60,0.25);}
+.unlock h3{font-family:'Playfair Display',Georgia,serif;color:#fff;font-size:26px;margin-bottom:8px;}
+.unlock p{color:rgba(255,255,255,0.7);font-size:15px;margin-bottom:20px;line-height:1.6;}
+.unlock-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.unlock input[type=text],.unlock input[type=email]{width:100%;padding:14px 16px;border:2px solid rgba(201,148,26,0.4);background:rgba(255,255,255,0.06);color:#fff;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:15px;}
+.unlock input:focus{outline:none;border-color:#E8B84B;}
+.unlock-check{display:flex;gap:10px;align-items:flex-start;text-align:left;font-size:13px;color:rgba(255,255,255,0.6);margin:6px 0 16px;line-height:1.5;}
+.unlock-check input{margin-top:3px;accent-color:#C9941A;}
+.unlock-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+.unlock.done h3{color:#E8B84B;}
+@media(max-width:768px){.hub-hero{padding:120px 20px 60px;}.hub-sec{padding:60px 20px;}.unlock{padding:28px 20px;}.unlock-row{grid-template-columns:1fr;}}
+</style>
+<link rel="canonical" href="https://rightsideofmoney.com/resources.html" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Right Side of Money" />
+<meta property="og:title" content="Free Resources | Right Side of Money" />
+<meta property="og:description" content="Download five free guides from Darrell Thompson: the Financial Foundation Checklist, the 5 Money Lies, the Wealth Building Mindset Starter Kit, the Budget Snapshot Tool, and the Crypto Scam Red Flags Guide." />
+<meta property="og:url" content="https://rightsideofmoney.com/resources.html" />
+<meta property="og:image" content="https://rightsideofmoney.com/rsm-share.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://rightsideofmoney.com/rsm-share.png" />
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo"><span class="nav-logo-top">RIGHT SIDE OF MONEY</span><span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span></a>
+  <ul class="nav-links"><li><a href="./index.html">Home</a></li><li><a href="./about.html">About</a></li><li><a href="./services.html">Services</a></li><li><a href="./accountability.html">Accountability</a></li><li><a href="./courses.html">Courses</a></li><li><a href="./book.html">Book</a></li><li><a href="./speaking.html">Speaking</a></li><li><a href="./community-invite.html">Community</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./quizzes.html" style="color:#E8B84B!important;font-weight:700!important;">Free Quizzes</a></li><li><a href="./resources.html" class="nav-cta">Start Free</a></li></ul>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+<a href="./index.html">Home</a>
+<a href="./about.html">About</a>
+<a href="./services.html">Services</a>
+<a href="./accountability.html">Accountability</a>
+<a href="./courses.html">Courses</a>
+<a href="./book.html">Book</a>
+<a href="./speaking.html">Speaking</a>
+<a href="./community-invite.html">Community</a>
+<a href="./contact.html">Contact</a>
+<a href="./quizzes.html" style="color:#E8B84B;font-weight:700;">&#9733; Free Quizzes</a>
+<a href="./resources.html" class="nav-mobile-cta">Start Free</a>
+</div>
+
+<section class="hub-hero"><div class="hub-inner">
+<div class="hub-eyebrow">Free Resource Library</div>
+<h1 class="hub-title">Start Free. <em>Start Right.</em></h1>
+<p class="hub-sub">Five free guides from Darrell Thompson to help you face your numbers, rewrite the money beliefs you grew up with, and build the foundation real wealth is built on, and protect your family from crypto scams. Enter your name and email once to unlock all five.</p>
+</div></section>
+<section class="hub-sec"><div class="hub-wrap">
+<div class="unlock" id="unlock">
+ <div id="unlockForm"><h3>Unlock All Five Free Guides</h3><p>Enter your name and email and every guide on this page unlocks instantly.</p>
+ <form id="resForm" novalidate><div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="resCo" name="company" tabindex="-1" autocomplete="off" /></label></div><div class="unlock-row"><input type="text" id="resName" placeholder="First name" autocomplete="given-name" /><input type="email" id="resEmail" placeholder="Email address" autocomplete="email" /></div>
+ <label class="unlock-check"><input type="checkbox" id="resOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>
+ <button type="submit" class="hub-btn" style="width:100%">Unlock My Free Guides</button><p class="unlock-msg" id="resMsg"></p></form></div>
+ <div id="unlockDone" style="display:none"><h3>Your Guides Are Unlocked</h3><p>Download any guide below. Start with the Financial Foundation Checklist if you're not sure where to begin.</p></div>
+</div>
+<div class="hub-grid"><div class="hub-card fade-up" id="RSM_Financial_Foundation_Checklist"><span class="hub-tag">Foundation</span><h3>The RSM Financial Foundation Checklist</h3><div class="q">10 things you must have in place before you can build real wealth.</div><p>Most people try to build wealth before building the foundation. This checklist shows you exactly what needs to be in place first, and every unchecked box becomes your next action step.</p><ul><li>The 10 foundational elements of lasting wealth</li><li>A clear checklist for each one</li><li>Your personal list of next action steps</li></ul><div class="hub-meta"><span>Free PDF</span><span>6 pages</span></div><a class="hub-btn locked dl" data-href="./RSM_Financial_Foundation_Checklist.pdf" href="#unlock">Unlock to Download</a></div><div class="hub-card fade-up" id="RSM_5_Money_Lies"><span class="hub-tag">Mindset</span><h3>The 5 Money Lies You Were Told Growing Up</h3><div class="q">And the financial truths that will set you free.</div><p>The beliefs you formed about money before your first paycheck are still running your financial life. This guide names the five most dangerous lies and replaces each one with the truth.</p><ul><li>The 5 most common inherited money lies</li><li>Where each lie comes from and what it costs</li><li>The truth that replaces it</li></ul><div class="hub-meta"><span>Free PDF</span><span>7 pages</span></div><a class="hub-btn locked dl" data-href="./RSM_5_Money_Lies.pdf" href="#unlock">Unlock to Download</a></div><div class="hub-card fade-up" id="RSM_Wealth_Building_Mindset_Starter_Kit"><span class="hub-tag">Mindset</span><h3>The Wealth Building Mindset Starter Kit</h3><div class="q">Start thinking like someone who builds wealth.</div><p>Wealth building is a thinking skill before it's a financial skill. This starter kit gives you the foundational mindset shifts Darrell teaches in every Right Side of Money program.</p><ul><li>A personal message from Darrell</li><li>The core mindset shifts behind wealth building</li><li>Practical exercises to start today</li></ul><div class="hub-meta"><span>Free PDF</span><span>7 pages</span></div><a class="hub-btn locked dl" data-href="./RSM_Wealth_Building_Mindset_Starter_Kit.pdf" href="#unlock">Unlock to Download</a></div><div class="hub-card fade-up" id="RSM_Budget_Snapshot_Tool"><span class="hub-tag">Tool</span><h3>The RSM Budget Snapshot Tool</h3><div class="q">Your complete monthly financial picture on one page.</div><p>A budget that lives in your head is a guess. A written budget is a plan. Plan your month, fill in your actual numbers, and see exactly where your money goes versus where you intended it to go.</p><ul><li>Income, savings first, and every expense category</li><li>Budget versus actual columns</li><li>A pay-yourself-first structure built in</li></ul><div class="hub-meta"><span>Free PDF</span><span>8 pages</span></div><a class="hub-btn locked dl" data-href="./RSM_Budget_Snapshot_Tool.pdf" href="#unlock">Unlock to Download</a></div>
+<div class="hub-card fade-up" id="RSM_Crypto_Scam_Red_Flags"><span class="hub-tag">New &middot; Protection</span><h3>The RSM Crypto Scam Red Flags Guide</h3><div class="q">How scammers take crypto, and how to protect yourself and the people you love.</div><p>Americans reported more than $11 billion in crypto-related fraud losses to the FBI in 2025. This guide teaches you the scammers' playbook so it never works on you or your family. Print it and share it with your parents.</p><ul><li>The 7 red flags of every crypto scam</li><li>A security checklist and the 10-Minute Rule</li><li>The Three Refrigerator Rules and what to do if it happens</li></ul><div class="hub-meta"><span>Free PDF</span><span>3 pages</span></div><a class="hub-btn locked dl" data-href="./RSM_Crypto_Scam_Red_Flags.pdf" href="#unlock">Unlock to Download</a></div><div class="hub-card fade-up" id="RSM_Family_Emergency_Binder"><span class="hub-tag">New &middot; Protection</span><h3>The RSM Family Emergency Binder Checklist</h3><div class="q">Everything your family would need if something happened to you, in one place.</div><p>Only about one in four Americans has a will, and most families couldn't find every account and policy if they had to. This checklist walks you through the paperwork, the binder, your real coverage number, and a 30-minute family meeting.</p><ul><li>A coverage worksheet to find your real number</li><li>The paperwork and emergency binder checklists</li><li>A key contacts page and family meeting guide</li></ul><div class="hub-meta"><span>Free PDF</span><span>4 pages</span></div><a class="hub-btn locked dl" data-href="./RSM_Family_Emergency_Binder.pdf" href="#unlock">Unlock to Download</a></div><div class="hub-card fade-up" id="RSM_Money_Script_Workbook"><span class="hub-tag">New &middot; Mindset</span><h3>The RSM Money Script Workbook</h3><div class="q">Find the money story you were handed, and write a better one.</div><p>Your earliest money beliefs still drive your decisions today. This workbook helps you name your money script, trace where it came from, rewrite it, and practice the new one for 30 days, alone or with your partner.</p><ul><li>The six money personalities at a glance</li><li>Your money story prompts and script rewrite</li><li>A trigger log, 30-day tracker, and couples conversation guide</li></ul><div class="hub-meta"><span>Free PDF</span><span>5 pages</span></div><a class="hub-btn locked dl" data-href="./RSM_Money_Script_Workbook.pdf" href="#unlock">Unlock to Download</a></div></div>
+</div></section>
+<section class="hub-sec dark"><div class="hub-wrap">
+<h2 class="hub-h2 fade-up">Keep Going After the Guides</h2>
+<p class="hub-lead fade-up">The guides are your first step. Here's how to take the next one.</p>
+<div class="steps3">
+ <div class="step3 fade-up"><div class="n">01</div><h4>Take a Free Quiz</h4><p>Find your mindset type, your investing readiness, and your accountability style in about five minutes each.</p><a class="hub-btn" style="margin-top:16px" href="./quizzes.html">Take a Free Quiz</a></div>
+ <div class="step3 fade-up"><div class="n">02</div><h4>Join the Community</h4><p>Free daily financial truth and a community of people doing this exact work.</p><a class="hub-btn" style="margin-top:16px" href="./community-invite.html">Join Free</a></div>
+ <div class="step3 fade-up"><div class="n">03</div><h4>Run Your Numbers</h4><p>Five free calculators for your budget, debt payoff, emergency fund, investing growth, and net worth.</p><a class="hub-btn" style="margin-top:16px" href="./tools.html">Use the Money Tools</a></div>
+ <div class="step3 fade-up"><div class="n">04</div><h4>Find Your Program</h4><p>From three-day intro programs to full accountability, start where you are and build from there.</p><a class="hub-btn" style="margin-top:16px" href="./courses.html">View Programs</a></div>
+</div></div></section>
+
+<script>
+(function(){
+  var KEY = 'rsm_resources_unlocked', T0 = Date.now();
+  function unlocked(){ try { return localStorage.getItem(KEY) === '1'; } catch(e){ return false; } }
+  function open(){
+    document.querySelectorAll('.dl').forEach(function(a){ a.href = a.getAttribute('data-href'); a.setAttribute('download', ''); a.setAttribute('target', '_blank'); a.classList.remove('locked'); a.textContent = 'Download Free PDF'; });
+    document.getElementById('unlockForm').style.display = 'none'; document.getElementById('unlockDone').style.display = 'block'; document.getElementById('unlock').classList.add('done');
+  }
+  document.querySelectorAll('.dl').forEach(function(a){ a.addEventListener('click', function(e){ if (a.classList.contains('locked')){ e.preventDefault(); document.getElementById('unlock').scrollIntoView({behavior: 'smooth', block: 'center'}); document.getElementById('resName').focus(); } }); });
+  if (unlocked()) open();
+  document.getElementById('resForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var n = document.getElementById('resName').value.trim(), em = document.getElementById('resEmail').value.trim(), msg = document.getElementById('resMsg');
+    if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ msg.textContent = 'Please enter your first name and a valid email.'; return; }
+    var b = this.querySelector('button'); b.disabled = true; b.textContent = 'Unlocking...';
+    function done(){ try { localStorage.setItem(KEY, '1'); } catch(e){} open(); }
+    if (document.getElementById('resCo').value || (Date.now() - T0) < 3000){ setTimeout(done, 600); return; }
+    var fd = new FormData(); fd.append('name', n); fd.append('email', em); fd.append('_replyto', em);
+    fd.append('_subject', 'Free Resource Download | ' + n); fd.append('source', 'Free Resource Library (resources.html)');
+    fd.append('email_opt_in', document.getElementById('resOpt').checked ? 'Yes' : 'No');
+    if (document.getElementById('resOpt').checked){ var kf = new FormData(); kf.append('email_address', em); kf.append('fields[first_name]', n); try { fetch('https://app.kit.com/forms/9981618/subscriptions', {method: 'POST', body: kf, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){} }
+    fetch('https://formspree.io/f/xrpbgjbb', {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(done).catch(done);
+  });
+})();
+</script>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">RIGHT SIDE OF <span>MONEY</span></div>
+    <div class="footer-contact">
+      Darrell Thompson &nbsp;|&nbsp; (951) 223-5716 &nbsp;|&nbsp;
+      <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a> &nbsp;|&nbsp;
+      <a href="./index.html">rightsideofmoney.com</a>
+    </div>
+    <div class="footer-copy">&#169; 2026 Right Side of Money. All Rights Reserved.</div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var btn=document.getElementById("navHamburger");
+  var menu=document.getElementById("navMobile");
+  if(!btn||!menu)return;
+  function open(){menu.classList.add("is-open");btn.classList.add("is-open");menu.style.cssText="display:flex!important;";}
+  function close(){menu.classList.remove("is-open");btn.classList.remove("is-open");menu.style.cssText="display:none!important;";}
+  close();
+  btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("is-open")?close():open();});
+  document.addEventListener("click",function(e){if(menu.classList.contains("is-open")&&!menu.contains(e.target)&&!btn.contains(e.target)){close();}});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){close();});});
+  if(window.IntersectionObserver){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.08});document.querySelectorAll(".fade-up").forEach(function(el){obs.observe(el);});}
+})();
+</script>
+
+</body>
+</html>
