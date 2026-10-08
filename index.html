@@ -224,6 +224,33 @@ footer a:hover{color:var(--goldl);}
 @media(max-width:560px){.wrap{padding:0 16px;}.formats div{padding:12px 6px;}.award-line{align-items:flex-start;}.stats{grid-template-columns:1fr 1fr;}.grid4{grid-template-columns:1fr;}.wp{grid-template-columns:1fr 1fr;}.formats{grid-template-columns:1fr 1fr 1fr;gap:8px;}.formats b{font-size:26px;}.hero{padding-top:56px;}.brand span{font-size:12px;letter-spacing:2px;}.brand img{height:34px;}.covers{height:360px;}.covers .emb{width:90px;}.fgrid{grid-template-columns:1fr;}.step p{min-height:0;}.auth-in b{font-size:23px;}.auth-in div{padding:16px 12px;}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
 </style>
+<!-- RSM-GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H3GBPMJH2R"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H3GBPMJH2R');
+(function(){
+  var f = window.fetch;
+  if (f) window.fetch = function(u, o){
+    try {
+      var s = String(u && u.url || u), b = o && o.body, n = '';
+      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
+      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
+      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+    } catch(e){}
+    return f.apply(this, arguments);
+  };
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
+    if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
+    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+  }, true);
+})();
+</script>
+<!-- /RSM-GA -->
 </head>
 <body>
 
@@ -468,6 +495,7 @@ footer a:hover{color:var(--goldl);}
         <a class="btn ghost" href="https://www.amazon.com/dp/B0HHX86HRQ" target="_blank" rel="noopener">Get the Workbook</a>
       </div>
       <div class="award-line reveal"><img src="./distinguished-author-emblem.png" alt="" width="46" height="46" loading="lazy"><span>International Impact Book Awards &middot; Distinguished Author 2026 &middot; <a class="link" href="./author-signed-copy.html">Order a signed copy</a></span></div>
+      <p class="reveal" style="margin-top:16px;font-size:15px;color:rgba(255,255,255,0.8)">Already have the book? <a class="link" href="./reader-resources.html">Claim your free reader resources &rarr;</a></p>
     </div>
   </div>
 </section>
@@ -546,7 +574,7 @@ footer a:hover{color:var(--goldl);}
       </div>
       <div><h4>Start Free</h4><ul><li><a href="./money-tracker.html">30-Day Money Tracker</a></li><li><a href="./quizzes.html">Free Assessments</a></li><li><a href="./tools.html">Free Money Tools</a></li><li><a href="./resources.html">Free Guides</a></li><li><a href="./community-invite.html">Community</a></li></ul></div>
       <div><h4>Programs</h4><ul><li><a href="./courses.html">All Courses</a></li><li><a href="./course-investing.html">Intro to Investing</a></li><li><a href="./course-crypto.html">Intro to Crypto</a></li><li><a href="./course-challenge.html">30-Day Challenge</a></li><li><a href="./accountability.html">Accountability Program</a></li></ul></div>
-      <div><h4>Books</h4><ul><li><a href="./book.html">Creating A Wealth Building Mindset 2nd Edition</a></li><li><a href="https://www.amazon.com/dp/B0HHX86HRQ" target="_blank" rel="noopener">90-Day Companion Workbook</a></li><li><a href="./author-signed-copy.html">Signed Copies</a></li><li><a href="./author.html">About the Author</a></li></ul></div>
+      <div><h4>Books</h4><ul><li><a href="./book.html">Creating A Wealth Building Mindset 2nd Edition</a></li><li><a href="https://www.amazon.com/dp/B0HHX86HRQ" target="_blank" rel="noopener">90-Day Companion Workbook</a></li><li><a href="./author-signed-copy.html">Signed Copies</a></li><li><a href="./reader-resources.html">Reader Resources</a></li><li><a href="./author.html">About the Author</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="./about.html">About Darrell</a></li><li><a href="./services.html">Services</a></li><li><a href="./speaking.html">Speaking</a></li><li><a href="./discovery-intake.html">Discovery Call</a></li><li><a href="./contact.html">Contact</a></li><li><a href="./privacy.html">Privacy Policy</a></li></ul></div>
     </div>
     <p class="disc">Right Side of Money provides financial education only. Nothing on this site is financial, investment, tax, legal, or insurance advice, or a recommendation to buy any product. Individual results vary. Testimonials reflect individual readers' experiences.</p>
