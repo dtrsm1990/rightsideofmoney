@@ -915,7 +915,7 @@ function renderReport(d, R){
   fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
     if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
     else throw new Error('bad');
-  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We couldn\'t reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
 
   $('#emailBtn').addEventListener('click', function(){
     var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;

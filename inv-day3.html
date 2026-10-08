@@ -498,7 +498,7 @@ gtag('config', 'G-H3GBPMJH2R');
 
 <h2>Researching a Fund</h2>
 <p>Pull up the fund's fact sheet or look it up at your brokerage. Check these seven things:</p>
-<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Check</th><th>Question to Ask</th></tr></thead><tbody><tr><td><strong>Objective</strong></td><td>What is this fund trying to do? Match an index? Produce income? Beat the market?</td></tr><tr><td><strong>Holdings</strong></td><td>What does it actually own, and how many investments? Is it diversified?</td></tr><tr><td><strong>Expense ratio</strong></td><td>What does it cost each year?</td></tr><tr><td><strong>Loads and fees</strong></td><td>Are there sales charges or other fees?</td></tr><tr><td><strong>Index or benchmark</strong></td><td>What is it measured against, and how has it compared over long periods?</td></tr><tr><td><strong>Risk level</strong></td><td>How much has it dropped in bad years?</td></tr><tr><td><strong>Fit</strong></td><td>Does it match my goal, time horizon, and risk tolerance?</td></tr></tbody></table></div>
+<div class="table-wrap"><table class="rsm-table"><thead><tr><th>Check</th><th>Question to Ask</th></tr></thead><tbody><tr><td><strong>Objective</strong></td><td>What's this fund trying to do? Match an index? Produce income? Beat the market?</td></tr><tr><td><strong>Holdings</strong></td><td>What does it actually own, and how many investments? Is it diversified?</td></tr><tr><td><strong>Expense ratio</strong></td><td>What does it cost each year?</td></tr><tr><td><strong>Loads and fees</strong></td><td>Are there sales charges or other fees?</td></tr><tr><td><strong>Index or benchmark</strong></td><td>What's it measured against, and how has it compared over long periods?</td></tr><tr><td><strong>Risk level</strong></td><td>How much has it dropped in bad years?</td></tr><tr><td><strong>Fit</strong></td><td>Does it match my goal, time horizon, and risk tolerance?</td></tr></tbody></table></div>
 <p>Look at long-term performance, 10 years or more when available, and remember that past performance doesn't guarantee future results. A fund that was the "top performer" last year often isn't the next year.</p>
 
 <h2>Researching a Financial Professional</h2>
@@ -904,7 +904,7 @@ function renderReport(d, R){
   fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
     if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
     else throw new Error('bad');
-  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We couldn\'t reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
 
   $('#emailBtn').addEventListener('click', function(){
     var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;

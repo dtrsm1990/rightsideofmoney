@@ -463,7 +463,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <p>Here's a truth many "investing gurus" leave out: <strong>markets fall. Sometimes hard.</strong> Understanding that before you invest a single dollar is what keeps you from making the most expensive mistake new investors make: selling in a panic at the bottom.</p>
 
 <h2>The Risk and Return Tradeoff</h2>
-<p>In investing, higher potential return almost always comes with higher risk. Cash in an insured savings account is very stable but grows slowly. Stocks have historically grown much faster over long periods but can swing wildly in the short term. There's no investment that offers high returns with no risk. <strong>Anyone who promises that is either mistaken or running a scam.</strong></p>
+<p>In investing, higher potential return almost always comes with higher risk. Cash in an insured savings account is very stable but grows slowly. Stocks have historically grown much faster over long periods but can swing wildly in the short term. There's no investment that offers high returns with no risk. <strong>Anyone who promises that's either mistaken or running a scam.</strong></p>
 <div class="table-wrap"><table class="rsm-table"><thead><tr><th>Investment Type</th><th>Typical Risk</th><th>Typical Long-Term Growth Potential</th></tr></thead><tbody><tr><td>Insured savings, CDs</td><td>Very low</td><td>Low</td></tr><tr><td>Bonds</td><td>Low to moderate</td><td>Moderate</td></tr><tr><td>Broad stock index funds</td><td>Moderate to high in the short term</td><td>Higher over long periods</td></tr><tr><td>Single stocks</td><td>High</td><td>Wide range, including large losses</td></tr><tr><td>Speculative assets and "hot tips"</td><td>Very high</td><td>Unpredictable</td></tr></tbody></table></div>
 
 <h2>Volatility Is Normal</h2>
@@ -901,7 +901,7 @@ function renderReport(d, R){
   fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
     if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
     else throw new Error('bad');
-  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We couldn\'t reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
 
   $('#emailBtn').addEventListener('click', function(){
     var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
