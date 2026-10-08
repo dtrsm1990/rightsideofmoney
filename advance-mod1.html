@@ -468,7 +468,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>Write the exact sentence your identity says. Use your own words, the ones you actually hear in your head.</li>
 <li>List three pieces of evidence from the past year that prove this identity has been running your money.</li>
 <li>Estimate what this identity has cost you in dollars over the last five years. Be honest. Round up.</li>
-<li>Write your new Builder identity statement in the present tense: "I am someone who..."</li>
+<li>Write your new Builder identity statement in the present tense: "I'm someone who..."</li>
 <li>List three small "proof actions" you'll take in the next seven days that a Builder would take.</li></ol></div>
 
 <div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Which money identity is your dominant one, and which is your secondary? What specific memories from childhood do you think created them?</label><textarea data-ref="lesson-1-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. What sentence does your money identity say in your head when you face a financial decision? Write it exactly as you hear it.</label><textarea data-ref="lesson-1-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Write your new Builder identity statement and the three proof actions you&#x27;ll take this week.</label><textarea data-ref="lesson-1-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
@@ -917,7 +917,7 @@ function renderReport(d, R){
   fetch(FORM_URL, {method:'POST', body: fd, headers:{'Accept':'application/json'}}).then(function(res){
     if (res.ok){ st.className = 'send-status ok'; st.textContent = 'Your report was sent to Darrell Thompson. Tap "Email My Report" to send yourself a copy.'; }
     else throw new Error('bad');
-  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We could not reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
+  }).catch(function(){ st.className = 'send-status err'; st.textContent = 'We couldn\'t reach the server. Your report is safe on this screen. Tap "Email My Report" to send it to yourself and Darrell.'; });
 
   $('#emailBtn').addEventListener('click', function(){
     var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Week 6: Risk Is Not the Enemy. Ignorance Is. | RSM Accountability Program Level 2</title>
+  <title>Week 6: Risk Isn't the Enemy. Ignorance Is. | RSM Accountability Program Level 2</title>
   <meta name="description" content="RSM Accountability Program, Level 2: Wealth System Accountability." />
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -343,13 +343,13 @@ gtag('config', 'G-H3GBPMJH2R');
 <a href="./acc2-intake.html" data-g="intake" class="">Commitment &amp; Baseline</a>
 <div class="sb-sep">Module 1: Acceleration Control</div>
 <a href="./acc2-week1.html" data-g="w1" class="">Week 1: Why Most People Lose Money</a>
-<a href="./acc2-week2.html" data-g="w2" class="">Week 2: Income Is Not Wealth</a>
+<a href="./acc2-week2.html" data-g="w2" class="">Week 2: Income Isn't Wealth</a>
 <a href="./acc2-week3.html" data-g="w3" class="">Week 3: Time, Energy, and Focus: The Wealth Multipliers</a>
 <a href="./acc2-week4.html" data-g="w4" class="">Week 4: Opportunity Discipline</a>
 <a href="./acc2-checkpoint1.html" data-g="c1" class="">Checkpoint 1</a>
 <div class="sb-sep">Module 2: Asset Deployment</div>
 <a href="./acc2-week5.html" data-g="w5" class="">Week 5: What an Asset Really Is</a>
-<a href="./acc2-week6.html" data-g="w6" class="active">Week 6: Risk Is Not the Enemy. Ignorance Is.</a>
+<a href="./acc2-week6.html" data-g="w6" class="active">Week 6: Risk Isn't the Enemy. Ignorance Is.</a>
 <a href="./acc2-week7.html" data-g="w7" class="">Week 7: Capital Allocation</a>
 <a href="./acc2-week8.html" data-g="w8" class="">Week 8: Entry, Exit, and Timing</a>
 <a href="./acc2-checkpoint2.html" data-g="c2" class="">Checkpoint 2</a>
@@ -365,7 +365,7 @@ gtag('config', 'G-H3GBPMJH2R');
   <main class="lesson-main">
 
 <p class="lesson-eyebrow">Level 2 &middot; Module 2 &middot; Week 6 &middot; Lesson 2.2</p>
-<h1>Risk Is Not the Enemy. Ignorance Is.</h1>
+<h1>Risk Isn't the Enemy. Ignorance Is.</h1>
 <p class="lesson-subtitle">You can&#x27;t avoid risk and build wealth. You can know exactly how much you can survive.</p>
 <div class="gold-rule"></div>
 <div class="ac-std"><span><b>This week:</b> Teaching, Mindset Drill, Worksheets, Daily Proof Log, Operator Log, Check-In With Darrell</span><span id="acTarget"></span></div>
@@ -491,7 +491,7 @@ gtag('config', 'G-H3GBPMJH2R');
     if (fix.length < 10) return fail('Write your one correction for next week.');
     var drill = Array.prototype.map.call(document.querySelectorAll('#acDrill textarea'), function(t, i){ return (i + 1) + '. ' + t.getAttribute('data-q') + '\n' + (t.value.trim() || '(left blank)'); }).join('\n\n');
     var b = this.querySelector('button'); b.disabled = true; b.textContent = 'Sending...';
-    A.post({_subject: 'ACC L2 | Week ' + W + ' Log | ' + d.me.first + ' ' + d.me.last + ' | ' + st.value.toUpperCase() + (bk.value === 'Yes' ? ' | RULE BROKEN' : ''), week: 'Week ' + W + ' (Lesson 2.2): Risk Is Not the Enemy. Ignorance Is.', assignment_status: st.value,
+    A.post({_subject: 'ACC L2 | Week ' + W + ' Log | ' + d.me.first + ' ' + d.me.last + ' | ' + st.value.toUpperCase() + (bk.value === 'Yes' ? ' | RULE BROKEN' : ''), week: 'Week ' + W + ' (Lesson 2.2): Risk Isn\'t the Enemy. Ignorance Is.', assignment_status: st.value,
       what_i_did: proof, wins: $('lg_win').value.trim(), resistance: $('lg_res').value.trim(), setbacks: $('lg_set').value.trim(), proof_log_days: ACTIVE.length ? days + ' of 7' : 'No log this week', worksheets_incomplete: wsMiss.length ? wsMiss.join(', ') : 'None', checkin_agenda: agenda,
       operator_review: rv.value, rule_broken: bk.value + (bk.value === 'Yes' ? ': ' + brkd : ''), correction: fix, mindset_drill: drill}).then(function(){
       A.update(function(x){ x.wk = x.wk || {}; x.wk[W] = {at: new Date().toISOString(), status: st.value, did: proof, win: $('lg_win').value.trim(), res: $('lg_res').value.trim(), set: $('lg_set').value.trim(), days: ACTIVE.length ? +days : -1, agenda: agenda, rev: rv.value, brk: bk.value, brkd: bk.value === 'Yes' ? brkd : '', fix: fix, drill: Array.prototype.map.call(document.querySelectorAll('#acDrill textarea'), function(t){ return t.value.trim(); }).join(' ')}; });

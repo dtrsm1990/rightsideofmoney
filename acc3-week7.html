@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Week 7: Risk Is Not Optional | RSM Accountability Program Level 3</title>
+  <title>Week 7: Risk Isn't Optional | RSM Accountability Program Level 3</title>
   <meta name="description" content="RSM Accountability Program, Level 3: Total Accountability." />
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -353,13 +353,13 @@ gtag('config', 'G-H3GBPMJH2R');
 <a href="./acc3-week6.html" data-g="w6" class="">Week 6: Access, Incentives, and Entitlement</a>
 <a href="./acc3-checkpoint2.html" data-g="c2" class="">Architecture Scoreboard</a>
 <div class="sb-sep">Module 2: Protection</div>
-<a href="./acc3-week7.html" data-g="w7" class="active">Week 7: Risk Is Not Optional</a>
+<a href="./acc3-week7.html" data-g="w7" class="active">Week 7: Risk Isn't Optional</a>
 <a href="./acc3-week8.html" data-g="w8" class="">Week 8: Risk Transfer</a>
 <a href="./acc3-week9.html" data-g="w9" class="">Week 9: Layered Protection</a>
 <a href="./acc3-week10.html" data-g="w10" class="">Week 10: Legal, Financial, and Personal Shields</a>
 <a href="./acc3-checkpoint3.html" data-g="c3" class="">Protection Scoreboard</a>
 <div class="sb-sep">Module 3: Legacy</div>
-<a href="./acc3-week11.html" data-g="w11" class="">Week 11: Legacy Is Not Inheritance</a>
+<a href="./acc3-week11.html" data-g="w11" class="">Week 11: Legacy Isn't Inheritance</a>
 <a href="./acc3-week12.html" data-g="w12" class="">Week 12: Preparing Heirs Without Creating Dependence</a>
 <a href="./acc3-week13.html" data-g="w13" class="">Week 13: Governance, Family Councils, and Conflict</a>
 <a href="./acc3-week14.html" data-g="w14" class="">Week 14: Transfer Structures</a>
@@ -370,7 +370,7 @@ gtag('config', 'G-H3GBPMJH2R');
   <main class="lesson-main">
 
 <p class="lesson-eyebrow">Level 3 &middot; Module 2 &middot; Week 7 &middot; Lesson 2.1</p>
-<h1>Risk Is Not Optional</h1>
+<h1>Risk Isn't Optional</h1>
 <p class="lesson-subtitle">You don&#x27;t get to choose whether risk exists. You only choose whether you&#x27;ve prepared for it.</p>
 <div class="gold-rule"></div>
 <div class="ac-std"><span><b>This week:</b> Teaching, Mindset Drill, Worksheets, Daily Proof Log, Accountability Log, Check-In With Darrell</span><span id="acTarget"></span></div>
@@ -493,7 +493,7 @@ gtag('config', 'G-H3GBPMJH2R');
     var rec = {at: new Date().toISOString(), status: st.value, did: proof, win: $('lg_win').value.trim(), res: $('lg_res').value.trim(), set: $('lg_set').value.trim(), days: ACTIVE.length ? +days : -1, agenda: agenda, rev: rv.value, brk: bk.value, brkd: bk.value === 'Yes' ? brkd : '', fix: fix, drill: Array.prototype.map.call(document.querySelectorAll('#acDrill textarea'), function(t){ return t.value.trim(); }).join(' ')};
     var wr = A.weekReport(A.load(), W, rec);
     var b = this.querySelector('button'); b.disabled = true; b.textContent = 'Sending...';
-    A.post({_subject: 'ACC L3 | Week ' + W + ' Log | ' + d.me.first + ' ' + d.me.last + ' | ' + st.value.toUpperCase() + (bk.value === 'Yes' ? ' | RULE BROKEN' : ''), week: 'Week ' + W + ' (Lesson 2.1): Risk Is Not Optional', assignment_status: st.value,
+    A.post({_subject: 'ACC L3 | Week ' + W + ' Log | ' + d.me.first + ' ' + d.me.last + ' | ' + st.value.toUpperCase() + (bk.value === 'Yes' ? ' | RULE BROKEN' : ''), week: 'Week ' + W + ' (Lesson 2.1): Risk Isn\'t Optional', assignment_status: st.value,
       what_i_did: proof, wins: $('lg_win').value.trim(), resistance: $('lg_res').value.trim(), setbacks: $('lg_set').value.trim(), proof_log_days: ACTIVE.length ? days + ' of 7' : 'No log this week', worksheets_incomplete: wsMiss.length ? wsMiss.join(', ') : 'None', checkin_agenda: agenda,
       weekly_wealth_review: rv.value, rule_broken: bk.value + (bk.value === 'Yes' ? ': ' + brkd : ''), correction: fix, mindset_drill: drill, weekly_report: wr ? wr.text : ''}).then(function(){
       A.update(function(x){ x.wk = x.wk || {}; x.wk[W] = rec; });
