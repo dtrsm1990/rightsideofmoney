@@ -190,6 +190,12 @@ gtag('config', 'G-H3GBPMJH2R');
 })();
 </script>
 <!-- /RSM-GA -->
+<!-- RSM-NAVFIX --><style>
+@media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
+@media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
+</style><!-- /RSM-NAVFIX -->
 </head>
 <body>
 <nav>
@@ -735,7 +741,7 @@ function sendFinal(a, F, top3){
     var rows = CATS.map(function(c){ return [c[1], pct(a.month[c[0]], a.inc)]; }).filter(function(r){ return r[1] > 0; });
     rsmResultEmail({name: D.me.name, email: D.me.email, quiz: '30-Day Money Tracker', result: 'Completed 30 days', score: 'Savings rate ' + a.savingsRate + '%, found money ' + $$(planCalc(a).freed) + ' a month', tagline: 'Here\'s where your money went over 30 days, as a share of your take-home pay.', breakdown: rows,
       steps: [{t: '30-Day Mindset and Money Challenge', d: 'Build the daily habits that change where your money goes.', l: './course-challenge.html', lt: 'Explore the Challenge'}, {t: 'Book a Free Discovery Call', d: 'Walk through your report with Darrell.', l: './discovery-intake.html', lt: 'Book a Free Call'}],
-      guides: [{f: 'RSM_Budget_Snapshot_Tool.pdf', t: 'The RSM Budget Snapshot Tool'}, {f: 'RSM_Financial_Foundation_Checklist.pdf', t: 'The RSM Financial Foundation Checklist'}]});
+      guides: [{f: 'RSM_Financial_Foundation_Checklist.pdf', t: 'The RSM Financial Foundation Checklist'}, {f: 'RSM_5_Money_Lies.pdf', t: 'The 5 Money Lies You Were Told Growing Up'}]});
   }
   post({name: D.me.name, email: D.me.email, _replyto: D.me.email, _subject: 'Tracker Complete | 30-Day Money Tracker | ' + D.me.name, quiz: '30-Day Money Tracker', result: 'Completed 30 days', score: 'Savings rate ' + a.savingsRate + '%',
     breakdown: 'Housing ' + pct(a.housing, a.inc) + '% | Transportation ' + pct(a.transport, a.inc) + '% | Savings ' + a.savingsRate + '% | Entries ' + a.E.length + ' | Found money ' + $$(planCalc(a).freed) + '/mo'});

@@ -216,6 +216,12 @@ gtag('config', 'G-H3GBPMJH2R');
 })();
 </script>
 <!-- /RSM-GA -->
+<!-- RSM-NAVFIX --><style>
+@media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
+@media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
+</style><!-- /RSM-NAVFIX -->
 </head>
 <body>
 
@@ -637,7 +643,7 @@ function showResults(lead){
   var type,tagline,description,beliefs,nextSteps,plain,guides;
 
   if(pct<=25){
-    type='The <em>Scarcity Survivor</em>';plain='The Scarcity Survivor';guides=[{t:'The 5 Money Lies You Were Told Growing Up',f:'RSM_5_Money_Lies.pdf'},{t:'The Wealth Building Mindset Starter Kit',f:'RSM_Wealth_Building_Mindset_Starter_Kit.pdf'}];
+    type='The <em>Scarcity Survivor</em>';plain='The Scarcity Survivor';guides=[{t:'The 5 Money Lies You Were Told Growing Up',f:'RSM_5_Money_Lies.pdf'},{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'}];
     tagline="You're still operating from the financial blueprint you inherited. The ceiling isn't the economy. It's the story you're telling yourself.";
     description="Your results show that deeply rooted money beliefs, likely formed in childhood, are running your financial decisions without your permission. Scarcity thinking, fear of money, and a sense that wealth isn't meant for you are the core patterns showing up across your answers. The good news is this isn't about intelligence or effort. It's about programming, and programming can be changed.";
     beliefs=[
@@ -652,7 +658,7 @@ function showResults(lead){
       {n:'3',t:'Book a Free Discovery Call',d:"Let's get on a call and talk about where you are and what the right next step looks like for your specific situation.",l:'./discovery-intake.html',lt:'Book Free Call'}
     ];
   } else if(pct<=50){
-    type='The <em>Aware but Anchored</em>';plain='Aware but Anchored';guides=[{t:'The Wealth Building Mindset Starter Kit',f:'RSM_Wealth_Building_Mindset_Starter_Kit.pdf'},{t:'The RSM Budget Snapshot Tool',f:'RSM_Budget_Snapshot_Tool.pdf'}];
+    type='The <em>Aware but Anchored</em>';plain='Aware but Anchored';guides=[{t:'The 5 Money Lies You Were Told Growing Up',f:'RSM_5_Money_Lies.pdf'},{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'}];
     tagline="You see the gap between where you are and where you want to be. Something keeps pulling you back. Let's name it.";
     description="You have real financial awareness and genuine desire to build something different. The problem isn't knowledge. It's that limiting beliefs and inconsistent behavior are creating a gap between what you know and what you actually do. You've had the intention but the follow-through breaks down. The right structure and accountability changes everything.";
     beliefs=[
@@ -667,7 +673,7 @@ function showResults(lead){
       {n:'3',t:'Join the RSM Community',d:"You need to be in a room with people who are doing the work. Momentum is contagious.",l:'./community-invite.html',lt:'Join Free'}
     ];
   } else if(pct<=75){
-    type='The <em>Builder in Motion</em>';plain='The Builder in Motion';guides=[{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'},{t:'The RSM Budget Snapshot Tool',f:'RSM_Budget_Snapshot_Tool.pdf'}];
+    type='The <em>Builder in Motion</em>';plain='The Builder in Motion';guides=[{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'},{t:'The 5 Money Lies You Were Told Growing Up',f:'RSM_5_Money_Lies.pdf'}];
     tagline="You're already moving. Now it's time to remove the friction that's slowing you down and accelerate.";
     description="You have a solid foundation and real financial awareness. You're making moves and your mindset is mostly working for you. But there are specific gaps, whether in your investment strategy, your wealth vision, your legacy planning, or a few lingering beliefs, that are keeping you from the next level. You don't need to start over. You need to go deeper.";
     beliefs=[
@@ -682,7 +688,7 @@ function showResults(lead){
       {n:'3',t:'Get the Second Edition',d:"The updated book has deeper content specifically built for where you are right now.",l:'./author.html',lt:'View New Edition'}
     ];
   } else {
-    type='The <em>Wealth Builder</em>';plain='The Wealth Builder';guides=[{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'},{t:'The Wealth Building Mindset Starter Kit',f:'RSM_Wealth_Building_Mindset_Starter_Kit.pdf'}];
+    type='The <em>Wealth Builder</em>';plain='The Wealth Builder';guides=[{t:'The RSM Financial Foundation Checklist',f:'RSM_Financial_Foundation_Checklist.pdf'},{t:'The 5 Money Lies You Were Told Growing Up',f:'RSM_5_Money_Lies.pdf'}];
     tagline="Your mindset is your greatest asset. You've done real work to get here. Now it's time to build the legacy.";
     description="Your score reflects someone who has done genuine work on both their mindset and their financial behavior. You think like a wealth builder, you act like one, and you're already seeing results. The focus now shifts to scale, protection, legacy, and becoming the person in your community who pulls others up. You know better than most that wealth is a direction, not a destination.";
     beliefs=[
@@ -768,7 +774,7 @@ function showResults(lead){
     '<div class="results-section-title">Free for Your Result Type</div>'+
     '<h3>Your Free Guides, '+lead.name+'</h3>'+
     '<p>These guides were chosen specifically for '+plain+' results. Download them now and keep them handy as you take your next steps.</p>'+
-    '<div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">'+guides.map(function(g){return '<a class="btn-cta-gold" href="./'+g.f+'" target="_blank" download>Download: '+g.t+'</a>';}).join('')+'</div>'+
+    '<div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">'+guides.map(function(g){return '<a class="btn-cta-gold" href="./'+g.f+'" target="_blank" download>Download: '+g.t+'</a>';}).join('')+'</div>'+'<div class="rsm-bonus" style="margin-top:22px;padding:18px 20px;border:1px solid rgba(201,148,26,0.5);border-left:4px solid #C9941A;background:rgba(201,148,26,0.08);border-radius:2px;"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;font-weight:700;margin-bottom:6px;">Included With the Book</div><p style="margin:0 0 14px;color:rgba(255,255,255,0.85);font-size:15px;line-height:1.6;">Ready to go deeper? Readers of <b>Creating A Wealth Building Mindset 2nd Edition</b> also get the <b>Wealth Building Mindset Starter Kit</b>, the <b>Budget Snapshot Worksheet</b>, and the <b>Money Script Workbook</b>.</p><a href="./book.html" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-weight:700;text-decoration:none;padding:12px 18px;border-radius:2px;margin:0 10px 8px 0;font-size:14px;">Get the Book</a><a href="./reader-resources.html" style="display:inline-block;color:#E8B84B;font-weight:700;text-decoration:none;padding:12px 0;font-size:14px;">Already have it? Claim your reader resources &rarr;</a></div>'+
     '<p style="margin-top:16px"><a class="step-link" href="mailto:'+encodeURIComponent(lead.email)+'?subject='+encodeURIComponent('My Wealth Mindset Quiz Result: '+plain)+'&body='+encodeURIComponent('My Wealth Mindset Quiz result: '+plain+' ('+total+'/'+maxTotal+')\n\n'+tagline+'\n\nMy next steps:\n'+nextSteps.map(function(s){return s.n+'. '+s.t;}).join('\n')+'\n\nRetake or share the quiz: rightsideofmoney.com')+'">Email my results to myself</a></p>'+
     '</div>'+
     '<div class="results-cta fade-in">'+
