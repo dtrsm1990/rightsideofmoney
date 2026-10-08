@@ -447,7 +447,7 @@ gtag('config', 'G-H3GBPMJH2R');
     if (!bot){
       var src = {amazon: 'Amazon', signed: 'Signed copy (RSM)', event: 'Event / in person'}[w];
       try { var f = new FormData(); f.append('name', n); f.append('email', em); f.append('_replyto', em); f.append('_subject', 'Reader Resources Claim | ' + src + ' | ' + n); f.append('quiz', 'Reader Resources'); f.append('purchase_source', src); f.append('amazon_order', w === 'amazon' ? ord : 'n/a'); f.append('marketing_optin', opt ? 'yes' : 'no'); fetch('https://formspree.io/f/mvkglqlj', {method: 'POST', body: f, headers: {'Accept': 'application/json'}}).catch(function(){}); } catch(x){}
-      if (opt){ try { var k = new FormData(); k.append('email_address', em); k.append('fields[first_name]', n); fetch('https://app.kit.com/forms/9981618/subscriptions', {method: 'POST', body: k, mode: 'no-cors'}).catch(function(){}); } catch(x){} }
+      if (opt){ try { var k = new FormData(); k.append('email_address', em); k.append('fields[first_name]', n); fetch('https://app.kit.com/forms/10017534/subscriptions', {method: 'POST', body: k, mode: 'no-cors'}).catch(function(){}); } catch(x){} }
     }
     try { localStorage.setItem(KEY, JSON.stringify({ok: true, name: n})); } catch(x){}
     unlock(n, true);
