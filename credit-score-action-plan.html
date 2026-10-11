@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Score Action Plan | Right Side of Money</title>
+<meta name="description" content="Enter your card balances and credit history and get a free, personal plan to raise your credit score, with exact dollar amounts. No SSN, no credit pull.">
+<meta property="og:title" content="Credit Score Action Plan | Right Side of Money">
+<meta property="og:description" content="Enter your card balances and credit history and get a free, personal plan to raise your credit score, with exact dollar amounts. No SSN, no credit pull.">
+<link rel="canonical" href="https://rightsideofmoney.com/credit-score-action-plan.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Right Side of Money">
+<meta property="og:url" content="https://rightsideofmoney.com/credit-score-action-plan.html">
+<meta property="og:image" content="https://rightsideofmoney.com/rsm-share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rightsideofmoney.com/rsm-share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;
+  --navy-mid:#1B3A6B;
+  --gold:#C9941A;
+  --gold-light:#E8B84B;
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.6);
+  --light-bg:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-back{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:#E8B84B;}
+@media(max-width:768px){nav{padding:0 20px;}}
+
+/* HERO */
+.hero{padding:120px 40px 60px;text-align:center;background:linear-gradient(180deg,#0a1628 0%,#0D1F3C 100%);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:220px;color:rgba(201,148,26,0.03);white-space:nowrap;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;}
+.hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:2;}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.hero-title em{font-style:normal;color:#E8B84B;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:32px;}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-meta-item{text-align:center;}
+.hero-meta-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;line-height:1;}
+.hero-meta-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.btn-start{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:20px 56px;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s,transform 0.2s;}
+.btn-start:hover{background:#E8B84B;transform:translateY(-2px);}
+
+/* QUIZ CONTAINER */
+.quiz-wrap{max-width:760px;margin:0 auto;padding:100px 40px 80px;}
+
+/* PROGRESS */
+.progress-bar-wrap{margin-bottom:48px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#C9941A;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#E8B84B;}
+.progress-track{width:100%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,#C9941A,#E8B84B);border-radius:2px;transition:width 0.5s ease;}
+
+/* QUESTION CARD */
+.question-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);border-top:3px solid #C9941A;padding:40px;border-radius:2px;margin-bottom:32px;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-category{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.q-number{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,0.25);margin-bottom:8px;}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:#FFFFFF;line-height:1.4;margin-bottom:32px;}
+
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:18px 24px;border-radius:2px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:16px;text-align:left;}
+.option:hover{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.4);}
+.option.selected{background:rgba(201,148,26,0.12);border-color:#C9941A;border-width:2px;}
+.option-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.option.selected .option-dot{border-color:#C9941A;background:#C9941A;}
+.option.selected .option-dot::after{content:'';width:8px;height:8px;background:#0D1F3C;border-radius:50%;}
+.option-text{font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5;}
+.option.selected .option-text{color:#FFFFFF;font-weight:500;}
+
+/* NAV BUTTONS */
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+.btn-prev{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-prev:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+.btn-prev:disabled{opacity:0.2;cursor:not-allowed;}
+.btn-next{background:#C9941A;border:none;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:14px 36px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-next:hover:not(:disabled){background:#E8B84B;}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* RESULTS */
+.results-wrap{max-width:800px;margin:0 auto;padding:40px 40px 80px;}
+.results-hero{text-align:center;padding:60px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:40px;}
+.results-score-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.results-score{font-family:'Bebas Neue',sans-serif;font-size:96px;color:#E8B84B;line-height:1;margin-bottom:8px;}
+.results-score-max{font-size:20px;color:rgba(255,255,255,0.4);font-weight:300;}
+.results-type{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,40px);font-weight:900;color:#FFFFFF;margin:16px 0 12px;}
+.results-type em{font-style:normal;color:#E8B84B;}
+.results-tagline{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:560px;margin:0 auto 32px;}
+
+/* SCORE BAR */
+.score-visual{max-width:500px;margin:0 auto 32px;}
+.score-bar-track{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin-bottom:12px;}
+.score-bar-fill{height:100%;border-radius:6px;transition:width 1.5s ease;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.score-markers{display:flex;justify-content:space-between;}
+.score-marker{font-size:11px;color:rgba(255,255,255,0.3);font-weight:600;}
+.score-marker.active{color:#E8B84B;}
+
+/* SECTIONS */
+.results-section{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:36px;border-radius:2px;margin-bottom:24px;}
+.results-section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:20px;}
+.results-section h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:16px;}
+.results-section p{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:12px;}
+
+/* CATEGORY BREAKDOWN */
+.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.category-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:2px;}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cat-score-track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.cat-score-fill{height:100%;border-radius:3px;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.cat-score-label{font-size:13px;color:rgba(255,255,255,0.6);}
+.cat-score-label strong{color:#E8B84B;}
+
+/* BLOCKING BELIEFS */
+.beliefs-list{list-style:none;margin-top:16px;}
+.beliefs-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.beliefs-list li:last-child{border-bottom:none;}
+.belief-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.belief-text{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.belief-text strong{color:#FFFFFF;display:block;margin-bottom:4px;}
+
+/* NEXT STEPS */
+.next-steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px;}
+.next-step{display:flex;gap:20px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:20px;border-radius:2px;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#C9941A;line-height:1;flex-shrink:0;width:40px;}
+.step-content{}
+.step-title{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:6px;}
+.step-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.step-link{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C9941A;text-decoration:none;border-bottom:1px solid rgba(201,148,26,0.4);padding-bottom:2px;}
+.step-link:hover{color:#E8B84B;border-color:#E8B84B;}
+
+/* CTA */
+.results-cta{text-align:center;padding:48px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:32px;}
+.results-cta h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.results-cta h3 em{font-style:normal;color:#E8B84B;}
+.results-cta p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:28px;line-height:1.7;}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-gold{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;transition:background 0.25s;}
+.btn-cta-gold:hover{background:#E8B84B;}
+.btn-cta-outline{display:inline-block;background:transparent;color:#C9941A;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;border:2px solid #C9941A;transition:all 0.25s;}
+.btn-cta-outline:hover{background:#C9941A;color:#0D1F3C;}
+
+.btn-retake{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto 40px;transition:all 0.25s;}
+.btn-retake:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+
+/* STATES */
+#quizSection{display:none;}
+#resultsSection{display:none;}
+#startSection{display:block;}
+
+/* MOBILE */
+@media(max-width:768px){
+  .quiz-wrap,.results-wrap{padding:40px 20px 60px;}
+  .question-card{padding:28px 20px;}
+  .category-grid{grid-template-columns:1fr;}
+  .hero{padding:100px 20px 40px;}
+  .results-hero{padding:40px 20px;}
+  .results-section{padding:24px 20px;}
+  .results-cta{padding:32px 20px;}
+}
+
+/* FADE */
+.fade-in{animation:fadeIn 0.5s ease;}
+.lead-form{margin-top:16px;}
+.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lead-form input[type=text],.lead-form input[type=email]{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.35);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;}
+.lead-form input:focus{outline:none;border-color:#E8B84B;}
+.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.5;}
+.lead-check input{margin-top:3px;accent-color:#C9941A;}
+.lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
+.gate-p{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.7;margin:-12px 0 8px;}
+.gate-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+.gate-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:14px;padding:0;}
+.gate-back:hover{color:#E8B84B;}
+
+#shareCanvas{width:100%;max-width:440px;height:auto;display:block;margin:8px auto 0;border-radius:4px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.share-section{text-align:center;}
+.intro-points{max-width:620px;margin:0 auto 36px;text-align:left;display:grid;gap:10px;}
+.intro-points div{font-size:15px;color:rgba(255,255,255,0.75);padding-left:26px;position:relative;line-height:1.6;}
+.intro-points div::before{content:'\2713';position:absolute;left:0;color:#E8B84B;font-weight:700;}
+</style>
+<!-- RSM-GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H3GBPMJH2R"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H3GBPMJH2R');
+(function(){
+  var f = window.fetch;
+  if (f) window.fetch = function(u, o){
+    try {
+      var s = String(u && u.url || u), b = o && o.body, n = '';
+      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
+      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
+      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+    } catch(e){}
+    return f.apply(this, arguments);
+  };
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
+    if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
+    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+  }, true);
+})();
+</script>
+<!-- /RSM-GA -->
+<!-- RSM-NAVFIX --><style>
+@media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
+@media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
+</style><!-- /RSM-NAVFIX -->
+<style>
+.question-card.cr-still{animation:none;}
+.cr-field{margin-bottom:30px;}
+.cr-field:last-child{margin-bottom:0;}
+.cr-q{font-size:16px;font-weight:600;color:#fff;margin-bottom:12px;line-height:1.5;}
+.question-card .q-text{margin-bottom:26px;}
+.options.cr-compact{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;}
+.option{padding:15px 20px;}
+.cr-scorebox{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;}
+.cr-scorebox label{font-size:13px;font-weight:600;color:#E8B84B;}
+.cr-scorebox input{width:150px;padding:12px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.45);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:600;}
+.cr-hint{display:block;width:100%;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;}
+.cr-cards.cr-off{opacity:0.35;pointer-events:none;}
+.cr-card-head,.cr-card-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 40px;gap:10px;align-items:center;}
+.cr-card-head{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cr-card-row{margin-bottom:10px;}
+.cr-card-row input{width:100%;min-width:0;padding:13px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:16px;}
+.cr-card-row input:focus,.cr-scorebox input:focus{outline:none;border-color:#E8B84B;}
+.cr-money{position:relative;min-width:0;}
+.cr-money span{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.45);font-size:15px;pointer-events:none;}
+.cr-money input{padding-left:24px;}
+.cr-del{width:40px;height:46px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:22px;border-radius:2px;cursor:pointer;}
+.cr-del:hover:not(:disabled){border-color:#E8B84B;color:#E8B84B;}
+.cr-del:disabled{opacity:0.25;cursor:not-allowed;}
+.cr-card-actions{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:6px;}
+.cr-add{background:transparent;border:1px dashed rgba(201,148,26,0.6);color:#E8B84B;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;padding:12px 18px;border-radius:2px;cursor:pointer;}
+.cr-add:disabled{opacity:0.35;cursor:not-allowed;}
+.cr-nocards{display:flex;gap:8px;align-items:center;font-size:14px;color:rgba(255,255,255,0.7);cursor:pointer;}
+.cr-nocards input{accent-color:#C9941A;width:18px;height:18px;}
+.cr-snap{margin-top:24px;padding:24px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.3);border-top:3px solid #C9941A;border-radius:2px;text-align:center;}
+.cr-snap p{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.7;margin:0;}
+.cr-snap-t{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:6px;}
+.cr-big{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;}
+.cr-big-l{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:16px;}
+.good{color:#7fd69b;}.warn{color:#E8B84B;}.bad{color:#ff8f8f;}
+.cr-meter{position:relative;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;}
+.cr-meter i{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,0.45);}
+.cr-meter-fill{height:100%;border-radius:6px;transition:width 0.4s ease;}
+.cr-meter-fill.good{background:#4fae6d;}.cr-meter-fill.warn{background:#C9941A;}.cr-meter-fill.bad{background:#d65a5a;}
+.cr-meter-l{position:relative;height:20px;margin:6px 0 14px;font-size:11px;color:rgba(255,255,255,0.45);}
+.cr-meter-l span{position:absolute;top:0;transform:translateX(-50%);}
+.cr-meter-l span:last-child{transform:none;}
+.cr-snap-msg b{color:#E8B84B;}
+.cr-percard{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;}
+.cr-percard div{font-size:13px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:6px 12px;border-radius:2px;color:rgba(255,255,255,0.75);}
+.cr-percard b{margin-left:6px;}
+.cr-range{font-size:76px;}
+.cr-range .results-score-max{font-family:'DM Sans',sans-serif;font-size:22px;}
+.cr-h3{margin-top:32px;}
+.cr-table{border:1px solid rgba(255,255,255,0.1);border-radius:2px;margin-top:8px;}
+.cr-tr{display:grid;grid-template-columns:1.4fr 1fr 1fr 0.7fr 1.3fr;gap:8px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px;color:rgba(255,255,255,0.8);}
+.cr-tr:last-child{border-bottom:none;}
+.cr-tr span{min-width:0;overflow-wrap:anywhere;}
+.cr-th{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C9941A;background:rgba(201,148,26,0.06);}
+.cr-tr span.good,.cr-tr span.warn,.cr-tr span.bad{font-weight:700;}
+.cr-targets{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.cr-targets div{background:rgba(201,148,26,0.08);border:1px solid rgba(201,148,26,0.3);padding:16px;border-radius:2px;text-align:center;}
+.cr-targets b{display:block;font-family:'Bebas Neue',sans-serif;font-size:34px;color:#E8B84B;line-height:1.1;}
+.cr-targets span{font-size:13px;color:rgba(255,255,255,0.65);}
+.cr-big-step{border-color:rgba(201,148,26,0.55);background:rgba(201,148,26,0.07);}
+.cr-x{color:#ff8f8f;font-size:16px;font-weight:700;}
+.next-step .step-desc{color:rgba(255,255,255,0.72);}
+@media(max-width:600px){
+  .cr-card-head{display:none;}
+  .cr-card-row{grid-template-columns:1fr 1fr 40px;padding:12px;border:1px solid rgba(255,255,255,0.08);border-radius:2px;}
+  .cr-card-row > input[data-k="n"]{grid-column:1 / -1;}
+  .cr-card-row .cr-money::before{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C9941A;margin-bottom:4px;}
+  .cr-card-row .cr-money:nth-of-type(1)::before{content:'Balance';}
+  .cr-card-row .cr-money:nth-of-type(2)::before{content:'Limit';}
+  .cr-money span{top:auto;bottom:13px;transform:none;}
+  .cr-del{align-self:end;}
+  .cr-th{display:none;}
+  .cr-tr{grid-template-columns:1fr 1fr;row-gap:4px;}
+  .cr-tr span:first-child{grid-column:1 / -1;font-weight:700;color:#fff;}
+  .cr-tr span:nth-child(2)::before{content:'Balance ';color:rgba(255,255,255,0.45);}
+  .cr-tr span:nth-child(3)::before{content:'Limit ';color:rgba(255,255,255,0.45);}
+  .cr-tr span:nth-child(4)::before{content:'Used ';color:rgba(255,255,255,0.45);font-weight:400;}
+  .cr-tr span:nth-child(5)::before{content:'Under 30% ';color:rgba(255,255,255,0.45);}
+  .cr-targets{grid-template-columns:1fr;}
+  .cr-range{font-size:60px;}
+  .quiz-nav .btn-next,.quiz-nav .btn-prev{padding:14px 18px;}
+}
+@media print{
+  body{background:#fff!important;color:#000!important;}
+  nav,.quiz-nav,.cta-buttons,.rsm-bonus,.results-cta,.cr-noprint,.btn-retake,.step-link{display:none!important;}
+  .results-wrap{padding:0!important;max-width:none;}
+  .results-hero,.results-section,.next-step,.category-card,.cr-targets div,.cr-table{background:#fff!important;border:1px solid #ccc!important;color:#000!important;break-inside:avoid;}
+  .results-hero *,.results-section *{color:#0D1F3C!important;}
+  .results-section{padding:16px!important;margin-bottom:12px!important;}
+  .results-hero{padding:20px!important;margin-bottom:12px!important;}
+  .score-bar-fill,.cat-score-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+<!-- RSM-WRAPFIX --><style>.results-wrap{padding-top:108px!important}@media(max-width:768px){.quiz-wrap,.results-wrap{padding-top:96px!important}}</style><!-- /RSM-WRAPFIX -->
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <a href="./index.html" class="nav-back">&#8592; Back to Site</a>
+</nav>
+<div id="startSection">
+  <div class="hero">
+    <div class="hero-bg">CREDIT</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Free Tool by Darrell Thompson</div>
+      <h1 class="hero-title">Your Credit Score Is Costing You Money. <em>Here's Your Plan to Fix It.</em></h1>
+      <p class="hero-sub">Your score decides what you pay for a car, a home, insurance, and even an apartment. Enter your numbers and get a personal plan built on how scores are actually calculated, with the exact dollar amounts to pay down and the order to do it in.</p>
+      <div class="intro-points"><div>Your utilization in real dollars, card by card, the moment you enter it</div><div>Your estimated score range and how you rate on all five score factors</div><div>A step-by-step action plan for this month, the next 90 days, and the next year</div><div>What not to do, and what a better score is worth in real money</div></div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="hero-meta-num">4</div><div class="hero-meta-label">Steps</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">5</div><div class="hero-meta-label">Minutes</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
+      </div>
+      <button class="btn-start" onclick="startQuiz()">Build My Action Plan &rarr;</button>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.45);">No Social Security number. No account numbers. No credit check. It won't affect your score.</p>
+    </div>
+  </div>
+</div>
+<div id="quizSection">
+  <div class="quiz-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-top"><span class="progress-label">Your Progress</span><span class="progress-count" id="progressCount">1 of 4</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:25%;"></div></div>
+    </div>
+    <div id="questionContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-prev" id="btnPrev" onclick="prevQuestion()" disabled>&#8592; Previous</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</div>
+<div id="resultsSection">
+  <div class="results-wrap">
+    <div class="results-hero" id="resultsHero"></div>
+    <div id="resultsBody"></div>
+  </div>
+</div>
+<script>
+/* RSM results gate: name and email required before results are shown */
+(function(){
+  var T0 = Date.now();
+  function el(id){ return document.getElementById(id); }
+  window.rsmGate = function(onDone, onBack){
+    var nav = document.querySelector('.quiz-nav');
+    if (nav) nav.style.display = 'none';
+    if (el('progressCount')) el('progressCount').textContent = 'Complete';
+    if (el('progressFill')) el('progressFill').style.width = '100%';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('rsm_lead') || '{}') || {}; } catch(e){ saved = {}; }
+    el('questionContainer').innerHTML =
+      '<div class="question-card gate-card">' +
+      '<div class="q-category">You\'re Done. Your Plan Is Ready.</div>' +
+      '<div class="q-text">Unlock Your Full Action Plan</div>' +
+      '<p class="gate-p">Enter your first name and email to see your score range, your five score factors, and your step-by-step plan. We\'ll email you a copy too. Darrell receives a summary of every result so he can share resources that fit where you are.</p>' +
+      '<form id="gateForm" class="lead-form" novalidate>' +
+      '<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="gateCo" name="company" tabindex="-1" autocomplete="off" /></label></div>' +
+      '<div class="lead-row"><input type="text" id="gateName" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" placeholder="Email address" autocomplete="email" /></div>' +
+      '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+      '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Plan &rarr;</button>' +
+      '<p class="lead-msg" id="gateMsg"></p>' +
+      '<p class="gate-note">Your information stays private. No spam, ever.</p>' +
+      '<button type="button" class="gate-back" id="gateBack">&#8592; Back to the last step</button>' +
+      '</form></div>';
+    if (saved.name) el('gateName').value = saved.name;
+    if (saved.email) el('gateEmail').value = saved.email;
+    window.scrollTo(0, 0);
+    el('gateBack').addEventListener('click', function(){
+      if (nav) nav.style.display = '';
+      onBack();
+    });
+    el('gateForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = el('gateName').value.trim(), em = el('gateEmail').value.trim();
+      if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+        el('gateMsg').textContent = 'Please enter your first name and a valid email to see your plan.';
+        return;
+      }
+      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked,
+        bot: !!el('gateCo').value || (Date.now() - T0) < 10000};
+      try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
+      if (nav) nav.style.display = '';
+      onDone(lead);
+    });
+  };
+  window.rsmPost = function(url, fd){
+    try { fetch(url, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+/* RSM email + list delivery: EmailJS sends results to the participant (Bcc Darrell); Kit adds opted-in people to the list */
+(function(){
+  var EJ = {service: 'service_65dy311', template: 'template_k1l3ysk', key: 'gkDCipr-1PUVhTb5X'};
+  var KIT_FORM = '9981618';
+  var SITE = 'https://rightsideofmoney.com/';
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function abs(u){ return /^https?:/.test(u) ? u : SITE + String(u).replace(/^\.\//, ''); }
+  window.rsmResultEmail = function(o){
+    if (EJ.template.indexOf('__') === 0 || EJ.key.indexOf('__') === 0) return;
+    var breakdown = '<ul>' + o.breakdown.map(function(b){ return '<li><strong>' + esc(b[0]) + ':</strong> ' + b[1] + '%</li>'; }).join('') + '</ul>';
+    var steps = '<ol>' + o.steps.map(function(s){ return '<li><strong>' + esc(s.t) + '</strong><br>' + esc(s.d) + '<br><a href="' + abs(s.l) + '">' + esc(s.lt || 'Learn more') + '</a></li>'; }).join('') + '</ol>';
+    var guides = '<ul>' + o.guides.map(function(g){ return '<li><a href="' + abs(g.f) + '">' + esc(g.t) + '</a></li>'; }).join('') + '</ul>';
+    var body = JSON.stringify({service_id: EJ.service, template_id: EJ.template, user_id: EJ.key, template_params: {
+      to_name: o.name, to_email: o.email, quiz: o.quiz, result: o.result, score: o.score, tagline: o.tagline,
+      breakdown: breakdown, next_steps: steps, guides: guides}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+  window.rsmKit = function(name, email){
+    var fd = new FormData();
+    fd.append('email_address', email); fd.append('fields[first_name]', name);
+    try { fetch('https://app.kit.com/forms/' + KIT_FORM + '/subscriptions', {method: 'POST', body: fd, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+
+(function(){
+'use strict';
+var FORM = 'https://formspree.io/f/mvkglqlj';
+var TITLE = 'Credit Score Action Plan';
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function money(n){ return '$' + Math.round(Math.max(0, n)).toLocaleString('en-US'); }
+function up10(n){ return Math.ceil(n / 10) * 10; }
+function num(v){ var n = parseFloat(String(v == null ? '' : v).replace(/[^0-9.]/g, '')); return isFinite(n) ? n : NaN; }
+
+/* ---------- questions ---------- */
+var A = {score: null, scoreVal: '', goal: null, noCards: false, late: null, lateWhen: null, coll: null, collPaid: null, collMed: null, bk: null, oldest: null, inq: null, newAcc: null, loans: null, checked: null};
+var cards = [{n: '', b: '', l: ''}, {n: '', b: '', l: ''}];
+var STEPS = [
+ {cat: 'Step 1 of 4: Your Starting Point', title: "Let's start with where you are and where you're headed.", fields: [
+  {id: 'score', q: 'Do you know your current credit score?', o: [['know', 'Yes, I know it'], ['no', "No, I don't know it"]]},
+  {id: 'goal', q: "What's your main reason for improving your credit?", o: [['home', 'Buy a home in the next 12 months'], ['car', 'Buy or refinance a car'], ['rebuild', 'Rebuild after a setback'], ['start', "I'm just starting out with credit"], ['general', 'Lower my rates and raise my score in general']]}
+ ]},
+ {cat: 'Step 2 of 4: Your Credit Cards', title: 'Enter the balance and credit limit for each card.', cards: true},
+ {cat: 'Step 3 of 4: Your Payment History', title: 'Payment history is the biggest part of your score. Be honest here.', fields: [
+  {id: 'late', q: 'How many payments 30 or more days late are on your reports from the last 7 years?', o: [['0', 'None'], ['1', 'One'], ['2', 'Two or three'], ['4', 'Four or more'], ['unsure', "I'm not sure"]]},
+  {id: 'lateWhen', q: 'When was the most recent late payment?', show: function(){ return A.late && A.late !== '0' && A.late !== 'unsure'; }, o: [['6', 'In the last 6 months'], ['12', '6 to 12 months ago'], ['24', '1 to 2 years ago'], ['old', 'More than 2 years ago']]},
+  {id: 'coll', q: 'Do you have any collections or charged-off accounts?', o: [['0', 'None'], ['1', 'One'], ['2', 'Two or more'], ['unsure', "I'm not sure"]]},
+  {id: 'collPaid', q: 'Have they been paid?', show: function(){ return A.coll === '1' || A.coll === '2'; }, o: [['all', 'Yes, all of them'], ['some', 'Some or none of them']]},
+  {id: 'collMed', q: 'Are any of them medical bills?', show: function(){ return A.coll === '1' || A.coll === '2'; }, o: [['yes', 'Yes'], ['no', 'No']]},
+  {id: 'bk', q: 'Have you filed bankruptcy in the last 10 years?', o: [['no', 'No'], ['yes', 'Yes']]}
+ ]},
+ {cat: 'Step 4 of 4: History and New Credit', title: 'Last step. Time and patience are part of your score too.', fields: [
+  {id: 'oldest', q: 'How old is your oldest credit account?', o: [['0', 'Less than 1 year, or I have no accounts'], ['1', '1 to 2 years'], ['3', '3 to 4 years'], ['5', '5 to 9 years'], ['10', '10 years or more']]},
+  {id: 'inq', q: 'How many times have you applied for credit in the last 12 months?', o: [['0', 'None'], ['1', 'Once or twice'], ['3', '3 to 5 times'], ['6', '6 or more times']]},
+  {id: 'newAcc', q: 'How many new accounts have you opened in the last 12 months?', o: [['0', 'None'], ['1', 'One'], ['2', 'Two'], ['3', 'Three or more']]},
+  {id: 'loans', q: 'Do you have a car loan, student loan, mortgage, or personal loan?', o: [['open', 'Yes, I have one now'], ['paid', 'I had one and paid it off'], ['never', "No, I've never had one"]]},
+  {id: 'checked', q: 'When did you last check all three of your credit reports?', o: [['recent', 'In the last 12 months'], ['old', 'More than a year ago'], ['never', "I've never checked them"]]}
+ ]}
+];
+var cur = 0;
+
+function fieldById(id){ var r = null; STEPS.forEach(function(s){ (s.fields || []).forEach(function(f){ if (f.id === id) r = f; }); }); return r; }
+function label(id){ var f = fieldById(id), v = A[id], t = ''; f.o.forEach(function(o){ if (o[0] === v) t = o[1]; }); return t; }
+function visible(f){ return !f.show || f.show(); }
+function stepDone(i){
+  var s = STEPS[i];
+  if (s.cards){
+    if (A.noCards) return true;
+    var ok = 0, bad = 0;
+    cards.forEach(function(c){
+      var b = num(c.b), l = num(c.l), any = String(c.b).trim() || String(c.l).trim();
+      if (!any) return;
+      if (isNaN(b) || isNaN(l) || l <= 0) bad++; else ok++;
+    });
+    return ok > 0 && bad === 0;
+  }
+  return s.fields.every(function(f){
+    if (!visible(f)) return true;
+    if (A[f.id] == null) return false;
+    if (f.id === 'score' && A.score === 'know'){ var v = num(A.scoreVal); return v >= 300 && v <= 850; }
+    return true;
+  });
+}
+
+function optHtml(f){
+  return '<div class="cr-field"><div class="cr-q">' + esc(f.q) + '</div><div class="options' + (f.o.length <= 3 ? ' cr-compact' : '') + '">' + f.o.map(function(o){
+    var sel = A[f.id] === o[0];
+    return '<div class="option' + (sel ? ' selected' : '') + '" role="button" tabindex="0" data-f="' + f.id + '" data-v="' + o[0] + '"><div class="option-dot"></div><div class="option-text">' + esc(o[1]) + '</div></div>';
+  }).join('') + '</div>' + (f.id === 'score' && A.score === 'know' ? '<div class="cr-scorebox"><label for="crScore">Your score (300 to 850)</label><input type="text" inputmode="numeric" id="crScore" maxlength="3" placeholder="For example, 640" value="' + esc(A.scoreVal) + '"><span class="cr-hint">Your bank or card app often shows it for free. Any recent score works.</span></div>' : '') + '</div>';
+}
+
+function cardsHtml(){
+  var h = '<div class="cr-cards' + (A.noCards ? ' cr-off' : '') + '">';
+  h += '<div class="cr-card-head"><span>Card (optional)</span><span>Balance</span><span>Credit limit</span><span></span></div>';
+  cards.forEach(function(c, i){
+    h += '<div class="cr-card-row" data-i="' + i + '">' +
+      '<input type="text" class="cr-in" data-k="n" aria-label="Card ' + (i + 1) + ' name" placeholder="Card ' + (i + 1) + '" maxlength="30" value="' + esc(c.n) + '">' +
+      '<div class="cr-money"><span>$</span><input type="text" inputmode="decimal" class="cr-in" data-k="b" aria-label="Card ' + (i + 1) + ' balance" placeholder="0" value="' + esc(c.b) + '"></div>' +
+      '<div class="cr-money"><span>$</span><input type="text" inputmode="decimal" class="cr-in" data-k="l" aria-label="Card ' + (i + 1) + ' limit" placeholder="0" value="' + esc(c.l) + '"></div>' +
+      '<button type="button" class="cr-del" data-del="' + i + '" aria-label="Remove card ' + (i + 1) + '"' + (cards.length < 2 ? ' disabled' : '') + '>&times;</button></div>';
+  });
+  h += '</div><div class="cr-card-actions"><button type="button" class="cr-add" id="crAdd"' + (cards.length >= 12 || A.noCards ? ' disabled' : '') + '>+ Add another card</button>' +
+    '<label class="cr-nocards"><input type="checkbox" id="crNo"' + (A.noCards ? ' checked' : '') + '> I don\'t have any credit cards</label></div>' +
+    '<p class="cr-hint" style="margin-top:12px">Use the balance from your most recent statement. No account numbers needed, ever.</p>' +
+    '<div id="crSnap"></div>';
+  return h;
+}
+
+function render(still){
+  var s = STEPS[cur];
+  var h = '<div class="question-card' + (still ? ' cr-still' : '') + '"><div class="q-category">' + esc(s.cat) + '</div><div class="q-text">' + esc(s.title) + '</div>';
+  h += s.cards ? cardsHtml() : s.fields.filter(visible).map(optHtml).join('');
+  $('questionContainer').innerHTML = h + '</div>';
+  $('progressCount').textContent = (cur + 1) + ' of ' + STEPS.length;
+  $('progressFill').style.width = Math.round((cur + 1) / STEPS.length * 100) + '%';
+  $('btnPrev').disabled = cur === 0;
+  $('btnNext').innerHTML = cur === STEPS.length - 1 ? 'Build My Plan &rarr;' : 'Next &rarr;';
+  wire(); refresh();
+}
+function refresh(){
+  $('btnNext').disabled = !stepDone(cur);
+  if (STEPS[cur].cards) snapshot();
+}
+function wire(){
+  var qc = $('questionContainer');
+  Array.prototype.forEach.call(qc.querySelectorAll('.option'), function(el){
+    function pick(){
+      var f = el.getAttribute('data-f'), v = el.getAttribute('data-v'), had = A[f];
+      A[f] = v;
+      if (f === 'late' && (v === '0' || v === 'unsure')) A.lateWhen = null;
+      if (f === 'coll' && !(v === '1' || v === '2')){ A.collPaid = null; A.collMed = null; }
+      var y = window.scrollY; render(true); window.scrollTo(0, y);
+      if (f === 'score' && v === 'know' && had !== 'know'){ var sc = $('crScore'); if (sc) sc.focus(); }
+    }
+    el.addEventListener('click', pick);
+    el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); } });
+  });
+  var sc = $('crScore');
+  if (sc) sc.addEventListener('input', function(){ sc.value = sc.value.replace(/[^0-9]/g, ''); A.scoreVal = sc.value; refresh(); });
+  Array.prototype.forEach.call(qc.querySelectorAll('.cr-in'), function(inp){
+    inp.addEventListener('input', function(){
+      var i = +inp.parentNode.closest('.cr-card-row').getAttribute('data-i'), k = inp.getAttribute('data-k');
+      if (k !== 'n') inp.value = inp.value.replace(/[^0-9.,]/g, '');
+      cards[i][k] = inp.value; refresh();
+    });
+  });
+  Array.prototype.forEach.call(qc.querySelectorAll('.cr-del'), function(b){
+    b.addEventListener('click', function(){ cards.splice(+b.getAttribute('data-del'), 1); render(true); });
+  });
+  if ($('crAdd')) $('crAdd').addEventListener('click', function(){ cards.push({n: '', b: '', l: ''}); render(true); var r = qc.querySelectorAll('.cr-card-row'); var last = r[r.length - 1]; if (last) last.querySelector('[data-k="b"]').focus(); });
+  if ($('crNo')) $('crNo').addEventListener('change', function(){ A.noCards = this.checked; render(true); });
+}
+
+/* ---------- utilization ---------- */
+function cardData(){
+  if (A.noCards) return [];
+  var out = [];
+  cards.forEach(function(c, i){
+    var b = num(c.b), l = num(c.l);
+    if (!isNaN(b) && !isNaN(l) && l > 0) out.push({name: (c.n || '').trim() || 'Card ' + (i + 1), b: b, l: l, u: b / l});
+  });
+  return out;
+}
+function util(){
+  var cs = cardData(), B = 0, L = 0;
+  cs.forEach(function(c){ B += c.b; L += c.l; });
+  var u = L > 0 ? B / L : null;
+  return {cards: cs, B: B, L: L, u: u, to30: L > 0 ? Math.max(0, up10(B - 0.29 * L)) : 0, to10: L > 0 ? Math.max(0, up10(B - 0.09 * L)) : 0};
+}
+function pct(u){ return Math.round(u * 100); }
+function uLabel(u){ return u >= 0.75 ? 'Very high' : u >= 0.5 ? 'High' : u >= 0.3 ? 'Above the 30% line' : u >= 0.1 ? 'Good' : u > 0 ? 'Excellent' : 'Zero reported'; }
+function uClass(u){ return u >= 0.5 ? 'bad' : u >= 0.3 ? 'warn' : 'good'; }
+function snapshot(){
+  var box = $('crSnap'); if (!box) return;
+  if (A.noCards){ box.innerHTML = '<div class="cr-snap"><div class="cr-snap-t">No cards? No problem.</div><p>Your plan will show you how to build credit from the ground up without paying interest.</p></div>'; return; }
+  var U = util();
+  if (U.u === null){ box.innerHTML = ''; return; }
+  var h = '<div class="cr-snap"><div class="cr-snap-t">Your Utilization Snapshot</div>' +
+    '<div class="cr-big ' + uClass(U.u) + '">' + pct(U.u) + '%</div><div class="cr-big-l">' + money(U.B) + ' of ' + money(U.L) + ' used &middot; ' + uLabel(U.u) + '</div>' +
+    '<div class="cr-meter"><div class="cr-meter-fill ' + uClass(U.u) + '" style="width:' + Math.min(100, Math.max(2, pct(U.u))) + '%"></div><i style="left:10%"></i><i style="left:30%"></i></div><div class="cr-meter-l"><span style="left:10%">10%</span><span style="left:30%">30%</span><span style="right:0">100%</span></div>';
+  if (U.u >= 0.3) h += '<p class="cr-snap-msg">Pay down <b>' + money(U.to30) + '</b> to get under 30%, and <b>' + money(U.to10) + '</b> in total to get under 10%. Your full plan shows which card to pay first.</p>';
+  else if (U.u >= 0.1) h += '<p class="cr-snap-msg">You\'re under 30%. Paying down <b>' + money(U.to10) + '</b> more gets you under 10%, where scores tend to be highest.</p>';
+  else if (U.u > 0) h += '<p class="cr-snap-msg">You\'re under 10%. That\'s where scores tend to be strongest. Keep it there.</p>';
+  else h += '<p class="cr-snap-msg">Zero is great for your wallet. For your score, letting one card report a small balance can do slightly better. Your plan explains how.</p>';
+  if (U.cards.length > 1) h += '<div class="cr-percard">' + U.cards.map(function(c){ return '<div><span>' + esc(c.name) + '</span><b class="' + uClass(c.u) + '">' + pct(c.u) + '%</b></div>'; }).join('') + '</div>';
+  box.innerHTML = h + '</div>';
+}
+
+/* ---------- scoring model ---------- */
+function model(o){
+  o = o || {};
+  var U = util(), hasCards = U.cards.length > 0, hasLoan = A.loans === 'open' || A.loans === 'paid';
+  var ph = 100;
+  var lateT = {'1': {6: 55, 12: 65, 24: 75, old: 85}, '2': {6: 40, 12: 50, 24: 60, old: 72}, '4': {6: 25, 12: 35, 24: 45, old: 60}};
+  if (lateT[A.late]) ph = lateT[A.late][A.lateWhen] || 60;
+  if (A.late === 'unsure') ph = 85;
+  if (A.coll === '1') ph -= A.collPaid === 'all' ? 12 : 20;
+  if (A.coll === '2') ph -= A.collPaid === 'all' ? 20 : 35;
+  if (A.coll === 'unsure') ph -= 5;
+  if (A.bk === 'yes') ph -= 30;
+  ph = Math.max(5, ph);
+  var ao, u = o.u != null ? o.u : U.u;
+  if (!hasCards) ao = A.loans === 'open' ? 60 : 40;
+  else if (u === 0) ao = 90;
+  else if (u < 0.1) ao = 100;
+  else if (u < 0.3) ao = 80;
+  else if (u < 0.5) ao = 55;
+  else if (u < 0.75) ao = 35;
+  else ao = 15;
+  if (hasCards && o.u == null && U.cards.some(function(c){ return c.u >= 0.9; })) ao = Math.max(5, ao - 10);
+  var lh = {'0': 15, '1': 40, '3': 60, '5': 80, '10': 100}[A.oldest];
+  var nc = {'0': 100, '1': 85, '3': 60, '6': 35}[o.inq || A.inq] - ({'0': 0, '1': 0, '2': 10, '3': 20}[o.newAcc || A.newAcc]);
+  nc = Math.max(10, nc);
+  var mx = hasCards && hasLoan ? 100 : (hasCards || hasLoan) ? 65 : 20;
+  var w = 0.35 * ph + 0.30 * ao + 0.15 * lh + 0.10 * nc + 0.10 * mx;
+  var est = Math.round(300 + 550 * Math.pow(w / 100, 0.9));
+  return {ph: ph, ao: ao, lh: lh, nc: nc, mx: mx, w: w, est: Math.min(850, Math.max(300, est))};
+}
+function band(s){ return s >= 800 ? 'Exceptional' : s >= 740 ? 'Very Good' : s >= 670 ? 'Good' : s >= 580 ? 'Fair' : 'Poor'; }
+function r5(n){ return Math.round(n / 5) * 5; }
+function payment(P, apr, n){ var r = apr / 12; return P * r / (1 - Math.pow(1 + r, -n)); }
+
+/* ---------- plan ---------- */
+function plan(){
+  var U = util(), M = model(), hasCards = U.cards.length > 0, hasLoan = A.loans === 'open' || A.loans === 'paid';
+  var thin = !hasCards && !hasLoan;
+  var known = A.score === 'know' ? Math.round(num(A.scoreVal)) : null;
+  var now = [], soon = [], later = [], avoid = [];
+  var ACR = 'https://www.annualcreditreport.com';
+
+  // NOW
+  if (A.checked !== 'recent' || A.late === 'unsure' || A.coll === 'unsure' || A.coll === '1' || A.coll === '2' || A.late !== '0'){
+    now.push({t: 'Pull all three of your credit reports for free', d: 'Go to AnnualCreditReport.com, the only official free site. You can check Equifax, Experian, and TransUnion every week at no cost. Look for accounts you don\'t recognize, late payments you didn\'t make, wrong balances or limits, the same debt listed twice, and anything older than 7 years. ' + (A.checked === 'never' ? 'You\'ve never checked, so this comes first. A federal study found about one in five people had an error on at least one of their reports.' : 'Dispute every error online with the bureau that shows it. They generally have 30 days to investigate.'), l: ACR, lt: 'Get your free reports'});
+  }
+  if (hasCards && U.u >= 0.1){
+    var order = U.cards.slice().sort(function(a, b){ return b.u - a.u; });
+    var lines = order.filter(function(c){ return c.u >= 0.3; }).map(function(c){ return c.name + ': pay ' + money(up10(c.b - 0.29 * c.l)) + ' to bring it from ' + pct(c.u) + '% to under 30%'; });
+    var d = 'Your cards are ' + pct(U.u) + '% used. ';
+    if (U.u >= 0.3) d += 'Paying down ' + money(U.to30) + ' gets you under 30%, and ' + money(U.to10) + ' in total gets you under 10%. ';
+    else d += 'Paying down ' + money(U.to10) + ' more gets you under 10%. ';
+    d += 'Scores look at each card and at your total, so start with the card that\'s most maxed out. ' + (lines.length ? 'Your order: ' + lines.join('; ') + '. ' : '') + 'If two cards are close, pay the one with the higher interest rate first. Utilization has no memory, so your score can improve as soon as the lower balances report.';
+    now.push({t: U.u >= 0.3 ? 'Get every card under 30%, then aim for under 10%' : 'Move from good to great: get under 10%', d: d, l: './tools.html#debt', lt: 'Map it out in the free debt payoff calculator', big: true});
+  }
+  if (hasCards && U.cards.some(function(c){ return c.b > c.l; })) now.unshift({t: 'Get any over-limit card back under its limit', d: 'At least one card is over its limit. That can bring fees, a penalty interest rate, and a bigger hit to your score. Bring it back under the limit before anything else on this list.', l: './tools.html#debt', lt: 'Use the free debt payoff calculator'});
+  if (hasCards && U.B > 0) now.push({t: 'Pay before the statement closes, not just before the due date', d: 'Most card companies report the balance on your statement, not what you owe on the due date. Find each card\'s statement closing date in your app and make a payment a few days before it. Same money, lower reported balance, better score. Most people have never heard this.', l: './blog-credit-score.html', lt: 'Read how your score works'});
+  if (hasCards && U.B === 0) now.push({t: 'Let one card report a small balance', d: 'When every card reports $0, some scoring models treat it as slightly less active. Let one card report a small balance, under 10% of its limit, then pay it in full by the due date. You pay no interest and your score gets the credit.', l: './blog-credit-score.html', lt: 'Read how your score works'});
+  if (!thin) now.push({t: 'Turn on autopay for at least the minimum on every account', d: (A.late !== '0' ? 'Your history shows late payments, and the most important thing now is that it never happens again. ' : 'You\'ve protected your payment history. Keep it that way. ') + 'A late payment is usually reported once it\'s 30 days past due, and one can cost a good score a lot of points. Set autopay for the minimum as a safety net, then pay more by hand.', l: './tools.html#budget', lt: 'Build your budget with the free tool'});
+
+  // NEXT 90 DAYS
+  if (A.coll === '1' || A.coll === '2'){
+    var cd = 'Before you pay any collection, ask the collector in writing to validate the debt. If they agree to settle, ask them in writing to delete the account from your reports once it\'s paid, and don\'t pay until the agreement is in writing. Newer scoring models ignore paid collections, so paying still helps. Before paying a very old debt, check your state\'s statute of limitations. In some states, even a small payment can restart it.';
+    if (A.collMed === 'yes') cd += ' For medical bills: the three bureaus have said paid medical collections and medical collections under $500 shouldn\'t appear on your reports. If one does, dispute it.';
+    soon.push({t: 'Handle your collections the right way', d: cd, l: 'https://consumer.ftc.gov/articles/debt-collection-faqs', lt: 'Your rights with debt collectors'});
+  }
+  if (A.late === '1' && A.coll !== '1' && A.coll !== '2' && A.bk !== 'yes') soon.push({t: 'Ask for a goodwill adjustment on that late payment', d: 'One late payment on an otherwise clean record is the best case for a goodwill letter. Write to the lender, take responsibility, explain what happened, point to your on-time record since then, and ask them to remove the late mark as a courtesy. It isn\'t guaranteed, but it costs you nothing but a stamp.', l: './blog-credit-score.html', lt: 'Read how your score works'});
+  if (thin || A.oldest === '0' || A.bk === 'yes'){
+    (thin ? now : soon).push({t: thin ? 'Build your credit file from zero' : 'Add positive history every month', d: 'Your three best tools: a secured card (a $200 to $500 deposit becomes your limit; choose one with no annual fee that reports to all three bureaus), a credit-builder loan from a credit union, or becoming an authorized user on a trusted family member\'s old card with a perfect payment record and low balance. Use the card for one small bill, pay it in full every month, and let time do the rest.' + (thin ? ' FICO needs at least one account that\'s been open 6 months to score you.' : ''), l: './blog-credit-score.html', lt: 'Read how your score works'});
+  }
+  if (hasCards && U.u >= 0.1 && (A.late === '0' || A.lateWhen === 'old') && A.inq !== '6'){
+    soon.push({t: 'Ask your current card companies for a higher limit', d: 'A higher limit with the same balance lowers your utilization. Many card companies can review a request without a hard inquiry, so ask which kind it is before you agree. Then treat the extra room as if it doesn\'t exist.', l: './blog-credit-score.html', lt: 'Read how your score works'});
+  }
+  if (A.inq === '3' || A.inq === '6' || A.newAcc === '2' || A.newAcc === '3' || A.goal === 'home' || A.goal === 'car'){
+    soon.push({t: 'Put a pause on new applications', d: (A.goal === 'home' ? 'You\'re buying a home, so avoid new cards, store financing, and car loans until after closing. Lenders check again right before the loan closes. ' : A.goal === 'car' ? 'Hold off on other applications until you\'ve bought the car. ' : 'Each new application adds a hard inquiry and lowers the average age of your accounts. ') + 'Inquiries stop counting in FICO scores after 12 months and drop off your report after 2 years.', l: './blog-credit-score.html', lt: 'Read how your score works'});
+  }
+
+  // 6 TO 12 MONTHS
+  if (A.goal === 'home' || A.goal === 'car') later.push({t: A.goal === 'home' ? 'Shop for your mortgage the smart way' : 'Shop for your car loan the smart way', d: 'When you\'re ready, compare at least three lenders within about 14 days. Scoring models count multiple ' + (A.goal === 'home' ? 'mortgage' : 'auto loan') + ' inquiries in a short window as one, so shopping around won\'t hurt you. Get preapproved by your bank or a credit union before you ' + (A.goal === 'home' ? 'make an offer.' : 'walk into the dealership, so you know what a good rate looks like.') + (A.goal === 'home' ? ' Mortgage lenders usually pull all three reports and use your middle score, so all three matter.' : ''), l: './discovery-intake.html', lt: 'Talk it through on a free discovery call'});
+  if (hasCards) later.push({t: 'Keep your oldest cards open and active', d: 'The age of your accounts is 15% of your score. Put one small recurring bill on each old no-fee card and pay it in full, so the card company doesn\'t close it for being inactive.', l: './blog-credit-score.html', lt: 'Read how your score works'});
+  if (A.late !== '0' || A.bk === 'yes' || A.coll === '1' || A.coll === '2') later.push({t: 'Let time work for you', d: 'Negative marks hurt less every year you add on-time payments on top of them. Late payments and collections fall off after 7 years. ' + (A.bk === 'yes' ? 'A Chapter 7 bankruptcy falls off after 10 years and a Chapter 13 after 7, and many people rebuild to good credit well before then. ' : '') + 'Every on-time month from here on is building your comeback.', l: './blog-credit-score.html', lt: 'Read how your score works'});
+  later.push({t: 'Freeze your credit at all three bureaus', d: 'A freeze is free, doesn\'t affect your score, and stops anyone from opening credit in your name. Lift it for a few days when you apply for something, then put it back. It\'s one of the best protections against identity theft.', l: 'https://consumer.ftc.gov/articles/what-know-about-credit-freezes-and-fraud-alerts', lt: 'How credit freezes work'});
+  later.push({t: 'Check your progress every 90 days', d: 'Come back and run this plan again every three months with your new balances. Watching the numbers move is what keeps people going.', l: './credit-score-action-plan.html', lt: 'Bookmark this plan'});
+
+  // LEAVE ALONE
+  if (hasCards) avoid.push(['Don\'t close your oldest card', 'Closing it can lower your available credit and, over time, the age of your accounts. If it has no annual fee, keep it open.']);
+  avoid.push(['Don\'t pay a credit repair company upfront', 'Federal law says they can\'t charge you until they\'ve done the work. Everything they do, like disputing errors, you can do yourself for free.']);
+  if (hasLoan || A.goal === 'general' || A.goal === 'rebuild') avoid.push(['Don\'t take out a loan just to improve your credit mix', 'Mix is only 10% of your score. It\'s never worth paying interest on a loan you don\'t need.']);
+  else avoid.push(['Don\'t take out a loan just to improve your credit mix', 'Mix is only 10% of your score. A small credit-builder loan is fine, but it\'s never worth paying real interest on a loan you don\'t need.']);
+  avoid.push(['Don\'t co-sign for anyone right now', 'Their missed payments become your missed payments, and the balance counts against you.']);
+  avoid.push(['Don\'t open store cards for a discount at the register', 'You save 15% today and pay for it with a hard inquiry, a new account, and usually a high interest rate.']);
+
+  // potential
+  var fixed = model({u: hasCards ? Math.min(U.u, 0.09) || 0.05 : null, inq: A.inq === '0' ? '0' : '1', newAcc: '0'});
+  var gain = Math.max(0, fixed.est - M.est);
+  if (A.lateWhen === '6' || A.lateWhen === '12' || A.collPaid === 'some' || A.bk === 'yes') gain *= 0.6;
+  gain = Math.min(gain, 110);
+  var base = known != null ? known : M.est;
+  return {U: U, M: M, thin: thin, known: known, base: base, gain: gain, now: now, soon: soon, later: later, avoid: avoid, fixedEst: fixed.est};
+}
+
+/* ---------- results ---------- */
+var P = null;
+function show(lead){
+  P = plan();
+  var U = P.U, M = P.M;
+  $('quizSection').style.display = 'none'; $('resultsSection').style.display = 'block'; window.scrollTo(0, 0);
+  var h = '';
+  if (P.thin && P.known == null){
+    h += '<div class="results-score-label">Your Starting Point</div><div class="results-type">Building From <em>Zero</em></div><p class="results-tagline">You may not have a credit score yet, and that\'s a clean slate, not a problem. FICO needs at least one account open 6 months to score you. Your plan below shows exactly how to build one without paying interest.</p>';
+  } else {
+    var lo = r5(M.est - 25), hi = r5(M.est + 25);
+    lo = Math.max(300, lo); hi = Math.min(850, hi);
+    if (P.known != null) h += '<div class="results-score-label">Your Score</div><div class="results-score">' + P.known + '</div><div class="results-type">' + band(P.known) + '</div>';
+    else h += '<div class="results-score-label">Your Estimated Score Range</div><div class="results-score cr-range">' + lo + '<span class="results-score-max"> to </span>' + hi + '</div><div class="results-type">' + band(M.est) + '</div>';
+    h += '<div class="score-visual"><div class="score-bar-track"><div class="score-bar-fill" id="scoreFill" style="width:0%"></div></div><div class="score-markers"><span class="score-marker">300</span><span class="score-marker">580</span><span class="score-marker">670</span><span class="score-marker">740</span><span class="score-marker">850</span></div></div>';
+    if (P.gain >= 15 && (P.known != null ? P.known : M.est) < 780) {
+      var g1 = r5(P.gain * 0.5), g2 = r5(P.gain * 0.85);
+      h += '<p class="results-tagline">Following this plan could be worth roughly <b style="color:#E8B84B">' + (g1 === g2 ? g2 : g1 + ' to ' + g2) + ' points</b> over the next 6 to 12 months. The biggest gains are listed first.</p>';
+    } else h += '<p class="results-tagline">You\'re in strong shape. Your plan below is about protecting what you\'ve built and picking up the last few points.</p>';
+  }
+  $('resultsHero').innerHTML = h;
+  setTimeout(function(){ var f = $('scoreFill'); if (f) f.style.width = Math.round(((P.known != null ? P.known : M.est) - 300) / 550 * 100) + '%'; }, 100);
+
+  var F = [['Payment History', 35, M.ph, 'Paying on time, every time.'], ['Amounts Owed', 30, M.ao, 'How much of your credit you\'re using.'], ['Length of History', 15, M.lh, 'How long your accounts have been open.'], ['New Credit', 10, M.nc, 'Recent applications and new accounts.'], ['Credit Mix', 10, M.mx, 'Cards plus loans, managed well.']];
+  P.factors = F;
+  var weakest = F.slice().sort(function(a, b){ return (a[2] - 100) * a[1] - (b[2] - 100) * b[1]; })[0];
+  var b = '';
+  if (P.thin && P.known == null) b += '<div class="results-section"><div class="results-section-title">How Scores Are Built</div><h3>The Five Parts of Every FICO Score</h3><p>Payment history (35%), amounts owed (30%), length of history (15%), new credit (10%), and credit mix (10%). You\'re starting fresh, so every one of them starts working for you the day you open your first account. Your plan below is built to score well on all five from day one.</p></div>';
+  else b += '<div class="results-section"><div class="results-section-title">Where Your Points Are Going</div><h3>Your Five Score Factors</h3><p>Every FICO score is built from these five parts. Here\'s how you\'re doing on each one, based on what you entered.</p><div class="category-grid">';
+  if (!(P.thin && P.known == null)) F.forEach(function(f){ b += '<div class="category-card"><div class="cat-name">' + f[0] + ' &middot; ' + f[1] + '%</div><div class="cat-score-track"><div class="cat-score-fill" style="width:' + Math.max(f[2], 3) + '%"></div></div><div class="cat-score-label"><strong>' + (f[2] >= 80 ? 'Strong' : f[2] >= 55 ? 'Fair' : 'Needs work') + '</strong> &middot; ' + esc(f[3]) + '</div></div>'; });
+  if (!(P.thin && P.known == null)) b += '</div><p style="margin-top:20px">Your biggest opportunity is <strong style="color:#E8B84B">' + weakest[0] + '</strong>. That\'s where your plan starts.</p></div>';
+
+  if (U.cards.length){
+    b += '<div class="results-section"><div class="results-section-title">Your Utilization</div><h3>' + pct(U.u) + '% Used: ' + money(U.B) + ' of ' + money(U.L) + '</h3><div class="cr-table"><div class="cr-tr cr-th"><span>Card</span><span>Balance</span><span>Limit</span><span>Used</span><span>To get under 30%</span></div>' +
+      U.cards.slice().sort(function(a, c){ return c.u - a.u; }).map(function(c){ return '<div class="cr-tr"><span>' + esc(c.name) + '</span><span>' + money(c.b) + '</span><span>' + money(c.l) + '</span><span class="' + uClass(c.u) + '">' + pct(c.u) + '%</span><span>' + (c.u >= 0.3 ? 'Pay ' + money(up10(c.b - 0.29 * c.l)) : 'Done') + '</span></div>'; }).join('') + '</div>' +
+      '<div class="cr-targets"><div><b>' + (U.u >= 0.3 ? money(U.to30) : 'Done') + '</b><span>to get under 30% overall</span></div><div><b>' + (U.u >= 0.1 ? money(U.to10) : 'Done') + '</b><span>to get under 10% overall</span></div></div></div>';
+  }
+
+  function list(items, start){ return items.map(function(s, i){ return '<div class="next-step' + (s.big ? ' cr-big-step' : '') + '"><div class="step-num">' + (start + i) + '</div><div class="step-content"><div class="step-title">' + esc(s.t) + '</div><div class="step-desc">' + esc(s.d) + '</div><a class="step-link" href="' + s.l + '"' + (/^https?:/.test(s.l) ? ' target="_blank" rel="noopener"' : '') + '>' + esc(s.lt) + ' &rarr;</a></div></div>'; }).join(''); }
+  var n = 1;
+  b += '<div class="results-section"><div class="results-section-title">Your Action Plan, ' + esc(lead.name) + '</div><h3>Do These This Month</h3><div class="next-steps">' + list(P.now, n) + '</div>'; n += P.now.length;
+  if (P.soon.length){ b += '<h3 class="cr-h3">Then, Over the Next 90 Days</h3><div class="next-steps">' + list(P.soon, n) + '</div>'; n += P.soon.length; }
+  b += '<h3 class="cr-h3">Over the Next 6 to 12 Months</h3><div class="next-steps">' + list(P.later, n) + '</div></div>';
+
+  b += '<div class="results-section"><div class="results-section-title">Just as Important</div><h3>What Not to Do</h3><ul class="beliefs-list">' + P.avoid.map(function(a){ return '<li><span class="belief-icon cr-x">&#10005;</span><div class="belief-text"><strong>' + esc(a[0]) + '</strong>' + esc(a[1]) + '</div></li>'; }).join('') + '</ul></div>';
+
+  // cost of credit illustration
+  var home = A.goal === 'home', amt = home ? 350000 : 30000, n2 = home ? 360 : 60, rLo = home ? 0.0625 : 0.065, rHi = home ? 0.0725 : 0.13;
+  var pLo = payment(amt, rLo, n2), pHi = payment(amt, rHi, n2), diff = (pHi - pLo) * n2;
+  b += '<div class="results-section"><div class="results-section-title">Why This Matters</div><h3>What a Better Score Is Worth</h3><p>Here\'s the same ' + (home ? money(amt) + ' mortgage over 30 years' : money(amt) + ' car loan over 5 years') + ' at two example rates, the kind of gap you can see between a fair score and a very good one.</p>' +
+    '<div class="cr-targets"><div><b>' + money(pLo) + '/mo</b><span>at ' + parseFloat((rLo * 100).toFixed(2)) + '%</span></div><div><b>' + money(pHi) + '/mo</b><span>at ' + parseFloat((rHi * 100).toFixed(2)) + '%</span></div></div>' +
+    '<p style="margin-top:16px">That\'s <b style="color:#E8B84B">' + money(diff) + '</b> more over the life of the loan for the exact same ' + (home ? 'house' : 'car') + '. Rates here are examples, not quotes, but the lesson is real: your credit score decides how much your money costs.</p></div>';
+
+  b += '<div class="results-section" id="leadBox"><div class="results-section-title">Keep Your Plan</div><h3>Save It, Print It, Follow It</h3><p>Print this page or save it as a PDF so you can check off each step. A copy is on its way to your inbox too.</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px"><button type="button" class="btn-cta-gold" id="crPrint" style="border:none;cursor:pointer">Print or Save as PDF</button><a class="btn-cta-outline" href="./RSM_Financial_Foundation_Checklist.pdf" target="_blank" download>Free Financial Foundation Checklist</a></div>' +
+    '<div class="rsm-bonus" style="margin-top:22px;padding:18px 20px;border:1px solid rgba(201,148,26,0.5);border-left:4px solid #C9941A;background:rgba(201,148,26,0.08);border-radius:2px;"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;font-weight:700;margin-bottom:6px;">Included With the Book</div><p style="margin:0 0 14px;color:rgba(255,255,255,0.85);font-size:15px;line-height:1.6;">Your credit follows your habits, and your habits follow your mindset. Readers of <b>Creating A Wealth Building Mindset 2nd Edition</b> also get the <b>Wealth Building Mindset Starter Kit</b>, the <b>Budget Snapshot Worksheet</b>, and the <b>Money Script Workbook</b>.</p><a href="./book.html" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-weight:700;text-decoration:none;padding:12px 18px;border-radius:2px;margin:0 10px 8px 0;font-size:14px;">Get the Book</a><a href="./reader-resources.html" style="display:inline-block;color:#E8B84B;font-weight:700;text-decoration:none;padding:12px 0;font-size:14px;">Already have it? Claim your reader resources &rarr;</a></div></div>';
+
+  b += '<div class="results-cta"><h3>Want Someone in Your Corner <em>While You Do It?</em></h3><p>Knowing what to do is step one. Doing it every month is where most people fall off. Level 1 of the RSM Accountability Program includes a full Buffer and Credit phase: all three reports audited, errors disputed, and a utilization plan you actually follow, with weekly check-ins.</p><div class="cta-buttons"><a class="btn-cta-gold" href="./level1.html">See Level 1</a><a class="btn-cta-outline" href="./discovery-intake.html">Book a Free Discovery Call</a></div></div>';
+  b += '<div style="text-align:center;margin-top:24px" class="cr-noprint"><button class="btn-retake" onclick="retakeQuiz()">Update My Numbers</button> <a class="btn-retake" style="text-decoration:none;display:inline-block;margin-left:8px" href="./quizzes.html">Take Another Free Assessment</a></div>';
+  b += '<p style="font-size:12px;color:rgba(255,255,255,0.35);text-align:center;margin-top:24px;line-height:1.6">This tool is for educational purposes only and isn\'t credit repair, financial, or legal advice. Score ranges are estimates. FICO and VantageScore formulas are private, and your actual scores vary by bureau and scoring model. Right Side of Money never asks for your Social Security number or account numbers.</p>';
+  $('resultsBody').innerHTML = b;
+  $('crPrint').addEventListener('click', function(){ window.print(); });
+  sendLead(lead);
+}
+
+function sendLead(lead){
+  if (lead.bot) return;
+  var U = P.U, M = P.M;
+  var res = P.thin && P.known == null ? 'Building From Zero' : (P.known != null ? P.known + ' (' + band(P.known) + ', self-reported)' : 'Est. ' + Math.max(300, r5(M.est - 25)) + ' to ' + Math.min(850, r5(M.est + 25)) + ' (' + band(M.est) + ')');
+  var fd = new FormData();
+  fd.append('name', lead.name); fd.append('email', lead.email); fd.append('_replyto', lead.email);
+  fd.append('_subject', 'Quiz Lead | ' + TITLE + ' | ' + lead.name + ' | ' + res);
+  fd.append('quiz', TITLE); fd.append('result', res); fd.append('goal', label('goal'));
+  fd.append('utilization', U.cards.length ? pct(U.u) + '% (' + money(U.B) + ' of ' + money(U.L) + ' on ' + U.cards.length + ' card' + (U.cards.length > 1 ? 's' : '') + ')' : 'No cards');
+  fd.append('breakdown', P.factors.map(function(f){ return f[0] + ': ' + f[2] + '%'; }).join(' | '));
+  fd.append('history', ['late', 'lateWhen', 'coll', 'collPaid', 'collMed', 'bk', 'oldest', 'inq', 'newAcc', 'loans', 'checked'].filter(function(k){ return A[k] != null; }).map(function(k){ var f = fieldById(k); return f.q + ' ' + label(k); }).join('\n'));
+  fd.append('email_opt_in', lead.opt ? 'Yes' : 'No');
+  rsmPost(FORM, fd);
+  var steps = P.now.concat(P.soon).concat(P.later).slice(0, 8);
+  rsmResultEmail({name: lead.name, email: lead.email, quiz: TITLE, result: res, score: P.thin && P.known == null ? 'Not scored yet' : (P.known != null ? P.known + ' (your score)' : 'Estimated ' + Math.max(300, r5(M.est - 25)) + ' to ' + Math.min(850, r5(M.est + 25))),
+    tagline: U.cards.length ? 'Your cards are ' + pct(U.u) + '% used. ' + (U.u >= 0.3 ? 'Pay down ' + money(U.to30) + ' to get under 30% and ' + money(U.to10) + ' to get under 10%.' : U.u >= 0.1 ? 'Pay down ' + money(U.to10) + ' to get under 10%.' : 'You\'re under 10%. Keep it there.') : 'Your plan shows how to build credit from the ground up.',
+    breakdown: P.factors.map(function(f){ return [f[0], f[2]]; }), steps: steps, guides: [{f: 'RSM_Financial_Foundation_Checklist.pdf', t: 'The RSM Financial Foundation Checklist'}]});
+  if (lead.opt) rsmKit(lead.name, lead.email);
+}
+
+/* ---------- navigation ---------- */
+window.startQuiz = function(){ $('startSection').style.display = 'none'; $('quizSection').style.display = 'block'; window.scrollTo(0, 0); render(); };
+window.nextQuestion = function(){
+  if (!stepDone(cur)) return;
+  if (cur < STEPS.length - 1){ cur++; render(); window.scrollTo(0, 0); }
+  else rsmGate(function(lead){ show(lead); }, function(){ render(); });
+};
+window.prevQuestion = function(){ if (cur > 0){ cur--; render(); window.scrollTo(0, 0); } };
+window.retakeQuiz = function(){ cur = 1; $('resultsSection').style.display = 'none'; $('quizSection').style.display = 'block'; render(); window.scrollTo(0, 0); };
+})();
+
+</script>
+</body>
+</html>
