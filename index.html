@@ -63,7 +63,7 @@ nav.top{position:sticky;top:0;z-index:60;background:rgba(13,31,60,0.97);backdrop
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
 .brand img{height:42px;width:auto;}
 .brand span{font-size:14px;letter-spacing:3px;font-weight:700;line-height:1.15;color:#fff;}
-.brand small{display:block;font-size:9px;letter-spacing:2px;color:var(--goldl);font-weight:600;}
+.brand small{display:block;font-size:10px;letter-spacing:1.6px;color:var(--goldl);font-weight:600;}
 .links{display:flex;align-items:center;gap:20px;list-style:none;}
 .links a{text-decoration:none;font-size:13.5px;color:rgba(255,255,255,0.82);font-weight:500;}
 .links a:hover{color:var(--goldl);}
@@ -220,7 +220,7 @@ nav.top{position:sticky;top:0;z-index:60;background:rgba(13,31,60,0.97);backdrop
 .jform{display:flex;gap:10px;max-width:640px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
 .jform input{flex:1 1 180px;padding:16px;border:2px solid var(--navy);background:#fff;font-size:16px;border-radius:2px;}
 .jform .btn{border-color:var(--navy);}
-.jmsg{min-height:1.4em;margin-top:12px;font-weight:700;}
+.jmsg{min-height:1.4em;margin-top:12px;font-weight:700;}.jmsg.err{display:inline-block;background:#fff;color:#8a1c1c;padding:8px 14px;border-radius:2px;}.jform button:disabled{opacity:0.7;cursor:wait;}
 .jlinks{margin-top:22px;font-weight:600;}
 .jlinks a{color:var(--navy);margin:0 8px;}
 /* footer */
@@ -241,6 +241,7 @@ footer a:hover{color:var(--goldl);}
 @media(max-width:860px){section{padding:72px 0;}.hero-grid,.spot,.books,.story{grid-template-columns:minmax(0,1fr);gap:40px;}.books>*,.story>*,.spot>*,.hero-grid>*{min-width:0;}.portrait{max-width:440px;margin:0 auto;}.namecard{left:12px;}.award{right:4px;}.auth-in{grid-template-columns:1fr 1fr;}.auth-in div:nth-child(4n){border-right:1px solid rgba(201,148,26,0.15);}.auth-in div:nth-child(2n){border-right:none;}.paths,.tgrid,.two,.acc{grid-template-columns:1fr;}.t.big{grid-column:auto;}.covers{height:430px;max-width:440px;margin:0 auto;}.story .ph{max-width:420px;}}
 @media(max-width:560px){.wrap{padding:0 16px;}.formats div{padding:12px 6px;}.award-line{align-items:flex-start;}.stats{grid-template-columns:1fr 1fr;}.grid4{grid-template-columns:1fr;}.wp{grid-template-columns:1fr 1fr;}.formats{grid-template-columns:1fr 1fr 1fr;gap:8px;}.formats b{font-size:26px;}.hero{padding-top:56px;}.brand span{font-size:12px;letter-spacing:2px;}.brand img{height:34px;}.covers{height:360px;}.covers .emb{width:90px;}.fgrid{grid-template-columns:1fr;}.step p{min-height:0;}.auth-in b{font-size:23px;}.auth-in div{padding:16px 12px;}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+@media(max-width:380px){.brand small{display:none}}
 </style>
 <!-- RSM-GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H3GBPMJH2R"></script>
@@ -250,25 +251,81 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
 <!-- /RSM-GA -->
+<!-- RSM-A11Y --><style>
+#path div.wrap span.eyebrow.reveal{color:#8A6410!important}
+#path div.wrap h2.sec.reveal em{color:#8A6410!important}
+#programs div.wrap span.eyebrow.reveal{color:#8A6410!important}
+#programs div.wrap h2.sec.reveal em{color:#8A6410!important}
+body > section:nth-child(9) > div:nth-child(1) > div:nth-child(4) > a:nth-child(1) > span:nth-child(1){color:#8A6410!important}
+body > section:nth-child(9) > div:nth-child(1) > div:nth-child(4) > a:nth-child(2) > span:nth-child(1){color:#8A6410!important}
+body > section:nth-child(9) > div:nth-child(1) > div:nth-child(4) > a:nth-child(3) > span:nth-child(1){color:#8A6410!important}
+body > section:nth-child(9) > div:nth-child(1) > div:nth-child(4) > a:nth-child(4) > span:nth-child(1){color:#8A6410!important}
+div.price s{color:#55554F!important}
+body > section:nth-child(9) > div:nth-child(1) > div:nth-child(4) > a:nth-child(5) > span:nth-child(1){color:#8A6410!important}
+body > section:nth-child(9) > div:nth-child(1) > div:nth-child(4) > a:nth-child(6) > span:nth-child(1){color:#8A6410!important}
+body > section:nth-child(9) > div:nth-child(1) > div:nth-child(4) > a:nth-child(7) > span:nth-child(1){color:#8A6410!important}
+div.acc a.card.reveal span.tag{color:#8A6410!important}
+section.light div.wrap span.eyebrow.reveal{color:#8A6410!important}
+section.light div.wrap h2.sec.reveal em{color:#8A6410!important}
+div.stars{color:#8A6410!important}
+</style><!-- /RSM-A11Y -->
 </head>
 <body>
 
@@ -556,11 +613,11 @@ gtag('config', 'G-H3GBPMJH2R');
     <span class="eyebrow reveal">Real Readers. Real Change.</span>
     <h2 class="sec reveal">What Readers Are <em>Saying.</em></h2>
     <div class="tgrid">
-      <div class="t big reveal"><div class="stars">&ldquo;</div><q>I realized that I needed to direct my money instead of allowing my money to direct me. I couldn't continue living paycheck to paycheck, and I needed to come out of a poverty mindset. &hellip; Since then, I've been doing great. I live on a budget, and I don't have to constantly look at my bank account before I spend money. &hellip; More importantly, my money is working for me, and I'm planning for my children's children.</q><div class="who">B. Jenkins<small>Reader, Creating A Wealth Building Mindset</small></div></div>
-      <div class="t reveal"><div class="stars">&ldquo;</div><q>Very well articulated! I'm going to buy a few more copies to hand out. &hellip; Your book lays out the groundwork that so many people I personally know need to hear and implement.</q><div class="who">T. Vallier<small>Reader, Creating A Wealth Building Mindset</small></div></div>
-      <div class="t reveal"><div class="stars">&ldquo;</div><q>Since reading Creating A Wealth-Building Mindset, I feel like I've been moving forward with greater intention, structure, and purpose. &hellip; This book gave me that push.</q><div class="who">J. Turner<small>Reader, Creating A Wealth Building Mindset</small></div></div>
-      <div class="t reveal"><div class="stars">&ldquo;</div><q>This book opened my eyes to the power of mindset in building wealth. &hellip; I have never felt more equipped and inspired to take control of my financial destiny.</q><div class="who">Emily R.<small>Reader, Creating A Wealth Building Mindset</small></div></div>
-      <div class="t reveal"><div class="stars">&ldquo;</div><q>From the very first chapter, I was hooked. Creating A Wealth Building Mindset provides a clear roadmap to financial success. &hellip; A powerful tool for anyone looking to achieve financial independence.</q><div class="who">Michael B.<small>Reader, Creating A Wealth Building Mindset</small></div></div>
+      <div class="t big reveal"><div class="stars">&ldquo;</div><q>I realized that I needed to direct my money instead of allowing my money to direct me. I couldn't continue living paycheck to paycheck, and I needed to come out of a poverty mindset. &hellip; Since then, I've been doing great. I live on a budget, and I don't have to constantly look at my bank account before I spend money. &hellip; More importantly, my money is working for me, and I'm planning for my children's children.</q><div class="who">B. Jenkins<small>1st Edition Reader, Signed Copy</small></div></div>
+      <div class="t reveal"><div class="stars">&ldquo;</div><q>Very well articulated! I'm going to buy a few more copies to hand out. &hellip; Your book lays out the groundwork that so many people I personally know need to hear and implement.</q><div class="who">T. Vallier<small>1st Edition Reader, Signed Copy</small></div></div>
+      <div class="t reveal"><div class="stars">&ldquo;</div><q>Since reading Creating A Wealth-Building Mindset, I feel like I've been moving forward with greater intention, structure, and purpose. &hellip; This book gave me that push.</q><div class="who">J. Turner<small>1st Edition Reader, Signed Copy</small></div></div>
+      <div class="t reveal"><div class="stars">&ldquo;</div><q>This book opened my eyes to the power of mindset in building wealth. &hellip; I have never felt more equipped and inspired to take control of my financial destiny.</q><div class="who">Emily R.<small>1st Edition Reader, Signed Copy</small></div></div>
+      <div class="t reveal"><div class="stars">&ldquo;</div><q>From the very first chapter, I was hooked. Creating A Wealth Building Mindset provides a clear roadmap to financial success. &hellip; A powerful tool for anyone looking to achieve financial independence.</q><div class="who">Michael B.<small>1st Edition Reader, Signed Copy</small></div></div>
     </div>
   </div>
 </section>
@@ -630,15 +687,25 @@ gtag('config', 'G-H3GBPMJH2R');
   var T0 = Date.now();
   document.getElementById('joinForm').addEventListener('submit', function(e){
     e.preventDefault();
+    var form = this, btn = form.querySelector('button[type=submit]');
     var n = document.getElementById('jName').value.trim().replace(/[<>&"]/g, ''), em = document.getElementById('jEmail').value.trim(), msg = document.getElementById('jMsg');
-    if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ msg.textContent = 'Please enter your first name and a valid email.'; return; }
-    if (!document.getElementById('jCo').value && Date.now() - T0 > 3000){
-      try { var f = new FormData(); f.append('name', n); f.append('email', em); f.append('_replyto', em); f.append('_subject', 'Newsletter Signup | Homepage | ' + n); f.append('quiz', 'Homepage signup'); fetch('https://formspree.io/f/mvkglqlj', {method: 'POST', body: f, headers: {'Accept': 'application/json'}}).catch(function(){}); } catch(err){}
+    msg.className = 'jmsg';
+    if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ msg.textContent = 'Please enter your first name and a valid email.'; msg.className = 'jmsg err'; return; }
+    function done(){ msg.textContent = 'You\'re in, ' + n + '! Check your inbox for your welcome email. While you wait, start the free 30-Day Money Tracker.'; msg.className = 'jmsg ok'; form.reset(); }
+    if (document.getElementById('jCo').value){ done(); return; }
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Joining...'; msg.textContent = '';
+    var f = new FormData(); f.append('name', n); f.append('email', em); f.append('_replyto', em); f.append('_subject', 'Newsletter Signup | Homepage | ' + n); f.append('quiz', 'Homepage signup');
+    if (Date.now() - T0 < 3000) f.append('fast_submit', 'yes');
+    var timer = setTimeout(function(){ fail(); }, 15000), settled = false;
+    function fail(){ if (settled) return; settled = true; btn.disabled = false; btn.textContent = label; msg.textContent = 'We couldn\'t confirm your signup. Please try again in a moment.'; msg.className = 'jmsg err'; }
+    fetch('https://formspree.io/f/mvkglqlj', {method: 'POST', body: f, headers: {'Accept': 'application/json'}}).then(function(r){
+      if (settled) return; clearTimeout(timer);
+      if (!r.ok){ fail(); return; }
+      settled = true; btn.disabled = false; btn.textContent = label;
       try { var k = new FormData(); k.append('email_address', em); k.append('fields[first_name]', n); fetch('https://app.kit.com/forms/9981618/subscriptions', {method: 'POST', body: k, mode: 'no-cors'}).catch(function(){}); } catch(err){}
       try { localStorage.setItem('rsm_lead', JSON.stringify({name: n, email: em})); } catch(err){}
-    }
-    msg.textContent = 'You\'re in, ' + n + '! Watch your inbox. Start now with the free 30-Day Money Tracker.';
-    this.reset();
+      done();
+    }, function(){ clearTimeout(timer); fail(); });
   });
 })();
 </script>

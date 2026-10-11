@@ -203,21 +203,59 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
@@ -225,10 +263,19 @@ gtag('config', 'G-H3GBPMJH2R');
 <!-- RSM-NAVFIX --><style>
 @media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
 @media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
-@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:900px){body>nav{flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;height:68px!important;min-height:0!important;top:0!important;padding:0 20px!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{display:none!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
 @media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
 </style><!-- /RSM-NAVFIX -->
 <!-- RSM-WRAPFIX --><style>.results-wrap{padding-top:108px!important}@media(max-width:768px){.quiz-wrap,.results-wrap{padding-top:96px!important}}</style><!-- /RSM-WRAPFIX -->
+<!-- RSM-A11Y --><style>
+div.hero-meta-label{color:rgba(255,255,255,0.78)!important}
+p{color:rgba(255,255,255,0.78)!important}
+div.q-number{color:rgba(255,255,255,0.78)!important}
+div.results-score-label{color:#E8B84B!important}
+span.results-score-max{color:rgba(255,255,255,0.78)!important}
+a.btn-cta-outline{color:#E8B84B!important}
+</style><!-- /RSM-A11Y -->
 </head>
 <body>
 <nav>
@@ -304,7 +351,7 @@ window.QUIZ.classify = function(pct, cp, tags){
       '<p class="gate-p">Enter your first name and email to see your score, your personal breakdown, and the free guides matched to your result. Darrell receives every result so he can share resources that fit where you are.</p>' +
       '<form id="gateForm" class="lead-form" novalidate>' +
       '<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="gateCo" name="company" tabindex="-1" autocomplete="off" /></label></div>' +
-      '<div class="lead-row"><input type="text" id="gateName" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" placeholder="Email address" autocomplete="email" /></div>' +
+      '<div class="lead-row"><input type="text" id="gateName" aria-label="First name" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" aria-label="Email address" placeholder="Email address" autocomplete="email" /></div>' +
       '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
       '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Results &rarr;</button>' +
       '<p class="lead-msg" id="gateMsg"></p>' +
@@ -479,5 +526,6 @@ function wireShare(){
 })();
 
 </script>
+<!-- RSM-LEGAL --><div class="rsm-legal" style="background:#081426;border-top:1px solid rgba(201,148,26,0.25);padding:18px 16px;text-align:center;font-family:'DM Sans',Arial,sans-serif;font-size:13px;line-height:2;color:rgba(255,255,255,0.78);"><span style="white-space:nowrap">&copy; 2026 Right Side of Money</span><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Privacy Policy</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html#disclaimer" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Educational Disclaimer</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./contact.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Contact</a></div><!-- /RSM-LEGAL -->
 </body>
 </html>

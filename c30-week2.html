@@ -342,21 +342,59 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
@@ -364,7 +402,8 @@ gtag('config', 'G-H3GBPMJH2R');
 <!-- RSM-NAVFIX --><style>
 @media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
 @media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
-@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:900px){body>nav{flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;height:68px!important;min-height:0!important;top:0!important;padding:0 20px!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{display:none!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
 @media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
 </style><!-- /RSM-NAVFIX -->
 </head>
@@ -434,8 +473,8 @@ gtag('config', 'G-H3GBPMJH2R');
 
 <div class="tool" data-tracker="w2"><div class="tool-head"><h4>Week 2: Your 48-Hour Spending Tracker</h4><p>Log every purchase for 48 hours. Tomorrow you'll compare it to Week 1.</p></div><div class="tool-body">
 <div class="trk-form"><div class="tool-grid">
-<div><label>When</label><input type="text" name="when" placeholder="Example: Tue 7:40 pm" /></div>
-<div class="span2"><label>What You Bought</label><input type="text" name="item" placeholder="Example: Lunch delivery" /></div>
+<div><label>When</label><input aria-label="Example: Tue 7:40 pm" type="text" name="when" placeholder="Example: Tue 7:40 pm" /></div>
+<div class="span2"><label>What You Bought</label><input aria-label="Example: Lunch delivery" type="text" name="item" placeholder="Example: Lunch delivery" /></div>
 <div><label>Amount ($)</label><input type="number" name="amount" min="0" step="0.01" inputmode="decimal" /></div>
 <div><label>Feeling Right Before</label><select name="feeling"><option value="">Choose</option><option>Calm</option><option>Stressed</option><option>Tired</option><option>Bored</option><option>Happy or celebrating</option><option>Anxious</option><option>Lonely</option><option>Rushed</option><option>Frustrated</option><option>Sad</option></select></div>
 <div><label>What Drove It</label><select name="driver"><option value="">Choose</option><option>Planned purchase</option><option>Stress</option><option>Boredom</option><option>Reward</option><option>Convenience</option><option>Social pressure</option><option>Habit or autopilot</option></select></div>
@@ -456,7 +495,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <div class="checkin" data-day="8" data-need-kc="c30d8"><h4>Day 8 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
 <div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
 <span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
-<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<span class="ci-label">One win from today, no matter how small</span><input aria-label="Example: I skipped a delivery order and cooked instead" type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
 <button type="button" class="btn btn-gold ci-done">Complete Day 8</button><div class="ci-msg"></div></div>
 </section>
 <section class="day" id="day-9"><div class="day-head"><span class="day-num">DAY 9</span><span class="day-type">Week 2 Exercise</span><span class="day-status" data-n="9"></span></div>
@@ -474,11 +513,11 @@ gtag('config', 'G-H3GBPMJH2R');
 <div class="tool"><div class="tool-head"><h4>Week 2 Summary</h4><p>Pulled automatically from your tracker. Add any purchases you missed before you analyze.</p></div><div class="tool-body"><div class="trk-summary" data-for="w2"></div></div></div>
 </div>
 
-<div class="reflection"><h4>Two-Week Comparison</h4><p class="ref-note">Your answers save automatically on this device and are included in your weekly Progress Check report. Write at least a few full sentences.</p><div class="ref-item"><label>1. Compare your two summaries. What changed between Week 1 and Week 2, and what stayed the same?</label><textarea data-ref="d9_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. How many near misses did you have, and what helped you pause in those moments?</label><textarea data-ref="d9_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. If your top driver stayed the same, what's it really about for you? If it changed, what do you think shifted?</label><textarea data-ref="d9_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Two-Week Comparison</h4><p class="ref-note">Your answers save automatically on this device and are included in your weekly Progress Check report. Write at least a few full sentences.</p><div class="ref-item"><label>1. Compare your two summaries. What changed between Week 1 and Week 2, and what stayed the same?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="d9_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. How many near misses did you have, and what helped you pause in those moments?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="d9_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. If your top driver stayed the same, what's it really about for you? If it changed, what do you think shifted?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="d9_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="checkin" data-day="9" data-need-tool="trk:w2:3" data-need-ref="d9_0,d9_1,d9_2"><h4>Day 9 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
 <div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
 <span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
-<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<span class="ci-label">One win from today, no matter how small</span><input aria-label="Example: I skipped a delivery order and cooked instead" type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
 <button type="button" class="btn btn-gold ci-done">Complete Day 9</button><div class="ci-msg"></div></div>
 </section>
 <section class="day" id="day-10"><div class="day-head"><span class="day-num">DAY 10</span><span class="day-type">Lesson and Exercise</span><span class="day-status" data-n="10"></span></div>
@@ -509,9 +548,9 @@ gtag('config', 'G-H3GBPMJH2R');
 <div class="scenario"><div class="scenario-head">Real-Life Case Study: Andre, Barber and Shop Owner</div><div class="scenario-body"><p>Andre's Week 1 affirmation was "I'm wealthy." He rated it a 3 and said it felt like lying. His refined Week 2 version: "I'm building wealth one chair at a time, and 10% of every day's earnings goes to my business savings." He rated it a 7. The next morning he opened a separate business savings account. "The first one made me feel like a fraud. This one made me feel like a business owner."</p></div></div>
 
 <div class="tool" data-affirm="w2"><div class="tool-head"><h4>Week 2 Money Affirmations Exercise</h4><p>Write the belief you're still working on, your refined affirmation, and a slightly bigger proof action.</p></div><div class="tool-body">
-<div class="tool-row"><label>What my Week 1 affirmation taught me, or the belief I&#x27;m still working on</label><textarea name="old" placeholder="Example: Money never stays with people like me."></textarea></div>
-<div class="tool-row"><label>My refined affirmation</label><textarea name="aff" placeholder="Example: I&#39;m someone who keeps a portion of every dollar I earn and directs it on purpose."></textarea></div>
-<div class="tool-grid"><div class="span2"><label>My upgraded proof action for this week</label><input type="text" name="proof" placeholder="Example: Move $10 to savings every Friday" /></div>
+<div class="tool-row"><label>What my Week 1 affirmation taught me, or the belief I&#x27;m still working on</label><textarea aria-label="Example: Money never stays with people like me." name="old" placeholder="Example: Money never stays with people like me."></textarea></div>
+<div class="tool-row"><label>My refined affirmation</label><textarea aria-label="Example: I'm someone who keeps a portion of every dollar I earn and directs it on purpose." name="aff" placeholder="Example: I&#39;m someone who keeps a portion of every dollar I earn and directs it on purpose."></textarea></div>
+<div class="tool-grid"><div class="span2"><label>My upgraded proof action for this week</label><input aria-label="Example: Move $10 to savings every Friday" type="text" name="proof" placeholder="Example: Move $10 to savings every Friday" /></div>
 <div><label>How believable is it? (1 to 10)</label><select name="believe"><option value="">Choose</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div></div>
 <button type="button" class="btn btn-navy aff-save" style="margin-top:0.9rem">Save My Affirmation</button><div class="trk-msg aff-msg"></div>
 <div class="aff-out"></div></div></div>
@@ -527,7 +566,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <div class="checkin" data-day="10" data-need-kc="c30d10" data-need-tool="aff:w2"><h4>Day 10 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
 <div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
 <span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
-<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<span class="ci-label">One win from today, no matter how small</span><input aria-label="Example: I skipped a delivery order and cooked instead" type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
 <button type="button" class="btn btn-gold ci-done">Complete Day 10</button><div class="ci-msg"></div></div>
 </section>
 <section class="day" id="day-11"><div class="day-head"><span class="day-num">DAY 11</span><span class="day-type">Lesson</span><span class="day-status" data-n="11"></span></div>
@@ -570,7 +609,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <div class="checkin" data-day="11" data-need-kc="c30d11"><h4>Day 11 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
 <div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
 <span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
-<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<span class="ci-label">One win from today, no matter how small</span><input aria-label="Example: I skipped a delivery order and cooked instead" type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
 <button type="button" class="btn btn-gold ci-done">Complete Day 11</button><div class="ci-msg"></div></div>
 </section>
 <section class="day" id="day-12"><div class="day-head"><span class="day-num">DAY 12</span><span class="day-type">Mindset Reflection</span><span class="day-status" data-n="12"></span></div>
@@ -592,11 +631,11 @@ gtag('config', 'G-H3GBPMJH2R');
 </ol>
 <p>Answer the reflection questions below honestly. They'll be part of your Week 2 Progress Check report, and they'll help you and Darrell see what's really underneath your spending.</p>
 
-<div class="reflection"><h4>Tracking Resistance Reflection</h4><p class="ref-note">Your answers save automatically on this device and are included in your weekly Progress Check report. Write at least a few full sentences.</p><div class="ref-item"><label>1. Which purchases, if any, did you not want to log this week? What made those harder to write down?</label><textarea data-ref="d12_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which form of resistance (avoidance, minimizing, irritation, or perfectionism) shows up most for you, and where do you think it comes from?</label><textarea data-ref="d12_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What did you notice after you logged something you didn&#x27;t want to log?</label><textarea data-ref="d12_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Tracking Resistance Reflection</h4><p class="ref-note">Your answers save automatically on this device and are included in your weekly Progress Check report. Write at least a few full sentences.</p><div class="ref-item"><label>1. Which purchases, if any, did you not want to log this week? What made those harder to write down?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="d12_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which form of resistance (avoidance, minimizing, irritation, or perfectionism) shows up most for you, and where do you think it comes from?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="d12_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What did you notice after you logged something you didn&#x27;t want to log?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="d12_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="checkin" data-day="12" data-need-ref="d12_0,d12_1,d12_2"><h4>Day 12 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
 <div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
 <span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
-<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<span class="ci-label">One win from today, no matter how small</span><input aria-label="Example: I skipped a delivery order and cooked instead" type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
 <button type="button" class="btn btn-gold ci-done">Complete Day 12</button><div class="ci-msg"></div></div>
 </section>
 <section class="day" id="day-13"><div class="day-head"><span class="day-num">DAY 13</span><span class="day-type">Week 2 Exercise</span><span class="day-status" data-n="13"></span></div>
@@ -620,17 +659,17 @@ gtag('config', 'G-H3GBPMJH2R');
 <div><label>Amount ($)</label><input type="number" name="amount" min="0" step="0.01" inputmode="decimal" /></div>
 <div><label>Frequency</label><select name="freq"><option value="">Choose</option><option>Every payday (twice a month)</option><option>Every two weeks</option><option>Weekly</option><option>Monthly</option><option>One time</option></select></div>
 <div><label>Start Date</label><input type="date" name="start" /></div>
-<div class="span2"><label>Where the Money Goes</label><input type="text" name="dest" placeholder="Example: Emergency fund at a separate bank" /></div>
+<div class="span2"><label>Where the Money Goes</label><input aria-label="Example: Emergency fund at a separate bank" type="text" name="dest" placeholder="Example: Emergency fund at a separate bank" /></div>
 <div><label>Status</label><select name="status"><option value="">Choose</option><option>Scheduled and confirmed</option><option>Set up but not yet run</option><option>Not set up yet</option></select></div>
 </div>
-<div class="tool-row" style="margin-top:0.8rem"><label>Notes (optional)</label><input type="text" name="notes" placeholder="Anything that will help you keep this going" /></div>
+<div class="tool-row" style="margin-top:0.8rem"><label>Notes (optional)</label><input aria-label="Anything that will help you keep this going" type="text" name="notes" placeholder="Anything that will help you keep this going" /></div>
 <button type="button" class="btn btn-navy mv-save">Save My Money Move</button><div class="trk-msg mv-msg"></div>
 <div class="mv-out"></div></div></div>
 
 <div class="checkin" data-day="13" data-need-tool="move:w2"><h4>Day 13 Check-In</h4><p>Check what you did today, be honest about how you feel, and name one win. Every completed day fills in your 30-day calendar.</p>
 <div class="ci-habits"><label><input type="checkbox" value="track" /> I logged my spending today</label><label><input type="checkbox" value="affirm" /> I said my affirmation out loud</label><label><input type="checkbox" value="move" /> I protected or completed my money move</label><label><input type="checkbox" value="lesson" /> I completed today&#x27;s lesson and action step</label></div>
 <span class="ci-label">How I'm feeling about my money today</span><div class="mood-opts"><button type="button" class="mood-opt" data-v="1">Struggling</button><button type="button" class="mood-opt" data-v="2">Uneasy</button><button type="button" class="mood-opt" data-v="3">Steady</button><button type="button" class="mood-opt" data-v="4">Good</button><button type="button" class="mood-opt" data-v="5">Strong</button></div>
-<span class="ci-label">One win from today, no matter how small</span><input type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
+<span class="ci-label">One win from today, no matter how small</span><input aria-label="Example: I skipped a delivery order and cooked instead" type="text" name="win" placeholder="Example: I skipped a delivery order and cooked instead" />
 <button type="button" class="btn btn-gold ci-done">Complete Day 13</button><div class="ci-msg"></div></div>
 </section>
 <section class="day" id="day-14"><div class="day-head"><span class="day-num">DAY 14</span><span class="day-type">Progress Check</span><span class="day-status" data-n="14"></span></div>

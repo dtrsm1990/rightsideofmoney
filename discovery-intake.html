@@ -126,7 +126,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,31,60,0.9
 .darrell-note-inner{max-width:700px;margin:0 auto;}
 .darrell-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid #0D1F3C;margin:0 auto 20px;display:block;}
 .darrell-quote{font-family:'Playfair Display',serif;font-size:clamp(17px,2.5vw,24px);font-weight:700;color:#0D1F3C;line-height:1.45;margin-bottom:12px;font-style:italic;}
-.darrell-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:#0D1F3C;opacity:0.6;}
+.darrell-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:#0D1F3C;opacity:0.85;}
 
 footer{background:#0A0A0A;padding:40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
 .footer-brand{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;margin-bottom:8px;}
@@ -290,21 +290,59 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
@@ -312,9 +350,20 @@ gtag('config', 'G-H3GBPMJH2R');
 <!-- RSM-NAVFIX --><style>
 @media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
 @media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
-@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:900px){body>nav{flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;height:68px!important;min-height:0!important;top:0!important;padding:0 20px!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{display:none!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
 @media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
 </style><!-- /RSM-NAVFIX -->
+<!-- RSM-A11Y --><style>
+div.step-num{color:#E8B84B!important}
+div.step-label{color:rgba(255,255,255,0.78)!important}
+div.section-subtitle{color:rgba(255,255,255,0.78)!important}
+label.field-label span{color:#8A6410!important}
+div.slider-labels span{color:#55554F!important}
+div.slider-value{color:#8A6410!important}
+p.submit-note{color:#55554F!important}
+div.footer-copy{color:rgba(255,255,255,0.78)!important}
+</style><!-- /RSM-A11Y -->
 </head>
 <body>
 <nav>
@@ -401,31 +450,31 @@ gtag('config', 'G-H3GBPMJH2R');
           <div class="field-row">
             <div class="field-group">
               <label class="field-label">First Name <span>*</span></label>
-              <input type="text" name="firstName" class="field-input" required placeholder="Your first name">
+              <input aria-label="Your first name" type="text" name="firstName" class="field-input" required placeholder="Your first name">
             </div>
             <div class="field-group">
               <label class="field-label">Last Name <span>*</span></label>
-              <input type="text" name="lastName" class="field-input" required placeholder="Your last name">
+              <input aria-label="Your last name" type="text" name="lastName" class="field-input" required placeholder="Your last name">
             </div>
           </div>
           <div class="field-row">
             <div class="field-group">
               <label class="field-label">Email Address <span>*</span></label>
-              <input type="email" name="email" class="field-input" required placeholder="Your email address">
+              <input aria-label="Your email address" type="email" name="email" class="field-input" required placeholder="Your email address">
             </div>
             <div class="field-group">
               <label class="field-label">Phone Number <span>*</span></label>
-              <input type="tel" name="phone" class="field-input" required placeholder="Your phone number">
+              <input aria-label="Your phone number" type="tel" name="phone" class="field-input" required placeholder="Your phone number">
             </div>
           </div>
           <div class="field-row">
             <div class="field-group">
               <label class="field-label">City and State</label>
-              <input type="text" name="cityState" class="field-input" placeholder="City, State">
+              <input aria-label="City, State" type="text" name="cityState" class="field-input" placeholder="City, State">
             </div>
             <div class="field-group">
               <label class="field-label">How Did You Hear About Us</label>
-              <select name="referral" class="field-select">
+              <select aria-label="How Did You Hear About Us" name="referral" class="field-select">
                 <option value="">Select one</option>
                 <option>TikTok</option>
                 <option>Instagram</option>
@@ -455,7 +504,7 @@ gtag('config', 'G-H3GBPMJH2R');
           <div class="field-row">
             <div class="field-group">
               <label class="field-label">Employment Status <span>*</span></label>
-              <select name="employment" class="field-select" required>
+              <select aria-label="Employment Status" name="employment" class="field-select" required>
                 <option value="">Select one</option>
                 <option>Full-Time Employee</option>
                 <option>Part-Time Employee</option>
@@ -468,7 +517,7 @@ gtag('config', 'G-H3GBPMJH2R');
             </div>
             <div class="field-group">
               <label class="field-label">Annual Household Income</label>
-              <select name="income" class="field-select">
+              <select aria-label="Annual Household Income" name="income" class="field-select">
                 <option value="">Select range</option>
                 <option>Under $25,000</option>
                 <option>$25,000 to $40,000</option>
@@ -545,7 +594,7 @@ gtag('config', 'G-H3GBPMJH2R');
           <div class="field-row">
             <div class="field-group">
               <label class="field-label">Estimated Total Debt</label>
-              <select name="totalDebt" class="field-select">
+              <select aria-label="Estimated Total Debt" name="totalDebt" class="field-select">
                 <option value="">Select range</option>
                 <option>No debt</option>
                 <option>Under $5,000</option>
@@ -559,7 +608,7 @@ gtag('config', 'G-H3GBPMJH2R');
             </div>
             <div class="field-group">
               <label class="field-label">Estimated Credit Score Range</label>
-              <select name="creditScore" class="field-select">
+              <select aria-label="Estimated Credit Score Range" name="creditScore" class="field-select">
                 <option value="">Select range</option>
                 <option>I don't know my score</option>
                 <option>Poor: 300 to 579</option>
@@ -603,20 +652,20 @@ gtag('config', 'G-H3GBPMJH2R');
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">What's the biggest obstacle standing between you and financial freedom right now? <span>*</span></label>
-              <textarea name="obstacle" class="field-textarea" required placeholder="Be specific. The more honest you are the more Darrell can help you in your 30 minutes."></textarea>
+              <textarea aria-label="Be specific. The more honest you are the more Darrell can help you in your 30 minutes." name="obstacle" class="field-textarea" required placeholder="Be specific. The more honest you are the more Darrell can help you in your 30 minutes."></textarea>
             </div>
           </div>
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">Have you tried to improve your finances before? What happened?</label>
-              <textarea name="pastAttempts" class="field-textarea" placeholder="What did you try? What worked? What didn&#39;t work?"></textarea>
+              <textarea aria-label="What did you try? What worked? What didn't work?" name="pastAttempts" class="field-textarea" placeholder="What did you try? What worked? What didn&#39;t work?"></textarea>
             </div>
           </div>
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">On a scale of 1 to 10 how urgent is fixing your financial situation right now?</label>
               <div class="slider-wrap">
-                <input type="range" name="urgency" min="1" max="10" value="7" class="field-range" id="urgencySlider">
+                <input aria-label="On a scale of 1 to 10 how urgent is fixing your financial situation right now?" type="range" name="urgency" min="1" max="10" value="7" class="field-range" id="urgencySlider">
                 <div class="slider-labels"><span>1 Not urgent</span><span>10 Need help now</span></div>
                 <div class="slider-value" id="urgencyValue">7</div>
               </div>
@@ -638,13 +687,13 @@ gtag('config', 'G-H3GBPMJH2R');
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">Complete this sentence: "Money is..." <span>*</span></label>
-              <input type="text" name="moneyIs" class="field-input" required placeholder="Money is...">
+              <input aria-label="Money is..." type="text" name="moneyIs" class="field-input" required placeholder="Money is...">
             </div>
           </div>
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">Complete this sentence: "I would have more money if..."</label>
-              <input type="text" name="moreMoney" class="field-input" placeholder="I would have more money if...">
+              <input aria-label="I would have more money if..." type="text" name="moreMoney" class="field-input" placeholder="I would have more money if...">
             </div>
           </div>
           <div class="field-row full">
@@ -663,7 +712,7 @@ gtag('config', 'G-H3GBPMJH2R');
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">What does financial freedom look like for you specifically?</label>
-              <textarea name="financialFreedom" class="field-textarea" placeholder="Describe what financial freedom looks like in your life. Be specific."></textarea>
+              <textarea aria-label="Describe what financial freedom looks like in your life. Be specific." name="financialFreedom" class="field-textarea" placeholder="Describe what financial freedom looks like in your life. Be specific."></textarea>
             </div>
           </div>
         </div>
@@ -726,19 +775,19 @@ gtag('config', 'G-H3GBPMJH2R');
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">Is there anything specific you want to make sure we cover in the call?</label>
-              <textarea name="mustCover" class="field-textarea" placeholder="List the specific topics or questions you want to make sure get addressed."></textarea>
+              <textarea aria-label="List the specific topics or questions you want to make sure get addressed." name="mustCover" class="field-textarea" placeholder="List the specific topics or questions you want to make sure get addressed."></textarea>
             </div>
           </div>
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">What would make this discovery call a 10 out of 10 for you?</label>
-              <textarea name="tenOutOfTen" class="field-textarea" placeholder="What outcome would make this call worth your time?"></textarea>
+              <textarea aria-label="What outcome would make this call worth your time?" name="tenOutOfTen" class="field-textarea" placeholder="What outcome would make this call worth your time?"></textarea>
             </div>
           </div>
           <div class="field-row full">
             <div class="field-group">
               <label class="field-label">Anything else you want Darrell to know before you speak?</label>
-              <textarea name="anythingElse" class="field-textarea" placeholder="Anything at all. No detail is too small."></textarea>
+              <textarea aria-label="Anything at all. No detail is too small." name="anythingElse" class="field-textarea" placeholder="Anything at all. No detail is too small."></textarea>
             </div>
           </div>
         </div>
@@ -877,5 +926,6 @@ if (form) {
 
   
   </script>
+<!-- RSM-LEGAL --><div class="rsm-legal" style="background:#081426;border-top:1px solid rgba(201,148,26,0.25);padding:18px 16px;text-align:center;font-family:'DM Sans',Arial,sans-serif;font-size:13px;line-height:2;color:rgba(255,255,255,0.78);"><a href="./privacy.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Privacy Policy</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html#disclaimer" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Educational Disclaimer</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./contact.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Contact</a></div><!-- /RSM-LEGAL -->
 </body>
 </html>
