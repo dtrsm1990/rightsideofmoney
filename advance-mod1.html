@@ -268,21 +268,59 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
@@ -290,7 +328,8 @@ gtag('config', 'G-H3GBPMJH2R');
 <!-- RSM-NAVFIX --><style>
 @media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
 @media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
-@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:900px){body>nav{flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;height:68px!important;min-height:0!important;top:0!important;padding:0 20px!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{display:none!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
 @media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
 </style><!-- /RSM-NAVFIX -->
 </head>
@@ -394,7 +433,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>For each behavior, ask <strong>"Why do I do that?"</strong> five times in a row. Each answer goes one layer deeper. The fifth answer is usually the root.</li>
 <li>Circle the root that shows up more than once. That's your primary stagnation pattern, and it's what this program will help you break.</li></ol></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. What are your three biggest financial symptoms right now, stated with specific numbers?</label><textarea data-ref="lesson-1-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which part of the Stagnation Equation (beliefs, emotions, or no operating system) do you believe is costing you the most, and what evidence from your own life supports that?</label><textarea data-ref="lesson-1-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Think about the last raise, bonus, or tax refund you received. Where did it go, and what does that tell you about your current system?</label><textarea data-ref="lesson-1-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. What are your three biggest financial symptoms right now, stated with specific numbers?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which part of the Stagnation Equation (beliefs, emotions, or no operating system) do you believe is costing you the most, and what evidence from your own life supports that?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Think about the last raise, bonus, or tax refund you received. Where did it go, and what does that tell you about your current system?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m1l1"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="2" data-why="Income is an amplifier. Without a system that assigns new money a job before it arrives (like an automatic transfer), a raise gets absorbed by lifestyle inflation. The fix is the system, not a bigger number." data-hint="Look again at the Core Truth callout about what income does to your existing system."><p class="kc-prompt"><span class="kc-num">1</span><span>Brandon got a $9,000 raise last year. Twelve months later, his savings haven&#x27;t changed and his credit card balance is slightly higher. According to this lesson, what&#x27;s the most accurate explanation?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">He needs to find a higher-paying job before he can expect to save.</button><button type="button" class="kc-opt" data-i="1">$9,000 isn&#x27;t enough of a raise to make a real difference in anyone&#x27;s finances.</button><button type="button" class="kc-opt" data-i="2">His raise was absorbed by his existing system. Income amplified the same patterns instead of changing them.</button><button type="button" class="kc-opt" data-i="3">Inflation erased the value of his raise, so nothing he did would have mattered.</button></div><div class="kc-why" hidden></div></div>
@@ -471,7 +510,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>Write your new Builder identity statement in the present tense: "I'm someone who..."</li>
 <li>List three small "proof actions" you'll take in the next seven days that a Builder would take.</li></ol></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Which money identity is your dominant one, and which is your secondary? What specific memories from childhood do you think created them?</label><textarea data-ref="lesson-1-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. What sentence does your money identity say in your head when you face a financial decision? Write it exactly as you hear it.</label><textarea data-ref="lesson-1-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Write your new Builder identity statement and the three proof actions you&#x27;ll take this week.</label><textarea data-ref="lesson-1-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Which money identity is your dominant one, and which is your secondary? What specific memories from childhood do you think created them?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. What sentence does your money identity say in your head when you face a financial decision? Write it exactly as you hear it.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Write your new Builder identity statement and the three proof actions you&#x27;ll take this week.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m1l2"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="3" data-why="Self-verification and the thermostat effect explain why unfamiliar money can feel uncomfortable. The anxiety Jasmine felt was her identity signaling that this wasn&#x27;t &#x27;her normal.&#x27; Spending restored the familiar setting." data-hint="Reread &#x27;The Financial Thermostat&#x27; section and the research on self-verification."><p class="kc-prompt"><span class="kc-num">1</span><span>Jasmine received a $6,000 inheritance and felt strangely anxious having it in her account. Within four months it was gone, mostly on things she can&#x27;t remember buying. Which concept best explains this?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Inheritances are emotional, so everyone spends them quickly.</button><button type="button" class="kc-opt" data-i="1">She simply didn&#x27;t know how to invest, so spending was the only option.</button><button type="button" class="kc-opt" data-i="2">She needed a financial advisor to manage it for her.</button><button type="button" class="kc-opt" data-i="3">The financial thermostat. Her money identity felt uncomfortable above its set point, so she unconsciously spent back down to familiar territory.</button></div><div class="kc-why" hidden></div></div>
@@ -532,7 +571,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <ol><li>Date, time, and amount</li><li>What you bought</li><li>What happened right before (the trigger)</li><li>What you were feeling (name the emotion)</li><li>Which of the six drivers it matches</li><li>How you felt about it 24 hours later</li></ol>
 <p>At the end of the week, count which driver appeared most. That's your primary emotional spending driver, and you'll use it in your Module 1 assessment.</p></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Think about your last three unplanned purchases. What were you feeling right before each one?</label><textarea data-ref="lesson-1-3_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which of the six emotional spending drivers shows up most often in your life, and what real need is it trying to meet?</label><textarea data-ref="lesson-1-3_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Describe a cheaper or free way you could meet that same need the next time the urge appears.</label><textarea data-ref="lesson-1-3_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Think about your last three unplanned purchases. What were you feeling right before each one?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-3_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which of the six emotional spending drivers shows up most often in your life, and what real need is it trying to meet?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-3_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Describe a cheaper or free way you could meet that same need the next time the urge appears.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-1-3_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m1l3"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="1" data-why="The gap between urge and purchase is where choice lives. Tools like HALT, the Three-Question Pause, and the 48-hour rule widen that gap. Regret after the fact rarely changes future behavior because it adds shame instead of skill." data-hint="Find the moment in the loop this lesson calls the most important."><p class="kc-prompt"><span class="kc-num">1</span><span>Anthony has a terrible day at work, gets home, and orders $90 in electronics accessories he doesn&#x27;t need. The next morning he feels frustrated with himself. Which step of the Emotion-Spend Loop offered his best chance to change the outcome?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">The trigger, because he should quit his stressful job.</button><button type="button" class="kc-opt" data-i="1">The gap between the urge and the purchase, where a pause tool could have interrupted the loop.</button><button type="button" class="kc-opt" data-i="2">The regret stage, because feeling bad will stop him next time.</button><button type="button" class="kc-opt" data-i="3">There&#x27;s no point where he could have changed it, because emotions can&#x27;t be controlled.</button></div><div class="kc-why" hidden></div></div>

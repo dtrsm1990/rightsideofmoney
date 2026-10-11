@@ -268,21 +268,59 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
@@ -290,7 +328,8 @@ gtag('config', 'G-H3GBPMJH2R');
 <!-- RSM-NAVFIX --><style>
 @media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
 @media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
-@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:900px){body>nav{flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;height:68px!important;min-height:0!important;top:0!important;padding:0 20px!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{display:none!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
 @media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
 </style><!-- /RSM-NAVFIX -->
 </head>
@@ -406,7 +445,7 @@ gtag('config', 'G-H3GBPMJH2R');
 
 <div class="callout callout-action"><h4>Your Action Step: Build Your Core 8 Page</h4><p>Complete the five steps above within the next seven days. You'll need these numbers for the Financial Data Literacy Quiz at the end of this module, where you'll enter them and receive a personalized analysis. For each number, note whether it's <strong>verified</strong> (pulled from statements), <strong>estimated</strong> (educated guess), or <strong>guessed</strong>. Your goal is to get all eight to verified.</p></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Before looking at any statements, write down what you think you spend in a typical month. Then, after reviewing 90 days of statements, write the real number and the difference.</label><textarea data-ref="lesson-3-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which of the Core 8 numbers did you not know before this lesson? Why do you think you never tracked it?</label><textarea data-ref="lesson-3-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What did your real numbers reveal that surprised you most, and how did you feel when you saw it?</label><textarea data-ref="lesson-3-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Before looking at any statements, write down what you think you spend in a typical month. Then, after reviewing 90 days of statements, write the real number and the difference.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which of the Core 8 numbers did you not know before this lesson? Why do you think you never tracked it?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What did your real numbers reveal that surprised you most, and how did you feel when you saw it?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m3l1"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="2" data-why="Monthly Interest Cost = Balance x APR / 12. $3,600 x 0.27 = $972 per year, divided by 12 = $81 a month. The $972 option is the annual figure, not monthly." data-hint="Multiply balance by APR, then divide by 12."><p class="kc-prompt"><span class="kc-num">1</span><span>Rashida has a $3,600 credit card balance at 27% APR. Using the formula from this lesson, what&#x27;s her approximate monthly interest cost?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">About $360 a month</button><button type="button" class="kc-opt" data-i="1">About $27 a month</button><button type="button" class="kc-opt" data-i="2">About $81 a month</button><button type="button" class="kc-opt" data-i="3">About $972 a month</button></div><div class="kc-why" hidden></div></div>
@@ -481,7 +520,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>Write one next action and a date for every Red item.</li>
 <li>Complete at least one Red action within 72 hours.</li></ol></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. How did your body react when you looked at your full financial picture? Describe it specifically.</label><textarea data-ref="lesson-3-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. List your Red items and the one next action you wrote for each.</label><textarea data-ref="lesson-3-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What story did panic tell you about your numbers, and what does the calm, sorted version say instead?</label><textarea data-ref="lesson-3-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. How did your body react when you looked at your full financial picture? Describe it specifically.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. List your Red items and the one next action you wrote for each.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What story did panic tell you about your numbers, and what does the calm, sorted version say instead?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m3l2"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="2" data-why="Panic reduces the resources available for planning. A minute of box breathing helps the body come down from alarm so the thinking brain can work." data-hint="Reread the Core Truth and the Box Breathing section."><p class="kc-prompt"><span class="kc-num">1</span><span>Jerome sits down to review his finances, sees his total debt, and his heart starts racing. According to this lesson, what should he do first?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Push through the panic and make every decision immediately.</button><button type="button" class="kc-opt" data-i="1">Call every creditor right away while he&#x27;s motivated.</button><button type="button" class="kc-opt" data-i="2">Use box breathing to calm his body before continuing the review.</button><button type="button" class="kc-opt" data-i="3">Close everything and try again when he has more money.</button></div><div class="kc-why" hidden></div></div>
@@ -549,7 +588,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>Take action on all three within seven days.</li>
 <li>Set up an automatic Redirect for the total amount you plugged. Name the transfer after its goal, for example "Debt Freedom" or "Emergency Fund."</li></ol></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. List your top three money leaks with their monthly and annual cost.</label><textarea data-ref="lesson-3-3_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which leak was hardest to admit, and what need or feeling is it connected to?</label><textarea data-ref="lesson-3-3_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Where will you redirect the money you plug, and when will that automatic transfer start?</label><textarea data-ref="lesson-3-3_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. List your top three money leaks with their monthly and annual cost.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-3_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which leak was hardest to admit, and what need or feeling is it connected to?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-3_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. Where will you redirect the money you plug, and when will that automatic transfer start?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-3-3_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m3l3"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="1" data-why="$45 x 52 weeks = $2,340 a year. Annualizing turns a &#x27;small&#x27; weekly habit into a number that makes a clear decision possible." data-hint="Multiply the weekly amount by 52."><p class="kc-prompt"><span class="kc-num">1</span><span>Kendra spends $45 a week on convenience store snacks and drinks on her way to work. What&#x27;s the annual cost of this leak?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">$1,080</button><button type="button" class="kc-opt" data-i="1">$2,340</button><button type="button" class="kc-opt" data-i="2">$180</button><button type="button" class="kc-opt" data-i="3">$540</button></div><div class="kc-why" hidden></div></div>

@@ -543,21 +543,59 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
@@ -593,27 +631,27 @@ gtag('config', 'G-H3GBPMJH2R');
       <div class="field-grid">
         <div class="field">
           <label>First Name <span class="req">*</span></label>
-          <input type="text" name="first_name" placeholder="Your first name" required>
+          <input aria-label="Your first name" type="text" name="first_name" placeholder="Your first name" required>
         </div>
         <div class="field">
           <label>Last Name <span class="req">*</span></label>
-          <input type="text" name="last_name" placeholder="Your last name" required>
+          <input aria-label="Your last name" type="text" name="last_name" placeholder="Your last name" required>
         </div>
         <div class="field">
           <label>Email Address <span class="req">*</span></label>
-          <input type="email" name="email" placeholder="your@email.com" required>
+          <input aria-label="your@email.com" type="email" name="email" placeholder="your@email.com" required>
         </div>
         <div class="field">
           <label>Phone Number <span class="req">*</span></label>
-          <input type="tel" name="phone" placeholder="(555) 000-0000" required>
+          <input aria-label="(555) 000-0000" type="tel" name="phone" placeholder="(555) 000-0000" required>
         </div>
         <div class="field">
           <label>City &amp; State</label>
-          <input type="text" name="location" placeholder="Las Vegas, NV">
+          <input aria-label="Las Vegas, NV" type="text" name="location" placeholder="Las Vegas, NV">
         </div>
         <div class="field">
           <label>How did you hear about us?</label>
-          <select name="referral">
+          <select aria-label="How did you hear about us?" name="referral">
             <option value="" disabled selected>Select one</option>
             <option>TikTok</option>
             <option>Instagram</option>
@@ -647,7 +685,7 @@ gtag('config', 'G-H3GBPMJH2R');
       <div class="field-grid" style="margin-bottom:16px;">
         <div class="field">
           <label>Employment Status <span class="req">*</span></label>
-          <select name="employment" required>
+          <select aria-label="Employment Status" name="employment" required>
             <option value="" disabled selected>Select one</option>
             <option>Full-Time Employee</option>
             <option>Part-Time Employee</option>
@@ -660,7 +698,7 @@ gtag('config', 'G-H3GBPMJH2R');
         </div>
         <div class="field">
           <label>Annual Household Income</label>
-          <select name="income">
+          <select aria-label="Annual Household Income" name="income">
             <option value="" disabled selected>Select range</option>
             <option>Under $25,000</option>
             <option>$25,000 to $40,000</option>
@@ -801,7 +839,7 @@ gtag('config', 'G-H3GBPMJH2R');
       <div class="field-grid">
         <div class="field">
           <label>Estimated Total Debt</label>
-          <select name="total_debt">
+          <select aria-label="Estimated Total Debt" name="total_debt">
             <option value="" disabled selected>Select range</option>
             <option>No debt</option>
             <option>Under $5,000</option>
@@ -815,7 +853,7 @@ gtag('config', 'G-H3GBPMJH2R');
         </div>
         <div class="field">
           <label>Estimated Credit Score Range</label>
-          <select name="credit_score">
+          <select aria-label="Estimated Credit Score Range" name="credit_score">
             <option value="" disabled selected>Select range</option>
             <option>I don't know my score</option>
             <option>Poor: 300 to 579</option>
@@ -887,12 +925,12 @@ gtag('config', 'G-H3GBPMJH2R');
 
       <div class="field" style="margin-bottom:16px;">
         <label>What's the biggest obstacle standing between you and financial freedom right now? <span class="req">*</span></label>
-        <textarea name="biggest_obstacle" placeholder="Be honest. This is the most important question on this form..." required></textarea>
+        <textarea aria-label="Be honest. This is the most important question on this form..." name="biggest_obstacle" placeholder="Be honest. This is the most important question on this form..." required></textarea>
       </div>
 
       <div class="field" style="margin-bottom:16px;">
         <label>Have you tried to improve your finances before? What happened?</label>
-        <textarea name="previous_attempts" placeholder="Tell me what you tried and why it didn&#39;t stick..."></textarea>
+        <textarea aria-label="Tell me what you tried and why it didn't stick..." name="previous_attempts" placeholder="Tell me what you tried and why it didn&#39;t stick..."></textarea>
       </div>
 
       <div class="field">
@@ -902,7 +940,7 @@ gtag('config', 'G-H3GBPMJH2R');
             <span>1: Not urgent at all</span>
             <span>10: I need help now</span>
           </div>
-          <input type="range" name="urgency" id="urgency" min="1" max="10" value="7"
+          <input aria-label="On a scale of 1 to 10 how urgent is fixing your financial situation right now?" type="range" name="urgency" id="urgency" min="1" max="10" value="7"
                  oninput="document.getElementById('urgencyVal').textContent = this.value">
           <div class="range-value" id="urgencyVal">7</div>
         </div>
@@ -922,12 +960,12 @@ gtag('config', 'G-H3GBPMJH2R');
 
       <div class="field" style="margin-bottom:16px;">
         <label>Complete this sentence: "Money is..." <span class="req">*</span></label>
-        <input type="text" name="money_is" placeholder="Write the first thing that comes to mind..." required>
+        <input aria-label="Write the first thing that comes to mind..." type="text" name="money_is" placeholder="Write the first thing that comes to mind..." required>
       </div>
 
       <div class="field" style="margin-bottom:16px;">
         <label>Complete this sentence: "I would have more money if..."</label>
-        <input type="text" name="more_money_if" placeholder="Be honest with yourself here...">
+        <input aria-label="Be honest with yourself here..." type="text" name="more_money_if" placeholder="Be honest with yourself here...">
       </div>
 
       <div class="field" style="margin-bottom:16px;">
@@ -962,7 +1000,7 @@ gtag('config', 'G-H3GBPMJH2R');
 
       <div class="field">
         <label>What does financial freedom look like for you specifically?</label>
-        <textarea name="freedom_vision" placeholder="Paint the picture. What does your life look like when money is no longer a stress?"></textarea>
+        <textarea aria-label="Paint the picture. What does your life look like when money is no longer a stress?" name="freedom_vision" placeholder="Paint the picture. What does your life look like when money is no longer a stress?"></textarea>
       </div>
     </div>
 
@@ -1057,17 +1095,17 @@ gtag('config', 'G-H3GBPMJH2R');
 
       <div class="field" style="margin-bottom:16px;">
         <label>Is there anything specific you want to make sure we cover in our 30-minute call?</label>
-        <textarea name="call_topics" placeholder="Specific questions, concerns, or topics you want to address..."></textarea>
+        <textarea aria-label="Specific questions, concerns, or topics you want to address..." name="call_topics" placeholder="Specific questions, concerns, or topics you want to address..."></textarea>
       </div>
 
       <div class="field" style="margin-bottom:16px;">
         <label>What would make this discovery call a 10 out of 10 for you?</label>
-        <textarea name="call_success" placeholder="What outcome would make you feel like this call was completely worth your time?"></textarea>
+        <textarea aria-label="What outcome would make you feel like this call was completely worth your time?" name="call_success" placeholder="What outcome would make you feel like this call was completely worth your time?"></textarea>
       </div>
 
       <div class="field">
         <label>Anything else you want me to know before we speak?</label>
-        <textarea name="anything_else" placeholder="This is your space. Say whatever is on your mind..."></textarea>
+        <textarea aria-label="This is your space. Say whatever is on your mind..." name="anything_else" placeholder="This is your space. Say whatever is on your mind..."></textarea>
       </div>
     </div>
 
@@ -1137,5 +1175,6 @@ gtag('config', 'G-H3GBPMJH2R');
     }
   });
 </script>
+<!-- RSM-LEGAL --><div class="rsm-legal" style="background:#081426;border-top:1px solid rgba(201,148,26,0.25);padding:18px 16px;text-align:center;font-family:'DM Sans',Arial,sans-serif;font-size:13px;line-height:2;color:rgba(255,255,255,0.78);"><span style="white-space:nowrap">&copy; 2026 Right Side of Money</span><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Privacy Policy</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html#disclaimer" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Educational Disclaimer</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./contact.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Contact</a></div><!-- /RSM-LEGAL -->
 </body>
 </html>

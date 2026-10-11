@@ -268,21 +268,59 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-H3GBPMJH2R');
 (function(){
-  var f = window.fetch;
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
   if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
     try {
-      var s = String(u && u.url || u), b = o && o.body, n = '';
-      if (b && typeof b.get === 'function') n = b.get('quiz') || b.get('_subject') || '';
-      if (s.indexOf('formspree.io') > -1) gtag('event', 'generate_lead', {form_name: String(n).slice(0, 90)});
-      else if (s.indexOf('kit.com/forms/') > -1) gtag('event', 'sign_up', {method: 'Kit form ' + (s.match(/forms\/(\d+)/) || [])[1]});
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
     } catch(e){}
-    return f.apply(this, arguments);
+    return p;
   };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
     if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
-    else if (h.indexOf('amazon.com') > -1) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || ''});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
   }, true);
 })();
 </script>
@@ -290,7 +328,8 @@ gtag('config', 'G-H3GBPMJH2R');
 <!-- RSM-NAVFIX --><style>
 @media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
 @media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
-@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{font-size:8px!important;letter-spacing:1px!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:900px){body>nav{flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;height:68px!important;min-height:0!important;top:0!important;padding:0 20px!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{display:none!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
 @media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
 </style><!-- /RSM-NAVFIX -->
 </head>
@@ -375,7 +414,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>Pick the <strong>smallest one</strong> and face it within the next 48 hours. Open it, call it, log in, or have the conversation. Write down how you felt before and after.</li></ol>
 <p>Starting small is strategic. The first win proves to your brain that looking doesn't destroy you, which makes the next one easier.</p></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. List the financial things you&#x27;re currently avoiding. Be complete. Nobody sees this but you.</label><textarea data-ref="lesson-2-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Pick the biggest item on your list. Estimate in dollars what avoiding it has already cost you, and what it will cost if you avoid it for another year.</label><textarea data-ref="lesson-2-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What are you afraid you&#x27;ll find, feel, or have to admit if you face it? Name the fear directly.</label><textarea data-ref="lesson-2-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. List the financial things you&#x27;re currently avoiding. Be complete. Nobody sees this but you.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-1_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Pick the biggest item on your list. Estimate in dollars what avoiding it has already cost you, and what it will cost if you avoid it for another year.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-1_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What are you afraid you&#x27;ll find, feel, or have to admit if you face it? Name the fear directly.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-1_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m2l1"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="2" data-why="In the lesson&#x27;s example, minimum payments took over 19 years and about $8,900 in interest. A fixed $250 payment cleared it in 26 months with about $1,450 in interest. The difference comes from deciding to face the debt with a plan." data-hint="Compare the two stat boxes in &#x27;The Math of Minimum Payments.&#x27;"><p class="kc-prompt"><span class="kc-num">1</span><span>Nicole has a $5,000 credit card balance at 24% APR. She&#x27;s been paying only the minimum. Based on this lesson&#x27;s example, what&#x27;s the most important insight for her?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">She should stop paying until she can pay the whole balance at once.</button><button type="button" class="kc-opt" data-i="1">As long as she pays something every month, the total cost will be about the same.</button><button type="button" class="kc-opt" data-i="2">Minimum payments on that balance can stretch repayment close to two decades and cost thousands in interest. Committing to a fixed higher payment can save years and thousands.</button><button type="button" class="kc-opt" data-i="3">Minimum payments are designed to help people pay off debt quickly.</button></div><div class="kc-why" hidden></div></div>
@@ -432,7 +471,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>Put your first Weekly Money Meeting on your calendar right now. Pick a day and time you can protect. Set it to repeat every week.</li>
 <li>Hold your first meeting within seven days using the six-step agenda above.</li></ol></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Write down, word for word, what your inner Judge says when you look at your finances.</label><textarea data-ref="lesson-2-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Rewrite those statements in Observer language using specific numbers and a next step.</label><textarea data-ref="lesson-2-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What day and time will your Weekly Money Meeting happen, and what could get in the way of it? How will you protect it?</label><textarea data-ref="lesson-2-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Write down, word for word, what your inner Judge says when you look at your finances.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-2_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Rewrite those statements in Observer language using specific numbers and a next step.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-2_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What day and time will your Weekly Money Meeting happen, and what could get in the way of it? How will you protect it?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-2_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m2l2"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="3" data-why="When looking triggers punishment, the brain protects itself by avoiding. Separating the Observer from the Judge makes looking safe enough to do consistently." data-hint="Reread the opening and the Core Truth."><p class="kc-prompt"><span class="kc-num">1</span><span>Brianna checks her account, sees she overspent, and thinks, &quot;I&#x27;m hopeless with money. I&#x27;ll never change.&quot; Then she avoids her accounts for two weeks. What does this lesson identify as the core problem?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">She should check her accounts less often to reduce stress.</button><button type="button" class="kc-opt" data-i="1">She doesn&#x27;t have a good enough banking app.</button><button type="button" class="kc-opt" data-i="2">She&#x27;s right about being hopeless, so avoidance is reasonable.</button><button type="button" class="kc-opt" data-i="3">She&#x27;s fused awareness with self-criticism, so her brain avoids looking to avoid the attack.</button></div><div class="kc-why" hidden></div></div>
@@ -495,7 +534,7 @@ gtag('config', 'G-H3GBPMJH2R');
 <li>Identify your go-to fear response: Fight, Flight, Freeze, or Fawn.</li>
 <li>Choose one financial task you've been frozen on. Run it through all five steps of the Unfreeze Protocol within the next 72 hours.</li></ol></div>
 
-<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Write your biggest financial shame statement, then rewrite it as a guilt statement that points toward a next step.</label><textarea data-ref="lesson-2-3_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which fear response (Fight, Flight, Freeze, or Fawn) is your go-to with money? Describe a recent example.</label><textarea data-ref="lesson-2-3_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What task are you frozen on, and what's the smallest 10-minute version of it that you&#x27;ll complete this week?</label><textarea data-ref="lesson-2-3_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
+<div class="reflection"><h4>Deep Reflection</h4><p class="ref-note">Your answers save automatically on this device and feed into your module assessment. Write at least three full sentences for each. Short answers protect the pattern. Honest answers break it.</p><div class="ref-item"><label>1. Write your biggest financial shame statement, then rewrite it as a guilt statement that points toward a next step.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-3_0" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>2. Which fear response (Fight, Flight, Freeze, or Fawn) is your go-to with money? Describe a recent example.</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-3_1" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div><div class="ref-item"><label>3. What task are you frozen on, and what's the smallest 10-minute version of it that you&#x27;ll complete this week?</label><textarea aria-label="Write honestly. Nobody sees this but you." data-ref="lesson-2-3_2" placeholder="Write honestly. Nobody sees this but you."></textarea><div class="saved-note"></div></div></div>
 <div class="kc" data-kc="m2l3"><div class="kc-head"><span class="kc-title">Lesson Knowledge Check</span><span class="kc-count">0/5 answered</span></div>
 <p class="kc-intro">Every question is a real-life scenario. Choose the answer that best applies what you just learned. You need 80% (4 of 5) to complete this lesson.</p>
 <div class="kc-q" data-correct="1" data-why="Guilt focuses on a specific behavior and points toward repair. Shame attacks identity and leads to hiding. The first option names a behavior and a fix." data-hint="Reread the guilt vs. shame table and look for a specific behavior plus a next step."><p class="kc-prompt"><span class="kc-num">1</span><span>Which statement reflects guilt rather than shame?</span></p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">&quot;I&#x27;m a failure with money.&quot;</button><button type="button" class="kc-opt" data-i="1">&quot;I didn&#x27;t save during my 20s, and I&#x27;m going to start with $50 a paycheck now.&quot;</button><button type="button" class="kc-opt" data-i="2">&quot;I&#x27;m too stupid to understand investing.&quot;</button><button type="button" class="kc-opt" data-i="3">&quot;People like me never get ahead.&quot;</button></div><div class="kc-why" hidden></div></div>
