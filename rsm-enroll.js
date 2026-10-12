@@ -10,7 +10,8 @@
     fdn: {tag: 'FDN', name: 'RSM Foundation Course', portal: 'foundation-portal.html', prefix: 'foundation-', had: 'rsm_track_fdn', sales: 'course-foundation.html'},
     c30: {tag: 'C30', name: '30-Day Mindset and Money Challenge', portal: 'c30-portal.html', prefix: 'c30-', had: 'rsmc30_participant', sales: 'course-challenge.html'},
     adv: {tag: 'ADV', name: 'RSM Advance Program', portal: 'advance-portal.html', prefix: 'advance-', had: 'rsmadv_participant', sales: 'course-advance.html'},
-    cry: {tag: 'CRY', name: '5-Day Introduction to Cryptocurrency', portal: 'cry-portal.html', prefix: 'cry-', had: 'rsmcry_participant', sales: 'course-crypto.html'}
+    cry: {tag: 'CRY', name: '5-Day Introduction to Cryptocurrency', portal: 'cry-portal.html', prefix: 'cry-', had: 'rsmcry_participant', sales: 'course-crypto.html'},
+    um: {tag: 'UMN', name: '3-Day Introduction to Understanding Money', portal: '3-day-money/index.html', dir: '3-day-money', had: 'rsm_3day_money_v1', sales: 'course-intro.html'}
   };
   /* Launch-night guests, added after the gift window closes: hashed emails, one list per course. */
   var GIFT_HASHES = {c3d: [], inv: []};
@@ -45,11 +46,11 @@
   };
 
   /* which course is this page? */
-  var file = (location.pathname.split('/').pop() || '').toLowerCase(), ID = null;
-  Object.keys(COURSES).forEach(function(k){ if (file.indexOf(COURSES[k].prefix) === 0) ID = k; });
+  var path = location.pathname.toLowerCase(), file = (path.split('/').pop() || ''), ID = null;
+  Object.keys(COURSES).forEach(function(k){ var c = COURSES[k]; if (c.dir ? path.indexOf('/' + c.dir + '/') > -1 : file.indexOf(c.prefix) === 0) ID = k; });
   if (!ID || E.allowed(ID)) return;
 
-  var C = COURSES[ID];
+  var C = COURSES[ID], ROOT = C.dir ? '../' : './';
   document.documentElement.classList.add('re-lock');
   var css = document.createElement('style');
   css.textContent = 'html.re-lock .lesson-main>*:not(#reGate),html.re-lock main>*:not(#reGate){display:none!important}' +
@@ -63,7 +64,8 @@
     '#reGate button{background:#C9941A;color:#0D1F3C;border:0;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:15px 24px;border-radius:3px;cursor:pointer;width:100%;font-family:inherit}' +
     '#reGate .re-msg{color:#ffb4b4;font-size:14px;min-height:1em;margin:10px 0 0;font-weight:600}' +
     '#reGate .re-alt{border-top:1px solid rgba(255,255,255,.15);margin-top:22px;padding-top:18px}' +
-    '#reGate a{color:#E8B84B}';
+    '#reGate a{color:#E8B84B}' +
+    (C.dir ? 'html.re-lock main>#reGate#reGate{max-width:640px;margin:48px auto 40px;width:calc(100% - 32px);box-sizing:border-box}@media(max-width:600px){html.re-lock main>#reGate#reGate{margin:24px auto 28px;padding:24px 20px}}' : '');
   document.head.appendChild(css);
 
   function mount(){
@@ -75,9 +77,9 @@
       '<form id="reForm" novalidate><label for="reEmail">Email you enrolled with</label><input type="email" id="reEmail" autocomplete="email">' +
       '<label for="reCode">Enrollment code</label><input type="text" id="reCode" autocomplete="off" spellcheck="false" placeholder="' + C.tag + '-XXXXXX" style="text-transform:uppercase;letter-spacing:.06em;font-weight:700">' +
       '<button type="submit">Open My Course &rarr;</button><p class="re-msg" id="reMsg" aria-live="polite"></p></form>' +
-      (giftOpen ? '<div class="re-alt"><p><strong style="color:#E8B84B">Were you at the book launch?</strong> Claim your free access on the <a href="./launch-gift.html">launch gift page</a>.</p></div>' : '') +
+      (giftOpen ? '<div class="re-alt"><p><strong style="color:#E8B84B">Were you at the book launch?</strong> Claim your free access on the <a href="' + ROOT + 'launch-gift.html">launch gift page</a>.</p></div>' : '') +
       (guestList ? '<div class="re-alt"><p><strong style="color:#E8B84B">Launch-night guest?</strong> Enter the email you claimed your gift with.</p><form id="reGuest" novalidate><input type="email" id="reGEmail" autocomplete="email" placeholder="Email you claimed your gift with"><button type="submit">Open My Gift &rarr;</button><p class="re-msg" id="reGMsg"></p></form></div>' : '') +
-      '<div class="re-alt"><p>Not enrolled yet? <a href="./' + C.sales + '">See the course</a>. Questions? <a href="mailto:info@rightsideofmoney.com">Email Darrell</a>.</p></div>';
+      '<div class="re-alt"><p>Not enrolled yet? <a href="' + ROOT + C.sales + '">See the course</a>. Questions? <a href="mailto:info@rightsideofmoney.com">Email Darrell</a>.</p></div>';
     main.insertBefore(box, main.firstChild);
     document.getElementById('reForm').addEventListener('submit', function(e){
       e.preventDefault();

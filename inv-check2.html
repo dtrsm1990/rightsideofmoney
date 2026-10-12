@@ -816,7 +816,7 @@ function renderReport(d, R){
 
   var fd = new FormData();
   fd.append('name', d.name); fd.append('email', d.email); fd.append('_replyto', d.email);
-  fd.append('_subject', 'RSM Advance | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
+  fd.append('_subject', (P.program || 'RSM Advance') + ' | ' + A_name() + ' | ' + d.name + (R.score ? ' | ' + R.score : ''));
   fd.append('program', PROGRAM); fd.append('assessment', A_name());
   fd.append('score', R.score || 'Not scored'); fd.append('result_profile', R.profile || '');
   fd.append('full_report', text);
@@ -828,7 +828,7 @@ function renderReport(d, R){
 
   $('#emailBtn').addEventListener('click', function(){
     var bodyTxt = text.length > 1800 ? text.slice(0, 1800) + '\n\n[Report continues. Use Print or Save as PDF on the report page to keep the complete version.]' : text;
-    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My RSM Advance Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
+    window.location.href = 'mailto:' + encodeURIComponent(d.email) + '?cc=' + encodeURIComponent(ADMIN_EMAIL) + '&subject=' + encodeURIComponent('My ' + (P.program || 'RSM Advance') + ' Report: ' + A_name()) + '&body=' + encodeURIComponent(bodyTxt);
   });
   $('#printBtn').addEventListener('click', function(){ document.body.classList.remove('print-cert'); window.print(); });
   $('#copyBtn').addEventListener('click', function(){

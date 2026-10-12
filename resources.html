@@ -420,7 +420,7 @@ div.footer-copy{color:rgba(255,255,255,0.78)!important}
     if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ msg.textContent = 'Please enter your first name and a valid email.'; return; }
     var b = this.querySelector('button'); b.disabled = true; b.textContent = 'Unlocking...';
     function done(){ try { localStorage.setItem(KEY, '1'); } catch(e){} open(); }
-    if (document.getElementById('resCo').value || (Date.now() - T0) < 3000){ setTimeout(done, 600); return; }
+    if (document.getElementById('resCo').value){ setTimeout(done, 600); return; }
     var fd = new FormData(); fd.append('name', n); fd.append('email', em); fd.append('_replyto', em);
     fd.append('_subject', 'Free Resource Download | ' + n); fd.append('source', 'Free Resource Library (resources.html)');
     fd.append('email_opt_in', document.getElementById('resOpt').checked ? 'Yes' : 'No');

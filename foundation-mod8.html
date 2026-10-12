@@ -743,7 +743,7 @@ body.wv-lock .lesson-main>#rtReg{opacity:1!important;filter:none!important;point
         e.preventDefault();
         var f = document.getElementById('rtFirst').value.trim(), l = document.getElementById('rtLast').value.trim(), em = document.getElementById('rtEmail').value.trim();
         if (!f || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { document.getElementById('rtMsg').textContent = 'Please enter your first name and a valid email.'; return; }
-        var bot = !!document.getElementById('rtCo').value || (Date.now() - T0) < 3000;
+        var bot = !!document.getElementById('rtCo').value;
         var who = {name: (f + ' ' + l).trim(), first: f, email: em, started: new Date().toISOString()};
         put(who);
         if (!bot) {

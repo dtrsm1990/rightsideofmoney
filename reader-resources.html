@@ -487,7 +487,7 @@ span.tag{color:#8A6410!important}
     if (!w){ err.textContent = 'Please tell us where you got the book.'; return; }
     if (w === 'amazon' && !/^(\d{3}|D\d{2})-\d{7}-\d{7}$/.test(ord)){ err.textContent = 'Please enter your Amazon order number. It looks like 112-1234567-1234567.'; return; }
     err.textContent = '';
-    var bot = document.getElementById('rrCo').value || Date.now() - T0 < 3000;
+    var bot = document.getElementById('rrCo').value;
     if (!bot){
       var src = {amazon: 'Amazon', signed: 'Signed copy (RSM)', event: 'Event / in person'}[w];
       try { var f = new FormData(); f.append('name', n); f.append('email', em); f.append('_replyto', em); f.append('_subject', 'Reader Resources Claim | ' + src + ' | ' + n); f.append('quiz', 'Reader Resources'); f.append('purchase_source', src); f.append('amazon_order', w === 'amazon' ? ord : 'n/a'); f.append('marketing_optin', opt ? 'yes' : 'no'); fetch('https://formspree.io/f/mvkglqlj', {method: 'POST', body: f, headers: {'Accept': 'application/json'}}).catch(function(){}); } catch(x){}

@@ -735,7 +735,7 @@ div.footer-copy{color:rgba(255,255,255,0.78)!important}
       if (weak) document.getElementById('foundNote').style.display = 'block';
       document.getElementById('enroll-form').scrollIntoView({behavior: 'smooth'});
     }
-    if (form.querySelector('[name=_gotcha]').value || Date.now() - T0 < 4000) { done(); return; }
+    if (form.querySelector('[name=_gotcha]').value) { done(); return; }
     var fd = new FormData(form);
     fd.append('_replyto', document.getElementById('advEmail').value.trim());
     fetch(form.action, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(res){

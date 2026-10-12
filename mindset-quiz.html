@@ -179,6 +179,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.
 .gate-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
 .gate-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:14px;padding:0;}
 .gate-back:hover{color:#E8B84B;}
+#shareCanvas{width:100%;max-width:440px;height:auto;display:block;margin:8px auto 0;border-radius:4px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.share-section{text-align:center;}
 </style>
 <link rel="canonical" href="https://rightsideofmoney.com/mindset-quiz.html" />
 <meta property="og:type" content="website" />
@@ -271,6 +273,9 @@ span.results-score-max{color:rgba(255,255,255,0.78)!important}
 span.score-marker{color:rgba(255,255,255,0.78)!important}
 a.btn-cta-outline{color:#E8B84B!important}
 </style><!-- /RSM-A11Y -->
+<script>window.RSM_CARD_LOGO = new Image(); window.RSM_CARD_LOGO.src = './rsm-logo.png';
+function rsmCardLogo(x, W, y){ var L = window.RSM_CARD_LOGO; if (L && L.complete && L.naturalWidth){ var w = 190, h = w * L.naturalHeight / L.naturalWidth; x.drawImage(L, (W - w) / 2, y - h + 20, w, h); } else { x.fillStyle = '#E8B84B'; x.font = 'bold 34px "DM Sans", Arial, sans-serif'; x.fillText('RIGHT SIDE OF MONEY', W / 2, y); } }
+</script>
 </head>
 <body>
 
@@ -370,7 +375,7 @@ a.btn-cta-outline{color:#E8B84B!important}
         return;
       }
       var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked,
-        bot: !!el('gateCo').value || (Date.now() - T0) < 10000};
+        bot: !!el('gateCo').value};
       try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
       if (nav) nav.style.display = '';
       onDone(lead);
@@ -826,6 +831,7 @@ function showResults(lead){
     '<div class="cta-buttons" style="justify-content:flex-start;margin-top:12px">'+guides.map(function(g){return '<a class="btn-cta-gold" href="./'+g.f+'" target="_blank" download>Download: '+g.t+'</a>';}).join('')+'</div>'+'<div class="rsm-bonus" style="margin-top:22px;padding:18px 20px;border:1px solid rgba(201,148,26,0.5);border-left:4px solid #C9941A;background:rgba(201,148,26,0.08);border-radius:2px;"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;font-weight:700;margin-bottom:6px;">Included With the Book</div><p style="margin:0 0 14px;color:rgba(255,255,255,0.85);font-size:15px;line-height:1.6;">Ready to go deeper? Readers of <b>Creating A Wealth Building Mindset 2nd Edition</b> also get the <b>Wealth Building Mindset Starter Kit</b>, the <b>Budget Snapshot Worksheet</b>, and the <b>Money Script Workbook</b>.</p><a href="./book.html" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-weight:700;text-decoration:none;padding:12px 18px;border-radius:2px;margin:0 10px 8px 0;font-size:14px;">Get the Book</a><a href="./reader-resources.html" style="display:inline-block;color:#E8B84B;font-weight:700;text-decoration:none;padding:12px 0;font-size:14px;">Already have it? Claim your reader resources &rarr;</a></div>'+
     '<p style="margin-top:16px"><a class="step-link" href="mailto:'+encodeURIComponent(lead.email)+'?subject='+encodeURIComponent('My Wealth Mindset Quiz Result: '+plain)+'&body='+encodeURIComponent('My Wealth Mindset Quiz result: '+plain+' ('+total+'/'+maxTotal+')\n\n'+tagline+'\n\nMy next steps:\n'+nextSteps.map(function(s){return s.n+'. '+s.t;}).join('\n')+'\n\nRetake or share the quiz: rightsideofmoney.com')+'">Email my results to myself</a></p>'+
     '</div>'+
+    '<div class="results-section share-section fade-in"><div class="results-section-title">Share Your Result</div><h3>Post Your Result Card</h3><p>Share your result on Facebook, Instagram, or TikTok and challenge your friends to find theirs.</p><canvas id="shareCanvas" width="1080" height="1080"></canvas><div class="cta-buttons" style="margin-top:20px"><button type="button" class="btn-cta-gold" id="shareBtn" style="border:none;cursor:pointer">Share My Result</button><button type="button" class="btn-cta-outline" id="dlBtn" style="cursor:pointer;background:transparent">Download Image</button></div></div>'+
     '<div class="results-cta fade-in">'+
     '<h3>Ready to Get on the <em>Right Side of Money?</em></h3>'+
     '<p>Your quiz results are a starting point, not a sentence. Every pattern identified here can be changed with the right knowledge, community, and accountability. That\'s exactly what Right Side of Money was built to provide.</p>'+
@@ -835,6 +841,7 @@ function showResults(lead){
     '</div>'+
     '</div>'+
     '<button class="btn-retake" onclick="retakeQuiz()">&#8635; Retake the Quiz</button>';
+  try { rsmShareCard(plain, total + ' out of ' + maxTotal, tagline); } catch(err){}
 
   // Send result to Darrell (skipped for bots)
   if(!lead.bot){
@@ -869,5 +876,38 @@ function retakeQuiz(){
 }
 </script>
 <!-- RSM-LEGAL --><div class="rsm-legal" style="background:#081426;border-top:1px solid rgba(201,148,26,0.25);padding:18px 16px;text-align:center;font-family:'DM Sans',Arial,sans-serif;font-size:13px;line-height:2;color:rgba(255,255,255,0.78);"><span style="white-space:nowrap">&copy; 2026 Right Side of Money</span><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Privacy Policy</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html#disclaimer" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Educational Disclaimer</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./contact.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Contact</a></div><!-- /RSM-LEGAL -->
+<script>
+/* Shareable result card (same design as the other RSM assessments) */
+function rsmShareCard(plain, scoreText, line){
+  var c = document.getElementById('shareCanvas'); if (!c) return;
+  var x = c.getContext('2d'), W = 1080;
+  function wrap(text, cx, y, maxW, lh){ var words = String(text).split(' '), ln = '', lines = []; words.forEach(function(w){ var t = ln ? ln + ' ' + w : w; if (x.measureText(t).width > maxW && ln){ lines.push(ln); ln = w; } else ln = t; }); if (ln) lines.push(ln); lines.slice(0, 4).forEach(function(l, i){ x.fillText(l, cx, y + i * lh); }); return Math.min(lines.length, 4); }
+  var g = x.createLinearGradient(0, 0, 0, W); g.addColorStop(0, '#0a1628'); g.addColorStop(1, '#1B3A6B'); x.fillStyle = g; x.fillRect(0, 0, W, W);
+  x.strokeStyle = '#C9941A'; x.lineWidth = 14; x.strokeRect(40, 40, W - 80, W - 80);
+  x.strokeStyle = 'rgba(232,184,75,0.4)'; x.lineWidth = 3; x.strokeRect(66, 66, W - 132, W - 132);
+  x.textAlign = 'center';
+  rsmCardLogo(x, W, 160);
+  x.fillStyle = 'rgba(255,255,255,0.75)'; x.font = '600 30px "DM Sans", Arial, sans-serif'; x.fillText('MY WEALTH MINDSET QUIZ RESULT', W / 2, 225);
+  x.fillStyle = '#C9941A'; x.fillRect(W / 2 - 80, 255, 160, 5);
+  x.fillStyle = '#E8B84B'; x.font = 'bold 120px "Bebas Neue", Impact, sans-serif'; x.fillText(scoreText.split(' ')[0], W / 2, 410);
+  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '32px "DM Sans", Arial, sans-serif'; x.fillText(scoreText.split(' ').slice(1).join(' '), W / 2, 460);
+  x.fillStyle = '#FFFFFF'; x.font = 'bold 66px "Playfair Display", Georgia, serif';
+  var n = wrap(plain, W / 2, 570, 900, 78);
+  x.fillStyle = 'rgba(255,255,255,0.82)'; x.font = '32px "DM Sans", Arial, sans-serif';
+  wrap(line, W / 2, 570 + n * 78 + 30, 860, 44);
+  x.fillStyle = '#C9941A'; x.fillRect(140, 900, W - 280, 80);
+  x.fillStyle = '#0D1F3C'; x.font = 'bold 36px "DM Sans", Arial, sans-serif'; x.fillText('Free Resources  |  rightsideofmoney.com', W / 2, 952, W - 320);
+  var fname = 'RSM-Wealth-Mindset-Quiz-' + plain.replace(/[^A-Za-z]+/g, '-') + '.png';
+  document.getElementById('dlBtn').onclick = function(){ var a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = fname; document.body.appendChild(a); a.click(); a.remove(); };
+  document.getElementById('shareBtn').onclick = function(){
+    var text = 'I\'m ' + plain + ' on the Right Side of Money Wealth Mindset Quiz. What\'s yours? Take the free quiz at rightsideofmoney.com';
+    c.toBlob(function(blob){
+      try { var file = new File([blob], fname, {type: 'image/png'}); if (navigator.canShare && navigator.canShare({files: [file]})){ navigator.share({files: [file], text: text}).catch(function(){}); return; } } catch(e){}
+      if (navigator.share){ navigator.share({text: text, url: location.href}).catch(function(){}); return; }
+      document.getElementById('dlBtn').click(); alert('Your result card was downloaded. Post it to your favorite platform and tag Right Side of Money.');
+    }, 'image/png');
+  };
+}
+</script>
 </body>
 </html>

@@ -585,7 +585,7 @@ var WEEKS = ["The Truth Audit", "Cash Flow Command", "Plug the Leaks", "Confront
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg.textContent = 'Enter a valid email address.'; return; }
       var enr = $('acEnr').value.trim().toUpperCase().replace(/\s+/g, '');
       if (!A.checkCode(enr, em, 'E1')) { msg.textContent = 'That enrollment code doesn\'t match this email. Use the exact email address and code from your welcome email.'; return; }
-      var bot = !!$('acCo').value || (Date.now() - T0) < 3000;
+      var bot = !!$('acCo').value;
       var me = {first: f.replace(/[<>&"]/g, ''), last: l.replace(/[<>&"]/g, ''), email: em, start: new Date().toISOString()};
       A.update(function(x){ x.me = me; x.enr = enr; });
       if (!bot){

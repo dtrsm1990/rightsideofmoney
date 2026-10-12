@@ -482,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
       try { localStorage.setItem('rsm_quiz_' + MOD_QUIZ_ID + '_passed', '1'); } catch(e) {}
     } else {
       bar.className = 'quiz-result-bar fail';
-      bar.innerHTML = '<strong>' + correct + '/' + questions.length + ' correct (' + Math.round(pct*100) + '%) -- Need 80% to pass</strong>Review the hints above and retry.';
+      bar.innerHTML = '<strong>' + correct + '/' + questions.length + ' correct (' + Math.round(pct*100) + '%). You need 80% to pass.</strong>Review the hints above and retry.';
       if (retry) retry.style.display = 'inline-block';
       lockNext();
     }
@@ -630,7 +630,7 @@ body.wv-lock .lesson-main>#rtReg{opacity:1!important;filter:none!important;point
         e.preventDefault();
         var f = document.getElementById('rtFirst').value.trim(), l = document.getElementById('rtLast').value.trim(), em = document.getElementById('rtEmail').value.trim();
         if (!f || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { document.getElementById('rtMsg').textContent = 'Please enter your first name and a valid email.'; return; }
-        var bot = !!document.getElementById('rtCo').value || (Date.now() - T0) < 3000;
+        var bot = !!document.getElementById('rtCo').value;
         var who = {name: (f + ' ' + l).trim(), first: f, email: em, started: new Date().toISOString()};
         put(who);
         if (!bot) {

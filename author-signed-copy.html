@@ -348,7 +348,7 @@ div.footer-copy a{color:rgba(255,255,255,0.78)!important}
         </div>
 
         <ul class="includes">
-          <li>Signed paperback, Creating A Wealth-Building Mindset, 2nd Edition</li>
+          <li>Signed paperback, Creating A Wealth Building Mindset 2nd Edition</li>
           <li>Shipping &amp; handling included</li>
           <li>U.S. addresses only</li>
           <li>Mailed personally by Darrell within 3 to 5 business days of your order</li>
@@ -443,7 +443,7 @@ div.footer-copy a{color:rgba(255,255,255,0.78)!important}
     btn.disabled = true;
     btn.textContent = 'Submitting...';
     msg.className = '';
-    msg.style.display = 'none';
+    msg.style.display = '';
 
     var data = new FormData(form);
 
@@ -503,7 +503,7 @@ div.footer-copy a{color:rgba(255,255,255,0.78)!important}
           })
         }).catch(function(err){ console.error('Kit signup failed:', err); });
       } else {
-        response.json().then(function(data){
+        response.json().catch(function(){ return {}; }).then(function(data){
           msg.textContent = (data.errors ? data.errors.map(function(err){return err.message;}).join(', ') : "Something went wrong. Please try again or email info@rightsideofmoney.com directly.");
           msg.className = 'err';
           btn.disabled = false;

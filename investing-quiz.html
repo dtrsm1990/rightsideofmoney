@@ -276,6 +276,9 @@ div.results-score-label{color:#E8B84B!important}
 span.results-score-max{color:rgba(255,255,255,0.78)!important}
 a.btn-cta-outline{color:#E8B84B!important}
 </style><!-- /RSM-A11Y -->
+<script>window.RSM_CARD_LOGO = new Image(); window.RSM_CARD_LOGO.src = './rsm-logo.png';
+function rsmCardLogo(x, W, y){ var L = window.RSM_CARD_LOGO; if (L && L.complete && L.naturalWidth){ var w = 190, h = w * L.naturalHeight / L.naturalWidth; x.drawImage(L, (W - w) / 2, y - h + 20, w, h); } else { x.fillStyle = '#E8B84B'; x.font = 'bold 34px "DM Sans", Arial, sans-serif'; x.fillText('RIGHT SIDE OF MONEY', W / 2, y); } }
+</script>
 </head>
 <body>
 <nav>
@@ -373,7 +376,7 @@ window.QUIZ.classify = function(pct, cp, tags){
         return;
       }
       var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked,
-        bot: !!el('gateCo').value || (Date.now() - T0) < 10000};
+        bot: !!el('gateCo').value};
       try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
       if (nav) nav.style.display = '';
       onDone(lead);
@@ -496,7 +499,7 @@ function drawCard(){
   x.strokeStyle = '#C9941A'; x.lineWidth = 14; x.strokeRect(40, 40, W - 80, W - 80);
   x.strokeStyle = 'rgba(232,184,75,0.4)'; x.lineWidth = 3; x.strokeRect(66, 66, W - 132, W - 132);
   x.textAlign = 'center';
-  x.fillStyle = '#E8B84B'; x.font = 'bold 34px "DM Sans", Arial, sans-serif'; x.fillText('RIGHT SIDE OF MONEY', W / 2, 160);
+  rsmCardLogo(x, W, 160);
   x.fillStyle = 'rgba(255,255,255,0.75)'; x.font = '600 30px "DM Sans", Arial, sans-serif'; x.fillText('MY ' + Q.title.toUpperCase() + ' RESULT', W / 2, 225);
   x.fillStyle = '#C9941A'; x.fillRect(W / 2 - 80, 255, 160, 5);
   x.fillStyle = '#E8B84B'; x.font = 'bold 190px "Bebas Neue", Impact, sans-serif'; x.fillText(result.pct, W / 2, 460);
@@ -506,7 +509,7 @@ function drawCard(){
   x.fillStyle = 'rgba(255,255,255,0.82)'; x.font = '34px "DM Sans", Arial, sans-serif';
   wrap(x, R.card, W / 2, 620 + n * 82 + 40, 860, 48);
   x.fillStyle = '#C9941A'; x.fillRect(140, 900, W - 280, 80);
-  x.fillStyle = '#0D1F3C'; x.font = 'bold 32px "DM Sans", Arial, sans-serif'; x.fillText('What\'s yours? Take the free quiz at rightsideofmoney.com', W / 2, 952, W - 320);
+  x.fillStyle = '#0D1F3C'; x.font = 'bold 36px "DM Sans", Arial, sans-serif'; x.fillText('Free Resources  |  rightsideofmoney.com', W / 2, 952, W - 320);
 }
 function wireShare(){
   var c = $('shareCanvas'), fname = 'RSM-' + Q.slug + '-' + result.key + '.png';

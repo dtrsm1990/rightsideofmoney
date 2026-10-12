@@ -1,6 +1,6 @@
 # 3-Day Introduction to Understanding Money
 
-A free Right Side of Money program. Static HTML, CSS and JavaScript, ready for GitHub Pages.
+A Right Side of Money program. Static HTML, CSS and JavaScript, ready for GitHub Pages.
 
 ## Files
 
@@ -19,7 +19,7 @@ A free Right Side of Money program. Static HTML, CSS and JavaScript, ready for G
 ## Put it on your site
 
 1. Upload the whole `3-day-money` folder to your rightsideofmoney repository, keeping the `assets` folder inside it.
-2. Commit. GitHub Pages publishes it at `https://dtrsm1990.github.io/rightsideofmoney/3-day-money/`.
+2. Commit. GitHub Pages publishes it at `https://rightsideofmoney.com/3-day-money/`.
 3. The Courses page and the course-intro page link to it.
 
 ## Settings (top of `assets/course.js`)

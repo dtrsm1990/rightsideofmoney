@@ -3,12 +3,79 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>Final Knowledge Check | Right Side of Money</title>
 <link rel="icon" href="assets/rsm-logo.png">
+<script src="../rsm-enroll.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="assets/course.css">
+<!-- RSM-GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H3GBPMJH2R"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H3GBPMJH2R');
+(function(){
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
+  if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
+    try {
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
+    } catch(e){}
+    return p;
+  };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
+    if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
+  }, true);
+})();
+</script>
+<!-- /RSM-GA -->
 </head>
 <body>
 <header id="topbar" class="topbar"></header>
@@ -57,14 +124,14 @@
   <p>And then teach someone. Every time you share what you've learned, you're breaking a cycle that's been holding families back for generations. That's how we change the game, one family at a time.</p>
   <p>I'm proud of you. Welcome to the right side of money.</p>
   <p style="font-family:var(--display);font-size:30px;font-style:italic;color:var(--gold-light);margin-top:24px">Darrell Thompson</p>
-  <p style="margin-top:-8px;color:#cfc8b5">Founder, Right Side of Money &middot; U.S. Marine Corps, Retired &middot; Author of <em>Creating a Wealth Building Mindset</em></p>
+  <p style="margin-top:-8px;color:#cfc8b5">Founder, Right Side of Money &middot; U.S. Marine Corps, Retired &middot; Author of <em>Creating A Wealth Building Mindset 2nd Edition</em></p>
 </section>
 
 </div></div>
 </main>
 <footer class="footer">
   <p>&copy; 2026 Right Side of Money. For educational purposes only. Nothing in this program is financial, investment, tax, or legal advice. Talk with a licensed professional about your specific situation.</p>
-  <p><a href="index.html">Program home</a> &nbsp;&middot;&nbsp; <a href="../index.html">Right Side of Money home</a></p>
+  <p><a href="index.html">Program home</a> &nbsp;&middot;&nbsp; <a href="../index.html">Right Side of Money home</a> &nbsp;&middot;&nbsp; <a href="../privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="../contact.html">Contact</a></p>
 </footer>
 
 <script src="assets/course.js"></script>

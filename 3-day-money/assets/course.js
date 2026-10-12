@@ -13,7 +13,7 @@ const RSM_CONFIG = {
   instructorTitle: "Founder, Right Side of Money",
   // Logo file (put your logo at this path in the repository)
   logo: "assets/rsm-logo.png",
-  siteUrl: "https://dtrsm1990.github.io/rightsideofmoney/",
+  siteUrl: "https://rightsideofmoney.com/",
   bookUrl: "https://www.amazon.com/author/rightsideofmoney",
   courseName: "3-Day Introduction to Understanding Money",
   passMark: 0.8
@@ -105,7 +105,7 @@ const RSM = (() => {
   }
   function guard(key) {
     header(key);
-    if (!S.student) { lockScreen("Register with your name and email to open the course. It's free and takes ten seconds.", "index.html#signup", "Register to start"); return false; }
+    if (!S.student) { lockScreen("Register with your name and email to open the course. It takes ten seconds.", "index.html#signup", "Register to start"); return false; }
     const p = PAGES.find(x => x.key === key);
     if (p && p.needs && !S.passed[p.needs]) {
       const prev = PAGES.find(x => x.key === p.needs);
