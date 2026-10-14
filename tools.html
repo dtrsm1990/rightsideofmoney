@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Money Tools | Right Side of Money</title>
-<meta name="description" content="Free money calculators from Right Side of Money: Budget Snapshot, Debt Payoff Planner, Emergency Fund Builder, Compound Growth, and Net Worth.">
+<meta name="description" content="Free money calculators from Right Side of Money: Budget Snapshot, Debt Payoff Planner, Emergency Fund Builder, Compound Growth, Net Worth, and Debt-to-Income.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -466,31 +466,72 @@ div.footer-copy{color:rgba(255,255,255,0.78)!important}
 <section class="hub-hero"><div class="hub-inner">
 <div class="hub-eyebrow">Free Money Tools by Darrell Thompson</div>
 <h1 class="hub-title">Know Your <em>Numbers.</em></h1>
-<p class="hub-sub">You can't change what you won't look at. These five free calculators show you exactly where you stand and exactly what it takes to move forward. No sign-up needed, and your numbers stay private on your own device.</p>
+<p class="hub-sub">You can't change what you won't look at. These six free calculators show you exactly where you stand and exactly what it takes to move forward. No sign-up needed, and your numbers stay private on your own device.</p>
 <div style="max-width:760px;margin:0 auto 26px;background:rgba(201,148,26,0.12);border:1px solid #C9941A;border-left:5px solid #C9941A;padding:20px 22px;text-align:left;border-radius:2px"><div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#E8B84B;font-weight:700;margin-bottom:6px">New &middot; Free 30-Day Tool</div><div style="font-family:'Playfair Display',Georgia,serif;font-size:24px;color:#fff;line-height:1.25;margin-bottom:6px">The 30-Day Money Tracker</div><p style="color:rgba(255,255,255,0.8);font-size:15px;margin:0 0 14px">Find out exactly where your money goes. Thirty seconds a day gets you reports on your housing, transportation, and savings, your money leaks and emotional spending, fixes ranked by dollar impact, and a real spending plan on Day 30.</p><a href="./money-tracker.html" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size:14px;padding:13px 22px;text-decoration:none;border-radius:2px">Start My 30 Days &rarr;</a></div>
-<div class="t-jump"><a href="#budget">Budget Snapshot</a><a href="#debt">Debt Payoff</a><a href="#ef">Emergency Fund</a><a href="#cg">Compound Growth</a><a href="#nw">Net Worth</a><a href="./debt-to-income-calculator.html">Debt-to-Income</a></div>
+<div class="t-jump"><a href="#budget">Budget Snapshot</a><a href="#debt">Debt Payoff</a><a href="#ef">Emergency Fund</a><a href="#cg">Compound Growth</a><a href="#nw">Net Worth</a><a href="#dti">Debt-to-Income</a></div>
 </div></section>
 <section class="t-sec" id="budget"><div class="t-wrap">
-<div class="t-head"><div class="t-num">Tool 1 of 5</div><h2>Budget Snapshot</h2><p>See where every dollar of your monthly take-home pay is going, how your needs, wants, and savings balance out, and where your money is leaking.</p></div>
+<div class="t-head"><div class="t-num">Tool 1 of 6</div><h2>Budget Snapshot</h2><p>See where every dollar of your monthly take-home pay is going, how your needs, wants, and savings balance out, and where your money is leaking.</p></div>
 <div class="t-grid" id="budgetTool"><div class="t-card"><h3>Your Numbers</h3><label class="t-row main"><span>Monthly take-home pay</span><input type="text" inputmode="decimal" id="bInc" data-k="bInc" placeholder="0" /></label><div class="t-small" style="margin:4px 0 6px">What actually lands in your account each month, after taxes and deductions. Enter each expense as a monthly amount.</div><div id="budgetRows"></div><button type="button" class="t-reset" data-reset="budgetTool">Clear this tool</button></div>
 <div class="t-card"><h3>Your Results</h3><div id="budgetOut" aria-live="polite"></div></div></div>
 </div></section><section class="t-sec alt" id="debt"><div class="t-wrap">
-<div class="t-head"><div class="t-num">Tool 2 of 5</div><h2>Debt Payoff Planner</h2><p>Find your debt-free date and compare the two proven payoff methods side by side: snowball (smallest balance first) and avalanche (highest interest first).</p></div>
+<div class="t-head"><div class="t-num">Tool 2 of 6</div><h2>Debt Payoff Planner</h2><p>Find your debt-free date and compare the two proven payoff methods side by side: snowball (smallest balance first) and avalanche (highest interest first).</p></div>
 <div class="t-grid" id="debtTool"><div class="t-card"><h3>Your Numbers</h3><div id="debtRows"></div><button type="button" class="t-link" id="addDebt">+ Add another debt</button><div class="t-field"><label for="dExtra">Extra you can pay each month, on top of minimums</label><input type="text" inputmode="decimal" id="dExtra" data-k="dExtra" placeholder="0" /><small>Even a small amount makes a big difference. Try $50, $100, or $200 and watch the date change.</small></div><button type="button" class="t-reset" data-reset="debtTool">Clear this tool</button></div>
 <div class="t-card"><h3>Your Results</h3><div id="debtOut" aria-live="polite"></div></div></div>
 </div></section><section class="t-sec" id="ef"><div class="t-wrap">
-<div class="t-head"><div class="t-num">Tool 3 of 5</div><h2>Emergency Fund Builder</h2><p>An emergency fund is what keeps a car repair or a missed paycheck from turning into new debt. Find your target and your timeline to get there.</p></div>
+<div class="t-head"><div class="t-num">Tool 3 of 6</div><h2>Emergency Fund Builder</h2><p>An emergency fund is what keeps a car repair or a missed paycheck from turning into new debt. Find your target and your timeline to get there.</p></div>
 <div class="t-grid" id="efTool"><div class="t-card"><h3>Your Numbers</h3><div class="t-field"><label for="efExp">Essential monthly expenses</label><input type="text" inputmode="decimal" id="efExp" data-k="efExp" placeholder="0" /><small>Housing, utilities, food, transportation, insurance, and minimum debt payments.</small></div><div class="t-field"><label for="efMonths">How many months should you cover?</label><select id="efMonths" data-k="efMonths"><option value="3">3 months: stable job and a second income in the home</option><option value="6" selected>6 months: the standard for most households</option><option value="9">9 months: single income, commission, or self-employed</option><option value="12">12 months: irregular income or near retirement</option></select></div><div class="t-field"><label for="efHave">Emergency savings you have now</label><input type="text" inputmode="decimal" id="efHave" data-k="efHave" placeholder="0" /></div><div class="t-field"><label for="efAdd">Amount you can add each month</label><input type="text" inputmode="decimal" id="efAdd" data-k="efAdd" placeholder="0" /></div><button type="button" class="t-reset" data-reset="efTool">Clear this tool</button></div>
 <div class="t-card"><h3>Your Results</h3><div id="efOut" aria-live="polite"></div></div></div>
 </div></section><section class="t-sec alt" id="cg"><div class="t-wrap">
-<div class="t-head"><div class="t-num">Tool 4 of 5</div><h2>Compound Growth Calculator</h2><p>See how consistent investing grows over time, how much of your future balance comes from growth instead of your own deposits, and what waiting costs you.</p></div>
+<div class="t-head"><div class="t-num">Tool 4 of 6</div><h2>Compound Growth Calculator</h2><p>See how consistent investing grows over time, how much of your future balance comes from growth instead of your own deposits, and what waiting costs you.</p></div>
 <div class="t-grid" id="cgTool"><div class="t-card"><h3>Your Numbers</h3><div class="t-field"><label for="cgStart">Starting amount</label><input type="text" inputmode="decimal" id="cgStart" data-k="cgStart" placeholder="0" /></div><div class="t-field"><label for="cgMonthly">Monthly contribution</label><input type="text" inputmode="decimal" id="cgMonthly" data-k="cgMonthly" placeholder="0" /></div><div class="t-field"><label for="cgYears">Years to grow</label><input type="text" inputmode="decimal" id="cgYears" data-k="cgYears" placeholder="25" /><small>Up to 50 years.</small></div><div class="t-field"><label for="cgRate">Estimated yearly return (%)</label><input type="text" inputmode="decimal" id="cgRate" data-k="cgRate" placeholder="7" /><small>This is an assumption, not a promise. Try a few rates to see a range.</small></div><button type="button" class="t-reset" data-reset="cgTool">Clear this tool</button></div>
 <div class="t-card"><h3>Your Results</h3><div id="cgOut" aria-live="polite"></div></div></div>
 </div></section><section class="t-sec" id="nw"><div class="t-wrap">
-<div class="t-head"><div class="t-num">Tool 5 of 5</div><h2>Net Worth Calculator</h2><p>Your net worth is what you own minus what you owe. It's the real scoreboard for building wealth, and it's worth checking every few months.</p></div>
+<div class="t-head"><div class="t-num">Tool 5 of 6</div><h2>Net Worth Calculator</h2><p>Your net worth is what you own minus what you owe. It's the real scoreboard for building wealth, and it's worth checking every few months.</p></div>
 <div class="t-grid" id="nwTool"><div class="t-card"><h3>Your Numbers</h3><div class="t-group">What You Own</div><div id="nwA"></div><div class="t-group">What You Owe</div><div id="nwL"></div><button type="button" class="t-reset" data-reset="nwTool">Clear this tool</button></div>
 <div class="t-card"><h3>Your Results</h3><div id="nwOut" aria-live="polite"></div></div></div>
 </div></section>
+<section class="t-sec alt" id="dti"><div class="t-wrap">
+<div class="t-head"><div class="t-num">Tool 6 of 6</div><h2>Debt-to-Income Ratio</h2><p>Your debt-to-income ratio, or DTI, is the number lenders use to decide whether to approve you for a home, a car, or a refinance. Get a quick read here, then build your full plan.</p></div>
+<div class="t-grid" id="dtiTool"><div class="t-card"><h3>Your Numbers</h3>
+<div class="t-field"><label for="qdInc">Gross monthly income</label><input type="text" inputmode="decimal" id="qdInc" placeholder="0" autocomplete="off" /><small>Before taxes and deductions. Include everyone who shares the bills.</small></div>
+<div class="t-field"><label for="qdHouse">Monthly rent or mortgage payment</label><input type="text" inputmode="decimal" id="qdHouse" placeholder="0" autocomplete="off" /><small>For a mortgage, use the full payment, including taxes and insurance.</small></div>
+<div class="t-field"><label for="qdDebt">Other monthly debt payments</label><input type="text" inputmode="decimal" id="qdDebt" placeholder="0" autocomplete="off" /><small>Minimum payments on cards, car, student, and personal loans, plus child support. Leave out utilities and phone bills.</small></div>
+<button type="button" class="t-reset" id="qdClear">Clear this tool</button></div>
+<div class="t-card"><h3>Your Results</h3><div id="dtiOut" aria-live="polite"></div></div></div>
+</div></section>
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  function num(v){ var s = String(v || '').replace(/[^0-9.]/g, ''); var n = parseFloat(s); return isFinite(n) ? n : 0; }
+  function money(n){ return '$' + Math.round(Math.max(0, n)).toLocaleString('en-US'); }
+  function c2(n){ return Math.round(n * 100) / 100; }
+  function pct(r){ return (Math.round(r * 1000) / 10).toFixed(1) + '%'; }
+  var FULL = '<a class="t-dti-go" href="./debt-to-income-calculator.html">Get My Full DTI Plan &rarr;</a><div class="t-small">The full calculator adds every debt line by line, ranks which debt to pay off first, shows how you stand for conventional, FHA, VA, and USDA loans, and builds your step-by-step plan.</div>';
+  function note(kind, icon, html){ return '<div class="t-note ' + kind + '"><span class="t-note-i">' + icon + '</span><div>' + html + '</div></div>'; }
+  function run(){
+    ['qdInc', 'qdHouse', 'qdDebt'].forEach(function(id){ var el = $(id); var v = el.value.replace(/[^0-9.,]/g, ''); if (v !== el.value) el.value = v; });
+    var I = num($('qdInc').value), H = num($('qdHouse').value), D = num($('qdDebt').value), T = H + D, out = $('dtiOut');
+    if (!(I > 0)){ out.innerHTML = '<div class="t-empty">Enter your gross monthly income and your payments to see your debt-to-income ratio.</div>' + FULL; return; }
+    var b = T / I, f = H / I;
+    var band = b < 0.2 ? 'Excellent' : b < 0.36 ? 'Healthy' : b < 0.43 ? 'Stretched' : b < 0.5 ? 'High' : 'Danger Zone';
+    var col = b < 0.36 ? '#3d9a5f' : b < 0.43 ? '#C9941A' : '#c2413b';
+    var to36 = Math.max(0, Math.ceil(c2(T - 0.36 * I) / 5) * 5), room = Math.max(0, Math.floor(c2(0.36 * I - T) / 5) * 5);
+    var h = '<div class="t-tiles"><div class="t-tile"><div class="t-tile-l">Your DTI</div><div class="t-tile-v" style="color:' + (b < 0.36 ? '#7fd69b' : b < 0.43 ? '#E8B84B' : '#ff8f8f') + '">' + pct(b) + '</div><div class="t-tile-n">' + band + '</div></div>' +
+      '<div class="t-tile"><div class="t-tile-l">Housing only</div><div class="t-tile-v">' + pct(f) + '</div><div class="t-tile-n">' + money(H) + ' a month</div></div>' +
+      '<div class="t-tile"><div class="t-tile-l">' + (to36 > 0 ? 'To reach 36%' : 'Room to 36%') + '</div><div class="t-tile-v">' + money(to36 > 0 ? to36 : room) + '</div><div class="t-tile-n">' + (to36 > 0 ? 'less in payments a month' : 'a month before 36%') + '</div></div></div>';
+    h += '<div class="t-prog"><div class="t-prog-fill" style="width:' + Math.min(100, Math.max(2, b / 0.6 * 100)) + '%;background:' + col + '"></div></div><div class="t-prog-lab">' + money(T) + ' in payments on ' + money(I) + ' of gross monthly income. Many lenders like to see 36% or less, and 43% is a common limit.</div>';
+    if (b < 0.36) h += note('good', '&#10003;', '<strong>You\'re in healthy shape.</strong> Use your room to save and pay debts off early, not to take on new payments.');
+    else if (b < 0.43) h += note('warn', '!', '<strong>You\'re stretched.</strong> Cutting ' + money(to36) + ' a month in payments brings you back to 36%.');
+    else h += note('bad', '!', '<strong>Your DTI is high.</strong> Many lenders will say no above 43%. Cutting ' + money(to36) + ' a month in payments brings you to 36%.');
+    out.innerHTML = h + FULL;
+  }
+  ['qdInc', 'qdHouse', 'qdDebt'].forEach(function(id){ $(id).addEventListener('input', run); });
+  $('qdClear').addEventListener('click', function(){ ['qdInc', 'qdHouse', 'qdDebt'].forEach(function(id){ $(id).value = ''; }); run(); });
+  run();
+})();
+</script>
+<style>.t-dti-go{display:inline-block;margin-top:20px;background:#C9941A;color:#0D1F3C!important;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:15px 24px;border-radius:2px;}.t-dti-go:hover{background:#E8B84B;}</style>
 <section class="t-cta"><div class="t-wrap">
 <h2>Numbers Tell You Where You Are. <em style="font-style:normal;color:#E8B84B">Mindset Decides Where You Go.</em></h2>
 <p>Take a free quiz to find out what's really driving your money decisions, grab the free guides, or get the structure and accountability to put these numbers to work.</p>
