@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debt-to-Income Ratio Calculator | Right Side of Money</title>
+<meta name="description" content="Free debt-to-income calculator: see your DTI the way lenders do, how you stand for common home loans, and a step-by-step plan to lower it.">
+<meta property="og:title" content="Debt-to-Income Ratio Calculator | Right Side of Money">
+<meta property="og:description" content="Free debt-to-income calculator: see your DTI the way lenders do, how you stand for common home loans, and a step-by-step plan to lower it.">
+<link rel="canonical" href="https://rightsideofmoney.com/debt-to-income-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Right Side of Money">
+<meta property="og:url" content="https://rightsideofmoney.com/debt-to-income-calculator.html">
+<meta property="og:image" content="https://rightsideofmoney.com/rsm-share.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rightsideofmoney.com/rsm-share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --navy:#0D1F3C;
+  --navy-mid:#1B3A6B;
+  --gold:#C9941A;
+  --gold-light:#E8B84B;
+  --white:#FFFFFF;
+  --gray:rgba(255,255,255,0.6);
+  --light-bg:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(13,31,60,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,148,26,0.3);padding:0 40px;height:68px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex-shrink:0;}
+.nav-logo-top{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#FFFFFF;}
+.nav-logo-sub{font-size:10px;letter-spacing:2px;color:#E8B84B;text-transform:uppercase;font-weight:500;}
+.nav-back{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;display:flex;align-items:center;gap:8px;}
+.nav-back:hover{color:#E8B84B;}
+@media(max-width:768px){nav{padding:0 20px;}}
+
+/* HERO */
+.hero{padding:120px 40px 60px;text-align:center;background:linear-gradient(180deg,#0a1628 0%,#0D1F3C 100%);position:relative;overflow:hidden;}
+.hero-bg{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:220px;color:rgba(201,148,26,0.03);white-space:nowrap;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none;}
+.hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:2;}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:16px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.05;margin-bottom:20px;}
+.hero-title em{font-style:normal;color:#E8B84B;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.75;margin-bottom:32px;}
+.hero-meta{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:40px;}
+.hero-meta-item{text-align:center;}
+.hero-meta-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;line-height:1;}
+.hero-meta-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.btn-start{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:20px 56px;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.25s,transform 0.2s;}
+.btn-start:hover{background:#E8B84B;transform:translateY(-2px);}
+
+/* QUIZ CONTAINER */
+.quiz-wrap{max-width:760px;margin:0 auto;padding:100px 40px 80px;}
+
+/* PROGRESS */
+.progress-bar-wrap{margin-bottom:48px;}
+.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.progress-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#C9941A;}
+.progress-count{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#E8B84B;}
+.progress-track{width:100%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(to right,#C9941A,#E8B84B);border-radius:2px;transition:width 0.5s ease;}
+
+/* QUESTION CARD */
+.question-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);border-top:3px solid #C9941A;padding:40px;border-radius:2px;margin-bottom:32px;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.q-category{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.q-number{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,0.25);margin-bottom:8px;}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;color:#FFFFFF;line-height:1.4;margin-bottom:32px;}
+
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:18px 24px;border-radius:2px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:16px;text-align:left;}
+.option:hover{background:rgba(201,148,26,0.08);border-color:rgba(201,148,26,0.4);}
+.option.selected{background:rgba(201,148,26,0.12);border-color:#C9941A;border-width:2px;}
+.option-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.option.selected .option-dot{border-color:#C9941A;background:#C9941A;}
+.option.selected .option-dot::after{content:'';width:8px;height:8px;background:#0D1F3C;border-radius:50%;}
+.option-text{font-size:15px;color:rgba(255,255,255,0.85);line-height:1.5;}
+.option.selected .option-text{color:#FFFFFF;font-weight:500;}
+
+/* NAV BUTTONS */
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+.btn-prev{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-prev:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+.btn-prev:disabled{opacity:0.2;cursor:not-allowed;}
+.btn-next{background:#C9941A;border:none;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:14px 36px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.btn-next:hover:not(:disabled){background:#E8B84B;}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* RESULTS */
+.results-wrap{max-width:800px;margin:0 auto;padding:40px 40px 80px;}
+.results-hero{text-align:center;padding:60px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:40px;}
+.results-score-label{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#C9941A;margin-bottom:12px;}
+.results-score{font-family:'Bebas Neue',sans-serif;font-size:96px;color:#E8B84B;line-height:1;margin-bottom:8px;}
+.results-score-max{font-size:20px;color:rgba(255,255,255,0.4);font-weight:300;}
+.results-type{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,40px);font-weight:900;color:#FFFFFF;margin:16px 0 12px;}
+.results-type em{font-style:normal;color:#E8B84B;}
+.results-tagline{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:560px;margin:0 auto 32px;}
+
+/* SCORE BAR */
+.score-visual{max-width:500px;margin:0 auto 32px;}
+.score-bar-track{width:100%;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin-bottom:12px;}
+.score-bar-fill{height:100%;border-radius:6px;transition:width 1.5s ease;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.score-markers{display:flex;justify-content:space-between;}
+.score-marker{font-size:11px;color:rgba(255,255,255,0.3);font-weight:600;}
+.score-marker.active{color:#E8B84B;}
+
+/* SECTIONS */
+.results-section{background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:36px;border-radius:2px;margin-bottom:24px;}
+.results-section-title{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:20px;}
+.results-section h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#FFFFFF;margin-bottom:16px;}
+.results-section p{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:12px;}
+
+/* CATEGORY BREAKDOWN */
+.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.category-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:2px;}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cat-score-track{width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.cat-score-fill{height:100%;border-radius:3px;background:linear-gradient(to right,#C9941A,#E8B84B);}
+.cat-score-label{font-size:13px;color:rgba(255,255,255,0.6);}
+.cat-score-label strong{color:#E8B84B;}
+
+/* BLOCKING BELIEFS */
+.beliefs-list{list-style:none;margin-top:16px;}
+.beliefs-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.beliefs-list li:last-child{border-bottom:none;}
+.belief-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.belief-text{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.belief-text strong{color:#FFFFFF;display:block;margin-bottom:4px;}
+
+/* NEXT STEPS */
+.next-steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:20px;}
+.next-step{display:flex;gap:20px;align-items:flex-start;background:rgba(255,255,255,0.03);border:1px solid rgba(201,148,26,0.15);padding:20px;border-radius:2px;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#C9941A;line-height:1;flex-shrink:0;width:40px;}
+.step-content{}
+.step-title{font-size:15px;font-weight:700;color:#FFFFFF;margin-bottom:6px;}
+.step-desc{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;}
+.step-link{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C9941A;text-decoration:none;border-bottom:1px solid rgba(201,148,26,0.4);padding-bottom:2px;}
+.step-link:hover{color:#E8B84B;border-color:#E8B84B;}
+
+/* CTA */
+.results-cta{text-align:center;padding:48px 40px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.2);border-top:4px solid #C9941A;border-radius:2px;margin-bottom:32px;}
+.results-cta h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:#FFFFFF;margin-bottom:12px;}
+.results-cta h3 em{font-style:normal;color:#E8B84B;}
+.results-cta p{font-size:16px;color:rgba(255,255,255,0.7);margin-bottom:28px;line-height:1.7;}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-cta-gold{display:inline-block;background:#C9941A;color:#0D1F3C;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;transition:background 0.25s;}
+.btn-cta-gold:hover{background:#E8B84B;}
+.btn-cta-outline{display:inline-block;background:transparent;color:#C9941A;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:16px 32px;border-radius:2px;border:2px solid #C9941A;transition:all 0.25s;}
+.btn-cta-outline:hover{background:#C9941A;color:#0D1F3C;}
+
+.btn-retake{background:transparent;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto 40px;transition:all 0.25s;}
+.btn-retake:hover{border-color:rgba(255,255,255,0.5);color:#FFFFFF;}
+
+/* STATES */
+#quizSection{display:none;}
+#resultsSection{display:none;}
+#startSection{display:block;}
+
+/* MOBILE */
+@media(max-width:768px){
+  .quiz-wrap,.results-wrap{padding:40px 20px 60px;}
+  .question-card{padding:28px 20px;}
+  .category-grid{grid-template-columns:1fr;}
+  .hero{padding:100px 20px 40px;}
+  .results-hero{padding:40px 20px;}
+  .results-section{padding:24px 20px;}
+  .results-cta{padding:32px 20px;}
+}
+
+/* FADE */
+.fade-in{animation:fadeIn 0.5s ease;}
+.lead-form{margin-top:16px;}
+.lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lead-form input[type=text],.lead-form input[type=email]{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.35);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;}
+.lead-form input:focus{outline:none;border-color:#E8B84B;}
+.lead-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px;line-height:1.5;}
+.lead-check input{margin-top:3px;accent-color:#C9941A;}
+.lead-msg{color:#ffb4b4;font-size:14px;margin-top:10px;min-height:1em;}
+@media(max-width:768px){.lead-row{grid-template-columns:1fr;}}
+.gate-p{color:rgba(255,255,255,0.7);font-size:15px;line-height:1.7;margin:-12px 0 8px;}
+.gate-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+.gate-back{background:none;border:none;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:14px;padding:0;}
+.gate-back:hover{color:#E8B84B;}
+
+#shareCanvas{width:100%;max-width:440px;height:auto;display:block;margin:8px auto 0;border-radius:4px;box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.share-section{text-align:center;}
+.intro-points{max-width:620px;margin:0 auto 36px;text-align:left;display:grid;gap:10px;}
+.intro-points div{font-size:15px;color:rgba(255,255,255,0.75);padding-left:26px;position:relative;line-height:1.6;}
+.intro-points div::before{content:'\2713';position:absolute;left:0;color:#E8B84B;font-weight:700;}
+</style>
+<!-- RSM-GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H3GBPMJH2R"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H3GBPMJH2R');
+(function(){
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
+  if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
+    try {
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
+    } catch(e){}
+    return p;
+  };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
+    if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
+  }, true);
+})();
+</script>
+<!-- /RSM-GA -->
+<!-- RSM-NAVFIX --><style>
+@media screen and (min-width:769px) and (max-width:1440px){nav{padding:0 24px!important}.nav-links{gap:14px!important}.nav-links a{font-size:11px!important;letter-spacing:0.5px!important}}
+@media screen and (min-width:769px) and (max-width:1320px){.nav-links{display:none!important}.nav-hamburger{display:flex!important}}
+@media screen and (max-width:900px){body>nav{flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;height:68px!important;min-height:0!important;top:0!important;padding:0 20px!important}}
+@media screen and (max-width:400px){nav{padding:0 12px!important}.nav-logo-top{font-size:18px!important;letter-spacing:2px!important}.nav-logo-sub{display:none!important}.nav-back{font-size:10px!important;letter-spacing:0.5px!important;gap:4px!important}}
+@media screen and (max-width:420px){.top-nav{padding:0 0.9rem!important}.top-nav a.exit{font-size:0!important}.top-nav a.exit::after{content:"\2190  Courses";font-size:0.75rem}}
+</style><!-- /RSM-NAVFIX -->
+<style>
+.question-card.cr-still{animation:none;}
+.cr-field{margin-bottom:30px;}
+.cr-field:last-child{margin-bottom:0;}
+.cr-q{font-size:16px;font-weight:600;color:#fff;margin-bottom:12px;line-height:1.5;}
+.question-card .q-text{margin-bottom:26px;}
+.options.cr-compact{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;}
+.option{padding:15px 20px;}
+.cr-scorebox{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;}
+.cr-scorebox label{font-size:13px;font-weight:600;color:#E8B84B;}
+.cr-scorebox input{width:150px;padding:12px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,148,26,0.45);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:600;}
+.cr-hint{display:block;width:100%;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;}
+.cr-cards.cr-off{opacity:0.35;pointer-events:none;}
+.cr-card-head,.cr-card-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 40px;gap:10px;align-items:center;}
+.cr-card-head{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.cr-card-row{margin-bottom:10px;}
+.cr-card-row input{width:100%;min-width:0;padding:13px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:16px;}
+.cr-card-row input:focus,.cr-scorebox input:focus{outline:none;border-color:#E8B84B;}
+.cr-money{position:relative;min-width:0;}
+.cr-money span{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.45);font-size:15px;pointer-events:none;}
+.cr-money input{padding-left:24px;}
+.cr-del{width:40px;height:46px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.6);font-size:22px;border-radius:2px;cursor:pointer;}
+.cr-del:hover:not(:disabled){border-color:#E8B84B;color:#E8B84B;}
+.cr-del:disabled{opacity:0.25;cursor:not-allowed;}
+.cr-card-actions{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:6px;}
+.cr-add{background:transparent;border:1px dashed rgba(201,148,26,0.6);color:#E8B84B;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;padding:12px 18px;border-radius:2px;cursor:pointer;}
+.cr-add:disabled{opacity:0.35;cursor:not-allowed;}
+.cr-nocards{display:flex;gap:8px;align-items:center;font-size:14px;color:rgba(255,255,255,0.7);cursor:pointer;}
+.cr-nocards input{accent-color:#C9941A;width:18px;height:18px;}
+.cr-snap{margin-top:24px;padding:24px;background:linear-gradient(135deg,#0a1628,#1B3A6B);border:1px solid rgba(201,148,26,0.3);border-top:3px solid #C9941A;border-radius:2px;text-align:center;}
+.cr-snap p{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.7;margin:0;}
+.cr-snap-t{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9941A;margin-bottom:6px;}
+.cr-big{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;}
+.cr-big-l{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:16px;}
+.good{color:#7fd69b;}.warn{color:#E8B84B;}.bad{color:#ff8f8f;}
+.cr-meter{position:relative;height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;}
+.cr-meter i{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,0.45);}
+.cr-meter-fill{height:100%;border-radius:6px;transition:width 0.4s ease;}
+.cr-meter-fill.good{background:#4fae6d;}.cr-meter-fill.warn{background:#C9941A;}.cr-meter-fill.bad{background:#d65a5a;}
+.cr-meter-l{position:relative;height:20px;margin:6px 0 14px;font-size:11px;color:rgba(255,255,255,0.45);}
+.cr-meter-l span{position:absolute;top:0;transform:translateX(-50%);}
+.cr-meter-l span:last-child{transform:none;}
+.cr-snap-msg b{color:#E8B84B;}
+.cr-percard{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;}
+.cr-percard div{font-size:13px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:6px 12px;border-radius:2px;color:rgba(255,255,255,0.75);}
+.cr-percard b{margin-left:6px;}
+.cr-range{font-size:76px;}
+.cr-range .results-score-max{font-family:'DM Sans',sans-serif;font-size:22px;}
+.cr-h3{margin-top:32px;}
+.cr-table{border:1px solid rgba(255,255,255,0.1);border-radius:2px;margin-top:8px;}
+.cr-tr{display:grid;grid-template-columns:1.4fr 1fr 1fr 0.7fr 1.3fr;gap:8px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px;color:rgba(255,255,255,0.8);}
+.cr-tr:last-child{border-bottom:none;}
+.cr-tr span{min-width:0;overflow-wrap:anywhere;}
+.cr-th{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C9941A;background:rgba(201,148,26,0.06);}
+.cr-tr span.good,.cr-tr span.warn,.cr-tr span.bad{font-weight:700;}
+.cr-targets{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.cr-targets div{background:rgba(201,148,26,0.08);border:1px solid rgba(201,148,26,0.3);padding:16px;border-radius:2px;text-align:center;}
+.cr-targets b{display:block;font-family:'Bebas Neue',sans-serif;font-size:34px;color:#E8B84B;line-height:1.1;}
+.cr-targets span{font-size:13px;color:rgba(255,255,255,0.65);}
+.cr-big-step{border-color:rgba(201,148,26,0.55);background:rgba(201,148,26,0.07);}
+.cr-x{color:#ff8f8f;font-size:16px;font-weight:700;}
+.next-step .step-desc{color:rgba(255,255,255,0.72);}
+@media(max-width:600px){
+  .cr-card-head{display:none;}
+  .cr-card-row{grid-template-columns:1fr 1fr 40px;padding:12px;border:1px solid rgba(255,255,255,0.08);border-radius:2px;}
+  .cr-card-row > input[data-k="n"]{grid-column:1 / -1;}
+  .cr-card-row .cr-money::before{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C9941A;margin-bottom:4px;}
+  .cr-card-row .cr-money:nth-of-type(1)::before{content:'Balance';}
+  .cr-card-row .cr-money:nth-of-type(2)::before{content:'Limit';}
+  .cr-money span{top:auto;bottom:13px;transform:none;}
+  .cr-del{align-self:end;}
+  .cr-th{display:none;}
+  .cr-tr{grid-template-columns:1fr 1fr;row-gap:4px;}
+  .cr-tr span:first-child{grid-column:1 / -1;font-weight:700;color:#fff;}
+  .cr-tr span:nth-child(2)::before{content:'Balance ';color:rgba(255,255,255,0.45);}
+  .cr-tr span:nth-child(3)::before{content:'Limit ';color:rgba(255,255,255,0.45);}
+  .cr-tr span:nth-child(4)::before{content:'Used ';color:rgba(255,255,255,0.45);font-weight:400;}
+  .cr-tr span:nth-child(5)::before{content:'Under 30% ';color:rgba(255,255,255,0.45);}
+  .cr-targets{grid-template-columns:1fr;}
+  .cr-range{font-size:60px;}
+  .quiz-nav .btn-next,.quiz-nav .btn-prev{padding:14px 18px;}
+}
+@media print{
+  body{background:#fff!important;color:#000!important;}
+  nav,.quiz-nav,.cta-buttons,.rsm-bonus,.results-cta,.cr-noprint,.btn-retake,.step-link{display:none!important;}
+  .results-wrap{padding:0!important;max-width:none;}
+  .results-hero,.results-section,.next-step,.category-card,.cr-targets div,.cr-table{background:#fff!important;border:1px solid #ccc!important;color:#000!important;break-inside:avoid;}
+  .results-hero *,.results-section *{color:#0D1F3C!important;}
+  .results-section{padding:16px!important;margin-bottom:12px!important;}
+  .results-hero{padding:20px!important;margin-bottom:12px!important;}
+  .score-bar-fill,.cat-score-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+
+.dti-sub{margin-top:16px;}
+.dti-two{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;}
+.dti-two .cr-hint,.dti-sub .cr-hint{grid-column:1 / -1;margin-top:4px;}
+.dti-in label{display:block;font-size:13px;font-weight:600;color:#E8B84B;margin-bottom:6px;}
+.dti-in input,.dti-row input,.dti-row select{width:100%;min-width:0;padding:13px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:2px;color:#fff;font-family:'DM Sans',sans-serif;font-size:16px;}
+.dti-in .cr-money input,.dti-row .cr-money input{padding-left:24px;}
+.dti-in input{max-width:260px;}
+.dti-two .dti-in input{max-width:none;}
+.dti-row select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#E8B84B 50%),linear-gradient(135deg,#E8B84B 50%,transparent 50%);background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:32px;cursor:pointer;}
+.dti-row select option{background:#0D1F3C;color:#fff;}
+.dti-in input:focus,.dti-row input:focus,.dti-row select:focus{outline:none;border-color:#E8B84B;}
+.dti-head,.dti-row{display:grid;gap:10px;align-items:center;}
+.dti-head{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9941A;margin-bottom:8px;}
+.dti-row{margin-bottom:10px;}
+.dti-ihead,.dti-irow{grid-template-columns:1.2fr 1fr 1fr 40px;}
+.dti-dhead,.dti-drow{grid-template-columns:1.15fr 1fr 0.9fr 0.9fr 40px;}
+.dti-why{color:#ffb4b4;font-size:14px;font-weight:600;min-height:1em;margin:14px 0 0;}
+.dti-meter{margin-top:6px;}
+.dti-hero-meter{max-width:520px;margin:18px auto 0;}
+.dti-score{font-size:110px;}
+.dti-score.good{color:#7fd69b;}.dti-score.warn{color:#E8B84B;}.dti-score.bad{color:#ff8f8f;}
+.cr-targets b.good{color:#7fd69b;}.cr-targets b.warn{color:#E8B84B;}.cr-targets b.bad{color:#ff8f8f;}
+.dti-table{border:1px solid rgba(255,255,255,0.1);border-radius:2px;margin-top:8px;}
+.dti-tr{display:grid;grid-template-columns:1.4fr 0.8fr 1.3fr;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px;color:rgba(255,255,255,0.82);align-items:center;}
+.dti-tr:last-child{border-bottom:none;}
+.dti-tr span{min-width:0;overflow-wrap:anywhere;}
+.dti-tr4{grid-template-columns:1.4fr 1fr 1fr 0.8fr;}
+.dti-tr3{grid-template-columns:0.7fr 2fr 1.3fr;}
+.dti-th{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,148,26,0.06);}
+.dti-table .dti-th span{color:#C9941A!important;}
+.dti-tot{font-weight:700;background:rgba(201,148,26,0.05);}
+.dti-tot span{color:#fff!important;}
+.dti-tr span.good{color:#7fd69b!important;font-weight:700;}.dti-tr span.warn{color:#E8B84B!important;font-weight:700;}.dti-tr span.bad{color:#ff8f8f!important;font-weight:700;}
+.dti-bar{display:inline-block;vertical-align:middle;width:56%;max-width:140px;height:8px;background:rgba(255,255,255,0.08);border-radius:4px;margin-right:10px;overflow:hidden;}
+.dti-bar i{display:block;height:100%;background:#C9941A;border-radius:4px;}
+@media(max-width:600px){
+  .dti-head{display:none;}
+  .dti-row{padding:12px;border:1px solid rgba(255,255,255,0.08);border-radius:2px;}
+  .dti-irow{grid-template-columns:1fr 1fr 40px;}
+  .dti-irow > input[data-k="n"]{grid-column:1 / -1;}
+  .dti-drow{grid-template-columns:1fr 1fr 40px;}
+  .dti-drow > select[data-k="t"],.dti-drow > input[data-k="n"]{grid-column:1 / -1;}
+  .dti-row .cr-money::before,.dti-irow > select::before{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C9941A;margin-bottom:4px;}
+  .dti-irow .cr-money::before{content:'Gross amount';}
+  .dti-drow .cr-money:nth-of-type(1)::before{content:'Monthly payment';}
+  .dti-drow .cr-money:nth-of-type(2)::before{content:'Balance';}
+  .dti-row .cr-money span{top:auto;bottom:13px;transform:none;}
+  .dti-irow > select{align-self:end;}
+  .dti-row .cr-del{align-self:end;}
+  .dti-two{grid-template-columns:1fr;}
+  .dti-score{font-size:84px;}
+  .dti-th{display:none;}
+  .dti-tr,.dti-tr4,.dti-tr3{grid-template-columns:1fr 1fr;row-gap:4px;}
+  .dti-tr span:first-child{grid-column:1 / -1;font-weight:700;color:#fff!important;}
+  .dti-tr3 span:nth-child(2){grid-column:1 / -1;}
+  .dti-tr:not(.dti-tr4):not(.dti-tr3) span:nth-child(2)::before{content:'Monthly ';color:rgba(255,255,255,0.5);}
+  .dti-tr4 span:nth-child(2)::before{content:'Balance ';color:rgba(255,255,255,0.5);}
+  .dti-tr4 span:nth-child(3)::before{content:'Frees ';color:rgba(255,255,255,0.5);}
+  .dti-tr4 span:nth-child(4)::before{content:'New DTI ';color:rgba(255,255,255,0.5);font-weight:400;}
+  .dti-bar{width:40%;}
+}
+@media print{
+  .dti-table,.dti-tr{background:#fff!important;border-color:#ccc!important;}
+  .dti-tr span{color:#0D1F3C!important;}
+  .dti-bar i{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+<!-- RSM-WRAPFIX --><style>.results-wrap{padding-top:108px!important}@media(max-width:768px){.quiz-wrap,.results-wrap{padding-top:96px!important}}</style><!-- /RSM-WRAPFIX -->
+<!-- RSM-A11Y --><style>
+div.hero-meta-label{color:rgba(255,255,255,0.78)!important}
+p{color:rgba(255,255,255,0.78)!important}
+span{color:rgba(255,255,255,0.78)!important}
+div.cr-snap-t{color:#E8B84B!important}
+div.results-score-label{color:#E8B84B!important}
+span.results-score-max{color:rgba(255,255,255,0.78)!important}
+span.score-marker{color:rgba(255,255,255,0.78)!important}
+a.btn-cta-outline{color:#E8B84B!important}
+</style><!-- /RSM-A11Y -->
+</head>
+<body>
+<nav>
+  <a href="./index.html" class="nav-logo">
+    <span class="nav-logo-top">RIGHT SIDE OF MONEY</span>
+    <span class="nav-logo-sub">Financial Literacy. Mindset. Freedom.</span>
+  </a>
+  <a href="./index.html" class="nav-back">&#8592; Back to Site</a>
+</nav>
+<div id="startSection">
+  <div class="hero">
+    <div class="hero-bg">DTI</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Free Tool by Darrell Thompson</div>
+      <h1 class="hero-title">Know Your Number <em>Before the Lender Does.</em></h1>
+      <p class="hero-sub">Your debt-to-income ratio decides whether you get approved for a home, a car, or a refinance, and how much you can borrow. Enter your income and payments and see your DTI the way a lender would, with a plan to bring it down.</p>
+      <div class="intro-points"><div>Your front-end and back-end DTI, the two numbers lenders actually use</div><div>How you stand for conventional, FHA, VA, and USDA home loans</div><div>Which debt to pay off first to lower your DTI the fastest</div><div>The house payment that fits your income, and a step-by-step plan</div></div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><div class="hero-meta-num">4</div><div class="hero-meta-label">Steps</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">5</div><div class="hero-meta-label">Minutes</div></div>
+        <div class="hero-meta-item"><div class="hero-meta-num">100%</div><div class="hero-meta-label">Free</div></div>
+      </div>
+      <button class="btn-start" onclick="startQuiz()">Calculate My DTI &rarr;</button>
+      <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.45);">No Social Security number. No account numbers. No credit check. It won't affect your credit.</p>
+    </div>
+  </div>
+</div>
+<div id="quizSection">
+  <div class="quiz-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-top"><span class="progress-label">Your Progress</span><span class="progress-count" id="progressCount">1 of 4</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:25%;"></div></div>
+    </div>
+    <div id="questionContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-prev" id="btnPrev" onclick="prevQuestion()" disabled>&#8592; Previous</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</div>
+<div id="resultsSection">
+  <div class="results-wrap">
+    <div class="results-hero" id="resultsHero"></div>
+    <div id="resultsBody"></div>
+  </div>
+</div>
+<script>
+/* RSM results gate: name and email required before results are shown */
+(function(){
+  var T0 = Date.now();
+  function el(id){ return document.getElementById(id); }
+  window.rsmGate = function(onDone, onBack){
+    var nav = document.querySelector('.quiz-nav');
+    if (nav) nav.style.display = 'none';
+    if (el('progressCount')) el('progressCount').textContent = 'Complete';
+    if (el('progressFill')) el('progressFill').style.width = '100%';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('rsm_lead') || '{}') || {}; } catch(e){ saved = {}; }
+    el('questionContainer').innerHTML =
+      '<div class="question-card gate-card">' +
+      '<div class="q-category">You\'re Done. Your Plan Is Ready.</div>' +
+      '<div class="q-text">Unlock Your Full Action Plan</div>' +
+      '<p class="gate-p">Enter your first name and email to see your DTI, how lenders see you, and your step-by-step plan. We\'ll email you a copy too. Darrell receives a summary of every result so he can share resources that fit where you are.</p>' +
+      '<form id="gateForm" class="lead-form" novalidate>' +
+      '<div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" id="gateCo" name="company" tabindex="-1" autocomplete="off" /></label></div>' +
+      '<div class="lead-row"><input type="text" id="gateName" aria-label="First name" placeholder="First name" autocomplete="given-name" /><input type="email" id="gateEmail" aria-label="Email address" placeholder="Email address" autocomplete="email" /></div>' +
+      '<label class="lead-check"><input type="checkbox" id="gateOpt" checked /> <span>Send me helpful money tips and updates from Right Side of Money. I can unsubscribe anytime.</span></label>' +
+      '<button type="submit" class="btn-next" style="width:100%;padding:18px 24px">Show My Plan &rarr;</button>' +
+      '<p class="lead-msg" id="gateMsg"></p>' +
+      '<p class="gate-note">Your information stays private. No spam, ever.</p>' +
+      '<button type="button" class="gate-back" id="gateBack">&#8592; Back to the last step</button>' +
+      '</form></div>';
+    if (saved.name) el('gateName').value = saved.name;
+    if (saved.email) el('gateEmail').value = saved.email;
+    window.scrollTo(0, 0);
+    el('gateBack').addEventListener('click', function(){
+      if (nav) nav.style.display = '';
+      onBack();
+    });
+    el('gateForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var n = el('gateName').value.trim(), em = el('gateEmail').value.trim();
+      if (!n || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+        el('gateMsg').textContent = 'Please enter your first name and a valid email to see your plan.';
+        return;
+      }
+      var lead = {name: n.replace(/[<>&"]/g, ''), email: em, opt: el('gateOpt').checked,
+        bot: !!el('gateCo').value};
+      try { localStorage.setItem('rsm_lead', JSON.stringify({name: lead.name, email: lead.email})); } catch(err){}
+      if (nav) nav.style.display = '';
+      onDone(lead);
+    });
+  };
+  window.rsmPost = function(url, fd){
+    try { fetch(url, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+/* RSM email + list delivery: EmailJS sends results to the participant (Bcc Darrell); Kit adds opted-in people to the list */
+(function(){
+  var EJ = {service: 'service_65dy311', template: 'template_k1l3ysk', key: 'gkDCipr-1PUVhTb5X'};
+  var KIT_FORM = '9981618';
+  var SITE = 'https://rightsideofmoney.com/';
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function abs(u){ return /^https?:/.test(u) ? u : SITE + String(u).replace(/^\.\//, ''); }
+  window.rsmResultEmail = function(o){
+    if (EJ.template.indexOf('__') === 0 || EJ.key.indexOf('__') === 0) return;
+    var breakdown = '<ul>' + o.breakdown.map(function(b){ return '<li><strong>' + esc(b[0]) + ':</strong> ' + b[1] + '%</li>'; }).join('') + '</ul>';
+    var steps = '<ol>' + o.steps.map(function(s){ return '<li><strong>' + esc(s.t) + '</strong><br>' + esc(s.d) + '<br><a href="' + abs(s.l) + '">' + esc(s.lt || 'Learn more') + '</a></li>'; }).join('') + '</ol>';
+    var guides = '<ul>' + o.guides.map(function(g){ return '<li><a href="' + abs(g.f) + '">' + esc(g.t) + '</a></li>'; }).join('') + '</ul>';
+    var body = JSON.stringify({service_id: EJ.service, template_id: EJ.template, user_id: EJ.key, template_params: {
+      to_name: o.name, to_email: o.email, quiz: o.quiz, result: o.result, score: o.score, tagline: o.tagline,
+      breakdown: breakdown, next_steps: steps, guides: guides}});
+    try { fetch('https://api.emailjs.com/api/v1.0/email/send', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: body, keepalive: true}).catch(function(){}); } catch(e){}
+  };
+  window.rsmKit = function(name, email){
+    var fd = new FormData();
+    fd.append('email_address', email); fd.append('fields[first_name]', name);
+    try { fetch('https://app.kit.com/forms/' + KIT_FORM + '/subscriptions', {method: 'POST', body: fd, mode: 'no-cors', keepalive: true}).catch(function(){}); } catch(e){}
+  };
+})();
+
+(function(){
+'use strict';
+var FORM = 'https://formspree.io/f/mvkglqlj';
+var TITLE = 'Debt-to-Income Ratio Calculator';
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function money(n){ return '$' + Math.round(Math.max(0, n)).toLocaleString('en-US'); }
+function cents(n){ return Math.round(n * 100) / 100; }
+function up5(n){ return Math.ceil(cents(n) / 5) * 5; }
+function dn5(n){ return Math.floor(cents(n) / 5) * 5; }
+function num(v){ var s = String(v == null ? '' : v).replace(/[^0-9.]/g, ''); if (!s) return NaN; var n = parseFloat(s); return isFinite(n) ? n : NaN; }
+function p1(x){ return (Math.round(x * 1000) / 10).toFixed(1); }
+function blank(v){ return !String(v == null ? '' : v).trim(); }
+
+/* ---------- inputs ---------- */
+var FREQ = [['w', 'Weekly', 52 / 12], ['b', 'Every 2 weeks', 26 / 12], ['s', 'Twice a month', 2], ['m', 'Monthly', 1], ['y', 'Yearly', 1 / 12]];
+var TYPES = [['card', 'Credit card'], ['auto', 'Car loan or lease'], ['student', 'Student loan'], ['personal', 'Personal loan'], ['medical', 'Medical payment plan'], ['bnpl', 'Buy now, pay later'], ['support', 'Child support or alimony'], ['other', 'Other loan']];
+function fmul(f){ var r = 0; FREQ.forEach(function(x){ if (x[0] === f) r = x[2]; }); return r; }
+function tname(t){ var r = 'Debt'; TYPES.forEach(function(x){ if (x[0] === t) r = x[1]; }); return r; }
+
+var A = {housing: null, rent: '', mort: '', hoa: '', noDebt: false, goal: null, cushion: null, trend: null};
+var inc = [{n: '', a: '', f: ''}];
+var debts = [{t: 'card', n: '', p: '', b: ''}, {t: 'auto', n: '', p: '', b: ''}];
+var STEPS = [
+ {cat: 'Step 1 of 4: Your Income', title: 'Enter your income before taxes, the way a lender looks at it.', income: true},
+ {cat: 'Step 2 of 4: Your Housing', title: 'Your housing payment is the biggest piece of most budgets.', fields: [
+  {id: 'housing', q: 'What do you pay for housing right now?', o: [['rent', 'I rent'], ['own', 'I own with a mortgage'], ['owned', 'I own it outright'], ['none', 'I live with family or pay no housing']]}
+ ]},
+ {cat: 'Step 3 of 4: Your Monthly Debt Payments', title: 'List every debt payment you make each month.', debts: true},
+ {cat: 'Step 4 of 4: Your Goal', title: 'Last step. This shapes your plan.', fields: [
+  {id: 'goal', q: "What's your main reason for checking your DTI?", o: [['home', 'Buy a home in the next 12 months'], ['car', 'Buy or refinance a car'], ['consol', 'Refinance or consolidate debt'], ['payoff', 'Get out of debt faster'], ['know', 'I just want to know my number']]},
+  {id: 'cushion', q: 'How much do you have saved for emergencies?', o: [['0', 'Nothing yet'], ['1', 'Less than 1 month of expenses'], ['3', '1 to 3 months'], ['6', 'More than 3 months']]},
+  {id: 'trend', q: 'How steady is your income?', o: [['steady', 'Steady paycheck'], ['up', 'Steady and growing'], ['var', 'It changes month to month'], ['down', 'It recently dropped or feels uncertain']]}
+ ]}
+];
+var cur = 0;
+
+function fieldById(id){ var r = null; STEPS.forEach(function(s){ (s.fields || []).forEach(function(f){ if (f.id === id) r = f; }); }); return r; }
+function label(id){ var f = fieldById(id), v = A[id], t = ''; if (f) f.o.forEach(function(o){ if (o[0] === v) t = o[1]; }); return t; }
+
+/* ---------- math ---------- */
+function incomeRows(){
+  var out = [];
+  inc.forEach(function(r, i){ var a = num(r.a), m = fmul(r.f); if (!isNaN(a) && a > 0 && m) out.push({name: (r.n || '').trim() || (i === 0 ? 'Your income' : 'Income ' + (i + 1)), mo: a * m}); });
+  return out;
+}
+function income(){ var t = 0; incomeRows().forEach(function(r){ t += r.mo; }); return t; }
+function housing(){
+  if (A.housing === 'rent') return num(A.rent) || 0;
+  if (A.housing === 'own') return (num(A.mort) || 0) + (num(A.hoa) || 0);
+  if (A.housing === 'owned') return num(A.hoa) || 0;
+  return 0;
+}
+function debtRows(){
+  if (A.noDebt) return [];
+  var out = [];
+  debts.forEach(function(d, i){
+    var p = num(d.p), b = num(d.b), est = false;
+    if (blank(d.p) && blank(d.b)) return;
+    if ((isNaN(p) || p === 0) && d.t === 'student' && b > 0){ p = Math.round(b * 0.005); est = true; }
+    if (isNaN(p) || p <= 0) return;
+    out.push({t: d.t, name: (d.n || '').trim() || tname(d.t), p: p, b: isNaN(b) ? null : b, est: est});
+  });
+  return out;
+}
+function calc(){
+  var I = income(), H = housing(), D = debtRows(), other = 0;
+  D.forEach(function(d){ other += d.p; });
+  var total = H + other;
+  return {I: I, H: H, D: D, other: other, total: total, front: I > 0 ? H / I : 0, back: I > 0 ? total / I : 0};
+}
+function band(r){ return r < 0.2 ? 'Excellent' : r < 0.36 ? 'Healthy' : r < 0.43 ? 'Stretched' : r < 0.5 ? 'High' : 'Danger Zone'; }
+function cls(r){ return r < 0.36 ? 'good' : r < 0.43 ? 'warn' : 'bad'; }
+
+/* ---------- validation ---------- */
+function stepDone(i){
+  var s = STEPS[i];
+  if (s.income){
+    var ok = 0, bad = 0;
+    inc.forEach(function(r){
+      if (blank(r.a) && !r.f) return;
+      var a = num(r.a);
+      if (isNaN(a) || a <= 0 || !r.f) bad++; else ok++;
+    });
+    return ok > 0 && bad === 0;
+  }
+  if (s.debts){
+    if (A.noDebt) return true;
+    var good = 0, wrong = 0;
+    debts.forEach(function(d){
+      if (blank(d.p) && blank(d.b)) return;
+      var p = num(d.p), b = num(d.b);
+      if (!isNaN(p) && p > 0) good++;
+      else if (d.t === 'student' && b > 0 && (blank(d.p) || p === 0)) good++;
+      else wrong++;
+    });
+    return good > 0 && wrong === 0;
+  }
+  return s.fields.every(function(f){
+    if (A[f.id] == null) return false;
+    if (f.id === 'housing'){
+      if (A.housing === 'rent'){ var r = num(A.rent); return r > 0; }
+      if (A.housing === 'own'){ var m = num(A.mort); return m > 0 && (blank(A.hoa) || !isNaN(num(A.hoa))); }
+    }
+    return true;
+  });
+}
+function why(i){
+  var s = STEPS[i];
+  if (s.income) return 'Enter at least one income amount and choose how often you get it.';
+  if (s.debts) return 'Enter the monthly payment for each debt, or check the box if you have none.';
+  if (A.housing === 'rent') return 'Enter your monthly rent.';
+  if (A.housing === 'own') return 'Enter your monthly mortgage payment.';
+  return 'Answer each question to continue.';
+}
+
+/* ---------- rendering ---------- */
+function optHtml(f){
+  var h = '<div class="cr-field"><div class="cr-q">' + esc(f.q) + '</div><div class="options' + (f.o.length <= 4 ? ' cr-compact' : '') + '">' + f.o.map(function(o){
+    var sel = A[f.id] === o[0];
+    return '<div class="option' + (sel ? ' selected' : '') + '" role="button" tabindex="0" aria-pressed="' + sel + '" data-f="' + f.id + '" data-v="' + o[0] + '"><div class="option-dot"></div><div class="option-text">' + esc(o[1]) + '</div></div>';
+  }).join('') + '</div>';
+  if (f.id === 'housing'){
+    if (A.housing === 'rent') h += '<div class="dti-sub"><div class="dti-in"><label for="dRent">Monthly rent</label><div class="cr-money"><span>$</span><input type="text" inputmode="decimal" id="dRent" data-a="rent" value="' + esc(A.rent) + '" placeholder="0"></div></div><p class="cr-hint">Include renter\'s insurance if your landlord requires it. Leave out utilities.</p></div>';
+    if (A.housing === 'own') h += '<div class="dti-sub dti-two"><div class="dti-in"><label for="dMort">Monthly mortgage payment</label><div class="cr-money"><span>$</span><input type="text" inputmode="decimal" id="dMort" data-a="mort" value="' + esc(A.mort) + '" placeholder="0"></div></div><div class="dti-in"><label for="dHoa">HOA dues per month (optional)</label><div class="cr-money"><span>$</span><input type="text" inputmode="decimal" id="dHoa" data-a="hoa" value="' + esc(A.hoa) + '" placeholder="0"></div></div><p class="cr-hint">Use your full payment, including property taxes, homeowners insurance, and mortgage insurance if they\'re part of it.</p></div>';
+    if (A.housing === 'owned') h += '<div class="dti-sub"><div class="dti-in"><label for="dHoa">HOA dues per month (optional)</label><div class="cr-money"><span>$</span><input type="text" inputmode="decimal" id="dHoa" data-a="hoa" value="' + esc(A.hoa) + '" placeholder="0"></div></div><p class="cr-hint">No mortgage? Nice work. Lenders don\'t count your property taxes and insurance here unless they\'re part of a loan payment.</p></div>';
+  }
+  return h + '</div>';
+}
+function incomeHtml(){
+  var h = '<div class="dti-rows">';
+  h += '<div class="dti-head dti-ihead"><span>Source (optional)</span><span>Gross amount</span><span>How often</span><span></span></div>';
+  inc.forEach(function(r, i){
+    h += '<div class="dti-row dti-irow" data-i="' + i + '">' +
+      '<input type="text" class="dti-x" data-k="n" aria-label="Income ' + (i + 1) + ' source" placeholder="' + (i === 0 ? 'My job' : 'Income ' + (i + 1)) + '" maxlength="30" value="' + esc(r.n) + '">' +
+      '<div class="cr-money"><span>$</span><input type="text" inputmode="decimal" class="dti-x" data-k="a" aria-label="Income ' + (i + 1) + ' gross amount" placeholder="0" value="' + esc(r.a) + '"></div>' +
+      '<select class="dti-x" data-k="f" aria-label="Income ' + (i + 1) + ' how often"><option value=""' + (r.f ? '' : ' selected') + '>Choose one</option>' + FREQ.map(function(x){ return '<option value="' + x[0] + '"' + (r.f === x[0] ? ' selected' : '') + '>' + x[1] + '</option>'; }).join('') + '</select>' +
+      '<button type="button" class="cr-del" data-del="' + i + '" aria-label="Remove income ' + (i + 1) + '"' + (inc.length < 2 ? ' disabled' : '') + '>&times;</button></div>';
+  });
+  h += '</div><div class="cr-card-actions"><button type="button" class="cr-add" id="dAddI"' + (inc.length >= 6 ? ' disabled' : '') + '>+ Add another income</button></div>' +
+    '<p class="cr-hint" style="margin-top:12px">Use gross pay, the amount before taxes and deductions. It\'s the top line on your pay stub. Paid by the hour? Multiply your rate by your usual weekly hours and choose Weekly. Self-employed? Use your average monthly profit after business expenses. Add a spouse or partner only if they share the bills or will be on the loan.</p>' +
+    '<div id="dSnap"></div>';
+  return h;
+}
+function debtsHtml(){
+  var h = '<div class="dti-rows' + (A.noDebt ? ' cr-off' : '') + '">';
+  h += '<div class="dti-head dti-dhead"><span>Type</span><span>Name (optional)</span><span>Monthly payment</span><span>Balance (optional)</span><span></span></div>';
+  debts.forEach(function(d, i){
+    h += '<div class="dti-row dti-drow" data-i="' + i + '">' +
+      '<select class="dti-x" data-k="t" aria-label="Debt ' + (i + 1) + ' type">' + TYPES.map(function(x){ return '<option value="' + x[0] + '"' + (d.t === x[0] ? ' selected' : '') + '>' + x[1] + '</option>'; }).join('') + '</select>' +
+      '<input type="text" class="dti-x" data-k="n" aria-label="Debt ' + (i + 1) + ' name" placeholder="' + esc(tname(d.t)) + '" maxlength="30" value="' + esc(d.n) + '">' +
+      '<div class="cr-money"><span>$</span><input type="text" inputmode="decimal" class="dti-x" data-k="p" aria-label="Debt ' + (i + 1) + ' monthly payment" placeholder="0" value="' + esc(d.p) + '"></div>' +
+      '<div class="cr-money"><span>$</span><input type="text" inputmode="decimal" class="dti-x" data-k="b" aria-label="Debt ' + (i + 1) + ' balance" placeholder="0" value="' + esc(d.b) + '"></div>' +
+      '<button type="button" class="cr-del" data-del="' + i + '" aria-label="Remove debt ' + (i + 1) + '"' + (debts.length < 2 ? ' disabled' : '') + '>&times;</button></div>';
+  });
+  h += '</div><div class="cr-card-actions"><button type="button" class="cr-add" id="dAddD"' + (debts.length >= 15 || A.noDebt ? ' disabled' : '') + '>+ Add another debt</button>' +
+    '<label class="cr-nocards"><input type="checkbox" id="dNo"' + (A.noDebt ? ' checked' : '') + '> I don\'t have any monthly debt payments</label></div>' +
+    '<p class="cr-hint" style="margin-top:12px">Use the minimum payment on your statement, even if you pay more. Don\'t include utilities, phone, insurance, groceries, or subscriptions. Lenders don\'t count them. Add balances to see which debt to pay off first. Student loan on a $0 or paused payment? Enter the balance and leave the payment blank. Many lenders count about 0.5% of the balance each month, so we\'ll estimate it that way.</p>' +
+    '<div id="dSnap"></div>';
+  return h;
+}
+function render(still){
+  var s = STEPS[cur];
+  var h = '<div class="question-card' + (still ? ' cr-still' : '') + '"><div class="q-category">' + esc(s.cat) + '</div><div class="q-text">' + esc(s.title) + '</div>';
+  h += s.income ? incomeHtml() : s.debts ? debtsHtml() : s.fields.map(optHtml).join('');
+  h += '<p class="dti-why" id="dWhy" aria-live="polite"></p>';
+  $('questionContainer').innerHTML = h + '</div>';
+  $('progressCount').textContent = (cur + 1) + ' of ' + STEPS.length;
+  $('progressFill').style.width = Math.round((cur + 1) / STEPS.length * 100) + '%';
+  $('btnPrev').disabled = cur === 0;
+  $('btnNext').innerHTML = cur === STEPS.length - 1 ? 'See My DTI &rarr;' : 'Next &rarr;';
+  wire(); refresh();
+}
+function refresh(){
+  var done = stepDone(cur);
+  $('btnNext').disabled = !done;
+  var w = $('dWhy'); if (w) w.textContent = '';
+  snapshot();
+}
+function meter(r){
+  var w = Math.min(100, Math.max(1.5, r / 0.6 * 100));
+  return '<div class="cr-meter dti-meter"><div class="cr-meter-fill ' + cls(r) + '" style="width:' + w + '%"></div><i style="left:' + (20 / 60 * 100) + '%"></i><i style="left:' + (36 / 60 * 100) + '%"></i><i style="left:' + (43 / 60 * 100) + '%"></i><i style="left:' + (50 / 60 * 100) + '%"></i></div>' +
+    '<div class="cr-meter-l"><span style="left:' + (20 / 60 * 100) + '%">20%</span><span style="left:' + (36 / 60 * 100) + '%">36%</span><span style="left:' + (43 / 60 * 100) + '%">43%</span><span style="left:' + (50 / 60 * 100) + '%">50%</span></div>';
+}
+function snapshot(){
+  var box = $('dSnap'); if (!box) return;
+  var C = calc();
+  if (STEPS[cur].income){
+    if (!(C.I > 0)){ box.innerHTML = ''; return; }
+    var rows = incomeRows();
+    box.innerHTML = '<div class="cr-snap"><div class="cr-snap-t">Your Gross Monthly Income</div><div class="cr-big good">' + money(C.I) + '</div><div class="cr-big-l">per month before taxes' + (rows.length > 1 ? ' from ' + rows.length + ' sources' : '') + ' &middot; ' + money(C.I * 12) + ' a year</div><p>This is the number lenders divide your payments into.</p></div>';
+    return;
+  }
+  if (STEPS[cur].debts){
+    if (!(C.I > 0)) { box.innerHTML = ''; return; }
+    if (A.noDebt){ box.innerHTML = '<div class="cr-snap"><div class="cr-snap-t">No Debt Payments</div><div class="cr-big good">' + p1(C.back) + '%</div><div class="cr-big-l">' + (C.H > 0 ? 'Your DTI is just your housing payment.' : 'You have no monthly debt or housing payments.') + '</div><p>That\'s rare, and it gives you real freedom. Your plan shows how to protect it.</p></div>'; return; }
+    if (!C.D.length){ box.innerHTML = ''; return; }
+    var est = C.D.some(function(d){ return d.est; });
+    box.innerHTML = '<div class="cr-snap"><div class="cr-snap-t">Your DTI So Far</div><div class="cr-big ' + cls(C.back) + '">' + p1(C.back) + '%</div><div class="cr-big-l">' + money(C.total) + ' in monthly payments on ' + money(C.I) + ' of gross income &middot; ' + band(C.back) + '</div>' + meter(C.back) +
+      '<p class="cr-snap-msg">' + (C.back < 0.36 ? 'You\'re under <b>36%</b>, the line most lenders like to see.' : C.back < 0.43 ? 'You\'re over 36%. Cutting <b>' + money(up5(C.total - 0.36 * C.I)) + '</b> a month in payments brings you back to 36%.' : 'You\'re over 43%. Cutting <b>' + money(up5(C.total - 0.43 * C.I)) + '</b> a month brings you to 43%, and <b>' + money(up5(C.total - 0.36 * C.I)) + '</b> brings you to 36%.') + '</p>' +
+      (est ? '<p class="cr-hint" style="margin-top:10px;text-align:center">Includes an estimated student loan payment of 0.5% of the balance.</p>' : '') + '</div>';
+  }
+}
+function wire(){
+  var qc = $('questionContainer');
+  Array.prototype.forEach.call(qc.querySelectorAll('.option'), function(el){
+    function pick(){
+      var f = el.getAttribute('data-f'), v = el.getAttribute('data-v'), had = A[f];
+      A[f] = v;
+      var y = window.scrollY; render(true); window.scrollTo(0, y);
+      if (f === 'housing' && v !== had){ var t = v === 'rent' ? $('dRent') : v === 'own' ? $('dMort') : null; if (t) t.focus(); }
+    }
+    el.addEventListener('click', pick);
+    el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); } });
+  });
+  Array.prototype.forEach.call(qc.querySelectorAll('[data-a]'), function(inp){
+    inp.addEventListener('input', function(){ inp.value = inp.value.replace(/[^0-9.,]/g, ''); A[inp.getAttribute('data-a')] = inp.value; refresh(); });
+  });
+  Array.prototype.forEach.call(qc.querySelectorAll('.dti-x'), function(inp){
+    var ev = inp.tagName === 'SELECT' ? 'change' : 'input';
+    inp.addEventListener(ev, function(){
+      var row = inp.closest('.dti-row'), i = +row.getAttribute('data-i'), k = inp.getAttribute('data-k');
+      var list = row.classList.contains('dti-irow') ? inc : debts;
+      if (k === 'a' || k === 'p' || k === 'b') inp.value = inp.value.replace(/[^0-9.,]/g, '');
+      list[i][k] = inp.value;
+      if (k === 't'){ var nm = row.querySelector('[data-k="n"]'); if (nm) nm.placeholder = tname(inp.value); }
+      refresh();
+    });
+  });
+  Array.prototype.forEach.call(qc.querySelectorAll('.cr-del'), function(b){
+    b.addEventListener('click', function(){ var list = b.closest('.dti-row').classList.contains('dti-irow') ? inc : debts; list.splice(+b.getAttribute('data-del'), 1); render(true); });
+  });
+  if ($('dAddI')) $('dAddI').addEventListener('click', function(){ inc.push({n: '', a: '', f: ''}); render(true); var r = qc.querySelectorAll('.dti-irow'); r[r.length - 1].querySelector('[data-k="a"]').focus(); });
+  if ($('dAddD')) $('dAddD').addEventListener('click', function(){ debts.push({t: 'card', n: '', p: '', b: ''}); render(true); var r = qc.querySelectorAll('.dti-drow'); r[r.length - 1].querySelector('[data-k="p"]').focus(); });
+  if ($('dNo')) $('dNo').addEventListener('change', function(){ A.noDebt = this.checked; render(true); });
+}
+
+/* ---------- plan ---------- */
+function plan(){
+  var C = calc(), I = C.I, now = [], soon = [], later = [], avoid = [];
+  var cards = C.D.filter(function(d){ return d.t === 'card'; }), autos = C.D.filter(function(d){ return d.t === 'auto'; });
+  var ranked = C.D.filter(function(d){ return d.b != null && d.b > 0 && d.t !== 'support'; }).map(function(d){ return {d: d, per: d.p / d.b * 1000}; }).sort(function(a, b){ return b.per - a.per; });
+  var home = A.goal === 'home', high = C.back >= 0.43, mid = C.back >= 0.36 && !high;
+  var to36 = Math.max(0, up5(C.total - 0.36 * I)), to43 = Math.max(0, up5(C.total - 0.43 * I));
+
+  // NOW
+  if (C.back >= 0.36 || A.goal === 'payoff' || A.goal === 'consol') now.push({t: 'Freeze new monthly payments', d: 'Every new payment raises your DTI the day it starts. For now, say no to new financing: no new car loan, no store financing, no buy now, pay later. ' + (high ? 'At ' + p1(C.back) + '%, you need every dollar of room you have.' : 'Protect the room you have.'), l: './tools.html#budget', lt: 'Find the room in your budget'});
+  if (ranked.length){
+    var top = ranked.slice(0, 3).map(function(r){ return r.d.name + ' (' + money(r.d.b) + ' left, frees ' + money(r.d.p) + ' a month)'; });
+    now.push({t: 'Target the debt that lowers your DTI fastest', d: 'Your DTI counts payments, not balances. So the fastest way to lower it is to pay off the debt with the biggest payment compared to what\'s left on it. Your order: ' + top.join('; ') + '. ' + (to36 > 0 ? 'You need to free up ' + money(to36) + ' a month to reach 36%.' : 'You\'re already under 36%, so this is about building more room.'), l: './tools.html#debt', lt: 'Map it in the free debt payoff planner', big: true});
+  } else if (C.D.length){
+    now.push({t: 'Find the debt that lowers your DTI fastest', d: 'Your DTI counts payments, not balances. Look up the balance on each debt and compare it to the payment. The one with the biggest payment and the smallest balance is your fastest win, because paying it off removes the whole payment from your DTI. Run this calculator again with your balances and it\'ll rank them for you.', l: './tools.html#debt', lt: 'Use the free debt payoff planner', big: true});
+  }
+  if (A.cushion === '0' || A.cushion === '1') now.push({t: 'Build a $1,000 starter cushion first', d: 'Without a cushion, the next car repair or medical bill goes on a card and your DTI climbs right back up. Set aside a small amount every payday until you reach $1,000, then put everything extra toward debt.', l: './tools.html#ef', lt: 'Plan it in the emergency fund builder'});
+  if (C.front > 0.31 && C.H > 0) now.push({t: 'Take a hard look at your housing cost', d: 'Housing alone takes ' + p1(C.front) + '% of your gross income. Many lenders want housing under 28% to 31%. ' + (A.housing === 'rent' ? 'At your next lease renewal, compare a less expensive place, a roommate, or negotiating the rent. ' : 'Check whether you can lower your payment by shopping your homeowners insurance, appealing your property tax assessment, or refinancing if rates have dropped below yours. ') + 'Housing is the one bill that can change your DTI by hundreds of dollars at once.', l: './tools.html#budget', lt: 'Run your numbers in the budget snapshot'});
+  if (cards.length) now.push({t: 'Pay more than the minimum on your cards', d: 'Card minimums shrink as your balance shrinks, so every extra dollar lowers your DTI a little each month. Put your extra money on one card at a time and keep paying at least the minimum on the rest.', l: './credit-score-action-plan.html', lt: 'Get your free Credit Score Action Plan'});
+  now.push({t: 'Write your number down', d: 'Your DTI today is ' + p1(C.back) + '%. Put it somewhere you\'ll see it. People who track a number tend to move it.', l: './money-tracker.html', lt: 'Start the free 30-Day Money Tracker'});
+
+  // NEXT 90 DAYS
+  if (ranked.length) soon.push({t: 'Knock out your first target completely', d: 'Paying off ' + ranked[0].d.name + ' removes ' + money(ranked[0].d.p) + ' from your monthly payments and drops your DTI by about ' + p1(ranked[0].d.p / I) + ' points. Then roll that ' + money(ranked[0].d.p) + ' into the next debt on your list.', l: './tools.html#debt', lt: 'Use the free debt payoff planner'});
+  if (autos.some(function(a){ return a.p / I >= 0.1; })) soon.push({t: 'Look hard at your car payment', d: 'Your car payment takes ' + p1(autos.reduce(function(s, a){ return Math.max(s, a.p); }, 0) / I) + '% of your gross income on its own. If your credit has improved since you got the loan, ask a credit union about refinancing at a lower rate. Be careful with stretching the term: a lower payment over more years can cost you more in total interest.', l: './credit-score-action-plan.html', lt: 'Improve your credit first'});
+  if (A.goal === 'consol') soon.push({t: 'Run the numbers before you consolidate', d: 'A consolidation loan can lower your payment and your DTI, but only if the rate is lower and you don\'t run the cards back up. Compare the total cost, not just the monthly payment, and close the door on new card balances while you pay it down.', l: './tools.html#debt', lt: 'Compare it in the debt payoff planner'});
+  if (C.back >= 0.36 || A.trend === 'down') soon.push({t: 'Grow the other side of the ratio', d: 'Raising your income lowers your DTI too. ' + (to36 > 0 ? 'At your current payments, about ' + money(up5(C.total / 0.36 - I)) + ' more in gross monthly income would bring you to 36%. ' : '') + 'Ask about a raise, overtime, or a certification that pays more. For a mortgage, lenders usually want about two years of history before they count side or self-employment income, so start early.', l: './courses.html', lt: 'Build your skills with RSM programs'});
+  if (A.trend === 'var') soon.push({t: 'Budget on your lowest month, not your best', d: 'Your income changes month to month, so plan your bills around a low month and treat anything above it as bonus money for debt and savings. Lenders usually average variable income over the last two years, so your DTI to them may differ from what you see here.', l: './tools.html#budget', lt: 'Build your budget snapshot'});
+
+  // 6 TO 12 MONTHS
+  if (home){
+    later.push({t: 'Get preapproved, then shop at least three lenders', d: 'When your DTI is where you want it, get preapproved so you know your real limit. Compare at least three lenders within about 14 days; scoring models count multiple mortgage inquiries in a short window as one. Then don\'t open any new credit or finance anything until after closing, because lenders check again right before the loan closes.', l: './discovery-intake.html', lt: 'Talk it through on a free discovery call'});
+  }
+  if (A.cushion !== '6') later.push({t: 'Grow your cushion to three months', d: 'After your starter fund and your first payoff, build toward three months of expenses. It\'s what keeps a job change or a surprise from pushing your DTI back up.', l: './tools.html#ef', lt: 'Use the emergency fund builder'});
+  later.push({t: 'Set your personal ceiling at 36%', d: 'Lenders may approve you above 36%, but approval isn\'t the same as comfort. Decide now that new payments only happen if your DTI stays under 36% afterward.', l: './debt-to-income-calculator.html', lt: 'Check any new payment here first'});
+  later.push({t: 'Check your DTI every 90 days', d: 'Come back with your new payments and income every three months. Watching it drop is what keeps you going.', l: './debt-to-income-calculator.html', lt: 'Bookmark this calculator'});
+
+  // AVOID
+  if (home) avoid.push(['Don\'t take on a car, furniture, or other loan before you buy', 'A new payment can push your DTI over a lender\'s limit and cost you the approval, even after you\'re preapproved.']);
+  avoid.push(['Don\'t stretch a loan longer just to shrink the payment', 'A longer term lowers your DTI but usually raises the total interest you pay. Know the total cost before you sign.']);
+  avoid.push(['Don\'t co-sign for anyone right now', 'A co-signed loan counts as your debt. Its payment goes right into your DTI.']);
+  avoid.push(['Don\'t consolidate and then run the cards back up', 'That\'s how people end up with the loan payment and the card payments, and a higher DTI than when they started.']);
+  avoid.push(['Don\'t leave debts off a loan application', 'Lenders pull your credit report and see your debts anyway. Leaving one off can sink your application.']);
+
+  return {C: C, ranked: ranked, now: now, soon: soon, later: later, avoid: avoid, to36: to36, to43: to43};
+}
+function lender(C){
+  var f = C.front, b = C.back, rows = [];
+  rows.push(['Conventional', 'Up to 36% total is standard. Up to 45% with strong credit and savings. Up to 50% with automated approval.', b <= 0.36 ? ['good', 'Meets the standard'] : b <= 0.45 ? ['warn', 'Possible with strong credit and savings'] : b <= 0.5 ? ['warn', 'Possible with automated approval'] : ['bad', 'Above the usual maximum']]);
+  rows.push(['FHA', '31% housing and 43% total is the standard. Higher is possible with automated approval or strong factors.', b <= 0.43 && f <= 0.31 ? ['good', 'Meets the standard'] : b <= 0.5 ? ['warn', 'May qualify with strong factors'] : ['bad', 'Hard to qualify']]);
+  rows.push(['VA', '41% total is the benchmark. Lenders also look at your leftover monthly income.', b <= 0.41 ? ['good', 'Meets the benchmark'] : ['warn', 'Possible, with a closer look at leftover income']]);
+  rows.push(['USDA', '29% housing and 41% total. Up to 32% and 44% with a waiver.', b <= 0.41 && f <= 0.29 ? ['good', 'Meets the standard'] : b <= 0.44 && f <= 0.32 ? ['warn', 'May qualify with a waiver'] : ['bad', 'Above the usual limit']]);
+  return rows;
+}
+
+/* ---------- results ---------- */
+var P = null;
+function show(lead){
+  P = plan();
+  var C = P.C, I = C.I;
+  $('quizSection').style.display = 'none'; $('resultsSection').style.display = 'block'; window.scrollTo(0, 0);
+  var per100 = Math.round(C.back * 100);
+  var h = '<div class="results-score-label">Your Debt-to-Income Ratio</div><div class="results-score dti-score ' + cls(C.back) + '">' + p1(C.back) + '<span class="results-score-max">%</span></div><div class="results-type">' + band(C.back) + '</div>';
+  h += '<div class="dti-hero-meter">' + meter(C.back) + '</div>';
+  h += '<p class="results-tagline">' + (C.total > 0 ? 'Out of every $100 you earn before taxes, about <b style="color:#E8B84B">$' + per100 + '</b> is already promised to housing and debt payments.' : 'You have no housing or debt payments counted against your income. That\'s real freedom.') + ' ' +
+    (C.back < 0.2 ? 'That\'s excellent. You have room to save and invest aggressively.' : C.back < 0.36 ? 'That\'s healthy, and right where lenders like to see it.' : C.back < 0.43 ? 'That\'s stretched. You can likely still borrow, but there\'s not much room for surprises.' : C.back < 0.5 ? 'That\'s high. Many lenders will say no, and every month feels tight. Your plan below shows exactly how to bring it down.' : 'That\'s the danger zone. Most lenders will say no, and one surprise can turn into new debt. Your plan below starts with the fastest wins.') + '</p>';
+  $('resultsHero').innerHTML = h;
+
+  var b = '';
+  // two numbers
+  b += '<div class="results-section"><div class="results-section-title">Your Two Numbers</div><h3>Front-End and Back-End DTI</h3><p>Lenders look at two ratios. Your front-end ratio is housing only. Your back-end ratio is housing plus every other debt payment, and it\'s the one most people mean when they say DTI.</p>' +
+    '<div class="cr-targets"><div><b class="' + (C.front <= 0.28 ? 'good' : C.front <= 0.31 ? 'warn' : 'bad') + '">' + p1(C.front) + '%</b><span>Front-end: housing, ' + money(C.H) + ' a month</span></div><div><b class="' + cls(C.back) + '">' + p1(C.back) + '%</b><span>Back-end: all payments, ' + money(C.total) + ' a month</span></div></div>' +
+    '<p style="margin-top:16px">A common guideline is to keep housing under 28% and all payments under 36% of your gross income.</p></div>';
+
+  // breakdown
+  var rows = [];
+  if (C.H > 0) rows.push([A.housing === 'rent' ? 'Rent' : A.housing === 'own' ? 'Mortgage' + (num(A.hoa) > 0 ? ' and HOA' : '') : 'HOA dues', C.H]);
+  C.D.slice().sort(function(a, c){ return c.p - a.p; }).forEach(function(d){ rows.push([d.name + (d.est ? ' (estimated)' : ''), d.p]); });
+  b += '<div class="results-section"><div class="results-section-title">Where Your Income Goes</div><h3>' + money(C.total) + ' of ' + money(I) + ' a Month</h3><div class="dti-table"><div class="dti-tr dti-th"><span>Payment</span><span>Monthly</span><span>Share of income</span></div>' +
+    rows.map(function(r){ var s = r[1] / I; return '<div class="dti-tr"><span>' + esc(r[0]) + '</span><span>' + money(r[1]) + '</span><span><i class="dti-bar"><i style="width:' + Math.min(100, Math.max(2, s / 0.5 * 100)) + '%"></i></i>' + p1(s) + '%</span></div>'; }).join('') +
+    '<div class="dti-tr dti-tot"><span>Total</span><span>' + money(C.total) + '</span><span>' + p1(C.back) + '%</span></div></div>' +
+    '<p style="margin-top:16px">That\'s <b style="color:#E8B84B">' + money(C.total * 12) + ' a year</b> going to housing and debt before taxes, food, gas, or savings. ' + (C.other > 0 ? 'Debt payments alone are ' + money(C.other * 12) + ' a year.' : '') + '</p></div>';
+
+  // what it takes
+  b += '<div class="results-section"><div class="results-section-title">What It Would Take</div><h3>' + (P.to36 > 0 ? 'Your Path Back to 36%' : 'You\'re at or Under 36%') + '</h3>';
+  if (P.to36 > 0){
+    b += '<div class="cr-targets"><div><b>' + (P.to43 > 0 ? money(P.to43) + '/mo' : 'Under 43%') + '</b><span>' + (P.to43 > 0 ? 'less in payments to reach 43%' : 'you\'re already below 43%') + '</span></div><div><b>' + money(P.to36) + '/mo</b><span>less in payments to reach 36%</span></div></div>' +
+      '<p style="margin-top:16px">Or, without changing your payments, about <b style="color:#E8B84B">' + money(up5(C.total / 0.36 - I)) + '</b> more in gross monthly income would bring you to 36%. Most people do a little of both.</p></div>';
+  } else {
+    var room = Math.max(0, dn5(0.36 * I - C.total));
+    b += '<p>You have about <b style="color:#E8B84B">' + money(room) + '</b> a month of room before you\'d reach 36%. That\'s room to breathe, not room to borrow. Use it to save, invest, and pay debts off early.</p></div>';
+  }
+
+  // fastest wins
+  if (P.ranked.length){
+    b += '<div class="results-section"><div class="results-section-title">Your Fastest Wins</div><h3>Which Debt to Pay Off First</h3><p>Paying off a debt removes its entire payment from your DTI. The best targets have a big payment and a small balance left.</p><div class="dti-table"><div class="dti-tr dti-tr4 dti-th"><span>Debt</span><span>Balance</span><span>Frees up</span><span>New DTI</span></div>' +
+      P.ranked.slice(0, 5).map(function(r){ return '<div class="dti-tr dti-tr4"><span>' + esc(r.d.name) + '</span><span>' + money(r.d.b) + '</span><span>' + money(r.d.p) + '/mo</span><span class="' + cls((C.total - r.d.p) / I) + '">' + p1((C.total - r.d.p) / I) + '%</span></div>'; }).join('') + '</div>' +
+      '<p style="margin-top:16px">Start with <b style="color:#E8B84B">' + esc(P.ranked[0].d.name) + '</b>: paying off ' + money(P.ranked[0].d.b) + ' frees up ' + money(P.ranked[0].d.p) + ' every month for good. Some loan programs don\'t count an installment loan with 10 or fewer payments left, so ask your lender if one of yours is close.</p></div>';
+  }
+
+  // lenders
+  b += '<div class="results-section"><div class="results-section-title">' + (A.goal === 'home' ? 'Your Mortgage Picture' : 'How a Lender Sees You') + '</div><h3>Where You Stand With Common Home Loans</h3><p>These are the general guidelines for the most common mortgage types. Every lender and situation is different, and your credit score, savings, and the loan itself all matter too.</p><div class="dti-table"><div class="dti-tr dti-tr3 dti-th"><span>Loan</span><span>General guideline</span><span>You at ' + p1(C.back) + '%</span></div>' +
+    lender(C).map(function(r){ return '<div class="dti-tr dti-tr3"><span>' + r[0] + '</span><span>' + r[1] + '</span><span class="' + r[2][0] + '">' + r[2][1] + '</span></div>'; }).join('') + '</div>' +
+    (A.housing === 'rent' || A.housing === 'none' ? '<p style="margin-top:16px">When you buy, lenders use your new house payment, not your rent, so see what payment fits below.</p>' : '') + '</div>';
+
+  // home budget
+  if (A.goal === 'home' || A.housing === 'rent' || A.housing === 'none'){
+    var comfy = Math.max(0, Math.min(0.28 * I, 0.36 * I - C.other)), maxp = Math.max(0, 0.43 * I - C.other);
+    b += '<div class="results-section"><div class="results-section-title">Home Buying</div><h3>The House Payment That Fits Your Income</h3><div class="cr-targets"><div><b>' + money(dn5(comfy)) + '/mo</b><span>Comfortable: 28% housing and 36% total</span></div><div><b>' + money(dn5(maxp)) + '/mo</b><span>Stretch: about the most at 43% total</span></div></div>' +
+      '<p style="margin-top:16px">A house payment includes principal, interest, property taxes, homeowners insurance, and any HOA or mortgage insurance. ' + (C.other > 0 ? 'Every dollar of other debt you pay off adds a dollar to the house payment you can fit. ' : '') + (maxp <= 0 ? 'Right now your other debts already take 43% of your income, so lowering them comes first.' : 'Aim for the comfortable number. The stretch number is what you might be approved for, not what feels good to pay.') + '</p></div>';
+  }
+
+  function list(items, start){ return items.map(function(s, i){ return '<div class="next-step' + (s.big ? ' cr-big-step' : '') + '"><div class="step-num">' + (start + i) + '</div><div class="step-content"><div class="step-title">' + esc(s.t) + '</div><div class="step-desc">' + esc(s.d) + '</div><a class="step-link" href="' + s.l + '"' + (/^https?:/.test(s.l) ? ' target="_blank" rel="noopener"' : '') + '>' + esc(s.lt) + ' &rarr;</a></div></div>'; }).join(''); }
+  var n = 1;
+  b += '<div class="results-section"><div class="results-section-title">Your Action Plan, ' + esc(lead.name) + '</div><h3>Do These This Month</h3><div class="next-steps">' + list(P.now, n) + '</div>'; n += P.now.length;
+  if (P.soon.length){ b += '<h3 class="cr-h3">Then, Over the Next 90 Days</h3><div class="next-steps">' + list(P.soon, n) + '</div>'; n += P.soon.length; }
+  b += '<h3 class="cr-h3">Over the Next 6 to 12 Months</h3><div class="next-steps">' + list(P.later, n) + '</div></div>';
+  b += '<div class="results-section"><div class="results-section-title">Just as Important</div><h3>What Not to Do</h3><ul class="beliefs-list">' + P.avoid.map(function(a){ return '<li><span class="belief-icon cr-x">&#10005;</span><div class="belief-text"><strong>' + esc(a[0]) + '</strong>' + esc(a[1]) + '</div></li>'; }).join('') + '</ul></div>';
+
+  b += '<div class="results-section" id="leadBox"><div class="results-section-title">Keep Your Plan</div><h3>Save It, Print It, Follow It</h3><p>Print this page or save it as a PDF so you can check off each step. A copy is on its way to your inbox too.</p><div class="cta-buttons" style="justify-content:flex-start;margin-top:12px"><button type="button" class="btn-cta-gold" id="dPrint" style="border:none;cursor:pointer">Print or Save as PDF</button><a class="btn-cta-outline" href="./RSM_Financial_Foundation_Checklist.pdf" target="_blank" download>Free Financial Foundation Checklist</a></div>' +
+    '<div class="rsm-bonus" style="margin-top:22px;padding:18px 20px;border:1px solid rgba(201,148,26,0.5);border-left:4px solid #C9941A;background:rgba(201,148,26,0.08);border-radius:2px;"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;font-weight:700;margin-bottom:6px;">Included With the Book</div><p style="margin:0 0 14px;color:rgba(255,255,255,0.85);font-size:15px;line-height:1.6;">Your debt follows your habits, and your habits follow your mindset. Readers of <b>Creating A Wealth Building Mindset 2nd Edition</b> also get the <b>Wealth Building Mindset Starter Kit</b>, the <b>Budget Snapshot Worksheet</b>, and the <b>Money Script Workbook</b>.</p><a href="./book.html" style="display:inline-block;background:#C9941A;color:#0D1F3C;font-weight:700;text-decoration:none;padding:12px 18px;border-radius:2px;margin:0 10px 8px 0;font-size:14px;">Get the Book</a><a href="./reader-resources.html" style="display:inline-block;color:#E8B84B;font-weight:700;text-decoration:none;padding:12px 0;font-size:14px;">Already have it? Claim your reader resources &rarr;</a></div></div>';
+  b += '<div class="results-cta"><h3>Want Someone in Your Corner <em>While You Do It?</em></h3><p>Knowing your number is step one. Bringing it down month after month is where most people fall off. The RSM Accountability Program gives you a written plan, weekly check-ins, and someone who notices when you slip.</p><div class="cta-buttons"><a class="btn-cta-gold" href="./level1.html">See Level 1</a><a class="btn-cta-outline" href="./discovery-intake.html">Book a Free Discovery Call</a></div></div>';
+  b += '<div style="text-align:center;margin-top:24px" class="cr-noprint"><button class="btn-retake" onclick="retakeQuiz()">Update My Numbers</button> <a class="btn-retake" style="text-decoration:none;display:inline-block;margin-left:8px" href="./quizzes.html">Take a Free Assessment</a></div>';
+  b += '<p style="font-size:12px;color:rgba(255,255,255,0.35);text-align:center;margin-top:24px;line-height:1.6">This calculator is for educational purposes only and isn\'t a loan approval, a credit decision, or financial or legal advice. Loan guidelines shown are general and change over time; each lender sets its own limits and may calculate your income and debts differently. Right Side of Money never asks for your Social Security number or account numbers.</p>';
+  $('resultsBody').innerHTML = b;
+  $('dPrint').addEventListener('click', function(){ window.print(); });
+  sendLead(lead);
+}
+
+function sendLead(lead){
+  if (lead.bot) return;
+  var C = P.C;
+  var res = p1(C.back) + '% (' + band(C.back) + ')';
+  var fd = new FormData();
+  fd.append('name', lead.name); fd.append('email', lead.email); fd.append('_replyto', lead.email);
+  fd.append('_subject', 'Quiz Lead | ' + TITLE + ' | ' + lead.name + ' | ' + res);
+  fd.append('quiz', TITLE); fd.append('result', res); fd.append('goal', label('goal'));
+  fd.append('income', money(C.I) + ' gross per month');
+  fd.append('housing', (label('housing') || '') + ', ' + money(C.H) + ' per month (front-end ' + p1(C.front) + '%)');
+  fd.append('debts', C.D.length ? C.D.map(function(d){ return d.name + ': ' + money(d.p) + '/mo' + (d.b != null ? ', ' + money(d.b) + ' balance' : '') + (d.est ? ' (estimated)' : ''); }).join('\n') : 'None');
+  fd.append('situation', 'Emergency savings: ' + label('cushion') + '\nIncome: ' + label('trend'));
+  fd.append('email_opt_in', lead.opt ? 'Yes' : 'No');
+  rsmPost(FORM, fd);
+  var steps = P.now.concat(P.soon).concat(P.later).slice(0, 8);
+  rsmResultEmail({name: lead.name, email: lead.email, quiz: TITLE, result: band(C.back), score: p1(C.back) + '%',
+    tagline: 'Your monthly payments total ' + money(C.total) + ' on ' + money(C.I) + ' of gross monthly income. ' + (P.to36 > 0 ? 'Cutting ' + money(P.to36) + ' a month in payments brings you to 36%.' : 'You\'re under 36%. Protect that room.'),
+    breakdown: [['Front-end (housing)', p1(C.front)], ['Back-end (all payments)', p1(C.back)]], steps: steps, guides: [{f: 'RSM_Financial_Foundation_Checklist.pdf', t: 'The RSM Financial Foundation Checklist'}]});
+  if (lead.opt) rsmKit(lead.name, lead.email);
+}
+
+/* ---------- navigation ---------- */
+window.startQuiz = function(){ $('startSection').style.display = 'none'; $('quizSection').style.display = 'block'; window.scrollTo(0, 0); render(); };
+window.nextQuestion = function(){
+  if (!stepDone(cur)){ var w = $('dWhy'); if (w) w.textContent = why(cur); return; }
+  if (cur < STEPS.length - 1){ cur++; render(); window.scrollTo(0, 0); }
+  else rsmGate(function(lead){ show(lead); }, function(){ render(); });
+};
+window.prevQuestion = function(){ if (cur > 0){ cur--; render(); window.scrollTo(0, 0); } };
+window.retakeQuiz = function(){ cur = 0; $('resultsSection').style.display = 'none'; $('quizSection').style.display = 'block'; render(); window.scrollTo(0, 0); };
+})();
+</script>
+<!-- RSM-LEGAL --><div class="rsm-legal" style="background:#081426;border-top:1px solid rgba(201,148,26,0.25);padding:18px 16px;text-align:center;font-family:'DM Sans',Arial,sans-serif;font-size:13px;line-height:2;color:rgba(255,255,255,0.78);"><span style="white-space:nowrap">&copy; 2026 Right Side of Money</span><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Privacy Policy</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./privacy.html#disclaimer" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Educational Disclaimer</a><span aria-hidden="true"> &nbsp;&middot;&nbsp; </span><a href="./contact.html" style="color:#E8B84B;text-decoration:none;white-space:nowrap;">Contact</a></div><!-- /RSM-LEGAL -->
+</body>
+</html>
