@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Author Intake Questionnaire | Right Side of Money</title>
+<meta name="description" content="Author Intake Questionnaire for Right Side of Money Author Publishing Services.">
+<link rel="icon" href="rsm-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1F3C;
+    --navy-2: #142a4f;
+    --navy-3: #1c3763;
+    --gold: #C9941A;
+    --gold-lt: #E8B84B;
+    --cream: #FAF7F0;
+    --white: #ffffff;
+    --ink: #1a2333;
+    --muted: #5b6577;
+    --line: #e3dccb;
+    --error: #b42318;
+    --ok: #1f7a4d;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'DM Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+
+  /* Header */
+  .site-header {
+    background: var(--navy);
+    border-bottom: 3px solid var(--gold);
+  }
+  .header-inner {
+    max-width: 960px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+  .brand img { width: 48px; height: 48px; object-fit: contain; flex-shrink: 0; }
+  .brand-text { display: flex; flex-direction: column; min-width: 0; }
+  .brand-name { font-family: 'Bebas Neue', sans-serif; color: var(--white); font-size: 1.45rem; letter-spacing: 1.5px; line-height: 1; }
+  .brand-tag { color: var(--gold-lt); font-size: .7rem; letter-spacing: 1.6px; text-transform: uppercase; margin-top: 4px; }
+  .header-badge {
+    font-family: 'Bebas Neue', sans-serif; color: var(--navy); background: var(--gold-lt);
+    padding: 6px 12px; border-radius: 999px; letter-spacing: 1px; font-size: .95rem; white-space: nowrap;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-3) 100%);
+    color: var(--white); padding: 52px 20px 88px; text-align: center;
+  }
+  .eyebrow { font-family: 'Bebas Neue', sans-serif; color: var(--gold-lt); letter-spacing: 3px; font-size: 1.05rem; margin: 0 0 10px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.1rem); margin: 0 0 16px; line-height: 1.12; }
+  .hero h1 em { color: var(--gold-lt); font-style: italic; }
+  .hero p { max-width: 640px; margin: 0 auto; color: #d7deea; font-size: 1.05rem; }
+  .hero-points { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin: 24px auto 0; padding: 0; list-style: none; max-width: 720px; }
+  .hero-points li { color: var(--white); font-size: .95rem; display: flex; align-items: center; gap: 8px; }
+  .hero-points li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold-lt); flex-shrink: 0; }
+
+  /* Layout */
+  main { max-width: 820px; margin: -56px auto 0; padding: 0 16px 64px; position: relative; }
+
+  /* Progress */
+  .progress-wrap {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 18px; box-shadow: 0 8px 24px rgba(13,31,60,.08); margin-bottom: 20px;
+  }
+  .progress-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .progress-label { font-weight: 600; color: var(--navy); font-size: .92rem; }
+  .progress-count { color: var(--muted); font-size: .85rem; }
+  .progress-bar { height: 8px; background: #efe9da; border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); transition: width .3s ease; }
+  .saved-note { color: var(--muted); font-size: .78rem; margin-top: 8px; min-height: 1em; }
+
+  /* Cards */
+  .card {
+    background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px 24px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(13,31,60,.04);
+  }
+  .card-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--navy);
+    background: var(--gold-lt); width: 42px; height: 42px; border-radius: 50%;
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .card h2 { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1.5rem; margin: 0; line-height: 1.2; }
+  .card-sub { color: var(--muted); margin: 4px 0 20px; font-size: .95rem; }
+
+  /* Fields */
+  .field { margin-bottom: 22px; }
+  .field:last-child { margin-bottom: 0; }
+  .q-label { display: block; font-weight: 600; color: var(--navy); margin-bottom: 4px; font-size: 1rem; }
+  .q-num { color: var(--gold); font-weight: 700; margin-right: 4px; }
+  .req { color: var(--error); margin-left: 2px; }
+  .help { display: block; color: var(--muted); font-size: .87rem; margin-bottom: 8px; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink);
+    background: #fffdf8; border: 1.5px solid #d9d1bd; border-radius: 10px; padding: 12px 14px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,148,26,.2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sub-label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+
+  .choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .choice {
+    display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+    border: 1.5px solid #d9d1bd; background: #fffdf8; border-radius: 10px; padding: 12px 14px;
+    transition: border-color .15s, background .15s; font-size: .97rem;
+  }
+  .choice:hover { border-color: var(--gold); }
+  .choice input { margin: 3px 0 0; accent-color: var(--gold); width: 18px; height: 18px; flex-shrink: 0; }
+  .choice:has(input:checked) { border-color: var(--gold); background: #fdf5e2; }
+  .other-input { margin-top: 10px; }
+
+  .field.invalid input[required]:not([type=radio]):not([type=checkbox]),
+  .field.invalid textarea[required], .field.invalid select[required] { border-color: var(--error); }
+  .field.invalid .choice { border-color: #e7b7b2; }
+  .err-msg { display: none; color: var(--error); font-size: .86rem; margin-top: 6px; font-weight: 500; }
+  .field.invalid .err-msg { display: block; }
+
+  .counter { display: block; text-align: right; font-size: .8rem; color: var(--muted); margin-top: 4px; }
+
+  /* Ownership note */
+  .note {
+    background: var(--navy); color: #e6ebf3; border-radius: var(--radius); padding: 20px 22px; margin-bottom: 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .note strong { color: var(--gold-lt); }
+  .note-icon { font-family: 'Bebas Neue', sans-serif; color: var(--navy); background: var(--gold-lt); border-radius: 8px; padding: 2px 8px; font-size: 1rem; letter-spacing: 1px; flex-shrink: 0; margin-top: 2px; }
+  .note p { margin: 0; font-size: .95rem; }
+
+  /* Submit */
+  .submit-card { text-align: center; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; text-align: left; max-width: 600px; margin: 0 auto 20px; font-size: .95rem; }
+  .consent input { accent-color: var(--gold); width: 18px; height: 18px; margin-top: 3px; flex-shrink: 0; }
+  .btn {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 1.5px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-lt)); color: var(--navy);
+    border: 0; border-radius: 999px; padding: 15px 40px; cursor: pointer; width: 100%; max-width: 420px;
+    box-shadow: 0 8px 20px rgba(201,148,26,.3); transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(201,148,26,.4); }
+  .btn:disabled { opacity: .6; cursor: wait; transform: none; }
+  .form-status { margin-top: 14px; font-size: .95rem; min-height: 1.2em; }
+  .form-status.error { color: var(--error); font-weight: 500; }
+
+  /* Thank you */
+  .thanks { display: none; text-align: center; padding: 44px 26px; }
+  .thanks.show { display: block; }
+  .thanks .check {
+    width: 72px; height: 72px; border-radius: 50%; background: var(--gold-lt); color: var(--navy);
+    display: grid; place-items: center; margin: 0 auto 18px; font-size: 2.2rem; font-weight: 700;
+  }
+  .thanks h2 { font-size: 2rem; }
+  .thanks p { color: var(--muted); max-width: 520px; margin: 12px auto 0; }
+  .next-steps { text-align: left; max-width: 520px; margin: 22px auto 0; padding-left: 20px; color: var(--ink); }
+  .next-steps li { margin-bottom: 8px; }
+
+  .hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Footer */
+  .site-footer { background: var(--navy); color: #b9c3d4; text-align: center; padding: 28px 20px; font-size: .88rem; border-top: 3px solid var(--gold); }
+  .site-footer a { color: var(--gold-lt); text-decoration: none; }
+  .site-footer p { margin: 4px 0; }
+
+  @media (max-width: 640px) {
+    .header-badge { display: none; }
+    .hero { padding: 40px 18px 80px; }
+    .card { padding: 22px 18px; }
+    .two-col { grid-template-columns: 1fr; }
+    .choices { grid-template-columns: 1fr; }
+    .card h2 { font-size: 1.3rem; }
+    .note { flex-direction: column; gap: 10px; }
+  }
+  @media (max-width: 380px) {
+    .brand-name { font-size: 1.2rem; }
+    .brand-tag { font-size: .62rem; letter-spacing: 1.2px; }
+    .brand img { width: 40px; height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Right Side of Money home">
+      <img src="rsm-logo.png" alt="R$M logo">
+      <span class="brand-text">
+        <span class="brand-name">Right Side of Money</span>
+        <span class="brand-tag">Author Publishing Services</span>
+      </span>
+    </a>
+    <span class="header-badge">Client Intake</span>
+  </div>
+</header>
+
+<section class="hero">
+  <p class="eyebrow">Step 2 of Your Publishing Journey</p>
+  <h1>Your Book. <em>Your Story.</em> Let's Get It Published.</h1>
+  <p>Your answers shape your title, description, keywords, and cover. Don't worry about perfect wording. Just tell me what you know, and we'll sharpen it together.</p>
+  <ul class="hero-points">
+    <li>About 15 to 20 minutes</li>
+    <li>Your progress saves on this device</li>
+    <li>Due within 7 days</li>
+  </ul>
+</section>
+
+<main>
+  <div class="progress-wrap" id="progressWrap" aria-live="polite">
+    <div class="progress-top">
+      <span class="progress-label">Your progress</span>
+      <span class="progress-count" id="progressCount">0 of 25 answered</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="saved-note" id="savedNote"></div>
+  </div>
+
+  <form id="intakeForm" action="https://formspree.io/f/xwlledlv" method="POST" novalidate>
+    <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <!-- Section 1 -->
+    <section class="card" aria-labelledby="s1">
+      <div class="card-head"><span class="card-num">1</span><h2 id="s1">About You</h2></div>
+      <p class="card-sub">The person behind the book.</p>
+
+      <div class="field" data-q="1">
+        <label class="q-label" for="q1"><span class="q-num">1.</span>Your legal name<span class="req">*</span></label>
+        <span class="help">Exactly as it appears on your ID and tax forms. This must match your KDP account.</span>
+        <input type="text" id="q1" name="q1" autocomplete="name" required>
+        <span class="err-msg">Please enter your legal name.</span>
+      </div>
+
+      <div class="field" data-q="2">
+        <label class="q-label" for="q2"><span class="q-num">2.</span>Name you want on the cover<span class="req">*</span></label>
+        <span class="help">Your real name or a pen name.</span>
+        <input type="text" id="q2" name="q2" required>
+        <span class="err-msg">Please enter the name for your cover.</span>
+      </div>
+
+      <div class="field" data-q="3">
+        <span class="q-label"><span class="q-num">3.</span>Best email and phone<span class="req">*</span></span>
+        <div class="two-col">
+          <div>
+            <label class="sub-label" for="q3email">Email</label>
+            <input type="email" id="q3email" name="email" autocomplete="email" required>
+          </div>
+          <div>
+            <label class="sub-label" for="q3phone">Phone</label>
+            <input type="tel" id="q3phone" name="q3phone" autocomplete="tel" required>
+          </div>
+        </div>
+        <span class="err-msg">Please enter a valid email and a phone number.</span>
+      </div>
+
+      <div class="field" data-q="4">
+        <label class="q-label" for="q4"><span class="q-num">4.</span>Your bio in 3 to 5 sentences<span class="req">*</span></label>
+        <span class="help">Include anything that makes you credible to write this book: experience, career, life story, credentials.</span>
+        <textarea id="q4" name="q4" required></textarea>
+        <span class="err-msg">Please share a short bio.</span>
+      </div>
+
+      <div class="field" data-q="5">
+        <label class="q-label" for="q5"><span class="q-num">5.</span>Website and social media links</label>
+        <span class="help">Optional. One per line.</span>
+        <textarea id="q5" name="q5" style="min-height:80px"></textarea>
+      </div>
+
+      <div class="field" data-q="6" data-group="q6">
+        <span class="q-label"><span class="q-num">6.</span>Do you have a professional headshot?<span class="req">*</span></span>
+        <div class="choices" role="radiogroup">
+          <label class="choice"><input type="radio" name="q6" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="q6" value="No"> No</label>
+          <label class="choice"><input type="radio" name="q6" value="Need one"> I need one</label>
+        </div>
+        <span class="err-msg">Please choose one.</span>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="card" aria-labelledby="s2">
+      <div class="card-head"><span class="card-num">2</span><h2 id="s2">About the Book</h2></div>
+      <p class="card-sub">What it is, who it's for, and why it matters.</p>
+
+      <div class="field" data-q="7">
+        <span class="q-label"><span class="q-num">7.</span>Working title and subtitle<span class="req">*</span></span>
+        <div class="two-col">
+          <div>
+            <label class="sub-label" for="q7title">Title</label>
+            <input type="text" id="q7title" name="q7title" required>
+          </div>
+          <div>
+            <label class="sub-label" for="q7sub">Subtitle (if you have one)</label>
+            <input type="text" id="q7sub" name="q7sub">
+          </div>
+        </div>
+        <span class="err-msg">Please enter a working title.</span>
+      </div>
+
+      <div class="field" data-q="8" data-group="q8type">
+        <span class="q-label"><span class="q-num">8.</span>Fiction or nonfiction? What genre or subject?<span class="req">*</span></span>
+        <div class="choices" role="radiogroup">
+          <label class="choice"><input type="radio" name="q8type" value="Nonfiction" required> Nonfiction</label>
+          <label class="choice"><input type="radio" name="q8type" value="Fiction"> Fiction</label>
+          <label class="choice"><input type="radio" name="q8type" value="Memoir or personal story"> Memoir or personal story</label>
+        </div>
+        <label class="sub-label other-input" for="q8genre">Genre or subject (for example: personal finance, faith, leadership, mystery)</label>
+        <input type="text" id="q8genre" name="q8genre" required>
+        <span class="err-msg">Please choose a type and enter the genre or subject.</span>
+      </div>
+
+      <div class="field" data-q="9">
+        <label class="q-label" for="q9"><span class="q-num">9.</span>Who is this book for?<span class="req">*</span></label>
+        <span class="help">Describe your ideal reader in 2 or 3 sentences: age, life situation, what they're going through.</span>
+        <textarea id="q9" name="q9" required></textarea>
+        <span class="err-msg">Please describe your ideal reader.</span>
+      </div>
+
+      <div class="field" data-q="10">
+        <label class="q-label" for="q10"><span class="q-num">10.</span>What problem does it solve, or what will readers feel or gain?<span class="req">*</span></label>
+        <textarea id="q10" name="q10" required></textarea>
+        <span class="err-msg">Please answer this one. It drives your book description.</span>
+      </div>
+
+      <div class="field" data-q="11">
+        <label class="q-label" for="q11"><span class="q-num">11.</span>Summarize the book in one sentence<span class="req">*</span></label>
+        <input type="text" id="q11" name="q11" maxlength="300" required>
+        <span class="counter" id="q11count">0 / 300</span>
+        <span class="err-msg">Please give a one-sentence summary.</span>
+      </div>
+
+      <div class="field" data-q="12">
+        <label class="q-label" for="q12"><span class="q-num">12.</span>Name 3 books already on Amazon that are similar to yours</label>
+        <span class="help">Title and author, or paste the Amazon links. One per line. Not sure? Leave it blank and I'll research it.</span>
+        <textarea id="q12" name="q12" style="min-height:90px"></textarea>
+      </div>
+
+      <div class="field" data-q="13" data-group="q13done">
+        <span class="q-label"><span class="q-num">13.</span>Approximate word count, and is the manuscript finished?<span class="req">*</span></span>
+        <label class="sub-label" for="q13words">Approximate word count (a guess is fine)</label>
+        <input type="text" id="q13words" name="q13words" inputmode="numeric" placeholder="e.g. 45,000" required>
+        <div class="choices other-input" role="radiogroup">
+          <label class="choice"><input type="radio" name="q13done" value="Finished" required> Finished</label>
+          <label class="choice"><input type="radio" name="q13done" value="Almost finished"> Almost finished</label>
+          <label class="choice"><input type="radio" name="q13done" value="Still writing"> Still writing</label>
+        </div>
+        <span class="err-msg">Please enter a word count and choose a status.</span>
+      </div>
+
+      <div class="field" data-q="14" data-group="q14">
+        <span class="q-label"><span class="q-num">14.</span>Has it been professionally edited?<span class="req">*</span></span>
+        <div class="choices" role="radiogroup">
+          <label class="choice"><input type="radio" name="q14" value="Yes, professionally edited" required> Yes, professionally edited</label>
+          <label class="choice"><input type="radio" name="q14" value="Proofread only"> Proofread only</label>
+          <label class="choice"><input type="radio" name="q14" value="Not yet"> Not yet</label>
+        </div>
+        <span class="err-msg">Please choose one.</span>
+      </div>
+
+      <div class="field" data-q="15">
+        <label class="q-label" for="q15"><span class="q-num">15.</span>Does it include images, charts, or tables? How many?</label>
+        <input type="text" id="q15" name="q15" placeholder="e.g. No, or about 10 photos and 3 charts">
+      </div>
+
+      <div class="field" data-q="16" data-group="q16">
+        <span class="q-label"><span class="q-num">16.</span>Any quotes, song lyrics, or material written by someone else?<span class="req">*</span></span>
+        <span class="help">Song lyrics and long quotes usually need written permission before publishing.</span>
+        <div class="choices" role="radiogroup">
+          <label class="choice"><input type="radio" name="q16" value="No" required> No</label>
+          <label class="choice"><input type="radio" name="q16" value="Yes"> Yes</label>
+          <label class="choice"><input type="radio" name="q16" value="Not sure"> Not sure</label>
+        </div>
+        <textarea class="other-input" id="q16detail" name="q16detail" placeholder="If yes, briefly describe what and from whom" style="min-height:70px"></textarea>
+        <span class="err-msg">Please choose one.</span>
+      </div>
+
+      <div class="field" data-q="17" data-group="q17">
+        <span class="q-label"><span class="q-num">17.</span>Is any of it AI-generated or AI-assisted?<span class="req">*</span></span>
+        <span class="help">Amazon asks this during setup, so an honest answer protects your account.</span>
+        <div class="choices" role="radiogroup">
+          <label class="choice"><input type="radio" name="q17" value="No, all my own writing" required> No, all my own writing</label>
+          <label class="choice"><input type="radio" name="q17" value="AI-assisted (editing, brainstorming)"> AI-assisted (editing, brainstorming)</label>
+          <label class="choice"><input type="radio" name="q17" value="Some text or images AI-generated"> Some text or images AI-generated</label>
+        </div>
+        <span class="err-msg">Please choose one.</span>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="card" aria-labelledby="s3">
+      <div class="card-head"><span class="card-num">3</span><h2 id="s3">Formats and Goals</h2></div>
+      <p class="card-sub">How your book shows up in the world, and what you want it to do for you.</p>
+
+      <div class="field" data-q="18" data-group="q18" data-checkbox-required="true">
+        <span class="q-label"><span class="q-num">18.</span>Which formats do you want?<span class="req">*</span></span>
+        <span class="help">Choose all that apply.</span>
+        <div class="choices">
+          <label class="choice"><input type="checkbox" name="q18" value="Kindle ebook"> Kindle ebook</label>
+          <label class="choice"><input type="checkbox" name="q18" value="Paperback"> Paperback</label>
+          <label class="choice"><input type="checkbox" name="q18" value="Hardcover"> Hardcover</label>
+          <label class="choice"><input type="checkbox" name="q18" value="Not sure, advise me"> Not sure, advise me</label>
+        </div>
+        <span class="err-msg">Please choose at least one format.</span>
+      </div>
+
+      <div class="field" data-q="19">
+        <label class="q-label" for="q19"><span class="q-num">19.</span>Preferred paperback size</label>
+        <span class="help">6 x 9 is the most common for nonfiction.</span>
+        <select id="q19" name="q19">
+          <option value="">Choose one</option>
+          <option>6 x 9 inches</option>
+          <option>5.5 x 8.5 inches</option>
+          <option>5 x 8 inches</option>
+          <option>8.5 x 11 inches (workbooks)</option>
+          <option>Not sure, advise me</option>
+        </select>
+      </div>
+
+      <div class="field" data-q="20">
+        <label class="q-label" for="q20"><span class="q-num">20.</span>Do you have a cover already, cover ideas, or covers you love?</label>
+        <span class="help">Colors, feel, images, anything to avoid. You can paste links to covers you like.</span>
+        <textarea id="q20" name="q20"></textarea>
+      </div>
+
+      <div class="field" data-q="21" data-group="q21" data-checkbox-required="true">
+        <span class="q-label"><span class="q-num">21.</span>What's your main goal for this book?<span class="req">*</span></span>
+        <span class="help">Choose all that apply.</span>
+        <div class="choices">
+          <label class="choice"><input type="checkbox" name="q21" value="Credibility for my business"> Credibility for my business</label>
+          <label class="choice"><input type="checkbox" name="q21" value="Speaking opportunities"> Speaking opportunities</label>
+          <label class="choice"><input type="checkbox" name="q21" value="Legacy for my family"> Legacy for my family</label>
+          <label class="choice"><input type="checkbox" name="q21" value="Sales income"> Sales income</label>
+          <label class="choice"><input type="checkbox" name="q21" value="Ministry or community impact"> Ministry or community impact</label>
+          <label class="choice"><input type="checkbox" name="q21" value="Other" data-other="q21other"> Other</label>
+        </div>
+        <input type="text" class="other-input" id="q21other" name="q21other" placeholder="Tell me your other goal" hidden>
+        <span class="err-msg">Please choose at least one goal.</span>
+      </div>
+
+      <div class="field" data-q="22">
+        <label class="q-label" for="q22"><span class="q-num">22.</span>Target launch date or event?</label>
+        <span class="help">A speech, book signing, birthday, anniversary, or "as soon as it's ready."</span>
+        <input type="text" id="q22" name="q22">
+      </div>
+
+      <div class="field" data-q="23" data-group="q23">
+        <span class="q-label"><span class="q-num">23.</span>How will you promote it?</span>
+        <span class="help">Choose all that apply.</span>
+        <div class="choices">
+          <label class="choice"><input type="checkbox" name="q23" value="Email list"> Email list</label>
+          <label class="choice"><input type="checkbox" name="q23" value="Social media"> Social media</label>
+          <label class="choice"><input type="checkbox" name="q23" value="Church or faith community"> Church or faith community</label>
+          <label class="choice"><input type="checkbox" name="q23" value="Workplace or professional network"> Workplace or professional network</label>
+          <label class="choice"><input type="checkbox" name="q23" value="Events and speaking"> Events and speaking</label>
+          <label class="choice"><input type="checkbox" name="q23" value="Other" data-other="q23other"> Other</label>
+        </div>
+        <input type="text" class="other-input" id="q23other" name="q23other" placeholder="How else will you promote it?" hidden>
+      </div>
+
+      <div class="field" data-q="24" data-group="q24">
+        <span class="q-label"><span class="q-num">24.</span>ISBN: do you own one, or will you use Amazon's free ISBN?<span class="req">*</span></span>
+        <div class="choices" role="radiogroup">
+          <label class="choice"><input type="radio" name="q24" value="Use Amazon's free ISBN" required> Use Amazon's free ISBN</label>
+          <label class="choice"><input type="radio" name="q24" value="I own ISBNs from Bowker"> I own ISBNs from Bowker</label>
+          <label class="choice"><input type="radio" name="q24" value="Not sure, advise me"> Not sure, advise me</label>
+        </div>
+        <span class="err-msg">Please choose one.</span>
+      </div>
+
+      <div class="field" data-q="25">
+        <label class="q-label" for="q25"><span class="q-num">25.</span>Anything else I should know?</label>
+        <textarea id="q25" name="q25" placeholder="Deadlines, worries, dreams for this book. Nothing is too small."></textarea>
+      </div>
+    </section>
+
+    <div class="note">
+      <span class="note-icon">YOURS</span>
+      <p><strong>This is your book, start to finish.</strong> You'll publish under your own Amazon KDP account and keep 100% of your rights and royalties. Never send your password, Social Security number, or bank details through this form or by email.</p>
+    </div>
+
+    <section class="card submit-card" id="submitCard">
+      <div class="field" data-q="consent" style="margin-bottom:0">
+        <label class="consent"><input type="checkbox" id="consent" required> <span>I confirm these answers are accurate to the best of my knowledge, and that the manuscript is my own work or I have permission to use any material created by others.</span></label>
+        <span class="err-msg" style="text-align:center">Please check the box to confirm.</span>
+      </div>
+      <button type="submit" class="btn" id="submitBtn">Submit My Questionnaire</button>
+      <div class="form-status" id="formStatus" role="status"></div>
+    </section>
+  </form>
+
+  <section class="card thanks" id="thanks" tabindex="-1" aria-live="polite">
+    <div class="check">&#10003;</div>
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:0">Got It. <em style="color:var(--gold)">Thank You!</em></h2>
+    <p>Your questionnaire is in. I'll review your answers and start shaping your title, description, and keywords.</p>
+    <ol class="next-steps">
+      <li><strong>Set up your KDP account</strong> using the KDP Account Setup Guide, if you haven't yet.</li>
+      <li><strong>Upload your files</strong> to your shared folder: manuscript, headshot, and bio.</li>
+      <li><strong>Watch your email.</strong> I'll reach out within 1 business day with next steps.</li>
+    </ol>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p><a href="index.html">Right Side of Money</a> · Author Publishing Services</p>
+  <p>Questions? <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></p>
+  <p>&copy; 2026 Right Side of Money. All rights reserved. R$M&reg; is a registered trademark.</p>
+</footer>
+
+<script>
+(function () {
+  var ENDPOINT = 'https://formspree.io/f/xwlledlv';
+  var STORAGE_KEY = 'rsm_author_intake_v1';
+  var form = document.getElementById('intakeForm');
+  var submitBtn = document.getElementById('submitBtn');
+  var statusEl = document.getElementById('formStatus');
+  var savedNote = document.getElementById('savedNote');
+  var fields = Array.prototype.slice.call(form.querySelectorAll('.field[data-q]')).filter(function (f) { return f.dataset.q !== 'consent'; });
+
+  // Labels used in the email you receive from Formspree
+  var LABELS = {
+    q1: '01. Legal name', q2: '02. Name on cover', email: '03a. Email', q3phone: '03b. Phone',
+    q4: '04. Bio', q5: '05. Website and social links', q6: '06. Professional headshot',
+    q7title: '07a. Working title', q7sub: '07b. Subtitle', q8type: '08a. Book type', q8genre: '08b. Genre or subject',
+    q9: '09. Ideal reader', q10: '10. Problem solved / reader benefit', q11: '11. One-sentence summary',
+    q12: '12. Comparable books', q13words: '13a. Word count', q13done: '13b. Manuscript status',
+    q14: '14. Edited', q15: '15. Images, charts, tables', q16: '16a. Others\' material', q16detail: '16b. Others\' material details',
+    q17: '17. AI content', q18: '18. Formats', q19: '19. Paperback size', q20: '20. Cover ideas',
+    q21: '21. Main goals', q21other: '21b. Other goal', q22: '22. Target launch date or event',
+    q23: '23. Promotion plans', q23other: '23b. Other promotion', q24: '24. ISBN', q25: '25. Anything else'
+  };
+  var ORDER = Object.keys(LABELS);
+
+  function isAnswered(field) {
+    var inputs = field.querySelectorAll('input:not([type=hidden]):not([hidden]), textarea, select');
+    for (var i = 0; i < inputs.length; i++) {
+      var el = inputs[i];
+      if ((el.type === 'radio' || el.type === 'checkbox')) { if (el.checked) return true; }
+      else if (el.value.trim() !== '') return true;
+    }
+    return false;
+  }
+
+  function updateProgress() {
+    var done = fields.filter(isAnswered).length;
+    document.getElementById('progressCount').textContent = done + ' of ' + fields.length + ' answered';
+    document.getElementById('progressFill').style.width = Math.round(done / fields.length * 100) + '%';
+  }
+
+  // "Other" text boxes appear when Other is checked
+  form.querySelectorAll('input[data-other]').forEach(function (cb) {
+    var target = document.getElementById(cb.dataset.other);
+    function sync() { target.hidden = !cb.checked; if (!cb.checked) target.value = ''; }
+    cb.addEventListener('change', sync);
+    sync();
+  });
+
+  // Character counter
+  var q11 = document.getElementById('q11');
+  function countQ11() { document.getElementById('q11count').textContent = q11.value.length + ' / 300'; }
+  q11.addEventListener('input', countQ11);
+
+  // Draft saving (on this device only)
+  function collectDraft() {
+    var data = {};
+    form.querySelectorAll('input, textarea, select').forEach(function (el) {
+      if (!el.name || el.name === '_gotcha') return;
+      if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; }
+      else if (el.type === 'checkbox') { data[el.name] = data[el.name] || []; if (el.checked) data[el.name].push(el.value); }
+      else data[el.name] = el.value;
+    });
+    return data;
+  }
+  function saveDraft() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectDraft()));
+      var t = new Date();
+      savedNote.textContent = 'Draft saved on this device at ' + t.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    } catch (e) { /* storage unavailable: form still works */ }
+  }
+  function restoreDraft() {
+    var raw = null;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { return; }
+    if (!raw) return;
+    var data;
+    try { data = JSON.parse(raw); } catch (e) { return; }
+    form.querySelectorAll('input, textarea, select').forEach(function (el) {
+      if (!el.name || !(el.name in data)) return;
+      var v = data[el.name];
+      if (el.type === 'radio') el.checked = (el.value === v);
+      else if (el.type === 'checkbox') el.checked = Array.isArray(v) && v.indexOf(el.value) !== -1;
+      else el.value = v;
+    });
+    form.querySelectorAll('input[data-other]').forEach(function (cb) {
+      var target = document.getElementById(cb.dataset.other);
+      target.hidden = !cb.checked;
+      if (cb.checked && data[target.name]) target.value = data[target.name];
+    });
+    savedNote.textContent = 'Welcome back! Your saved answers have been restored.';
+  }
+
+  var saveTimer;
+  var submitted = false;
+  form.addEventListener('input', function (e) {
+    if (submitted) return;
+    var f = e.target.closest('.field');
+    if (f && f.classList.contains('invalid')) validateField(f);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveDraft, 600);
+  });
+  form.addEventListener('change', function (e) {
+    if (submitted) return;
+    var f = e.target.closest('.field');
+    if (f && f.classList.contains('invalid')) validateField(f);
+    updateProgress();
+    saveDraft();
+  });
+
+  // Validation
+  function validateField(field) {
+    var ok = true;
+    field.querySelectorAll('input[required]:not([type=radio]):not([type=checkbox]), textarea[required], select[required]').forEach(function (el) {
+      if (el.value.trim() === '') ok = false;
+      if (el.type === 'email' && el.value.trim() !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim())) ok = false;
+    });
+    var radios = field.querySelectorAll('input[type=radio][required]');
+    radios.forEach(function (r) {
+      if (!field.querySelector('input[type=radio][name="' + r.name + '"]:checked')) ok = false;
+    });
+    if (field.dataset.checkboxRequired === 'true' && !field.querySelector('input[type=checkbox]:checked')) ok = false;
+    if (field.dataset.q === 'consent' && !document.getElementById('consent').checked) ok = false;
+    field.classList.toggle('invalid', !ok);
+    return ok;
+  }
+
+  // Build an ordered, readable submission
+  function buildPayload() {
+    var draft = collectDraft();
+    var payload = {};
+    ORDER.forEach(function (key) {
+      var v = draft[key];
+      if (Array.isArray(v)) v = v.join(', ');
+      payload[LABELS[key]] = (v && String(v).trim()) ? String(v).trim() : '(not answered)';
+    });
+    var title = (draft.q7title || 'Untitled').trim();
+    var who = (draft.q1 || '').trim();
+    payload._subject = 'New Author Intake: ' + title + (who ? ' by ' + who : '');
+    payload._replyto = (draft.email || '').trim();
+    payload._gotcha = form.querySelector('[name=_gotcha]').value;
+    return payload;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    statusEl.textContent = '';
+    statusEl.className = 'form-status';
+    var allFields = Array.prototype.slice.call(form.querySelectorAll('.field[data-q]'));
+    var firstBad = null;
+    allFields.forEach(function (f) { if (!validateField(f) && !firstBad) firstBad = f; });
+    if (firstBad) {
+      statusEl.textContent = 'A few required answers are missing. They\'re highlighted in red.';
+      statusEl.className = 'form-status error';
+      var y = firstBad.getBoundingClientRect().top + window.pageYOffset - 130;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      var focusable = firstBad.querySelector('input:not([hidden]), textarea, select');
+      if (focusable) setTimeout(function () { focusable.focus({ preventScroll: true }); }, 400);
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(buildPayload())
+    }).then(function (res) {
+      if (res.ok) {
+        submitted = true;
+        clearTimeout(saveTimer);
+        try { localStorage.removeItem(STORAGE_KEY); } catch (err) {}
+        form.style.display = 'none';
+        document.getElementById('progressWrap').style.display = 'none';
+        var thanks = document.getElementById('thanks');
+        thanks.classList.add('show');
+        thanks.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        thanks.focus({ preventScroll: true });
+      } else {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          var msg = (data && data.errors && data.errors.length) ? data.errors.map(function (x) { return x.message; }).join(' ') : '';
+          throw new Error(msg || 'Submission failed');
+        });
+      }
+    }).catch(function (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit My Questionnaire';
+      statusEl.className = 'form-status error';
+      statusEl.innerHTML = 'Something went wrong sending your answers' + (err && err.message && err.message !== 'Failed to fetch' && err.message !== 'Submission failed' ? ' (' + err.message.replace(/</g, '&lt;') + ')' : '') + '. Your answers are still saved on this page. Please try again, or email <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a>.';
+    });
+  });
+
+  restoreDraft();
+  countQ11();
+  updateProgress();
+})();
+</script>
+</body>
+</html>
