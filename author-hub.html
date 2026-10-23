@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Author Client Hub | RSM Publishing Services</title>
+<meta name="description" content="Your private RSM Publishing Services client hub: your steps, KDP setup guide, and file requirements.">
+<link rel="icon" href="./rsm-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=DM+Sans:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1F3C;--navy2:#132a4f;--navy3:#1B3A6B;--deep:#081428;--gold:#C9941A;--goldl:#E8B84B;--golddk:#8A6410;--cream:#FBF7EE;--ink:#1d2433;--muted:#5b6475;--white:#fff;--line:rgba(201,148,26,0.28);--err:#b42318;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--navy);color:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;}
+img{max-width:100%;height:auto;display:block;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+.eyebrow{font-size:12px;letter-spacing:3.5px;text-transform:uppercase;color:var(--goldl);font-weight:700;margin-bottom:14px;display:block;}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;line-height:1.1;}
+h2.sec{font-size:clamp(30px,4.2vw,50px);margin-bottom:14px;}
+h2.sec em,h1 em{color:var(--goldl);font-style:normal;}
+.lead{font-size:18px;color:rgba(255,255,255,0.78);max-width:680px;}
+.center{text-align:center;}
+.center .lead{margin-left:auto;margin-right:auto;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:15px;letter-spacing:0.3px;padding:16px 26px;border-radius:2px;text-decoration:none;border:2px solid var(--gold);transition:all .2s;cursor:pointer;font-family:inherit;}
+.btn:hover{background:var(--goldl);border-color:var(--goldl);transform:translateY(-2px);}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,0.4);}
+.btn.ghost:hover{border-color:var(--goldl);color:var(--goldl);}
+.btn.dark{background:var(--navy);color:#fff;border-color:var(--navy);}
+.btn.dark:hover{background:var(--navy3);border-color:var(--navy3);}
+section{padding:96px 0;}
+.alt{background:var(--navy2);}
+.deep{background:var(--deep);}
+.light{background:var(--cream);color:var(--ink);}
+.light .lead{color:var(--muted);}
+.light h2.sec{color:var(--navy);}
+.light h2.sec em{color:var(--golddk);}
+.light .eyebrow{color:var(--golddk);}
+/* nav (matches site) */
+nav.top{position:sticky;top:0;z-index:60;background:rgba(13,31,60,0.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;max-width:1280px;margin:0 auto;}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.brand img{height:42px;width:auto;}
+.brand span{font-size:14px;letter-spacing:3px;font-weight:700;line-height:1.15;color:#fff;}
+.brand small{display:block;font-size:10px;letter-spacing:1.6px;color:var(--goldl);font-weight:600;}
+.links{display:flex;align-items:center;gap:20px;list-style:none;}
+.links a{text-decoration:none;font-size:13.5px;color:rgba(255,255,255,0.82);font-weight:500;}
+.links a:hover,.links a.active{color:var(--goldl);}
+.links .cta{background:var(--gold);color:var(--navy);padding:10px 16px;font-weight:700;border-radius:2px;}
+.links .cta:hover{background:var(--goldl);color:var(--navy);}
+.burger{display:none;background:none;border:1px solid var(--line);color:#fff;padding:8px 12px;border-radius:2px;font-weight:600;cursor:pointer;font-family:inherit;}
+.mobile{display:none;flex-direction:column;padding:8px 24px 18px;border-top:1px solid var(--line);}
+.mobile a{padding:11px 0;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);color:#fff;}
+.mobile.open{display:flex;}
+/* hero */
+.hero{position:relative;padding:84px 0 0;background:radial-gradient(ellipse at 75% 30%,rgba(27,58,107,0.9),transparent 60%),linear-gradient(160deg,#081428 0%,#0D1F3C 55%,#13305a 100%);overflow:hidden;}
+.hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;}
+.hero h1{font-size:clamp(40px,4.9vw,68px);font-weight:800;letter-spacing:-0.5px;margin-bottom:22px;}
+.hero h1 span,.hero h1 em{display:block;text-wrap:balance;}
+.hero p.lead{font-size:19px;margin-bottom:28px;}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;}
+.price-line{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--line);background:rgba(201,148,26,0.08);padding:10px 16px;border-radius:2px;font-size:14.5px;color:rgba(255,255,255,0.86);}
+.price-line b{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--goldl);line-height:1;font-weight:400;}
+.shelf{position:relative;height:440px;max-width:480px;margin:0 auto;width:100%;}
+.shelf img.cov{position:absolute;border-radius:3px;box-shadow:0 26px 60px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.08);}
+.shelf .c1{width:46%;left:0;top:64px;transform:rotate(-6deg);}
+.shelf .c3{width:46%;right:0;top:64px;transform:rotate(6deg);}
+.shelf .c2{width:54%;left:23%;top:0;z-index:2;}
+.shelf .emb{position:absolute;width:112px;right:4%;bottom:6px;z-index:3;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5));}
+.shelf-cap{text-align:center;font-size:13px;color:rgba(255,255,255,0.62);margin-top:12px;}
+.authority{margin-top:72px;border-top:1px solid var(--line);background:rgba(8,20,40,0.55);}
+.auth-in{display:grid;grid-template-columns:repeat(4,1fr);}
+.auth-in div{padding:20px 18px;border-right:1px solid rgba(201,148,26,0.15);}
+.auth-in div:last-child{border-right:none;}
+.auth-in b{display:block;font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;color:var(--goldl);line-height:1;margin-bottom:4px;font-weight:400;}
+.auth-in span{font-size:13.5px;color:rgba(255,255,255,0.82);}
+/* problem */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:8px;}
+.stall{list-style:none;display:grid;gap:12px;}
+.stall li{background:#fff;border-left:4px solid var(--gold);padding:16px 18px;box-shadow:0 8px 24px rgba(13,31,60,0.06);color:var(--ink);font-size:15.5px;}
+.stall li b{color:var(--navy);display:block;margin-bottom:2px;}
+.bigq{font-family:'Playfair Display',serif;font-size:clamp(22px,2.4vw,28px);line-height:1.4;color:var(--navy);font-style:italic;border-top:4px solid var(--gold);padding-top:22px;margin-top:26px;}
+/* ownership */
+.own{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px;}
+.own div{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-top:3px solid var(--gold);padding:26px 22px;}
+.own b{display:block;font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;color:var(--goldl);font-weight:400;margin-bottom:8px;}
+.own h3{font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px;}
+.own p{font-size:14.5px;color:rgba(255,255,255,0.72);}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;position:relative;}
+.step{padding:0 20px 0 0;position:relative;}
+.step .num{width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:18px;position:relative;z-index:2;}
+.step::before{content:"";position:absolute;top:28px;left:56px;right:0;height:2px;background:linear-gradient(90deg,var(--gold),rgba(201,148,26,0.15));}
+.step:last-child::before{display:none;}
+.step h3{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;}
+.step p{font-size:14.5px;color:rgba(255,255,255,0.72);}
+.step .t{display:inline-block;font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--goldl);font-weight:700;margin-bottom:6px;}
+/* packages */
+.pk-note{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 18px;margin-top:22px;}
+.pk-price{font-family:'Bebas Neue',sans-serif;font-size:46px;color:var(--navy);line-height:1;}
+.pk-price small{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--muted);letter-spacing:0;}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;align-items:stretch;}
+.pkg{background:#fff;color:var(--ink);border-top:4px solid var(--gold);box-shadow:0 12px 34px rgba(13,31,60,0.08);padding:32px 28px;display:flex;flex-direction:column;position:relative;}
+.pkg.feat{background:var(--navy);color:#fff;border-top-color:var(--goldl);transform:translateY(-10px);box-shadow:0 22px 50px rgba(13,31,60,0.3);}
+.pkg .tag{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:var(--golddk);font-weight:700;margin-bottom:8px;}
+.pkg.feat .tag{color:var(--goldl);}
+.pkg .badge{position:absolute;top:-15px;right:20px;background:var(--goldl);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:6px 12px;border-radius:2px;}
+.pkg h3{font-size:27px;color:var(--navy);margin-bottom:8px;}
+.pkg.feat h3{color:#fff;}
+.pkg .for{font-size:15px;color:var(--muted);margin-bottom:18px;}
+.pkg.feat .for{color:rgba(255,255,255,0.72);}
+.pkg ul{list-style:none;flex:1;margin-bottom:24px;}
+.pkg li{position:relative;padding:8px 0 8px 28px;border-bottom:1px solid rgba(13,31,60,0.08);font-size:14.5px;}
+.pkg.feat li{border-bottom-color:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.pkg li::before{content:"\2713";position:absolute;left:0;top:8px;color:var(--gold);font-weight:800;}
+.pkg li.plus{font-weight:700;color:var(--navy);}
+.pkg.feat li.plus{color:var(--goldl);}
+.pkg .btn{width:100%;}
+.pk-foot{text-align:center;margin-top:28px;color:var(--muted);font-size:14.5px;max-width:720px;margin-left:auto;margin-right:auto;}
+/* who */
+.who{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+.who div{background:var(--deep);border:1px solid var(--line);padding:24px 22px;}
+.who h3{font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;margin-bottom:6px;color:#fff;}
+.who p{font-size:14.5px;color:rgba(255,255,255,0.7);}
+.who h3::before{content:"";display:block;width:28px;height:3px;background:var(--gold);margin-bottom:14px;}
+/* about */
+.story{display:grid;grid-template-columns:0.8fr 1.2fr;gap:56px;align-items:center;}
+.story .ph{border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,0.45);aspect-ratio:4/5;overflow:hidden;background:#000;}
+.story .ph img{width:100%;height:100%;object-fit:cover;object-position:46% 30%;}
+.story p{color:rgba(255,255,255,0.8);margin-bottom:16px;font-size:16.5px;}
+.story p b{color:#fff;}
+.quote{font-family:'Playfair Display',serif;font-size:24px;color:var(--goldl);font-style:italic;margin:6px 0 22px;line-height:1.4;}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.creds span{font-size:12.5px;border:1px solid var(--line);padding:6px 11px;border-radius:20px;color:rgba(255,255,255,0.86);}
+/* faq */
+.faq{max-width:860px;margin:40px auto 0;}
+.faq details{background:#fff;border:1px solid rgba(13,31,60,0.1);border-left:4px solid var(--gold);margin-bottom:10px;}
+.faq summary{cursor:pointer;list-style:none;padding:18px 52px 18px 20px;font-weight:700;color:var(--navy);font-size:16.5px;position:relative;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:24px;color:var(--golddk);font-weight:500;}
+.faq details[open] summary::after{content:"\2212";}
+.faq .a{padding:0 20px 18px;color:var(--muted);font-size:15.5px;}
+/* form */
+.form-sec{background:linear-gradient(160deg,#081428 0%,#0D1F3C 60%,#13305a 100%);}
+.form-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:48px;align-items:start;}
+.form-side p{color:rgba(255,255,255,0.78);margin-bottom:18px;}
+.next{list-style:none;counter-reset:n;margin-top:10px;}
+.next li{counter-increment:n;position:relative;padding:0 0 18px 48px;color:rgba(255,255,255,0.82);font-size:15px;}
+.next li::before{content:counter(n);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--gold);color:var(--goldl);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+.next li b{color:#fff;display:block;}
+.card{background:#fff;color:var(--ink);padding:34px 30px;border-top:4px solid var(--gold);box-shadow:0 30px 70px rgba(0,0,0,0.35);}
+.card h3{font-size:26px;color:var(--navy);margin-bottom:4px;}
+.card .sub{color:var(--muted);font-size:14.5px;margin-bottom:22px;}
+.f{margin-bottom:18px;}
+.f label.l,.f .l{display:block;font-weight:700;color:var(--navy);font-size:14.5px;margin-bottom:6px;}
+.req{color:var(--err);}
+.f input[type=text],.f input[type=email],.f input[type=tel],.f select,.f textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#fffdf8;border:1.5px solid #d9d1bd;border-radius:2px;padding:12px 14px;transition:border-color .15s,box-shadow .15s;}
+.f textarea{min-height:100px;resize:vertical;}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,148,26,0.2);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.chip{display:flex;align-items:flex-start;gap:9px;border:1.5px solid #d9d1bd;background:#fffdf8;padding:10px 12px;border-radius:2px;cursor:pointer;font-size:14.5px;line-height:1.35;transition:border-color .15s,background .15s;}
+.chip:hover{border-color:var(--gold);}
+.chip input{accent-color:var(--gold);width:17px;height:17px;margin-top:1px;flex-shrink:0;}
+.chip:has(input:checked){border-color:var(--gold);background:#fdf5e2;}
+.f .hint{display:block;font-size:13px;color:var(--muted);margin:-2px 0 8px;}
+.f .em{display:none;color:var(--err);font-size:13px;font-weight:600;margin-top:6px;}
+.f.bad .em{display:block;}
+.f.bad input[required],.f.bad select[required],.f.bad textarea[required]{border-color:var(--err);}
+.f.bad .chip{border-color:#e7b7b2;}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted);cursor:pointer;}
+.consent input{accent-color:var(--gold);width:17px;height:17px;margin-top:2px;flex-shrink:0;}
+.card .btn{width:100%;font-size:16px;padding:17px 26px;}
+.card .btn:disabled{opacity:0.65;cursor:wait;transform:none;}
+.fmsg{margin-top:12px;font-size:14.5px;font-weight:600;min-height:1.2em;}
+.fmsg.err{color:var(--err);}
+.fmsg a{color:var(--golddk);}
+.hp{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden;}
+.done{display:none;text-align:center;padding:12px 4px;}
+.done.show{display:block;}
+.done .ck{width:68px;height:68px;border-radius:50%;background:var(--goldl);color:var(--navy);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;font-weight:800;}
+.done p{color:var(--muted);margin:10px auto 0;max-width:440px;}
+.secure{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--muted);margin-top:14px;}
+/* footer (matches site) */
+footer{background:#060f1f;padding:64px 0 30px;font-size:14px;color:rgba(255,255,255,0.7);}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:28px;}
+footer h4{font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--goldl);margin-bottom:14px;}
+footer ul{list-style:none;}
+footer li{margin-bottom:8px;}
+footer a{text-decoration:none;color:rgba(255,255,255,0.75);}
+footer a:hover{color:var(--goldl);}
+.social{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.social a{border:1px solid var(--line);padding:7px 11px;font-size:12.5px;border-radius:2px;}
+.fbot{border-top:1px solid rgba(255,255,255,0.08);margin-top:44px;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(255,255,255,0.5);}
+.disc{font-size:12px;color:rgba(255,255,255,0.45);margin-top:14px;line-height:1.6;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:none;}
+@media(max-width:1100px){.links{display:none;}.burger{display:block;}.fgrid{grid-template-columns:1fr 1fr;}.own{grid-template-columns:1fr 1fr;}.steps{grid-template-columns:1fr 1fr;row-gap:36px;}.step:nth-child(2)::before{display:none;}}
+@media(max-width:860px){section{padding:72px 0;}.hero-grid,.split,.story,.form-grid{grid-template-columns:minmax(0,1fr);gap:40px;}.hero-grid>*,.split>*,.story>*,.form-grid>*{min-width:0;}.auth-in{grid-template-columns:1fr 1fr;}.auth-in div:nth-child(2){border-right:none;}.auth-in div:nth-child(-n+2){border-bottom:1px solid rgba(201,148,26,0.15);}.pkgs,.who{grid-template-columns:minmax(0,1fr);}.pkg.feat{transform:none;}.story .ph{max-width:400px;}.shelf{height:400px;}}
+@media(max-width:560px){.wrap{padding:0 16px;}.hero{padding-top:56px;}.brand span{font-size:12px;letter-spacing:2px;}.brand img{height:34px;}.fgrid{grid-template-columns:1fr;}.own,.steps{grid-template-columns:minmax(0,1fr);}.step::before{display:none;}.row2,.chips{grid-template-columns:minmax(0,1fr);}.card{padding:26px 18px;}.shelf{height:320px;}.shelf .emb{width:84px;}.auth-in b{font-size:24px;}.auth-in div{padding:16px 12px;}.price-line{flex-wrap:wrap;gap:4px 10px;}.hero-ctas .btn{flex:1 1 100%;}}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+@media(max-width:380px){.brand small{display:none}}
+
+.hub-hero{padding:72px 0 64px;}
+.hub-hero h1 em{display:block;}
+.hub-prog{max-width:560px;margin-top:30px;background:rgba(8,20,40,0.6);border:1px solid var(--line);padding:16px 18px;}
+.hub-prog-top{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:600;margin-bottom:8px;}
+.hub-prog-top span:last-child{color:var(--goldl);}
+.hub-bar{height:8px;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;}
+.hub-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--goldl));transition:width .3s;}
+.hub-prog small{display:block;margin-top:8px;color:rgba(255,255,255,0.55);font-size:12px;}
+.tasks{display:grid;gap:12px;margin-top:34px;}
+.task{display:flex;gap:18px;background:#fff;border:1px solid rgba(13,31,60,0.08);border-left:4px solid var(--gold);padding:22px 22px;box-shadow:0 8px 24px rgba(13,31,60,0.05);transition:opacity .2s,background .2s;}
+.task.done{background:#f7f3e8;}
+.task.done h3{text-decoration:line-through;text-decoration-color:rgba(13,31,60,0.35);color:var(--muted);}
+.tick{flex-shrink:0;position:relative;width:30px;height:30px;cursor:pointer;margin-top:2px;}
+.tick input{position:absolute;opacity:0;width:30px;height:30px;margin:0;cursor:pointer;}
+.tick span{position:absolute;inset:0;border:2px solid var(--gold);border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.tick input:checked+span{background:var(--gold);}
+.tick input:checked+span::after{content:"\2713";color:var(--navy);font-weight:800;font-size:16px;}
+.tick input:focus-visible+span{box-shadow:0 0 0 3px rgba(201,148,26,0.35);}
+.task-body{flex:1;min-width:0;}
+.task-top{display:flex;justify-content:space-between;align-items:baseline;gap:6px 14px;flex-wrap:wrap;margin-bottom:6px;}
+.task h3{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--navy);line-height:1.3;}
+.task .time{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--golddk);font-weight:700;white-space:nowrap;}
+.task p{color:var(--muted);font-size:15px;}
+.btn.sm{padding:11px 18px;font-size:14px;margin-top:14px;}
+.btn.ghost-dk{background:transparent;color:var(--navy);border-color:rgba(13,31,60,0.3);}
+.btn.ghost-dk:hover{border-color:var(--gold);color:var(--golddk);background:transparent;}
+.reset-line{margin-top:16px;text-align:right;}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px;}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;}
+.role{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-top:4px solid rgba(255,255,255,0.3);padding:28px 26px;}
+.role.ours{border-top-color:var(--gold);background:rgba(201,148,26,0.08);}
+.role h3{font-size:26px;margin-bottom:14px;}
+.role ul{list-style:none;}
+.role li{position:relative;padding:9px 0 9px 26px;border-bottom:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.85);font-size:15px;}
+.role li::before{content:"\2713";position:absolute;left:0;color:var(--goldl);font-weight:800;}
+.narrow{max-width:900px;}
+.panel{background:#fff;border:1px solid rgba(13,31,60,0.1);border-top:4px solid var(--gold);padding:24px 24px;margin:30px 0;color:var(--ink);}
+.panel h3{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.panel.dark{background:var(--deep);color:#fff;border-color:var(--line);border-top-color:var(--gold);}
+.panel.dark h3{color:#fff;}
+.checks{list-style:none;}
+.checks li{position:relative;padding:7px 0 7px 28px;font-size:15px;}
+.checks li::before{content:"";position:absolute;left:0;top:11px;width:16px;height:16px;border:2px solid var(--gold);border-radius:3px;}
+.panel.dark .checks li{color:rgba(255,255,255,0.85);}
+.guide{list-style:none;counter-reset:g;margin:10px 0 0;}
+.guide li{counter-increment:g;position:relative;padding:14px 0 14px 54px;border-bottom:1px solid rgba(13,31,60,0.08);color:var(--ink);font-size:15.5px;}
+.guide li::before{content:counter(g);position:absolute;left:0;top:12px;width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--goldl);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:20px;}
+.guide a,.src a{color:var(--golddk);font-weight:600;}
+.guide b{color:var(--navy);}
+.note{background:#fdf5e2;border-left:4px solid var(--gold);padding:18px 20px;margin-top:26px;color:var(--ink);}
+.note b{display:block;color:var(--navy);margin-bottom:4px;}
+.note p{font-size:15px;color:var(--ink);}
+.src{font-size:13px;color:var(--muted);margin-top:14px;}
+.ftable{margin-top:30px;border:1px solid var(--line);}
+.fr{display:grid;grid-template-columns:0.9fr 0.9fr 2fr;gap:0;border-bottom:1px solid rgba(201,148,26,0.15);}
+.fr:last-child{border-bottom:0;}
+.fr span{padding:14px 16px;font-size:14.5px;color:rgba(255,255,255,0.82);}
+.fr span b{color:#fff;}
+.fr.fh{background:rgba(201,148,26,0.14);}
+.fr.fh span{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--goldl);font-weight:700;}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;}
+.tl div{background:#fff;border-top:4px solid var(--gold);padding:24px 20px;box-shadow:0 8px 24px rgba(13,31,60,0.06);}
+.tl b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--golddk);letter-spacing:1px;font-weight:400;line-height:1;margin-bottom:6px;}
+.tl h3{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.tl p{color:var(--muted);font-size:14.5px;}
+.safe{margin-top:22px;font-size:13.5px;color:rgba(255,255,255,0.6);}
+.hub-foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+.hub-foot-links{display:flex;flex-wrap:wrap;gap:8px 22px;}
+@media(max-width:860px){.roles,.tl{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}.fr{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}.fr span:nth-child(3){grid-column:1/-1;padding-top:0;}.fr.fh span:nth-child(3){display:none;}}
+@media(max-width:560px){.roles,.tl{grid-template-columns:minmax(0,1fr);}.task{padding:18px 16px;gap:14px;}.hub-hero{padding:52px 0 48px;}.fr{grid-template-columns:minmax(0,1fr);}.fr span{padding:6px 14px;}.fr span:first-child{padding-top:14px;}.fr span:last-child{padding-bottom:14px;}.fr.fh{display:none;}.guide li{padding-left:48px;}}
+</style>
+<!-- RSM-GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H3GBPMJH2R"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H3GBPMJH2R');
+(function(){
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
+  if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
+    try {
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
+    } catch(e){}
+    return p;
+  };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
+    if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
+  }, true);
+})();
+</script>
+<!-- /RSM-GA -->
+</head>
+<body>
+<nav class="top" aria-label="Main">
+  <div class="nav-in">
+    <a href="./index.html" class="brand"><img src="./rsm-logo.png" alt="R$M logo" width="92" height="42"><span>RIGHT SIDE OF MONEY<small>RSM PUBLISHING SERVICES</small></span></a>
+    <ul class="links">
+      <li><a href="#steps">Your Steps</a></li>
+      <li><a href="#kdp">KDP Setup Guide</a></li>
+      <li><a href="#files">File Requirements</a></li>
+      <li><a href="#help">Get Help</a></li>
+      <li><a href="./author-intake.html" class="cta">Intake Questionnaire</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+  </div>
+  <div class="mobile" id="mobileMenu">
+    <a href="#steps">Your Steps</a><a href="#kdp">KDP Setup Guide</a><a href="#files">File Requirements</a><a href="#timeline">What Happens Next</a><a href="#help">Get Help</a><a href="./author-intake.html" style="color:#E8B84B;font-weight:700">Author Intake Questionnaire &rarr;</a>
+  </div>
+</nav>
+
+<header class="hero hub-hero">
+  <div class="wrap">
+    <span class="eyebrow">Author Client Hub</span>
+    <h1><span>Welcome, Author.</span><em>Let's Publish Your Book.</em></h1>
+    <p class="lead">Everything you need is right here. Work through your steps at your own pace, check them off as you go, and reach out anytime you get stuck. We handle the heavy lifting. Your part is quick.</p>
+    <div class="hub-prog" aria-live="polite">
+      <div class="hub-prog-top"><span>Your progress</span><span id="progTxt">0 of 7 steps complete</span></div>
+      <div class="hub-bar"><div class="hub-fill" id="progFill"></div></div>
+      <small>Your checkmarks save on this device only.</small>
+    </div>
+  </div>
+</header>
+
+<!-- STEPS -->
+<section class="light" id="steps">
+  <div class="wrap">
+    <span class="eyebrow">Your Publishing Checklist</span>
+    <h2 class="sec">Your Part, <em>Step by Step.</em></h2>
+    <p class="lead">Steps 1 through 4 get us started. Plan on about an hour total, spread out however you like.</p>
+
+    <div class="tasks">
+      <div class="task" data-step="1">
+        <label class="tick"><input type="checkbox" aria-label="Mark step 1 complete"><span></span></label>
+        <div class="task-body">
+          <div class="task-top"><h3>Sign your agreement and send your deposit</h3><span class="time">About 5 minutes</span></div>
+          <p>Your Publishing Services Agreement comes by email. It's short, in plain English, and confirms you own everything. Sign it electronically and send your deposit using the payment link in the same email. Work begins as soon as both are in.</p>
+        </div>
+      </div>
+      <div class="task" data-step="2">
+        <label class="tick"><input type="checkbox" aria-label="Mark step 2 complete"><span></span></label>
+        <div class="task-body">
+          <div class="task-top"><h3>Complete your Author Intake Questionnaire</h3><span class="time">15 to 20 minutes</span></div>
+          <p>Questions about you and your book, the kind you'd answer over coffee. Your answers shape your title, description, keywords, and cover. Your progress saves as you go, so you can stop and come back anytime.</p>
+          <a class="btn sm" href="./author-intake.html">Open the Questionnaire &rarr;</a>
+        </div>
+      </div>
+      <div class="task" data-step="3">
+        <label class="tick"><input type="checkbox" aria-label="Mark step 3 complete"><span></span></label>
+        <div class="task-body">
+          <div class="task-top"><h3>Set up your Amazon KDP account</h3><span class="time">30 to 45 minutes, one time</span></div>
+          <p>This is the account your book lives in and your royalties get paid to. Follow the step-by-step guide below. When your tax profile shows "Complete," text or email us and we'll book your launch session.</p>
+          <a class="btn sm ghost-dk" href="#kdp">Open the KDP Setup Guide &darr;</a>
+        </div>
+      </div>
+      <div class="task" data-step="4">
+        <label class="tick"><input type="checkbox" aria-label="Mark step 4 complete"><span></span></label>
+        <div class="task-body">
+          <div class="task-top"><h3>Upload your files to your shared folder</h3><span class="time">About 10 minutes</span></div>
+          <p>Your private shared folder link comes by email. Upload your manuscript, headshot, and bio. The File Requirements below show exactly what we need and how to prepare it.</p>
+          <a class="btn sm ghost-dk" href="#files">See File Requirements &darr;</a>
+        </div>
+      </div>
+      <div class="task" data-step="5">
+        <label class="tick"><input type="checkbox" aria-label="Mark step 5 complete"><span></span></label>
+        <div class="task-body">
+          <div class="task-top"><h3>Review and approve your book</h3><span class="time">As each piece is ready</span></div>
+          <p>We'll send you your title and description, keywords, interior layout, and cover to review. All you do is approve them or tell us what to change. Quick replies keep your launch date on track.</p>
+        </div>
+      </div>
+      <div class="task" data-step="6">
+        <label class="tick"><input type="checkbox" aria-label="Mark step 6 complete"><span></span></label>
+        <div class="task-body">
+          <div class="task-top"><h3>Join your live launch session</h3><span class="time">60 to 90 minutes</span></div>
+          <p>On a video call, you log in to KDP on your own computer and we guide every click. You'll press the final Publish button yourself. Have your phone nearby for your verification code.</p>
+        </div>
+      </div>
+      <div class="task" data-step="7">
+        <label class="tick"><input type="checkbox" aria-label="Mark step 7 complete"><span></span></label>
+        <div class="task-body">
+          <div class="task-top"><h3>Approve your proof copy and celebrate</h3><span class="time">When it arrives</span></div>
+          <p>Hold your printed book in your hands, check it page by page, and give the final approval. Then share the news. You're a published author.</p>
+        </div>
+      </div>
+    </div>
+    <p class="reset-line"><button type="button" class="linkbtn" id="resetBtn">Reset my checkmarks</button></p>
+  </div>
+</section>
+
+<!-- DIVISION OF WORK -->
+<section class="deep">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Who Does What</span>
+      <h2 class="sec">You Share the Story. <em>We Build the Book.</em></h2>
+    </div>
+    <div class="roles">
+      <div class="role">
+        <h3>Your Part</h3>
+        <ul>
+          <li>Sign the agreement and send your deposit</li>
+          <li>Complete the intake questionnaire</li>
+          <li>Set up your own KDP account</li>
+          <li>Upload your manuscript, headshot, and bio</li>
+          <li>Review and approve each piece</li>
+          <li>Click Publish on launch day</li>
+        </ul>
+      </div>
+      <div class="role ours">
+        <h3>Our Part</h3>
+        <ul>
+          <li>Review your manuscript and prepare it for print and Kindle</li>
+          <li>Format every page to Amazon's specifications</li>
+          <li>Design or prepare your cover to exact KDP sizing</li>
+          <li>Write your Amazon description and research keywords and categories</li>
+          <li>Run the numbers on pricing so you earn what you should</li>
+          <li>Guide you live through every step of publishing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KDP GUIDE -->
+<section class="light" id="kdp">
+  <div class="wrap narrow">
+    <span class="eyebrow">Step 3 Guide</span>
+    <h2 class="sec">Set Up Your <em>Amazon KDP Account.</em></h2>
+    <p class="lead">Complete this before your launch session. It takes about 30 to 45 minutes, one time. This is your account: you own it, you control it, and Amazon pays your royalties directly to you.</p>
+
+    <div class="panel">
+      <h3>Have these ready before you start</h3>
+      <ul class="checks">
+        <li>Your Amazon login. Amazon recommends using your existing Amazon customer account so ordering proof copies works smoothly later.</li>
+        <li>Your legal name, physical street address (no PO boxes), and phone number</li>
+        <li>Your bank routing number and account number for direct deposit</li>
+        <li>Your Social Security number or business EIN for the tax interview</li>
+        <li>A government-issued photo ID, in case Amazon asks you to verify your identity</li>
+        <li>Your cell phone, for two-step verification codes</li>
+      </ul>
+    </div>
+
+    <ol class="guide">
+      <li><b>Sign in.</b> Go to <a href="https://kdp.amazon.com" target="_blank" rel="noopener">kdp.amazon.com</a> and sign in with your Amazon account. No Amazon account? Click <b>Sign up</b> and create one.</li>
+      <li><b>Accept the terms.</b> Read and accept the KDP Terms and Conditions.</li>
+      <li><b>Open your account.</b> Click <b>Your Account</b> at the top of the page and complete two-step verification.</li>
+      <li><b>Account details.</b> Enter your <em>legal</em> name, address, and phone. Don't enter a pen name here. Amazon pays you and issues tax forms under this name. A pen name gets added later, on the book itself.</li>
+      <li><b>Getting paid.</b> Add your bank account for direct deposit. It pays royalties with no minimum threshold and is more secure than paper checks.</li>
+      <li><b>Tax information.</b> Click <b>Complete Tax Profile</b> and answer every question. You can't publish until your status shows <b>"Complete."</b></li>
+      <li><b>Identity verification.</b> If Amazon asks, upload clear photos of your ID. The name must match your account name.</li>
+      <li><b>Let us know.</b> Text or email: "My KDP account is set up and my tax profile says Complete." Then we'll book your launch session.</li>
+    </ol>
+
+    <div class="note">
+      <b>Good to know</b>
+      <p>Amazon sends you a 1099 if you earn at least $10 in royalties in a year. Keep it for your taxes. Never share your password or verification codes with anyone, including us. Stuck? Take a screenshot of the screen and send it to us.</p>
+    </div>
+    <p class="src">Source: Amazon KDP Help, <a href="https://kdp.amazon.com/en_US/help/topic/G202187760" target="_blank" rel="noopener">Set Up Your KDP Account</a> and <a href="https://kdp.amazon.com/en_US/help/topic/G200634350" target="_blank" rel="noopener">Manage Your KDP Account</a>.</p>
+  </div>
+</section>
+
+<!-- FILES -->
+<section class="alt" id="files">
+  <div class="wrap narrow">
+    <span class="eyebrow">Step 4 Guide</span>
+    <h2 class="sec">File <em>Requirements.</em></h2>
+    <p class="lead">Upload everything to your private shared folder. Clean files now mean a faster, smoother project.</p>
+    <div class="ftable" role="table" aria-label="File requirements">
+      <div class="fr fh" role="row"><span role="columnheader">Item</span><span role="columnheader">Format</span><span role="columnheader">What we need</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Manuscript</b></span><span role="cell">Word (.docx)</span><span role="cell">Final, edited text in one file. No text boxes, fancy fonts, or page breaks made by pressing Enter.</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Front matter</b></span><span role="cell">In the manuscript</span><span role="cell">Dedication, acknowledgments, and foreword, if you have them.</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Back matter</b></span><span role="cell">In the manuscript</span><span role="cell">About the author, how to reach you, other books, and a call to action.</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Images and charts</b></span><span role="cell">JPG or PNG, 300 DPI</span><span role="cell">Each as its own file, named in order (image-01, image-02). Mark in the manuscript where each one goes.</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Author photo</b></span><span role="cell">JPG, high resolution</span><span role="cell">A clear, well-lit headshot for your back cover and Amazon author page.</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Author bio</b></span><span role="cell">Word or plain text</span><span role="cell">A 3 to 5 sentence version and a 1 sentence version.</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Cover ideas</b></span><span role="cell">Links or screenshots</span><span role="cell">Covers you love, colors you want, and anything to avoid.</span></div>
+      <div class="fr" role="row"><span role="cell"><b>Permissions</b></span><span role="cell">PDF or email</span><span role="cell">Written permission for any quotes, lyrics, or photos you didn't create.</span></div>
+    </div>
+    <div class="panel dark">
+      <h3>Before you upload, check</h3>
+      <ul class="checks">
+        <li>Spell-check is run and every chapter is in final order</li>
+        <li>Chapter titles are consistent, like all "Chapter 1: Title" or all "1. Title"</li>
+        <li>Every image is something you own or have permission to use</li>
+        <li>You've read the whole thing one last time. After formatting starts, text changes cost time and may cost extra.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="light" id="timeline">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">What Happens Next</span>
+      <h2 class="sec">Your Road to <em>Launch Day.</em></h2>
+      <p class="lead">Most books go live within 4 to 6 weeks of receiving your final manuscript and materials. Quick approvals keep things moving.</p>
+    </div>
+    <div class="tl">
+      <div><b>Week 1</b><h3>Kickoff</h3><p>Agreement, questionnaire, KDP setup, and files.</p></div>
+      <div><b>Week 2</b><h3>Strategy</h3><p>Title, description, keywords, categories, and pricing for your approval.</p></div>
+      <div><b>Weeks 2 to 4</b><h3>Production</h3><p>Interior formatting and cover, with your review and approval.</p></div>
+      <div><b>Weeks 4 to 6</b><h3>Launch</h3><p>Live launch session, proof copy, and your book on Amazon.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HELP -->
+<section class="form-sec" id="help">
+  <div class="wrap center">
+    <span class="eyebrow">Get Help</span>
+    <h2 class="sec">Stuck? <em>Reach Out Anytime.</em></h2>
+    <p class="lead">There are no wrong questions. Email us, and we'll respond within 1 business day. If you're stuck on a screen, send a screenshot and we'll walk you through it.</p>
+    <p style="margin-top:26px"><a class="btn" href="mailto:info@rightsideofmoney.com?subject=RSM%20Publishing%20Services%20Question">Email info@rightsideofmoney.com</a></p>
+    <p class="safe">For your security, never send your Amazon password, verification codes, Social Security number, or bank details by email.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="hub-foot">
+      <a href="./index.html" class="brand"><img src="./rsm-logo.png" alt="R$M logo" width="92" height="42" loading="lazy"><span>RIGHT SIDE OF MONEY<small>RSM PUBLISHING SERVICES</small></span></a>
+      <div class="hub-foot-links"><a href="./publishing.html">RSM Publishing Services</a><a href="./book.html">Darrell's Books</a><a href="./privacy.html">Privacy Policy</a><a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></div>
+    </div>
+    <div class="fbot"><span>&#169; 2026 Right Side of Money. All rights reserved. R$M&#174; is a registered trademark.</span><span>You own your book, your rights, and your royalties.</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b = document.getElementById('burger'), m = document.getElementById('mobileMenu');
+  b.addEventListener('click', function(){ var o = m.classList.toggle('open'); b.setAttribute('aria-expanded', o); b.textContent = o ? 'Close' : 'Menu'; });
+  Array.prototype.forEach.call(m.querySelectorAll('a[href^="#"]'), function(a){ a.addEventListener('click', function(){ m.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); b.textContent = 'Menu'; }); });
+
+  var KEY = 'rsm_author_hub_v1';
+  var tasks = Array.prototype.slice.call(document.querySelectorAll('.task'));
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ state = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+  function paint(){
+    var done = 0;
+    tasks.forEach(function(t){
+      var on = !!state[t.getAttribute('data-step')];
+      t.querySelector('input').checked = on;
+      t.classList.toggle('done', on);
+      if (on) done++;
+    });
+    document.getElementById('progTxt').textContent = done + ' of ' + tasks.length + ' steps complete';
+    document.getElementById('progFill').style.width = Math.round(done / tasks.length * 100) + '%';
+  }
+  tasks.forEach(function(t){
+    t.querySelector('input').addEventListener('change', function(e){ state[t.getAttribute('data-step')] = e.target.checked; save(); paint(); });
+  });
+  document.getElementById('resetBtn').addEventListener('click', function(){ state = {}; save(); paint(); });
+  paint();
+})();
+</script>
+</body>
+</html>

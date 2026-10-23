@@ -53,6 +53,7 @@
   .brand-name { font-family: 'Bebas Neue', sans-serif; color: var(--white); font-size: 1.45rem; letter-spacing: 1.5px; line-height: 1; }
   .brand-tag { color: var(--gold-lt); font-size: .7rem; letter-spacing: 1.6px; text-transform: uppercase; margin-top: 4px; }
   .header-badge {
+    text-decoration: none;
     font-family: 'Bebas Neue', sans-serif; color: var(--navy); background: var(--gold-lt);
     padding: 6px 12px; border-radius: 999px; letter-spacing: 1px; font-size: .95rem; white-space: nowrap;
   }
@@ -180,7 +181,7 @@
   .site-footer p { margin: 4px 0; }
 
   @media (max-width: 640px) {
-    .header-badge { display: none; }
+    .header-badge { font-size: .8rem; padding: 5px 9px; }
     .hero { padding: 40px 18px 80px; }
     .card { padding: 22px 18px; }
     .two-col { grid-template-columns: 1fr; }
@@ -194,6 +195,71 @@
     .brand img { width: 40px; height: 40px; }
   }
 </style>
+<!-- RSM-GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H3GBPMJH2R"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H3GBPMJH2R');
+(function(){
+  /* Lead events fire only when the form service accepts the submission. Failed lead
+     submissions are kept on the visitor's device and re-sent on their next page view. */
+  var f = window.fetch, KEY = 'rsm_outbox';
+  function isLead(s){ return s.indexOf('formspree.io') > -1 || s.indexOf('kit.com/forms/') > -1 || s.indexOf('convertkit.com/') > -1; }
+  function kind(s){ return s.indexOf('formspree.io') > -1 ? 'lead' : 'signup'; }
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch(e){ return []; } }
+  function save(q){ try { if (q.length) localStorage.setItem(KEY, JSON.stringify(q.slice(-20))); else localStorage.removeItem(KEY); } catch(e){} }
+  function pairs(b){ var out = []; try { b.forEach(function(v, k){ if (typeof v === 'string') out.push([k, v]); }); } catch(e){} return out; }
+  function emailOf(p){ for (var i = 0; i < p.length; i++) if (/^(email|_replyto|email_address)$/.test(p[i][0])) return p[i][1]; return ''; }
+  function purge(url, em){ if (!em) return; save(load().filter(function(x){ return !(x.u === url && x.e === em); })); }
+  function ev(s, n, ok, recovered){
+    if (typeof gtag !== 'function') return;
+    if (!ok) { gtag('event', 'form_error', {form_name: n, endpoint: s.replace(/^https?:\/\//, '').slice(0, 60)}); return; }
+    if (kind(s) === 'lead') gtag('event', 'generate_lead', {form_name: n, recovered: recovered ? 'yes' : 'no'});
+    else gtag('event', 'sign_up', {method: 'Kit form ' + ((s.match(/forms\/(\d+)/) || [])[1] || '')});
+  }
+  if (f) window.fetch = function(u, o){
+    var p = f.apply(this, arguments);
+    try {
+      var s = String(u && u.url || u), b = o && o.body;
+      if (isLead(s) && b && typeof b.get === 'function'){
+        var n = String(b.get('quiz') || b.get('_subject') || b.get('form_name') || '').slice(0, 90), kv = pairs(b), em = emailOf(kv), cors = !(o && o.mode === 'no-cors');
+        p.then(function(r){
+          var ok = cors ? r.ok : true;
+          ev(s, n, ok);
+          if (ok) purge(s, em);
+          else if (r.status >= 500 || r.status === 429 || r.status === 0) { var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q); }
+        }, function(){
+          ev(s, n, false);
+          var q = load(); q.push({u: s, kv: kv, e: em, n: n, c: cors, t: Date.now(), a: 0}); save(q);
+        });
+      }
+    } catch(e){}
+    return p;
+  };
+  function flush(){
+    var q = load(); if (!q.length || !f || (navigator.onLine === false)) return;
+    var keep = [];
+    q.forEach(function(x){
+      if (Date.now() - x.t > 14 * 864e5 || x.a >= 5) return;
+      x.a++; keep.push(x);
+      var fd = new FormData(); x.kv.forEach(function(p){ fd.append(p[0], p[1]); });
+      var opt = {method: 'POST', body: fd}; if (x.c) opt.headers = {'Accept': 'application/json'}; else opt.mode = 'no-cors';
+      f(x.u, opt).then(function(r){ if (!x.c || r.ok){ ev(x.u, x.n, true, true); save(load().filter(function(y){ return !(y.u === x.u && y.t === x.t); })); } }, function(){});
+    });
+    save(keep);
+  }
+  if (document.readyState === 'complete') setTimeout(flush, 1500); else window.addEventListener('load', function(){ setTimeout(flush, 1500); });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.href, t = (a.textContent || '').trim().slice(0, 80);
+    if (h.indexOf('pay.bluevine.com') > -1) gtag('event', 'begin_checkout', {link_text: t, link_url: h});
+    else if (/amazon\.com|\/\/a\.co\/|amzn\.to/.test(h)) gtag('event', 'amazon_click', {link_text: t, item_id: (h.match(/dp\/([A-Z0-9]+)/) || [])[1] || h.replace(/^https?:\/\//, '').slice(0, 40)});
+  }, true);
+})();
+</script>
+<!-- /RSM-GA -->
 </head>
 <body>
 
@@ -203,10 +269,10 @@
       <img src="rsm-logo.png" alt="R$M logo">
       <span class="brand-text">
         <span class="brand-name">Right Side of Money</span>
-        <span class="brand-tag">Author Publishing Services</span>
+        <span class="brand-tag">RSM Publishing Services</span>
       </span>
     </a>
-    <span class="header-badge">Client Intake</span>
+    <a class="header-badge" href="author-hub.html">&larr; Author Hub</a>
   </div>
 </header>
 
@@ -508,15 +574,16 @@
     <h2 style="font-family:'Playfair Display',serif;color:var(--navy);margin:0">Got It. <em style="color:var(--gold)">Thank You!</em></h2>
     <p>Your questionnaire is in. I'll review your answers and start shaping your title, description, and keywords.</p>
     <ol class="next-steps">
-      <li><strong>Set up your KDP account</strong> using the KDP Account Setup Guide, if you haven't yet.</li>
-      <li><strong>Upload your files</strong> to your shared folder: manuscript, headshot, and bio.</li>
+      <li><strong>Set up your KDP account</strong> using the <a href="author-hub.html#kdp">KDP Account Setup Guide</a>, if you haven't yet.</li>
+      <li><strong>Upload your files</strong> to your shared folder: manuscript, headshot, and bio. See the <a href="author-hub.html#files">File Requirements</a>.</li>
       <li><strong>Watch your email.</strong> I'll reach out within 1 business day with next steps.</li>
     </ol>
+    <p style="margin-top:22px"><a class="btn" href="author-hub.html" style="display:inline-block;text-decoration:none;max-width:320px">Back to My Author Hub</a></p>
   </section>
 </main>
 
 <footer class="site-footer">
-  <p><a href="index.html">Right Side of Money</a> · Author Publishing Services</p>
+  <p><a href="index.html">Right Side of Money</a> · <a href="publishing.html">RSM Publishing Services</a> · <a href="author-hub.html">Author Hub</a></p>
   <p>Questions? <a href="mailto:info@rightsideofmoney.com">info@rightsideofmoney.com</a></p>
   <p>&copy; 2026 Right Side of Money. All rights reserved. R$M&reg; is a registered trademark.</p>
 </footer>
@@ -685,10 +752,13 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
+    var payload = buildPayload(), fd = new FormData();
+    Object.keys(payload).forEach(function (k) { fd.append(k, payload[k]); });
+    fd.append('form_name', 'Author Intake Questionnaire');
     fetch(ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(buildPayload())
+      headers: { 'Accept': 'application/json' },
+      body: fd
     }).then(function (res) {
       if (res.ok) {
         submitted = true;
