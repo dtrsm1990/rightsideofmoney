@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MPID | Administrator Dashboard</title>
 <style>
-:root{color-scheme:dark;--bg:#0b0b0d;--panel:#17171a;--panel2:#202024;--gold:#d6ae5a;--line:#37332b;--text:#f5f2eb;--muted:#bcb6aa;--red:#ff8c8c;--green:#8fe0ac}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#30251a 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,sans-serif}header{border-bottom:1px solid var(--line);padding:24px max(20px,calc((100vw - 1160px)/2));display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.eyebrow{color:var(--gold);font-size:12px;letter-spacing:.15em;font-weight:800}h1{margin:5px 0;font-size:clamp(25px,4vw,38px)}h2{font-size:20px;margin:0 0 15px}h3{font-size:16px;margin:0 0 12px}p{margin:6px 0 16px}.muted{color:var(--muted)}main{max-width:1200px;margin:auto;padding:26px 20px 70px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:23px;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:800px){.cols{grid-template-columns:1fr}}label{display:block;color:var(--muted);font-size:13px;font-weight:650;margin:13px 0 5px}input,select,textarea{width:100%;background:#101013;border:1px solid #50483b;color:white;border-radius:9px;padding:12px;font:inherit}textarea{min-height:90px}button{border:1px solid #a58a56;background:var(--gold);color:#16120a;padding:11px 15px;border-radius:9px;font-weight:800;cursor:pointer}button.secondary{background:transparent;color:var(--gold)}button:disabled{opacity:.55;cursor:wait}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.hidden{display:none!important}.message{padding:12px;border:1px solid var(--line);border-radius:10px;margin-top:15px;white-space:pre-wrap;overflow-wrap:anywhere}.error{border-color:#a74747;color:var(--red)}.success{border-color:#42795b;color:var(--green)}.stat{font-size:30px;color:var(--gold);font-weight:850}.small{font-size:12px}.list{display:grid;gap:10px}.item{background:var(--panel2);border:1px solid #39342e;border-radius:10px;padding:13px;overflow-wrap:anywhere}.item strong{color:#f8e2b1}.pill{display:inline-block;border:1px solid #8b7344;border-radius:50px;padding:3px 9px;color:var(--gold);font-size:12px}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:550px}td,th{text-align:left;padding:12px;border-bottom:1px solid #35312b;vertical-align:top}th{color:var(--gold);font-size:12px;letter-spacing:.04em}a{color:var(--gold)}.note{font-size:12px;color:var(--muted)}
+:root{color-scheme:dark;--bg:#0b0b0d;--panel:#17171a;--panel2:#202024;--gold:#d6ae5a;--line:#37332b;--text:#f5f2eb;--muted:#bcb6aa;--red:#ff8c8c;--green:#8fe0ac}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#30251a 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,sans-serif}header{border-bottom:1px solid var(--line);padding:24px max(20px,calc((100vw - 1160px)/2));display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.eyebrow{color:var(--gold);font-size:12px;letter-spacing:.15em;font-weight:800}h1{margin:5px 0;font-size:clamp(25px,4vw,38px)}h2{font-size:20px;margin:0 0 15px}h3{font-size:16px;margin:0 0 12px}p{margin:6px 0 16px}.muted{color:var(--muted)}main{max-width:1200px;margin:auto;padding:26px 20px 70px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:23px;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:800px){.cols{grid-template-columns:1fr}}label{display:block;color:var(--muted);font-size:13px;font-weight:650;margin:13px 0 5px}input,select,textarea{width:100%;background:#101013;border:1px solid #50483b;color:white;border-radius:9px;padding:12px;font:inherit}textarea{min-height:90px}button{border:1px solid #a58a56;background:var(--gold);color:#16120a;padding:11px 15px;border-radius:9px;font-weight:800;cursor:pointer}button.secondary{background:transparent;color:var(--gold)}button.danger{background:transparent;color:var(--red);border-color:#a74747}button.danger:hover{background:#3b1e22}button:disabled{opacity:.55;cursor:wait}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.hidden{display:none!important}.message{padding:12px;border:1px solid var(--line);border-radius:10px;margin-top:15px;white-space:pre-wrap;overflow-wrap:anywhere}.error{border-color:#a74747;color:var(--red)}.success{border-color:#42795b;color:var(--green)}.stat{font-size:30px;color:var(--gold);font-weight:850}.small{font-size:12px}.list{display:grid;gap:10px}.item{background:var(--panel2);border:1px solid #39342e;border-radius:10px;padding:13px;overflow-wrap:anywhere}.item strong{color:#f8e2b1}.pill{display:inline-block;border:1px solid #8b7344;border-radius:50px;padding:3px 9px;color:var(--gold);font-size:12px}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:550px}td,th{text-align:left;padding:12px;border-bottom:1px solid #35312b;vertical-align:top}th{color:var(--gold);font-size:12px;letter-spacing:.04em}a{color:var(--gold)}.note{font-size:12px;color:var(--muted)}
 
 /* MPID section organization: presentation only */
 #workspace > section.card{border-top:2px solid #76613d}
@@ -58,7 +58,7 @@ function renderDetails(){
  const id=$('selectedProject').value;
  const d=documents.filter(x=>x.project_id===id),f=findings.filter(x=>x.project_id===id),a=approvals.filter(x=>x.project_id===id);
  const active=d.filter(x=>!x.archived_at),archived=d.filter(x=>!!x.archived_at);
- const docHtml=(items,isArchived)=>items.map(x=>'<div class="item"><strong>'+esc(x.file_name)+'</strong><div class="muted small">'+esc(x.document_type)+' · Version '+esc(x.version||1)+(isArchived?' · Archived '+esc(new Date(x.archived_at).toLocaleString()):'')+'</div><div class="actions"><button class="secondary" data-file="'+esc(x.storage_path)+'">Download</button><button class="secondary" data-document-id="'+esc(x.id)+'" data-archive="'+(isArchived?'false':'true')+'">'+(isArchived?'Restore':'Archive')+'</button></div></div>').join('');
+ const docHtml=(items,isArchived)=>items.map(x=>'<div class="item"><strong>'+esc(x.file_name)+'</strong><div class="muted small">'+esc(x.document_type)+' · Version '+esc(x.version||1)+(isArchived?' · Archived '+esc(new Date(x.archived_at).toLocaleString()):'')+'</div><div class="actions"><button class="secondary" data-file="'+esc(x.storage_path)+'">Download</button><button class="secondary" data-document-id="'+esc(x.id)+'" data-archive="'+(isArchived?'false':'true')+'">'+(isArchived?'Restore':'Archive')+'</button><button class="danger" data-delete-document-id="'+esc(x.id)+'">Delete</button></div></div>').join('');
  $('details').innerHTML='<div><h3>Active Documents ('+active.length+')</h3><div class="list">'+(docHtml(active,false)||'<div class="muted">No active document records.</div>')+'</div><h3 style="margin-top:24px">Archived Documents ('+archived.length+')</h3><p class="note">Archived documents remain recoverable. Only administrators can manage them.</p><div class="list">'+(docHtml(archived,true)||'<div class="muted">No archived documents.</div>')+'</div></div><div><h3>Editorial Findings ('+f.length+')</h3><div class="list">'+(f.map(x=>'<div class="item"><strong>'+esc(x.dimension)+'</strong> · '+esc(x.severity)+'<p>'+esc(x.finding)+'</p><div class="muted small">'+esc(x.recommendation)+'</div></div>').join('')||'<div class="muted">No findings yet.</div>')+'</div></div><div><h3>Author Approvals ('+a.length+')</h3><div class="list">'+(a.map(x=>'<div class="item"><strong>'+esc(x.approval_type)+'</strong> · '+esc(x.decision)+'<p>'+esc(x.comments)+'</p></div>').join('')||'<div class="muted">No approvals yet.</div>')+'</div></div>';
  $('details').querySelectorAll('[data-file]').forEach(b=>b.onclick=async()=>{try{await requireAdmin();const path=b.getAttribute('data-file');if(!path)throw new Error('Document record has no storage path.');const {data,error}=await sb.storage.from('mpid-manuscripts').download(path);if(error)throw error;const url=URL.createObjectURL(data),a=document.createElement('a');a.href=url;a.download=path.split('/').pop()||'document';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){alert('Download failed: '+err(e))}});
  $('details').querySelectorAll('[data-document-id]').forEach(b=>b.onclick=async()=>{
@@ -69,6 +69,40 @@ function renderDetails(){
   b.disabled=true;
   try{await requireAdmin();const {error}=await sb.rpc('mpid_set_document_archived',{p_document_id:documentId,p_archive:archive});if(error)throw error;await refresh();alert('Document '+(archive?'archived':'restored')+' successfully.');}
   catch(e){alert((archive?'Archive':'Restore')+' failed: '+err(e));b.disabled=false;}
+ });
+
+ // Administrator-only permanent deletion: remove the storage object first,
+ // then finalize the document record and project activity log.
+ $('details').querySelectorAll('[data-delete-document-id]').forEach(b=>b.onclick=async()=>{
+  const documentId=b.getAttribute('data-delete-document-id');
+  const doc=documents.find(x=>x.id===documentId);
+  if(!doc)return;
+  const project=projects.find(p=>p.id===doc.project_id);
+  const promptText='PERMANENTLY DELETE this file?\n\nFile: '+doc.file_name+'\nProject: '+(project?.title||doc.project_id)+'\n\nThis removes the stored file and its document record. It cannot be restored through MPID.\n\nType DELETE to confirm:';
+  if(window.prompt(promptText)!=='DELETE')return;
+  b.disabled=true;
+  let storageRemoved=false;
+  try{
+   await requireAdmin();
+   if(!doc.storage_path)throw new Error('Document record has no storage path.');
+   const {data:removed,error:storageError}=await sb.storage.from('mpid-manuscripts').remove([doc.storage_path]);
+   if(storageError)throw storageError;
+   if(!Array.isArray(removed)||!removed.some(item=>item.name===doc.storage_path||item.name===doc.storage_path.split('/').pop())){
+    throw new Error('Storage did not confirm the requested file was removed. Document record was preserved.');
+   }
+   storageRemoved=true;
+   const {error:finalizeError}=await sb.rpc('mpid_finalize_document_delete',{
+    p_document_id:doc.id,p_storage_path:doc.storage_path
+   });
+   if(finalizeError)throw finalizeError;
+   await refresh();
+   alert('File permanently deleted and the action recorded: '+doc.file_name);
+  }catch(e){
+   alert(storageRemoved
+    ?'PARTIAL DELETION: The file was removed from Storage, but the document record or activity log could not be finalized. Do not retry Delete. Contact the MPID administrator to reconcile this document.\n\nFile: '+doc.file_name+'\nDocument ID: '+doc.id+'\nStorage path: '+doc.storage_path+'\nError: '+err(e)
+    :'Delete failed. The document record has not been deleted.\n\n'+err(e));
+   b.disabled=false;
+  }
  });
 }
 $('selectedProject').onchange=()=>{const p=projects.find(p=>p.id===$('selectedProject').value);if(p)$('newStatus').value=p.status||'onboarding';syncProjectSelectors();renderDetails();};
