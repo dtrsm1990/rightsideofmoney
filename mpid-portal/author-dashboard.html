@@ -25,7 +25,6 @@
 .mpid-progress-steps{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:14px}
 .mpid-progress-step{font-size:12px;color:var(--muted)}.mpid-progress-step.current{color:var(--gold);font-weight:800}.mpid-progress-step.done{color:#d3c29c}
 .mpid-progress-step.current::before{content:'● ';}.mpid-progress-step.done::before{content:'✓ ';}
-/* Security test panel, visible only to authenticated test authors. */
 .security-test{border-color:#76613b}.security-test input{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px}.security-result{font-weight:650}
 </style>
 </head>
@@ -38,16 +37,6 @@
 <div class="panel" id="activationPanel" hidden><h2>Activate your MPID account</h2><p>Choose a password to complete your invitation.</p><form id="activationForm"><label class="field">New password<input id="newPassword" type="password" required minlength="12" autocomplete="new-password"></label><button type="submit" id="activate">Activate Account</button></form></div>
 </section>
 <section id="dashboard" hidden><h1>Welcome, <span id="authorName">Author</span></h1><p>Your publishing projects, documents, and editorial findings appear below. Access is checked against your Supabase account.</p><div class="actions"><button id="refresh" class="secondary">Refresh Dashboard</button><span id="authorRole" class="pill"></span></div><div id="projects"></div>
-<section class="panel security-test" id="securityTestPanel" aria-labelledby="securityTestHeading">
-<h2 id="securityTestHeading">Security Verification: Archived File Access</h2>
-<p class="small">Test environment only. This check requests an archived test file directly from Supabase Storage using your current author session. It does not change or delete any files.</p>
-<label class="field" for="archivedPath">Archived test document Storage path
-<input id="archivedPath" type="text" placeholder="projects/PROJECT-ID/UUID_author1-test.txt" autocomplete="off" spellcheck="false">
-</label>
-<p class="small">Paste the exact <strong>storage_path</strong> from the archived document's Supabase SQL results. Do not paste a URL, password, or access token. The file must exist and be archived for this test to be conclusive.</p>
-<div class="actions"><button id="testArchivedAccess" type="button" class="secondary">Test Archived File Access</button></div>
-<div id="archivedTestResult" class="notice" role="status" aria-live="polite" hidden></div>
-</section>
 </section>
 <div id="message" class="notice" role="status" aria-live="polite" hidden></div>
 </main><footer>MPID Publishing Services · Secure author access · MPID Publishing Services</footer>
@@ -94,48 +83,16 @@ function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className
 $('connect').onclick=async()=>{try{const key=$('key').value.trim();await initialize(key);localStorage.setItem(STORAGE_KEY,key);msg('Connection saved on this device.','success')}catch(e){msg('Setup failed: '+e.message,'error')}};
 $('activationForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return;busy('activate',true);try{const password=$('newPassword').value;if(password.length<12)throw Error('Use at least 12 characters.');const {error}=await client.auth.updateUser({password});if(error)throw error;$('newPassword').value='';$('activationPanel').hidden=true;$('signInPanel').hidden=false;history.replaceState({},'',location.pathname);const {data}=await client.auth.getUser();if(!data.user)throw Error('Please sign in with your new password.');activeUser=data.user;displayDashboard();await loadDashboard()}catch(e){msg('Activation failed: '+e.message,'error')}finally{busy('activate',false)}};
 $('loginForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return msg('Portal connection is not configured.','error');busy('login',true);msg('Signing in...');try{const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;activeUser=data.user;$('password').value='';displayDashboard();await loadDashboard()}catch(e){msg('Sign-in error: '+e.message,'error')}finally{busy('login',false)}};
-$('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();$('archivedPath').value='';$('archivedTestResult').hidden=true;msg('Signed out.','success')};
+$('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();msg('Signed out.','success')};
 $('refresh').onclick=loadDashboard;
 (async()=>{const key=localStorage.getItem(STORAGE_KEY);if(!key){$('setupPanel').hidden=false;return}try{await initialize(key)}catch(e){$('setupPanel').hidden=false;msg('Saved connection failed: '+e.message,'error')}})();
-$('testArchivedAccess').onclick=async()=>{
- const button=$('testArchivedAccess'),output=$('archivedTestResult');
- output.hidden=false;output.className='notice';output.textContent='Checking authenticated Storage access...';
- const path=$('archivedPath').value.trim();
- if(!client||!activeUser){output.className='notice error';output.textContent='Sign in as a test author before running this check.';return}
- if(!path||!path.startsWith('projects/')||path.includes('://')||path.startsWith('/')||path.includes('..')){
-  output.className='notice error';output.textContent='Enter the exact Storage path beginning with projects/. Do not enter a web address.';return;
- }
- button.disabled=true;
- try{
-  const {data:{user},error:authError}=await client.auth.getUser();
-  if(authError||!user||user.id!==activeUser.id)throw Error('Your author session could not be verified. Sign in again.');
-  const {data,error}=await client.storage.from('mpid-manuscripts').download(path);
-  if(!error&&data){
-   output.className='notice error';
-   output.textContent='SECURITY FAILURE: Supabase returned file contents to this author account. Do not use MPID for confidential manuscripts until access policies are corrected. No file was saved by this test.';
-  }else if(error){
-   const status=Number(error.statusCode||error.status||0);
-   const description=String(error.message||'Access request failed');
-   if([400,401,403,404].includes(status)){
-    output.className='notice success';
-    output.textContent='ACCESS BLOCKED: Supabase did not return file contents (HTTP '+status+'). This is consistent with the expected restriction. Confirm the exact file exists and is archived in the Administrator Dashboard before treating this as a complete security pass. Details: '+description;
-   }else{
-    output.className='notice error';
-    output.textContent='INCONCLUSIVE: Supabase did not return file contents, but the response does not establish an access-policy denial. '+(status?'HTTP '+status+'. ':'')+description;
-   }
-  }else{
-   output.className='notice error';output.textContent='INCONCLUSIVE: Supabase returned neither file data nor an error.';
-  }
- }catch(e){output.className='notice error';output.textContent='INCONCLUSIVE: '+(e?.message||String(e))}
- finally{button.disabled=false}
-};
 async function loadDashboard(){
  if(!client||!activeUser)return;
  busy('refresh',true);msg('Loading your projects, documents, and editorial findings...');$('projects').replaceChildren();
  try{
   const {data:profile,error:pe}=await client.from('mpid_profiles').select('full_name,role').eq('id',activeUser.id).single();
   if(pe)throw pe;
-  if(profile.role!=='author')throw Error('This page is for author accounts only. Use a test author account.');
+  if(profile.role!=='author')throw Error('This account is not assigned the author role. Please use your author account.');
   $('authorName').textContent=profile.full_name||'Author';$('authorRole').textContent=profile.role;
   const {data:projects,error:prErr}=await client.from('mpid_projects').select('id,title,status').eq('author_id',activeUser.id).order('created_at',{ascending:false});
   if(prErr)throw prErr;displayDashboard();
@@ -224,9 +181,9 @@ async function loadDashboard(){
    };
   }
   msg('Your authorized projects, documents, and editorial findings loaded.','success')
- }catch(e){msg('Dashboard error: '+e.message,'error')}
+ }catch(e){displayLogin();msg('Unable to open author dashboard: '+e.message,'error')}
  finally{busy('refresh',false)}
 }
-async function accessFile(path,name,download,btn){btn.disabled=true;msg('Checking secure file access...');try{const {data,error}=await client.storage.from('mpid-manuscripts').download(path);if(error)throw error;if(!data)throw Error('No file data returned');const blobUrl=URL.createObjectURL(data);const a=document.createElement('a');a.href=blobUrl;a.rel='noopener';if(download){a.download=name}else{a.target='_blank'}document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);msg((download?'Download':'View')+' request succeeded for '+name+'. This verifies access to this file, not cross-author denial.','success')}catch(e){msg('File access denied or failed: '+e.message,'error')}finally{btn.disabled=false}}
+async function accessFile(path,name,download,btn){btn.disabled=true;msg('Checking secure file access...');try{const {data,error}=await client.storage.from('mpid-manuscripts').download(path);if(error)throw error;if(!data)throw Error('No file data returned');const blobUrl=URL.createObjectURL(data);const a=document.createElement('a');a.href=blobUrl;a.rel='noopener';if(download){a.download=name}else{a.target='_blank'}document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);msg((download?'Download':'View')+' request succeeded for '+name+'. Your authorized file is ready.','success')}catch(e){msg('File access denied or failed: '+e.message,'error')}finally{btn.disabled=false}}
 </script>
 </body></html>
