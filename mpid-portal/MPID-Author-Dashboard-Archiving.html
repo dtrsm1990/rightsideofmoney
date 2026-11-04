@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MPID Publishing | Author Dashboard</title>
+<style>
+:root{color-scheme:dark;--bg:#0d0e10;--panel:#191a1e;--border:#35343a;--gold:#d6b66c;--muted:#b8b8be;--white:#f8f7f3}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}header{border-bottom:1px solid var(--border);padding:20px max(20px,calc((100vw - 1100px)/2));display:flex;justify-content:space-between;gap:16px;align-items:center}.brand{font-weight:800;letter-spacing:.12em;color:var(--gold)}.sub{font-size:12px;color:var(--muted);letter-spacing:.08em}.container{max-width:1100px;margin:32px auto;padding:0 20px}h1{font-size:clamp(26px,4vw,38px);margin:0 0 8px}h2{font-size:20px;margin:0 0 14px}p{color:var(--muted)}.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;margin:20px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.field{display:block;margin:0 0 16px;font-size:14px;color:var(--muted)}input{display:block;margin-top:6px;width:100%;padding:12px;border-radius:8px;border:1px solid #555;background:#101114;color:#fff;font-size:16px}button{border:1px solid var(--gold);background:var(--gold);color:#141414;border-radius:8px;padding:11px 17px;font-weight:750;cursor:pointer}button.secondary{background:transparent;color:var(--gold)}button:disabled{opacity:.5;cursor:wait}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.pill{display:inline-block;background:#393125;color:#f0d59c;padding:4px 10px;border-radius:99px;font-size:12px;text-transform:capitalize}.file{display:flex;gap:16px;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding:16px 0;flex-wrap:wrap}.filename{font-weight:650;overflow-wrap:anywhere}.small{font-size:13px;color:var(--muted)}.notice{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:#222328;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}.error{border-color:#b95555;color:#ffd4d4}.success{border-color:#6d9872;color:#c9f1d0}[hidden]{display:none!important}.finding{padding:16px 0;border-top:1px solid var(--border)}.finding-heading{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.finding-label{font-weight:700;color:var(--gold);font-size:13px;margin-top:12px}.finding-text{margin:4px 0 8px;color:var(--white);white-space:pre-wrap;overflow-wrap:anywhere}footer{max-width:1100px;margin:35px auto;padding:0 20px 30px;color:#a5a5ab;font-size:13px}a{color:var(--gold)}
+</style>
+</head>
+<body>
+<header><div><div class="brand">MPID PUBLISHING SERVICES</div><div class="sub">SECURE AUTHOR PORTAL · TEST ENVIRONMENT</div></div><button id="signout" class="secondary" hidden>Sign Out</button></header>
+<main class="container">
+<section id="loginSection"><h1>Author Portal</h1><p>Sign in to review your publishing projects and access your authorized documents.</p>
+<div class="panel"><h2>1. Connect to Supabase</h2><div class="grid"><label class="field">Supabase API URL<input id="url" type="url" placeholder="https://your-project.supabase.co" autocomplete="url" spellcheck="false"></label><label class="field">Publishable key<input id="key" type="text" placeholder="sb_publishable_..." autocomplete="off" spellcheck="false"></label></div><div class="actions"><button id="connect">Connect</button><span id="connectionStatus" class="small"></span></div><p class="small">Use only the publishable key. Never enter a secret or service-role key. Configuration stays in this browser tab and is not written to GitHub.</p></div>
+<div class="panel"><h2>2. Sign in as a test author</h2><form id="loginForm"><div class="grid"><label class="field">Email<input id="email" type="email" required autocomplete="username"></label><label class="field">Password<input id="password" type="password" required autocomplete="current-password"></label></div><button id="login" type="submit" disabled>Sign In</button></form></div></section>
+<section id="dashboard" hidden><h1>Welcome, <span id="authorName">Author</span></h1><p>Your publishing projects, documents, and editorial findings appear below. Access is checked against your Supabase account.</p><div class="actions"><button id="refresh" class="secondary">Refresh Dashboard</button><span id="authorRole" class="pill"></span></div><div id="projects"></div>
+</section>
+<div id="message" class="notice" role="status" aria-live="polite" hidden></div>
+</main><footer>MPID Publishing Services · This test portal must pass authenticated download and cross-author access checks before use with confidential manuscripts.</footer>
+<script type="module">
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const $=id=>document.getElementById(id);let client=null;let activeUser=null;
+function msg(s,type=''){const e=$('message');e.hidden=!s;e.textContent=s||'';e.className='notice '+type}
+function busy(id,b){$(id).disabled=b}
+function normalizeUrl(s){let u;try{u=new URL(s.trim())}catch{throw Error('Enter the complete Supabase API URL, starting with https://')}if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co'))throw Error('Use the HTTPS project API URL ending in .supabase.co');return u.origin}
+function displayLogin(){activeUser=null;$('dashboard').hidden=true;$('loginSection').hidden=false;$('signout').hidden=true}
+function displayDashboard(){ $('loginSection').hidden=true;$('dashboard').hidden=false;$('signout').hidden=false }
+function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x}
+$('connect').onclick=async()=>{msg('');try{const url=normalizeUrl($('url').value);const key=$('key').value.trim();if(!key)throw Error('Enter your Supabase publishable key.');if(key.startsWith('sb_secret_')||key.startsWith('eyJ')&&false)throw Error('Never use a secret key here.');client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:true,detectSessionInUrl:false}});$('connectionStatus').textContent='Connected locally. Sign in to verify Supabase authentication.';busy('login',false);msg('Connection configured. Sign in as a test author to verify it.','success')}catch(e){client=null;busy('login',true);msg('Connection setup error: '+e.message,'error')}};
+$('loginForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return msg('Connect to Supabase first.','error');busy('login',true);msg('Signing in...');try{const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;activeUser=data.user;$('password').value='';displayDashboard();await loadDashboard()}catch(e){msg('Sign-in error: '+e.message,'error')}finally{busy('login',false)}};
+$('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();msg('Signed out.','success')};
+$('refresh').onclick=loadDashboard;
+async function loadDashboard(){
+ if(!client||!activeUser)return;
+ busy('refresh',true);msg('Loading your projects, documents, and editorial findings...');$('projects').replaceChildren();
+ try{
+  const {data:profile,error:pe}=await client.from('mpid_profiles').select('full_name,role').eq('id',activeUser.id).single();
+  if(pe)throw pe;
+  if(profile.role!=='author')throw Error('This page is for author accounts only. Use a test author account.');
+  $('authorName').textContent=profile.full_name||'Author';$('authorRole').textContent=profile.role;
+  const {data:projects,error:prErr}=await client.from('mpid_projects').select('id,title,status').eq('author_id',activeUser.id).order('created_at',{ascending:false});
+  if(prErr)throw prErr;displayDashboard();
+  if(!projects.length){$('projects').append(el('div','panel','No publishing projects are assigned to your account yet.'));msg('Signed in. No projects found.','success');return}
+  for(const project of projects){
+   const panel=el('section','panel');panel.append(el('h2','',project.title));panel.append(el('div','pill',project.status||'Unknown status'));
+   panel.append(el('h3','', 'Project Documents'));
+   const list=el('div');panel.append(list);$('projects').append(panel);
+   const {data:files,error:fe}=await client.from('mpid_documents')
+    .select('id,file_name,storage_path,document_type,version,created_at')
+    .eq('project_id',project.id).is('archived_at',null)
+    .order('created_at',{ascending:false});
+   if(fe){list.append(el('p','small','Could not load documents: '+fe.message))}
+   else{
+    if(!files||!files.length)list.append(el('p','small','No active documents available for this project.'));
+    for(const file of files||[]){
+     const row=el('div','file');const left=el('div');
+     left.append(el('div','filename',file.file_name));
+     left.append(el('div','small',(file.document_type||'Project document')+' · Version '+(file.version||1)));
+     const actions=el('div','actions');
+     for(const [label,download] of [['View',false],['Download',true]]){
+      const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(file.storage_path,file.file_name,download,btn);actions.append(btn)
+     }
+     row.append(left,actions);list.append(row)
+    }
+   }
+   panel.append(el('h3','', 'Editorial Findings'));
+   const findingsList=el('div');panel.append(findingsList);
+   const {data:findings,error:findErr}=await client.from('mpid_audit_findings')
+    .select('dimension,severity,finding,recommendation,status,created_at')
+    .eq('project_id',project.id).order('created_at',{ascending:false});
+   if(findErr){findingsList.append(el('p','small','Could not load editorial findings: '+findErr.message));continue}
+   if(!findings||!findings.length){findingsList.append(el('p','small','No editorial findings have been posted for this project.'));continue}
+   for(const finding of findings){
+    const item=el('div','finding');const heading=el('div','finding-heading');
+    heading.append(el('strong','',finding.dimension||'Editorial Review'));
+    if(finding.severity)heading.append(el('span','pill',finding.severity));
+    if(finding.status)heading.append(el('span','small','Status: '+finding.status));
+    item.append(heading);
+    item.append(el('div','finding-label','Finding'));
+    item.append(el('p','finding-text',finding.finding||'No description provided.'));
+    item.append(el('div','finding-label','Recommendation'));
+    item.append(el('p','finding-text',finding.recommendation||'No recommendation provided.'));
+    findingsList.append(item)
+   }
+  }
+  msg('Your authorized projects, documents, and editorial findings loaded.','success')
+ }catch(e){msg('Dashboard error: '+e.message,'error')}
+ finally{busy('refresh',false)}
+}
+async function accessFile(path,name,download,btn){btn.disabled=true;msg('Checking secure file access...');try{const {data,error}=await client.storage.from('mpid-manuscripts').download(path);if(error)throw error;if(!data)throw Error('No file data returned');const blobUrl=URL.createObjectURL(data);const a=document.createElement('a');a.href=blobUrl;a.rel='noopener';if(download){a.download=name}else{a.target='_blank'}document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);msg((download?'Download':'View')+' request succeeded for '+name+'. This verifies access to this file, not cross-author denial.','success')}catch(e){msg('File access denied or failed: '+e.message,'error')}finally{btn.disabled=false}}
+</script>
+</body></html>
