@@ -37,6 +37,8 @@
 <div class="panel" id="activationPanel" hidden><h2>Activate your MPID account</h2><p>Choose a password to complete your invitation.</p><form id="activationForm"><label class="field">New password<input id="newPassword" type="password" required minlength="12" autocomplete="new-password"></label><button type="submit" id="activate">Activate Account</button></form></div>
 </section>
 <section id="dashboard" hidden><h1>Welcome, <span id="authorName">Author</span></h1><p>Your publishing projects, documents, and editorial findings appear below. Access is checked against your Supabase account.</p><div class="actions"><button id="refresh" class="secondary">Refresh Dashboard</button><span id="authorRole" class="pill"></span></div><div id="projects"></div>
+<section class="panel" id="accountPanel"><h2>Account Security</h2><p class="small">Create your password after accepting an invitation, or change your existing password. Use at least 12 characters.</p>
+<form id="accountPasswordForm"><div class="grid"><label class="field">New password<input id="accountNewPassword" type="password" required minlength="12" autocomplete="new-password"></label><label class="field">Confirm new password<input id="accountConfirmPassword" type="password" required minlength="12" autocomplete="new-password"></label></div><div class="actions"><button id="saveAccountPassword" type="submit">Save Password</button></div></form><div id="accountPasswordStatus" class="small" role="status" aria-live="polite"></div></section>
 </section>
 <div id="message" class="notice" role="status" aria-live="polite" hidden></div>
 </main><footer>MPID Publishing Services · Secure author access · MPID Publishing Services</footer>
@@ -84,6 +86,19 @@ $('connect').onclick=async()=>{try{const key=$('key').value.trim();await initial
 $('activationForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return;busy('activate',true);try{const password=$('newPassword').value;if(password.length<12)throw Error('Use at least 12 characters.');const {error}=await client.auth.updateUser({password});if(error)throw error;$('newPassword').value='';$('activationPanel').hidden=true;$('signInPanel').hidden=false;history.replaceState({},'',location.pathname);const {data}=await client.auth.getUser();if(!data.user)throw Error('Please sign in with your new password.');activeUser=data.user;displayDashboard();await loadDashboard()}catch(e){msg('Activation failed: '+e.message,'error')}finally{busy('activate',false)}};
 $('loginForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return msg('Portal connection is not configured.','error');busy('login',true);msg('Signing in...');try{const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;activeUser=data.user;$('password').value='';displayDashboard();await loadDashboard()}catch(e){msg('Sign-in error: '+e.message,'error')}finally{busy('login',false)}};
 $('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();msg('Signed out.','success')};
+$('accountPasswordForm').onsubmit=async ev=>{
+ ev.preventDefault();const status=$('accountPasswordStatus');status.textContent='';
+ if(!client||!activeUser){status.textContent='Please sign in first.';return}
+ const password=$('accountNewPassword').value,confirmPassword=$('accountConfirmPassword').value;
+ if(password.length<12){status.textContent='Password must contain at least 12 characters.';return}
+ if(password!==confirmPassword){status.textContent='Passwords do not match.';return}
+ busy('saveAccountPassword',true);status.textContent='Saving password...';
+ try{const {data:{user},error:sessionError}=await client.auth.getUser();if(sessionError||!user||user.id!==activeUser.id)throw Error('Session expired. Please sign in again.');
+ const {error}=await client.auth.updateUser({password});if(error)throw error;
+ $('accountPasswordForm').reset();status.textContent='Password saved. You can now sign out and sign in with your email and new password.';
+ }catch(e){status.textContent='Password could not be saved: '+e.message}
+ finally{busy('saveAccountPassword',false)}
+};
 $('refresh').onclick=loadDashboard;
 (async()=>{const key=localStorage.getItem(STORAGE_KEY);if(!key){$('setupPanel').hidden=false;return}try{await initialize(key)}catch(e){$('setupPanel').hidden=false;msg('Saved connection failed: '+e.message,'error')}})();
 async function loadDashboard(){
