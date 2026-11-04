@@ -14,6 +14,17 @@
 .panel > .approval-form textarea{resize:vertical}
 .panel > .approval-form .field{margin-bottom:16px}
 @media(max-width:600px){.panel > h3{margin-top:24px;padding-top:16px}}
+
+/* Publishing stage tracker: visual display of the saved project status. */
+.mpid-progress{margin:18px 0 20px;padding:17px;border:1px solid #655335;border-radius:12px;background:rgba(214,174,90,.055)}
+.mpid-progress-title{font-weight:800;color:var(--gold);margin-bottom:5px}
+.mpid-progress-note{font-size:13px;color:var(--muted);margin:5px 0 12px}
+.mpid-progress-track{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin:12px 0}
+.mpid-progress-segment{height:8px;background:#39373a;border-radius:6px}
+.mpid-progress-segment.done{background:#8b7649}.mpid-progress-segment.current{background:var(--gold)}
+.mpid-progress-steps{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:14px}
+.mpid-progress-step{font-size:12px;color:var(--muted)}.mpid-progress-step.current{color:var(--gold);font-weight:800}.mpid-progress-step.done{color:#d3c29c}
+.mpid-progress-step.current::before{content:'● ';}.mpid-progress-step.done::before{content:'✓ ';}
 </style>
 </head>
 <body>
@@ -28,6 +39,19 @@
 </main><footer>MPID Publishing Services · This test portal must pass authenticated download and cross-author access checks before use with confidential manuscripts.</footer>
 <script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const MPID_STAGES=[['onboarding','Onboarding','Author intake and manuscript submission'],['audit','Manuscript Audit','Editorial assessment and findings'],['author_review','Author Review','Review of findings and proposed changes'],['editing','Editing','Manuscript revisions and editorial work'],['production','Production','Interior formatting and cover preparation'],['proofing','Proofing','Review and approval of final proofs'],['completed','Completed','Publishing deliverables finalized']];
+function mpidProgressMarkup(status){
+ const index=MPID_STAGES.findIndex(s=>s[0]===status),held=status==='on_hold';
+ const stage=index>=0?MPID_STAGES[index]:null;
+ const safeText=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const heading=held?'On Hold':stage?stage[1]:'Status unavailable';
+ const description=held?'This project is paused. Contact MPID for its next steps.':stage?stage[2]:'Contact MPID for a status update.';
+ const steps=MPID_STAGES.map((s,i)=>'<span class="mpid-progress-step '+(!held&&i===index?'current':!held&&i<index?'done':'')+'">'+safeText(s[1])+'</span>').join('');
+ const segments=MPID_STAGES.map((s,i)=>'<span class="mpid-progress-segment '+(!held&&i===index?'current':!held&&i<index?'done':'')+'"></span>').join('');
+ return '<div class="mpid-progress" aria-label="Publishing progress"><div class="mpid-progress-title">Publishing Progress: '+safeText(heading)+'</div><div class="mpid-progress-note">'+safeText(description)+'</div><div class="mpid-progress-track" aria-hidden="true">'+segments+'</div><div class="mpid-progress-steps">'+steps+'</div>'+(held?'<p class="mpid-progress-note">On Hold is a pause, not a completed milestone.</p>':'')+'</div>';
+}
+
 const $=id=>document.getElementById(id);let client=null;let activeUser=null;
 function msg(s,type=''){const e=$('message');e.hidden=!s;e.textContent=s||'';e.className='notice '+type}
 function busy(id,b){$(id).disabled=b}
@@ -51,7 +75,7 @@ async function loadDashboard(){
   if(prErr)throw prErr;displayDashboard();
   if(!projects.length){$('projects').append(el('div','panel','No publishing projects are assigned to your account yet.'));msg('Signed in. No projects found.','success');return}
   for(const project of projects){
-   const panel=el('section','panel');panel.append(el('h2','',project.title));panel.append(el('div','pill',project.status||'Unknown status'));
+   const panel=el('section','panel');panel.append(el('h2','',project.title));panel.append(el('div','pill',project.status||'Unknown status'));const progress=el('div');progress.innerHTML=mpidProgressMarkup(project.status);panel.append(progress);
    panel.append(el('h3','', 'Project Documents'));
    const list=el('div');panel.append(list);$('projects').append(panel);
    const {data:files,error:fe}=await client.from('mpid_documents')

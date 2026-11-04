@@ -13,6 +13,17 @@
 #details .list{margin-bottom:18px}
 .approval-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.approval-status{display:inline-block;border:1px solid #8b7344;border-radius:999px;padding:3px 10px;color:var(--gold);font-size:12px;font-weight:750}.approval-status.approved{color:var(--green);border-color:#42795b}.approval-status.revisions{color:#ffd18a;border-color:#b18a4b}.approval-meta{margin-top:9px;font-size:12px;color:var(--muted)}.approval-comment{border-top:1px solid #39342e;padding-top:9px;margin-top:10px;white-space:pre-wrap}
 #workspace > section.grid{margin-bottom:8px}
+
+/* Publishing stage tracker: visual display of the saved project status. */
+.mpid-progress{margin:18px 0 20px;padding:17px;border:1px solid #655335;border-radius:12px;background:rgba(214,174,90,.055)}
+.mpid-progress-title{font-weight:800;color:var(--gold);margin-bottom:5px}
+.mpid-progress-note{font-size:13px;color:var(--muted);margin:5px 0 12px}
+.mpid-progress-track{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin:12px 0}
+.mpid-progress-segment{height:8px;background:#39373a;border-radius:6px}
+.mpid-progress-segment.done{background:#8b7649}.mpid-progress-segment.current{background:var(--gold)}
+.mpid-progress-steps{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:14px}
+.mpid-progress-step{font-size:12px;color:var(--muted)}.mpid-progress-step.current{color:var(--gold);font-weight:800}.mpid-progress-step.done{color:#d3c29c}
+.mpid-progress-step.current::before{content:'● ';}.mpid-progress-step.done::before{content:'✓ ';}
 </style></head><body>
 <header><div><div class="eyebrow">MPID PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
 <main>
@@ -29,6 +40,19 @@
 </div></main>
 <script type="module">
 import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
+
+const MPID_STAGES=[['onboarding','Onboarding','Author intake and manuscript submission'],['audit','Manuscript Audit','Editorial assessment and findings'],['author_review','Author Review','Review of findings and proposed changes'],['editing','Editing','Manuscript revisions and editorial work'],['production','Production','Interior formatting and cover preparation'],['proofing','Proofing','Review and approval of final proofs'],['completed','Completed','Publishing deliverables finalized']];
+function mpidProgressMarkup(status){
+ const index=MPID_STAGES.findIndex(s=>s[0]===status),held=status==='on_hold';
+ const stage=index>=0?MPID_STAGES[index]:null;
+ const safeText=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const heading=held?'On Hold':stage?stage[1]:'Status unavailable';
+ const description=held?'This project is paused. Contact MPID for its next steps.':stage?stage[2]:'Contact MPID for a status update.';
+ const steps=MPID_STAGES.map((s,i)=>'<span class="mpid-progress-step '+(!held&&i===index?'current':!held&&i<index?'done':'')+'">'+safeText(s[1])+'</span>').join('');
+ const segments=MPID_STAGES.map((s,i)=>'<span class="mpid-progress-segment '+(!held&&i===index?'current':!held&&i<index?'done':'')+'"></span>').join('');
+ return '<div class="mpid-progress" aria-label="Publishing progress"><div class="mpid-progress-title">Publishing Progress: '+safeText(heading)+'</div><div class="mpid-progress-note">'+safeText(description)+'</div><div class="mpid-progress-track" aria-hidden="true">'+segments+'</div><div class="mpid-progress-steps">'+steps+'</div>'+(held?'<p class="mpid-progress-note">On Hold is a pause, not a completed milestone.</p>':'')+'</div>';
+}
+
 const $=id=>document.getElementById(id);const CONFIG_KEY='mpid_admin_public_supabase_config_v1';let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[];
 const show=(id,on=true)=>$(id).classList.toggle('hidden',!on);
 const message=(id,text,ok=false)=>{const e=$(id);e.textContent=text;e.className='message '+(ok?'success':'error');show(id,true)};
@@ -71,7 +95,7 @@ function renderDetails(){
    return '<div class="item"><div class="approval-head"><strong>'+esc(type)+'</strong><span class="approval-status '+statusClass+'">'+esc(decision)+'</span></div><div class="approval-meta">Author: '+esc(approver)+' · Submitted: '+esc(when)+'</div><div class="approval-comment"><span class="muted small">Author comment</span><div>'+esc(x.comments||'No comment provided.')+'</div></div></div>';
  }).join('');
  const docHtml=(items,isArchived)=>items.map(x=>'<div class="item"><strong>'+esc(x.file_name)+'</strong><div class="muted small">'+esc(x.document_type)+' · Version '+esc(x.version||1)+(isArchived?' · Archived '+esc(new Date(x.archived_at).toLocaleString()):'')+'</div><div class="actions"><button class="secondary" data-file="'+esc(x.storage_path)+'">Download</button><button class="secondary" data-document-id="'+esc(x.id)+'" data-archive="'+(isArchived?'false':'true')+'">'+(isArchived?'Restore':'Archive')+'</button><button class="danger" data-delete-document-id="'+esc(x.id)+'">Delete</button></div></div>').join('');
- $('details').innerHTML='<div><h3>Active Documents ('+active.length+')</h3><div class="list">'+(docHtml(active,false)||'<div class="muted">No active document records.</div>')+'</div><h3 style="margin-top:24px">Archived Documents ('+archived.length+')</h3><p class="note">Archived documents remain recoverable. Only administrators can manage them.</p><div class="list">'+(docHtml(archived,true)||'<div class="muted">No archived documents.</div>')+'</div></div><div><h3>Editorial Findings ('+f.length+')</h3><div class="list">'+(f.map(x=>'<div class="item"><strong>'+esc(x.dimension)+'</strong> · '+esc(x.severity)+'<p>'+esc(x.finding)+'</p><div class="muted small">'+esc(x.recommendation)+'</div></div>').join('')||'<div class="muted">No findings yet.</div>')+'</div></div><div><h3>Author Approvals ('+a.length+')</h3><div class="list">'+(approvalHtml||'<div class="muted">No approvals yet.</div>')+'</div></div>';
+ $('details').innerHTML='<div style="grid-column:1/-1">'+mpidProgressMarkup(projects.find(p=>p.id===id)?.status)+'</div><div><h3>Active Documents ('+active.length+')</h3><div class="list">'+(docHtml(active,false)||'<div class="muted">No active document records.</div>')+'</div><h3 style="margin-top:24px">Archived Documents ('+archived.length+')</h3><p class="note">Archived documents remain recoverable. Only administrators can manage them.</p><div class="list">'+(docHtml(archived,true)||'<div class="muted">No archived documents.</div>')+'</div></div><div><h3>Editorial Findings ('+f.length+')</h3><div class="list">'+(f.map(x=>'<div class="item"><strong>'+esc(x.dimension)+'</strong> · '+esc(x.severity)+'<p>'+esc(x.finding)+'</p><div class="muted small">'+esc(x.recommendation)+'</div></div>').join('')||'<div class="muted">No findings yet.</div>')+'</div></div><div><h3>Author Approvals ('+a.length+')</h3><div class="list">'+(approvalHtml||'<div class="muted">No approvals yet.</div>')+'</div></div>';
  $('details').querySelectorAll('[data-file]').forEach(b=>b.onclick=async()=>{try{await requireAdmin();const path=b.getAttribute('data-file');if(!path)throw new Error('Document record has no storage path.');const {data,error}=await sb.storage.from('mpid-manuscripts').download(path);if(error)throw error;const url=URL.createObjectURL(data),a=document.createElement('a');a.href=url;a.download=path.split('/').pop()||'document';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){alert('Download failed: '+err(e))}});
  $('details').querySelectorAll('[data-document-id]').forEach(b=>b.onclick=async()=>{
   const documentId=b.getAttribute('data-document-id'),archive=b.getAttribute('data-archive')==='true';
