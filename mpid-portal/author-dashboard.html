@@ -25,6 +25,8 @@
 .mpid-progress-steps{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:14px}
 .mpid-progress-step{font-size:12px;color:var(--muted)}.mpid-progress-step.current{color:var(--gold);font-weight:800}.mpid-progress-step.done{color:#d3c29c}
 .mpid-progress-step.current::before{content:'● ';}.mpid-progress-step.done::before{content:'✓ ';}
+/* Security test panel, visible only to authenticated test authors. */
+.security-test{border-color:#76613b}.security-test input{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px}.security-result{font-weight:650}
 </style>
 </head>
 <body>
@@ -34,6 +36,16 @@
 <div class="panel"><h2>1. Connect to Supabase</h2><div class="grid"><label class="field">Supabase API URL<input id="url" type="url" placeholder="https://your-project.supabase.co" autocomplete="url" spellcheck="false"></label><label class="field">Publishable key<input id="key" type="text" placeholder="sb_publishable_..." autocomplete="off" spellcheck="false"></label></div><div class="actions"><button id="connect">Connect</button><span id="connectionStatus" class="small"></span></div><p class="small">Use only the publishable key. Never enter a secret or service-role key. Configuration stays in this browser tab and is not written to GitHub.</p></div>
 <div class="panel"><h2>2. Sign in as a test author</h2><form id="loginForm"><div class="grid"><label class="field">Email<input id="email" type="email" required autocomplete="username"></label><label class="field">Password<input id="password" type="password" required autocomplete="current-password"></label></div><button id="login" type="submit" disabled>Sign In</button></form></div></section>
 <section id="dashboard" hidden><h1>Welcome, <span id="authorName">Author</span></h1><p>Your publishing projects, documents, and editorial findings appear below. Access is checked against your Supabase account.</p><div class="actions"><button id="refresh" class="secondary">Refresh Dashboard</button><span id="authorRole" class="pill"></span></div><div id="projects"></div>
+<section class="panel security-test" id="securityTestPanel" aria-labelledby="securityTestHeading">
+<h2 id="securityTestHeading">Security Verification: Archived File Access</h2>
+<p class="small">Test environment only. This check requests an archived test file directly from Supabase Storage using your current author session. It does not change or delete any files.</p>
+<label class="field" for="archivedPath">Archived test document Storage path
+<input id="archivedPath" type="text" placeholder="projects/PROJECT-ID/UUID_author1-test.txt" autocomplete="off" spellcheck="false">
+</label>
+<p class="small">Paste the exact <strong>storage_path</strong> from the archived document's Supabase SQL results. Do not paste a URL, password, or access token. The file must exist and be archived for this test to be conclusive.</p>
+<div class="actions"><button id="testArchivedAccess" type="button" class="secondary">Test Archived File Access</button></div>
+<div id="archivedTestResult" class="notice" role="status" aria-live="polite" hidden></div>
+</section>
 </section>
 <div id="message" class="notice" role="status" aria-live="polite" hidden></div>
 </main><footer>MPID Publishing Services · This test portal must pass authenticated download and cross-author access checks before use with confidential manuscripts.</footer>
@@ -61,8 +73,40 @@ function displayDashboard(){ $('loginSection').hidden=true;$('dashboard').hidden
 function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x}
 $('connect').onclick=async()=>{msg('');try{const url=normalizeUrl($('url').value);const key=$('key').value.trim();if(!key)throw Error('Enter your Supabase publishable key.');if(key.startsWith('sb_secret_')||key.startsWith('eyJ')&&false)throw Error('Never use a secret key here.');client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:true,detectSessionInUrl:false}});$('connectionStatus').textContent='Connected locally. Sign in to verify Supabase authentication.';busy('login',false);msg('Connection configured. Sign in as a test author to verify it.','success')}catch(e){client=null;busy('login',true);msg('Connection setup error: '+e.message,'error')}};
 $('loginForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return msg('Connect to Supabase first.','error');busy('login',true);msg('Signing in...');try{const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;activeUser=data.user;$('password').value='';displayDashboard();await loadDashboard()}catch(e){msg('Sign-in error: '+e.message,'error')}finally{busy('login',false)}};
-$('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();msg('Signed out.','success')};
+$('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();$('archivedPath').value='';$('archivedTestResult').hidden=true;msg('Signed out.','success')};
 $('refresh').onclick=loadDashboard;
+$('testArchivedAccess').onclick=async()=>{
+ const button=$('testArchivedAccess'),output=$('archivedTestResult');
+ output.hidden=false;output.className='notice';output.textContent='Checking authenticated Storage access...';
+ const path=$('archivedPath').value.trim();
+ if(!client||!activeUser){output.className='notice error';output.textContent='Sign in as a test author before running this check.';return}
+ if(!path||!path.startsWith('projects/')||path.includes('://')||path.startsWith('/')||path.includes('..')){
+  output.className='notice error';output.textContent='Enter the exact Storage path beginning with projects/. Do not enter a web address.';return;
+ }
+ button.disabled=true;
+ try{
+  const {data:{user},error:authError}=await client.auth.getUser();
+  if(authError||!user||user.id!==activeUser.id)throw Error('Your author session could not be verified. Sign in again.');
+  const {data,error}=await client.storage.from('mpid-manuscripts').download(path);
+  if(!error&&data){
+   output.className='notice error';
+   output.textContent='SECURITY FAILURE: Supabase returned file contents to this author account. Do not use MPID for confidential manuscripts until access policies are corrected. No file was saved by this test.';
+  }else if(error){
+   const status=Number(error.statusCode||error.status||0);
+   const description=String(error.message||'Access request failed');
+   if([400,401,403,404].includes(status)){
+    output.className='notice success';
+    output.textContent='ACCESS BLOCKED: Supabase did not return file contents (HTTP '+status+'). This is consistent with the expected restriction. Confirm the exact file exists and is archived in the Administrator Dashboard before treating this as a complete security pass. Details: '+description;
+   }else{
+    output.className='notice error';
+    output.textContent='INCONCLUSIVE: Supabase did not return file contents, but the response does not establish an access-policy denial. '+(status?'HTTP '+status+'. ':'')+description;
+   }
+  }else{
+   output.className='notice error';output.textContent='INCONCLUSIVE: Supabase returned neither file data nor an error.';
+  }
+ }catch(e){output.className='notice error';output.textContent='INCONCLUSIVE: '+(e?.message||String(e))}
+ finally{button.disabled=false}
+};
 async function loadDashboard(){
  if(!client||!activeUser)return;
  busy('refresh',true);msg('Loading your projects, documents, and editorial findings...');$('projects').replaceChildren();
