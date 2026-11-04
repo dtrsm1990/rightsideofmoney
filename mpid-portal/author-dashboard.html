@@ -45,18 +45,20 @@ async function loadDashboard(){
    const panel=el('section','panel');panel.append(el('h2','',project.title));panel.append(el('div','pill',project.status||'Unknown status'));
    panel.append(el('h3','', 'Project Documents'));
    const list=el('div');panel.append(list);$('projects').append(panel);
-   const path='projects/'+project.id;
-   const {data:files,error:fe}=await client.storage.from('mpid-manuscripts').list(path,{limit:100,sortBy:{column:'name',order:'asc'}});
-   if(fe){list.append(el('p','small','Could not list files: '+fe.message))}
+   const {data:files,error:fe}=await client.from('mpid_documents')
+    .select('id,file_name,storage_path,document_type,version,created_at')
+    .eq('project_id',project.id).is('archived_at',null)
+    .order('created_at',{ascending:false});
+   if(fe){list.append(el('p','small','Could not load documents: '+fe.message))}
    else{
-    const real=(files||[]).filter(f=>f.name&&f.id);
-    if(!real.length)list.append(el('p','small','No documents available for this project.'));
-    for(const file of real){
-     const fullPath=path+'/'+file.name;const row=el('div','file');const left=el('div');
-     left.append(el('div','filename',file.name));left.append(el('div','small','Private project document'));
+    if(!files||!files.length)list.append(el('p','small','No active documents available for this project.'));
+    for(const file of files||[]){
+     const row=el('div','file');const left=el('div');
+     left.append(el('div','filename',file.file_name));
+     left.append(el('div','small',(file.document_type||'Project document')+' · Version '+(file.version||1)));
      const actions=el('div','actions');
      for(const [label,download] of [['View',false],['Download',true]]){
-      const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(fullPath,file.name,download,btn);actions.append(btn)
+      const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(file.storage_path,file.file_name,download,btn);actions.append(btn)
      }
      row.append(left,actions);list.append(row)
     }
