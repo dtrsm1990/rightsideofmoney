@@ -68,9 +68,9 @@ async function loadDashboard(){
    const {data:findings,error:findErr}=await client.from('mpid_audit_findings')
     .select('dimension,severity,finding,recommendation,status,created_at')
     .eq('project_id',project.id).order('created_at',{ascending:false});
-   if(findErr){findingsList.append(el('p','small','Could not load editorial findings: '+findErr.message));continue}
-   if(!findings||!findings.length){findingsList.append(el('p','small','No editorial findings have been posted for this project.'));continue}
-   for(const finding of findings){
+   if(findErr){findingsList.append(el('p','small','Could not load editorial findings: '+findErr.message));}
+   if(!findErr&&(!findings||!findings.length)){findingsList.append(el('p','small','No editorial findings have been posted for this project.'));}
+   for(const finding of (findErr?[]:(findings||[]))){
     const item=el('div','finding');const heading=el('div','finding-heading');
     heading.append(el('strong','',finding.dimension||'Editorial Review'));
     if(finding.severity)heading.append(el('span','pill',finding.severity));
@@ -82,6 +82,47 @@ async function loadDashboard(){
     item.append(el('p','finding-text',finding.recommendation||'No recommendation provided.'));
     findingsList.append(item)
    }
+   // Formal author decisions are append-only and tied to this author's project.
+   panel.append(el('h3','', 'Author Approvals & Revision Requests'));
+   panel.append(el('p','small','Submit a formal decision for a review stage. Each submission is retained as a separate record. Only approve materials you have reviewed.'));
+   const form=el('form','approval-form');
+   const stageLabel=el('label','field','Approval stage');
+   const stage=el('select');stage.required=true;
+   for(const [value,label] of [['editorial_changes','Editorial changes'],['revised_manuscript','Revised manuscript'],['final_proof','Final proof']]){const o=el('option','',label);o.value=value;stage.append(o)}
+   stageLabel.append(stage);
+   const decisionLabel=el('label','field','Decision');
+   const decision=el('select');decision.required=true;
+   for(const [value,label] of [['','Select a decision'],['approved','Approve'],['changes_requested','Request revisions'],['rejected','Do not approve']]){const o=el('option','',label);o.value=value;decision.append(o)}
+   decisionLabel.append(decision);
+   const commentsLabel=el('label','field','Comments / requested changes');
+   const comments=el('textarea');comments.rows=3;comments.placeholder='Describe the requested revisions or identify the document/version you reviewed.';comments.maxLength=5000;
+   commentsLabel.append(comments);
+   const submit=el('button','','Submit Formal Decision');submit.type='submit';
+   const feedback=el('p','small','');feedback.setAttribute('role','status');
+   form.append(stageLabel,decisionLabel,commentsLabel,submit,feedback);panel.append(form);
+   const history=el('div');panel.append(el('h3','', 'Decision History'));panel.append(history);
+   async function loadApprovals(){
+    history.replaceChildren();
+    const {data,error}=await client.from('mpid_approvals').select('approval_type,decision,comments,created_at').eq('project_id',project.id).eq('author_id',activeUser.id).order('created_at',{ascending:false});
+    if(error){history.append(el('p','small','Unable to load decisions: '+error.message));return}
+    if(!data?.length){history.append(el('p','small','No formal decisions submitted yet.'));return}
+    for(const a of data){const row=el('div','finding');row.append(el('strong','',a.approval_type.replaceAll('_',' ')+' · '+a.decision.replaceAll('_',' ')));row.append(el('p','small',new Date(a.created_at).toLocaleString()));if(a.comments)row.append(el('p','',a.comments));history.append(row)}
+   }
+   await loadApprovals();
+   form.onsubmit=async ev=>{
+    ev.preventDefault();feedback.textContent='';
+    if(!decision.value){feedback.textContent='Choose a decision.';return}
+    if(decision.value!=='approved'&&!comments.value.trim()){feedback.textContent='Explain the requested changes or reason for nonapproval.';return}
+    if(!confirm('Submit this formal '+decision.options[decision.selectedIndex].text.toLowerCase()+' decision? It will be retained in the project history.'))return;
+    submit.disabled=true;
+    try{
+     const {data:{user},error:ue}=await client.auth.getUser();if(ue||!user||user.id!==activeUser.id)throw Error('Session expired. Please sign in again.');
+     const {error}=await client.from('mpid_approvals').insert({project_id:project.id,author_id:user.id,approval_type:stage.value,decision:decision.value,comments:comments.value.trim()||null});
+     if(error)throw error;
+     feedback.textContent='Decision recorded successfully.';decision.value='';comments.value='';await loadApprovals();
+    }catch(e){feedback.textContent='Decision not saved: '+e.message}
+    finally{submit.disabled=false}
+   };
   }
   msg('Your authorized projects, documents, and editorial findings loaded.','success')
  }catch(e){msg('Dashboard error: '+e.message,'error')}
