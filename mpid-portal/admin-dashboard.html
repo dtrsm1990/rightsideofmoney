@@ -28,7 +28,7 @@
 </div></main>
 <script type="module">
 import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
-const $=id=>document.getElementById(id);let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[];
+const $=id=>document.getElementById(id);const CONFIG_KEY='mpid_admin_public_supabase_config_v1';let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[];
 const show=(id,on=true)=>$(id).classList.toggle('hidden',!on);
 const message=(id,text,ok=false)=>{const e=$(id);e.textContent=text;e.className='message '+(ok?'success':'error');show(id,true)};
 const clean=(value)=>String(value??'');
@@ -36,7 +36,17 @@ const esc=(v)=>clean(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;
 const err=(e)=>e?.message||String(e);
 const requireAdmin=async()=>{const {data:{user},error}=await sb.auth.getUser();if(error||!user)throw new Error('Not signed in.');const {data:profile,error:pe}=await sb.from('mpid_profiles').select('full_name,role').eq('id',user.id).single();if(pe)throw pe;if(profile?.role!=='admin')throw new Error('Access denied: This account is not an MPID administrator.');return profile;};
 async function enter(){const p=await requireAdmin();$('who').textContent=p.full_name||'MPID Administrator';show('setup',false);show('login',false);show('workspace');show('signout');await refresh();}
-$('connect').onclick=async()=>{try{const raw=$('url').value.trim();const key=$('key').value.trim();if(!raw)throw new Error('Enter your Supabase project API URL.');const u=new URL(raw);if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co'))throw new Error('Enter your Supabase HTTPS project URL ending in .supabase.co.');if(!key.startsWith('sb_publishable_')&&!key.startsWith('eyJ'))throw new Error('Enter a Supabase publishable or legacy anon key, not a secret key.');sb=createClient(u.origin,key,{auth:{persistSession:false,autoRefreshToken:true,detectSessionInUrl:false}});show('login');message('connectMessage','Connection configured. Sign in with your MPID administrator account.',true);}catch(e){message('connectMessage','Connection setup error: '+err(e));}};
+$('connect').onclick=async()=>{try{const raw=$('url').value.trim();const key=$('key').value.trim();if(!raw)throw new Error('Enter your Supabase project API URL.');const u=new URL(raw);if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co'))throw new Error('Enter your Supabase HTTPS project URL ending in .supabase.co.');if(!key.startsWith('sb_publishable_')&&!key.startsWith('eyJ'))throw new Error('Enter a Supabase publishable or legacy anon key, not a secret key.');sb=createClient(u.origin,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});sessionStorage.setItem(CONFIG_KEY,JSON.stringify({url:u.origin,key}));show('setup',false);show('login');message('connectMessage','Connection configured. Sign in with your MPID administrator account.',true);}catch(e){message('connectMessage','Connection setup error: '+err(e));}};
+// Remember only public connection settings for this browser tab. Never store passwords or secret keys.
+try {
+ const saved=JSON.parse(sessionStorage.getItem(CONFIG_KEY)||'null');
+ if(saved?.url && saved?.key){
+  $('url').value=saved.url;$('key').value=saved.key;
+  sb=createClient(saved.url,saved.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  show('setup',false);show('login',true);
+  sb.auth.getSession().then(async ({data})=>{if(data?.session){try{await enter();}catch(e){show('login',true);message('loginMessage','Please sign in: '+err(e));}}}).catch(()=>{});
+ }
+} catch(e){sessionStorage.removeItem(CONFIG_KEY);}
 $('signin').onclick=async()=>{try{if(!sb)throw new Error('Connect first.');const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;await enter();$('password').value='';}catch(e){if(sb)await sb.auth.signOut();message('loginMessage',err(e));}};
 $('signout').onclick=async()=>{if(sb)await sb.auth.signOut();show('workspace',false);show('signout',false);show('login',true);$('who').textContent='Not signed in';};
 async function query(table,columns='*'){const {data,error}=await sb.from(table).select(columns).limit(1000);if(error)throw new Error(table+': '+err(error));return data||[];}
