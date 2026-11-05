@@ -114,6 +114,68 @@ async function loadDashboard(){
   if(!projects.length){$('projects').append(el('div','panel','No publishing projects are assigned to your account yet.'));msg('Signed in. No projects found.','success');return}
   for(const project of projects){
    const panel=el('section','panel');panel.append(el('h2','',project.title));panel.append(el('div','pill',project.status||'Unknown status'));const progress=el('div');progress.innerHTML=mpidProgressMarkup(project.status);panel.append(progress);
+   // Author submissions are available only during stages permitted by the database policies.
+   const uploadStages=new Set(['onboarding','author_review','editing','production','proofing']);
+   if(uploadStages.has(String(project.status||'').trim().toLowerCase())){
+    panel.append(el('h3','','Upload Document'));
+    panel.append(el('p','small','Submit your manuscript, revision, or supporting document for MPID review. Maximum file size: 25 MB. Each submission is saved as a separate file.'));
+    const uploadForm=el('form','approval-form');
+    const typeLabel=el('label','field','Document type');
+    const typeSelect=el('select');
+    for(const [value,label] of [['manuscript','Manuscript'],['revision','Revised manuscript'],['supporting_document','Supporting document'],['cover_art','Cover artwork'],['other','Other document']]){
+     const opt=el('option','',label);opt.value=value;typeSelect.append(opt);
+    }
+    typeLabel.append(typeSelect);
+    const fileLabel=el('label','field','Select file');
+    const fileInput=el('input');fileInput.type='file';fileInput.required=true;
+    fileInput.accept='.doc,.docx,.pdf,.rtf,.txt,.odt,.jpg,.jpeg,.png,.tif,.tiff,.zip';
+    fileLabel.append(fileInput);
+    const uploadButton=el('button','','Upload Document');uploadButton.type='submit';
+    const uploadFeedback=el('div','small');uploadFeedback.setAttribute('role','status');uploadFeedback.setAttribute('aria-live','polite');
+    uploadForm.append(typeLabel,fileLabel,uploadButton,uploadFeedback);panel.append(uploadForm);
+    uploadForm.onsubmit=async ev=>{
+     ev.preventDefault();
+     const file=fileInput.files?.[0];
+     if(!file){uploadFeedback.textContent='Choose a file first.';return}
+     if(file.size===0){uploadFeedback.textContent='The selected file is empty.';return}
+     if(file.size>25*1024*1024){uploadFeedback.textContent='File exceeds the 25 MB limit.';return}
+     const ext=(file.name.match(/\.[^.]+$/)?.[0]||'').toLowerCase();
+     if(!new Set(['.doc','.docx','.pdf','.rtf','.txt','.odt','.jpg','.jpeg','.png','.tif','.tiff','.zip']).has(ext)){
+      uploadFeedback.textContent='Unsupported file type. Please choose a document, image, or ZIP file.';return;
+     }
+     uploadButton.disabled=true;uploadFeedback.textContent='Uploading securely. Please keep this page open...';
+     let path=null;
+     try{
+      const {data:{user},error:authError}=await client.auth.getUser();
+      if(authError||!user||user.id!==activeUser.id)throw Error('Your session expired. Sign in again.');
+      // Never overwrite an existing object. Use the same project-folder convention as the admin dashboard.
+      const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_').slice(-150)||('upload'+ext);
+      path='projects/'+project.id+'/'+crypto.randomUUID()+'-'+safeName;
+      const {error:storageError}=await client.storage.from('mpid-manuscripts').upload(path,file,{
+       upsert:false,contentType:file.type||'application/octet-stream'
+      });
+      if(storageError)throw storageError;
+      // Register the object for secure downloads and visibility in the administrator dashboard.
+      const {data:previous,error:versionError}=await client.from('mpid_documents')
+       .select('version').eq('project_id',project.id).eq('file_name',file.name)
+       .order('version',{ascending:false}).limit(1);
+      if(versionError)throw Error('File stored but version lookup failed: '+versionError.message);
+      const version=previous?.length?(Number(previous[0].version)||1)+1:1;
+      const {error:recordError}=await client.from('mpid_documents').insert({
+       project_id:project.id,uploaded_by:user.id,document_type:typeSelect.value,
+       file_name:file.name,storage_path:path,version
+      });
+      if(recordError)throw Error('File stored but document registration failed: '+recordError.message);
+      uploadFeedback.textContent='Upload complete. Your document is registered for MPID review.';
+      fileInput.value='';
+      await loadDashboard();
+     }catch(e){
+      uploadFeedback.textContent='Upload failed: '+e.message+(path?' If the file reached Storage but registration failed, contact the MPID administrator with this storage path: '+path:'');
+     }finally{uploadButton.disabled=false}
+    };
+   }else{
+    panel.append(el('p','small','Document uploads are not available while this project is '+(project.status||'in its current stage')+'. Contact MPID if you need to submit a file.'));
+   }
    panel.append(el('h3','', 'Project Documents'));
    const list=el('div');panel.append(list);$('projects').append(panel);
    const {data:files,error:fe}=await client.from('mpid_documents')
