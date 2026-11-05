@@ -30,12 +30,30 @@
 .mpid-activity-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .mpid-activity-meta{color:var(--muted);font-size:12px;margin-top:6px}
 .mpid-activity-detail{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:8px}
+
+/* Submission Notification Center */
+.submission-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px}
+.submission-stat{padding:16px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}
+.submission-stat strong{display:block;font-size:29px;color:var(--gold)}
+.submission-entry{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.submission-entry .actions{margin-top:8px}
+.submission-entry .meta{font-size:13px;color:var(--muted);margin-top:5px}
+.submission-entry .filename{font-weight:750;color:#f8e2b1;overflow-wrap:anywhere}
+.submission-reviewed{opacity:.85}
 </style></head><body>
 <header><div><div class="eyebrow">MPID PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
 <main>
 <section id="setup" class="card"><h2>1. Connect to Supabase</h2><p class="muted">Enter the project API URL and publishable key. Never enter a service-role or secret key.</p><label for="url">Supabase Project API URL</label><input id="url" type="url" placeholder="https://your-project.supabase.co" autocomplete="off"><label for="key">Publishable key</label><input id="key" type="password" placeholder="sb_publishable_..." autocomplete="off"><div class="actions"><button id="connect">Connect</button></div><div id="connectMessage" class="message hidden" role="status"></div></section>
 <section id="login" class="card hidden"><h2>2. Administrator Sign In</h2><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password"><div class="actions"><button id="signin">Sign In</button></div><div id="loginMessage" class="message hidden" role="status"></div></section>
 <div id="workspace" class="hidden"><section class="grid"><div class="card"><div class="muted">Authors</div><div class="stat" id="authorCount">0</div></div><div class="card"><div class="muted">Publishing projects</div><div class="stat" id="projectCount">0</div></div><div class="card"><div class="muted">Active documents</div><div class="stat" id="documentCount">0</div></div><div class="card"><div class="muted">Editorial findings</div><div class="stat" id="findingCount">0</div></div></section>
+<section class="card" id="submissionCenter">
+<div class="actions" style="justify-content:space-between;align-items:center"><h2>Submission Notification Center</h2><span class="pill" id="submissionBadge" aria-live="polite">Loading submissions</span></div>
+<p class="muted">Review incoming documents from all publishing projects. New uploads appear after refreshing the dashboard. Reviewed documents remain available in the project.</p>
+<div class="submission-stats"><div class="submission-stat"><span class="muted">Awaiting Review</span><strong id="pendingSubmissionCount">0</strong></div><div class="submission-stat"><span class="muted">Reviewed</span><strong id="reviewedSubmissionCount">0</strong></div></div>
+<h3>Documents Awaiting Review</h3><div id="pendingSubmissions" class="list" aria-live="polite"></div>
+<details style="margin-top:22px"><summary style="cursor:pointer;color:var(--gold);font-weight:800">Reviewed Submissions History</summary><div id="reviewedSubmissions" class="list" style="margin-top:14px"></div></details>
+<div id="submissionMessage" class="message hidden" role="status" aria-live="polite"></div>
+</section>
 <section class="card"><div class="actions" style="justify-content:space-between;align-items:center"><h2>Publishing Projects</h2><button id="refresh" class="secondary">Refresh Dashboard</button></div><div id="refreshMessage" class="message hidden" role="status" aria-live="polite"></div><div id="projects" class="scroll"></div></section>
 <section class="card" id="authorInvitations"><h2>Invite New Author</h2><p class="muted">Send an email invitation so a new author can activate their MPID account. Once invited, the author will be available for project assignment.</p><form id="inviteAuthorForm"><div class="grid"><div><label for="inviteAuthorName">Author full name</label><input id="inviteAuthorName" type="text" maxlength="150" autocomplete="name" required placeholder="Full name"></div><div><label for="inviteAuthorEmail">Author email address</label><input id="inviteAuthorEmail" type="email" maxlength="254" autocomplete="email" required placeholder="author@example.com"></div></div><div class="actions"><button id="sendAuthorInvitation" type="submit">Send Author Invitation</button></div></form><div id="inviteMessage" class="message hidden" role="status" aria-live="polite"></div></section>
 <div class="cols"><section class="card"><h2>Create a Publishing Project</h2><p class="note">Invite a new author above, then select their account here to create a project.</p><label for="newAuthor">Select author</label><select id="newAuthor"></select><label for="newTitle">Project title</label><input id="newTitle" maxlength="250" placeholder="Book or manuscript title"><label for="newPackage">Publishing package</label><input id="newPackage" maxlength="120" placeholder="Optional package name"><div class="actions"><button id="createProject">Create Project</button></div><div id="createMessage" class="message hidden" role="status"></div></section>
@@ -61,7 +79,7 @@ function mpidProgressMarkup(status){
  return '<div class="mpid-progress" aria-label="Publishing progress"><div class="mpid-progress-title">Publishing Progress: '+safeText(heading)+'</div><div class="mpid-progress-note">'+safeText(description)+'</div><div class="mpid-progress-track" aria-hidden="true">'+segments+'</div><div class="mpid-progress-steps">'+steps+'</div>'+(held?'<p class="mpid-progress-note">On Hold is a pause, not a completed milestone.</p>':'')+'</div>';
 }
 
-const $=id=>document.getElementById(id);const CONFIG_KEY='mpid_admin_public_supabase_config_v1';let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[],activity=[];let activityLoadError=null;
+const $=id=>document.getElementById(id);const CONFIG_KEY='mpid_admin_public_supabase_config_v1';let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[],activity=[];let activityLoadError=null,submissionReviews=[],submissionLoadError=null;
 const show=(id,on=true)=>$(id).classList.toggle('hidden',!on);
 const message=(id,text,ok=false)=>{const e=$(id);e.textContent=text;e.className='message '+(ok?'success':'error');show(id,true)};
 const clean=(value)=>String(value??'');
@@ -105,7 +123,93 @@ async function loadActivity(){
  catch(e){activity=[];activityLoadError=err(e);}
  renderActivity();
 }
-async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();await loadActivity();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString()+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
+
+function submissionDate(value){return value&&Number.isFinite(Date.parse(value))?new Date(value).toLocaleString():'Date unavailable';}
+async function loadSubmissionReviews(){
+ try{
+  const {data,error}=await sb.from('mpid_submission_reviews').select('id,document_id,reviewed_at,reviewed_by,created_at').limit(5000);
+  if(error)throw error;
+  submissionReviews=data||[];submissionLoadError=null;
+ }catch(e){submissionReviews=[];submissionLoadError=err(e);}
+ renderSubmissions();
+}
+function renderSubmissions(){
+ const pending=$('pendingSubmissions'),reviewed=$('reviewedSubmissions');
+ if(submissionLoadError){
+  $('submissionBadge').textContent='Notifications unavailable';
+  $('pendingSubmissionCount').textContent='—';$('reviewedSubmissionCount').textContent='—';
+  pending.textContent='Unable to load submission reviews: '+submissionLoadError;
+  reviewed.textContent='Review history unavailable.';return;
+ }
+ const reviews=new Map(submissionReviews.map(r=>[r.document_id,r]));
+ const active=documents.filter(d=>!d.archived_at);
+ const waiting=active.filter(d=>!reviews.get(d.id)?.reviewed_at).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+ const done=active.filter(d=>!!reviews.get(d.id)?.reviewed_at).sort((a,b)=>new Date(reviews.get(b.id).reviewed_at)-new Date(reviews.get(a.id).reviewed_at));
+ $('pendingSubmissionCount').textContent=waiting.length;
+ $('reviewedSubmissionCount').textContent=done.length;
+ $('submissionBadge').textContent=waiting.length+' Awaiting Review';
+ function item(d,isReviewed){
+  const project=projects.find(p=>p.id===d.project_id);
+  const uploader=profiles.find(p=>p.id===d.uploaded_by);
+  const author=profiles.find(p=>p.id===project?.author_id);
+  const review=reviews.get(d.id);
+  const who=uploader?.full_name||author?.full_name||'Unknown uploader';
+  const reviewer=profiles.find(p=>p.id===review?.reviewed_by)?.full_name||'MPID Administrator';
+  return '<div class="item submission-entry '+(isReviewed?'submission-reviewed':'')+'"><div><div class="filename">'+esc(d.file_name)+'</div><div class="meta">Submitted by: '+esc(who)+' · Project: '+esc(project?.title||'Project unavailable')+'</div><div class="meta">Type: '+esc(d.document_type||'Document')+' · Submitted: '+esc(submissionDate(d.created_at))+'</div>'+(isReviewed?'<div class="meta">Reviewed by: '+esc(reviewer)+' · '+esc(submissionDate(review.reviewed_at))+'</div>':'')+'</div><div class="actions"><button class="secondary" type="button" data-submission-open="'+esc(d.project_id)+'">View Project</button><button class="secondary" type="button" data-submission-download="'+esc(d.id)+'">Download</button>'+(isReviewed?'':'<button type="button" data-submission-review="'+esc(d.id)+'">Mark as Reviewed</button>')+'</div></div>';
+ }
+ pending.innerHTML=waiting.map(d=>item(d,false)).join('')||'<div class="muted">No documents awaiting review.</div>';
+ reviewed.innerHTML=done.map(d=>item(d,true)).join('')||'<div class="muted">No reviewed documents yet.</div>';
+ $('submissionCenter').querySelectorAll('[data-submission-open]').forEach(b=>b.onclick=()=>{
+  const id=b.getAttribute('data-submission-open');
+  if(!projects.some(p=>p.id===id)){message('submissionMessage','This project is not available.');return;}
+  $('selectedProject').value=id;const project=projects.find(p=>p.id===id);
+  $('newStatus').value=project.status;syncProjectSelectors();renderDetails();renderActivity();
+  $('details').scrollIntoView({behavior:'smooth',block:'start'});
+ });
+ $('submissionCenter').querySelectorAll('[data-submission-download]').forEach(b=>b.onclick=async()=>{
+  b.disabled=true;
+  try{
+   await requireAdmin();
+   const doc=documents.find(d=>d.id===b.getAttribute('data-submission-download'));
+   if(!doc?.storage_path)throw new Error('Document storage path unavailable.');
+   const {data,error}=await sb.storage.from('mpid-manuscripts').download(doc.storage_path);
+   if(error)throw error;
+   const url=URL.createObjectURL(data),a=document.createElement('a');
+   a.href=url;a.download=doc.file_name||'document';a.click();
+   setTimeout(()=>URL.revokeObjectURL(url),60000);
+  }catch(e){message('submissionMessage','Download failed: '+err(e));}
+  finally{b.disabled=false;}
+ });
+ $('submissionCenter').querySelectorAll('[data-submission-review]').forEach(b=>b.onclick=async()=>{
+  const document_id=b.getAttribute('data-submission-review');
+  const doc=documents.find(d=>d.id===document_id);
+  if(!doc||!confirm('Mark "'+doc.file_name+'" as reviewed?'))return;
+  b.disabled=true;
+  try{
+   await requireAdmin();
+   const {data:{user},error:userError}=await sb.auth.getUser();
+   if(userError||!user)throw new Error('Administrator session expired.');
+   const current=submissionReviews.find(r=>r.document_id===document_id);
+   if(current?.reviewed_at)throw new Error('This document has already been reviewed. Refresh to see the latest status.');
+   if(!current){
+    const {error:insertError}=await sb.from('mpid_submission_reviews').insert({document_id});
+    if(insertError && insertError.code!=='23505')throw insertError;
+   }
+   // Conditional update avoids replacing another administrator's review.
+   const {data:updated,error:updateError}=await sb.from('mpid_submission_reviews')
+    .update({reviewed_at:new Date().toISOString(),reviewed_by:user.id})
+    .eq('document_id',document_id).is('reviewed_at',null)
+    .select('document_id');
+   if(updateError)throw updateError;
+   if(!updated?.length)throw new Error('This submission was already reviewed by another administrator.');
+   message('submissionMessage','Submission marked as reviewed.',true);
+   await loadSubmissionReviews();
+  }catch(e){message('submissionMessage','Review update failed: '+err(e));await loadSubmissionReviews();}
+  finally{b.disabled=false;}
+ });
+}
+
+async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();await loadActivity();await loadSubmissionReviews();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString()+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
 $('inviteAuthorForm').addEventListener('submit',async event=>{
  event.preventDefault();
  const button=$('sendAuthorInvitation');
