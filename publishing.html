@@ -280,6 +280,7 @@ gtag('config', 'G-H3GBPMJH2R');
 })();
 </script>
 <!-- /RSM-GA -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -602,6 +603,7 @@ gtag('config', 'G-H3GBPMJH2R');
 
         <div class="f" data-f="consent"><label class="consent"><input type="checkbox" id="iConsent" required> <span>I authorize RSM Publishing Services to contact me about this application. I understand submission does not guarantee acceptance and no payment is required at this stage.</span></label><span class="em">Please check the box so we can contact you.</span></div>
 
+        <div class="f" id="turnstileField"><span class="l">Security verification <span class="req">*</span></span><div class="cf-turnstile" data-sitekey="0x4AAAAAAF1uXmPEtRo7qaqR" data-theme="light"></div><span class="hint">This verification helps protect your application.</span></div>
         <button type="submit" class="btn" id="iBtn">Submit Publishing Application &rarr;</button>
         <p class="fmsg" id="iMsg" role="status" aria-live="polite"></p>
         <p class="secure">Your application is sent for review. Do not submit manuscript files through this form. We will arrange secure file sharing when needed. See our Privacy Policy for details.</p>
@@ -677,7 +679,29 @@ gtag('config', 'G-H3GBPMJH2R');
   form.addEventListener('input', recheck);
   form.addEventListener('change', recheck);
 
-  form.addEventListener('submit', function(e){
+  var MPID_ENDPOINT = 'https://rufcgmqpueejoyypnpzn.supabase.co/functions/v1/mpid-submit-application';
+  var submissionId = window.crypto && crypto.randomUUID ? crypto.randomUUID() : null;
+  function verificationToken(){
+    var el = form.querySelector('input[name="cf-turnstile-response"]');
+    return el ? el.value : '';
+  }
+  function resetVerification(){
+    if (window.turnstile && typeof window.turnstile.reset === 'function') window.turnstile.reset();
+  }
+  function postWithTimeout(url, options, ms){
+    var controller = new AbortController();
+    var timer = setTimeout(function(){ controller.abort(); }, ms);
+    return fetch(url, Object.assign({}, options, {signal: controller.signal})).finally(function(){ clearTimeout(timer); });
+  }
+  function fail(message){
+    sending = false;
+    btn.disabled = false;
+    btn.innerHTML = 'Submit Publishing Application &rarr;';
+    msg.className = 'fmsg err';
+    msg.textContent = message || 'We could not confirm your application. Please try again.';
+    resetVerification();
+  }
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
     if (sending) return;
     msg.textContent = ''; msg.className = 'fmsg';
@@ -690,9 +714,17 @@ gtag('config', 'G-H3GBPMJH2R');
       var inp = bad.querySelector('input,select,textarea'); if (inp) setTimeout(function(){ inp.focus({preventScroll: true}); }, 350);
       return;
     }
+    var token = verificationToken();
+    if (!token){
+      msg.textContent = 'Please complete the security verification before submitting.';
+      msg.className = 'fmsg err';
+      document.getElementById('turnstileField').scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
     var name = val('iName'), email = val('iEmail');
     var stage = form.querySelector('input[name=stage]:checked').value;
-    var goals = Array.prototype.map.call(form.querySelectorAll('input[name=goals]:checked'), function(x){ return x.value; }).join(', ');
+    var goalsArray = Array.prototype.map.call(form.querySelectorAll('input[name=goals]:checked'), function(x){ return x.value; });
+    var goals = goalsArray.join(', ');
     var fd = new FormData();
     fd.append('Name', name);
     fd.append('email', email);
@@ -715,21 +747,42 @@ gtag('config', 'G-H3GBPMJH2R');
     if (Date.now() - T0 < 4000) fd.append('fast_submit', 'yes');
     if (document.getElementById('gotcha').value){ showDone(name); return; }
 
-    sending = true; btn.disabled = true; var label = btn.innerHTML; btn.textContent = 'Sending...';
-    var settled = false;
-    var timer = setTimeout(function(){ fail(); }, 15000);
-    function fail(detail){
-      if (settled) return; settled = true; sending = false;
-      btn.disabled = false; btn.innerHTML = label;
-      msg.className = 'fmsg err';
-      msg.innerHTML = 'We couldn\'t send your application' + (detail ? ' (' + detail.replace(/[<>&"]/g, '') + ')' : '') + '. Your answers are still here, so please try again, or email <a href="mailto:publishing@rightsideofmoney.com">publishing@rightsideofmoney.com</a>.';
+    var payload = {
+      submission_id: submissionId,
+      full_name: name, email: email, phone: val('iPhone'), book_title: val('iTitle'),
+      manuscript_status: stage, genre: val('iGenre'), word_count: val('iWords'),
+      production_needs: val('iComplexity'), special_requirements: val('iSpecial'),
+      about_book: val('iAbout'), goals: goalsArray, timeline: val('iTime'),
+      requested_package: val('iPkg'), budget: val('iBudget'),
+      referral_source: val('iHeard'), consent: document.getElementById('iConsent').checked,
+      turnstile_token: token, _gotcha: document.getElementById('gotcha').value
+    };
+    sending = true; btn.disabled = true; btn.textContent = 'Submitting...';
+    try {
+      // Save to MPID first. Never claim success until the database confirms receipt.
+      var r = await postWithTimeout(MPID_ENDPOINT, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      }, 20000);
+      var result = await r.json().catch(function(){ return {}; });
+      if (!r.ok || result.received !== true){
+        fail(result.error || 'MPID could not record your application. Please try again.');
+        return;
+      }
+      // Keep Formspree notifications, but do not create another MPID record on retries.
+      try {
+        var notice = await postWithTimeout(ENDPOINT, {
+          method: 'POST', body: fd, headers: {'Accept': 'application/json'}
+        }, 15000);
+        if (!notice.ok) console.warn('MPID application saved; Formspree notification not confirmed.');
+      } catch(notificationError){
+        console.warn('MPID application saved; Formspree notification not confirmed.');
+      }
+      sending = false;
+      showDone(name);
+    } catch(error){
+      fail('We could not confirm your application. Please retry, or contact publishing@rightsideofmoney.com.');
     }
-    fetch(ENDPOINT, {method: 'POST', body: fd, headers: {'Accept': 'application/json'}}).then(function(r){
-      if (settled) return;
-      clearTimeout(timer);
-      if (r.ok){ settled = true; sending = false; showDone(name); return; }
-      r.json().then(function(d){ fail(d && d.errors && d.errors.length ? d.errors.map(function(x){ return x.message; }).join(' ') : ''); }, function(){ fail(); });
-    }, function(){ clearTimeout(timer); fail(); });
   });
 
   function showDone(name){
