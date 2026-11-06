@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>Secure Manuscript Upload | MPID Publishing Services</title>
+  <style>
+    :root {color-scheme:dark;--bg:#080a0e;--panel:#14171e;--gold:#d6b36a;--gold2:#f0d69a;--muted:#b5bac6;--border:#38332b;--danger:#ffb3b3;--success:#a6e4bb}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#343021 0%,#0c0e12 47%,#080a0e 100%);color:#f8f7f3;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;line-height:1.55}
+    header{border-bottom:1px solid #332e24;background:#090b0ee8;padding:22px 24px;text-align:center}
+    .brand{font-size:1.15rem;letter-spacing:.2em;font-weight:800;color:var(--gold2)}.brand span{display:block;font-size:.68rem;letter-spacing:.24em;color:#c4c6cb;font-weight:600;margin-top:3px}
+    main{max-width:720px;margin:54px auto 70px;padding:0 20px}h1{font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.15;margin:0 0 12px;text-align:center}h1 strong{color:var(--gold2)}
+    .intro{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 30px}.panel{background:linear-gradient(160deg,#1a1d24,#111319);border:1px solid var(--border);border-radius:18px;padding:clamp(22px,5vw,40px);box-shadow:0 22px 65px #0008}
+    .eyebrow{font-size:.74rem;letter-spacing:.16em;color:var(--gold);font-weight:800;text-transform:uppercase;margin:0 0 16px}.steps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.steps span{border:1px solid #4a4231;border-radius:999px;padding:5px 12px;font-size:.78rem;color:#e1d1ac}
+    label{font-weight:700;display:block;margin-bottom:10px}.drop{display:block;cursor:pointer;border:2px dashed #73603c;border-radius:13px;padding:30px 18px;text-align:center;background:#201d17;transition:.2s}.drop:hover,.drop:focus-within{border-color:var(--gold2);background:#2a2519}.drop strong{display:block;font-size:1.08rem}.drop small{display:block;color:var(--muted);margin-top:8px}.drop input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}.selected{margin:14px 0 0;color:var(--gold2);overflow-wrap:anywhere;font-size:.9rem;min-height:1.5em}
+    .note{font-size:.84rem;color:var(--muted);margin:14px 0 24px}.button{border:0;border-radius:9px;width:100%;padding:16px 22px;background:linear-gradient(110deg,#b58b43,#eed29a,#c49a50);color:#16120b;font-weight:850;font-size:1rem;cursor:pointer}.button:disabled{cursor:not-allowed;opacity:.5}.button:focus-visible,.drop:focus-within{outline:3px solid #f6dfad;outline-offset:3px}
+    .message{margin-top:20px;padding:15px 17px;border-radius:9px;border:1px solid #6d624b;background:#27251f;color:#f4e6c5;overflow-wrap:anywhere}.message.error{border-color:#8c4444;background:#301b20;color:var(--danger)}.message.success{border-color:#3b7651;background:#173024;color:var(--success)}[hidden]{display:none!important}
+    .progress-wrap{margin-top:18px}.progress-wrap p{font-size:.85rem;color:var(--muted);margin:0 0 9px}.bar{height:8px;border-radius:99px;background:#353943;overflow:hidden}.bar>div{height:100%;width:35%;border-radius:99px;background:linear-gradient(90deg,#a67b38,#f1d595);animation:loading 1.2s ease-in-out infinite alternate}@keyframes loading{from{transform:translateX(-100%)}to{transform:translateX(285%)}}
+    .footer{text-align:center;font-size:.8rem;color:#9ea2ac;margin-top:28px}.footer a{color:var(--gold2)}
+    @media(prefers-reduced-motion:reduce){.bar>div{animation:none;width:100%}}
+  </style>
+</head>
+<body>
+  <header><div class="brand">MPID <span>PUBLISHING SERVICES</span></div></header>
+  <main>
+    <h1>Secure <strong>Manuscript Upload</strong></h1>
+    <p class="intro">Submit your manuscript securely for editorial review. This invitation is private and may be used only once.</p>
+    <section class="panel" aria-labelledby="section-title">
+      <p class="eyebrow" id="section-title">Author submission portal</p>
+      <div class="steps" aria-label="Submission steps"><span>1. Select manuscript</span><span>2. Upload securely</span><span>3. Receive confirmation</span></div>
+      <div id="invalidLink" class="message error" role="alert" hidden>This upload link is missing or invalid. Please use the private link provided by MPID Publishing Services.</div>
+      <form id="uploadForm" novalidate>
+        <label for="manuscript">Choose your manuscript</label>
+        <div class="drop"><strong>Click to choose your manuscript file</strong><small>PDF, DOC, DOCX, RTF, TXT, or ODT</small><input id="manuscript" name="file" type="file" accept=".pdf,.doc,.docx,.rtf,.txt,.odt" required aria-describedby="fileRules"></div>
+        <div id="selected" class="selected" aria-live="polite">No file selected</div>
+        <p id="fileRules" class="note">Maximum file size: 25 MB. Upload one manuscript only. Please do not include payment details or government identification in your file.</p>
+        <button class="button" id="submitButton" type="submit" disabled>Submit Manuscript Securely</button>
+      </form>
+      <div id="progress" class="progress-wrap" role="status" aria-live="polite" hidden><p>Uploading and securing your manuscript. Please keep this page open.</p><div class="bar"><div></div></div></div>
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+    </section>
+    <p class="footer">MPID Publishing Services | Right Side of Money<br>For assistance, contact the MPID representative who sent your invitation.</p>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const ENDPOINT = 'https://rufcgmqpueejoyypnpzn.supabase.co/functions/v1/mpid-upload-applicant-manuscript';
+      const MAX_SIZE = 25 * 1024 * 1024;
+      const ALLOWED = new Set(['pdf','doc','docx','rtf','txt','odt']);
+      const form = document.getElementById('uploadForm');
+      const fileInput = document.getElementById('manuscript');
+      const selected = document.getElementById('selected');
+      const button = document.getElementById('submitButton');
+      const message = document.getElementById('message');
+      const progress = document.getElementById('progress');
+      const invalidLink = document.getElementById('invalidLink');
+      let busy = false;
+      let complete = false;
+      const params = new URLSearchParams(location.search);
+      const hashParams = new URLSearchParams(location.hash.replace(/^#/, ''));
+      const token = (hashParams.get('token') || params.get('token') || '').trim();
+      const validToken = /^[a-f0-9]{64}$/i.test(token);
+      // Remove the bearer token from the visible address and browser history entry.
+      if (params.has('token') || hashParams.has('token')) {
+        history.replaceState(null, '', location.pathname);
+      }
+      function show(text, kind = '') {
+        message.hidden = false;
+        message.className = 'message' + (kind ? ' ' + kind : '');
+        message.textContent = text;
+      }
+      function checkFile() {
+        const file = fileInput.files && fileInput.files[0];
+        selected.textContent = file ? `${file.name} (${(file.size / 1048576).toFixed(2)} MB)` : 'No file selected';
+        if (!file || busy || complete || !validToken) { button.disabled = true; return false; }
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (!ALLOWED.has(ext)) { show('Unsupported file format. Select PDF, DOC, DOCX, RTF, TXT, or ODT.', 'error'); button.disabled = true; return false; }
+        if (file.size === 0 || file.size > MAX_SIZE) { show('The file must be larger than 0 bytes and no more than 25 MB.', 'error'); button.disabled = true; return false; }
+        message.hidden = true;
+        button.disabled = false;
+        return true;
+      }
+      if (!validToken) { invalidLink.hidden = false; form.hidden = true; }
+      fileInput.addEventListener('change', checkFile);
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (busy || complete || !checkFile()) return;
+        busy = true;
+        button.disabled = true;
+        button.textContent = 'Uploading manuscript...';
+        progress.hidden = false;
+        message.hidden = true;
+        const body = new FormData();
+        body.append('token', token);
+        body.append('file', fileInput.files[0]);
+        try {
+          const response = await fetch(ENDPOINT, { method: 'POST', body, cache: 'no-store', referrerPolicy: 'no-referrer' });
+          let data = {};
+          try { data = await response.json(); } catch (_) { /* Show a generic error. */ }
+          if (!response.ok || data.success !== true) {
+            if (response.status === 410) throw new Error('This invitation has expired, has already been used, or is unavailable. Contact MPID for a new invitation.');
+            throw new Error(typeof data.error === 'string' ? data.error : `Upload could not be completed (HTTP ${response.status}).`);
+          }
+          complete = true;
+          form.hidden = true;
+          show('Your manuscript has been received securely. MPID Publishing Services will review your submission and contact you regarding the next steps.', 'success');
+        } catch (error) {
+          show(error instanceof Error ? error.message : 'The upload could not be completed. Please contact MPID.', 'error');
+        } finally {
+          busy = false;
+          progress.hidden = true;
+          if (!complete) { button.textContent = 'Submit Manuscript Securely'; checkFile(); }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
