@@ -58,9 +58,9 @@
 <div id="workspace" class="hidden"><section class="grid"><div class="card"><div class="muted">Authors</div><div class="stat" id="authorCount">0</div></div><div class="card"><div class="muted">Publishing projects</div><div class="stat" id="projectCount">0</div></div><div class="card"><div class="muted">Active documents</div><div class="stat" id="documentCount">0</div></div><div class="card"><div class="muted">Editorial findings</div><div class="stat" id="findingCount">0</div></div></section>
 <section class="card" id="applicationCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Author Application Review Center</h2><button class="secondary" id="refreshApplications" type="button">Refresh Applications</button></div>
-<p class="muted">Private administrator intake and decision tracking. Applications submitted through Formspree do not automatically appear here yet. Use the email notification to enter each application below, then manage it securely in MPID. Do not invite an author until approved and the agreement process is ready.</p>
+<p class="muted">Applications submitted through the RSM Publishing website are recorded automatically in MPID. Formspree email notifications provide a separate notification channel. Use manual entry only for applications received outside the automated form or when recovering a verified missing submission. Review each application before proceeding with author onboarding.</p>
 <div class="application-stats"><div class="application-stat">Pending Review<strong id="appPending">0</strong></div><div class="application-stat">More Information<strong id="appInfo">0</strong></div><div class="application-stat">Approved<strong id="appApproved">0</strong></div><div class="application-stat">Declined<strong id="appDeclined">0</strong></div></div>
-<details><summary style="cursor:pointer;color:var(--gold);font-weight:800">Record an Application from Formspree</summary>
+<details><summary style="cursor:pointer;color:var(--gold);font-weight:800">Manually Record an Application (Backup)</summary>
 <form id="applicationIntakeForm"><div class="application-fields">
 <div><label for="appName">Applicant full name</label><input id="appName" required maxlength="250"></div>
 <div><label for="appEmail">Applicant email</label><input id="appEmail" type="email" required maxlength="254"></div>
@@ -72,9 +72,10 @@
 <div><label for="appPackage">Requested package</label><select id="appPackage"><option value="">Not specified</option><option>Publish-Ready</option><option>Full Launch</option><option>Signature Author</option><option>Custom / Not Sure</option></select></div>
 </div>
 <label for="appGoals">Publishing goals</label><textarea id="appGoals"></textarea>
-<label for="appSpecial">Special requirements / other application details</label><textarea id="appSpecial" placeholder="Include word-count range, production needs, timeline, and other details from Formspree."></textarea>
+<label for="appSpecial">Special requirements / other application details</label><textarea id="appSpecial" placeholder="Include word-count range, production needs, timeline, and other verified application details."></textarea>
 <div class="actions"><button type="submit" id="saveApplication">Save Application</button></div></form></details>
 <div id="applicationMessage" class="message hidden" role="status" aria-live="polite"></div>
+<p class="note">Review sequence: assess the application, request manuscript information as needed, confirm scope and pricing, obtain the signed agreement, verify payment separately, then prepare the author invitation. Saving an application review does not send email or collect payment.</p>
 <h3 style="margin-top:23px">Applications</h3><label for="applicationFilter">Show applications</label><select id="applicationFilter"><option value="all">All applications</option><option value="pending_review">Pending Review</option><option value="more_information_needed">More Information Needed</option><option value="approved">Approved</option><option value="declined">Declined</option></select>
 <div id="applicationList" aria-live="polite"></div>
 </section>
@@ -242,7 +243,7 @@ function renderSubmissions(){
 }
 
 
-// Administrator-only author application intake and review. Formspree is not integrated automatically.
+// Administrator-only author application intake and review. Website submissions are integrated through the separate secured Edge Function.
 const APP_STATUSES={pending_review:'Pending Review',more_information_needed:'More Information Needed',approved:'Approved',declined:'Declined'};
 const AGREEMENT_STATUSES={not_sent:'Not Sent',sent:'Sent',signed:'Signed'};
 const PAYMENT_STATUSES={not_requested:'Not Requested',requested:'Requested',partially_paid:'Partially Paid',paid:'Paid'};
@@ -303,8 +304,8 @@ $('applicationIntakeForm').addEventListener('submit',async event=>{
   if(!full_name||!email||!$('appEmail').checkValidity())throw new Error('A valid name and email are required.');
   const words=$('appWords').value.trim(),estimated_word_count=words===''?null:Number(words);
   if(words!==''&&(!Number.isSafeInteger(estimated_word_count)||estimated_word_count<0))throw new Error('Word count must be a nonnegative whole number.');
-  const payload={full_name,email,phone:$('appPhone').value.trim()||null,book_title:$('appTitle').value.trim()||null,genre:$('appGenre').value.trim()||null,estimated_word_count,manuscript_status:$('appStage').value.trim()||null,requested_package:$('appPackage').value||null,publishing_goals:$('appGoals').value.trim()||null,special_requirements:$('appSpecial').value.trim()||null,source:'formspree_manual_entry'};
-  if(!confirm('Save this application from your Formspree notification into MPID?'))return;
+  const payload={full_name,email,phone:$('appPhone').value.trim()||null,book_title:$('appTitle').value.trim()||null,genre:$('appGenre').value.trim()||null,estimated_word_count,manuscript_status:$('appStage').value.trim()||null,requested_package:$('appPackage').value||null,publishing_goals:$('appGoals').value.trim()||null,special_requirements:$('appSpecial').value.trim()||null,source:'admin_manual_entry'};
+  if(!confirm('Save this application manually into MPID? Check that it is not already present to avoid duplicates.'))return;
   const {data,error}=await sb.from('mpid_author_applications').insert(payload).select('id');if(error)throw error;if(!data?.length)throw new Error('Application record was not confirmed.');
   $('applicationIntakeForm').reset();message('applicationMessage','Application saved to MPID. You can review it below.',true);await loadApplications();
  }catch(e){message('applicationMessage','Application could not be saved: '+err(e));}finally{btn.disabled=false;}
