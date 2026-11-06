@@ -40,12 +40,44 @@
 .submission-entry .meta{font-size:13px;color:var(--muted);margin-top:5px}
 .submission-entry .filename{font-weight:750;color:#f8e2b1;overflow-wrap:anywhere}
 .submission-reviewed{opacity:.85}
+
+/* Author application review center */
+.application-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:16px 0}
+.application-stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:13px}
+.application-stat strong{display:block;color:var(--gold);font-size:25px}
+.application-card{border:1px solid #51483b;border-radius:12px;padding:17px;background:var(--panel2);margin-top:13px}
+.application-card summary{cursor:pointer;font-weight:750;color:#f8e2b1}
+.application-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.application-value{white-space:pre-wrap;overflow-wrap:anywhere}
+.application-actions{display:flex;flex-wrap:wrap;gap:9px}
 </style></head><body>
 <header><div><div class="eyebrow">MPID PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
 <main>
 <section id="setup" class="card"><h2>1. Connect to Supabase</h2><p class="muted">Enter the project API URL and publishable key. Never enter a service-role or secret key.</p><label for="url">Supabase Project API URL</label><input id="url" type="url" placeholder="https://your-project.supabase.co" autocomplete="off"><label for="key">Publishable key</label><input id="key" type="password" placeholder="sb_publishable_..." autocomplete="off"><div class="actions"><button id="connect">Connect</button></div><div id="connectMessage" class="message hidden" role="status"></div></section>
 <section id="login" class="card hidden"><h2>2. Administrator Sign In</h2><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password"><div class="actions"><button id="signin">Sign In</button></div><div id="loginMessage" class="message hidden" role="status"></div></section>
 <div id="workspace" class="hidden"><section class="grid"><div class="card"><div class="muted">Authors</div><div class="stat" id="authorCount">0</div></div><div class="card"><div class="muted">Publishing projects</div><div class="stat" id="projectCount">0</div></div><div class="card"><div class="muted">Active documents</div><div class="stat" id="documentCount">0</div></div><div class="card"><div class="muted">Editorial findings</div><div class="stat" id="findingCount">0</div></div></section>
+<section class="card" id="applicationCenter">
+<div class="actions" style="justify-content:space-between;align-items:center"><h2>Author Application Review Center</h2><button class="secondary" id="refreshApplications" type="button">Refresh Applications</button></div>
+<p class="muted">Private administrator intake and decision tracking. Applications submitted through Formspree do not automatically appear here yet. Use the email notification to enter each application below, then manage it securely in MPID. Do not invite an author until approved and the agreement process is ready.</p>
+<div class="application-stats"><div class="application-stat">Pending Review<strong id="appPending">0</strong></div><div class="application-stat">More Information<strong id="appInfo">0</strong></div><div class="application-stat">Approved<strong id="appApproved">0</strong></div><div class="application-stat">Declined<strong id="appDeclined">0</strong></div></div>
+<details><summary style="cursor:pointer;color:var(--gold);font-weight:800">Record an Application from Formspree</summary>
+<form id="applicationIntakeForm"><div class="application-fields">
+<div><label for="appName">Applicant full name</label><input id="appName" required maxlength="250"></div>
+<div><label for="appEmail">Applicant email</label><input id="appEmail" type="email" required maxlength="254"></div>
+<div><label for="appPhone">Phone</label><input id="appPhone" maxlength="100"></div>
+<div><label for="appTitle">Book title</label><input id="appTitle" maxlength="500"></div>
+<div><label for="appGenre">Genre</label><input id="appGenre" maxlength="250"></div>
+<div><label for="appWords">Estimated word count (number, optional)</label><input id="appWords" type="number" min="0" step="1" placeholder="Leave blank if unknown or a range"></div>
+<div><label for="appStage">Manuscript stage</label><input id="appStage" maxlength="250"></div>
+<div><label for="appPackage">Requested package</label><select id="appPackage"><option value="">Not specified</option><option>Publish-Ready</option><option>Full Launch</option><option>Signature Author</option><option>Custom / Not Sure</option></select></div>
+</div>
+<label for="appGoals">Publishing goals</label><textarea id="appGoals"></textarea>
+<label for="appSpecial">Special requirements / other application details</label><textarea id="appSpecial" placeholder="Include word-count range, production needs, timeline, and other details from Formspree."></textarea>
+<div class="actions"><button type="submit" id="saveApplication">Save Application</button></div></form></details>
+<div id="applicationMessage" class="message hidden" role="status" aria-live="polite"></div>
+<h3 style="margin-top:23px">Applications</h3><label for="applicationFilter">Show applications</label><select id="applicationFilter"><option value="all">All applications</option><option value="pending_review">Pending Review</option><option value="more_information_needed">More Information Needed</option><option value="approved">Approved</option><option value="declined">Declined</option></select>
+<div id="applicationList" aria-live="polite"></div>
+</section>
 <section class="card" id="submissionCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Submission Notification Center</h2><span class="pill" id="submissionBadge" aria-live="polite">Loading submissions</span></div>
 <p class="muted">Review incoming documents from all publishing projects. New uploads appear after refreshing the dashboard. Reviewed documents remain available in the project.</p>
@@ -79,7 +111,7 @@ function mpidProgressMarkup(status){
  return '<div class="mpid-progress" aria-label="Publishing progress"><div class="mpid-progress-title">Publishing Progress: '+safeText(heading)+'</div><div class="mpid-progress-note">'+safeText(description)+'</div><div class="mpid-progress-track" aria-hidden="true">'+segments+'</div><div class="mpid-progress-steps">'+steps+'</div>'+(held?'<p class="mpid-progress-note">On Hold is a pause, not a completed milestone.</p>':'')+'</div>';
 }
 
-const $=id=>document.getElementById(id);const CONFIG_KEY='mpid_admin_public_supabase_config_v1';let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[],activity=[];let activityLoadError=null,submissionReviews=[],submissionLoadError=null;
+const $=id=>document.getElementById(id);const CONFIG_KEY='mpid_admin_public_supabase_config_v1';let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[],activity=[];let activityLoadError=null,submissionReviews=[],submissionLoadError=null,authorApplications=[],applicationLoadError=null;
 const show=(id,on=true)=>$(id).classList.toggle('hidden',!on);
 const message=(id,text,ok=false)=>{const e=$(id);e.textContent=text;e.className='message '+(ok?'success':'error');show(id,true)};
 const clean=(value)=>String(value??'');
@@ -209,7 +241,76 @@ function renderSubmissions(){
  });
 }
 
-async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();await loadActivity();await loadSubmissionReviews();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString()+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
+
+// Administrator-only author application intake and review. Formspree is not integrated automatically.
+const APP_STATUSES={pending_review:'Pending Review',more_information_needed:'More Information Needed',approved:'Approved',declined:'Declined'};
+const AGREEMENT_STATUSES={not_sent:'Not Sent',sent:'Sent',signed:'Signed'};
+const PAYMENT_STATUSES={not_requested:'Not Requested',requested:'Requested',partially_paid:'Partially Paid',paid:'Paid'};
+function appField(label,value){return '<div><div class="muted small">'+esc(label)+'</div><div class="application-value">'+esc(value||'Not provided')+'</div></div>';}
+async function loadApplications(){
+ try{await requireAdmin();const {data,error}=await sb.from('mpid_author_applications').select('*').order('created_at',{ascending:false}).limit(1000);if(error)throw error;authorApplications=data||[];applicationLoadError=null;}
+ catch(e){authorApplications=[];applicationLoadError=err(e);}
+ renderApplications();
+}
+function renderApplications(){
+ for(const [id,status] of [['appPending','pending_review'],['appInfo','more_information_needed'],['appApproved','approved'],['appDeclined','declined']])$(id).textContent=applicationLoadError?'—':authorApplications.filter(a=>a.application_status===status).length;
+ const holder=$('applicationList');holder.replaceChildren();
+ if(applicationLoadError){holder.textContent='Could not load applications: '+applicationLoadError;return;}
+ const filter=$('applicationFilter').value;
+ const rows=authorApplications.filter(a=>filter==='all'||a.application_status===filter);
+ if(!rows.length){holder.textContent='No applications in this view.';return;}
+ for(const app of rows){
+  const card=document.createElement('details');card.className='application-card';
+  const summary=document.createElement('summary');summary.textContent=(app.full_name||'Applicant')+' | '+(app.book_title||'Untitled book')+' | '+(APP_STATUSES[app.application_status]||app.application_status);card.append(summary);
+  const info=document.createElement('div');info.className='application-fields';info.style.marginTop='14px';
+  info.innerHTML=appField('Email',app.email)+appField('Phone',app.phone)+appField('Genre',app.genre)+appField('Estimated word count',app.estimated_word_count==null?'Not provided':String(app.estimated_word_count))+appField('Manuscript stage',app.manuscript_status)+appField('Requested package',app.requested_package)+appField('Publishing goals',app.publishing_goals)+appField('Special requirements',app.special_requirements)+appField('Source',app.source)+appField('Submitted / recorded',app.created_at?new Date(app.created_at).toLocaleString():'Unknown')+appField('Last review',app.reviewed_at?new Date(app.reviewed_at).toLocaleString():'Not reviewed');card.append(info);
+  const form=document.createElement('form');form.className='application-review-form';form.dataset.id=app.id;
+  const statusOpts=Object.entries(APP_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.application_status===v?' selected':'')+'>'+l+'</option>').join('');
+  const agreementOpts=Object.entries(AGREEMENT_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.agreement_status===v?' selected':'')+'>'+l+'</option>').join('');
+  const paymentOpts=Object.entries(PAYMENT_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.payment_status===v?' selected':'')+'>'+l+'</option>').join('');
+  form.innerHTML='<div class="application-fields"><div><label>Review decision</label><select name="status">'+statusOpts+'</select></div><div><label>Approved package</label><input name="package" maxlength="200"></div><div><label>Approved price (USD)</label><input name="price" type="number" min="0" step="0.01"></div><div><label>Agreement status</label><select name="agreement">'+agreementOpts+'</select></div><div><label>Payment status (record after verification)</label><select name="payment">'+paymentOpts+'</select></div></div><label>Approved scope</label><textarea name="scope"></textarea><label>Private administrator notes</label><textarea name="notes"></textarea><div class="application-actions"><button type="submit">Save Review</button><button type="button" class="secondary" data-prefill-invite>Fill Author Invitation</button></div><p class="note">The invitation button only fills the existing invitation form. It does not send an invitation. Agreement and payment statuses are manually recorded, not electronically verified.</p>';
+  form.elements.package.value=app.approved_package||'';form.elements.price.value=app.approved_price==null?'':app.approved_price;form.elements.scope.value=app.approved_scope||'';form.elements.notes.value=app.admin_notes||'';
+  form.addEventListener('submit',async event=>{
+   event.preventDefault();const btn=form.querySelector('button[type="submit"]');btn.disabled=true;
+   try{
+    await requireAdmin();const status=form.elements.status.value,approved_package=form.elements.package.value.trim()||null,priceText=form.elements.price.value.trim(),approved_price=priceText===''?null:Number(priceText),approved_scope=form.elements.scope.value.trim()||null,admin_notes=form.elements.notes.value.trim()||null;
+    if(priceText!==''&&(!Number.isFinite(approved_price)||approved_price<0))throw new Error('Enter a valid approved price.');
+    if(status==='approved'&&(!approved_package||approved_price===null||!approved_scope))throw new Error('An approved application requires package, price, and scope.');
+    if(status!=='approved'&&form.elements.agreement.value==='signed')throw new Error('Only approved applications may be marked as signed.');
+    if(status!=='approved'&&form.elements.payment.value!=='not_requested')throw new Error('Only approved applications may have a payment request or payment recorded.');
+    const {data:{user},error:userError}=await sb.auth.getUser();if(userError||!user)throw new Error('Administrator session expired.');
+    const payload={application_status:status,approved_package,approved_price,approved_scope,admin_notes,agreement_status:form.elements.agreement.value,payment_status:form.elements.payment.value,reviewed_by:user.id,reviewed_at:new Date().toISOString()};
+    const {data,error}=await sb.from('mpid_author_applications').update(payload).eq('id',app.id).select('id');if(error)throw error;if(!data?.length)throw new Error('No application was updated. Check administrator permissions.');
+    message('applicationMessage','Application review saved for '+app.full_name+'.',true);await loadApplications();
+   }catch(e){message('applicationMessage','Could not save review: '+err(e));}finally{btn.disabled=false;}
+  });
+  form.querySelector('[data-prefill-invite]').addEventListener('click',()=>{
+   if(app.application_status!=='approved'){message('applicationMessage','Approve and save this application before preparing an invitation.');return;}
+   if(app.agreement_status!=='signed'){message('applicationMessage','Record the signed agreement before preparing an author invitation.');return;}
+   $('inviteAuthorName').value=app.full_name;$('inviteAuthorEmail').value=app.email;
+   message('applicationMessage','Author invitation form populated. Review the details and send it only when you are ready.',true);
+   $('authorInvitations').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  card.append(form);holder.append(card);
+ }
+}
+$('applicationFilter').addEventListener('change',renderApplications);
+$('refreshApplications').addEventListener('click',async()=>{await loadApplications();if(!applicationLoadError)message('applicationMessage','Applications refreshed.',true);});
+$('applicationIntakeForm').addEventListener('submit',async event=>{
+ event.preventDefault();const btn=$('saveApplication');btn.disabled=true;
+ try{
+  await requireAdmin();const full_name=$('appName').value.trim(),email=$('appEmail').value.trim().toLowerCase();
+  if(!full_name||!email||!$('appEmail').checkValidity())throw new Error('A valid name and email are required.');
+  const words=$('appWords').value.trim(),estimated_word_count=words===''?null:Number(words);
+  if(words!==''&&(!Number.isSafeInteger(estimated_word_count)||estimated_word_count<0))throw new Error('Word count must be a nonnegative whole number.');
+  const payload={full_name,email,phone:$('appPhone').value.trim()||null,book_title:$('appTitle').value.trim()||null,genre:$('appGenre').value.trim()||null,estimated_word_count,manuscript_status:$('appStage').value.trim()||null,requested_package:$('appPackage').value||null,publishing_goals:$('appGoals').value.trim()||null,special_requirements:$('appSpecial').value.trim()||null,source:'formspree_manual_entry'};
+  if(!confirm('Save this application from your Formspree notification into MPID?'))return;
+  const {data,error}=await sb.from('mpid_author_applications').insert(payload).select('id');if(error)throw error;if(!data?.length)throw new Error('Application record was not confirmed.');
+  $('applicationIntakeForm').reset();message('applicationMessage','Application saved to MPID. You can review it below.',true);await loadApplications();
+ }catch(e){message('applicationMessage','Application could not be saved: '+err(e));}finally{btn.disabled=false;}
+});
+
+async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();await loadActivity();await loadSubmissionReviews();await loadApplications();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString()+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
 $('inviteAuthorForm').addEventListener('submit',async event=>{
  event.preventDefault();
  const button=$('sendAuthorInvitation');
