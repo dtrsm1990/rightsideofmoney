@@ -470,6 +470,27 @@ async function loadRecoveryQueue(){
    const note=document.createElement('p');note.className='note';
    note.textContent=r.request_status==='recovery_required'?'This request is quarantined. Record approval, review the private storage folder, then complete recovery to cancel the original invitation. No stored file will be deleted.':'The lease has expired, but this request is still uploading. It must first be safely quarantined by the server before approval.';
    entry.append(title,info,note);
+   if(r.request_status==='uploading'){
+    const flag=document.createElement('button');flag.type='button';flag.className='secondary';flag.textContent='Flag for Recovery (Quarantine)';
+    flag.addEventListener('click',async()=>{
+     if(!confirm('Quarantine this expired upload for administrator review? This will not delete files or reopen the invitation.'))return;
+     flag.disabled=true;
+     try{
+      await requireAdmin();
+      const {data:{session},error:sessionError}=await sb.auth.getSession();
+      if(sessionError||!session?.access_token)throw new Error('Administrator session expired. Sign in again.');
+      const {data:result,error:invokeError}=await sb.functions.invoke('mpid-admin-manuscript-recovery',{
+       body:{action:'flag',request_id:r.id},
+       headers:{Authorization:'Bearer '+session.access_token}
+      });
+      if(invokeError){let detail='';try{if(invokeError.context instanceof Response){const payload=await invokeError.context.json();detail=payload?.error||payload?.message||'';}}catch(_){}throw new Error(detail||invokeError.message||'Quarantine request failed.');}
+      if(!result?.success)throw new Error(result?.error||'Quarantine was not confirmed.');
+      await loadRecoveryQueue();
+      message('recoveryMessage','Request '+r.id+' quarantined. No storage files were deleted. Review it before approval.',true);
+     }catch(e){message('recoveryMessage','Recovery quarantine failed: '+err(e));flag.disabled=false;}
+    });
+    const flagActions=document.createElement('div');flagActions.className='actions';flagActions.append(flag);entry.append(flagActions);
+   }
    if(r.request_status==='recovery_required'){
     const notes=document.createElement('textarea');notes.maxLength=2000;notes.placeholder='Administrator approval notes (optional, maximum 2,000 characters)';notes.setAttribute('aria-label','Recovery approval notes for '+r.id);
     const approve=document.createElement('button');approve.type='button';approve.textContent='Record Administrator Approval';
