@@ -447,11 +447,14 @@ async function loadRecoveryQueue(){
  $('recoverySummary').textContent='Checking interrupted manuscript requests...';
  try{
   await requireAdmin();
-  const {data,error}=await sb.from('mpid_manuscript_requests')
-   .select('id,application_id,request_status,upload_claimed_at,upload_lease_expires_at,created_at')
-   .in('request_status',['uploading','recovery_required'])
-   .order('created_at',{ascending:false}).limit(1000);
-  if(error)throw error;
+  const {data:{session},error:sessionError}=await sb.auth.getSession();
+  if(sessionError||!session?.access_token)throw new Error('Administrator session expired. Sign in again.');
+  const {data:queue,error:invokeError}=await sb.functions.invoke('mpid-admin-manuscript-recovery',{
+   body:{action:'list'},headers:{Authorization:'Bearer '+session.access_token}
+  });
+  if(invokeError){let detail='';try{if(invokeError.context instanceof Response){const payload=await invokeError.context.json();detail=payload?.error||payload?.message||'';}}catch(_){}throw new Error(detail||invokeError.message||'Recovery queue request failed.');}
+  if(!queue?.success||!Array.isArray(queue.requests))throw new Error(queue?.error||'Recovery queue response was invalid.');
+  const data=queue.requests;
   const now=Date.now();
   const records=(data||[]).filter(r=>r.request_status==='recovery_required'||(r.upload_lease_expires_at&&Date.parse(r.upload_lease_expires_at)<=now));
   holder.replaceChildren();
