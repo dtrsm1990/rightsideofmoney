@@ -55,6 +55,13 @@
 .applicant-manuscript{background:var(--panel2);border:1px solid #51483b;border-radius:11px;padding:15px}
 .applicant-manuscript-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .applicant-manuscript-title{font-weight:800;color:#f8e2b1}
+
+/* Applicant recovery review, non-destructive */
+.recovery-list{display:grid;gap:12px;margin-top:14px}
+.recovery-entry{background:var(--panel2);border:1px solid #655335;border-radius:11px;padding:16px}
+.recovery-entry strong{color:#f8e2b1}
+.recovery-entry .muted{overflow-wrap:anywhere}
+.recovery-warning{border-left:3px solid var(--gold);padding:10px 13px;background:rgba(214,174,90,.07);margin:12px 0}
 </style></head><body>
 <header><div><div class="eyebrow">MPID PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
 <main>
@@ -90,6 +97,16 @@
 <div id="applicantManuscriptSummary" class="note">Loading applicant manuscripts...</div>
 <div id="applicantManuscriptList" class="applicant-manuscripts" aria-live="polite"></div>
 <div id="applicantManuscriptMessage" class="message hidden" role="status" aria-live="polite"></div>
+</section>
+
+<section class="card" id="manuscriptRecoveryCenter">
+<div class="actions" style="justify-content:space-between;align-items:center"><h2>Manuscript Recovery Review</h2><button class="secondary" id="refreshRecovery" type="button">Refresh Recovery Queue</button></div>
+<p class="muted">Administrator-only review of interrupted applicant uploads. Expired leases are flagged for attention, not automatically recovered. Approval records authorization only. Manuscript files are never deleted by this dashboard.</p>
+<div class="recovery-warning"><strong>Recovery execution remains disabled.</strong> A lease expiration does not prove that a file transfer has stopped. Requests still in <code>uploading</code> must be quarantined through the controlled server workflow before approval is possible.</div>
+<div id="recoverySummary" class="note" aria-live="polite">Recovery queue not yet loaded.</div>
+<div id="recoveryList" class="recovery-list" aria-live="polite"></div>
+<div id="recoveryMessage" class="message hidden" role="status" aria-live="polite"></div>
+<p class="note">Recovery decisions are recorded in the restricted database audit table. Audit history viewing and safe recovery execution require a separate, verified administrator server endpoint.</p>
 </section>
 <section class="card" id="submissionCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Submission Notification Center</h2><span class="pill" id="submissionBadge" aria-live="polite">Loading submissions</span></div>
@@ -422,7 +439,64 @@ async function loadApplicantManuscripts(){
 }
 $('refreshApplicantManuscripts').addEventListener('click',loadApplicantManuscripts);
 
-async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();await loadActivity();await loadSubmissionReviews();await loadApplications();await loadApplicantManuscripts();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString()+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
+
+// Recovery queue: metadata read only. All approval writes use the authenticated Edge Function.
+async function loadRecoveryQueue(){
+ const button=$('refreshRecovery'),holder=$('recoveryList');
+ if(button)button.disabled=true;
+ $('recoverySummary').textContent='Checking interrupted manuscript requests...';
+ try{
+  await requireAdmin();
+  const {data,error}=await sb.from('mpid_manuscript_requests')
+   .select('id,application_id,request_status,upload_claimed_at,upload_lease_expires_at,created_at')
+   .in('request_status',['uploading','recovery_required'])
+   .order('created_at',{ascending:false}).limit(1000);
+  if(error)throw error;
+  const now=Date.now();
+  const records=(data||[]).filter(r=>r.request_status==='recovery_required'||(r.upload_lease_expires_at&&Date.parse(r.upload_lease_expires_at)<=now));
+  holder.replaceChildren();
+  $('recoverySummary').textContent=records.length+' request'+(records.length===1?'':'s')+' requiring administrator attention.';
+  if(!records.length){const empty=document.createElement('div');empty.className='muted';empty.textContent='No interrupted uploads currently require administrator attention.';holder.append(empty);return;}
+  for(const r of records){
+   const app=authorApplications.find(a=>a.id===r.application_id);
+   const entry=document.createElement('div');entry.className='recovery-entry';
+   const title=document.createElement('strong');title.textContent=(app?.full_name||'Applicant')+' | '+(app?.book_title||'Untitled manuscript');
+   const info=document.createElement('div');info.className='muted small';
+   const lease=r.upload_lease_expires_at&&Number.isFinite(Date.parse(r.upload_lease_expires_at))?new Date(r.upload_lease_expires_at).toLocaleString():'Not recorded';
+   info.textContent='Status: '+r.request_status+' | Lease expiry: '+lease+' | Request ID: '+r.id;
+   const note=document.createElement('p');note.className='note';
+   note.textContent=r.request_status==='recovery_required'?'This request is quarantined. Administrator approval can be recorded, but file reconciliation and recovery execution are not enabled.':'The lease has expired, but this request is still uploading. It must first be safely quarantined by the server before approval.';
+   entry.append(title,info,note);
+   if(r.request_status==='recovery_required'){
+    const notes=document.createElement('textarea');notes.maxLength=2000;notes.placeholder='Administrator approval notes (optional, maximum 2,000 characters)';notes.setAttribute('aria-label','Recovery approval notes for '+r.id);
+    const approve=document.createElement('button');approve.type='button';approve.textContent='Record Administrator Approval';
+    approve.addEventListener('click',async()=>{
+     if(!confirm('Record recovery approval for this manuscript request? This does NOT restore or release the upload.'))return;
+     approve.disabled=true;
+     try{
+      await requireAdmin();
+      const {data:{session},error:sessionError}=await sb.auth.getSession();
+      if(sessionError||!session?.access_token)throw new Error('Administrator session expired. Sign in again.');
+      const {data:result,error:invokeError}=await sb.functions.invoke('mpid-admin-manuscript-recovery',{
+       body:{request_id:r.id,notes:notes.value.trim()||null},
+       headers:{Authorization:'Bearer '+session.access_token}
+      });
+      if(invokeError){let detail='';try{if(invokeError.context instanceof Response){const payload=await invokeError.context.json();detail=payload?.error||payload?.message||'';}}catch(_){}throw new Error(detail||invokeError.message||'Approval request failed.');}
+      if(!result?.success)throw new Error(result?.error||'Approval was not confirmed.');
+      message('recoveryMessage','Administrator approval recorded for request '+r.id+'. No file or upload claim was changed.',true);
+      approve.textContent='Approval Recorded';
+     }catch(e){message('recoveryMessage','Recovery approval failed: '+err(e));approve.disabled=false;}
+    });
+    entry.append(notes,approve);
+   }
+   holder.append(entry);
+  }
+ }catch(e){holder.replaceChildren();$('recoverySummary').textContent='Recovery queue unavailable.';message('recoveryMessage','Could not load recovery queue: '+err(e));}
+ finally{if(button)button.disabled=false;}
+}
+$('refreshRecovery').addEventListener('click',loadRecoveryQueue);
+
+async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();await loadActivity();await loadSubmissionReviews();await loadApplications();await loadApplicantManuscripts();await loadRecoveryQueue();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString()+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
 $('inviteAuthorForm').addEventListener('submit',async event=>{
  event.preventDefault();
  const button=$('sendAuthorInvitation');
