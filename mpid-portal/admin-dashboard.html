@@ -102,11 +102,11 @@
 <section class="card" id="manuscriptRecoveryCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Manuscript Recovery Review</h2><button class="secondary" id="refreshRecovery" type="button">Refresh Recovery Queue</button></div>
 <p class="muted">Administrator-only review of interrupted applicant uploads. Expired leases are flagged for attention, not automatically recovered. Approval records authorization only. Manuscript files are never deleted by this dashboard.</p>
-<div class="recovery-warning"><strong>Recovery execution remains disabled.</strong> A lease expiration does not prove that a file transfer has stopped. Requests still in <code>uploading</code> must be quarantined through the controlled server workflow before approval is possible.</div>
+<div class="recovery-warning"><strong>Administrator-controlled recovery only.</strong> A lease expiration does not prove that a transfer has stopped. Requests still in <code>uploading</code> must be quarantined before approval. Completion cancels the original invitation but never deletes storage objects.</div>
 <div id="recoverySummary" class="note" aria-live="polite">Recovery queue not yet loaded.</div>
 <div id="recoveryList" class="recovery-list" aria-live="polite"></div>
 <div id="recoveryMessage" class="message hidden" role="status" aria-live="polite"></div>
-<p class="note">Recovery decisions are recorded in the restricted database audit table. Audit history viewing and safe recovery execution require a separate, verified administrator server endpoint.</p>
+<p class="note">Recovery decisions are recorded in the restricted database audit table. Before completing recovery, inspect the corresponding private Storage folder in Supabase and preserve any files found. Completion does not automatically reconcile stored files.</p>
 </section>
 <section class="card" id="submissionCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Submission Notification Center</h2><span class="pill" id="submissionBadge" aria-live="polite">Loading submissions</span></div>
@@ -468,7 +468,7 @@ async function loadRecoveryQueue(){
    const lease=r.upload_lease_expires_at&&Number.isFinite(Date.parse(r.upload_lease_expires_at))?new Date(r.upload_lease_expires_at).toLocaleString():'Not recorded';
    info.textContent='Status: '+r.request_status+' | Lease expiry: '+lease+' | Request ID: '+r.id;
    const note=document.createElement('p');note.className='note';
-   note.textContent=r.request_status==='recovery_required'?'This request is quarantined. Administrator approval can be recorded, but file reconciliation and recovery execution are not enabled.':'The lease has expired, but this request is still uploading. It must first be safely quarantined by the server before approval.';
+   note.textContent=r.request_status==='recovery_required'?'This request is quarantined. Record approval, review the private storage folder, then complete recovery to cancel the original invitation. No stored file will be deleted.':'The lease has expired, but this request is still uploading. It must first be safely quarantined by the server before approval.';
    entry.append(title,info,note);
    if(r.request_status==='recovery_required'){
     const notes=document.createElement('textarea');notes.maxLength=2000;notes.placeholder='Administrator approval notes (optional, maximum 2,000 characters)';notes.setAttribute('aria-label','Recovery approval notes for '+r.id);
@@ -481,16 +481,42 @@ async function loadRecoveryQueue(){
       const {data:{session},error:sessionError}=await sb.auth.getSession();
       if(sessionError||!session?.access_token)throw new Error('Administrator session expired. Sign in again.');
       const {data:result,error:invokeError}=await sb.functions.invoke('mpid-admin-manuscript-recovery',{
-       body:{request_id:r.id,notes:notes.value.trim()||null},
+       body:{action:'approve',request_id:r.id,notes:notes.value.trim()||null},
        headers:{Authorization:'Bearer '+session.access_token}
       });
       if(invokeError){let detail='';try{if(invokeError.context instanceof Response){const payload=await invokeError.context.json();detail=payload?.error||payload?.message||'';}}catch(_){}throw new Error(detail||invokeError.message||'Approval request failed.');}
       if(!result?.success)throw new Error(result?.error||'Approval was not confirmed.');
       message('recoveryMessage','Administrator approval recorded for request '+r.id+'. No file or upload claim was changed.',true);
-      approve.textContent='Approval Recorded';
+      approve.textContent='Approval Recorded';approve.disabled=true;
      }catch(e){message('recoveryMessage','Recovery approval failed: '+err(e));approve.disabled=false;}
     });
-    entry.append(notes,approve);
+     const storageGuide=document.createElement('p');storageGuide.className='note';
+     storageGuide.textContent='Review Supabase Storage > mpid-applicant-manuscripts > applications/'+r.application_id+'/'+r.id+'/ . Preserve any objects, including files that arrive late. Do not delete files during recovery.';
+     const reviewLabel=document.createElement('label');reviewLabel.className='note';
+     const reviewed=document.createElement('input');reviewed.type='checkbox';reviewed.style.width='auto';reviewed.style.marginRight='9px';
+     reviewLabel.append(reviewed,document.createTextNode('I have inspected the private storage folder and will preserve any files found.'));
+     const complete=document.createElement('button');complete.type='button';complete.className='danger';complete.textContent='Complete Recovery and Cancel Original Invitation';
+     complete.addEventListener('click',async()=>{
+       if(!reviewed.checked){message('recoveryMessage','Inspect the private storage folder and check the review confirmation before completing recovery.');return;}
+       const confirmation=prompt('This cancels the original upload invitation. It does not delete stored files or issue a new link.\n\nType CANCEL ORIGINAL REQUEST to confirm:');
+       if(confirmation!=='CANCEL ORIGINAL REQUEST')return;
+       complete.disabled=true;
+       try{
+         await requireAdmin();
+         const {data:{session},error:sessionError}=await sb.auth.getSession();
+         if(sessionError||!session?.access_token)throw new Error('Administrator session expired. Sign in again.');
+         const {data:result,error:invokeError}=await sb.functions.invoke('mpid-admin-manuscript-recovery',{
+           body:{action:'complete',request_id:r.id,notes:notes.value.trim()||null,storage_review_confirmed:true,confirmation:'CANCEL ORIGINAL REQUEST'},
+           headers:{Authorization:'Bearer '+session.access_token}
+         });
+         if(invokeError){let detail='';try{if(invokeError.context instanceof Response){const payload=await invokeError.context.json();detail=payload?.error||payload?.message||'';}}catch(_){}throw new Error(detail||invokeError.message||'Recovery completion failed.');}
+         if(!result?.success||result.recovery_executed!==true)throw new Error(result?.error||'Recovery completion was not confirmed.');
+         await loadRecoveryQueue();
+         message('recoveryMessage','Recovery completed for request '+r.id+'. Original invitation cancelled. Storage files preserved. You may now create a fresh invitation if needed.',true);
+       }catch(e){message('recoveryMessage','Recovery completion failed: '+err(e));complete.disabled=false;}
+     });
+     const controlActions=document.createElement('div');controlActions.className='actions';controlActions.append(approve,complete);
+     entry.append(notes,storageGuide,reviewLabel,controlActions);
    }
    holder.append(entry);
   }
