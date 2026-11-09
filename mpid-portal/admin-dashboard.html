@@ -435,7 +435,7 @@ async function loadPayments(){
   await requireAdmin();
   const tables=await Promise.all([
    sb.from('mpid_payment_links').select('package_name,payment_stage,amount,payment_url,active').eq('active',true),
-   sb.from('mpid_payment_installments').select('id,application_id,payment_stage,amount_due,amount_verified,status,verification_reference,requested_at,verified_at'),
+   sb.from('mpid_payment_installments').select('id,application_id,payment_stage,amount_due,amount_verified,status,payment_url,verification_reference,requested_at,verified_at'),
    sb.from('mpid_payment_requests').select('installment_id,delivery_status,created_at,processed_at').order('created_at',{ascending:false}).limit(1000)
   ]);
   for(const r of tables)if(r.error)throw r.error;
@@ -473,7 +473,7 @@ function renderPaymentOverview(){
   const meta=document.createElement('div');meta.className='payment-meta';
   meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Email requests: '+records.length+(records.length?' | Latest email: '+records[0].delivery_status:'');row.append(meta);
   const info=document.createElement('p');info.className='note';
-  info.textContent=custom?'Discounted full-upfront agreement. A dedicated, administrator-approved Bluevine link is required before live requests can be enabled.':matches?'Standard approved Bluevine link matched. Live sending is disabled during testing.':'No matching approved Bluevine link; live sending remains disabled.';
+  info.textContent=custom?(installment?.payment_url?'Custom Bluevine link registered. Live sending remains disabled.':'Discounted full-upfront agreement. A dedicated, administrator-approved Bluevine link is required before live requests can be enabled.'):matches?'Standard approved Bluevine link matched. Live sending is disabled during testing.':'No matching approved Bluevine link; live sending remains disabled.';
   row.append(info);
   const actions=document.createElement('div');actions.className='actions';
   const preview=document.createElement('button');preview.type='button';preview.className='secondary';preview.textContent='Preview Payment Request (No Send)';
@@ -485,13 +485,51 @@ function renderPaymentOverview(){
    if(installment&&Math.abs(Number(installment.amount_due)-expected)>.005)issues.push('Ledger amount differs from approved price');
    if(installment?.status==='paid')issues.push('Installment already paid');
    if(records.length)issues.push('An earlier payment request exists');
-   if(custom)issues.push('Dedicated custom Bluevine link has not been approved in this workflow');
+   if(custom&&!installment?.payment_url)issues.push('Dedicated custom Bluevine link has not been registered');
    else if(!matches)issues.push('Approved standard Bluevine link is missing');
    const details=['PAYMENT REQUEST PREVIEW ONLY','Applicant: '+(app.full_name||'Unknown'),'Package: '+pkg,'Stage: '+stage,'Approved amount: '+paymentMoney(expected),'Recipient: '+(app.email||'Missing'),'Ledger: '+(installment?.status||'Not initialized'),'Existing requests: '+records.length,'Live sending: DISABLED','Result: '+(issues.length?'BLOCKED':'Eligible when live mode is separately authorized')];
    if(issues.length)details.push('Reasons: '+issues.join('; '));
    message('paymentMessage',details.join(' | '),!issues.length);
   };
   actions.append(preview);
+  // Step 3O: Administrator-only custom link registration, no email or payment verification.
+  if(custom && stage==='full'){
+   const panel=document.createElement('div');panel.className='payment-row';
+   const label=document.createElement('label');label.textContent='Approved custom Bluevine payment URL';
+   const input=document.createElement('input');input.type='url';input.autocomplete='off';
+   input.placeholder='https://pay.bluevine.com/p/...';input.value=installment?.payment_url||'';
+   const note=document.createElement('p');note.className='note';
+   note.textContent='Confirm the Bluevine link and exact amount independently before registration. Never register a live link for a fictional test applicant.';
+   const buttons=document.createElement('div');buttons.className='actions';
+   const previewLink=document.createElement('button');previewLink.type='button';previewLink.className='secondary';previewLink.textContent='Preview Custom Link Registration';
+   const saveLink=document.createElement('button');saveLink.type='button';saveLink.textContent='Register Approved Custom Link';
+   const status=document.createElement('div');status.className='message hidden';status.setAttribute('role','status');
+   async function runCustomLink(dryRun){
+    previewLink.disabled=true;saveLink.disabled=true;
+    try{
+     await requireAdmin();
+     if(!installment)throw new Error('Initialize the full-payment installment first.');
+     const url=input.value.trim();if(!url)throw new Error('Enter an approved Bluevine payment URL.');
+     const parsed=new URL(url);
+     if(parsed.protocol!=='https:'||parsed.hostname!=='pay.bluevine.com'||!parsed.pathname.startsWith('/p/'))throw new Error('Enter a valid https://pay.bluevine.com/p/ payment URL.');
+     if(!dryRun){
+      if(!confirm('Register this custom link for '+app.full_name+' at '+paymentMoney(price)+'?\n\nConfirm you independently verified its Bluevine destination and amount. No email will be sent.'))return;
+     }
+     const {data,error}=await sb.rpc('rsm_register_custom_payment_link',{
+      p_application_id:app.id,p_payment_url:url,p_preview_only:dryRun
+     });
+     if(error)throw error;
+     if(!data?.success)throw new Error(data?.message||'Registration was not confirmed.');
+     status.className='message success';
+     status.textContent=(dryRun?'PREVIEW ONLY. No changes saved.':'LINK REGISTERED. No email sent.')+'\nApplicant: '+(data.applicant||app.full_name)+'\nAmount: '+paymentMoney(data.approved_amount);
+     if(!dryRun){await loadPayments();message('paymentMessage','Custom link registered for '+app.full_name+'. No email sent.',true);}
+    }catch(e){status.className='message error';status.textContent='Custom link operation failed: '+err(e);}
+    finally{previewLink.disabled=false;saveLink.disabled=false;}
+   }
+   previewLink.onclick=()=>runCustomLink(true);saveLink.onclick=()=>runCustomLink(false);
+   buttons.append(previewLink,saveLink);panel.append(label,input,note,buttons,status);row.append(panel);
+  }
+
   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';send.disabled=true;send.title='Disabled while testing. Requires separate backend and administrator-approved live enablement.';actions.append(send);
   const verify=document.createElement('button');verify.type='button';verify.className='secondary';verify.textContent='Verify Bluevine Payment';verify.disabled=true;verify.title='Disabled while testing; no fictional transactions may be verified.';actions.append(verify);
   row.append(actions);root.append(row);
