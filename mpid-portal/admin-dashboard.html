@@ -476,7 +476,7 @@ function renderPaymentOverview(){
   info.textContent=custom?(installment?.payment_url?'Custom Bluevine link registered. Live sending remains disabled.':'Discounted full-upfront agreement. A dedicated, administrator-approved Bluevine link is required before live requests can be enabled.'):matches?'Standard approved Bluevine link matched. Live sending is disabled during testing.':'No matching approved Bluevine link; live sending remains disabled.';
   row.append(info);
   const actions=document.createElement('div');actions.className='actions';
-  const preview=document.createElement('button');preview.type='button';preview.className='secondary';preview.textContent='Preview Payment Request (No Send)';
+  const preview=document.createElement('button');preview.type='button';preview.className='secondary';preview.textContent='Preview Payment Readiness (No Email)';
   preview.onclick=()=>{
    const issues=[];
    if(app.application_status!=='approved')issues.push('Application is not approved');
@@ -499,17 +499,17 @@ function renderPaymentOverview(){
    const input=document.createElement('input');input.type='url';input.autocomplete='off';
    input.placeholder='https://pay.bluevine.com/p/...';input.value=installment?.payment_url||'';
    const note=document.createElement('p');note.className='note';
-   note.textContent='Confirm the Bluevine link and exact amount independently before registration. Never register a live link for a fictional test applicant.';
+   note.textContent='This optional control is ONLY for a real discounted full-upfront agreement. It requires a previously initialized installment and an independently verified Bluevine URL. For payment readiness testing, use Preview Payment Readiness above. Never register a live link for a fictional test applicant.';
    const buttons=document.createElement('div');buttons.className='actions';
-   const previewLink=document.createElement('button');previewLink.type='button';previewLink.className='secondary';previewLink.textContent='Preview Custom Link Registration';
+   const previewLink=document.createElement('button');previewLink.type='button';previewLink.className='secondary';previewLink.textContent='Validate Entered Custom URL (No Save)';
    const saveLink=document.createElement('button');saveLink.type='button';saveLink.textContent='Register Approved Custom Link';
    const status=document.createElement('div');status.className='message hidden';status.setAttribute('role','status');
    async function runCustomLink(dryRun){
     previewLink.disabled=true;saveLink.disabled=true;
     try{
      await requireAdmin();
-     if(!installment)throw new Error('Initialize the full-payment installment first.');
-     const url=input.value.trim();if(!url)throw new Error('Enter an approved Bluevine payment URL.');
+     if(!installment)throw new Error('Full-payment installment is not initialized. This is not a payment readiness preview. Use Preview Payment Readiness above; no Bluevine URL is needed for that check.');
+     const url=input.value.trim();if(!url)throw new Error('This custom-link validation requires an independently approved Bluevine URL. For a no-URL readiness check, use Preview Payment Readiness above.');
      const parsed=new URL(url);
      if(parsed.protocol!=='https:'||parsed.hostname!=='pay.bluevine.com'||!parsed.pathname.startsWith('/p/'))throw new Error('Enter a valid https://pay.bluevine.com/p/ payment URL.');
      if(!dryRun){
