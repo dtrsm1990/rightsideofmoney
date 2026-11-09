@@ -41,7 +41,7 @@
 <section id="loginSection"><h1>Author Portal</h1><p>Sign in to review your publishing projects and access your authorized documents.</p>
 <div class="panel" id="setupPanel" hidden><h2>One-time portal setup</h2><p class="small">Enter the Supabase publishable key once on this device. Never use a secret or service-role key. This setting is saved in this browser.</p><label class="field">Supabase publishable key<input id="key" type="text" placeholder="sb_publishable_..." autocomplete="off" spellcheck="false"></label><div class="actions"><button id="connect" type="button">Save connection</button></div></div>
 <div class="panel" id="signInPanel"><h2>Sign in to your author account</h2><form id="loginForm"><div class="grid"><label class="field">Email<input id="email" type="email" required autocomplete="username"></label><label class="field">Password<input id="password" type="password" required autocomplete="current-password"></label></div><button id="login" type="submit" disabled>Sign In</button></form></div>
-<div class="panel" id="activationPanel" hidden><h2>Activate your MPID account</h2><p>Choose a password to complete your invitation.</p><form id="activationForm"><label class="field">New password<input id="newPassword" type="password" required minlength="12" autocomplete="new-password"></label><button type="submit" id="activate">Activate Account</button></form></div>
+<div class="panel" id="activationPanel" hidden><h2>Activate your RSM Publishing Services account</h2><p>Choose a password to complete your invitation.</p><form id="activationForm"><label class="field">New password<input id="newPassword" type="password" required minlength="12" autocomplete="new-password"></label><button type="submit" id="activate">Activate Account</button></form></div>
 </section>
 <section id="dashboard" hidden><h1>Welcome, <span id="authorName">Author</span></h1><p>Your publishing projects, documents, and editorial findings appear below. Access is checked against your Supabase account.</p><div class="actions"><button id="refresh" class="secondary">Refresh Dashboard</button><span id="authorRole" class="pill"></span></div><div id="projects"></div>
 <section class="panel" id="accountPanel"><h2>Account Security</h2><p class="small">Create your password after accepting an invitation, or change your existing password. Use at least 12 characters.</p>
@@ -125,7 +125,7 @@ async function loadDashboard(){
    const uploadStages=new Set(['onboarding','author_review','editing','production','proofing']);
    if(uploadStages.has(String(project.status||'').trim().toLowerCase())){
     panel.append(el('h3','','Upload Document'));
-    panel.append(el('p','small','Submit your manuscript, revision, or supporting document for MPID review. Maximum file size: 25 MB. Each submission is saved as a separate file.'));
+    panel.append(el('p','small','Submit your manuscript, revision, or supporting document for RSM Publishing Services review. Maximum file size: 25 MB. Each submission is saved as a separate file.'));
     const uploadForm=el('form','approval-form');
     const typeLabel=el('label','field','Document type');
     const typeSelect=el('select');
@@ -173,11 +173,11 @@ async function loadDashboard(){
        file_name:file.name,storage_path:path,version
       });
       if(recordError)throw Error('File stored but document registration failed: '+recordError.message);
-      uploadFeedback.textContent='Upload complete. Your document is registered for MPID review.';
+      uploadFeedback.textContent='Upload complete. Your document is registered for RSM Publishing Services review.';
       fileInput.value='';
       await loadDashboard();
      }catch(e){
-      uploadFeedback.textContent='Upload failed: '+e.message+(path?' If the file reached Storage but registration failed, contact the MPID administrator with this storage path: '+path:'');
+      uploadFeedback.textContent='Upload failed: '+e.message+(path?' If the file reached Storage but registration failed, contact the RSM Publishing Services administrator with this storage path: '+path:'');
      }finally{uploadButton.disabled=false}
     };
    }else{
@@ -273,7 +273,7 @@ async function loadDashboard(){
 }
 async function renderAuthorChecklist(panel,project){
   panel.append(el('h3','','Author Action & Approval Checklist'));
-  panel.append(el('p','small','Review items released by MPID for this project. Your responses are saved as separate records and cannot be edited after submission. A checklist approval does not replace the formal project approval process below.'));
+  panel.append(el('p','small','Review items released by RSM Publishing Services for this project. Your responses are saved as separate records and cannot be edited after submission. A checklist approval does not replace the formal project approval process below.'));
   const holder=el('div');panel.append(holder);
   let items;
   try{
@@ -288,7 +288,7 @@ async function renderAuthorChecklist(panel,project){
   for(const item of items){
     const card=el('div','checklist-entry');holder.append(card);
     card.append(el('h4','',item.title));
-    card.append(el('div','small','Responsibility: '+(item.item_type==='author_approval'?'Author Approval':'Author Action')+' | MPID status: '+(item.status||'pending').replaceAll('_',' ')));
+    card.append(el('div','small','Responsibility: '+(item.item_type==='author_approval'?'Author Approval':'Author Action')+' | Publisher status: '+(item.status||'pending').replaceAll('_',' ')));
     card.append(el('div','finding-label','Instructions or proposed change'));
     card.append(el('p','finding-text',item.instructions));
     const history=el('div');card.append(history);
@@ -311,7 +311,7 @@ async function renderAuthorChecklist(panel,project){
     }
     await loadHistory();
     if(['completed','waived'].includes(item.status)){
-      card.append(el('p','small','MPID has closed this item. New responses are disabled.'));
+      card.append(el('p','small','RSM Publishing Services has closed this item. New responses are disabled.'));
       continue;
     }
     const form=el('form','approval-form');
