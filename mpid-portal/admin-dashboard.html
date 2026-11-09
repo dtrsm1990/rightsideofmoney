@@ -163,7 +163,6 @@
 <p class="muted">Prepare and release project-specific checklist items. Draft items are visible only to MPID administrators. Author responses are preserved as separate historical submissions. Checklist completion is an MPID review decision, not automatic author approval.</p>
 <div id="checklistProjectLabel" class="note">Select a publishing project above.</div><label for="checklistProjectSelect">Checklist project</label><select id="checklistProjectSelect" aria-label="Choose the project for checklist items"></select><div id="checklistStats" class="checklist-stats"></div>
 <form id="checklistCreateForm"><h3>Create Checklist Item</h3><div class="grid"><div><label for="checklistType">Responsibility</label><select id="checklistType"><option value="author_action" selected>Author Action</option><option value="author_approval">Author Approval</option><option value="mpid_correction">MPID Editorial Correction (Internal Only)</option></select></div><div><label for="checklistFinding">Related editorial finding (optional)</label><select id="checklistFinding"><option value="">No linked finding</option></select></div></div><label for="checklistTitle">Checklist item title</label><input id="checklistTitle" required maxlength="250" placeholder="Specific action or proposed editorial change"><label for="checklistInstructions">Instructions or proposed change</label><textarea id="checklistInstructions" required placeholder="Describe precisely what MPID or the author needs to do."></textarea><div class="actions"><button type="submit" id="createChecklistItem">Save Draft Checklist Item</button></div></form>
-<div class="actions" style="margin-top:18px"><button type="button" class="secondary" id="generateAuditChecklist">Generate Draft Items from Audit Findings</button></div><p class="muted">Creates administrator-only drafts from findings without an existing linked checklist item. Review each draft before releasing it to the author.</p>
 <h3 style="margin-top:25px">Checklist Items and Author Responses</h3><p class="note">All items for the selected project appear below, including released and completed items. Released items do not have a second release button.</p><div id="checklistItemsList" aria-live="polite"></div><div id="checklistMessage" class="message hidden" role="status" aria-live="polite"></div>
 </section>
 <section class="card"><h2>Project Details</h2><p class="muted">Select a project above to see its recorded documents, editorial findings, and author approvals.</p><div id="details" class="grid"></div></section>
@@ -994,29 +993,6 @@ function renderChecklist(){
   holder.append(card);
  }
 }
-$('generateAuditChecklist').addEventListener('click',async()=>{
- const button=$('generateAuditChecklist');button.disabled=true;
- try{
-  await requireAdmin();
-  const project=checklistProject();if(!project)throw new Error('Select a checklist project first.');
-  if(checklistLoadError)throw new Error('Checklist data is unavailable. Refresh before generating drafts.');
-  const existing=new Set(checklistItems.filter(i=>i.project_id===project.id&&i.finding_id).map(i=>i.finding_id));
-  const candidates=findings.filter(f=>f.project_id===project.id&&!existing.has(f.id)&&f.status!=='waived');
-  if(!candidates.length){message('checklistMessage','No new audit findings need draft checklist items.',true);return;}
-  const author=profiles.find(p=>p.id===project.author_id)?.full_name||'Unknown author';
-  if(!confirm('Create '+candidates.length+' administrator-only draft checklist item(s) for '+project.title+' ('+author+')?\\n\\nNothing will be released to the author.'))return;
-  // Refresh before inserting to reduce duplicate drafts if another administrator added items.
-  const {data:current,error:readError}=await sb.from('mpid_checklist_items').select('finding_id').eq('project_id',project.id).not('finding_id','is',null);
-  if(readError)throw readError;
-  const linked=new Set((current||[]).map(i=>i.finding_id));
-  const pending=candidates.filter(f=>!linked.has(f.id));
-  if(!pending.length){message('checklistMessage','All selected findings already have checklist items.',true);await loadChecklist();return;}
-  const drafts=pending.map(f=>({project_id:project.id,finding_id:f.id,item_type:'author_action',title:('Review finding: '+(f.dimension||'Editorial issue')).slice(0,250),instructions:'Finding: '+f.finding+'\\n\\nMPID recommendation: '+f.recommendation+'\\n\\nAdministrator: review the responsibility and instructions before releasing this item to the author.',status:'pending',released_to_author:false}));
-  const {error:writeError}=await sb.from('mpid_checklist_items').insert(drafts);
-  if(writeError)throw writeError;
-  await loadChecklist();message('checklistMessage',pending.length+' draft checklist item(s) created. Review responsibility and wording before author release.',true);
- }catch(e){message('checklistMessage',err(e));}finally{button.disabled=false;}
-});
 $('checklistCreateForm').addEventListener('submit',async event=>{
  event.preventDefault();const button=$('createChecklistItem');button.disabled=true;
  try{
