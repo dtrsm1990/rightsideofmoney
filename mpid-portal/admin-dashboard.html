@@ -77,6 +77,10 @@
 
 /* Author checklist management */
 .checklist-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}.checklist-stat{padding:13px;background:var(--panel2);border:1px solid var(--line);border-radius:10px}.checklist-stat strong{display:block;font-size:25px;color:var(--gold)}.checklist-entry{background:var(--panel2);border:1px solid #51483b;border-radius:11px;padding:16px;margin:12px 0}.checklist-entry p{white-space:pre-wrap;overflow-wrap:anywhere}.checklist-response{padding:10px 12px;margin-top:9px;border-left:3px solid #8b7344;background:#17171a;border-radius:6px}.checklist-response p{margin:5px 0}.checklist-entry .actions label{flex:1;min-width:170px;margin:0}
+
+/* Payment management: read-only verification view until server-side actions are deployed. */
+.payment-row{border:1px solid #51483b;border-radius:10px;padding:14px;background:var(--panel2);margin:10px 0}
+.payment-row strong{color:#f8e2b1}.payment-meta{font-size:13px;color:var(--muted);margin-top:6px}
 </style></head><body>
 <header><div><div class="eyebrow">RSM PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">MPID Publishing Client Portal</div><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
 <main>
@@ -105,6 +109,13 @@
 <p class="note">Review sequence: assess the application, request manuscript information as needed, confirm scope and pricing, obtain the signed agreement, verify payment separately, then prepare the author invitation. Saving an application review does not send email or collect payment.</p>
 <h3 style="margin-top:23px">Applications</h3><label for="applicationFilter">Show applications</label><select id="applicationFilter"><option value="all">All applications</option><option value="pending_review">Pending Review</option><option value="more_information_needed">More Information Needed</option><option value="approved">Approved</option><option value="declined">Declined</option></select>
 <div id="applicationList" aria-live="polite"></div>
+</section>
+<section class="card" id="paymentCenter">
+<div class="actions" style="justify-content:space-between;align-items:center"><h2>Payment Management Center</h2><button class="secondary" type="button" id="refreshPayments">Refresh Payments</button></div>
+<p class="muted">Administrator-only payment overview. Bluevine links are reusable. Copying a link does not send a request or confirm a payment. Payment emails and verified-payment recording will be enabled only after the server-side authorization and notification controls are installed.</p>
+<label for="paymentApplication">Approved application</label><select id="paymentApplication"></select>
+<div id="paymentOverview" aria-live="polite"></div>
+<div id="paymentMessage" class="message hidden" role="status"></div>
 </section>
 <section class="card" id="applicantManuscriptCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Applicant Manuscript Inbox</h2><button class="secondary" id="refreshApplicantManuscripts" type="button">Refresh Manuscripts</button></div>
@@ -410,6 +421,51 @@ function renderApplications(){
   card.append(form);holder.append(card);
  }
 }
+// Payment overview is deliberately read-only. Client-side updates to payment status
+// are not sufficient evidence of a Bluevine transaction.
+let paymentLinks=[],paymentInstallments=[],paymentRequests=[];
+const paymentMoney=n=>Number(n).toLocaleString('en-US',{style:'currency',currency:'USD'});
+async function loadPayments(){
+ try{
+  await requireAdmin();
+  const tables=await Promise.all([
+   sb.from('mpid_payment_links').select('package_name,payment_stage,amount,payment_url,active').eq('active',true),
+   sb.from('mpid_payment_installments').select('id,application_id,payment_stage,amount_due,amount_verified,status,verification_reference,requested_at,verified_at'),
+   sb.from('mpid_payment_requests').select('installment_id,delivery_status,created_at,processed_at').order('created_at',{ascending:false}).limit(1000)
+  ]);
+  for(const r of tables)if(r.error)throw r.error;
+  [paymentLinks,paymentInstallments,paymentRequests]=tables.map(r=>r.data||[]);
+  const selector=$('paymentApplication'),old=selector.value;
+  const eligible=authorApplications.filter(a=>a.application_status==='approved');
+  selector.replaceChildren();
+  const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Select an approved application';selector.append(placeholder);
+  for(const a of eligible){const option=document.createElement('option');option.value=a.id;option.textContent=(a.full_name||'Applicant')+' | '+(a.book_title||'Untitled')+' | '+(a.approved_package||'No package');selector.append(option);}
+  if(eligible.some(a=>a.id===old))selector.value=old;
+  renderPaymentOverview();
+ }catch(e){message('paymentMessage','Payment records could not be loaded: '+err(e));$('paymentOverview').textContent='Payment overview unavailable.';}
+}
+function renderPaymentOverview(){
+ const root=$('paymentOverview'),app=authorApplications.find(a=>a.id===$('paymentApplication').value);
+ root.replaceChildren();if(!app){root.textContent='Choose an approved application to view payment terms.';return;}
+ const custom=isDiscountedApplication(app),price=Number(app.approved_price),pkg=app.approved_package||'';
+ const summary=document.createElement('p');summary.className='note';summary.textContent='Agreement: '+(AGREEMENT_STATUSES[app.agreement_status]||app.agreement_status)+' | Existing overall payment status: '+(PAYMENT_STATUSES[app.payment_status]||app.payment_status)+' | Approved amount: '+(Number.isFinite(price)?paymentMoney(price):'Unavailable')+'.';root.append(summary);
+ const stages=custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
+ for(const [stage,fraction] of stages){
+  const row=document.createElement('div');row.className='payment-row';
+  const installment=paymentInstallments.find(i=>i.application_id===app.id&&i.payment_stage===stage);
+  const linkStage=stage==='final'?'initial':stage;
+  const link=paymentLinks.find(l=>l.package_name===pkg&&l.payment_stage===linkStage);
+  const expected=Math.round(price*fraction*100)/100;
+  const matches=link&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005&&!custom;
+  const title=document.createElement('strong');title.textContent=stage[0].toUpperCase()+stage.slice(1)+' payment | '+(Number.isFinite(expected)?paymentMoney(expected):'Price unavailable');row.append(title);
+  const meta=document.createElement('div');meta.className='payment-meta';meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Request records: '+paymentRequests.filter(r=>r.installment_id===installment?.id).length;row.append(meta);
+  const info=document.createElement('p');info.className='note';info.textContent=custom?'Custom or discounted agreement: use a separately approved payment link. Standard package links are disabled.':matches?'Approved standard Bluevine link available. Final 30% reuses the initial 30% link.':'No matching standard Bluevine link for the approved package and amount. Check pricing before requesting payment.';row.append(info);
+  if(matches){const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent='Copy Bluevine Link';button.onclick=async()=>{try{await navigator.clipboard.writeText(link.payment_url);message('paymentMessage','Payment link copied. No email was sent and no payment was recorded.',true);}catch(e){message('paymentMessage','Clipboard unavailable. Open this link and copy its address: '+link.payment_url);}};row.append(button);}
+  root.append(row);
+ }
+}
+$('paymentApplication').addEventListener('change',renderPaymentOverview);
+$('refreshPayments').addEventListener('click',async()=>{await loadApplications();await loadPayments();});
 $('applicationFilter').addEventListener('change',renderApplications);
 $('refreshApplications').addEventListener('click',async()=>{await loadApplications();if(!applicationLoadError)message('applicationMessage','Applications refreshed.',true);});
 $('applicationIntakeForm').addEventListener('submit',async event=>{
@@ -790,7 +846,7 @@ $('checklistCreateForm').addEventListener('submit',async event=>{
 $('refreshChecklist').addEventListener('click',loadChecklist);
 
 
-async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject','checklistProjectSelect'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();renderEditorialAudit();await loadChecklist();await loadActivity();await loadSubmissionReviews();await loadApplications();await loadApplicantManuscripts();await loadRecoveryQueue();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString('en-US',{timeZone:MPID_TIME_ZONE,timeZoneName:'short'})+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
+async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','uploadProject','findingProject','checklistProjectSelect'])fillSelect(id,projects,p=>p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');const selected=projects.find(p=>p.id===$('selectedProject').value);if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.map(p=>'<tr><td>'+esc(p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();renderEditorialAudit();await loadChecklist();await loadActivity();await loadSubmissionReviews();await loadApplications();await loadPayments();await loadApplicantManuscripts();await loadRecoveryQueue();message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString('en-US',{timeZone:MPID_TIME_ZONE,timeZoneName:'short'})+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
 $('inviteAuthorForm').addEventListener('submit',async event=>{
  event.preventDefault();
  const button=$('sendAuthorInvitation');
