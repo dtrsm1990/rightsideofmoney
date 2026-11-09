@@ -26,6 +26,13 @@
 .mpid-progress-step{font-size:12px;color:var(--muted)}.mpid-progress-step.current{color:var(--gold);font-weight:800}.mpid-progress-step.done{color:#d3c29c}
 .mpid-progress-step.current::before{content:'● ';}.mpid-progress-step.done::before{content:'✓ ';}
 .security-test{border-color:#76613b}.security-test input{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px}.security-result{font-weight:650}
+
+/* Author checklist, preserving the existing project workflow. */
+.checklist-entry{border:1px solid #655335;border-radius:12px;padding:17px;margin:14px 0;background:#222126}
+.checklist-entry h4{margin:0 0 8px;color:var(--gold);font-size:17px}
+.checklist-entry .field select,.checklist-entry .field textarea{display:block;width:100%;margin-top:6px;padding:12px;border-radius:8px;border:1px solid #555;background:#101114;color:white;font:inherit}
+.checklist-entry textarea{min-height:100px;resize:vertical}
+.checklist-response{border-top:1px solid #47413b;margin-top:12px;padding-top:10px;white-space:pre-wrap;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -261,6 +268,87 @@ async function loadDashboard(){
  }catch(e){displayLogin();msg('Unable to open author dashboard: '+e.message,'error')}
  finally{busy('refresh',false)}
 }
+async function renderAuthorChecklist(panel,project){
+  panel.append(el('h3','','Author Action & Approval Checklist'));
+  panel.append(el('p','small','Review items released by MPID for this project. Your responses are saved as separate records and cannot be edited after submission. A checklist approval does not replace the formal project approval process below.'));
+  const holder=el('div');panel.append(holder);
+  let items;
+  try{
+    const {data,error}=await client.from('mpid_checklist_items')
+      .select('id,item_type,title,instructions,status,created_at')
+      .eq('project_id',project.id).eq('released_to_author',true)
+      .order('created_at',{ascending:true});
+    if(error)throw error;
+    items=(data||[]).filter(i=>i.item_type==='author_action'||i.item_type==='author_approval');
+  }catch(e){holder.append(el('p','small','Checklist could not be loaded: '+e.message));return}
+  if(!items.length){holder.append(el('p','small','No checklist items have been released to you for this project.'));return}
+  for(const item of items){
+    const card=el('div','checklist-entry');holder.append(card);
+    card.append(el('h4','',item.title));
+    card.append(el('div','small','Responsibility: '+(item.item_type==='author_approval'?'Author Approval':'Author Action')+' | MPID status: '+(item.status||'pending').replaceAll('_',' ')));
+    card.append(el('div','finding-label','Instructions or proposed change'));
+    card.append(el('p','finding-text',item.instructions));
+    const history=el('div');card.append(history);
+    async function loadHistory(){
+      history.replaceChildren();
+      const {data,error}=await client.from('mpid_checklist_responses')
+        .select('decision,comments,submitted_at')
+        .eq('checklist_item_id',item.id).eq('project_id',project.id)
+        .eq('author_id',activeUser.id).order('submitted_at',{ascending:false});
+      if(error){history.append(el('p','small','Response history unavailable: '+error.message));return}
+      history.append(el('div','finding-label','Your response history'));
+      if(!data?.length){history.append(el('p','small','No responses submitted yet.'));return}
+      for(const r of data){
+        const row=el('div','checklist-response');
+        row.append(el('strong','',r.decision.replaceAll('_',' ')));
+        row.append(el('div','small',new Date(r.submitted_at).toLocaleString()));
+        if(r.comments)row.append(el('p','finding-text',r.comments));
+        history.append(row);
+      }
+    }
+    await loadHistory();
+    if(['completed','waived'].includes(item.status)){
+      card.append(el('p','small','MPID has closed this item. New responses are disabled.'));
+      continue;
+    }
+    const form=el('form','approval-form');
+    const decisionLabel=el('label','field','Your response');
+    const select=el('select');select.required=true;
+    const choices=item.item_type==='author_approval'
+      ?[['','Select a response'],['approved','Approve proposed change'],['changes_requested','Request changes'],['question','Ask a question']]
+      :[['','Select a response'],['information_provided','Information provided'],['changes_requested','Request changes'],['question','Ask a question']];
+    for(const [value,label] of choices){const option=el('option','',label);option.value=value;select.append(option)}
+    decisionLabel.append(select);
+    const commentLabel=el('label','field','Comments or information');
+    const comments=el('textarea');comments.rows=4;comments.maxLength=10000;
+    comments.placeholder='Provide the requested information or describe your questions or requested changes.';
+    commentLabel.append(comments);
+    const button=el('button','','Submit Checklist Response');button.type='submit';
+    const feedback=el('div','small');feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
+    form.append(decisionLabel,commentLabel,button,feedback);card.append(form);
+    form.onsubmit=async ev=>{
+      ev.preventDefault();
+      if(!select.value){feedback.textContent='Select a response.';return}
+      if(select.value!=='approved'&&!comments.value.trim()){feedback.textContent='Comments are required for this response.';return}
+      if(!confirm('Submit this checklist response? It will be permanently recorded and cannot be edited.'))return;
+      button.disabled=true;feedback.textContent='Submitting response...';
+      try{
+        const {data:{user},error:authError}=await client.auth.getUser();
+        if(authError||!user||user.id!==activeUser.id)throw Error('Your session expired. Please sign in again.');
+        const {data,error}=await client.from('mpid_checklist_responses').insert({
+          checklist_item_id:item.id,project_id:project.id,author_id:user.id,
+          decision:select.value,comments:comments.value.trim()||null
+        }).select('id');
+        if(error)throw error;
+        if(!data?.length)throw Error('The server did not confirm your response.');
+        feedback.textContent='Checklist response saved successfully.';
+        select.value='';comments.value='';await loadHistory();
+      }catch(e){feedback.textContent='Response not saved: '+e.message}
+      finally{button.disabled=false}
+    };
+  }
+}
+
 async function accessFile(path,name,download,btn){btn.disabled=true;msg('Checking secure file access...');try{const {data,error}=await client.storage.from('mpid-manuscripts').download(path);if(error)throw error;if(!data)throw Error('No file data returned');const blobUrl=URL.createObjectURL(data);const a=document.createElement('a');a.href=blobUrl;a.rel='noopener';if(download){a.download=name}else{a.target='_blank'}document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);msg((download?'Download':'View')+' request succeeded for '+name+'. Your authorized file is ready.','success')}catch(e){msg('File access denied or failed: '+e.message,'error')}finally{btn.disabled=false}}
 </script>
 </body></html>
