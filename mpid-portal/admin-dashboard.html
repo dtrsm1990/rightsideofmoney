@@ -93,7 +93,7 @@
 </section>
 <section class="card" id="applicantManuscriptCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Applicant Manuscript Inbox</h2><button class="secondary" id="refreshApplicantManuscripts" type="button">Refresh Manuscripts</button></div>
-<p class="muted">Private manuscripts submitted by publishing applicants before author onboarding. Downloads require administrator verification and a short-lived private storage link. These files remain separate from assigned author project documents.</p>
+<p class="muted">Private manuscripts submitted by publishing applicants before author onboarding. Downloads require administrator verification and a short-lived private storage link. These files remain separate from assigned author project documents. Prepare Editorial Audit Brief downloads a local worksheet, without changing the database or manuscript files.</p>
 <div id="applicantManuscriptSummary" class="note">Loading applicant manuscripts...</div>
 <div id="applicantManuscriptList" class="applicant-manuscripts" aria-live="polite"></div>
 <div id="applicantManuscriptMessage" class="message hidden" role="status" aria-live="polite"></div>
@@ -433,7 +433,45 @@ async function loadApplicantManuscripts(){
     }catch(e){message('applicantManuscriptMessage','Applicant manuscript download failed: '+err(e));}
     finally{download.disabled=false;}
    });
-   actions.append(download);card.append(title,meta,actions);list.append(card);
+   const brief=document.createElement('button');brief.type='button';brief.className='secondary';brief.textContent='Prepare Editorial Audit Brief';
+   brief.addEventListener('click',()=>{
+    const lines=[
+     'MPID PUBLISHING SERVICES | EDITORIAL AUDIT PREPARATION',
+     'Prepared: '+new Date().toLocaleString(),'',
+     'Applicant: '+(app?.full_name||'Unknown'),
+     'Email: '+(app?.email||'Not provided'),
+     'Application ID: '+record.application_id,
+     'Request ID: '+record.id,
+     'Book title: '+(app?.book_title||'Not provided'),
+     'Genre: '+(app?.genre||'Not provided'),
+     'Estimated word count: '+(app?.estimated_word_count??'Not provided'),
+     'Manuscript stage: '+(app?.manuscript_status||'Not provided'),
+     'Filename: '+(record.original_filename||'Not provided'),
+     'Submitted: '+date,'Size: '+size,
+     'Requested package: '+(app?.requested_package||'Not provided'),'',
+     'PUBLISHING GOALS',app?.publishing_goals||'Not provided','',
+     'SPECIAL REQUIREMENTS',app?.special_requirements||'Not provided','',
+     'EDITORIAL REVIEW CHECKLIST',
+     '[ ] Review manuscript completeness and structure',
+     '[ ] Evaluate clarity, grammar, consistency, and organization',
+     '[ ] Identify factual claims requiring author confirmation',
+     '[ ] Check third-party rights, images, quotations, and permissions',
+     '[ ] Evaluate front matter, back matter, and production needs',
+     '[ ] Separate MPID corrections from author approvals',
+     '[ ] Record findings in the assigned publishing project',
+     '[ ] Prepare author-specific Action and Approval Checklist',
+     '[ ] Obtain author approval for substantive editorial changes',
+     '[ ] Document quality assurance and publication readiness','',
+     'IMPORTANT: This is an audit preparation worksheet, not an automated audit.',
+     'No project was linked, no database records changed, and no manuscript was moved.'
+    ];
+    const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='MPID-Editorial-Audit-Brief-'+record.application_id+'.txt';
+    document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
+    message('applicantManuscriptMessage','Audit preparation brief downloaded. No manuscript or database changes were made.',true);
+   });
+   actions.append(download,brief);card.append(title,meta,actions);list.append(card);
   }
  }catch(e){list.replaceChildren();$('applicantManuscriptSummary').textContent='Applicant manuscripts unavailable.';message('applicantManuscriptMessage','Could not load applicant manuscripts: '+err(e));}
  finally{if(refreshButton)refreshButton.disabled=false;}
