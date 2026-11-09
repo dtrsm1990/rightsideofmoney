@@ -222,6 +222,9 @@ async function loadDashboard(){
     item.append(el('p','finding-text',finding.recommendation||'No recommendation provided.'));
     findingsList.append(item)
    }
+   // Render released checklist items before formal approvals.
+   await renderAuthorChecklist(panel,project);
+
    // Formal author decisions are append-only and tied to this author's project.
    panel.append(el('h3','', 'Author Approvals & Revision Requests'));
    panel.append(el('p','small','Submit a formal decision for a review stage. Each submission is retained as a separate record. Only approve materials you have reviewed.'));
