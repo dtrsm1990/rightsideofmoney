@@ -152,7 +152,7 @@
 <p class="muted">Prepare and release project-specific checklist items. Draft items are visible only to MPID administrators. Author responses are preserved as separate historical submissions. Checklist completion is an MPID review decision, not automatic author approval.</p>
 <div id="checklistProjectLabel" class="note">Select a publishing project above.</div><label for="checklistProjectSelect">Checklist project</label><select id="checklistProjectSelect" aria-label="Choose the project for checklist items"></select><div id="checklistStats" class="checklist-stats"></div>
 <form id="checklistCreateForm"><h3>Create Checklist Item</h3><div class="grid"><div><label for="checklistType">Responsibility</label><select id="checklistType"><option value="author_action" selected>Author Action</option><option value="author_approval">Author Approval</option><option value="mpid_correction">MPID Editorial Correction (Internal Only)</option></select></div><div><label for="checklistFinding">Related editorial finding (optional)</label><select id="checklistFinding"><option value="">No linked finding</option></select></div></div><label for="checklistTitle">Checklist item title</label><input id="checklistTitle" required maxlength="250" placeholder="Specific action or proposed editorial change"><label for="checklistInstructions">Instructions or proposed change</label><textarea id="checklistInstructions" required placeholder="Describe precisely what MPID or the author needs to do."></textarea><div class="actions"><button type="submit" id="createChecklistItem">Save Draft Checklist Item</button></div></form>
-<h3 style="margin-top:25px">Checklist Items and Author Responses</h3><div id="checklistItemsList" aria-live="polite"></div><div id="checklistMessage" class="message hidden" role="status" aria-live="polite"></div>
+<h3 style="margin-top:25px">Checklist Items and Author Responses</h3><p class="note">All items for the selected project appear below, including released and completed items. Released items do not have a second release button.</p><div id="checklistItemsList" aria-live="polite"></div><div id="checklistMessage" class="message hidden" role="status" aria-live="polite"></div>
 </section>
 <section class="card"><h2>Project Details</h2><p class="muted">Select a project above to see its recorded documents, editorial findings, and author approvals.</p><div id="details" class="grid"></div></section>
 <section class="card"><h2>Project Activity History</h2><p class="muted" id="activityProjectLabel">Activity for the currently selected project, newest first.</p><div id="activityHistory" class="mpid-activity" aria-live="polite"></div></section>
@@ -711,13 +711,14 @@ function renderChecklist(){
   const o=document.createElement('option');o.value=f.id;o.textContent=(f.dimension||'Finding')+': '+(f.finding||'').slice(0,110);findingSelect.append(o);
  }
  const rows=checklistItems.filter(i=>i.project_id===project.id);
+ holder.setAttribute('data-project-id',project.id);
  const figures=[['Total',rows.length],['Draft',rows.filter(i=>!i.released_to_author).length],['Released',rows.filter(i=>i.released_to_author).length],['Awaiting Review',rows.filter(i=>i.status==='awaiting_review').length],['Completed',rows.filter(i=>i.status==='completed').length]];
  for(const [name,count] of figures){const c=document.createElement('div');c.className='checklist-stat';const t=document.createElement('span');t.textContent=name;const n=document.createElement('strong');n.textContent=count;c.append(t,n);stats.append(c);}
  if(!rows.length){holder.textContent='No checklist items yet. Create a draft above.';return;}
  for(const item of rows){
   const card=document.createElement('div');card.className='checklist-entry';
   const heading=document.createElement('strong');heading.textContent=item.title;
-  const meta=document.createElement('div');meta.className='muted small';meta.textContent=(CHECKLIST_TYPES[item.item_type]||item.item_type)+' | '+(item.released_to_author?'Released to author':'Draft, administrator only')+' | '+(CHECKLIST_STATUSES[item.status]||item.status);
+  const meta=document.createElement('div');meta.className='muted small';meta.textContent='Responsibility: '+(CHECKLIST_TYPES[item.item_type]||item.item_type)+' | Release: '+(item.released_to_author?'Released to Author':'Draft, administrator only')+' | Review status: '+(CHECKLIST_STATUSES[item.status]||item.status);meta.style.marginTop='6px';
   const instructions=document.createElement('p');instructions.textContent=item.instructions;
   card.append(heading,meta,instructions);
   if(item.finding_id){const f=findings.find(f=>f.id===item.finding_id&&f.project_id===project.id);const link=document.createElement('div');link.className='note';link.textContent=f?'Linked finding: '+(f.dimension||'Editorial')+' | '+(f.finding||''):'Linked finding ID: '+item.finding_id;card.append(link);}
@@ -754,6 +755,7 @@ function renderChecklist(){
    };
    actions.append(release);
   }
+  if(item.released_to_author){const released=document.createElement('span');released.className='pill';released.textContent='Released to Author';released.title='Already released. A second release is not available.';actions.append(released);}
   card.append(actions);
   const responses=checklistResponses.filter(r=>r.checklist_item_id===item.id&&r.project_id===project.id);
   const responseTitle=document.createElement('h3');responseTitle.textContent='Author Response History ('+responses.length+')';responseTitle.style.marginTop='16px';card.append(responseTitle);
