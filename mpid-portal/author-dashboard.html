@@ -223,7 +223,7 @@ async function loadDashboard(){
     findingsList.append(item)
    }
    // Render released checklist items before formal approvals.
-   await renderAuthorChecklist(panel,project);
+   await renderAuthorChecklist(panel, project); // Display the author checklist for this project.
 
    // Formal author decisions are append-only and tied to this author's project.
    panel.append(el('h3','', 'Author Approvals & Revision Requests'));
