@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Cache-Control" content="no-store">
-  <title>Secure Manuscript Upload | MPID Publishing Services</title>
+  <title>Secure Manuscript Upload | RSM Publishing Services</title>
   <style>
     :root {color-scheme:dark;--bg:#080a0e;--panel:#14171e;--gold:#d6b36a;--gold2:#f0d69a;--muted:#b5bac6;--border:#38332b;--danger:#ffb3b3;--success:#a6e4bb}
     *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#343021 0%,#0c0e12 47%,#080a0e 100%);color:#f8f7f3;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;line-height:1.55}
@@ -23,14 +23,14 @@
   </style>
 </head>
 <body>
-  <header><div class="brand">MPID <span>PUBLISHING SERVICES</span></div></header>
+  <header><div class="brand">RSM <span>PUBLISHING SERVICES</span></div></header>
   <main>
     <h1>Secure <strong>Manuscript Upload</strong></h1>
     <p class="intro">Submit your manuscript securely for editorial review. This invitation is private and may be used only once.</p>
     <section class="panel" aria-labelledby="section-title">
       <p class="eyebrow" id="section-title">Author submission portal</p>
       <div class="steps" aria-label="Submission steps"><span>1. Select manuscript</span><span>2. Upload securely</span><span>3. Receive confirmation</span></div>
-      <div id="invalidLink" class="message error" role="alert" hidden>This upload link is missing or invalid. Please use the private link provided by MPID Publishing Services.</div>
+      <div id="invalidLink" class="message error" role="alert" hidden>This upload link is missing or invalid. Please use the private link provided by RSM Publishing Services.</div>
       <form id="uploadForm" novalidate>
         <label for="manuscript">Choose your manuscript</label>
         <div class="drop"><strong>Click to choose your manuscript file</strong><small>PDF, DOC, DOCX, RTF, TXT, or ODT</small><input id="manuscript" name="file" type="file" accept=".pdf,.doc,.docx,.rtf,.txt,.odt" required aria-describedby="fileRules"></div>
@@ -41,7 +41,7 @@
       <div id="progress" class="progress-wrap" role="status" aria-live="polite" hidden><p>Uploading and securing your manuscript. Please keep this page open.</p><div class="bar"><div></div></div></div>
       <div id="message" class="message" role="status" aria-live="polite" hidden></div>
     </section>
-    <p class="footer">MPID Publishing Services | Right Side of Money<br>For assistance, contact the MPID representative who sent your invitation.</p>
+    <p class="footer">RSM Publishing Services | Right Side of Money LLC<br>For assistance, contact the RSM Publishing Services representative who sent your invitation.</p>
   </main>
   <script>
     (() => {
@@ -100,14 +100,14 @@
           let data = {};
           try { data = await response.json(); } catch (_) { /* Show a generic error. */ }
           if (!response.ok || data.success !== true) {
-            if (response.status === 410) throw new Error('This invitation has expired, has already been used, or is unavailable. Contact MPID for a new invitation.');
+            if (response.status === 410) throw new Error('This invitation has expired, has already been used, or is unavailable. Contact RSM Publishing Services for a new invitation.');
             throw new Error(typeof data.error === 'string' ? data.error : `Upload could not be completed (HTTP ${response.status}).`);
           }
           complete = true;
           form.hidden = true;
-          show('Your manuscript has been received securely. MPID Publishing Services will review your submission and contact you regarding the next steps.', 'success');
+          show('Your manuscript has been received securely. RSM Publishing Services will review your submission and contact you regarding the next steps.', 'success');
         } catch (error) {
-          show(error instanceof Error ? error.message : 'The upload could not be completed. Please contact MPID.', 'error');
+          show(error instanceof Error ? error.message : 'The upload could not be completed. Please contact RSM Publishing Services.', 'error');
         } finally {
           busy = false;
           progress.hidden = true;

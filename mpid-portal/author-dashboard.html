@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MPID Publishing | Author Dashboard</title>
+<title>RSM Publishing Services | Author Dashboard</title>
 <style>
 :root{color-scheme:dark;--bg:#0d0e10;--panel:#191a1e;--border:#35343a;--gold:#d6b66c;--muted:#b8b8be;--white:#f8f7f3}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}header{border-bottom:1px solid var(--border);padding:20px max(20px,calc((100vw - 1100px)/2));display:flex;justify-content:space-between;gap:16px;align-items:center}.brand{font-weight:800;letter-spacing:.12em;color:var(--gold)}.sub{font-size:12px;color:var(--muted);letter-spacing:.08em}.container{max-width:1100px;margin:32px auto;padding:0 20px}h1{font-size:clamp(26px,4vw,38px);margin:0 0 8px}h2{font-size:20px;margin:0 0 14px}p{color:var(--muted)}.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;margin:20px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.field{display:block;margin:0 0 16px;font-size:14px;color:var(--muted)}input{display:block;margin-top:6px;width:100%;padding:12px;border-radius:8px;border:1px solid #555;background:#101114;color:#fff;font-size:16px}button{border:1px solid var(--gold);background:var(--gold);color:#141414;border-radius:8px;padding:11px 17px;font-weight:750;cursor:pointer}button.secondary{background:transparent;color:var(--gold)}button:disabled{opacity:.5;cursor:wait}.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.pill{display:inline-block;background:#393125;color:#f0d59c;padding:4px 10px;border-radius:99px;font-size:12px;text-transform:capitalize}.file{display:flex;gap:16px;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding:16px 0;flex-wrap:wrap}.filename{font-weight:650;overflow-wrap:anywhere}.small{font-size:13px;color:var(--muted)}.notice{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:#222328;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}.error{border-color:#b95555;color:#ffd4d4}.success{border-color:#6d9872;color:#c9f1d0}[hidden]{display:none!important}.finding{padding:16px 0;border-top:1px solid var(--border)}.finding-heading{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.finding-label{font-weight:700;color:var(--gold);font-size:13px;margin-top:12px}.finding-text{margin:4px 0 8px;color:var(--white);white-space:pre-wrap;overflow-wrap:anywhere}footer{max-width:1100px;margin:35px auto;padding:0 20px 30px;color:#a5a5ab;font-size:13px}a{color:var(--gold)}
 /* Clear visual hierarchy between each project workflow section. */
@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<header><div><div class="brand">MPID PUBLISHING SERVICES</div><div class="sub">SECURE AUTHOR PORTAL</div></div><button id="signout" class="secondary" hidden>Sign Out</button></header>
+<header><div><div class="brand">RSM PUBLISHING SERVICES</div><div class="sub">MPID PUBLISHING CLIENT PORTAL | SECURE AUTHOR ACCESS</div></div><button id="signout" class="secondary" hidden>Sign Out</button></header>
 <main class="container">
 <section id="loginSection"><h1>Author Portal</h1><p>Sign in to review your publishing projects and access your authorized documents.</p>
 <div class="panel" id="setupPanel" hidden><h2>One-time portal setup</h2><p class="small">Enter the Supabase publishable key once on this device. Never use a secret or service-role key. This setting is saved in this browser.</p><label class="field">Supabase publishable key<input id="key" type="text" placeholder="sb_publishable_..." autocomplete="off" spellcheck="false"></label><div class="actions"><button id="connect" type="button">Save connection</button></div></div>
@@ -48,7 +48,7 @@
 <form id="accountPasswordForm"><div class="grid"><label class="field">New password<input id="accountNewPassword" type="password" required minlength="12" autocomplete="new-password"></label><label class="field">Confirm new password<input id="accountConfirmPassword" type="password" required minlength="12" autocomplete="new-password"></label></div><div class="actions"><button id="saveAccountPassword" type="submit">Save Password</button></div></form><div id="accountPasswordStatus" class="small" role="status" aria-live="polite"></div></section>
 </section>
 <div id="message" class="notice" role="status" aria-live="polite" hidden></div>
-</main><footer>MPID Publishing Services · Secure author access · MPID Publishing Services</footer>
+</main><footer>RSM Publishing Services · MPID Publishing Client Portal · Secure author access</footer>
 <script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -58,7 +58,7 @@ function mpidProgressMarkup(status){
  const stage=index>=0?MPID_STAGES[index]:null;
  const safeText=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const heading=held?'On Hold':stage?stage[1]:'Status unavailable';
- const description=held?'This project is paused. Contact MPID for its next steps.':stage?stage[2]:'Contact MPID for a status update.';
+ const description=held?'This project is paused. Contact RSM Publishing Services for its next steps.':stage?stage[2]:'Contact RSM Publishing Services for a status update.';
  const steps=MPID_STAGES.map((s,i)=>'<span class="mpid-progress-step '+(!held&&i===index?'current':!held&&i<index?'done':'')+'">'+safeText(s[1])+'</span>').join('');
  const segments=MPID_STAGES.map((s,i)=>'<span class="mpid-progress-segment '+(!held&&i===index?'current':!held&&i<index?'done':'')+'"></span>').join('');
  return '<div class="mpid-progress" aria-label="Publishing progress"><div class="mpid-progress-title">Publishing Progress: '+safeText(heading)+'</div><div class="mpid-progress-note">'+safeText(description)+'</div><div class="mpid-progress-track" aria-hidden="true">'+segments+'</div><div class="mpid-progress-steps">'+steps+'</div>'+(held?'<p class="mpid-progress-note">On Hold is a pause, not a completed milestone.</p>':'')+'</div>';
@@ -181,7 +181,7 @@ async function loadDashboard(){
      }finally{uploadButton.disabled=false}
     };
    }else{
-    panel.append(el('p','small','Document uploads are not available while this project is '+(project.status||'in its current stage')+'. Contact MPID if you need to submit a file.'));
+    panel.append(el('p','small','Document uploads are not available while this project is '+(project.status||'in its current stage')+'. Contact RSM Publishing Services if you need to submit a file.'));
    }
    panel.append(el('h3','', 'Project Documents'));
    const list=el('div');panel.append(list);$('projects').append(panel);
