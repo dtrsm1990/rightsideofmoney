@@ -455,70 +455,48 @@ function renderPaymentOverview(){
  if(!app){root.textContent='Choose an approved application to view payment terms.';return;}
  const custom=isDiscountedApplication(app),price=Number(app.approved_price),pkg=app.approved_package||'';
  const summary=document.createElement('p');summary.className='note';
- summary.textContent='Agreement: '+(AGREEMENT_STATUSES[app.agreement_status]||app.agreement_status)+' | Application status: '+(PAYMENT_STATUSES[app.payment_status]||app.payment_status)+' | Approved price: '+(Number.isFinite(price)?paymentMoney(price):'Unavailable')+'.';
+ summary.textContent='Agreement: '+(AGREEMENT_STATUSES[app.agreement_status]||app.agreement_status)+' | Payment status: '+(PAYMENT_STATUSES[app.payment_status]||app.payment_status)+' | Approved price: '+(Number.isFinite(price)?paymentMoney(price):'Unavailable')+'.';
  root.append(summary);
+ const safety=document.createElement('p');safety.className='note';safety.style.fontWeight='700';
+ safety.textContent='TEST MODE ACTIVE: Payment requests and verification are disabled. Preview does not send email, change payment records, or invite authors.';
+ root.append(safety);
  const stages=custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
  for(const [stage,fraction] of stages){
   const row=document.createElement('div');row.className='payment-row';
   const installment=paymentInstallments.find(i=>i.application_id===app.id&&i.payment_stage===stage&&i.status!=='cancelled');
   const linkStage=stage==='final'?'initial':stage;
-  const link=paymentLinks.find(l=>l.package_name===pkg&&l.payment_stage===linkStage);
+  const link=paymentLinks.find(l=>l.package_name===pkg&&l.payment_stage===linkStage&&l.active===true);
   const expected=Math.round(price*fraction*100)/100;
-  const matches=link&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005&&!custom;
+  const matches=!custom&&link&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005;
   const title=document.createElement('strong');title.textContent=stage[0].toUpperCase()+stage.slice(1)+' payment | '+(Number.isFinite(expected)?paymentMoney(expected):'Price unavailable');row.append(title);
   const records=paymentRequests.filter(r=>r.installment_id===installment?.id);
   const meta=document.createElement('div');meta.className='payment-meta';
-  meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Email requests: '+records.length+(records.length?' | Latest email: '+records[0].delivery_status:'');
-  row.append(meta);
+  meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Email requests: '+records.length+(records.length?' | Latest email: '+records[0].delivery_status:'');row.append(meta);
   const info=document.createElement('p');info.className='note';
-  info.textContent=custom?'Custom or discounted agreement: a separately approved payment link and workflow are required.':matches?'Standard Bluevine payment link matched. Final 30% reuses the initial 30% link.':'No matching standard Bluevine link. Confirm the approved package and price.';
+  info.textContent=custom?'Discounted full-upfront agreement. A dedicated, administrator-approved Bluevine link is required before live requests can be enabled.':matches?'Standard approved Bluevine link matched. Live sending is disabled during testing.':'No matching approved Bluevine link; live sending remains disabled.';
   row.append(info);
   const actions=document.createElement('div');actions.className='actions';
-  if(matches){
-   const copy=document.createElement('button');copy.type='button';copy.className='secondary';copy.textContent='Copy Bluevine Link';
-   copy.onclick=async()=>{try{await navigator.clipboard.writeText(link.payment_url);message('paymentMessage','Bluevine link copied. No request was sent.',true);}catch(e){message('paymentMessage','Copy failed: '+err(e));}};
-   actions.append(copy);
-   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';
-   const eligible=app.agreement_status==='signed'&&!installment?.status?.includes('paid')&&!records.length;
-   send.disabled=!eligible;
-   send.title=!eligible?'Requires signed agreement, unpaid installment, and no existing payment request.':'';
-   send.onclick=async()=>{
-    if(!confirm('Queue the '+stage+' payment request for '+app.full_name+' at '+app.email+' for '+paymentMoney(expected)+'? This will send an actual payment email.'))return;
-    send.disabled=true;
-    try{
-     await requireAdmin();
-     const {data,error}=await sb.rpc('rsm_request_payment',{p_application_id:app.id,p_payment_stage:stage});
-     if(error)throw error;
-     message('paymentMessage','Payment request queued for '+data.recipient_email+'. Check delivery status after the notification processor runs.',true);
-     await loadApplications();await loadPayments();
-    }catch(e){message('paymentMessage','Payment request failed: '+err(e));send.disabled=false;}
-   };
-   actions.append(send);
-  }
-  if(installment&&installment.status!=='paid'&&installment.status!=='cancelled'){
-   const verify=document.createElement('button');verify.type='button';verify.className='secondary';verify.textContent='Verify Bluevine Payment';
-   verify.disabled=!records.some(r=>r.delivery_status==='accepted');
-   verify.onclick=async()=>{
-    const amount=Number(installment.amount_due)-Number(installment.amount_verified||0);
-    const reference=prompt('Confirm the payment in Bluevine first. Enter the exact Bluevine transaction reference:');
-    if(reference===null)return;
-    if(!reference.trim()){message('paymentMessage','Transaction reference is required.');return;}
-    if(!confirm('Have you verified a completed Bluevine payment of '+paymentMoney(amount)+' with reference '+reference.trim()+'? This action creates a permanent audit record.'))return;
-    verify.disabled=true;
-    try{
-     await requireAdmin();
-     const {data,error}=await sb.rpc('rsm_verify_payment',{p_installment_id:installment.id,p_amount:amount,p_verification_reference:reference.trim()});
-     if(error)throw error;
-     message('paymentMessage','Verified payment recorded: '+paymentMoney(data.verified_amount)+' | '+data.verification_reference,true);
-     await loadApplications();await loadPayments();
-    }catch(e){message('paymentMessage','Verification failed: '+err(e));verify.disabled=false;}
-   };
-   actions.append(verify);
-  }
+  const preview=document.createElement('button');preview.type='button';preview.className='secondary';preview.textContent='Preview Payment Request (No Send)';
+  preview.onclick=()=>{
+   const issues=[];
+   if(app.application_status!=='approved')issues.push('Application is not approved');
+   if(app.agreement_status!=='signed')issues.push('Agreement is not signed');
+   if(!Number.isFinite(expected)||expected<=0)issues.push('Approved price is invalid');
+   if(installment&&Math.abs(Number(installment.amount_due)-expected)>.005)issues.push('Ledger amount differs from approved price');
+   if(installment?.status==='paid')issues.push('Installment already paid');
+   if(records.length)issues.push('An earlier payment request exists');
+   if(custom)issues.push('Dedicated custom Bluevine link has not been approved in this workflow');
+   else if(!matches)issues.push('Approved standard Bluevine link is missing');
+   const details=['PAYMENT REQUEST PREVIEW ONLY','Applicant: '+(app.full_name||'Unknown'),'Package: '+pkg,'Stage: '+stage,'Approved amount: '+paymentMoney(expected),'Recipient: '+(app.email||'Missing'),'Ledger: '+(installment?.status||'Not initialized'),'Existing requests: '+records.length,'Live sending: DISABLED','Result: '+(issues.length?'BLOCKED':'Eligible when live mode is separately authorized')];
+   if(issues.length)details.push('Reasons: '+issues.join('; '));
+   message('paymentMessage',details.join(' | '),!issues.length);
+  };
+  actions.append(preview);
+  const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';send.disabled=true;send.title='Disabled while testing. Requires separate backend and administrator-approved live enablement.';actions.append(send);
+  const verify=document.createElement('button');verify.type='button';verify.className='secondary';verify.textContent='Verify Bluevine Payment';verify.disabled=true;verify.title='Disabled while testing; no fictional transactions may be verified.';actions.append(verify);
   row.append(actions);root.append(row);
  }
- const warning=document.createElement('p');warning.className='note';warning.textContent='Resend accepted means the email API accepted the request, not that payment was received. Verify transactions independently in Bluevine. Author invitations also require server-side payment enforcement in mpid-invite-author.';
- root.append(warning);
+ const warning=document.createElement('p');warning.className='note';warning.textContent='A payment request email is not proof of payment. Verify real transactions independently in Bluevine. Never use fictional payment references or invite test applicants through the live invitation workflow.';root.append(warning);
 }
 $('paymentApplication').addEventListener('change',renderPaymentOverview);
 $('refreshPayments').addEventListener('click',async()=>{await loadApplications();await loadPayments();});
