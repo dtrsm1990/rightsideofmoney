@@ -78,11 +78,11 @@
 /* Author checklist management */
 .checklist-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}.checklist-stat{padding:13px;background:var(--panel2);border:1px solid var(--line);border-radius:10px}.checklist-stat strong{display:block;font-size:25px;color:var(--gold)}.checklist-entry{background:var(--panel2);border:1px solid #51483b;border-radius:11px;padding:16px;margin:12px 0}.checklist-entry p{white-space:pre-wrap;overflow-wrap:anywhere}.checklist-response{padding:10px 12px;margin-top:9px;border-left:3px solid #8b7344;background:#17171a;border-radius:6px}.checklist-response p{margin:5px 0}.checklist-entry .actions label{flex:1;min-width:170px;margin:0}
 
-/* Payment management: read-only verification view until server-side actions are deployed. */
+/* Payment management: administrator RPC actions and verified ledger. */
 .payment-row{border:1px solid #51483b;border-radius:10px;padding:14px;background:var(--panel2);margin:10px 0}
 .payment-row strong{color:#f8e2b1}.payment-meta{font-size:13px;color:var(--muted);margin-top:6px}
 </style></head><body>
-<header><div><div class="eyebrow">RSM PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">MPID Publishing Client Portal</div><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
+<header><div><div class="eyebrow">RSM PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">RSM Publishing Services Author &amp; Manuscript Operations</div><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
 <main>
 <section id="setup" class="card"><h2>1. Connect to Supabase</h2><p class="muted">Enter the project API URL and publishable key. Never enter a service-role or secret key.</p><label for="url">Supabase Project API URL</label><input id="url" type="url" placeholder="https://your-project.supabase.co" autocomplete="off"><label for="key">Publishable key</label><input id="key" type="password" placeholder="sb_publishable_..." autocomplete="off"><div class="actions"><button id="connect">Connect</button></div><div id="connectMessage" class="message hidden" role="status"></div></section>
 <section id="login" class="card hidden"><h2>2. Administrator Sign In</h2><label for="email">Administrator email</label><input id="email" type="email" autocomplete="username"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password"><div class="actions"><button id="signin">Sign In</button></div><div id="loginMessage" class="message hidden" role="status"></div></section>
@@ -112,7 +112,7 @@
 </section>
 <section class="card" id="paymentCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Payment Management Center</h2><button class="secondary" type="button" id="refreshPayments">Refresh Payments</button></div>
-<p class="muted">Administrator-only payment overview. Bluevine links are reusable. Copying a link does not send a request or confirm a payment. Payment emails and verified-payment recording will be enabled only after the server-side authorization and notification controls are installed.</p>
+<p class="muted">Administrator-only payment management. Payment requests use approved Bluevine links and are emailed through Resend. Verify transactions against Bluevine before recording payments.</p>
 <label for="paymentApplication">Approved application</label><select id="paymentApplication"></select>
 <div id="paymentOverview" aria-live="polite"></div>
 <div id="paymentMessage" class="message hidden" role="status"></div>
@@ -326,7 +326,12 @@ const PAYMENT_STATUSES={not_requested:'Not Requested',requested:'Requested',part
 const PRICING_MARKER='[RSM_PRICING:DISCOUNTED_UPFRONT]';
 function isDiscountedApplication(app){return (app.admin_notes||'').includes(PRICING_MARKER);}
 function stripPricingMarker(notes){return String(notes||'').replace(PRICING_MARKER,'').trim();}
-function appPaymentReady(app){return app.payment_status==='paid'||(!isDiscountedApplication(app)&&app.payment_status==='partially_paid');}
+function appPaymentReady(app){
+ const rows=paymentInstallments.filter(i=>i.application_id===app.id&&i.status==='paid'&&Number(i.amount_verified)>=Number(i.amount_due));
+ return isDiscountedApplication(app)
+  ? rows.some(i=>i.payment_stage==='full')
+  : rows.some(i=>i.payment_stage==='initial'||i.payment_stage==='full');
+}
 function appField(label,value){return '<div><div class="muted small">'+esc(label)+'</div><div class="application-value">'+esc(value||'Not provided')+'</div></div>';}
 async function loadApplications(){
  try{await requireAdmin();const {data,error}=await sb.from('mpid_author_applications').select('*').order('created_at',{ascending:false}).limit(1000);if(error)throw error;authorApplications=data||[];applicationLoadError=null;}
@@ -349,7 +354,7 @@ function renderApplications(){
   const statusOpts=Object.entries(APP_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.application_status===v?' selected':'')+'>'+l+'</option>').join('');
   const agreementOpts=Object.entries(AGREEMENT_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.agreement_status===v?' selected':'')+'>'+l+'</option>').join('');
   const paymentOpts=Object.entries(PAYMENT_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.payment_status===v?' selected':'')+'>'+l+'</option>').join('');
-  form.innerHTML='<div class="application-fields"><div><label>Review decision</label><select name="status">'+statusOpts+'</select></div><div><label>Approved package</label><input name="package" maxlength="200"></div><div><label>Pricing type</label><select name="pricing"><option value="standard">Standard: 30% / 40% / 30%</option><option value="discounted">Discounted: 100% upfront</option></select></div><div><label>Approved price (USD)</label><input name="price" type="number" min="0" step="0.01"></div><div><label>Agreement status</label><select name="agreement">'+agreementOpts+'</select></div><div><label>Payment status (record after verification)</label><select name="payment">'+paymentOpts+'</select></div></div><label>Approved scope</label><textarea name="scope"></textarea><label>Private administrator notes</label><textarea name="notes"></textarea><div class="application-actions"><button type="submit">Save Review</button><button type="button" class="secondary" data-prefill-invite>Fill Author Invitation</button><button type="button" class="secondary" data-request-manuscript>Request Manuscript Link</button></div><p class="note">The invitation prefill requires a signed agreement and administrator-recorded payment. The invitation form itself does not independently enforce payment; verify before sending. Pricing terms are stored in private administrator notes, not a dedicated database field.  The manuscript request button creates a private 72-hour upload link and attempts to email it to the applicant. Resend acceptance does not guarantee inbox delivery. The private link is shown only once and can be copied as a backup. Agreement and payment statuses are manually recorded, not electronically verified.</p>';
+  form.innerHTML='<div class="application-fields"><div><label>Review decision</label><select name="status">'+statusOpts+'</select></div><div><label>Approved package</label><input name="package" maxlength="200"></div><div><label>Pricing type</label><select name="pricing"><option value="standard">Standard: 30% / 40% / 30%</option><option value="discounted">Discounted: 100% upfront</option></select></div><div><label>Approved price (USD)</label><input name="price" type="number" min="0" step="0.01"></div><div><label>Agreement status</label><select name="agreement">'+agreementOpts+'</select></div><div><label>Payment status (record after verification)</label><select name="payment">'+paymentOpts+'</select></div></div><label>Approved scope</label><textarea name="scope"></textarea><label>Private administrator notes</label><textarea name="notes"></textarea><div class="application-actions"><button type="submit">Save Review</button><button type="button" class="secondary" data-prefill-invite>Fill Author Invitation</button><button type="button" class="secondary" data-request-manuscript>Request Manuscript Link</button></div><p class="note">The invitation prefill requires a signed agreement and administrator-recorded payment. The invitation form itself does not independently enforce payment; verify before sending. Pricing terms are stored in private administrator notes, not a dedicated database field.  The manuscript request button creates a private 72-hour upload link and attempts to email it to the applicant. Resend acceptance does not guarantee inbox delivery. The private link is shown only once and can be copied as a backup. Agreement status is administrator-recorded. Payment status is controlled by verified payment records.</p>';
   form.elements.pricing.value=isDiscountedApplication(app)?'discounted':'standard';form.elements.package.value=app.approved_package||'';form.elements.price.value=app.approved_price==null?'':app.approved_price;form.elements.scope.value=app.approved_scope||'';form.elements.notes.value=stripPricingMarker(app.admin_notes);
   form.addEventListener('submit',async event=>{
    event.preventDefault();const btn=form.querySelector('button[type="submit"]');btn.disabled=true;
@@ -357,11 +362,11 @@ function renderApplications(){
     await requireAdmin();const status=form.elements.status.value,approved_package=form.elements.package.value.trim()||null,priceText=form.elements.price.value.trim(),approved_price=priceText===''?null:Number(priceText),approved_scope=form.elements.scope.value.trim()||null,admin_notes=(form.elements.pricing.value==='discounted'?PRICING_MARKER+'\n':'')+form.elements.notes.value.trim();
     if(priceText!==''&&(!Number.isFinite(approved_price)||approved_price<0))throw new Error('Enter a valid approved price.');
     if(status==='approved'&&(!approved_package||approved_price===null||!approved_scope))throw new Error('An approved application requires package, price, and scope.');
-    if(form.elements.pricing.value==='discounted'&&form.elements.payment.value==='partially_paid')throw new Error('Discounted projects require 100% upfront payment. Select Paid only after verifying the full amount.');
+    if(form.elements.pricing.value==='discounted'&&app.payment_status==='partially_paid')throw new Error('Discounted projects require 100% upfront payment. Select Paid only after verifying the full amount.');
     if(status!=='approved'&&form.elements.agreement.value==='signed')throw new Error('Only approved applications may be marked as signed.');
-    if(status!=='approved'&&form.elements.payment.value!=='not_requested')throw new Error('Only approved applications may have a payment request or payment recorded.');
+    if(status!=='approved'&&app.payment_status!=='not_requested')throw new Error('Only approved applications may have a payment request or payment recorded.');
     const {data:{user},error:userError}=await sb.auth.getUser();if(userError||!user)throw new Error('Administrator session expired.');
-    const payload={application_status:status,approved_package,approved_price,approved_scope,admin_notes,agreement_status:form.elements.agreement.value,payment_status:form.elements.payment.value,reviewed_by:user.id,reviewed_at:new Date().toISOString()};
+    const payload={application_status:status,approved_package,approved_price,approved_scope,admin_notes,agreement_status:form.elements.agreement.value,reviewed_by:user.id,reviewed_at:new Date().toISOString()};
     const {data,error}=await sb.from('mpid_author_applications').update(payload).eq('id',app.id).select('id');if(error)throw error;if(!data?.length)throw new Error('No application was updated. Check administrator permissions.');
     message('applicationMessage','Application review saved for '+app.full_name+'.',true);await loadApplications();
    }catch(e){message('applicationMessage','Could not save review: '+err(e));}finally{btn.disabled=false;}
@@ -446,23 +451,74 @@ async function loadPayments(){
 }
 function renderPaymentOverview(){
  const root=$('paymentOverview'),app=authorApplications.find(a=>a.id===$('paymentApplication').value);
- root.replaceChildren();if(!app){root.textContent='Choose an approved application to view payment terms.';return;}
+ root.replaceChildren();
+ if(!app){root.textContent='Choose an approved application to view payment terms.';return;}
  const custom=isDiscountedApplication(app),price=Number(app.approved_price),pkg=app.approved_package||'';
- const summary=document.createElement('p');summary.className='note';summary.textContent='Agreement: '+(AGREEMENT_STATUSES[app.agreement_status]||app.agreement_status)+' | Existing overall payment status: '+(PAYMENT_STATUSES[app.payment_status]||app.payment_status)+' | Approved amount: '+(Number.isFinite(price)?paymentMoney(price):'Unavailable')+'.';root.append(summary);
+ const summary=document.createElement('p');summary.className='note';
+ summary.textContent='Agreement: '+(AGREEMENT_STATUSES[app.agreement_status]||app.agreement_status)+' | Application status: '+(PAYMENT_STATUSES[app.payment_status]||app.payment_status)+' | Approved price: '+(Number.isFinite(price)?paymentMoney(price):'Unavailable')+'.';
+ root.append(summary);
  const stages=custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
  for(const [stage,fraction] of stages){
   const row=document.createElement('div');row.className='payment-row';
-  const installment=paymentInstallments.find(i=>i.application_id===app.id&&i.payment_stage===stage);
+  const installment=paymentInstallments.find(i=>i.application_id===app.id&&i.payment_stage===stage&&i.status!=='cancelled');
   const linkStage=stage==='final'?'initial':stage;
   const link=paymentLinks.find(l=>l.package_name===pkg&&l.payment_stage===linkStage);
   const expected=Math.round(price*fraction*100)/100;
   const matches=link&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005&&!custom;
   const title=document.createElement('strong');title.textContent=stage[0].toUpperCase()+stage.slice(1)+' payment | '+(Number.isFinite(expected)?paymentMoney(expected):'Price unavailable');row.append(title);
-  const meta=document.createElement('div');meta.className='payment-meta';meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Request records: '+paymentRequests.filter(r=>r.installment_id===installment?.id).length;row.append(meta);
-  const info=document.createElement('p');info.className='note';info.textContent=custom?'Custom or discounted agreement: use a separately approved payment link. Standard package links are disabled.':matches?'Approved standard Bluevine link available. Final 30% reuses the initial 30% link.':'No matching standard Bluevine link for the approved package and amount. Check pricing before requesting payment.';row.append(info);
-  if(matches){const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent='Copy Bluevine Link';button.onclick=async()=>{try{await navigator.clipboard.writeText(link.payment_url);message('paymentMessage','Payment link copied. No email was sent and no payment was recorded.',true);}catch(e){message('paymentMessage','Clipboard unavailable. Open this link and copy its address: '+link.payment_url);}};row.append(button);}
-  root.append(row);
+  const records=paymentRequests.filter(r=>r.installment_id===installment?.id);
+  const meta=document.createElement('div');meta.className='payment-meta';
+  meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Email requests: '+records.length+(records.length?' | Latest email: '+records[0].delivery_status:'');
+  row.append(meta);
+  const info=document.createElement('p');info.className='note';
+  info.textContent=custom?'Custom or discounted agreement: a separately approved payment link and workflow are required.':matches?'Standard Bluevine payment link matched. Final 30% reuses the initial 30% link.':'No matching standard Bluevine link. Confirm the approved package and price.';
+  row.append(info);
+  const actions=document.createElement('div');actions.className='actions';
+  if(matches){
+   const copy=document.createElement('button');copy.type='button';copy.className='secondary';copy.textContent='Copy Bluevine Link';
+   copy.onclick=async()=>{try{await navigator.clipboard.writeText(link.payment_url);message('paymentMessage','Bluevine link copied. No request was sent.',true);}catch(e){message('paymentMessage','Copy failed: '+err(e));}};
+   actions.append(copy);
+   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';
+   const eligible=app.agreement_status==='signed'&&!installment?.status?.includes('paid')&&!records.length;
+   send.disabled=!eligible;
+   send.title=!eligible?'Requires signed agreement, unpaid installment, and no existing payment request.':'';
+   send.onclick=async()=>{
+    if(!confirm('Queue the '+stage+' payment request for '+app.full_name+' at '+app.email+' for '+paymentMoney(expected)+'? This will send an actual payment email.'))return;
+    send.disabled=true;
+    try{
+     await requireAdmin();
+     const {data,error}=await sb.rpc('rsm_request_payment',{p_application_id:app.id,p_payment_stage:stage});
+     if(error)throw error;
+     message('paymentMessage','Payment request queued for '+data.recipient_email+'. Check delivery status after the notification processor runs.',true);
+     await loadApplications();await loadPayments();
+    }catch(e){message('paymentMessage','Payment request failed: '+err(e));send.disabled=false;}
+   };
+   actions.append(send);
+  }
+  if(installment&&installment.status!=='paid'&&installment.status!=='cancelled'){
+   const verify=document.createElement('button');verify.type='button';verify.className='secondary';verify.textContent='Verify Bluevine Payment';
+   verify.disabled=!records.some(r=>r.delivery_status==='accepted');
+   verify.onclick=async()=>{
+    const amount=Number(installment.amount_due)-Number(installment.amount_verified||0);
+    const reference=prompt('Confirm the payment in Bluevine first. Enter the exact Bluevine transaction reference:');
+    if(reference===null)return;
+    if(!reference.trim()){message('paymentMessage','Transaction reference is required.');return;}
+    if(!confirm('Have you verified a completed Bluevine payment of '+paymentMoney(amount)+' with reference '+reference.trim()+'? This action creates a permanent audit record.'))return;
+    verify.disabled=true;
+    try{
+     await requireAdmin();
+     const {data,error}=await sb.rpc('rsm_verify_payment',{p_installment_id:installment.id,p_amount:amount,p_verification_reference:reference.trim()});
+     if(error)throw error;
+     message('paymentMessage','Verified payment recorded: '+paymentMoney(data.verified_amount)+' | '+data.verification_reference,true);
+     await loadApplications();await loadPayments();
+    }catch(e){message('paymentMessage','Verification failed: '+err(e));verify.disabled=false;}
+   };
+   actions.append(verify);
+  }
+  row.append(actions);root.append(row);
  }
+ const warning=document.createElement('p');warning.className='note';warning.textContent='Resend accepted means the email API accepted the request, not that payment was received. Verify transactions independently in Bluevine. Author invitations also require server-side payment enforcement in mpid-invite-author.';
+ root.append(warning);
 }
 $('paymentApplication').addEventListener('change',renderPaymentOverview);
 $('refreshPayments').addEventListener('click',async()=>{await loadApplications();await loadPayments();});
