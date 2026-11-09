@@ -298,7 +298,7 @@ function renderApplications(){
   const statusOpts=Object.entries(APP_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.application_status===v?' selected':'')+'>'+l+'</option>').join('');
   const agreementOpts=Object.entries(AGREEMENT_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.agreement_status===v?' selected':'')+'>'+l+'</option>').join('');
   const paymentOpts=Object.entries(PAYMENT_STATUSES).map(([v,l])=>'<option value="'+v+'"'+(app.payment_status===v?' selected':'')+'>'+l+'</option>').join('');
-  form.innerHTML='<div class="application-fields"><div><label>Review decision</label><select name="status">'+statusOpts+'</select></div><div><label>Approved package</label><input name="package" maxlength="200"></div><div><label>Approved price (USD)</label><input name="price" type="number" min="0" step="0.01"></div><div><label>Agreement status</label><select name="agreement">'+agreementOpts+'</select></div><div><label>Payment status (record after verification)</label><select name="payment">'+paymentOpts+'</select></div></div><label>Approved scope</label><textarea name="scope"></textarea><label>Private administrator notes</label><textarea name="notes"></textarea><div class="application-actions"><button type="submit">Save Review</button><button type="button" class="secondary" data-prefill-invite>Fill Author Invitation</button><button type="button" class="secondary" data-request-manuscript>Request Manuscript Link</button></div><p class="note">The invitation button only fills the existing invitation form. The manuscript request button creates a private 72-hour upload link. Copy and send it only to the intended applicant. It is shown only once and is not emailed automatically. Agreement and payment statuses are manually recorded, not electronically verified.</p>';
+  form.innerHTML='<div class="application-fields"><div><label>Review decision</label><select name="status">'+statusOpts+'</select></div><div><label>Approved package</label><input name="package" maxlength="200"></div><div><label>Approved price (USD)</label><input name="price" type="number" min="0" step="0.01"></div><div><label>Agreement status</label><select name="agreement">'+agreementOpts+'</select></div><div><label>Payment status (record after verification)</label><select name="payment">'+paymentOpts+'</select></div></div><label>Approved scope</label><textarea name="scope"></textarea><label>Private administrator notes</label><textarea name="notes"></textarea><div class="application-actions"><button type="submit">Save Review</button><button type="button" class="secondary" data-prefill-invite>Fill Author Invitation</button><button type="button" class="secondary" data-request-manuscript>Request Manuscript Link</button></div><p class="note">The invitation button only fills the existing invitation form. The manuscript request button creates a private 72-hour upload link and attempts to email it to the applicant. Resend acceptance does not guarantee inbox delivery. The private link is shown only once and can be copied as a backup. Agreement and payment statuses are manually recorded, not electronically verified.</p>';
   form.elements.package.value=app.approved_package||'';form.elements.price.value=app.approved_price==null?'':app.approved_price;form.elements.scope.value=app.approved_scope||'';form.elements.notes.value=app.admin_notes||'';
   form.addEventListener('submit',async event=>{
    event.preventDefault();const btn=form.querySelector('button[type="submit"]');btn.disabled=true;
@@ -318,7 +318,7 @@ function renderApplications(){
   const requestButton=form.querySelector('[data-request-manuscript]');
   if(!['pending_review','more_information_needed'].includes(app.application_status))requestButton.disabled=true;
   requestButton.addEventListener('click',async()=>{
-   if(!confirm('Create a private 72-hour manuscript upload link for '+app.full_name+'?\n\nThe link will be displayed once for you to copy. No email will be sent automatically.'))return;
+   if(!confirm('Create a private 72-hour manuscript upload link for '+app.full_name+'?\n\nMPID will attempt to email the private link to the applicant. The link will also be displayed once for backup copying.'))return;
    requestButton.disabled=true;
    try{
     await requireAdmin();
@@ -342,10 +342,11 @@ function renderApplications(){
     }
     const invitationUrl='https://rightsideofmoney.com/mpid-portal/manuscript-upload.html?token='+encodeURIComponent(rawToken);
     const result=$('applicationMessage');
-    result.className='message success';
+    const emailAccepted=data.email_sent===true && data.email_status==='accepted';
+    result.className='message '+(emailAccepted?'success':'error');
     result.replaceChildren();
-    const heading=document.createElement('strong');heading.textContent='Private manuscript link created for '+app.full_name;
-    const description=document.createElement('p');description.textContent='Expires: '+expiry+'. Copy this link now. It is shown only once. No email has been sent.';
+    const heading=document.createElement('strong');heading.textContent=emailAccepted?'Invitation created. Resend accepted the email for '+app.full_name:'Invitation created, but email was not accepted for '+app.full_name;
+    const description=document.createElement('p');description.textContent='Expires: '+expiry+'. '+(emailAccepted?'Resend accepted the author email, but inbox delivery is not yet confirmed. ':'Automatic email was unsuccessful. Copy and securely send the link to the intended applicant. ')+(data.office_notification_sent===true?'Office notification accepted by Resend. ':'Office notification was not confirmed. ')+'This private link is shown only once.';
     const linkField=document.createElement('input');linkField.type='text';linkField.readOnly=true;linkField.value=invitationUrl;linkField.setAttribute('aria-label','Private manuscript upload invitation URL');
     const copyButton=document.createElement('button');copyButton.type='button';copyButton.textContent='Copy Invitation Link';
     const copyStatus=document.createElement('span');copyStatus.style.marginLeft='10px';
@@ -355,7 +356,7 @@ function renderApplications(){
     });
     result.append(heading,description,linkField,copyButton,copyStatus);
     // Do not save the bearer token to local storage, the database, or console logs.
-   }catch(e){message('applicationMessage','Manuscript request test failed: '+err(e));requestButton.disabled=false;}
+   }catch(e){message('applicationMessage','Manuscript request failed: '+err(e));requestButton.disabled=false;}
   });
   form.querySelector('[data-prefill-invite]').addEventListener('click',()=>{
    if(app.application_status!=='approved'){message('applicationMessage','Approve and save this application before preparing an invitation.');return;}
