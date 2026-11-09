@@ -484,7 +484,29 @@ function renderPaymentOverview(){
    output.className='message '+(lines.some(l=>l.includes('MISSING OR MISMATCHED'))?'error':'success');
    output.textContent=lines.join('\n');
   };
-  diagnostic.append(heading,explanation,check,output);root.append(diagnostic);
+  const audit=document.createElement('button');audit.type='button';audit.className='secondary';audit.textContent='Run Payment Workflow Safety Test (No Changes)';
+  const auditOutput=document.createElement('div');auditOutput.className='message hidden';auditOutput.setAttribute('role','status');
+  audit.onclick=()=>{
+   const specs=[['Publish-Ready',997],['Full Launch',2497],['Signature Author',4997]];
+   const checks=[];
+   const add=(label,pass,detail)=>checks.push({label,pass,detail});
+   add('Protected test application identified',protectedTest,'Live send, verification and custom-link registration remain blocked for this record.');
+   add('Signed agreement recognized',app.agreement_status==='signed','Current agreement status: '+(app.agreement_status||'missing'));
+   add('Discounted full-upfront terms recognized',custom&&price===600,'Current approved price: '+paymentMoney(price));
+   add('No recorded email requests for test application',!paymentRequests.some(r=>paymentInstallments.some(i=>i.application_id===app.id&&i.id===r.installment_id)),'This checks loaded payment request records only.');
+   for(const [name,amount] of specs){
+    for(const [stage,portion] of [['initial',.3],['milestone',.4]]){
+     const expected=Math.round(amount*portion*100)/100;
+     const rows=paymentLinks.filter(l=>l.package_name===name&&l.payment_stage===stage&&l.active===true);
+     const matched=rows.filter(l=>Math.abs(Number(l.amount)-expected)<.005&&/^https:\/\/pay\.bluevine\.com\/p\/[a-f\d]+$/i.test(String(l.payment_url||'')));
+     add(name+' '+stage+' link',rows.length===1&&matched.length===1,rows.length+' active link(s); expected '+paymentMoney(expected));
+    }
+   }
+   const failed=checks.filter(c=>!c.pass);
+   auditOutput.className='message '+(failed.length?'error':'success');
+   auditOutput.textContent=['PAYMENT WORKFLOW SAFETY TEST','READ ONLY: No emails, database writes or Bluevine transactions.',...checks.map(c=>(c.pass?'PASS':'CHECK')+' | '+c.label+' | '+c.detail),'RESULT: '+(failed.length?failed.length+' item(s) need attention':'All local checks passed'),'NOT VERIFIED: Resend delivery, Bluevine final-link reuse, RPC permissions/runtime and actual payment settlement.'].join('\n');
+  };
+  diagnostic.append(heading,explanation,check,audit,output,auditOutput);root.append(diagnostic);
   if(app.payment_status==='requested'&&!paymentRequests.some(r=>paymentInstallments.some(i=>i.application_id===app.id&&i.id===r.installment_id))){
    const note=document.createElement('p');note.className='note';note.textContent='Test-data inconsistency: application says Requested, but no installment payment request is recorded. This review does not modify either record.';diagnostic.append(note);
   }
@@ -516,7 +538,7 @@ function renderPaymentOverview(){
    if(records.length)issues.push('An earlier payment request exists');
    if(app.id===MPID_PROTECTED_TEST_APPLICATION)issues.push('Protected test application: live payment processing prohibited');
    if(custom&&!protectedTest){if(!installment?.payment_url)issues.push('Dedicated custom Bluevine link has not been registered');}
-   else if(!matches)issues.push('Approved standard Bluevine link is missing');
+   else if(!custom&&!matches)issues.push('Approved standard Bluevine link is missing');
    const details=['PAYMENT REQUEST PREVIEW ONLY','Applicant: '+(app.full_name||'Unknown'),'Package: '+pkg,'Stage: '+stage,'Approved amount: '+paymentMoney(expected),'Recipient: '+(app.email||'Missing'),'Ledger: '+(installment?.status||'Not initialized'),'Existing requests: '+records.length,'Live sending: '+(app.id===MPID_PROTECTED_TEST_APPLICATION?'BLOCKED FOR TEST APPLICATION':'Requires administrator confirmation'),'Result: '+(issues.length?'BLOCKED':'Ready for administrator review')];
    if(issues.length)details.push('Reasons: '+issues.join('; '));
    message('paymentMessage',details.join(' | '),!issues.length);
