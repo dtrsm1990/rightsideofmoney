@@ -634,7 +634,7 @@ function renderPaymentOverview(){
 $('paymentApplication').addEventListener('change',renderPaymentOverview);
 $('refreshPayments').addEventListener('click',async()=>{await loadApplications();await loadPayments();});
 $('applicationFilter').addEventListener('change',renderApplications);
-$('refreshApplications').addEventListener('click',async()=>{await loadApplications();if(!applicationLoadError)message('applicationMessage','Applications refreshed.',true);});
+$('refreshApplications').addEventListener('click',async()=>{await loadApplications();if(applicationLoadError)return;await loadPayments();renderApplications();message('applicationMessage','Applications and payment eligibility refreshed.',true);});
 $('applicationIntakeForm').addEventListener('submit',async event=>{
  event.preventDefault();const btn=$('saveApplication');btn.disabled=true;
  try{
