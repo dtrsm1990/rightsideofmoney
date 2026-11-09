@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<header><div><div class="brand">RSM PUBLISHING SERVICES</div><div class="sub">MPID PUBLISHING CLIENT PORTAL | SECURE AUTHOR ACCESS</div></div><button id="signout" class="secondary" hidden>Sign Out</button></header>
+<header><div><div class="brand">RSM PUBLISHING SERVICES</div><div class="sub">SECURE AUTHOR PORTAL | PROJECT ACCESS</div></div><button id="signout" class="secondary" hidden>Sign Out</button></header>
 <main class="container">
 <section id="loginSection"><h1>Author Portal</h1><p>Sign in to review your publishing projects and access your authorized documents.</p>
 <div class="panel" id="setupPanel" hidden><h2>One-time portal setup</h2><p class="small">Enter the Supabase publishable key once on this device. Never use a secret or service-role key. This setting is saved in this browser.</p><label class="field">Supabase publishable key<input id="key" type="text" placeholder="sb_publishable_..." autocomplete="off" spellcheck="false"></label><div class="actions"><button id="connect" type="button">Save connection</button></div></div>
@@ -48,7 +48,7 @@
 <form id="accountPasswordForm"><div class="grid"><label class="field">New password<input id="accountNewPassword" type="password" required minlength="12" autocomplete="new-password"></label><label class="field">Confirm new password<input id="accountConfirmPassword" type="password" required minlength="12" autocomplete="new-password"></label></div><div class="actions"><button id="saveAccountPassword" type="submit">Save Password</button></div></form><div id="accountPasswordStatus" class="small" role="status" aria-live="polite"></div></section>
 </section>
 <div id="message" class="notice" role="status" aria-live="polite" hidden></div>
-</main><footer>RSM Publishing Services · MPID Publishing Client Portal · Secure author access</footer>
+</main><footer>RSM Publishing Services · Secure Author Portal</footer>
 <script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
