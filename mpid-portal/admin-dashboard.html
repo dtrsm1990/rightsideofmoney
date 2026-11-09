@@ -89,7 +89,7 @@
 <div id="workspace" class="hidden"><section class="grid"><div class="card"><div class="muted">Authors</div><div class="stat" id="authorCount">0</div></div><div class="card"><div class="muted">Publishing projects</div><div class="stat" id="projectCount">0</div></div><div class="card"><div class="muted">Active documents</div><div class="stat" id="documentCount">0</div></div><div class="card"><div class="muted">Editorial findings</div><div class="stat" id="findingCount">0</div></div></section>
 <section class="card" id="applicationCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Author Application Review Center</h2><button class="secondary" id="refreshApplications" type="button">Refresh Applications</button></div>
-<p class="muted">Applications submitted through the RSM Publishing website are recorded automatically in MPID. Formspree email notifications provide a separate notification channel. Use manual entry only for applications received outside the automated form or when recovering a verified missing submission. Review each application before proceeding with author onboarding.</p>
+<p class="muted">Applications submitted through the RSM Publishing website are recorded automatically in RSM Publishing Services. Formspree email notifications provide a separate notification channel. Use manual entry only for applications received outside the automated form or when recovering a verified missing submission. Review each application before proceeding with author onboarding.</p>
 <div class="application-stats"><div class="application-stat">Pending Review<strong id="appPending">0</strong></div><div class="application-stat">More Information<strong id="appInfo">0</strong></div><div class="application-stat">Approved<strong id="appApproved">0</strong></div><div class="application-stat">Declined<strong id="appDeclined">0</strong></div></div>
 <details><summary style="cursor:pointer;color:var(--gold);font-weight:800">Manually Record an Application (Backup)</summary>
 <form id="applicationIntakeForm"><div class="application-fields">
@@ -150,19 +150,19 @@
 <section class="card"><h2>Add an Editorial Finding</h2><label for="findingProject">Project</label><select id="findingProject"></select><label for="dimension">Dimension</label><input id="dimension" placeholder="Example: Clarity"><label for="severity">Severity</label><select id="severity"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option><option value="critical">Critical</option></select><label for="finding">Finding</label><textarea id="finding"></textarea><label for="recommendation">Recommendation</label><textarea id="recommendation"></textarea><div class="actions"><button id="addFinding">Save Finding</button></div><div id="findingMessage" class="message hidden" role="status"></div></section></div>
 <section class="card" id="editorialAuditCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Editorial Audit Management Center</h2><button class="secondary" id="refreshEditorialAudit" type="button">Refresh Audit</button></div>
-<p class="muted">Tracks findings for the selected publishing project using existing MPID records. Resolution is separate from author approval. Applicant manuscripts remain in the private Applicant Manuscript Inbox until separately assigned to a publishing project.</p>
+<p class="muted">Tracks findings for the selected publishing project using existing publishing records. Resolution is separate from author approval. Applicant manuscripts remain in the private Applicant Manuscript Inbox until separately assigned to a publishing project.</p>
 <div id="auditProjectLabel" class="note">Choose a publishing project to review its audit.</div>
 <div class="audit-stats" id="auditStats" aria-live="polite"></div>
 <h3>Editorial Findings and Resolution</h3><div id="auditFindingsList" aria-live="polite"></div>
-<h3 style="margin-top:24px">Author Approval History</h3><p class="note">These are existing author decisions, not automatic approvals of individual findings. MPID does not change author decisions when findings are resolved.</p>
+<h3 style="margin-top:24px">Author Approval History</h3><p class="note">These are existing author decisions, not automatic approvals of individual findings. RSM Publishing Services does not change author decisions when findings are resolved.</p>
 <div id="auditApprovalsList" class="audit-approvals" aria-live="polite"></div>
 <div id="auditMessage" class="message hidden" role="status" aria-live="polite"></div>
 </section>
 <section class="card" id="checklistCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Author Action &amp; Approval Checklist</h2><button class="secondary" id="refreshChecklist" type="button">Refresh Checklist</button></div>
-<p class="muted">Prepare and release project-specific checklist items. Draft items are visible only to MPID administrators. Author responses are preserved as separate historical submissions. Checklist completion is an MPID review decision, not automatic author approval.</p>
+<p class="muted">Prepare and release project-specific checklist items. Draft items are visible only to RSM Publishing Services administrators. Author responses are preserved as separate historical submissions. Checklist completion is an RSM Publishing Services review decision, not automatic author approval.</p>
 <div id="checklistProjectLabel" class="note">Select a publishing project above.</div><label for="checklistProjectSelect">Checklist project</label><select id="checklistProjectSelect" aria-label="Choose the project for checklist items"></select><div id="checklistStats" class="checklist-stats"></div>
-<form id="checklistCreateForm"><h3>Create Checklist Item</h3><div class="grid"><div><label for="checklistType">Responsibility</label><select id="checklistType"><option value="author_action" selected>Author Action</option><option value="author_approval">Author Approval</option><option value="mpid_correction">MPID Editorial Correction (Internal Only)</option></select></div><div><label for="checklistFinding">Related editorial finding (optional)</label><select id="checklistFinding"><option value="">No linked finding</option></select></div></div><label for="checklistTitle">Checklist item title</label><input id="checklistTitle" required maxlength="250" placeholder="Specific action or proposed editorial change"><label for="checklistInstructions">Instructions or proposed change</label><textarea id="checklistInstructions" required placeholder="Describe precisely what MPID or the author needs to do."></textarea><div class="actions"><button type="submit" id="createChecklistItem">Save Draft Checklist Item</button></div></form>
+<form id="checklistCreateForm"><h3>Create Checklist Item</h3><div class="grid"><div><label for="checklistType">Responsibility</label><select id="checklistType"><option value="author_action" selected>Author Action</option><option value="author_approval">Author Approval</option><option value="mpid_correction">MPID Editorial Correction (Internal Only)</option></select></div><div><label for="checklistFinding">Related editorial finding (optional)</label><select id="checklistFinding"><option value="">No linked finding</option></select></div></div><label for="checklistTitle">Checklist item title</label><input id="checklistTitle" required maxlength="250" placeholder="Specific action or proposed editorial change"><label for="checklistInstructions">Instructions or proposed change</label><textarea id="checklistInstructions" required placeholder="Describe precisely what RSM Publishing Services or the author needs to do."></textarea><div class="actions"><button type="submit" id="createChecklistItem">Save Draft Checklist Item</button></div></form>
 <h3 style="margin-top:25px">Checklist Items and Author Responses</h3><p class="note">All items for the selected project appear below, including released and completed items. Released items do not have a second release button.</p><div id="checklistItemsList" aria-live="polite"></div><div id="checklistMessage" class="message hidden" role="status" aria-live="polite"></div>
 </section>
 <section class="card"><h2>Project Details</h2><p class="muted">Select a project above to see its recorded documents, editorial findings, and author approvals.</p><div id="details" class="grid"></div></section>
@@ -194,9 +194,9 @@ const message=(id,text,ok=false)=>{const e=$(id);e.textContent=text;e.className=
 const clean=(value)=>String(value??'');
 const esc=(v)=>clean(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const err=(e)=>e?.message||String(e);
-const requireAdmin=async()=>{const {data:{user},error}=await sb.auth.getUser();if(error||!user)throw new Error('Not signed in.');const {data:profile,error:pe}=await sb.from('mpid_profiles').select('full_name,role').eq('id',user.id).single();if(pe)throw pe;if(profile?.role!=='admin')throw new Error('Access denied: This account is not an MPID administrator.');return profile;};
-async function enter(){const p=await requireAdmin();$('who').textContent=p.full_name||'MPID Administrator';show('setup',false);show('login',false);show('workspace');show('signout');await refresh();}
-$('connect').onclick=async()=>{try{const raw=$('url').value.trim();const key=$('key').value.trim();if(!raw)throw new Error('Enter your Supabase project API URL.');const u=new URL(raw);if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co'))throw new Error('Enter your Supabase HTTPS project URL ending in .supabase.co.');if(!key.startsWith('sb_publishable_')&&!key.startsWith('eyJ'))throw new Error('Enter a Supabase publishable or legacy anon key, not a secret key.');sb=createClient(u.origin,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});localStorage.setItem(CONFIG_KEY,JSON.stringify({url:u.origin,key}));show('setup',false);show('login');message('connectMessage','Connection configured. Sign in with your MPID administrator account.',true);}catch(e){message('connectMessage','Connection setup error: '+err(e));}};
+const requireAdmin=async()=>{const {data:{user},error}=await sb.auth.getUser();if(error||!user)throw new Error('Not signed in.');const {data:profile,error:pe}=await sb.from('mpid_profiles').select('full_name,role').eq('id',user.id).single();if(pe)throw pe;if(profile?.role!=='admin')throw new Error('Access denied: This account is not an RSM Publishing Services administrator.');return profile;};
+async function enter(){const p=await requireAdmin();$('who').textContent=p.full_name||'RSM Publishing Administrator';show('setup',false);show('login',false);show('workspace');show('signout');await refresh();}
+$('connect').onclick=async()=>{try{const raw=$('url').value.trim();const key=$('key').value.trim();if(!raw)throw new Error('Enter your Supabase project API URL.');const u=new URL(raw);if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co'))throw new Error('Enter your Supabase HTTPS project URL ending in .supabase.co.');if(!key.startsWith('sb_publishable_')&&!key.startsWith('eyJ'))throw new Error('Enter a Supabase publishable or legacy anon key, not a secret key.');sb=createClient(u.origin,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});localStorage.setItem(CONFIG_KEY,JSON.stringify({url:u.origin,key}));show('setup',false);show('login');message('connectMessage','Connection configured. Sign in with your RSM Publishing Services administrator account.',true);}catch(e){message('connectMessage','Connection setup error: '+err(e));}};
 // Remember public connection settings in this browser. Never store passwords or secret keys.
 try {
  const saved=JSON.parse(localStorage.getItem(CONFIG_KEY)||'null');
@@ -263,7 +263,7 @@ function renderSubmissions(){
   const author=profiles.find(p=>p.id===project?.author_id);
   const review=reviews.get(d.id);
   const who=uploader?.full_name||author?.full_name||'Unknown uploader';
-  const reviewer=profiles.find(p=>p.id===review?.reviewed_by)?.full_name||'MPID Administrator';
+  const reviewer=profiles.find(p=>p.id===review?.reviewed_by)?.full_name||'RSM Publishing Administrator';
   return '<div class="item submission-entry '+(isReviewed?'submission-reviewed':'')+'"><div><div class="filename">'+esc(d.file_name)+'</div><div class="meta">Submitted by: '+esc(who)+' · Project: '+esc(project?.title||'Project unavailable')+'</div><div class="meta">Type: '+esc(d.document_type||'Document')+' · Submitted: '+esc(submissionDate(d.created_at))+'</div>'+(isReviewed?'<div class="meta">Reviewed by: '+esc(reviewer)+' · '+esc(submissionDate(review.reviewed_at))+'</div>':'')+'</div><div class="actions"><button class="secondary" type="button" data-submission-open="'+esc(d.project_id)+'">View Project</button><button class="secondary" type="button" data-submission-download="'+esc(d.id)+'">Download</button>'+(isReviewed?'':'<button type="button" data-submission-review="'+esc(d.id)+'">Mark as Reviewed</button>')+'</div></div>';
  }
  pending.innerHTML=waiting.map(d=>item(d,false)).join('')||'<div class="muted">No documents awaiting review.</div>';
@@ -375,7 +375,7 @@ function renderApplications(){
   const requestButton=form.querySelector('[data-request-manuscript]');
   if(!['pending_review','more_information_needed'].includes(app.application_status))requestButton.disabled=true;
   requestButton.addEventListener('click',async()=>{
-   if(!confirm('Create a private 72-hour manuscript upload link for '+app.full_name+'?\n\nMPID will attempt to email the private link to the applicant. The link will also be displayed once for backup copying.'))return;
+   if(!confirm('Create a private 72-hour manuscript upload link for '+app.full_name+'?\n\nRSM Publishing Services will attempt to email the private link to the applicant. The link will also be displayed once for backup copying.'))return;
    requestButton.disabled=true;
    try{
     await requireAdmin();
@@ -623,7 +623,7 @@ function renderPaymentOverview(){
     if(error)throw error;
     if(data?.success===false)throw new Error(data?.message||'Verification rejected.');
     await loadApplications();await loadPayments();
-    message('paymentMessage','Payment verification recorded in the MPID ledger. Confirm the updated application and installment statuses.',true);
+    message('paymentMessage','Payment verification recorded in the RSM Publishing Services ledger. Confirm the updated application and installment statuses.',true);
    }catch(e){message('paymentMessage','Payment verification NOT confirmed: '+err(e));await loadPayments();}
   };
   actions.append(verify);
@@ -643,9 +643,9 @@ $('applicationIntakeForm').addEventListener('submit',async event=>{
   const words=$('appWords').value.trim(),estimated_word_count=words===''?null:Number(words);
   if(words!==''&&(!Number.isSafeInteger(estimated_word_count)||estimated_word_count<0))throw new Error('Word count must be a nonnegative whole number.');
   const payload={full_name,email,phone:$('appPhone').value.trim()||null,book_title:$('appTitle').value.trim()||null,genre:$('appGenre').value.trim()||null,estimated_word_count,manuscript_status:$('appStage').value.trim()||null,requested_package:$('appPackage').value||null,publishing_goals:$('appGoals').value.trim()||null,special_requirements:$('appSpecial').value.trim()||null,source:'admin_manual_entry'};
-  if(!confirm('Save this application manually into MPID? Check that it is not already present to avoid duplicates.'))return;
+  if(!confirm('Save this application manually into RSM Publishing Services? Check that it is not already present to avoid duplicates.'))return;
   const {data,error}=await sb.from('mpid_author_applications').insert(payload).select('id');if(error)throw error;if(!data?.length)throw new Error('Application record was not confirmed.');
-  $('applicationIntakeForm').reset();message('applicationMessage','Application saved to MPID. You can review it below.',true);await loadApplications();
+  $('applicationIntakeForm').reset();message('applicationMessage','Application saved to RSM Publishing Services. You can review it below.',true);await loadApplications();
  }catch(e){message('applicationMessage','Application could not be saved: '+err(e));}finally{btn.disabled=false;}
 });
 
@@ -722,7 +722,7 @@ async function loadApplicantManuscripts(){
      '[ ] Identify factual claims requiring author confirmation',
      '[ ] Check third-party rights, images, quotations, and permissions',
      '[ ] Evaluate front matter, back matter, and production needs',
-     '[ ] Separate MPID corrections from author approvals',
+     '[ ] Separate publisher corrections from author approvals',
      '[ ] Record findings in the assigned publishing project',
      '[ ] Prepare author-specific Action and Approval Checklist',
      '[ ] Obtain author approval for substantive editorial changes',
@@ -732,7 +732,7 @@ async function loadApplicantManuscripts(){
     ];
     const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
     const url=URL.createObjectURL(blob),a=document.createElement('a');
-    a.href=url;a.download='MPID-Editorial-Audit-Brief-'+record.application_id+'.txt';
+    a.href=url;a.download='RSM-Editorial-Audit-Brief-'+record.application_id+'.txt';
     document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
     message('applicantManuscriptMessage','Audit preparation brief downloaded. No manuscript or database changes were made.',true);
    });
@@ -952,7 +952,7 @@ function renderChecklist(){
   card.append(heading,meta,instructions);
   if(item.finding_id){const f=findings.find(f=>f.id===item.finding_id&&f.project_id===project.id);const link=document.createElement('div');link.className='note';link.textContent=f?'Linked finding: '+(f.dimension||'Editorial')+' | '+(f.finding||''):'Linked finding ID: '+item.finding_id;card.append(link);}
   const actions=document.createElement('div');actions.className='actions';
-  const statusLabel=document.createElement('label');statusLabel.textContent='MPID review status';const status=document.createElement('select');
+  const statusLabel=document.createElement('label');statusLabel.textContent='RSM Publishing review status';const status=document.createElement('select');
   for(const [value,label] of Object.entries(CHECKLIST_STATUSES)){const o=document.createElement('option');o.value=value;o.textContent=label;status.append(o);}status.value=item.status;statusLabel.append(status);
   const save=document.createElement('button');save.type='button';save.className='secondary';save.textContent='Save Status';save.disabled=true;
   status.onchange=()=>{save.disabled=status.value===item.status;};
@@ -1086,7 +1086,7 @@ function renderDetails(){
   const doc=documents.find(x=>x.id===documentId);
   if(!doc)return;
   const project=projects.find(p=>p.id===doc.project_id);
-  const promptText='PERMANENTLY DELETE this file?\n\nFile: '+doc.file_name+'\nProject: '+(project?.title||doc.project_id)+'\n\nThis removes the stored file and its document record. It cannot be restored through MPID.\n\nType DELETE to confirm:';
+  const promptText='PERMANENTLY DELETE this file?\n\nFile: '+doc.file_name+'\nProject: '+(project?.title||doc.project_id)+'\n\nThis removes the stored file and its document record. It cannot be restored through RSM Publishing Services.\n\nType DELETE to confirm:';
   if(window.prompt(promptText)!=='DELETE')return;
   b.disabled=true;
   let storageRemoved=false;
@@ -1107,7 +1107,7 @@ function renderDetails(){
    alert('File permanently deleted and the action recorded: '+doc.file_name);
   }catch(e){
    alert(storageRemoved
-    ?'PARTIAL DELETION: The file was removed from Storage, but the document record or activity log could not be finalized. Do not retry Delete. Contact the MPID administrator to reconcile this document.\n\nFile: '+doc.file_name+'\nDocument ID: '+doc.id+'\nStorage path: '+doc.storage_path+'\nError: '+err(e)
+    ?'PARTIAL DELETION: The file was removed from Storage, but the document record or activity log could not be finalized. Do not retry Delete. Contact the RSM Publishing Services administrator to reconcile this document.\n\nFile: '+doc.file_name+'\nDocument ID: '+doc.id+'\nStorage path: '+doc.storage_path+'\nError: '+err(e)
     :'Delete failed. The document record has not been deleted.\n\n'+err(e));
    b.disabled=false;
   }
