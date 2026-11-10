@@ -1174,7 +1174,7 @@ $('signwellCheckDraft').onclick=async()=>{
   const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{application_id,action:'sync'}});
   if(error){let message=error.message;try{const detail=await error.context?.json();message=detail?.error||message;}catch{}throw new Error(message);}
   if(data?.error)throw new Error(data.error);
-  output.textContent='Agreement status: '+(data.signwell_status||'Unknown')+'\nTest draft: '+(data.test_mode?'Yes':'No')+'\nCompleted: '+(data.completed?'Yes':'No')+'\nSigned agreement archived: '+(data.application_updated?'Yes':'No')+'\nDocument ID: '+data.document_id;
+  output.textContent='Agreement status: '+(data.signwell_status||'Unknown')+'\nTest draft: '+(data.test_mode?'Yes':'No')+'\nCompleted: '+(data.completed?'Yes':'No')+'\nSigned agreement archived: '+(data.test_mode?(data.archived_test_pdf?'Yes, private test archive':'Not yet'):(data.application_updated?'Yes':'Not yet'))+'\nDocument ID: '+data.document_id;
  }catch(e){output.textContent='Agreement check: '+err(e);}
 };
 $('signwellArchiveCheck').onclick=async()=>{
