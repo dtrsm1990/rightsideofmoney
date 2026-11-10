@@ -168,7 +168,7 @@
 <section class="card"><h2>Project Details</h2><p class="muted">Select a project above to see its recorded documents, editorial findings, and author approvals.</p><div id="details" class="grid"></div></section>
 <section class="card"><h2>Project Activity History</h2><p class="muted" id="activityProjectLabel">Activity for the currently selected project, newest first.</p><div id="activityHistory" class="mpid-activity" aria-live="polite"></div></section>
 <section class="card"><h2>Operational Notes</h2><p class="muted">This is a preproduction administrator interface. Author invitations are available above. Invitation activation, document version reconciliation, and publication approvals require end-to-end verification. Never upload confidential manuscripts until end-to-end production security checks are complete.</p></section>
-</div><section class="card" id="signwellIntegration"><h2>SignWell Publishing Agreements</h2><p class="muted">Secure template validation and test drafts. Live signature requests are disabled until end-to-end verification.</p><label for="signwellApplication">Approved publishing application</label><select id="signwellApplication"><option value="">Select an application</option></select><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px"><button type="button" id="signwellInspect" class="secondary">Check Contract Setup</button><button type="button" id="signwellSend">Send Publishing Agreement</button><button type="button" id="signwellSync" class="secondary">Refresh All Agreement Statuses</button></div><p id="signwellResult" class="muted" role="status" style="white-space:pre-wrap;margin-top:14px">Select an approved author to send their publishing agreement.</p></section>
+</div><section class="card" id="signwellIntegration"><h2>SignWell Publishing Agreements</h2><p class="muted">Secure template validation and test drafts. Live signature requests are disabled until end-to-end verification.</p><label for="signwellApplication">Approved publishing application</label><select id="signwellApplication"><option value="">Select an application</option></select><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px"><button type="button" id="signwellInspect" class="secondary">Check Contract Setup</button><button type="button" id="signwellPreview" class="secondary">Preview Agreement Values</button><button type="button" id="signwellSend">Send Publishing Agreement</button><button type="button" id="signwellSync" class="secondary">Refresh All Agreement Statuses</button></div><p id="signwellResult" class="muted" role="status" style="white-space:pre-wrap;margin-top:14px">Select an approved author to send their publishing agreement.</p></section>
 </main>
 <script type="module">
 import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
@@ -1131,6 +1131,21 @@ const signwellCall=async(action)=>{const output=$('signwellResult');output.textC
 $('signwellInspect').onclick=()=>signwellCall('inspect_template');
 $('signwellSend').onclick=()=>signwellCall('send');
 $('signwellSync').onclick=()=>signwellCall('sync_all');
+$('signwellPreview').onclick=async()=>{
+ const output=$('signwellResult');
+ try{
+  await requireAdmin();
+  const application_id=$('signwellApplication').value;
+  if(!application_id)throw new Error('Select an approved application first.');
+  output.textContent='Preparing agreement preview...';
+  const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{application_id,action:'preview_agreement'}});
+  if(error)throw error;
+  if(data?.error)throw new Error(data.error);
+  const lines=Object.entries(data.fields||{}).map(([field,value])=>field+': '+value);
+  output.textContent=['AGREEMENT PREVIEW (not sent)',...lines,'','Unfilled project fields: '+(data.unfilled_project_fields||[]).join(', '),'Review all terms before sending.'].join('\n');
+ }catch(e){output.textContent='SignWell preview: '+err(e);}
+};
+
 // The existing application renderer updates this list after refresh.
 populateSignwellApplications();
 </script></body></html>
