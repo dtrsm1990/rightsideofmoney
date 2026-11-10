@@ -338,6 +338,7 @@ async function loadApplications(){
  try{await requireAdmin();const {data,error}=await sb.from('mpid_author_applications').select('*').order('created_at',{ascending:false}).limit(1000);if(error)throw error;authorApplications=data||[];applicationLoadError=null;}
  catch(e){authorApplications=[];applicationLoadError=err(e);}
  renderApplications();
+ if(typeof populateSignwellApplications==='function')populateSignwellApplications();
 }
 function renderApplications(){
  for(const [id,status] of [['appPending','pending_review'],['appInfo','more_information_needed'],['appApproved','approved'],['appDeclined','declined']])$(id).textContent=applicationLoadError?'—':authorApplications.filter(a=>a.application_status===status).length;
@@ -1130,8 +1131,6 @@ const signwellCall=async(action)=>{const output=$('signwellResult');output.textC
 $('signwellValidate').onclick=()=>signwellCall('validate');
 $('signwellDraft').onclick=()=>signwellCall('create_test_draft');
 $('signwellStatus').onclick=()=>signwellCall('status');
-const signwellObserver=new MutationObserver(populateSignwellApplications);
-// Populate on refresh and when the application list is rendered.
-setInterval(populateSignwellApplications,5000);
+// The existing application renderer updates this list after refresh.
 populateSignwellApplications();
 </script></body></html>
