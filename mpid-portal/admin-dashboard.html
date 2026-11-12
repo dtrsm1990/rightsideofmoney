@@ -376,7 +376,7 @@ function renderApplications(){
   });
   // Administrator-only request creation and one-time private link display.
   const requestButton=form.querySelector('[data-request-manuscript]');
-  if(!['pending_review','more_information_needed'].includes(app.application_status))requestButton.disabled=true;
+  if(app.application_status==='declined')requestButton.disabled=true;
   requestButton.addEventListener('click',async()=>{
    if(!confirm('Create a private 72-hour manuscript upload link for '+app.full_name+'?\n\nRSM Publishing Services will attempt to email the private link to the applicant. The link will also be displayed once for backup copying.'))return;
    requestButton.disabled=true;
