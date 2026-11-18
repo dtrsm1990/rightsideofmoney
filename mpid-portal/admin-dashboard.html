@@ -1331,20 +1331,53 @@ async function stageGeneratedReviewCopy(pid,name,blob,type){
  if(insertError){await sb.storage.from('mpid-editorial-staging').remove([path]);throw insertError;}
 }
 async function stageLoad(){try{await requireAdmin();const pid=$('selectedProject').value,h=$('stageList');h.replaceChildren();if(!pid)return;const {data,error}=await sb.from('mpid_editorial_deliverables').select('*').eq('project_id',pid).order('created_at',{ascending:false});if(error)throw error;if(pid!==$('selectedProject').value)return;for(const d of data||[]){const row=document.createElement('div');row.style.cssText='border-top:1px solid var(--line);padding:12px 0';const title=document.createElement('p');title.textContent=d.file_name+' | '+d.status;row.append(title);const add=(label,fn)=>{const b=document.createElement('button');b.textContent=label;b.className='secondary';b.style.marginRight='8px';b.onclick=async()=>{b.disabled=true;try{await requireAdmin();if(pid!==$('selectedProject').value)throw Error('Project selection changed.');await fn();}catch(e){stageMsg(err(e));}finally{b.disabled=false;}};row.append(b);};const getFile=async()=>{const {data:b,error:e}=await sb.storage.from('mpid-editorial-staging').download(d.storage_path);if(e)throw e;return b;};
-if(d.status==='pending_review'&&d.file_name==='RSM_TEST_assembled_manuscript.txt'&&projects.find(p=>p.id===pid)?.is_test===true)add('Create Word Review Copy',async()=>{
- const source=(await (await getFile()).text()).replace(/\\\\n/g,'\n');
- const {Document,Paragraph,TextRun,HeadingLevel,Packer}=await import('https://esm.sh/docx@9.5.1');
- const lines=source.split(/\r?\n/);const paragraphs=lines.map(line=>new Paragraph({text:line||' ',heading:/^(chapter\s+\d+|introduction|conclusion)\b/i.test(line.trim())?HeadingLevel.HEADING_1:undefined,spacing:{before:/^chapter\s+\d+/i.test(line.trim())?280:0,after:line.trim()?160:80},pageBreakBefore:/^chapter\s+\d+/i.test(line.trim())}));
- const doc=new Document({sections:[{properties:{},children:[new Paragraph({children:[new TextRun({text:'RSM PUBLISHING SERVICES | PRIVATE EDITORIAL REVIEW',bold:true,size:20})],spacing:{after:300}}),...paragraphs]}]});
- const blob=await Packer.toBlob(doc);await stageGeneratedReviewCopy(pid,'RSM_TEST_assembled_manuscript_REVIEW.docx',blob,'manuscript');
- stageMsg('Word review copy staged privately. Original TXT preserved; approval still required.');await stageLoad();
+if(d.status==='pending_review'&&d.file_name==='RSM_TEST_assembled_manuscript.txt'&&projects.find(p=>p.id===pid)?.is_test===true)add('Create Formatted Word Review',async()=>{
+ const raw=await (await getFile()).text();
+ const source=raw.replace(/\\r\\n/g,'\n').replace(/\\n/g,'\n').replace(/\r\n/g,'\n');
+ const {Document,Paragraph,TextRun,HeadingLevel,Packer,AlignmentType}=await import('https://esm.sh/docx@9.5.1');
+ const heading=/^(chapter\s+\d+\s*[:.\-]?\s*.+|introduction|conclusion)$/i;
+ const chunks=source.split(/\n{2,}/).flatMap(block=>{
+  const lines=block.split('\n').map(x=>x.trim()).filter(Boolean);
+  return lines.flatMap(line=>line.match(/(?:^|\n)(?:chapter\s+\d+\s*[:.\-]?\s*[^\n]*)/i)&&line.length>120?line.split(/(?=Chapter\s+\d+\s*:)/):[line]);
+ }).map(x=>x.trim()).filter(Boolean);
+ const paragraphs=[];let chapterCount=0;
+ for(const chunk of chunks){
+  const m=chunk.match(/^(Chapter\s+\d+\s*[:.\-]\s*[^\n]+)(?:\n|$)/i);
+  if(m&&chunk.length>m[1].length){chunks.splice(chunks.indexOf(chunk)+1,0,chunk.slice(m[1].length).trim());paragraphs.push(new Paragraph({text:m[1],heading:HeadingLevel.HEADING_1,pageBreakBefore:chapterCount++>0,spacing:{before:180,after:260}}));continue;}
+  const isHeading=heading.test(chunk);
+  if(isHeading){paragraphs.push(new Paragraph({text:chunk,heading:HeadingLevel.HEADING_1,pageBreakBefore:chapterCount++>0,spacing:{before:180,after:260}}));continue;}
+  const isBullet=/^[•●▪]\s*/.test(chunk);
+  paragraphs.push(new Paragraph({children:[new TextRun({text:chunk.replace(/^[•●▪]\s*/,'')})],bullet:isBullet?{level:0}:undefined,spacing:{after:150,line:320},alignment:AlignmentType.LEFT}));
+ }
+ const doc=new Document({sections:[{properties:{page:{margin:{top:900,bottom:850,left:900,right:900}}},children:[new Paragraph({children:[new TextRun({text:'RSM PUBLISHING SERVICES | PRIVATE EDITORIAL REVIEW',bold:true,size:17,color:'666666'})],spacing:{after:250}}),...paragraphs]}]});
+ await stageGeneratedReviewCopy(pid,'RSM_TEST_assembled_manuscript_FORMATTED.docx',await Packer.toBlob(doc),'manuscript');
+ stageMsg('Formatted Word review staged privately. Original files preserved.');await stageLoad();
 });
-if(d.status==='pending_review'&&d.file_name==='RSM_TEST_editorial_QA_report.txt'&&projects.find(p=>p.id===pid)?.is_test===true)add('Create PDF Review Copy',async()=>{
- const source=(await (await getFile()).text()).replace(/\\\\n/g,'\n');const {jsPDF}=await import('https://esm.sh/jspdf@2.5.2');
- const pdf=new jsPDF({unit:'pt',format:'letter'});const margin=54,width=504;let y=60;pdf.setFont('helvetica','bold');pdf.setFontSize(15);pdf.text('RSM PUBLISHING SERVICES',margin,y);y+=25;pdf.setFontSize(11);pdf.text('PRIVATE EDITORIAL QA REVIEW | TEST ONLY',margin,y);y+=30;pdf.setFont('helvetica','normal');pdf.setFontSize(10);
- for(const line of source.split(/\r?\n/)){const wrapped=pdf.splitTextToSize(line||' ',width);for(const part of wrapped){if(y>740){pdf.addPage();y=55;}pdf.text(part||' ',margin,y);y+=14;}y+=4;}
- const blob=pdf.output('blob');await stageGeneratedReviewCopy(pid,'RSM_TEST_editorial_QA_report_REVIEW.pdf',blob,'editorial_report');
- stageMsg('PDF review copy staged privately. Original TXT preserved; approval still required.');await stageLoad();
+if(d.status==='pending_review'&&d.file_name==='RSM_TEST_editorial_QA_report.txt'&&projects.find(p=>p.id===pid)?.is_test===true)add('Create Structured PDF Review',async()=>{
+ const raw=await (await getFile()).text();
+ const source=raw.replace(/\\r\\n/g,'\n').replace(/\\n/g,'\n').replace(/\r\n/g,'\n');
+ const {jsPDF}=await import('https://esm.sh/jspdf@2.5.2');
+ const pdf=new jsPDF({unit:'pt',format:'letter'}),margin=54,width=504;let y=60,page=1;
+ const pageFooter=()=>{pdf.setFontSize(9);pdf.setTextColor(110);pdf.text('PRIVATE TEST | Administrator review required',margin,766);pdf.text(String(page),555,766,{align:'right'});pdf.setTextColor(0);};
+ const next=(needed=20)=>{if(y+needed>738){pageFooter();pdf.addPage();page++;y=58;}};
+ const line=(value,bold=false,size=10)=>{pdf.setFont('helvetica',bold?'bold':'normal');pdf.setFontSize(size);const wrapped=pdf.splitTextToSize(value||' ',width);next(wrapped.length*(size+5)+7);for(const part of wrapped){pdf.text(part,margin,y);y+=size+5;}y+=7;};
+ line('RSM PUBLISHING SERVICES',true,16);line('PRIVATE EDITORIAL QA REPORT | TEST ONLY',true,12);
+ line('Status: Administrator review required. No author release authorized.',true);
+ const chapters=source.split(/(?=Chapter\s+\d+\s*:\s*Chapter\s+\d+\s*:)/i).slice(1);
+ const header=source.split(/Chapter\s+\d+\s*:\s*Chapter\s+\d+\s*:/i)[0];
+ const count=header.match(/Chapters:\s*(\d+)/i),words=header.match(/Edited words:\s*(\d+)/i);
+ line('Chapters assessed: '+(count?.[1]||chapters.length)+' | Edited words: '+(words?.[1]||'Not stated'));
+ line('Editorial findings',true,12);
+ if(!chapters.length)line('Structured chapter records could not be identified. Manual QA required.',true);
+ for(const item of chapters){
+  const title=item.match(/^Chapter\s+\d+\s*:\s*[^\n]+/i)?.[0]||'Chapter review';
+  const metrics=item.match(/(\d+)\s+to\s+(\d+)\s+words\s*\|\s*(Unchanged|Proposed edits)/i);
+  const assessment=item.match(/The passage reads well[^]*?preserved\./i)?.[0]||'Review chapter content and compare with source before approval.';
+  next(75);line(title,true,11);line(metrics?'Original words: '+metrics[1]+' | Edited words: '+metrics[2]+' | '+metrics[3]:'Word counts/status require verification');line('Finding: '+assessment.replace(/\s+/g,' ').trim());
+ }
+ line('ADMINISTRATOR DECISION: PENDING',true,11);pageFooter();
+ await stageGeneratedReviewCopy(pid,'RSM_TEST_editorial_QA_report_STRUCTURED.pdf',pdf.output('blob'),'editorial_report');
+ stageMsg('Structured PDF report staged privately. Original files preserved.');await stageLoad();
 });add('Download for Review',async()=>{const b=await getFile(),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=d.file_name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);});if(d.status==='pending_review')add('Approve',async()=>{if(!confirm('Approve this exact file? It remains private.'))return;const {data:r,error:e}=await sb.from('mpid_editorial_deliverables').update({status:'approved',approved_at:new Date().toISOString()}).eq('id',d.id).eq('project_id',pid).eq('status','pending_review').select('id');if(e)throw e;if(!r?.length)throw Error('Approval not confirmed.');stageMsg('Approved; still private.');await stageLoad();});if(d.status==='approved')add('Release to Author',async()=>{if(!confirm('Release '+d.file_name+' to the selected author?'))return;const {data:r,error:e}=await sb.from('mpid_editorial_deliverables').select('*').eq('id',d.id).eq('project_id',pid).single();if(e)throw e;if(r.status!=='approved')throw Error('File is not approved.');const path='projects/'+pid+'/editorial-'+d.id+'-'+d.file_name.replace(/[^a-zA-Z0-9._-]/g,'_');const b=await getFile();const {data:prior,error:priorError}=await sb.storage.from('mpid-manuscripts').download(path);if(priorError){const {error:up}=await sb.storage.from('mpid-manuscripts').upload(path,b,{upsert:false});if(up)throw Error('Release upload failed. Retry or reconcile storage: '+err(up));}else{const hash=async x=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await x.arrayBuffer()))).join(',');if(await hash(prior)!==await hash(b))throw Error('Existing release file differs from approved file. Stop and reconcile.');}const {data:docId,error:se}=await sb.rpc('mpid_finalize_editorial_release',{p_deliverable:d.id});if(se||!docId)throw Error('Release finalization failed. Retry safely: '+err(se));stageMsg('Released to author portal. Email notification queued; delivery not yet confirmed.');await refresh();await stageLoad();});h.append(row);}if(!data?.length)h.textContent='No private deliverables.';}catch(e){stageMsg(err(e));}}
 $('stageRefresh').onclick=stageLoad;
 $('stageUpload').onclick=async()=>{const b=$('stageUpload');b.disabled=true;try{await requireAdmin();const pid=$('selectedProject').value,f=$('stageFile').files[0];if(!projects.some(p=>p.id===pid)||!f)throw Error('Select a project and file.');if(f.size>26214400)throw Error('File exceeds 25 MB.');const path='projects/'+pid+'/'+crypto.randomUUID()+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');const {data:{user}}=await sb.auth.getUser();const {error}=await sb.storage.from('mpid-editorial-staging').upload(path,f,{upsert:false});if(error)throw error;const {error:e}=await sb.from('mpid_editorial_deliverables').insert({project_id:pid,file_name:f.name,storage_path:path,document_type:$('stageType').value,uploaded_by:user.id});if(e){await sb.storage.from('mpid-editorial-staging').remove([path]);throw e;}$('stageFile').value='';stageMsg('Uploaded privately.');await stageLoad();}catch(e){stageMsg(err(e));}finally{b.disabled=false;}};
