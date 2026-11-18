@@ -761,7 +761,44 @@ async function loadApplicantManuscripts(){
     try{await navigator.clipboard.writeText(prompt);message('applicantManuscriptMessage','AI audit instructions copied. Download the manuscript and attach it in ChatGPT, then paste the instructions. No author records changed.',true);}
     catch(e){message('applicantManuscriptMessage','Clipboard unavailable. Check browser clipboard permission and retry.');}
    });
-   actions.append(download,brief,agent);card.append(title,meta,actions);list.append(card);
+   const auditBox=document.createElement('div');auditBox.style.cssText='margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:8px';
+   const auditHeading=document.createElement('strong');auditHeading.textContent='Private Pre-Contract Editorial Audit Reports';
+   const auditFiles=document.createElement('div');auditFiles.className='muted small';auditFiles.textContent='Loading saved reports...';
+   const auditInput=document.createElement('input');auditInput.type='file';auditInput.accept='.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';auditInput.style.marginTop='10px';
+   const auditUpload=document.createElement('button');auditUpload.type='button';auditUpload.textContent='Upload Completed Editorial Audit';auditUpload.style.marginTop='8px';
+   const refreshAuditFiles=async()=>{
+    const {data,error}=await sb.from('mpid_applicant_audit_reports').select('id,file_name,file_size_bytes,created_at,storage_path').eq('manuscript_request_id',record.id).order('created_at',{ascending:false});
+    if(error)throw error;
+    auditFiles.replaceChildren();
+    if(!data?.length){auditFiles.textContent='No audit reports saved yet.';return;}
+    for(const a of data){
+     const row=document.createElement('div');row.style.marginTop='8px';
+     const name=document.createElement('span');name.textContent=a.file_name+' | '+new Date(a.created_at).toLocaleString();
+     const get=document.createElement('button');get.type='button';get.className='secondary';get.textContent='Download';get.style.marginLeft='8px';
+     get.onclick=async()=>{try{await requireAdmin();const {data:link,error:e}=await sb.storage.from('mpid-applicant-audits').createSignedUrl(a.storage_path,60);if(e)throw e;const u=new URL(link.signedUrl);if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co'))throw Error('Unexpected file URL');const x=document.createElement('a');x.href=u.href;x.download=a.file_name;x.rel='noopener noreferrer';document.body.append(x);x.click();x.remove();}catch(e){message('applicantManuscriptMessage','Audit download failed: '+err(e));}};
+     row.append(name,get);auditFiles.append(row);
+    }
+   };
+   auditUpload.onclick=async()=>{
+    const file=auditInput.files?.[0];if(!file){message('applicantManuscriptMessage','Choose the completed audit PDF or DOCX first.');return;}
+    const ext=file.name.toLowerCase().endsWith('.pdf')?'pdf':file.name.toLowerCase().endsWith('.docx')?'docx':null;
+    if(!ext||file.size<=0||file.size>20971520){message('applicantManuscriptMessage','Only nonempty PDF or DOCX files up to 20 MB are accepted.');return;}
+    auditUpload.disabled=true;let path=null;
+    try{
+     await requireAdmin();
+     const {data:{user},error:ue}=await sb.auth.getUser();if(ue||!user)throw Error('Administrator session expired');
+     const id=crypto.randomUUID();path='audits/'+record.application_id+'/'+record.id+'/'+id+'.'+ext;
+     const mime=ext==='pdf'?'application/pdf':'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+     const {error:up}=await sb.storage.from('mpid-applicant-audits').upload(path,file,{contentType:mime,upsert:false});if(up)throw up;
+     const {error:db}=await sb.from('mpid_applicant_audit_reports').insert({application_id:record.application_id,manuscript_request_id:record.id,storage_path:path,file_name:file.name,file_size_bytes:file.size,created_by:user.id});if(db)throw db;
+     auditInput.value='';await refreshAuditFiles();message('applicantManuscriptMessage','Private editorial audit uploaded and linked to the application. Not released to author.',true);
+    }catch(e){message('applicantManuscriptMessage','Audit upload failed: '+err(e)+(path?' If the file uploaded but registration failed, contact administrator for reconciliation.':''));}
+    finally{auditUpload.disabled=false;}
+   };
+   auditBox.append(auditHeading,auditFiles,auditInput,auditUpload);
+   actions.append(download,brief,agent);card.append(title,meta,actions,auditBox);list.append(card);
+   refreshAuditFiles().catch(e=>{auditFiles.textContent='Could not load audit reports: '+err(e);});
+
   }
  }catch(e){list.replaceChildren();$('applicantManuscriptSummary').textContent='Applicant manuscripts unavailable.';message('applicantManuscriptMessage','Could not load applicant manuscripts: '+err(e));}
  finally{if(refreshButton)refreshButton.disabled=false;}
