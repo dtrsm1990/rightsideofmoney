@@ -1522,12 +1522,22 @@ $('rsmBatchRun').onclick=async()=>{
     comparison.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:12px 0';
     const makePane=(title,value)=>{const pane=document.createElement('div');pane.style.cssText='min-width:0;border:1px solid #888;border-radius:8px;padding:12px';const label=document.createElement('strong');label.textContent=title;const content=document.createElement('pre');content.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin-top:10px';content.textContent=value;pane.append(label,content);return pane;};
     comparison.append(makePane('Original manuscript',parts[i]),makePane('AI proposed edit',editedText));
-    const originalTokens=parts[i].trim().split(/\\s+/),editedTokens=editedText.trim().split(/\\s+/);
-    let first=0;while(first<originalTokens.length&&first<editedTokens.length&&originalTokens[first]===editedTokens[first])first++;
-    let suffix=0;while(suffix<originalTokens.length-first&&suffix<editedTokens.length-first&&originalTokens[originalTokens.length-1-suffix]===editedTokens[editedTokens.length-1-suffix])suffix++;
-    const delta=document.createElement('p');
-    delta.style.cssText='font-weight:600;overflow-wrap:anywhere';
-    delta.textContent=first===originalTokens.length&&first===editedTokens.length?'Exact word-for-word match.': 'Changes detected. Original changed span: '+originalTokens.slice(first,originalTokens.length-suffix).join(' ').slice(0,500)+' | Proposed span: '+editedTokens.slice(first,editedTokens.length-suffix).join(' ').slice(0,500)+'. Compare the full passages before approval.';
+    const originalText=parts[i];
+    let prefix=0;while(prefix<originalText.length&&prefix<editedText.length&&originalText[prefix]===editedText[prefix])prefix++;
+    let suffix=0;while(suffix<originalText.length-prefix&&suffix<editedText.length-prefix&&originalText[originalText.length-1-suffix]===editedText[editedText.length-1-suffix])suffix++;
+    const originalChange=originalText.slice(prefix,originalText.length-suffix),editedChange=editedText.slice(prefix,editedText.length-suffix);
+    const delta=document.createElement('div');delta.style.cssText='overflow-wrap:anywhere;margin:12px 0';
+    const lead=document.createElement('strong');lead.textContent=prefix===originalText.length&&prefix===editedText.length?'Exact character-for-character match.':'Change location with nearby context:';
+    delta.append(lead);
+    if(prefix!==originalText.length||prefix!==editedText.length){
+     const contextBefore=originalText.slice(Math.max(0,prefix-55),prefix),contextAfter=originalText.slice(originalText.length-suffix,originalText.length-suffix+55);
+     const before=document.createElement('pre'),after=document.createElement('pre');
+     before.style.cssText=after.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin:8px 0;padding:10px;border:1px solid #888;border-radius:6px';
+     before.textContent='ORIGINAL: '+contextBefore+'['+originalChange.slice(0,400)+']'+contextAfter;
+     after.textContent='PROPOSED: '+contextBefore+'['+editedChange.slice(0,400)+']'+contextAfter;
+     delta.append(before,after);
+     const note=document.createElement('small');note.textContent='Brackets identify a changed character span. Multiple edits may be grouped. Review the full text before approval.';delta.append(note);
+    }
     section.append(comparison,delta);passed++;
    }
    output.append(section);
