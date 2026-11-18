@@ -1556,9 +1556,10 @@ $('rsmBatchRun').onclick=async()=>{
   const report=['RSM PUBLISHING SERVICES | PRIVATE EDITORIAL QA PREVIEW','Status: ADMINISTRATOR REVIEW REQUIRED','Chapters: '+qaRows.length,'Edited words: '+totalWords,'No files saved or released.','',...qaRows.map((r,i)=>'Chapter '+r.chapter+': '+titles[i]+' | '+r.originalWords+' to '+r.editedWords+' words | '+(r.changed?'Proposed edits':'Unchanged')+'\\n'+r.report)].join('\\n');
   $('rsmAssemblySummary').textContent=qaRows.length+' chapters assembled in input order | '+totalWords+' edited words | '+qaRows.filter(r=>r.changed).length+' chapters with proposed edits. Verify headings and formatting before approving.';
   $('rsmAssembly').hidden=false;
+  $('rsmAssembly').scrollIntoView({behavior:'smooth',block:'start'});
   $('rsmCopyManuscript').onclick=async()=>{try{await navigator.clipboard.writeText(assembled);$('rsmCopyStatus').textContent='Assembled manuscript copied. No file saved or released.';}catch(e){$('rsmCopyStatus').textContent='Copy unavailable: '+err(e);}};
   $('rsmCopyReport').onclick=async()=>{try{await navigator.clipboard.writeText(report);$('rsmCopyStatus').textContent='Private QA report copied. No file saved or released.';}catch(e){$('rsmCopyStatus').textContent='Copy unavailable: '+err(e);}};
-  status.textContent='All '+passed+' chapters passed automated checks. Administrator editorial approval is still required. No files saved or released.';
+  status.textContent='All '+passed+' chapters passed automated checks. Assembly preview is ready below the chapter input, above these chapter comparisons. Administrator approval is required. No files saved or released.';
  }catch(e){status.textContent='Private editorial test stopped: '+err(e)+' Nothing was saved or released.'}
  finally{btn.disabled=false}
 };
