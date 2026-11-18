@@ -1377,12 +1377,14 @@ async function rsmRefreshEditing(){
  const holder=$('rsmEditingRuns'),pid=$('selectedProject').value;holder.replaceChildren();
  if(!pid){$('rsmEditingStatus').textContent='Select a project first.';return;}
  await requireAdmin();
- const {data,error}=await sb.from('rsm_manuscript_edit_runs').select('id,status,source_filename,output_storage_path,report_storage_path,error_message,created_at').eq('project_id',pid).order('created_at',{ascending:false}).limit(25);
+ const {data,error}=await sb.from('rsm_manuscript_edit_runs').select('id,status,source_filename,output_storage_path,report_storage_path,error_message,qa_status,qa_flags,created_at').eq('project_id',pid).order('created_at',{ascending:false}).limit(25);
  if(error)throw error;
  if(!data?.length){holder.textContent='No private editing runs for this project.';return;}
  for(const item of data){
   const box=document.createElement('div');box.style.cssText='border-top:1px solid #50483b;padding:12px 0';
   const line=document.createElement('p');line.textContent=new Date(item.created_at).toLocaleString()+' | '+item.status+' | '+item.source_filename;box.append(line);
+  if(item.qa_status){const qa=document.createElement('p');qa.textContent='Editorial QA: '+item.qa_status;box.append(qa);}
+  if(Array.isArray(item.qa_flags)&&item.qa_flags.length){const ul=document.createElement('ul');for(const flag of item.qa_flags){const li=document.createElement('li');li.textContent=flag;ul.append(li);}box.append(ul);}
   if(item.error_message){const note=document.createElement('p');note.textContent=item.error_message;box.append(note);}
   for(const [path,label] of [[item.output_storage_path,'Download Private Edited Draft'],[item.report_storage_path,'Download Editorial Report']]){
    if(!path)continue;
