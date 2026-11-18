@@ -1206,19 +1206,21 @@ async function swLoadTerms(){
 $('signwellApplication').addEventListener('change',swLoadTerms);
 $('signwellReadiness').onclick=async()=>{
  const out=$('signwellResult'),id=$('signwellApplication').value;
- if(!id){out.textContent='Select Maurice or another approved application first.';return;}
+ if(!id){out.textContent='Select an approved application first.';return;}
  try{
   await requireAdmin();
-  const [{data:app,error:ae},{data:terms,error:te},{data:reviews,error:re}]=await Promise.all([
-   sb.from('mpid_author_applications').select('full_name,book_title,approved_package,approved_price,admin_notes,agreement_status,payment_status').eq('id',id).single(),
+  const [ar,tr,dr]=await Promise.all([
+   sb.from('mpid_author_applications').select('full_name,approved_package,approved_price,admin_notes,agreement_status,payment_status').eq('id',id).single(),
    sb.from('mpid_agreement_terms').select(swTermKeys.join(',')).eq('application_id',id).maybeSingle(),
    sb.from('mpid_applicant_ai_drafts').select('status').eq('application_id',id).order('created_at',{ascending:false}).limit(1)
   ]);
-  if(ae||te||re)throw ae||te||re;
-  const missing=swTermKeys.filter(k=>!String(terms?.[k]||'').trim());
+  if(ar.error||tr.error||dr.error)throw ar.error||tr.error||dr.error;
+  const app=ar.data,missing=swTermKeys.filter(k=>!String(tr.data?.[k]||'').trim());
   const upfront=String(app.admin_notes||'').includes('[RSM_PRICING:DISCOUNTED_UPFRONT]');
-  const approved=reviews?.[0]?.status==='approved';
-  const lines=['AGREEMENT READINESS | '+(app.full_name||'Author'),'Book: '+(app.book_title||'Not provided'),'Package: '+(app.approved_package||'NOT SET'),'Agreed price: 
+  const lines=['Agreement readiness for '+app.full_name,'Package: '+app.approved_package,'Price: $'+Number(app.approved_price).toFixed(2),'Payment: '+(upfront?'100% upfront':'30/40/30'),'Editorial: '+(dr.data?.[0]?.status||'not approved'),'Missing contract fields: '+(missing.join(', ')||'none'),'Agreement: '+app.agreement_status,'Payment: '+app.payment_status,'No agreement sent by this check.'];
+  out.textContent=lines.join(String.fromCharCode(10));
+ }catch(e){out.textContent='Readiness check failed: '+err(e);}
+};
 $('signwellSaveTerms').onclick=async()=>{
  const id=$('signwellApplication').value;
  if(!id){$('signwellTermsStatus').textContent='Select an approved application first.';return;}
