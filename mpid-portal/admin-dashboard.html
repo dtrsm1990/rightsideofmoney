@@ -1361,14 +1361,14 @@ $('aiCostRefresh').onclick=async()=>{
   if(ids.length){const q=await sb.from('mpid_author_applications').select('id,book_title,approved_price').in('id',ids);if(q.error)throw q.error;apps=q.data||[];}
   const byId=new Map(apps.map(x=>[x.id,x]));
   const fmt=n=>Number(n||0).toLocaleString('en-US');
-  const cost=n=>'</html>+Number(n||0).toFixed(4);
+  const cost=n=>String.fromCharCode(36)+Number(n||0).toFixed(4);
   $('aiCostCalls').textContent=fmt(records.length);
   $('aiCostInput').textContent=fmt(records.reduce((v,x)=>v+Number(x.input_tokens||0),0));
   $('aiCostOutput').textContent=fmt(records.reduce((v,x)=>v+Number(x.output_tokens||0),0));
   $('aiCostTotal').textContent=cost(records.reduce((v,x)=>v+Number(x.estimated_cost_usd||0),0));
   rows.replaceChildren();
   if(!records.length){const tr=rows.insertRow();const td=tr.insertCell();td.colSpan=6;td.textContent='No usage recorded yet. Existing historical jobs have no token details.';}
-  for(const x of records){const tr=rows.insertRow(),app=byId.get(x.application_id);for(const value of [new Date(x.created_at).toLocaleDateString(),app?.book_title||'Unlinked application',x.model,fmt(Number(x.input_tokens)+Number(x.output_tokens)),cost(x.estimated_cost_usd),app?.approved_price!=null?'</html>+Number(app.approved_price).toFixed(2):'Not recorded'])tr.insertCell().textContent=value;}
+  for(const x of records){const tr=rows.insertRow(),app=byId.get(x.application_id);for(const value of [new Date(x.created_at).toLocaleDateString(),app?.book_title||'Unlinked application',x.model,fmt(Number(x.input_tokens)+Number(x.output_tokens)),cost(x.estimated_cost_usd),app?.approved_price!=null?String.fromCharCode(36)+Number(app.approved_price).toFixed(2):'Not recorded'])tr.insertCell().textContent=value;}
   status.textContent='Showing '+records.length+' latest recorded API calls (maximum 500). Estimates use model rates captured at request time.';
  }catch(e){status.textContent='Unable to load AI usage: '+err(e);}
 };
