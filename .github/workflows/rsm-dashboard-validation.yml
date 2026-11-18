@@ -1,0 +1,69 @@
+name: RSM Admin Dashboard Validation
+on:
+  push:
+    paths:
+      - 'mpid-portal/admin-dashboard.html'
+      - '.github/workflows/rsm-dashboard-validation.yml'
+  pull_request:
+    paths:
+      - 'mpid-portal/admin-dashboard.html'
+      - '.github/workflows/rsm-dashboard-validation.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Extract and validate dashboard JavaScript
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class DashboardParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.scripts=[]
+                  self.active=False
+                  self.ids=[]
+              def handle_starttag(self,tag,attrs):
+                  attributes=dict(attrs)
+                  if 'id' in attributes:
+                      self.ids.append(attributes['id'])
+                  if tag=='script' and not attributes.get('src'):
+                      self.active=True
+                      self.scripts.append('')
+              def handle_endtag(self,tag):
+                  if tag=='script':
+                      self.active=False
+              def handle_data(self,data):
+                  if self.active:
+                      self.scripts[-1]+=data
+          html=Path('mpid-portal/admin-dashboard.html').read_text(encoding='utf-8')
+          parser=DashboardParser()
+          parser.feed(html)
+          if not parser.scripts:
+              raise SystemExit('FAIL: no inline scripts found')
+          duplicates={i for i in parser.ids if parser.ids.count(i)>1}
+          if duplicates:
+              raise SystemExit('FAIL: duplicate HTML IDs: '+', '.join(sorted(duplicates)))
+          for i,script in enumerate(parser.scripts):
+              Path(f'/tmp/rsm-dashboard-script-{i}.mjs').write_text(script,encoding='utf-8')
+          print(f'Extracted {len(parser.scripts)} inline script(s); no duplicate IDs')
+          PY
+          for script in /tmp/rsm-dashboard-script-*.mjs; do node --check "$script"; done
+      - name: Verify essential administrator controls
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          html=Path('mpid-portal/admin-dashboard.html').read_text(encoding='utf-8')
+          required=['rsmQueueStart','rsmQueuePreflight','rsmQueueAuto','rsmQueueStop']
+          missing=[x for x in required if f'id="{x}"' not in html]
+          if missing:
+              raise SystemExit('FAIL: missing controls: '+', '.join(missing))
+          print('PASS: required manuscript processing controls present')
+          PY
