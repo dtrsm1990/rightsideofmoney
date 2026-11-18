@@ -1523,20 +1523,27 @@ $('rsmBatchRun').onclick=async()=>{
     const makePane=(title,value)=>{const pane=document.createElement('div');pane.style.cssText='min-width:0;border:1px solid #888;border-radius:8px;padding:12px';const label=document.createElement('strong');label.textContent=title;const content=document.createElement('pre');content.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin-top:10px';content.textContent=value;pane.append(label,content);return pane;};
     comparison.append(makePane('Original manuscript',parts[i]),makePane('AI proposed edit',editedText));
     const originalText=parts[i];
-    let prefix=0;while(prefix<originalText.length&&prefix<editedText.length&&originalText[prefix]===editedText[prefix])prefix++;
-    let suffix=0;while(suffix<originalText.length-prefix&&suffix<editedText.length-prefix&&originalText[originalText.length-1-suffix]===editedText[editedText.length-1-suffix])suffix++;
-    const originalChange=originalText.slice(prefix,originalText.length-suffix),editedChange=editedText.slice(prefix,editedText.length-suffix);
     const delta=document.createElement('div');delta.style.cssText='overflow-wrap:anywhere;margin:12px 0';
-    const lead=document.createElement('strong');lead.textContent=prefix===originalText.length&&prefix===editedText.length?'Exact character-for-character match.':'Change location with nearby context:';
-    delta.append(lead);
-    if(prefix!==originalText.length||prefix!==editedText.length){
-     const contextBefore=originalText.slice(Math.max(0,prefix-55),prefix),contextAfter=originalText.slice(originalText.length-suffix,originalText.length-suffix+55);
-     const before=document.createElement('pre'),after=document.createElement('pre');
-     before.style.cssText=after.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin:8px 0;padding:10px;border:1px solid #888;border-radius:6px';
-     before.textContent='ORIGINAL: '+contextBefore+'['+originalChange.slice(0,400)+']'+contextAfter;
-     after.textContent='PROPOSED: '+contextBefore+'['+editedChange.slice(0,400)+']'+contextAfter;
-     delta.append(before,after);
-     const note=document.createElement('small');note.textContent='Brackets identify a changed character span. Multiple edits may be grouped. Review the full text before approval.';delta.append(note);
+    const lead=document.createElement('strong');delta.append(lead);
+    if(originalText===editedText){lead.textContent='Exact character-for-character match.';}
+    else {
+     lead.textContent='Individual proposed corrections:';
+     const a=originalText.match(/\\S+|\\s+/g)||[],b=editedText.match(/\\S+|\\s+/g)||[];
+     if(a.length*b.length>2000000){const note=document.createElement('p');note.textContent='Large comparison: review the complete side-by-side text.';delta.append(note);}
+     else {
+      const dp=Array.from({length:a.length+1},()=>new Uint16Array(b.length+1));
+      for(let x=a.length-1;x>=0;x--)for(let y=b.length-1;y>=0;y--)dp[x][y]=a[x]===b[y]?1+dp[x+1][y+1]:Math.max(dp[x+1][y],dp[x][y+1]);
+      let x=0,y=0,old='',newer='',changes=[];
+      const flush=()=>{if(old||newer){changes.push({old:old.trim(),newer:newer.trim()});old='';newer='';}};
+      while(x<a.length||y<b.length){
+       if(x<a.length&&y<b.length&&a[x]===b[y]){flush();x++;y++;}
+       else if(y<b.length&&(x===a.length||dp[x][y+1]>=dp[x+1][y])){newer+=b[y++];}
+       else{old+=a[x++];}
+      }
+      flush();
+      changes.forEach((c,n)=>{const line=document.createElement('p');line.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;padding:9px;border:1px solid #888;border-radius:6px';line.textContent=(n+1)+'. ORIGINAL: '+(c.old||'[nothing]')+'\\n   PROPOSED: '+(c.newer||'[nothing]');delta.append(line);});
+      const note=document.createElement('small');note.textContent=changes.length+' proposed change(s). Verify each correction against the complete chapter before approval.';delta.append(note);
+     }
     }
     section.append(comparison,delta);passed++;
    }
