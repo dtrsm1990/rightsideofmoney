@@ -33,7 +33,7 @@
       <div id="invalidLink" class="message error" role="alert" hidden>This upload link is missing or invalid. Please use the private link provided by RSM Publishing Services.</div>
       <form id="uploadForm" novalidate>
         <label for="manuscript">Choose your manuscript</label>
-        <div class="drop"><strong>Click to choose your manuscript file</strong><small>PDF, DOC, DOCX, RTF, TXT, or ODT</small><input id="manuscript" name="file" type="file" accept=".pdf,.doc,.docx,.rtf,.txt,.odt" required aria-describedby="fileRules"></div>
+        <label class="drop" for="manuscript"><strong>Click anywhere here to choose your manuscript file</strong><small>PDF, DOC, DOCX, RTF, TXT, or ODT</small><input id="manuscript" name="file" type="file" accept=".pdf,.doc,.docx,.rtf,.txt,.odt" required aria-describedby="fileRules"></label>
         <div id="selected" class="selected" aria-live="polite">No file selected</div>
         <p id="fileRules" class="note">Maximum file size: 25 MB. Upload one manuscript only. Please do not include payment details or government identification in your file.</p>
         <button class="button" id="submitButton" type="submit" disabled>Submit Manuscript Securely</button>
