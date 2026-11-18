@@ -1370,7 +1370,7 @@ if(d.status==='pending_review'&&d.file_name==='RSM_TEST_editorial_QA_report.txt'
  line('Editorial findings',true,12);
  if(!chapters.length)line('Structured chapter records could not be identified. Manual QA required.',true);
  for(const item of chapters){
-  const title=item.match(/^Chapter\s+\d+\s*:\s*[^\n]+/i)?.[0]||'Chapter review';
+  const title=item.match(/^Chapter\s+\d+\s*:\s*(Chapter\s+\d+\s*:\s*[^\n]+)/i)?.[1]||item.match(/^Chapter\s+\d+\s*:\s*[^\n]+/i)?.[0]||'Chapter review';
   const metrics=item.match(/(\d+)\s+to\s+(\d+)\s+words\s*\|\s*(Unchanged|Proposed edits)/i);
   const assessment=item.match(/The passage reads well[^]*?preserved\./i)?.[0]||'Review chapter content and compare with source before approval.';
   next(75);line(title,true,11);line(metrics?'Original words: '+metrics[1]+' | Edited words: '+metrics[2]+' | '+metrics[3]:'Word counts/status require verification');line('Finding: '+assessment.replace(/\s+/g,' ').trim());
