@@ -739,7 +739,29 @@ async function loadApplicantManuscripts(){
     document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
     message('applicantManuscriptMessage','Audit preparation brief downloaded. No manuscript or database changes were made.',true);
    });
-   actions.append(download,brief);card.append(title,meta,actions);list.append(card);
+   const agent=document.createElement('button');agent.type='button';agent.className='secondary';agent.textContent='Copy AI Editorial Audit Instructions';
+   agent.addEventListener('click',async()=>{
+    const prompt=[
+     'RSM PUBLISHING SERVICES | PRE-CONTRACT EDITORIAL AUDIT',
+     'You are the RSM Publishing Services senior manuscript auditor. Analyze the manuscript file I attach to this chat. Do not claim to have reviewed a file that is not attached or accessible.',
+     'This is a private pre-contract editorial assessment, not a manuscript rewrite, publishing authorization, or author-facing deliverable.',
+     'Application ID: '+record.application_id,
+     'Book title: '+(app?.book_title||'Not provided'),
+     'Genre: '+(app?.genre||'Not provided'),
+     'Original filename: '+(record.original_filename||'Not provided'),
+     'Requested package: '+(app?.requested_package||'Not provided'),
+     'Publishing goals: '+(app?.publishing_goals||'Not provided'),
+     'Special requirements: '+(app?.special_requirements||'Not provided'),
+     'TASK: Read the complete attached manuscript, identify any unreadable or missing portions, and prepare a detailed editorial audit brief.',
+     'REPORT SECTIONS: (1) intake and file integrity, (2) executive assessment, (3) organization and completeness, (4) grammar and style, (5) consistency and repetition, (6) factual or legal claims requiring independent verification, (7) copyright and permissions questions, (8) front/back matter and print/ebook production readiness, (9) prioritized findings with page/section references and severity, (10) author actions vs RSM actions, (11) scope and package recommendation, (12) proposed action and approval checklist.',
+     'Separate observed errors from potential issues and unverified claims. Cite exact page or section references where possible. Do not invent page numbers, facts, citations, permissions, or completed checks. Preserve the original manuscript. Do not make substantive edits without author approval.',
+     'If the manuscript is not attached or is inaccessible, stop and ask me to attach it. Produce a complete administrator-only report for my review; do not send anything to the author.',
+     'This is a hybrid ChatGPT workflow without OpenAI API charges. After review, the administrator manually stores approved outputs in the RSM portal.'
+    ].join('\\n\\n');
+    try{await navigator.clipboard.writeText(prompt);message('applicantManuscriptMessage','AI audit instructions copied. Download the manuscript and attach it in ChatGPT, then paste the instructions. No author records changed.',true);}
+    catch(e){message('applicantManuscriptMessage','Clipboard unavailable. Check browser clipboard permission and retry.');}
+   });
+   actions.append(download,brief,agent);card.append(title,meta,actions);list.append(card);
   }
  }catch(e){list.replaceChildren();$('applicantManuscriptSummary').textContent='Applicant manuscripts unavailable.';message('applicantManuscriptMessage','Could not load applicant manuscripts: '+err(e));}
  finally{if(refreshButton)refreshButton.disabled=false;}
