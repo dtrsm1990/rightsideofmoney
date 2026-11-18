@@ -1517,7 +1517,18 @@ $('rsmBatchRun').onclick=async()=>{
    p.textContent='Original words: '+data.original_word_count+' | Edited words: '+data.edited_word_count+' | Numbers preserved: '+(data.checks?.numeric_tokens_preserved?'yes':'NO')+' | Paragraphs preserved: '+(data.checks?.paragraph_count_preserved?'yes':'NO')+'\n\n'+(data.editorial_report||'');
    section.append(h,p);
    if(data.qa_status==='pass'){
-    const edit=document.createElement('pre');edit.style.whiteSpace='pre-wrap';edit.textContent=data.edited_manuscript||'';section.append(edit);passed++;
+    const editedText=String(data.edited_manuscript||'');
+    const comparison=document.createElement('div');
+    comparison.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:12px 0';
+    const makePane=(title,value)=>{const pane=document.createElement('div');pane.style.cssText='min-width:0;border:1px solid #888;border-radius:8px;padding:12px';const label=document.createElement('strong');label.textContent=title;const content=document.createElement('pre');content.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin-top:10px';content.textContent=value;pane.append(label,content);return pane;};
+    comparison.append(makePane('Original manuscript',parts[i]),makePane('AI proposed edit',editedText));
+    const originalTokens=parts[i].trim().split(/\\s+/),editedTokens=editedText.trim().split(/\\s+/);
+    let first=0;while(first<originalTokens.length&&first<editedTokens.length&&originalTokens[first]===editedTokens[first])first++;
+    let suffix=0;while(suffix<originalTokens.length-first&&suffix<editedTokens.length-first&&originalTokens[originalTokens.length-1-suffix]===editedTokens[editedTokens.length-1-suffix])suffix++;
+    const delta=document.createElement('p');
+    delta.style.cssText='font-weight:600;overflow-wrap:anywhere';
+    delta.textContent=first===originalTokens.length&&first===editedTokens.length?'Exact word-for-word match.': 'Changes detected. Original changed span: '+originalTokens.slice(first,originalTokens.length-suffix).join(' ').slice(0,500)+' | Proposed span: '+editedTokens.slice(first,editedTokens.length-suffix).join(' ').slice(0,500)+'. Compare the full passages before approval.';
+    section.append(comparison,delta);passed++;
    }
    output.append(section);
    if(data.qa_status!=='pass'){status.textContent='Stopped at section '+(i+1)+'. '+passed+' of '+parts.length+' sections passed. No files saved or released.';return;}
