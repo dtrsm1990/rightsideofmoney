@@ -1286,6 +1286,20 @@ $('signwellTestDraft').onclick=async()=>{
 };
 $('signwellInspect').onclick=()=>signwellCall('inspect_template');
 $('signwellSend').onclick=()=>signwellCall('send');
+const familyRevisionButton=document.createElement('button');
+familyRevisionButton.type='button';
+familyRevisionButton.className='secondary';
+familyRevisionButton.textContent='Send Maurice Revised $500 Family Discount Agreement';
+familyRevisionButton.onclick=async()=>{
+ const out=$('signwellResult'),application_id=$('signwellApplication').value;
+ if(application_id!=='36eb0794-5def-4c5f-ab55-ca091ae649fd'){out.textContent='Select Maurice Watkins in the SignWell application selector first.';return;}
+ if(!confirm('Send Maurice a LIVE replacement agreement for $500, payable $250 upon signing and $250 upon completion? His old signed agreement will remain archived and the $600 payment ledger will be cancelled.'))return;
+ familyRevisionButton.disabled=true;out.textContent='Sending revised agreement through SignWell...';
+ try{await requireAdmin();const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{application_id,action:'send_family_revision'}});if(error)throw error;if(data?.error)throw new Error(data.error+(data.requires_review?' Do not retry until reconciled.':''));out.textContent='REVISED AGREEMENT SENT\\nRecipient: '+data.recipient+'\\nDocument ID: '+data.document_id+'\\n$500 Family Discount: $250 upon signing and $250 upon completion.\\nThe original $600 agreement is preserved; old payment ledger cancelled. No new payment email sent.';await loadApplications();await loadPayments();}
+ catch(e){out.textContent='Revised agreement: '+err(e);}
+ finally{familyRevisionButton.disabled=false;}
+};
+$('signwellSend').insertAdjacentElement('afterend',familyRevisionButton);
 $('signwellCheckDraft').onclick=async()=>{
  const output=$('signwellResult');
  try{
