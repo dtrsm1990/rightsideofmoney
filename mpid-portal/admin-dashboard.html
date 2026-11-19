@@ -1304,7 +1304,8 @@ async function rsmAutoSyncAgreements(){
   await requireAdmin();
   const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{action:'sync_all'}});
   if(error||data?.error)throw new Error(data?.error||'Agreement synchronization failed');
-  if(data.completed>0){await loadApplications();await loadPayments();message('paymentMessage',data.completed+' completed agreement(s) synchronized. Payment processing will use the approved active link.',true);}
+  if(data?.issues?.length){console.warn('SignWell synchronization issues:',data.issues);message('signwellResult','Agreement sync needs attention: '+data.issues.join('; '));}
+  if(data?.completed>0){await loadApplications();await loadPayments();message('signwellResult',data.completed+' signed agreement(s) synchronized and archived.',true);}
  }catch(e){console.warn('Automatic agreement sync:',err(e));}
  finally{rsmAgreementSyncBusy=false;}
 }
