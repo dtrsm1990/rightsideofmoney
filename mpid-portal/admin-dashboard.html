@@ -438,7 +438,7 @@ async function loadPayments(){
  try{
   await requireAdmin();
   const tables=await Promise.all([
-   sb.from('mpid_payment_links').select('package_name,payment_stage,amount,payment_url,active').eq('active',true),
+   sb.from('mpid_payment_links').select('package_name,payment_stage,amount,payment_url,active'),
    sb.from('mpid_payment_installments').select('id,application_id,payment_stage,amount_due,amount_verified,status,payment_url,verification_reference,requested_at,verified_at'),
    sb.from('mpid_payment_requests').select('installment_id,delivery_status,created_at,processed_at').order('created_at',{ascending:false}).limit(1000)
   ]);
@@ -521,7 +521,7 @@ function renderPaymentOverview(){
   const linkStage=stage==='final'?'initial':stage;
   const link=paymentLinks.find(l=>l.package_name===pkg&&l.payment_stage===linkStage&&l.active===true);
   const expected=Math.round(price*fraction*100)/100;
-  const matches=!custom&&link&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005;
+  const matches=!custom&&link&&link.active===true&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005;
   const title=document.createElement('strong');title.textContent=stage[0].toUpperCase()+stage.slice(1)+' payment | '+(Number.isFinite(expected)?paymentMoney(expected):'Price unavailable');row.append(title);
   const records=paymentRequests.filter(r=>r.installment_id===installment?.id);
   const meta=document.createElement('div');meta.className='payment-meta';
@@ -563,7 +563,8 @@ function renderPaymentOverview(){
     previewLink.disabled=true;saveLink.disabled=true;
     try{
      await requireAdmin();
-     if(!installment)throw new Error('Initialize the full-payment installment first.');
+     if(!savedDiscountLink?.active)throw new Error('Saved discounted link must be verified and activated before registration.');
+     if(!installment)throw new Error('Full-payment installment is not initialized.');
      if(!dryRun&&app.id===MPID_PROTECTED_TEST_APPLICATION)throw new Error('Protected test application: custom link registration prohibited.');
      const url=input.value.trim();if(!url)throw new Error('Enter an approved Bluevine payment URL.');
      const parsed=new URL(url);
