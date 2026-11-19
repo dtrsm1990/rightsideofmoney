@@ -1310,6 +1310,7 @@ async function rsmAutoSyncAgreements(){
 }
 setTimeout(()=>{rsmAutoSyncAgreements();},2500);
 window.addEventListener('focus',()=>{rsmAutoSyncAgreements();});
+setInterval(()=>{if(!document.hidden)rsmAutoSyncAgreements();},300000);
 $('signwellPreview').onclick=async()=>{
  const output=$('signwellResult');
  try{
