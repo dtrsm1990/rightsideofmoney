@@ -1290,7 +1290,28 @@ const familyPreview=async()=>{
  const out=$('signwellResult'),application_id=$('signwellApplication').value;
  if(application_id!=='36eb0794-5def-4c5f-ab55-ca091ae649fd'){out.textContent='Select Maurice Watkins to preview his revised agreement.';return;}
  out.textContent='Loading revised agreement preview...';
- try{await requireAdmin();const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{application_id,action:'preview_family_revision'}});if(error)throw error;if(data?.error)throw Error(data.error);out.textContent=['REVISED AGREEMENT '+(data.ready?'READY':'NEEDS ATTENTION'),'Author: Maurice Watkins','Book: '+data.book_title,'Package: '+data.package,'Original signed agreement: '+data.original_agreement,'Replacement total: '+data.new_total,'Deposit: '+data.deposit,'Final payment: '+data.final,'Missing contract terms: '+(data.missing_terms.join(', ')||'none'),'','SIGNWELL CONTRACT FIELD PREVIEW',...Object.entries(data.fields||{}).map(([k,v])=>k+': '+v),'','PREVIEW ONLY. No agreement sent.'].join('\\n');}catch(e){out.textContent='Replacement preview: '+err(e);}
+ try{
+  await requireAdmin();
+  const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{application_id,action:'preview_family_revision'}});
+  if(error)throw error;if(data?.error)throw Error(data.error);
+  out.replaceChildren();
+  const heading=document.createElement('h3');heading.textContent='Revised Publishing Agreement';heading.style.margin='0 0 12px';out.append(heading);
+  const status=document.createElement('p');status.style.fontWeight='700';status.style.color=data.ready?'#d6b76b':'#e9a77c';status.textContent=data.ready?'Ready for Review':'Needs Attention';out.append(status);
+  const summary=document.createElement('div');summary.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0';
+  const item=(label,value)=>{const box=document.createElement('div');box.style.cssText='border:1px solid #5b503f;border-radius:8px;padding:14px;background:rgba(255,255,255,.035)';const l=document.createElement('div');l.className='muted';l.style.fontSize='12px';l.textContent=label;const v=document.createElement('strong');v.style.cssText='display:block;margin-top:6px;font-size:17px';v.textContent=value;box.append(l,v);return box;};
+  [['Author','Maurice Watkins'],['Book',data.book_title],['Package',data.package],['Revised Contract',data.new_total],['Deposit',data.deposit],['Final Payment',data.final]].forEach(([label,value])=>summary.append(item(label,value)));
+  out.append(summary);
+  const history=document.createElement('p');history.className='note';history.textContent='Original agreement: '+data.original_agreement+'. It remains preserved in the agreement history.';out.append(history);
+  const fields=data.fields||{};
+  const sections=[
+   ['Project & Services',[['Approved Scope','TextField_4'],['Book Format & Specifications','TextField_10'],['Excluded Services','TextField_11'],['Included Revisions','TextField_12']]],
+   ['Responsibilities & Delivery',[['Author Responsibilities','TextField_13'],['Project Milestones','TextField_14'],['ISBN and KDP Accounts','TextField_15']]],
+   ['Replacement Agreement & Payment Terms',[['Replacement Agreement','TextField_16'],['Payment Schedule','TextField_17'],['Initial Payment','TextField_18'],['Milestone Payment','TextField_19'],['Final Payment','TextField_20']]]
+  ];
+  for(const [name,entries] of sections){const section=document.createElement('section');section.style.cssText='margin:18px 0;padding:16px;border:1px solid #51483b;border-radius:10px';const h=document.createElement('h4');h.textContent=name;h.style.margin='0 0 12px';section.append(h);for(const [label,key] of entries){const line=document.createElement('div');line.style.cssText='padding:10px 0;border-top:1px solid #51483b';const title=document.createElement('strong');title.textContent=label;title.style.display='block';const value=document.createElement('p');value.style.margin='5px 0 0';value.textContent=fields[key]||'Not provided';line.append(title,value);section.append(line);}out.append(section);}
+  if(data.missing_terms?.length){const warning=document.createElement('p');warning.textContent='Missing terms: '+data.missing_terms.join(', ');out.append(warning);}
+  const footer=document.createElement('p');footer.className='note';footer.textContent='Preview only. No agreement or payment request has been sent.';out.append(footer);
+ }catch(e){out.textContent='Replacement preview: '+err(e);}
 };
 $('signwellReadiness').addEventListener('click',()=>{if($('signwellApplication').value==='36eb0794-5def-4c5f-ab55-ca091ae649fd')setTimeout(familyPreview,0);});
 $('signwellPreview').addEventListener('click',()=>{if($('signwellApplication').value==='36eb0794-5def-4c5f-ab55-ca091ae649fd')setTimeout(familyPreview,0);});
