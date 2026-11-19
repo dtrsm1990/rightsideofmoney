@@ -1296,6 +1296,20 @@ $('signwellArchiveCheck').onclick=async()=>{
  }catch(e){output.textContent='Archive check: '+err(e);}
 };
 $('signwellSync').onclick=()=>signwellCall('sync_all');
+let rsmAgreementSyncBusy=false;
+async function rsmAutoSyncAgreements(){
+ if(rsmAgreementSyncBusy)return;
+ rsmAgreementSyncBusy=true;
+ try{
+  await requireAdmin();
+  const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{action:'sync_all'}});
+  if(error||data?.error)throw new Error(data?.error||'Agreement synchronization failed');
+  if(data.completed>0){await loadApplications();await loadPayments();message('paymentMessage',data.completed+' completed agreement(s) synchronized. Payment processing will use the approved active link.',true);}
+ }catch(e){console.warn('Automatic agreement sync:',err(e));}
+ finally{rsmAgreementSyncBusy=false;}
+}
+setTimeout(()=>{rsmAutoSyncAgreements();},2500);
+window.addEventListener('focus',()=>{rsmAutoSyncAgreements();});
 $('signwellPreview').onclick=async()=>{
  const output=$('signwellResult');
  try{
