@@ -203,6 +203,8 @@ function mpidProgressMarkup(status){
  return '<div class="mpid-progress" aria-label="Publishing progress"><div class="mpid-progress-title">Publishing Progress: '+safeText(heading)+'</div><div class="mpid-progress-note">'+safeText(description)+'</div><div class="mpid-progress-track" aria-hidden="true">'+segments+'</div><div class="mpid-progress-steps">'+steps+'</div>'+(held?'<p class="mpid-progress-note">On Hold is a pause, not a completed milestone.</p>':'')+'</div>';
 }
 
+const RSM_PUBLIC_SUPABASE_URL='https://rufcgmqpueejoyypnpzn.supabase.co';
+const RSM_PUBLIC_SUPABASE_KEY="sb_publishable_OhU0hXDnWw9OGkyUXHi7hA_j1kYFkei";
 const $=id=>document.getElementById(id);const CONFIG_KEY='mpid_admin_public_supabase_config_v1';let sb=null,profiles=[],projects=[],documents=[],findings=[],approvals=[],activity=[];let activityLoadError=null,submissionReviews=[],submissionLoadError=null,authorApplications=[],applicationLoadError=null;
 const show=(id,on=true)=>$(id).classList.toggle('hidden',!on);
 const message=(id,text,ok=false)=>{const e=$(id);e.textContent=text;e.className='message '+(ok?'success':'error');show(id,true)};
@@ -215,13 +217,15 @@ $('connect').onclick=async()=>{try{const raw=$('url').value.trim();const key=$('
 // Remember public connection settings in this browser. Never store passwords or secret keys.
 try {
  const saved=JSON.parse(localStorage.getItem(CONFIG_KEY)||'null');
- if(saved?.url && saved?.key && createClient){
-  $('url').value=saved.url;$('key').value=saved.key;
-  sb=createClient(saved.url,saved.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+ if(createClient){
+  const publicUrl=RSM_PUBLIC_SUPABASE_URL, publicKey=RSM_PUBLIC_SUPABASE_KEY;
+  $('url').value=publicUrl;$('key').value=publicKey;
+  sb=createClient(publicUrl,publicKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  localStorage.setItem(CONFIG_KEY,JSON.stringify({url:publicUrl,key:publicKey}));
   show('setup',false);show('login',true);
   sb.auth.getSession().then(async ({data})=>{if(data?.session){try{await enter();}catch(e){show('login',true);message('loginMessage','Please sign in: '+err(e));}}}).catch(()=>{});
  }
-} catch(e){localStorage.removeItem(CONFIG_KEY);}
+} catch(e){message('connectMessage','Automatic Supabase setup failed: '+err(e));}
 $('signin').onclick=async()=>{try{if(!sb)throw new Error('Connect first.');const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;await enter();$('password').value='';}catch(e){message('loginMessage','Sign-in problem: '+err(e));}};
 $('signout').onclick=async()=>{if(sb)await sb.auth.signOut();show('workspace',false);show('signout',false);show('login',true);$('who').textContent='Not signed in';};
 async function query(table,columns='*'){const {data,error}=await sb.from(table).select(columns).limit(1000);if(error)throw new Error(table+': '+err(error));return data||[];}
