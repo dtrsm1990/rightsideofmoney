@@ -566,7 +566,7 @@ function renderPaymentOverview(){
    const input=document.createElement('input');input.type='url';input.autocomplete='off';
    input.placeholder='https://pay.bluevine.com/p/...';const savedDiscountLink=paymentLinks.find(l=>l.payment_stage==='full'&&Number(l.amount)===price&&l.package_name==='RSM Publishing Discount');input.value=installment?.payment_url||savedDiscountLink?.payment_url||'';
    const note=document.createElement('p');note.className='note';
-   note.textContent=savedDiscountLink?(savedDiscountLink.active?'Existing approved discounted link selected automatically. Confirm the checkout amount before registration.':'Existing discounted link located automatically but NOT YET VERIFIED for its checkout amount. Verify the 
+   note.textContent=savedDiscountLink ? (savedDiscountLink.active ? 'Existing approved discounted link selected automatically. Confirm the checkout amount before registration.' : 'Existing discounted link found but not verified. Verify the Bluevine checkout amount before registration.') : 'No matching saved discounted link found. A verified custom payment link is required.';
    const buttons=document.createElement('div');buttons.className='actions';
    const previewLink=document.createElement('button');previewLink.type='button';previewLink.className='secondary';previewLink.textContent='Preview Custom Link Registration';
    const saveLink=document.createElement('button');saveLink.type='button';saveLink.textContent='Register Approved Custom Link';
