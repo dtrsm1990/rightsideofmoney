@@ -1286,6 +1286,15 @@ $('signwellTestDraft').onclick=async()=>{
 };
 $('signwellInspect').onclick=()=>signwellCall('inspect_template');
 $('signwellSend').onclick=()=>signwellCall('send');
+const familyPreview=async()=>{
+ const out=$('signwellResult'),application_id=$('signwellApplication').value;
+ if(application_id!=='36eb0794-5def-4c5f-ab55-ca091ae649fd'){out.textContent='Select Maurice Watkins to preview his revised agreement.';return;}
+ out.textContent='Loading revised agreement preview...';
+ try{await requireAdmin();const {data,error}=await sb.functions.invoke('mpid-signwell-agreements',{body:{application_id,action:'preview_family_revision'}});if(error)throw error;if(data?.error)throw Error(data.error);out.textContent=['REVISED AGREEMENT '+(data.ready?'READY':'NEEDS ATTENTION'),'Author: Maurice Watkins','Book: '+data.book_title,'Package: '+data.package,'Original signed agreement: '+data.original_agreement,'Replacement total: '+data.new_total,'Deposit: '+data.deposit,'Final payment: '+data.final,'Missing contract terms: '+(data.missing_terms.join(', ')||'none'),'','SIGNWELL CONTRACT FIELD PREVIEW',...Object.entries(data.fields||{}).map(([k,v])=>k+': '+v),'','PREVIEW ONLY. No agreement sent.'].join('\\n');}catch(e){out.textContent='Replacement preview: '+err(e);}
+};
+$('signwellReadiness').addEventListener('click',()=>{if($('signwellApplication').value==='36eb0794-5def-4c5f-ab55-ca091ae649fd')setTimeout(familyPreview,0);});
+$('signwellPreview').addEventListener('click',()=>{if($('signwellApplication').value==='36eb0794-5def-4c5f-ab55-ca091ae649fd')setTimeout(familyPreview,0);});
+$('signwellValidate').addEventListener('click',()=>{if($('signwellApplication').value==='36eb0794-5def-4c5f-ab55-ca091ae649fd')setTimeout(familyPreview,0);});
 const familyRevisionButton=$('signwellFamilyRevision');
 familyRevisionButton.onclick=async()=>{
  const out=$('signwellResult'),application_id=$('signwellApplication').value;
