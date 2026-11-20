@@ -142,3 +142,6 @@ Use this instruction:
 
 - [x] Simulated non-admin negative authorization tests for payment request, payment verification, signature notice queue, and family final approval (T-041); all rejected.
 - [ ] Verify remaining privileged functions with non-admin test identity and review leaked-password protection; maintain no-send policy for live client actions.
+
+- [x] Simulated non-admin checks for remaining 7 privileged functions (T-042), five rejected, two false for nonexistent resources.
+- [ ] Review leaked-password protection warning and perform real non-admin session/cross-project access tests; avoid disrupting live clients.
