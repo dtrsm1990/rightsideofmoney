@@ -102,3 +102,6 @@ Use this instruction:
 
 - [x] Verified live unauthenticated rejection of family final readiness, zero active approvals, anon RPC EXECUTE denied, and approval table RLS enabled (T-026).
 - [ ] Authenticate as real admin in browser to test read-only SignWell signer inspection and family final readiness; run isolated positive/negative approval tests without triggering client emails.
+
+- [x] Corrected stale SignWell live-send warning and batched family final readiness checks (dashboard commit d10fe1e956d1dda144c6155f73c11ee81284fea5).
+- [ ] Verify browser runtime and SignWell invitation activity under authenticated administrator account before changing delivery behavior.
