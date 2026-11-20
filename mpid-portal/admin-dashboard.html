@@ -644,6 +644,12 @@ function renderPaymentOverview(){
   };
   actions.append(preview);
 
+  if(records.length){
+   const status=document.createElement('p');status.className='note';
+   status.style.fontWeight='700';
+   status.textContent='Payment Request '+(records[0].delivery_status==='accepted'?'Accepted by Email Provider':records[0].delivery_status==='pending'||records[0].delivery_status==='processing'?'Queued for Delivery':'Previously Recorded')+' | '+paymentMoney(expected)+'. Duplicate sending is blocked.';
+   actions.append(status);
+  }
   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';
   const finalFamilyReleaseBlocked=familySplit&&stage==='final'&&!familyFinalApprovedApplications.has(app.id);
   send.disabled=finalFamilyReleaseBlocked||protectedTest||app.agreement_status!=='signed'||!Number.isFinite(expected)||expected<=0||Boolean(installment?.status==='paid')||records.length>0||!matches;
@@ -665,7 +671,7 @@ function renderPaymentOverview(){
     message('paymentMessage','Payment request recorded and queued for delivery. Check the notification outbox and Resend delivery status before assuming the email was accepted.',true);
    }catch(e){message('paymentMessage','Payment request NOT confirmed: '+err(e));await loadPayments();}
   };
-  actions.append(send);
+  if(!records.length)actions.append(send);
   const verify=document.createElement('button');verify.type='button';verify.className='secondary';verify.textContent='Verify Bluevine Payment';
   const latestAccepted=records.some(r=>r.delivery_status==='accepted');
   const outstanding=installment?Math.round((Number(installment.amount_due)-Number(installment.amount_verified||0))*100)/100:0;
