@@ -63,3 +63,9 @@ Use this instruction:
 - [x] Updated dashboard family payment preview and send readiness source, commit 1b25c34f63e14168736055171a43ae3b031624f6.
 - [ ] NEXT: implement reusable pricing selector and SignWell agreement generation for any approved author, including scope/terms and safeguarding existing signed agreements.
 - [ ] Browser test dashboard and run isolated end-to-end contract/payment acceptance tests without sending real customer emails.
+
+## Current handoff
+- [x] Added reusable pricing dropdown to application review form (standard, regular $600 upfront, family $500 upfront, family $250/$250), commit 0331a0c413a526384350945da8ab70d4dc469351.
+- [x] Added price validation and lock against editing signed agreement terms in normal review.
+- [ ] NEXT CRITICAL: generalize SignWell Edge Function v41 makeFields for all pricing markers and remove Maurice-only send authorization safely, with per-application approvals, template validation, idempotency and historical agreement protection.
+- [ ] Run JavaScript/browser and backend isolated acceptance tests before real customer sends.
