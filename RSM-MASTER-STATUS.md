@@ -91,3 +91,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 audited family final payment gate
 - Supabase migration audited_author_linked_family_final_approval succeeded. New RLS-protected `rsm_family_final_approvals` table and admin-only `rsm_approve_family_final` RPC require signed $500 FAMILY_50_50 agreement, completed non-test project linked to author's auth email, and a reason. `rsm_request_payment` final stage checks active approval plus project completion and identity again at request time. No approval/payment request invoked.
 - Dashboard final send remains disabled pending approval UI and acceptance testing.
+
+## 2026-11-20 family final approval dashboard integration
+- Supabase migration admin_family_final_readiness_rpc succeeded, adding admin-only `rsm_family_final_readiness` RPC to verify active author-linked completed-project approval.
+- Dashboard commit 75dedfdcec9856e32eb20f795b883b699d6ccb56 adds administrator completion approval UI with project UUID and evidence reason, invokes `rsm_approve_family_final` after confirmation, and enables family final request only when readiness RPC reports ready. No approval or payment email invoked. Browser/runtime acceptance still pending.
