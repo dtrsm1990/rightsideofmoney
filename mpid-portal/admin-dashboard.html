@@ -611,6 +611,7 @@ function renderPaymentOverview(){
  }
  const stages=familySplit?[['initial',.5],['final',.5]]:custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
  for(const [stage,fraction] of stages){
+  if(familySplit&&stage==='final'&&!familyFinalApprovedApplications.has(app.id))continue;
   const row=document.createElement('div');row.className='payment-row';
   const installment=paymentInstallments.find(i=>i.application_id===app.id&&i.payment_stage===stage&&i.status!=='cancelled');
   const linkStage=familySplit&&stage==='final'?'milestone':stage==='final'?'initial':stage;
@@ -671,7 +672,7 @@ function renderPaymentOverview(){
     message('paymentMessage','Payment request recorded and queued for delivery. Check the notification outbox and Resend delivery status before assuming the email was accepted.',true);
    }catch(e){message('paymentMessage','Payment request NOT confirmed: '+err(e));await loadPayments();}
   };
-  if(!records.length)actions.append(send);
+  if(!records.length && !paymentDispatchDrafts.some(d=>d.application_id===app.id&&d.payment_stage===stage&&d.dispatch_status==='awaiting_authorization'))actions.append(send);
   const verify=document.createElement('button');verify.type='button';verify.className='secondary';verify.textContent='Verify Bluevine Payment';
   const latestAccepted=records.some(r=>r.delivery_status==='accepted');
   const outstanding=installment?Math.round((Number(installment.amount_due)-Number(installment.amount_verified||0))*100)/100:0;
