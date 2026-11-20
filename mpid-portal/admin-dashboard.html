@@ -1318,6 +1318,22 @@ $('signwellInspectRecipients').onclick=async()=>{
   const confirmedAuthor=(data.recipients||[]).find(p=>String(p.email||'').toLowerCase()!=='publishing@rightsideofmoney.com'&&(p.signed===true||['signed','completed'].includes(String(p.status||'').toLowerCase())||Boolean(p.signed_at)));
   if(confirmedAuthor&&events.some(e=>String(e.email||'').toLowerCase()===String(confirmedAuthor.email||'').toLowerCase()&&e.recorded))lines.push('Verified author signature recorded. Notification is held until administrator explicitly queues it.');
   out.textContent=lines.join('\n');
+  const authorEvent=events.find(e=>confirmedAuthor&&String(e.email||'').toLowerCase()===String(confirmedAuthor.email||'').toLowerCase()&&e.recorded&&e.event_id);
+  if(authorEvent&&authorEvent.notification_status==='held'){
+   const send=document.createElement('button');send.type='button';send.textContent='Queue RSM Signature Notification';send.className='secondary';
+   send.onclick=async()=>{
+    if(!confirm('Queue one signature notification to publishing@rightsideofmoney.com? The notification worker may send this email automatically.'))return;
+    send.disabled=true;
+    try{
+     await requireAdmin();
+     const {data:queued,error:queueError}=await sb.rpc('rsm_queue_author_signed_notice',{p_event_id:authorEvent.event_id});
+     if(queueError)throw queueError;
+     if(!queued?.queued)throw Error('Notification queue was not confirmed');
+     out.textContent+='\\nSignature notification queued for RSM. Check the notification outbox for delivery status.';
+    }catch(e){out.textContent+='\\nNotification queue failed: '+err(e);send.disabled=false;}
+   };
+   out.append(document.createElement('hr'),send);
+  }
  }catch(e){out.textContent='Signer inspection failed: '+err(e);}
 };
 
