@@ -131,3 +131,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 dashboard syntax blocker
 - Full inline admin-dashboard.html JavaScript fails source-level Function-constructor compilation with SyntaxError Invalid or unexpected token; isolated SignWell inspection handler passes. Exact cause not yet isolated. Treat dashboard as unverified and do not mark browser tests passed. No notification sent.
+
+## 2026-11-20 critical dashboard file corruption discovered
+- GitHub mpid-portal/admin-dashboard.html is 370678 characters with first </script></body></html> at character 219579 and 151077 additional characters after the first document terminator, including a second closing document. Full inline JavaScript of first document fails compilation. Do not overwrite blindly. Recovery requires reconstructing and syntax-validating against a known-good revision and preserving newer features. No notification sent.
