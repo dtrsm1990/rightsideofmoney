@@ -552,11 +552,11 @@ function renderPaymentOverview(){
    refreshProjects.disabled=true;
    try{
     await requireAdmin();
-    const {data,error}=await sb.from('mpid_projects').select('id,title,status,is_test').eq('status','completed').eq('is_test',false).order('updated_at',{ascending:false}).limit(100);
+    const {data,error}=await sb.rpc('rsm_family_completed_projects',{p_application_id:app.id});
     if(error)throw error;
     projectInput.replaceChildren();
     const prompt=document.createElement('option');prompt.value='';prompt.textContent='Select completed publishing project';projectInput.append(prompt);
-    for(const p of data||[]){const option=document.createElement('option');option.value=p.id;option.textContent=p.title||p.id;projectInput.append(option);}
+    for(const p of data||[]){const option=document.createElement('option');option.value=p.project_id;option.textContent=p.project_title||p.project_id;projectInput.append(option);}
     if(!(data||[]).length)message('paymentMessage','No completed non-test publishing projects available.');
    }catch(e){message('paymentMessage','Could not load completed projects: '+err(e));}
    finally{refreshProjects.disabled=false;}
