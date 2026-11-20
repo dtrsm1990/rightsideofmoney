@@ -154,3 +154,6 @@ Use this instruction:
 
 - [x] Show held payment drafts in Payment Management Center; admin-only RLS select policy deployed, T-045 source/RLS checks.
 - [ ] Run authenticated browser acceptance and full JavaScript syntax validation for dashboard held draft display; keep delivery gated by explicit authorization.
+
+- [ ] Implement administrator payment-approval notification to publishing@rightsideofmoney.com for future signed agreements, with secure admin approval/hold and idempotent send. Do not send Maurice's held $250 request.
+- [ ] Test draft lifecycle guard and notification workflow in isolation before enabling future live sends. Confirm Resend receipt and duplicate prevention.
