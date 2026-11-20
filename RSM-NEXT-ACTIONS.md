@@ -175,3 +175,6 @@ Use this instruction:
 
 - [x] Corrected duplicate/premature payment actions in dashboard source (6aa2814b2000686ee9ef367197996de27bf18092).
 - [ ] Verify deployed website serves latest GitHub dashboard and browser renders accepted initial request without Send Payment Request, with final stage locked pending project completion. Complete automatic administrator approval notification separately.
+
+- [x] Deploy idempotent admin payment approval notification trigger and Edge Function handler (v14).
+- [ ] Confirm next eligible signed agreement automatically queues admin notice, dispatcher delivers to publishing@rightsideofmoney.com, and dashboard displays held approval. No need to resend Maurice payment.
