@@ -500,6 +500,28 @@ function renderPaymentOverview(){
    const item=document.createElement('p');item.className='note';
    item.textContent=(d.payment_stage==='initial'?'Initial deposit':d.payment_stage==='full'?'Full payment':d.payment_stage==='final'?'Final payment':'Milestone payment')+': '+paymentMoney(d.amount_due)+' | Awaiting administrator authorization. No email queued.';
    draftBox.append(item);
+   const approve=document.createElement('button');approve.type='button';
+   approve.textContent='Approve & Send Payment Link';
+   approve.disabled=app.agreement_status!=='signed'||app.application_status!=='approved'||d.payment_stage==='final';
+   approve.onclick=async()=>{
+    if(approve.disabled)return;
+    const recipient=String(app.email||'').trim(),amount=Number(d.amount_due);
+    if(!recipient.includes('@')||!Number.isFinite(amount)||amount<=0){message('paymentMessage','Invalid payment details.');return;}
+    if(!confirm('APPROVE REAL PAYMENT EMAIL\\nAuthor: '+(app.full_name||'Applicant')+'\\nEmail: '+recipient+'\\nStage: '+d.payment_stage+'\\nAmount: '+paymentMoney(amount)+'\\n\\nApprove and send?'))return;
+    approve.disabled=true;
+    try{
+     await requireAdmin();
+     const {data:latest,error:readError}=await sb.from('rsm_payment_dispatch_drafts').select('installment_id,application_id,payment_stage,amount_due,dispatch_status').eq('installment_id',d.installment_id).single();
+     if(readError)throw readError;
+     if(!latest||latest.dispatch_status!=='awaiting_authorization'||latest.application_id!==app.id||latest.payment_stage!==d.payment_stage||Number(latest.amount_due)!==amount)throw new Error('Draft changed. Refresh before approval.');
+     const {data,error}=await sb.rpc('rsm_request_payment',{p_application_id:app.id,p_payment_stage:d.payment_stage});
+     if(error)throw error;
+     if(data?.success!==true)throw new Error('Server did not confirm payment request.');
+     await loadApplications();await loadPayments();
+     message('paymentMessage','Payment request queued. Check delivery status.',true);
+    }catch(e){message('paymentMessage','Approval not completed: '+err(e));await loadPayments();}
+   };
+   draftBox.append(approve);
   }
   root.append(draftBox);
  }
