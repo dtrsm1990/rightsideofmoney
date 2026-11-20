@@ -87,3 +87,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 family final-payment safety hold
 - Supabase migration block_family_final_until_completion_release_gate succeeded. The `rsm_request_payment` RPC now rejects FAMILY_50_50 final stage until a verified project-completion/release gate is implemented. Existing signed-agreement and initial-paid requirements remain.
 - Dashboard commit 316d5ed2abc30678fc5a3224a0386886e0390cf4 disables the family final Send button and adds a readiness warning. This intentionally blocks early final collection; a completion-linked release mechanism remains to implement and test.
+
+## 2026-11-19 audited family final payment gate
+- Supabase migration audited_author_linked_family_final_approval succeeded. New RLS-protected `rsm_family_final_approvals` table and admin-only `rsm_approve_family_final` RPC require signed $500 FAMILY_50_50 agreement, completed non-test project linked to author's auth email, and a reason. `rsm_request_payment` final stage checks active approval plus project completion and identity again at request time. No approval/payment request invoked.
+- Dashboard final send remains disabled pending approval UI and acceptance testing.
