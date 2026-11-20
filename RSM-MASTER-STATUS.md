@@ -143,3 +143,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 security review follow-up
 - Read-only inspection of 12 authenticated-callable SECURITY DEFINER functions: all deny anon EXECUTE; 11 directly reference auth.uid(), all 12 reference mpid_is_admin(); mpid_storage_document_is_active instead uses mpid_is_admin OR an active document with mpid_can_view_project authorization. No grants or functions changed. Supabase advisor warnings still require a comprehensive authorization and leaked-password-protection review. No breach established from reviewed evidence.
+
+## 2026-11-20 simulated non-admin authorization tests
+- Simulated authenticated non-admin JWT sub 00000000-0000-4000-8000-000000000001 under SET LOCAL ROLE authenticated. mpid_is_admin() returned false. Four live RPC negative tests explicitly raised administrator-required errors: rsm_request_payment, rsm_queue_author_signed_notice, rsm_approve_family_final, rsm_verify_payment. Failed SQL transactions rolled back. No real client action performed. Real non-admin session and remaining privileged functions not yet tested. Supabase leaked-password protection advisor warning remains.
