@@ -57,3 +57,9 @@ Use this instruction:
 - [ ] Verify dashboard JavaScript syntax and live browser behavior; inspect remaining preview/send guards for family schedule.
 - [ ] Add reusable pricing selection and SignWell agreement generation for all clients, including $600 regular discount and both $500 family options.
 - [ ] Implement family upfront backend and end-to-end isolated acceptance testing.
+
+## Latest implementation handoff (2026-11-19)
+- [x] Deployed FAMILY_UPFRONT $500 preparation and request backend with reusable approved family link; validated regular discount amount $600.
+- [x] Updated dashboard family payment preview and send readiness source, commit 1b25c34f63e14168736055171a43ae3b031624f6.
+- [ ] NEXT: implement reusable pricing selector and SignWell agreement generation for any approved author, including scope/terms and safeguarding existing signed agreements.
+- [ ] Browser test dashboard and run isolated end-to-end contract/payment acceptance tests without sending real customer emails.
