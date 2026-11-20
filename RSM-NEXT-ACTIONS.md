@@ -31,3 +31,11 @@ Use this instruction:
 - Preserve unresolved errors, exact next action, and any customer-impact risk.
 - Distinguish proposed, deployed, verified, and blocked.
 - Do not put service keys, personal details, manuscript text, or payment links in public Markdown files.
+
+
+## Latest session update (2026-11-19)
+- [x] Deployed family 50/50 preparation trigger with $250 initial on signed application only.
+- [x] Verified Maurice revised agreement still sent and no active payment installment created prematurely.
+- [ ] NEXT: safely update rsm_request_payment to handle FAMILY_50_50 initial and final stages with approved reusable $250 link, preserve authenticated-admin and idempotency checks.
+- [ ] Update dashboard family-payment readiness and verify signed-agreement sync and downstream notification behavior.
+- [ ] Test with isolated safe records before live payment requests. No new customer payment request was sent.
