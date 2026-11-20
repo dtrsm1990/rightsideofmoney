@@ -105,3 +105,6 @@ Use this instruction:
 
 - [x] Corrected stale SignWell live-send warning and batched family final readiness checks (dashboard commit d10fe1e956d1dda144c6155f73c11ee81284fea5).
 - [ ] Verify browser runtime and SignWell invitation activity under authenticated administrator account before changing delivery behavior.
+
+- [x] Replaced family final-payment project UUID typing with completed-project selector and client reason validation (commit 9f16f90185cb9fb4ec5e77d6753a0d17c6d8587d).
+- [ ] Test dashboard selector and approval under authenticated administrator session, and verify only correct author-linked project can be approved.
