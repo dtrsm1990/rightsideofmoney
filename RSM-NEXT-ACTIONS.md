@@ -145,3 +145,6 @@ Use this instruction:
 
 - [x] Simulated non-admin checks for remaining 7 privileged functions (T-042), five rejected, two false for nonexistent resources.
 - [ ] Review leaked-password protection warning and perform real non-admin session/cross-project access tests; avoid disrupting live clients.
+
+- [x] Diagnose signed-agreement payment automation gap and deploy no-send automatic dispatch-draft trigger. Maurice $250 initial draft held, T-043.
+- [ ] Test trigger on isolated non-delivering test records and surface held payment draft in admin dashboard. Existing admin-authorized rsm_request_payment remains sole send-queue path; do not send Maurice payment request without explicit authorization.
