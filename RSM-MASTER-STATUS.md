@@ -71,3 +71,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 SignWell generalization
 - Deployed Supabase mpid-signwell-agreements Edge Function v42 (ACTIVE). General `send` action now permits any approved, not_sent author with valid package/price/marker, complete terms and valid email, retains live-agreement duplicate guard and SignWell template verification; preserves separate Maurice replacement action. makeFields supports regular $600 upfront, family $500 upfront, family $250/$250, and standard 30/40/30. A single existing test draft may be retired, but is no longer mandatory.
 - Maurice remains agreement_status=sent, approved_price=$500, payment_status=not_requested. No SignWell send was invoked. End-to-end acceptance testing and browser integration remain pending.
+
+## 2026-11-19 SignWell dashboard integration
+- GitHub commit b189804a87387aa2a44a9095ad7c98be463af5c1 updates agreement readiness to display all pricing schedules and replaces paragraph-style agreement preview with structured field rows. Maurice-only replacement button hidden from normal workflow; its historical handler retained.
+- No live agreement or payment request sent. Browser/JS syntax acceptance and Edge Function v42 runtime agreement tests remain outstanding.
