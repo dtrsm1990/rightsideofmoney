@@ -75,3 +75,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 SignWell dashboard integration
 - GitHub commit b189804a87387aa2a44a9095ad7c98be463af5c1 updates agreement readiness to display all pricing schedules and replaces paragraph-style agreement preview with structured field rows. Maurice-only replacement button hidden from normal workflow; its historical handler retained.
 - No live agreement or payment request sent. Browser/JS syntax acceptance and Edge Function v42 runtime agreement tests remain outstanding.
+
+## 2026-11-19 regular discount payment fix
+- Supabase migration reusable_regular_discount_payment_link_verified succeeded. rsm_request_payment now looks up approved reusable `RSM Publishing Discount` $600 full-payment link rather than requiring manual per-application installment link registration. Existing auth, signed-agreement, amount, prior payment and duplicate-request checks remain.
+- Initial attempted migration failed syntax validation and did NOT deploy; corrected migration succeeded. No payment request was invoked.
