@@ -158,3 +158,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 held payment draft dashboard integration
 - Deployed admin-only SELECT policy on rsm_payment_dispatch_drafts, tested simulated non-admin SELECT returns 0. Updated mpid-portal/admin-dashboard.html to load held drafts and display 'Prepared Payment Requests | Not Sent' with installment amount/stage in Payment Management Center, commit 4a9819b2a413dd4887b671504e0fe7f8e3d63d79. Source re-fetched, single HTML ending and script block confirmed. Authenticated admin browser acceptance and JS compilation not performed. No payment request queued or email sent.
+
+## 2026-11-20 payment approval notification design
+- Owner approved future approval-before-send payment workflow, Maurice held. Deployed rsm_payment_dispatch_draft_lifecycle_guard trigger: if installment becomes requested, partially_paid, paid, or cancelled, a held draft is marked superseded. Existing held draft creation and dashboard remain. Approval email creation/sending and secure one-click authorization endpoint are NOT yet implemented or tested. No emails sent.
