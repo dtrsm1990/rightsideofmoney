@@ -120,3 +120,6 @@ Use this instruction:
 
 - [x] Create protected idempotent signer observation table and record confirmed recipient signatures during admin inspection (Edge Function v44). All notifications held by default.
 - [ ] Validate actual SignWell recipient status payload and persisted signer observations with authenticated admin; then implement safe explicit notification queue and Resend processing after authorization.
+
+- [x] Integrated admin-gated author-signature outbox queue and Resend message handler; deployed mpid-send-notification v13. No email sent.
+- [ ] Verify SignWell actual recipient payload and signed event persistence; run authenticated queue/worker acceptance with explicitly authorized live email or isolated test data. Do not claim delivery until Resend confirms.
