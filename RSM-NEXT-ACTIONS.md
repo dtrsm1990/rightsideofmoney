@@ -151,3 +151,6 @@ Use this instruction:
 
 - [x] Isolated end-to-end SQL trigger test for $250 family deposit generated held dispatch draft, rolled back (T-044).
 - [ ] Surface held dispatch drafts in admin dashboard; preserve no-send boundary until explicit authorization.
+
+- [x] Show held payment drafts in Payment Management Center; admin-only RLS select policy deployed, T-045 source/RLS checks.
+- [ ] Run authenticated browser acceptance and full JavaScript syntax validation for dashboard held draft display; keep delivery gated by explicit authorization.
