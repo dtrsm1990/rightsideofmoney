@@ -453,7 +453,7 @@ function renderApplications(){
 }
 // Payment overview is deliberately read-only. Client-side updates to payment status
 // are not sufficient evidence of a Bluevine transaction.
-let paymentLinks=[],paymentInstallments=[],paymentRequests=[];
+let paymentLinks=[],paymentInstallments=[],paymentRequests=[],paymentDispatchDrafts=[];
 const familyFinalApprovedApplications=new Set();
 const MPID_PROTECTED_TEST_APPLICATION='bda713af-53d0-49cb-9732-ee79a66ff446';
 const paymentMoney=n=>Number(n).toLocaleString('en-US',{style:'currency',currency:'USD'});
@@ -463,10 +463,11 @@ async function loadPayments(){
   const tables=await Promise.all([
    sb.from('mpid_payment_links').select('package_name,payment_stage,amount,payment_url,active'),
    sb.from('mpid_payment_installments').select('id,application_id,payment_stage,amount_due,amount_verified,status,payment_url,verification_reference,requested_at,verified_at'),
-   sb.from('mpid_payment_requests').select('installment_id,delivery_status,created_at,processed_at').order('created_at',{ascending:false}).limit(1000)
+   sb.from('mpid_payment_requests').select('installment_id,delivery_status,created_at,processed_at').order('created_at',{ascending:false}).limit(1000),
+   sb.from('rsm_payment_dispatch_drafts').select('application_id,installment_id,payment_stage,amount_due,dispatch_status,created_at').order('created_at',{ascending:false}).limit(1000)
   ]);
   for(const r of tables)if(r.error)throw r.error;
-  [paymentLinks,paymentInstallments,paymentRequests]=tables.map(r=>r.data||[]);
+  [paymentLinks,paymentInstallments,paymentRequests,paymentDispatchDrafts]=tables.map(r=>r.data||[]);
   const selector=$('paymentApplication'),old=selector.value;
   const eligible=authorApplications.filter(a=>a.application_status==='approved');
   selector.replaceChildren();
@@ -491,6 +492,17 @@ function renderPaymentOverview(){
  const summary=document.createElement('p');summary.className='note';
  summary.textContent='Agreement: '+(AGREEMENT_STATUSES[app.agreement_status]||app.agreement_status)+' | Payment status: '+(PAYMENT_STATUSES[app.payment_status]||app.payment_status)+' | Approved price: '+(Number.isFinite(price)?paymentMoney(price):'Unavailable')+'.';
  root.append(summary);
+ const drafts=paymentDispatchDrafts.filter(d=>d.application_id===app.id&&d.dispatch_status==='awaiting_authorization');
+ if(drafts.length){
+  const draftBox=document.createElement('div');draftBox.className='payment-row';
+  const heading=document.createElement('strong');heading.textContent='Prepared Payment Requests | Not Sent';draftBox.append(heading);
+  for(const d of drafts){
+   const item=document.createElement('p');item.className='note';
+   item.textContent=(d.payment_stage==='initial'?'Initial deposit':d.payment_stage==='full'?'Full payment':d.payment_stage==='final'?'Final payment':'Milestone payment')+': '+paymentMoney(d.amount_due)+' | Awaiting administrator authorization. No email queued.';
+   draftBox.append(item);
+  }
+  root.append(draftBox);
+ }
  const safety=document.createElement('p');safety.className='note';safety.style.fontWeight='700';
  safety.textContent=app.id===MPID_PROTECTED_TEST_APPLICATION?'PROTECTED TEST APPLICATION: Live payment requests, custom-link registration and verification are blocked. Preview is read-only.':'LIVE ACTIONS: Administrator confirmation required. Payment requests queue an actual email. Verify payment only after independently confirming the transaction in Bluevine.';
  root.append(safety);
