@@ -1314,6 +1314,9 @@ $('signwellInspectRecipients').onclick=async()=>{
   else if(author&&signed(author))lines.unshift('Author signature confirmed in SignWell.');
   else lines.unshift('Author signature not yet confirmed by SignWell recipient data.');
   lines.push('Invitation email delivery: Not verified by this check. Review SignWell Activity for delivery events.');
+  const events=data.signer_events_recorded||[];
+  const confirmedAuthor=(data.recipients||[]).find(p=>String(p.email||'').toLowerCase()!=='publishing@rightsideofmoney.com'&&(p.signed===true||['signed','completed'].includes(String(p.status||'').toLowerCase())||Boolean(p.signed_at)));
+  if(confirmedAuthor&&events.some(e=>String(e.email||'').toLowerCase()===String(confirmedAuthor.email||'').toLowerCase()&&e.recorded))lines.push('Verified author signature recorded. Notification is held until administrator explicitly queues it.');
   out.textContent=lines.join('\n');
  }catch(e){out.textContent='Signer inspection failed: '+err(e);}
 };
