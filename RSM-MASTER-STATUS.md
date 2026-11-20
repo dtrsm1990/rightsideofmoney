@@ -137,3 +137,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 dashboard source repair deployed
 - GitHub commit cac141fd9094de56522ea0a68141433b0ec1b266 repaired truncated pricing-validation JavaScript string, restored signed-agreement pricing lock checks, and removed duplicate 150566-character appended tail. Source now 220112 characters, one closing HTML document, full inline script successfully compiled using JavaScript Function constructor. SignWell queue and family payment identifiers retained. Authenticated browser end-to-end acceptance remains pending; no email sent.
+
+## 2026-11-20 signature notification status accuracy
+- Live SQL shows zero rsm_signwell_signer_events, zero signature-notification outbox rows, zero active family final approvals. Anonymous EXECUTE on rsm_queue_author_signed_notice is false; authenticated EXECUTE true with internal admin check. Dashboard commit e18e2dfe308748fbc7736a6692419079e6f1b02e shows actual notification status rather than hard-coded held. Full inline JS source syntax passed. SignWell authenticated recipient inspection and browser acceptance remain pending; no email sent.
