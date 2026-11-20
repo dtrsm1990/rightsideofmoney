@@ -49,3 +49,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - rsm_request_payment and dashboard family pricing remain unresolved. Do not call the family payment workflow production-ready.
 
 - Deployed migration support_family_50_50_payment_request_stages: rsm_request_payment now recognizes FAMILY_50_50, requires $500 approved total, supports initial/final $250 installments, maps final to approved reusable family milestone link, and exempts family final from standard milestone prerequisite. Standard and discounted upfront paths retained. Full end-to-end acceptance test still pending.
+
+## Reusable discount requirement (confirmed 2026-11-19)
+- User approved Regular Discount $600 full upfront and Family Discount $500 either full upfront or $250/$250 for any eligible author, while retaining standard package options.
+- Current dashboard still contains a Maurice-specific family revision button and only recognizes DISCOUNTED_UPFRONT in appPaymentReady. This is NOT yet reusable end to end.
+- Backend FAMILY_50_50 support was deployed; FAMILY_UPFRONT and general SignWell pricing selection still require implementation and verification.
