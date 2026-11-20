@@ -83,3 +83,7 @@ Use this instruction:
 
 - [x] Removed per-author custom payment link prerequisite for regular $600 discount, using existing approved reusable Bluevine link, migration reusable_regular_discount_payment_link_verified.
 - [ ] Check payment overview source for regular $600 discount link matching and eliminate obsolete manual link registration UI; browser/runtime tests pending.
+
+- [x] Dashboard reusable Bluevine lookup for regular $600 and family $500/$250 pricing; obsolete custom registration UI removed, commit e0135933e6d13a7576e88512bcfcc2e34cdf8eb5.
+- [x] Verified four discount link records active in Supabase; Maurice remains sent/not_requested.
+- [ ] Run JavaScript syntax, browser UI, and isolated backend acceptance checks without sending customer emails; ensure final family payment is gated by completion as approved.
