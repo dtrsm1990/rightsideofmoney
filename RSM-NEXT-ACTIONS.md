@@ -51,3 +51,9 @@ Use this instruction:
 - [ ] Ensure SignWell agreement generation uses selected terms and package scope; protect signed historical agreements.
 - [ ] Implement FAMILY_UPFRONT backend payment preparation and request, reusing the approved $500 family link.
 - [ ] Update dashboard readiness and payment request amounts; test each option on isolated records.
+
+## Latest dashboard source update
+- [x] Updated GitHub dashboard payment overview source for FAMILY_50_50 and FAMILY_UPFRONT display and link lookup (commit 2bcc8af88b88e2912f811bb58def0d92730b9f48).
+- [ ] Verify dashboard JavaScript syntax and live browser behavior; inspect remaining preview/send guards for family schedule.
+- [ ] Add reusable pricing selection and SignWell agreement generation for all clients, including $600 regular discount and both $500 family options.
+- [ ] Implement family upfront backend and end-to-end isolated acceptance testing.
