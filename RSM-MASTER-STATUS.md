@@ -63,3 +63,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - Supabase migrations support_reusable_family_upfront_signed_payment and support_reusable_family_upfront_payment_requests deployed. $500 FAMILY_UPFRONT now recognized in signed-payment preparation and request RPC. Regular $600 discount total explicitly validated. Existing family $250/$250 and standard schedules retained.
 - Dashboard GitHub commit 1b25c34f63e14168736055171a43ae3b031624f6 adjusts family pricing preview/send guards and marker stripping. This is not browser-tested.
 - Reusable pricing selection in SignWell and agreement generation remains outstanding. Do not claim full end-to-end readiness.
+
+## 2026-11-19 reusable pricing review form
+- GitHub commit 0331a0c413a526384350945da8ab70d4dc469351 adds Regular Discount $600 upfront, Family Discount $500 upfront, and Family Discount $250/$250 to application review pricing selector. Enforces approved amounts and blocks changes to signed agreement price/package/scope through ordinary review form.
+- SignWell Edge Function v41 still has a Maurice-only live send guard and special replacement flow. General reusable agreement sending is NOT implemented; no agreement was sent. Browser verification pending.
