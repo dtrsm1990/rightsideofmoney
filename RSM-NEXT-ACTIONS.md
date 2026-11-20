@@ -111,3 +111,6 @@ Use this instruction:
 
 - [x] Scope completed-project selector to selected family-split application author via admin-only rsm_family_completed_projects RPC, dashboard commit b3a058406bd171919e2351eaf3f50908aeae735a.
 - [ ] Authenticated browser acceptance: author-scoped dropdown, signer inspection, final-payment approval and readiness; do not send real payment messages.
+
+- [x] Confirmed live author-scoped selector RPC grants and current Maurice application state (T-030).
+- [ ] Complete authenticated browser/runtime tests; do not treat agreement status sent as evidence of delivered invitation or signed agreement.
