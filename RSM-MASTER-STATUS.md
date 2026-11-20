@@ -170,3 +170,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 duplicate-send dashboard clarity
 - GitHub commit 66eec2915fac92cc46c82058434a378ef674837d hides the redundant Send Payment Request action for stages with existing request records and displays provider-accepted/queued/previously-recorded status. Existing server duplicate protections preserved. Live Maurice initial $250 request previously verified accepted by email provider. Authenticated browser verification pending; no new payment sent.
+
+## 2026-11-20 payment dashboard confusing actions correction
+- Live SQL confirmed Maurice initial $250 request accepted by provider (processed 2026-11-20 22:25:02 UTC), installment requested; historical cancelled full request retained. GitHub commit 6aa2814b2000686ee9ef367197996de27bf18092 hides premature family final payment row until completion approval and suppresses alternate Send Payment Request for held drafts. Existing request rows already hide duplicate send action. No new request sent. Browser deployment/cache and live runtime acceptance remain unverified.
