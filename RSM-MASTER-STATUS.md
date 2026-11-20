@@ -95,3 +95,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-20 family final approval dashboard integration
 - Supabase migration admin_family_final_readiness_rpc succeeded, adding admin-only `rsm_family_final_readiness` RPC to verify active author-linked completed-project approval.
 - Dashboard commit 75dedfdcec9856e32eb20f795b883b699d6ccb56 adds administrator completion approval UI with project UUID and evidence reason, invokes `rsm_approve_family_final` after confirmation, and enables family final request only when readiness RPC reports ready. No approval or payment email invoked. Browser/runtime acceptance still pending.
+
+## 2026-11-20 SignWell sender invitation diagnostics
+- Verified revised Maurice agreement remains tracked as sent and SignWell integration lists publishing@rightsideofmoney.com as Document Sender signer. This does not prove email delivery.
+- Supabase mpid-signwell-agreements v43 ACTIVE adds admin-only read-only inspect_signing_invitations action, fetching SignWell document and recipient statuses without creating/sending agreements.
+- Dashboard commit d040bc71ed28265a2e99a237acfba7f9e24447b2 adds Inspect Existing Signers (No Email) control. Runtime/authenticated test and SignWell activity email-delivery confirmation pending. No real messages sent.
