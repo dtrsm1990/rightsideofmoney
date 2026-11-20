@@ -134,3 +134,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 critical dashboard file corruption discovered
 - GitHub mpid-portal/admin-dashboard.html is 370678 characters with first </script></body></html> at character 219579 and 151077 additional characters after the first document terminator, including a second closing document. Full inline JavaScript of first document fails compilation. Do not overwrite blindly. Recovery requires reconstructing and syntax-validating against a known-good revision and preserving newer features. No notification sent.
+
+## 2026-11-20 dashboard source repair deployed
+- GitHub commit cac141fd9094de56522ea0a68141433b0ec1b266 repaired truncated pricing-validation JavaScript string, restored signed-agreement pricing lock checks, and removed duplicate 150566-character appended tail. Source now 220112 characters, one closing HTML document, full inline script successfully compiled using JavaScript Function constructor. SignWell queue and family payment identifiers retained. Authenticated browser end-to-end acceptance remains pending; no email sent.
