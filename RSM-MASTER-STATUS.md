@@ -117,3 +117,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 SignWell author-signed state visibility
 - Dashboard commit d7999c5e27398113e4fe79998978c7771fd91427 enhances read-only SignWell signer inspection to prominently flag author signed / RSM signature pending based on SignWell recipient statuses. No email notification was implemented or sent. SignWell recipient runtime verification pending; delivery tracking remains absent.
+
+## 2026-11-20 signer observation foundation
+- Supabase migration signwell_signer_observations_held_notifications succeeded. Created protected RLS-enabled rsm_signwell_signer_events with unique(document_id,signer_email), held notification default, no anon/auth table grants.
+- mpid-signwell-agreements Edge Function v44 ACTIVE now records SignWell-reported signed recipients idempotently when admin runs inspect_signing_invitations. Does not send email, queue notifications, or infer email delivery. Authenticated runtime not tested; no signer observations claimed.
