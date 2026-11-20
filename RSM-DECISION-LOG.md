@@ -49,3 +49,6 @@ Human approval is required for substantive editorial changes, publication author
 - Discounts affect price and payment schedule, not the selected publishing service package or scope unless separately approved.
 - Admin dashboard must expose a reusable pricing selector and send agreements with corresponding terms; no customer-specific button in the general workflow.
 - Reuse existing approved Bluevine links; do not create new links per author.
+
+## 2026-11-20 payment approval workflow decision
+- Owner approved future automatic initial payment preparation with administrator approval notification before sending author payment requests. Administrator approval email destination publishing@rightsideofmoney.com. Maurice Watkins current $250 request must remain held and must not be sent without separate explicit authorization. Approval is not permission to send an author payment request.
