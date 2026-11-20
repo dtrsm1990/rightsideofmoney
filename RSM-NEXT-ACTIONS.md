@@ -123,3 +123,6 @@ Use this instruction:
 
 - [x] Integrated admin-gated author-signature outbox queue and Resend message handler; deployed mpid-send-notification v13. No email sent.
 - [ ] Verify SignWell actual recipient payload and signed event persistence; run authenticated queue/worker acceptance with explicitly authorized live email or isolated test data. Do not claim delivery until Resend confirms.
+
+- [x] Add confirmed admin queue action for held verified author signature events (SignWell v45, dashboard commit 625ddc7ce11e889a1bf4e15bc2b3acc90bb3d062).
+- [ ] Authenticated administrator test: inspect Maurice signer status, confirm event stored, explicitly queue RSM notification if authorized, and verify Resend outbox status. No automatic queue without authorization.
