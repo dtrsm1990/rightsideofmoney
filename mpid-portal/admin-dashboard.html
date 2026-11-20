@@ -545,16 +545,33 @@ function renderPaymentOverview(){
   const approval=document.createElement('div');approval.className='payment-row';
   const heading=document.createElement('h3');heading.textContent='Final Installment Completion Approval';approval.append(heading);
   const status=document.createElement('p');status.className='note';status.textContent=familyFinalApprovedApplications.has(app.id)?'Completion approval verified. Final payment may be requested after initial payment verification.':'Final payment locked until project completion and administrator approval.';approval.append(status);
-  const projectInput=document.createElement('input');projectInput.type='text';projectInput.placeholder='Completed publishing project UUID';projectInput.setAttribute('aria-label','Completed publishing project UUID');
+  const projectInput=document.createElement('select');projectInput.setAttribute('aria-label','Completed publishing project');
+  const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Select completed publishing project';projectInput.append(placeholder);
+  const refreshProjects=document.createElement('button');refreshProjects.type='button';refreshProjects.className='secondary';refreshProjects.textContent='Load Completed Projects';
+  refreshProjects.onclick=async()=>{
+   refreshProjects.disabled=true;
+   try{
+    await requireAdmin();
+    const {data,error}=await sb.from('mpid_projects').select('id,title,status,is_test').eq('status','completed').eq('is_test',false).order('updated_at',{ascending:false}).limit(100);
+    if(error)throw error;
+    projectInput.replaceChildren();
+    const prompt=document.createElement('option');prompt.value='';prompt.textContent='Select completed publishing project';projectInput.append(prompt);
+    for(const p of data||[]){const option=document.createElement('option');option.value=p.id;option.textContent=p.title||p.id;projectInput.append(option);}
+    if(!(data||[]).length)message('paymentMessage','No completed non-test publishing projects available.');
+   }catch(e){message('paymentMessage','Could not load completed projects: '+err(e));}
+   finally{refreshProjects.disabled=false;}
+  };
   const reason=document.createElement('textarea');reason.placeholder='Document completion evidence and reason for approval (minimum 12 characters)';reason.setAttribute('aria-label','Completion approval reason');
   const approve=document.createElement('button');approve.type='button';approve.textContent='Approve Completed Project for Final Payment';approve.disabled=familyFinalApprovedApplications.has(app.id);
   approve.onclick=async()=>{
+   if(!projectInput.value){message('paymentMessage','Select a completed project first.');return;}
+   if(reason.value.trim().length<12){message('paymentMessage','Enter a completion approval reason of at least 12 characters.');return;}
    if(!confirm('Approve completed project for final payment eligibility? This records an administrator approval, but does not send an email.'))return;
    approve.disabled=true;
    try{await requireAdmin();const {data,error}=await sb.rpc('rsm_approve_family_final',{p_application_id:app.id,p_project_id:projectInput.value.trim(),p_reason:reason.value.trim()});if(error)throw error;if(!data?.approved)throw Error('Approval not confirmed');await loadPayments();message('paymentMessage','Project completion approved. No payment request sent.',true);}
    catch(e){message('paymentMessage','Completion approval failed: '+err(e));approve.disabled=false;}
   };
-  approval.append(projectInput,reason,approve);root.append(approval);
+  approval.append(refreshProjects,projectInput,reason,approve);root.append(approval);
  }
  const stages=familySplit?[['initial',.5],['final',.5]]:custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
  for(const [stage,fraction] of stages){
