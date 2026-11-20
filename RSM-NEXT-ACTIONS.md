@@ -44,3 +44,10 @@ Use this instruction:
 - [x] Deployed rsm_request_payment FAMILY_50_50 initial/final support and approved link mapping.
 - [x] Verified deployed function contains family logic; Maurice application remains sent and payment not_requested.
 - [ ] NEXT: inspect and update admin dashboard family payment UI, then safely acceptance-test full signed-agreement-to-payment flow and record evidence.
+
+## Pricing selector requirement
+- [ ] Replace Maurice-specific family discount UI with reusable Standard / Regular Discount / Family Discount selection for any approved application.
+- [ ] For Family Discount, offer Full Upfront $500 or Two Installments $250/$250.
+- [ ] Ensure SignWell agreement generation uses selected terms and package scope; protect signed historical agreements.
+- [ ] Implement FAMILY_UPFRONT backend payment preparation and request, reusing the approved $500 family link.
+- [ ] Update dashboard readiness and payment request amounts; test each option on isolated records.
