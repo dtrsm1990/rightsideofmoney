@@ -95,3 +95,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-044 | 2026-11-20 | Isolated automatic held dispatch draft trigger | PASS | Synthetic approved signed family application plus $250 installment generated exactly one draft; transaction rolled back. Maurice held $250 draft remains and payment request count 0 | Actual email dispatch intentionally not authorized |
 
 | T-045 | 2026-11-20 | Held payment draft dashboard source integration and non-admin RLS | PARTIAL | Dashboard commit 4a9819b2a413dd4887b671504e0fe7f8e3d63d79; admin SELECT policy; simulated non-admin sees zero drafts; one HTML terminator and script block | Browser acceptance and full JS compilation not yet verified; no client email sent |
+
+| T-046 | 2026-11-20 | Payment dispatch draft lifecycle guard | DEPLOYED, NOT TESTED | rsm_payment_dispatch_draft_lifecycle_guard migration applied; future payment approval notification still pending | Requires isolated rollback test, secure admin approval workflow, email notification delivery verification |
