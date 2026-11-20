@@ -54,3 +54,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - User approved Regular Discount $600 full upfront and Family Discount $500 either full upfront or $250/$250 for any eligible author, while retaining standard package options.
 - Current dashboard still contains a Maurice-specific family revision button and only recognizes DISCOUNTED_UPFRONT in appPaymentReady. This is NOT yet reusable end to end.
 - Backend FAMILY_50_50 support was deployed; FAMILY_UPFRONT and general SignWell pricing selection still require implementation and verification.
+
+## 2026-11-19 dashboard update
+- GitHub commit 2bcc8af88b88e2912f811bb58def0d92730b9f48 updates Payment Overview display logic for FAMILY_50_50 and FAMILY_UPFRONT markers, approved family Bluevine link matching, and family split installment rows. This is a source deployment, not browser acceptance proof.
+- Reusable agreement pricing selector and SignWell integration still outstanding. FAMILY_UPFRONT backend preparation/request still outstanding. Existing Maurice-specific SignWell button remains.
