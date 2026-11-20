@@ -67,3 +67,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 reusable pricing review form
 - GitHub commit 0331a0c413a526384350945da8ab70d4dc469351 adds Regular Discount $600 upfront, Family Discount $500 upfront, and Family Discount $250/$250 to application review pricing selector. Enforces approved amounts and blocks changes to signed agreement price/package/scope through ordinary review form.
 - SignWell Edge Function v41 still has a Maurice-only live send guard and special replacement flow. General reusable agreement sending is NOT implemented; no agreement was sent. Browser verification pending.
+
+## 2026-11-19 SignWell generalization
+- Deployed Supabase mpid-signwell-agreements Edge Function v42 (ACTIVE). General `send` action now permits any approved, not_sent author with valid package/price/marker, complete terms and valid email, retains live-agreement duplicate guard and SignWell template verification; preserves separate Maurice replacement action. makeFields supports regular $600 upfront, family $500 upfront, family $250/$250, and standard 30/40/30. A single existing test draft may be retired, but is no longer mandatory.
+- Maurice remains agreement_status=sent, approved_price=$500, payment_status=not_requested. No SignWell send was invoked. End-to-end acceptance testing and browser integration remain pending.
