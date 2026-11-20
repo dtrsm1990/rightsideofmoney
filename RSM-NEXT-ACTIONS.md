@@ -69,3 +69,9 @@ Use this instruction:
 - [x] Added price validation and lock against editing signed agreement terms in normal review.
 - [ ] NEXT CRITICAL: generalize SignWell Edge Function v41 makeFields for all pricing markers and remove Maurice-only send authorization safely, with per-application approvals, template validation, idempotency and historical agreement protection.
 - [ ] Run JavaScript/browser and backend isolated acceptance tests before real customer sends.
+
+## SignWell v42 handoff
+- [x] Deployed generalized SignWell `send` action for approved not_sent applications; added pricing-aware agreement fields for all four modes, v42 ACTIVE.
+- [x] Verified Maurice remains sent and not_requested, no new agreement or payment sent.
+- [ ] NEXT: inspect dashboard SignWell readiness/preview/send flow against v42, remove Maurice-specific normal UI button (preserve replacement history), and test agreement fields and send guards without emailing real clients.
+- [ ] Check family final-payment completion gate and payment readiness guards; complete isolated acceptance testing and update test registry.
