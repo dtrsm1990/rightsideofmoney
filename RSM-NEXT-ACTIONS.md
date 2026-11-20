@@ -108,3 +108,6 @@ Use this instruction:
 
 - [x] Replaced family final-payment project UUID typing with completed-project selector and client reason validation (commit 9f16f90185cb9fb4ec5e77d6753a0d17c6d8587d).
 - [ ] Test dashboard selector and approval under authenticated administrator session, and verify only correct author-linked project can be approved.
+
+- [x] Scope completed-project selector to selected family-split application author via admin-only rsm_family_completed_projects RPC, dashboard commit b3a058406bd171919e2351eaf3f50908aeae735a.
+- [ ] Authenticated browser acceptance: author-scoped dropdown, signer inspection, final-payment approval and readiness; do not send real payment messages.
