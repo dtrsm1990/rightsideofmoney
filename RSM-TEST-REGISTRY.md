@@ -87,3 +87,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-040 | 2026-11-20 | SECURITY DEFINER exposure review (read-only) | VERIFIED limited | All 12 flagged functions deny anon EXECUTE; all contain mpid_is_admin references; storage helper also gates non-admin by mpid_can_view_project. No changes made | Requires negative permission tests for non-admin authenticated users and leaked-password protection |
 
 | T-041 | 2026-11-20 | Simulated authenticated non-admin negative RPC tests | PASS (four functions) | mpid_is_admin false; payment request, payment verification, family-final approval, signature notice each returned explicit admin-required SQL exception; failed transactions rolled back | Other privileged functions and actual client auth session not yet tested |
+
+| T-042 | 2026-11-20 | Remaining privileged RPC negative authorization checks | PASS (simulated non-admin) | Five restricted RPCs rejected; project and storage checks returned false for nonexistent resources | Actual non-admin JWT, existing project cross-user tests and password protection configuration pending |
