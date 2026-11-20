@@ -41,3 +41,9 @@ Supabase project: rufcgmqpueejoyypnpzn
 
 ## Definition of done
 A workflow is COMPLETE only after code is deployed, evidence-backed acceptance tests pass, failure/retry behavior is checked, and the test registry and next-actions file are updated.
+
+
+## 2026-11-19 implementation update
+- Deployed migration prepare_family_50_50_deposit_only_after_signature replacing rsm_prepare_signed_payment with support for FAMILY_50_50. It prepares a $250 initial installment only on qualifying signed application state, using an approved Bluevine link; no email is sent by this trigger.
+- Post-deployment check: Maurice revised SignWell agreement remained sent; zero noncancelled installments. No premature payment was generated.
+- rsm_request_payment and dashboard family pricing remain unresolved. Do not call the family payment workflow production-ready.
