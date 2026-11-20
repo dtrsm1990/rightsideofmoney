@@ -103,3 +103,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-048 | 2026-11-20 | Held draft Approve & Send dashboard control | DEPLOYED, UNVERIFIED | GitHub commit 97759d369ec4a26fd72dd1a428c0f14615e466f0; source adds signed/approved gate, admin confirmation, draft re-read and existing server RPC | Authenticated browser JS/runtime acceptance and payment delivery unverified; no live request sent |
 
 | T-049 | 2026-11-20 | Existing request duplicate-send UI clarity | DEPLOYED, UNVERIFIED | GitHub commit 66eec2915fac92cc46c82058434a378ef674837d; hides send button if request history exists and displays delivery status | Browser rendering still pending; provider acceptance is not recipient delivery; no new payment sent |
+
+| T-050 | 2026-11-20 | Confusing payment action correction | SOURCE DEPLOYED, BROWSER UNVERIFIED | GitHub 6aa2814b2000686ee9ef367197996de27bf18092; hides family final stage until completion approval and alternate send for held drafts; live SQL confirms initial request accepted | Browser cache/runtime pending; no new request sent |
