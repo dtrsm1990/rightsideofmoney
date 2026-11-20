@@ -539,7 +539,7 @@ function renderPaymentOverview(){
   const row=document.createElement('div');row.className='payment-row';
   const installment=paymentInstallments.find(i=>i.application_id===app.id&&i.payment_stage===stage&&i.status!=='cancelled');
   const linkStage=familySplit&&stage==='final'?'milestone':stage==='final'?'initial':stage;
-  const linkPackage=familySplit||familyUpfront?'RSM Publishing Family Discount':pkg;
+  const linkPackage=familySplit||familyUpfront?'RSM Publishing Family Discount':isDiscountedApplication(app)?'RSM Publishing Discount':pkg;
   const link=paymentLinks.find(l=>l.package_name===linkPackage&&l.payment_stage===linkStage&&l.active===true);
   const expected=Math.round(price*fraction*100)/100;
   const matches=link&&link.active===true&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005;
@@ -548,7 +548,7 @@ function renderPaymentOverview(){
   const meta=document.createElement('div');meta.className='payment-meta';
   meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Email requests: '+records.length+(records.length?' | Latest email: '+records[0].delivery_status:'');row.append(meta);
   const info=document.createElement('p');info.className='note';
-  info.textContent=custom&&!familyUpfront?(protectedTest?'Protected test agreement. No custom Bluevine URL is needed or permitted for this test.':installment?.payment_url?'Custom Bluevine link registered.':'Discounted full-upfront agreement. A dedicated, administrator-approved Bluevine link is required before live requests can be enabled.'):matches?'Standard approved Bluevine link matched.':'No matching approved Bluevine link; payment request cannot be sent.';
+  info.textContent=matches?'Approved reusable Bluevine link matched.':'No matching approved reusable Bluevine link; payment request cannot be sent.';
   row.append(info);
   const actions=document.createElement('div');actions.className='actions';
   const preview=document.createElement('button');preview.type='button';preview.className='secondary';preview.textContent='Preview Payment Readiness (No Email)';
@@ -561,55 +561,15 @@ function renderPaymentOverview(){
    if(installment?.status==='paid')issues.push('Installment already paid');
    if(records.length)issues.push('An earlier payment request exists');
    if(app.id===MPID_PROTECTED_TEST_APPLICATION)issues.push('Protected test application: live payment processing prohibited');
-   if(custom&&!familyUpfront&&!protectedTest){if(!installment?.payment_url)issues.push('Dedicated custom Bluevine link has not been registered');}
-   else if(!matches)issues.push('Approved reusable Bluevine link is missing');
+   if(!matches)issues.push('Approved reusable Bluevine link is missing');
    const details=['PAYMENT REQUEST PREVIEW ONLY','Applicant: '+(app.full_name||'Unknown'),'Package: '+pkg,'Stage: '+stage,'Approved amount: '+paymentMoney(expected),'Recipient: '+(app.email||'Missing'),'Ledger: '+(installment?.status||'Not initialized'),'Existing requests: '+records.length,'Live sending: '+(app.id===MPID_PROTECTED_TEST_APPLICATION?'BLOCKED FOR TEST APPLICATION':'Requires administrator confirmation'),'Result: '+(issues.length?'BLOCKED':'Ready for administrator review')];
    if(issues.length)details.push('Reasons: '+issues.join('; '));
    message('paymentMessage',details.join(' | '),!issues.length);
   };
   actions.append(preview);
-  // Step 3O: Administrator-only custom link registration, no email or payment verification.
-  if(custom && !familyUpfront && stage==='full' && !protectedTest){
-   const panel=document.createElement('div');panel.className='payment-row';
-   const label=document.createElement('label');label.textContent='Approved custom Bluevine payment URL';
-   const input=document.createElement('input');input.type='url';input.autocomplete='off';
-   input.placeholder='https://pay.bluevine.com/p/...';const savedDiscountLink=paymentLinks.find(l=>l.payment_stage==='full'&&Number(l.amount)===price&&l.package_name==='RSM Publishing Discount');input.value=installment?.payment_url||savedDiscountLink?.payment_url||'';
-   const note=document.createElement('p');note.className='note';
-   note.textContent=savedDiscountLink ? (savedDiscountLink.active ? 'Existing approved discounted link selected automatically. Confirm the checkout amount before registration.' : 'Existing discounted link found but not verified. Verify the Bluevine checkout amount before registration.') : 'No matching saved discounted link found. A verified custom payment link is required.';
-   const buttons=document.createElement('div');buttons.className='actions';
-   const previewLink=document.createElement('button');previewLink.type='button';previewLink.className='secondary';previewLink.textContent='Preview Custom Link Registration';
-   const saveLink=document.createElement('button');saveLink.type='button';saveLink.textContent='Register Approved Custom Link';
-   const status=document.createElement('div');status.className='message hidden';status.setAttribute('role','status');
-   async function runCustomLink(dryRun){
-    previewLink.disabled=true;saveLink.disabled=true;
-    try{
-     await requireAdmin();
-     if(!savedDiscountLink?.active)throw new Error('Saved discounted link must be verified and activated before registration.');
-     if(!installment)throw new Error('Full-payment installment is not initialized.');
-     if(!dryRun&&app.id===MPID_PROTECTED_TEST_APPLICATION)throw new Error('Protected test application: custom link registration prohibited.');
-     const url=input.value.trim();if(!url)throw new Error('Enter an approved Bluevine payment URL.');
-     const parsed=new URL(url);
-     if(parsed.protocol!=='https:'||parsed.hostname!=='pay.bluevine.com'||!parsed.pathname.startsWith('/p/'))throw new Error('Enter a valid https://pay.bluevine.com/p/ payment URL.');
-     if(!dryRun){
-      if(!confirm('Register this custom link for '+app.full_name+' at '+paymentMoney(price)+'?\n\nConfirm you independently verified its Bluevine destination and amount. No email will be sent.'))return;
-     }
-     const {data,error}=await sb.rpc('rsm_register_custom_payment_link',{
-      p_application_id:app.id,p_payment_url:url,p_preview_only:dryRun
-     });
-     if(error)throw error;
-     if(!data?.success)throw new Error(data?.message||'Registration was not confirmed.');
-     status.className='message success';
-     status.textContent=(dryRun?'PREVIEW ONLY. No changes saved.':'LINK REGISTERED. No email sent.')+'\nApplicant: '+(data.applicant||app.full_name)+'\nAmount: '+paymentMoney(data.approved_amount);
-     if(!dryRun){await loadPayments();message('paymentMessage','Custom link registered for '+app.full_name+'. No email sent.',true);}
-    }catch(e){status.className='message error';status.textContent='Custom link operation failed: '+err(e);}
-    finally{previewLink.disabled=false;saveLink.disabled=false;}
-   }
-   previewLink.onclick=()=>runCustomLink(true);saveLink.onclick=()=>runCustomLink(false);
-   buttons.append(previewLink,saveLink);panel.append(label,input,note,buttons,status);row.append(panel);
-  }
 
   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';
-  send.disabled=protectedTest||app.agreement_status!=='signed'||!Number.isFinite(expected)||expected<=0||Boolean(installment?.status==='paid')||records.length>0||(custom&&!familyUpfront?!Boolean(installment?.payment_url):!matches);
+  send.disabled=protectedTest||app.agreement_status!=='signed'||!Number.isFinite(expected)||expected<=0||Boolean(installment?.status==='paid')||records.length>0||!matches;
   send.title=protectedTest?'Protected test application: live payment requests prohibited.':'Queues a real payment email. Requires confirmation.';
   send.onclick=async()=>{
    if(protectedTest)return;
