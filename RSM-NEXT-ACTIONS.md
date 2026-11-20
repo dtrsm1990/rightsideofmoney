@@ -130,3 +130,6 @@ Use this instruction:
 - [ ] BLOCKER: Locate and repair full inline admin-dashboard.html JavaScript syntax error detected by source compilation (T-035); then repeat full script check and authenticated browser acceptance. SignWell handler alone passed isolated compilation.
 
 - [ ] CRITICAL: Recover corrupted admin-dashboard.html: duplicated tail after first closing html (151077 characters) and failing JavaScript compilation. Compare known-good GitHub revision and preserve all subsequent integrations. Do not assume removing tail alone fixes syntax.
+
+- [x] Repair truncated pricing string and duplicated HTML tail in admin-dashboard.html (commit cac141fd9094de56522ea0a68141433b0ec1b266). Full inline JS source syntax passed.
+- [ ] Run authenticated browser acceptance for admin connect, application review, signed-agreement lock, family final release, SignWell signer inspection, and notification queue. Do not send live email without explicit authorization.
