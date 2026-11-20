@@ -121,3 +121,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-20 signer observation foundation
 - Supabase migration signwell_signer_observations_held_notifications succeeded. Created protected RLS-enabled rsm_signwell_signer_events with unique(document_id,signer_email), held notification default, no anon/auth table grants.
 - mpid-signwell-agreements Edge Function v44 ACTIVE now records SignWell-reported signed recipients idempotently when admin runs inspect_signing_invitations. Does not send email, queue notifications, or infer email delivery. Authenticated runtime not tested; no signer observations claimed.
+
+## 2026-11-20 author signature notification queue integration
+- Migration author_signed_notification_queue_admin_gated succeeded: outbox accepts agreement_author_signed_admin; admin-only rsm_queue_author_signed_notice queues a unique event only for verified live author signature records. No queue invoked.
+- mpid-send-notification Edge Function v13 ACTIVE handles verified author-signature notice to publishing@rightsideofmoney.com. Existing notification worker secret remains required. Dashboard commit 6afe58af6033ac4cafb213ed9334c69766cce75e displays held notice status. No live notification sent; authenticated end-to-end acceptance pending.
