@@ -42,3 +42,10 @@ Human approval is required for substantive editorial changes, publication author
 - After each deployed change, update test evidence and next action.
 - Prior chat claims are context, not proof of passing tests.
 - No secret keys, private client files, or sensitive contract text in GitHub continuity files.
+
+## Reusable discount selection (confirmed 2026-11-19)
+- Regular Discount and Family Discount are reusable options for any eligible author, not Maurice-specific.
+- Approved options: standard packages at $997/$2,497/$4,997 with 30/40/30; Regular Discount $600 full upfront; Family Discount $500 full upfront OR $250 upon signing plus $250 upon completion.
+- Discounts affect price and payment schedule, not the selected publishing service package or scope unless separately approved.
+- Admin dashboard must expose a reusable pricing selector and send agreements with corresponding terms; no customer-specific button in the general workflow.
+- Reuse existing approved Bluevine links; do not create new links per author.
