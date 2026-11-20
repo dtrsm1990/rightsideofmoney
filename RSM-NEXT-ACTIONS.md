@@ -1,0 +1,33 @@
+# RSM Publishing Services | Next Actions and Handoff
+Last baseline: 2026-11-19
+Current focus: complete continuity infrastructure, then safely finish contract-to-payment-to-onboarding automation.
+
+## Immediate next actions (in order)
+1. [ ] Confirm these four continuity files exist in GitHub and can be read in a new chat.
+2. [ ] Inspect SignWell background sync and the current revised agreement state before making any changes.
+3. [ ] Update rsm_prepare_signed_payment to support approved FAMILY_50_50 pricing with $250 initial, without creating payment requests before signature.
+4. [ ] Update rsm_request_payment to support family initial/final stages and reusable approved Bluevine $250 link; enforce initial payment verification before final and final completion milestone.
+5. [ ] Align dashboard Payment Management Center and payment readiness indicators with family pricing.
+6. [ ] Test signature sync, installment preparation, notification idempotency, payment verification, author invitation and project creation with safe test data, not live payment charges.
+7. [ ] Add durable exception monitoring, retry controls, and a dashboard readiness/test history view.
+8. [ ] Validate manuscript engine, chapter integrity, editorial QA and private release workflow.
+9. [ ] Conduct authorization, RLS, storage, backup/recovery, and full client journey acceptance tests.
+
+## Existing live state at handoff
+- Revised Maurice agreement sent; SignWell document 8de47506-d4f4-4310-80cf-8777831a6023; database status sent when checked.
+- Original $600 signed agreement preserved.
+- Revised application price $500; payment_status not_requested.
+- Original $600 payment installment cancelled.
+- No $250 request should be sent until revised signature is verified and the family pricing workflow is fixed.
+
+## How to resume in a new chat
+Use this instruction:
+"Continue the RSM Publishing Services project. First read RSM-MASTER-STATUS.md, RSM-TEST-REGISTRY.md, RSM-DECISION-LOG.md, and RSM-NEXT-ACTIONS.md from GitHub repository dtrsm1990/rightsideofmoney. Compare them with live Supabase project rufcgmqpueejoyypnpzn. Do not repeat previously verified tests unless relevant code or dependencies changed. Work on the highest-priority unfinished action, then update all affected continuity files. Keep the public brand RSM Publishing Services, preserve mpid-portal/admin-dashboard.html, and do not send real customer contracts or payment requests without explicit authorization."
+
+## Required handoff discipline
+- Update after each meaningful deployment, not only at chat end.
+- Record changed files/functions and commit or deployment versions.
+- Add tests with date, inputs, expected and actual outcomes, evidence, and retest triggers.
+- Preserve unresolved errors, exact next action, and any customer-impact risk.
+- Distinguish proposed, deployed, verified, and blocked.
+- Do not put service keys, personal details, manuscript text, or payment links in public Markdown files.
