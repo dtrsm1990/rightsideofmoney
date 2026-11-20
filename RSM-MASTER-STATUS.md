@@ -152,3 +152,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 signed-agreement payment automation repair
 - Root cause: rsm_prepare_signed_payment trigger only created an installment; it did not prepare a payment request or queue dispatch. Added migration rsm_signed_payment_dispatch_draft_no_send with RLS-protected rsm_payment_dispatch_drafts and after-insert trigger to automatically prepare idempotent held dispatch drafts. Backfilled Maurice Watkins initial $250 draft as awaiting_authorization. Verified 1 held draft, 0 mpid_payment_requests for initial installment, 0 new payment outbox rows. No email sent. Draft is intentionally not dispatchable without existing admin-authorized rsm_request_payment workflow. End-to-end real signature-to-trigger simulation and admin UI integration remain pending.
+
+## 2026-11-20 isolated trigger acceptance
+- In a single rolled-back transaction, inserted a synthetic approved/signed family $500 application and $250 initial installment; a separate SQL statement confirmed automatic creation of exactly one held dispatch draft. Rolled back all synthetic rows. Maurice remains one held $250 draft and zero actual payment request records. No client email sent.
