@@ -452,6 +452,7 @@ function renderApplications(){
 // Payment overview is deliberately read-only. Client-side updates to payment status
 // are not sufficient evidence of a Bluevine transaction.
 let paymentLinks=[],paymentInstallments=[],paymentRequests=[];
+const familyFinalApprovedApplications=new Set();
 const MPID_PROTECTED_TEST_APPLICATION='bda713af-53d0-49cb-9732-ee79a66ff446';
 const paymentMoney=n=>Number(n).toLocaleString('en-US',{style:'currency',currency:'USD'});
 async function loadPayments(){
@@ -470,6 +471,11 @@ async function loadPayments(){
   const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Select an approved application';selector.append(placeholder);
   for(const a of eligible){const option=document.createElement('option');option.value=a.id;option.textContent=(a.full_name||'Applicant')+' | '+(a.book_title||'Untitled')+' | '+(a.approved_package||'No package');selector.append(option);}
   if(eligible.some(a=>a.id===old))selector.value=old;
+  familyFinalApprovedApplications.clear();
+  for(const a of eligible.filter(a=>isFamilySplitApplication(a))){
+   const {data,error}=await sb.rpc('rsm_family_final_readiness',{p_application_id:a.id});
+   if(!error&&data?.ready===true)familyFinalApprovedApplications.add(a.id);
+  }
   renderPaymentOverview();
  }catch(e){message('paymentMessage','Payment records could not be loaded: '+err(e));$('paymentOverview').textContent='Payment overview unavailable.';}
 }
@@ -534,6 +540,21 @@ function renderPaymentOverview(){
    const note=document.createElement('p');note.className='note';note.textContent='Test-data inconsistency: application says Requested, but no installment payment request is recorded. This review does not modify either record.';diagnostic.append(note);
   }
  }
+ if(familySplit&&!protectedTest){
+  const approval=document.createElement('div');approval.className='payment-row';
+  const heading=document.createElement('h3');heading.textContent='Final Installment Completion Approval';approval.append(heading);
+  const status=document.createElement('p');status.className='note';status.textContent=familyFinalApprovedApplications.has(app.id)?'Completion approval verified. Final payment may be requested after initial payment verification.':'Final payment locked until project completion and administrator approval.';approval.append(status);
+  const projectInput=document.createElement('input');projectInput.type='text';projectInput.placeholder='Completed publishing project UUID';projectInput.setAttribute('aria-label','Completed publishing project UUID');
+  const reason=document.createElement('textarea');reason.placeholder='Document completion evidence and reason for approval (minimum 12 characters)';reason.setAttribute('aria-label','Completion approval reason');
+  const approve=document.createElement('button');approve.type='button';approve.textContent='Approve Completed Project for Final Payment';approve.disabled=familyFinalApprovedApplications.has(app.id);
+  approve.onclick=async()=>{
+   if(!confirm('Approve completed project for final payment eligibility? This records an administrator approval, but does not send an email.'))return;
+   approve.disabled=true;
+   try{await requireAdmin();const {data,error}=await sb.rpc('rsm_approve_family_final',{p_application_id:app.id,p_project_id:projectInput.value.trim(),p_reason:reason.value.trim()});if(error)throw error;if(!data?.approved)throw Error('Approval not confirmed');await loadPayments();message('paymentMessage','Project completion approved. No payment request sent.',true);}
+   catch(e){message('paymentMessage','Completion approval failed: '+err(e));approve.disabled=false;}
+  };
+  approval.append(projectInput,reason,approve);root.append(approval);
+ }
  const stages=familySplit?[['initial',.5],['final',.5]]:custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
  for(const [stage,fraction] of stages){
   const row=document.createElement('div');row.className='payment-row';
@@ -570,7 +591,7 @@ function renderPaymentOverview(){
   actions.append(preview);
 
   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';
-  const finalFamilyReleaseBlocked=familySplit&&stage==='final';
+  const finalFamilyReleaseBlocked=familySplit&&stage==='final'&&!familyFinalApprovedApplications.has(app.id);
   send.disabled=finalFamilyReleaseBlocked||protectedTest||app.agreement_status!=='signed'||!Number.isFinite(expected)||expected<=0||Boolean(installment?.status==='paid')||records.length>0||!matches;
   send.title=finalFamilyReleaseBlocked?'Family final payment is held until completion and release approval are verified.':protectedTest?'Protected test application: live payment requests prohibited.':'Queues a real payment email. Requires confirmation.';
   send.onclick=async()=>{
