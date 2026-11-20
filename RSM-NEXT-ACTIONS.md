@@ -136,3 +136,6 @@ Use this instruction:
 
 - [x] Correct signer inspection to display actual held/queued notification state, dashboard commit e18e2dfe308748fbc7736a6692419079e6f1b02e.
 - [ ] Authenticate admin and run Inspect Existing Signers for Maurice to populate verified event, then explicitly authorize and queue a notification and verify worker/Resend delivery. No event currently exists.
+
+- [x] Review 12 authenticated SECURITY DEFINER functions for anon EXECUTE and authorization references. All deny anon EXECUTE; review remains limited to static SQL.
+- [ ] Run non-admin negative authorization tests with safe test identities, verify Supabase leaked-password protection configuration, review auth logs for anomalies without exposing client data.
