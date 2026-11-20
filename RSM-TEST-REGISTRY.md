@@ -81,3 +81,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-036 | 2026-11-20 | HTML structural integrity check | FAILED | Live GitHub file contains 151077 characters after first closing html, including duplicate document ending | Requires reconstruction and full syntax validation before deployment |
 
 | T-037 | 2026-11-20 | Dashboard source repair static validation | PASS (source syntax only) | Commit cac141fd9094de56522ea0a68141433b0ec1b266; fetched revised file and compiled full inline JavaScript; single closing HTML document | Authenticated browser workflow and payment/SignWell runtime tests still pending |
+
+| T-038 | 2026-11-20 | Signature notification live read-only checks | VERIFIED (limited) | SQL: 0 signer events, 0 queued notices, 0 active family final approvals; anon RPC EXECUTE false. Dashboard commit e18e2dfe308748fbc7736a6692419079e6f1b02e syntax compiled | SignWell recipient payload, authenticated dashboard and email delivery not tested |
