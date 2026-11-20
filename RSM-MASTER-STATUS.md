@@ -106,3 +106,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 dashboard agreement guidance and readiness performance
 - Dashboard commit d10fe1e956d1dda144c6155f73c11ee81284fea5 replaces outdated claim that live signature requests are disabled with accurate confirmation/no-duplicate guidance. Family final-payment readiness RPCs now run concurrently for eligible split-payment applications. Browser syntax/runtime verification still pending; no live sends.
+
+## 2026-11-20 completion project selection improvement
+- Dashboard commit 9f16f90185cb9fb4ec5e77d6753a0d17c6d8587d replaces manual UUID entry in family final approval with Load Completed Projects selector and reason-length client validation. Backend author identity/completion/non-test checks remain authoritative. Browser runtime not yet verified; no approval or email sent.
