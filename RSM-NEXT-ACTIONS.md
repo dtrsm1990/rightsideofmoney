@@ -114,3 +114,6 @@ Use this instruction:
 
 - [x] Confirmed live author-scoped selector RPC grants and current Maurice application state (T-030).
 - [ ] Complete authenticated browser/runtime tests; do not treat agreement status sent as evidence of delivered invitation or signed agreement.
+
+- [x] Surface author-signed / RSM-signature-pending condition in read-only SignWell inspection (commit d7999c5e27398113e4fe79998978c7771fd91427).
+- [ ] Implement secure idempotent SignWell signature-status event detection and RSM Resend notification, with explicit authorization before any real notification send; verify actual SignWell recipient payload and delivery.
