@@ -80,3 +80,6 @@ Use this instruction:
 - [x] Structured SignWell agreement preview and pricing-aware readiness source integrated, commit b189804a87387aa2a44a9095ad7c98be463af5c1.
 - [ ] Perform browser JS syntax and UI runtime checks and non-sending SignWell validation for standard, regular discount, family upfront, and family split; confirm v42 actual response format.
 - [ ] Verify $250 family final payment completion condition and secure live agreement send confirmation.
+
+- [x] Removed per-author custom payment link prerequisite for regular $600 discount, using existing approved reusable Bluevine link, migration reusable_regular_discount_payment_link_verified.
+- [ ] Check payment overview source for regular $600 discount link matching and eliminate obsolete manual link registration UI; browser/runtime tests pending.
