@@ -139,3 +139,6 @@ Use this instruction:
 
 - [x] Review 12 authenticated SECURITY DEFINER functions for anon EXECUTE and authorization references. All deny anon EXECUTE; review remains limited to static SQL.
 - [ ] Run non-admin negative authorization tests with safe test identities, verify Supabase leaked-password protection configuration, review auth logs for anomalies without exposing client data.
+
+- [x] Simulated non-admin negative authorization tests for payment request, payment verification, signature notice queue, and family final approval (T-041); all rejected.
+- [ ] Verify remaining privileged functions with non-admin test identity and review leaked-password protection; maintain no-send policy for live client actions.
