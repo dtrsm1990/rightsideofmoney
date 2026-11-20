@@ -1307,6 +1307,12 @@ $('signwellInspectRecipients').onclick=async()=>{
   if(data?.error)throw Error(data.error);
   const lines=['SIGNWELL SIGNER INSPECTION (READ ONLY)','Document: '+(data.document_id||'Unknown'),'Document status: '+(data.signwell_status||'Unknown')];
   for(const p of data.recipients||[])lines.push('Signer: '+(p.email||'Unknown')+' | Status: '+(p.status||'Not supplied')+' | Signed: '+(p.signed===true?'Yes':'Not confirmed'));
+  const author=(data.recipients||[]).find(p=>String(p.email||'').toLowerCase()!== 'publishing@rightsideofmoney.com');
+  const rsm=(data.recipients||[]).find(p=>String(p.email||'').toLowerCase()==='publishing@rightsideofmoney.com');
+  const signed=p=>p&&(p.signed===true||['signed','completed'].includes(String(p.status||'').toLowerCase())||Boolean(p.signed_at));
+  if(author&&signed(author)&&rsm&&!signed(rsm))lines.unshift('ACTION REQUIRED: Author has signed. RSM representative signature is pending.');
+  else if(author&&signed(author))lines.unshift('Author signature confirmed in SignWell.');
+  else lines.unshift('Author signature not yet confirmed by SignWell recipient data.');
   lines.push('Invitation email delivery: Not verified by this check. Review SignWell Activity for delivery events.');
   out.textContent=lines.join('\n');
  }catch(e){out.textContent='Signer inspection failed: '+err(e);}
