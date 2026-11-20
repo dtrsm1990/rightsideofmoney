@@ -93,3 +93,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-043 | 2026-11-20 | Signed-agreement payment preparation, no-send | PASS (live backfill and state verification) | Migration rsm_signed_payment_dispatch_draft_no_send succeeded; Maurice $250 initial dispatch draft awaiting_authorization; 0 request rows for installment; 0 new payment outbox rows | Future agreement insert trigger not exercised in isolated test; admin UI display and delivery flow pending |
 
 | T-044 | 2026-11-20 | Isolated automatic held dispatch draft trigger | PASS | Synthetic approved signed family application plus $250 installment generated exactly one draft; transaction rolled back. Maurice held $250 draft remains and payment request count 0 | Actual email dispatch intentionally not authorized |
+
+| T-045 | 2026-11-20 | Held payment draft dashboard source integration and non-admin RLS | PARTIAL | Dashboard commit 4a9819b2a413dd4887b671504e0fe7f8e3d63d79; admin SELECT policy; simulated non-admin sees zero drafts; one HTML terminator and script block | Browser acceptance and full JS compilation not yet verified; no client email sent |
