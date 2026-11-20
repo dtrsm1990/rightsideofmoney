@@ -343,7 +343,7 @@ function isFamilySplitApplication(app){return String(app.admin_notes||'').includ
 function isFamilyUpfrontApplication(app){return String(app.admin_notes||'').includes(FAMILY_UPFRONT_MARKER);}
 function isUpfrontApplication(app){return isDiscountedApplication(app)||isFamilyUpfrontApplication(app);}
 function isDiscountedApplication(app){return (app.admin_notes||'').includes(PRICING_MARKER);}
-function stripPricingMarker(notes){return String(notes||'').replace(PRICING_MARKER,'').trim();}
+function stripPricingMarker(notes){return String(notes||'').replace(PRICING_MARKER,'').replace(FAMILY_SPLIT_MARKER,'').replace(FAMILY_UPFRONT_MARKER,'').trim();}
 function appPaymentReady(app){
  const rows=paymentInstallments.filter(i=>i.application_id===app.id&&i.status==='paid'&&Number(i.amount_verified)>=Number(i.amount_due));
  return isUpfrontApplication(app)
@@ -558,8 +558,8 @@ function renderPaymentOverview(){
    if(installment?.status==='paid')issues.push('Installment already paid');
    if(records.length)issues.push('An earlier payment request exists');
    if(app.id===MPID_PROTECTED_TEST_APPLICATION)issues.push('Protected test application: live payment processing prohibited');
-   if(custom&&!protectedTest){if(!installment?.payment_url)issues.push('Dedicated custom Bluevine link has not been registered');}
-   else if(!custom&&!matches)issues.push('Approved standard Bluevine link is missing');
+   if(custom&&!familyUpfront&&!protectedTest){if(!installment?.payment_url)issues.push('Dedicated custom Bluevine link has not been registered');}
+   else if(!matches)issues.push('Approved reusable Bluevine link is missing');
    const details=['PAYMENT REQUEST PREVIEW ONLY','Applicant: '+(app.full_name||'Unknown'),'Package: '+pkg,'Stage: '+stage,'Approved amount: '+paymentMoney(expected),'Recipient: '+(app.email||'Missing'),'Ledger: '+(installment?.status||'Not initialized'),'Existing requests: '+records.length,'Live sending: '+(app.id===MPID_PROTECTED_TEST_APPLICATION?'BLOCKED FOR TEST APPLICATION':'Requires administrator confirmation'),'Result: '+(issues.length?'BLOCKED':'Ready for administrator review')];
    if(issues.length)details.push('Reasons: '+issues.join('; '));
    message('paymentMessage',details.join(' | '),!issues.length);
@@ -606,7 +606,7 @@ function renderPaymentOverview(){
   }
 
   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';
-  send.disabled=protectedTest||app.agreement_status!=='signed'||!Number.isFinite(expected)||expected<=0||Boolean(installment?.status==='paid')||records.length>0||(custom?!Boolean(installment?.payment_url):!matches);
+  send.disabled=protectedTest||app.agreement_status!=='signed'||!Number.isFinite(expected)||expected<=0||Boolean(installment?.status==='paid')||records.length>0||(custom&&!familyUpfront?!Boolean(installment?.payment_url):!matches);
   send.title=protectedTest?'Protected test application: live payment requests prohibited.':'Queues a real payment email. Requires confirmation.';
   send.onclick=async()=>{
    if(protectedTest)return;
