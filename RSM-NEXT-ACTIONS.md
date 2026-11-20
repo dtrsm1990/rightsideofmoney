@@ -128,3 +128,5 @@ Use this instruction:
 - [ ] Authenticated administrator test: inspect Maurice signer status, confirm event stored, explicitly queue RSM notification if authorized, and verify Resend outbox status. No automatic queue without authorization.
 
 - [ ] BLOCKER: Locate and repair full inline admin-dashboard.html JavaScript syntax error detected by source compilation (T-035); then repeat full script check and authenticated browser acceptance. SignWell handler alone passed isolated compilation.
+
+- [ ] CRITICAL: Recover corrupted admin-dashboard.html: duplicated tail after first closing html (151077 characters) and failing JavaScript compilation. Compare known-good GitHub revision and preserve all subsequent integrations. Do not assume removing tail alone fixes syntax.
