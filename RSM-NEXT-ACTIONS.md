@@ -99,3 +99,6 @@ Use this instruction:
 
 - [x] Added read-only SignWell recipient inspection, Edge Function v43 and dashboard commit d040bc71ed28265a2e99a237acfba7f9e24447b2.
 - [ ] Run authenticated SignWell recipient inspection for Maurice; inspect SignWell activity/delivery evidence before changing signing roles or sending any reminders. Verify account sender invitation behavior without creating duplicate contracts.
+
+- [x] Verified live unauthenticated rejection of family final readiness, zero active approvals, anon RPC EXECUTE denied, and approval table RLS enabled (T-026).
+- [ ] Authenticate as real admin in browser to test read-only SignWell signer inspection and family final readiness; run isolated positive/negative approval tests without triggering client emails.
