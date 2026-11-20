@@ -148,3 +148,6 @@ Use this instruction:
 
 - [x] Diagnose signed-agreement payment automation gap and deploy no-send automatic dispatch-draft trigger. Maurice $250 initial draft held, T-043.
 - [ ] Test trigger on isolated non-delivering test records and surface held payment draft in admin dashboard. Existing admin-authorized rsm_request_payment remains sole send-queue path; do not send Maurice payment request without explicit authorization.
+
+- [x] Isolated end-to-end SQL trigger test for $250 family deposit generated held dispatch draft, rolled back (T-044).
+- [ ] Surface held dispatch drafts in admin dashboard; preserve no-send boundary until explicit authorization.
