@@ -83,3 +83,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 reusable discount dashboard integration
 - Dashboard commit e0135933e6d13a7576e88512bcfcc2e34cdf8eb5 removes obsolete per-application custom Bluevine link registration panel, matches Regular Discount to RSM Publishing Discount, and uses reusable link readiness for all pricing modes. Supabase confirmed active $600 full, $500 full, and two $250 family stage links. Maurice remains sent/not_requested at $500.
 - Browser JS/runtime and isolated non-sending acceptance tests still pending.
+
+## 2026-11-19 family final-payment safety hold
+- Supabase migration block_family_final_until_completion_release_gate succeeded. The `rsm_request_payment` RPC now rejects FAMILY_50_50 final stage until a verified project-completion/release gate is implemented. Existing signed-agreement and initial-paid requirements remain.
+- Dashboard commit 316d5ed2abc30678fc5a3224a0386886e0390cf4 disables the family final Send button and adds a readiness warning. This intentionally blocks early final collection; a completion-linked release mechanism remains to implement and test.
