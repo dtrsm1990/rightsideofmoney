@@ -161,3 +161,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 payment approval notification design
 - Owner approved future approval-before-send payment workflow, Maurice held. Deployed rsm_payment_dispatch_draft_lifecycle_guard trigger: if installment becomes requested, partially_paid, paid, or cancelled, a held draft is marked superseded. Existing held draft creation and dashboard remain. Approval email creation/sending and secure one-click authorization endpoint are NOT yet implemented or tested. No emails sent.
+
+## 2026-11-20 payment draft lifecycle isolated acceptance
+- Live Supabase T-047: within a rolled-back SQL transaction, temporary cancellation of held $250 initial installment caused dispatch draft to become superseded; after rollback, installment remained not_requested and draft awaiting_authorization with approval notice held. No client record change persisted and no message sent. Remaining priority: implement secure admin approval notification and approval action, with separate explicit authorization required before any live client payment dispatch.
