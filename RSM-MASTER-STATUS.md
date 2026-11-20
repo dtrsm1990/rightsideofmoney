@@ -103,3 +103,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 limited live security verification
 - Live `rsm_family_final_readiness` call without authenticated admin rejected with P0001 Administrator required. Active final approval records: zero. `anon` EXECUTE denied on approval/readiness/payment request functions; approval table RLS enabled. No approval or payment email sent. Authenticated positive test and browser runtime still pending.
+
+## 2026-11-20 dashboard agreement guidance and readiness performance
+- Dashboard commit d10fe1e956d1dda144c6155f73c11ee81284fea5 replaces outdated claim that live signature requests are disabled with accurate confirmation/no-duplicate guidance. Family final-payment readiness RPCs now run concurrently for eligible split-payment applications. Browser syntax/runtime verification still pending; no live sends.
