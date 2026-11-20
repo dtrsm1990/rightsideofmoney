@@ -90,3 +90,6 @@ Use this instruction:
 
 - [x] Block premature FAMILY_50_50 final payment requests at RPC and UI levels pending a verified completion/release gate (migration block_family_final_until_completion_release_gate, commit 316d5ed2abc30678fc5a3224a0386886e0390cf4).
 - [ ] Implement audited admin completion approval linked to correct author/project and release the family final installment only after verified completion. Do not remove the safety block without acceptance testing.
+
+- [x] Deployed author-linked completed-project and administrator-reason approval gate for FAMILY_50_50 final payment; migration audited_author_linked_family_final_approval.
+- [ ] Add administrator approval controls with project selection and completion evidence, then conditionally enable family final request only after verified approval; run isolated acceptance tests without live emails.
