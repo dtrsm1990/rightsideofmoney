@@ -107,3 +107,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-050 | 2026-11-20 | Confusing payment action correction | SOURCE DEPLOYED, BROWSER UNVERIFIED | GitHub 6aa2814b2000686ee9ef367197996de27bf18092; hides family final stage until completion approval and alternate send for held drafts; live SQL confirms initial request accepted | Browser cache/runtime pending; no new request sent |
 
 | T-051 | 2026-11-20 | Admin payment approval notification wiring | DEPLOYED, END-TO-END PENDING | Migration queue_admin_payment_approval_notice + mpid-send-notification v14; existing queued count 0 | Future eligible signed application required for delivery confirmation; no author payment sent |
+
+| T-052 | 2026-11-20 | Verified-payment onboarding readiness foundation | MIGRATION APPLIED, INTEGRATION PENDING | security_invoker view rsm_onboarding_readiness gates readiness on signed agreement and paid fully verified initial/full installment | No live invitations or projects created; dashboard integration pending |
