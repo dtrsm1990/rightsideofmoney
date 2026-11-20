@@ -157,3 +157,10 @@ Use this instruction:
 
 - [ ] Implement administrator payment-approval notification to publishing@rightsideofmoney.com for future signed agreements, with secure admin approval/hold and idempotent send. Do not send Maurice's held $250 request.
 - [ ] Test draft lifecycle guard and notification workflow in isolation before enabling future live sends. Confirm Resend receipt and duplicate prevention.
+
+## 2026-11-20 resumption and next implementation
+- [x] Read all four continuity files and confirmed production Supabase ACTIVE_HEALTHY.
+- [x] T-047: cancellation lifecycle guard passed inside rolled-back transaction; existing $250 draft remains held and installment not_requested.
+- [ ] NEXT: implement idempotent administrator approval notification for newly held signed-agreement payment drafts to publishing@rightsideofmoney.com, with no automatic author payment send. Verify sender configuration and outbox authorization before enabling notification delivery.
+- [ ] Implement administrator Approve/Hold control in mpid-portal/admin-dashboard.html with server-side authenticated admin guard, idempotency, stale-draft checks, and explicit live-send authorization boundary. Keep Maurice's current $250 draft held.
+- [ ] Authenticated browser acceptance for held-draft rendering and payment approval flow, plus remaining terminal-status lifecycle cases; no unauthorized live messages.
