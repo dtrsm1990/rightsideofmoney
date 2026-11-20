@@ -155,3 +155,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 isolated trigger acceptance
 - In a single rolled-back transaction, inserted a synthetic approved/signed family $500 application and $250 initial installment; a separate SQL statement confirmed automatic creation of exactly one held dispatch draft. Rolled back all synthetic rows. Maurice remains one held $250 draft and zero actual payment request records. No client email sent.
+
+## 2026-11-20 held payment draft dashboard integration
+- Deployed admin-only SELECT policy on rsm_payment_dispatch_drafts, tested simulated non-admin SELECT returns 0. Updated mpid-portal/admin-dashboard.html to load held drafts and display 'Prepared Payment Requests | Not Sent' with installment amount/stage in Payment Management Center, commit 4a9819b2a413dd4887b671504e0fe7f8e3d63d79. Source re-fetched, single HTML ending and script block confirmed. Authenticated admin browser acceptance and JS compilation not performed. No payment request queued or email sent.
