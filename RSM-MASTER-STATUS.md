@@ -164,3 +164,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 payment draft lifecycle isolated acceptance
 - Live Supabase T-047: within a rolled-back SQL transaction, temporary cancellation of held $250 initial installment caused dispatch draft to become superseded; after rollback, installment remained not_requested and draft awaiting_authorization with approval notice held. No client record change persisted and no message sent. Remaining priority: implement secure admin approval notification and approval action, with separate explicit authorization required before any live client payment dispatch.
+
+## 2026-11-20 held-draft approval dashboard action
+- GitHub commit 97759d369ec4a26fd72dd1a428c0f14615e466f0 adds an Approve & Send Payment Link action to held draft rows. Requires approved/signed application, explicit administrator confirmation, live draft re-read, and existing admin-gated rsm_request_payment RPC. Final-stage draft action disabled pending completion gate. This is source deployment only; authenticated browser/runtime acceptance is pending. No live payment request sent.
