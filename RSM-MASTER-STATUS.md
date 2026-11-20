@@ -167,3 +167,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 held-draft approval dashboard action
 - GitHub commit 97759d369ec4a26fd72dd1a428c0f14615e466f0 adds an Approve & Send Payment Link action to held draft rows. Requires approved/signed application, explicit administrator confirmation, live draft re-read, and existing admin-gated rsm_request_payment RPC. Final-stage draft action disabled pending completion gate. This is source deployment only; authenticated browser/runtime acceptance is pending. No live payment request sent.
+
+## 2026-11-20 duplicate-send dashboard clarity
+- GitHub commit 66eec2915fac92cc46c82058434a378ef674837d hides the redundant Send Payment Request action for stages with existing request records and displays provider-accepted/queued/previously-recorded status. Existing server duplicate protections preserved. Live Maurice initial $250 request previously verified accepted by email provider. Authenticated browser verification pending; no new payment sent.
