@@ -146,3 +146,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 simulated non-admin authorization tests
 - Simulated authenticated non-admin JWT sub 00000000-0000-4000-8000-000000000001 under SET LOCAL ROLE authenticated. mpid_is_admin() returned false. Four live RPC negative tests explicitly raised administrator-required errors: rsm_request_payment, rsm_queue_author_signed_notice, rsm_approve_family_final, rsm_verify_payment. Failed SQL transactions rolled back. No real client action performed. Real non-admin session and remaining privileged functions not yet tested. Supabase leaked-password protection advisor warning remains.
+
+## 2026-11-20 remaining privileged RPC negative tests
+- Simulated authenticated non-admin role with nonexistent UUID. Explicit administrator-required rejections for mpid_finalize_document_delete, mpid_set_document_archived, rsm_register_custom_payment_link (preview only), rsm_family_final_readiness, rsm_family_completed_projects. mpid_can_view_project(nonexistent UUID) and mpid_storage_document_is_active(nonexistent path) returned false. Together with T-041, 11 sensitive operations tested and mpid_is_admin() returned false. No records changed. This is simulated SQL authorization testing, not an actual non-admin browser JWT test. Leaked-password protection warning outstanding.
