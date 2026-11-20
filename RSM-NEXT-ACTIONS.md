@@ -178,3 +178,6 @@ Use this instruction:
 
 - [x] Deploy idempotent admin payment approval notification trigger and Edge Function handler (v14).
 - [ ] Confirm next eligible signed agreement automatically queues admin notice, dispatcher delivers to publishing@rightsideofmoney.com, and dashboard displays held approval. No need to resend Maurice payment.
+
+- [x] Deploy read-only verified-payment onboarding readiness view, preserving payment verification as the prerequisite (T-052).
+- [ ] Connect readiness state to admin onboarding action and existing secure invitation workflow, without auto-inviting before verified payment. Record each new test once and do not repeat previously passed checks unless dependencies change.
