@@ -128,3 +128,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 administrator-controlled signature notice action
 - SignWell Edge Function v45 ACTIVE returns persisted signer event IDs and held/queued status on admin inspection. Dashboard commit 625ddc7ce11e889a1bf4e15bc2b3acc90bb3d062 adds explicit confirmation-gated Queue RSM Signature Notification control only for verified held author event. No notification queued or sent in development. Authenticated browser/Resend acceptance pending.
+
+## 2026-11-20 dashboard syntax blocker
+- Full inline admin-dashboard.html JavaScript fails source-level Function-constructor compilation with SyntaxError Invalid or unexpected token; isolated SignWell inspection handler passes. Exact cause not yet isolated. Treat dashboard as unverified and do not mark browser tests passed. No notification sent.
