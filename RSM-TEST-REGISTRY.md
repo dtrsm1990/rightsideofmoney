@@ -89,3 +89,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-041 | 2026-11-20 | Simulated authenticated non-admin negative RPC tests | PASS (four functions) | mpid_is_admin false; payment request, payment verification, family-final approval, signature notice each returned explicit admin-required SQL exception; failed transactions rolled back | Other privileged functions and actual client auth session not yet tested |
 
 | T-042 | 2026-11-20 | Remaining privileged RPC negative authorization checks | PASS (simulated non-admin) | Five restricted RPCs rejected; project and storage checks returned false for nonexistent resources | Actual non-admin JWT, existing project cross-user tests and password protection configuration pending |
+
+| T-043 | 2026-11-20 | Signed-agreement payment preparation, no-send | PASS (live backfill and state verification) | Migration rsm_signed_payment_dispatch_draft_no_send succeeded; Maurice $250 initial dispatch draft awaiting_authorization; 0 request rows for installment; 0 new payment outbox rows | Future agreement insert trigger not exercised in isolated test; admin UI display and delivery flow pending |
