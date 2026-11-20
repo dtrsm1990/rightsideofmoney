@@ -58,3 +58,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 dashboard update
 - GitHub commit 2bcc8af88b88e2912f811bb58def0d92730b9f48 updates Payment Overview display logic for FAMILY_50_50 and FAMILY_UPFRONT markers, approved family Bluevine link matching, and family split installment rows. This is a source deployment, not browser acceptance proof.
 - Reusable agreement pricing selector and SignWell integration still outstanding. FAMILY_UPFRONT backend preparation/request still outstanding. Existing Maurice-specific SignWell button remains.
+
+## 2026-11-19 additional discount deployment
+- Supabase migrations support_reusable_family_upfront_signed_payment and support_reusable_family_upfront_payment_requests deployed. $500 FAMILY_UPFRONT now recognized in signed-payment preparation and request RPC. Regular $600 discount total explicitly validated. Existing family $250/$250 and standard schedules retained.
+- Dashboard GitHub commit 1b25c34f63e14168736055171a43ae3b031624f6 adjusts family pricing preview/send guards and marker stripping. This is not browser-tested.
+- Reusable pricing selection in SignWell and agreement generation remains outstanding. Do not claim full end-to-end readiness.
