@@ -112,3 +112,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 author-scoped family completion selector
 - Live mpid_projects schema verified supports selector fields. Supabase migration family_final_author_scoped_completed_project_selector succeeded, adding admin-only RPC rsm_family_completed_projects that returns only completed non-test projects matched to selected application author's auth email. Dashboard commit b3a058406bd171919e2351eaf3f50908aeae735a uses this RPC. Runtime browser and authenticated positive tests pending; no approvals or emails sent.
+
+- Live permission verification for rsm_family_completed_projects: anon EXECUTE false; authenticated EXECUTE true with internal admin guard. Maurice application remains approved, agreement sent, payment not_requested, approved price $500 Publish-Ready. No live sends. SignWell invitation delivery still unverified.
