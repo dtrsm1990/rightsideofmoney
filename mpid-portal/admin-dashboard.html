@@ -337,11 +337,16 @@ const APP_STATUSES={pending_review:'Pending Review',more_information_needed:'Mor
 const AGREEMENT_STATUSES={not_sent:'Not Sent',sent:'Sent',signed:'Signed'};
 const PAYMENT_STATUSES={not_requested:'Not Requested',requested:'Requested',partially_paid:'Partially Paid',paid:'Paid'};
 const PRICING_MARKER='[RSM_PRICING:DISCOUNTED_UPFRONT]';
+const FAMILY_SPLIT_MARKER='[RSM_PRICING:FAMILY_50_50]';
+const FAMILY_UPFRONT_MARKER='[RSM_PRICING:FAMILY_UPFRONT]';
+function isFamilySplitApplication(app){return String(app.admin_notes||'').includes(FAMILY_SPLIT_MARKER);}
+function isFamilyUpfrontApplication(app){return String(app.admin_notes||'').includes(FAMILY_UPFRONT_MARKER);}
+function isUpfrontApplication(app){return isDiscountedApplication(app)||isFamilyUpfrontApplication(app);}
 function isDiscountedApplication(app){return (app.admin_notes||'').includes(PRICING_MARKER);}
 function stripPricingMarker(notes){return String(notes||'').replace(PRICING_MARKER,'').trim();}
 function appPaymentReady(app){
  const rows=paymentInstallments.filter(i=>i.application_id===app.id&&i.status==='paid'&&Number(i.amount_verified)>=Number(i.amount_due));
- return isDiscountedApplication(app)
+ return isUpfrontApplication(app)
   ? rows.some(i=>i.payment_stage==='full')
   : rows.some(i=>i.payment_stage==='initial'||i.payment_stage==='full');
 }
@@ -469,7 +474,7 @@ function renderPaymentOverview(){
  const root=$('paymentOverview'),app=authorApplications.find(a=>a.id===$('paymentApplication').value);
  root.replaceChildren();
  if(!app){root.textContent='Choose an approved application to view payment terms.';return;}
- const custom=isDiscountedApplication(app),price=Number(app.approved_price),pkg=app.approved_package||'';
+ const custom=isUpfrontApplication(app),familySplit=isFamilySplitApplication(app),familyUpfront=isFamilyUpfrontApplication(app),price=Number(app.approved_price),pkg=app.approved_package||'';
  const protectedTest=app.id===MPID_PROTECTED_TEST_APPLICATION;
  const summary=document.createElement('p');summary.className='note';
  summary.textContent='Agreement: '+(AGREEMENT_STATUSES[app.agreement_status]||app.agreement_status)+' | Payment status: '+(PAYMENT_STATUSES[app.payment_status]||app.payment_status)+' | Approved price: '+(Number.isFinite(price)?paymentMoney(price):'Unavailable')+'.';
@@ -526,20 +531,21 @@ function renderPaymentOverview(){
    const note=document.createElement('p');note.className='note';note.textContent='Test-data inconsistency: application says Requested, but no installment payment request is recorded. This review does not modify either record.';diagnostic.append(note);
   }
  }
- const stages=custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
+ const stages=familySplit?[['initial',.5],['final',.5]]:custom?[['full',1]]:[['initial',.3],['milestone',.4],['final',.3]];
  for(const [stage,fraction] of stages){
   const row=document.createElement('div');row.className='payment-row';
   const installment=paymentInstallments.find(i=>i.application_id===app.id&&i.payment_stage===stage&&i.status!=='cancelled');
-  const linkStage=stage==='final'?'initial':stage;
-  const link=paymentLinks.find(l=>l.package_name===pkg&&l.payment_stage===linkStage&&l.active===true);
+  const linkStage=familySplit&&stage==='final'?'milestone':stage==='final'?'initial':stage;
+  const linkPackage=familySplit||familyUpfront?'RSM Publishing Family Discount':pkg;
+  const link=paymentLinks.find(l=>l.package_name===linkPackage&&l.payment_stage===linkStage&&l.active===true);
   const expected=Math.round(price*fraction*100)/100;
-  const matches=!custom&&link&&link.active===true&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005;
+  const matches=link&&link.active===true&&Number.isFinite(expected)&&Math.abs(Number(link.amount)-expected)<.005;
   const title=document.createElement('strong');title.textContent=stage[0].toUpperCase()+stage.slice(1)+' payment | '+(Number.isFinite(expected)?paymentMoney(expected):'Price unavailable');row.append(title);
   const records=paymentRequests.filter(r=>r.installment_id===installment?.id);
   const meta=document.createElement('div');meta.className='payment-meta';
   meta.textContent='Ledger: '+(installment?.status||'Not initialized')+' | Verified: '+paymentMoney(installment?.amount_verified||0)+' | Email requests: '+records.length+(records.length?' | Latest email: '+records[0].delivery_status:'');row.append(meta);
   const info=document.createElement('p');info.className='note';
-  info.textContent=custom?(protectedTest?'Protected test agreement. No custom Bluevine URL is needed or permitted for this test.':installment?.payment_url?'Custom Bluevine link registered.':'Discounted full-upfront agreement. A dedicated, administrator-approved Bluevine link is required before live requests can be enabled.'):matches?'Standard approved Bluevine link matched.':'No matching approved Bluevine link; payment request cannot be sent.';
+  info.textContent=custom&&!familyUpfront?(protectedTest?'Protected test agreement. No custom Bluevine URL is needed or permitted for this test.':installment?.payment_url?'Custom Bluevine link registered.':'Discounted full-upfront agreement. A dedicated, administrator-approved Bluevine link is required before live requests can be enabled.'):matches?'Standard approved Bluevine link matched.':'No matching approved Bluevine link; payment request cannot be sent.';
   row.append(info);
   const actions=document.createElement('div');actions.className='actions';
   const preview=document.createElement('button');preview.type='button';preview.className='secondary';preview.textContent='Preview Payment Readiness (No Email)';
@@ -560,7 +566,7 @@ function renderPaymentOverview(){
   };
   actions.append(preview);
   // Step 3O: Administrator-only custom link registration, no email or payment verification.
-  if(custom && stage==='full' && !protectedTest){
+  if(custom && !familyUpfront && stage==='full' && !protectedTest){
    const panel=document.createElement('div');panel.className='payment-row';
    const label=document.createElement('label');label.textContent='Approved custom Bluevine payment URL';
    const input=document.createElement('input');input.type='url';input.autocomplete='off';
