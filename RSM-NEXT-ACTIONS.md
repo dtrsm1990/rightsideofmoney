@@ -117,3 +117,6 @@ Use this instruction:
 
 - [x] Surface author-signed / RSM-signature-pending condition in read-only SignWell inspection (commit d7999c5e27398113e4fe79998978c7771fd91427).
 - [ ] Implement secure idempotent SignWell signature-status event detection and RSM Resend notification, with explicit authorization before any real notification send; verify actual SignWell recipient payload and delivery.
+
+- [x] Create protected idempotent signer observation table and record confirmed recipient signatures during admin inspection (Edge Function v44). All notifications held by default.
+- [ ] Validate actual SignWell recipient status payload and persisted signer observations with authenticated admin; then implement safe explicit notification queue and Resend processing after authorization.
