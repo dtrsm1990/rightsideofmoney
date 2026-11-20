@@ -133,3 +133,6 @@ Use this instruction:
 
 - [x] Repair truncated pricing string and duplicated HTML tail in admin-dashboard.html (commit cac141fd9094de56522ea0a68141433b0ec1b266). Full inline JS source syntax passed.
 - [ ] Run authenticated browser acceptance for admin connect, application review, signed-agreement lock, family final release, SignWell signer inspection, and notification queue. Do not send live email without explicit authorization.
+
+- [x] Correct signer inspection to display actual held/queued notification state, dashboard commit e18e2dfe308748fbc7736a6692419079e6f1b02e.
+- [ ] Authenticate admin and run Inspect Existing Signers for Maurice to populate verified event, then explicitly authorize and queue a notification and verify worker/Resend delivery. No event currently exists.
