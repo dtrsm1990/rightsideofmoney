@@ -75,3 +75,8 @@ Use this instruction:
 - [x] Verified Maurice remains sent and not_requested, no new agreement or payment sent.
 - [ ] NEXT: inspect dashboard SignWell readiness/preview/send flow against v42, remove Maurice-specific normal UI button (preserve replacement history), and test agreement fields and send guards without emailing real clients.
 - [ ] Check family final-payment completion gate and payment readiness guards; complete isolated acceptance testing and update test registry.
+
+## Current dashboard state
+- [x] Structured SignWell agreement preview and pricing-aware readiness source integrated, commit b189804a87387aa2a44a9095ad7c98be463af5c1.
+- [ ] Perform browser JS syntax and UI runtime checks and non-sending SignWell validation for standard, regular discount, family upfront, and family split; confirm v42 actual response format.
+- [ ] Verify $250 family final payment completion condition and secure live agreement send confirmation.
