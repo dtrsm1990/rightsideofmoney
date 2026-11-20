@@ -93,3 +93,6 @@ Use this instruction:
 
 - [x] Deployed author-linked completed-project and administrator-reason approval gate for FAMILY_50_50 final payment; migration audited_author_linked_family_final_approval.
 - [ ] Add administrator approval controls with project selection and completion evidence, then conditionally enable family final request only after verified approval; run isolated acceptance tests without live emails.
+
+- [x] Implemented admin completion approval form and readiness RPC for family final payments, dashboard commit 75dedfdcec9856e32eb20f795b883b699d6ccb56.
+- [ ] Run browser JavaScript syntax and authenticated end-to-end acceptance tests for completion approval and request gating, including regression after project status changes; do not send real payment emails.
