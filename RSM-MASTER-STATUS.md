@@ -125,3 +125,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-20 author signature notification queue integration
 - Migration author_signed_notification_queue_admin_gated succeeded: outbox accepts agreement_author_signed_admin; admin-only rsm_queue_author_signed_notice queues a unique event only for verified live author signature records. No queue invoked.
 - mpid-send-notification Edge Function v13 ACTIVE handles verified author-signature notice to publishing@rightsideofmoney.com. Existing notification worker secret remains required. Dashboard commit 6afe58af6033ac4cafb213ed9334c69766cce75e displays held notice status. No live notification sent; authenticated end-to-end acceptance pending.
+
+## 2026-11-20 administrator-controlled signature notice action
+- SignWell Edge Function v45 ACTIVE returns persisted signer event IDs and held/queued status on admin inspection. Dashboard commit 625ddc7ce11e889a1bf4e15bc2b3acc90bb3d062 adds explicit confirmation-gated Queue RSM Signature Notification control only for verified held author event. No notification queued or sent in development. Authenticated browser/Resend acceptance pending.
