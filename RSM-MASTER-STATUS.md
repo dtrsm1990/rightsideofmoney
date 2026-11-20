@@ -100,3 +100,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - Verified revised Maurice agreement remains tracked as sent and SignWell integration lists publishing@rightsideofmoney.com as Document Sender signer. This does not prove email delivery.
 - Supabase mpid-signwell-agreements v43 ACTIVE adds admin-only read-only inspect_signing_invitations action, fetching SignWell document and recipient statuses without creating/sending agreements.
 - Dashboard commit d040bc71ed28265a2e99a237acfba7f9e24447b2 adds Inspect Existing Signers (No Email) control. Runtime/authenticated test and SignWell activity email-delivery confirmation pending. No real messages sent.
+
+## 2026-11-20 limited live security verification
+- Live `rsm_family_final_readiness` call without authenticated admin rejected with P0001 Administrator required. Active final approval records: zero. `anon` EXECUTE denied on approval/readiness/payment request functions; approval table RLS enabled. No approval or payment email sent. Authenticated positive test and browser runtime still pending.
