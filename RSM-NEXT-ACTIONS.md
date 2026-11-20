@@ -96,3 +96,6 @@ Use this instruction:
 
 - [x] Implemented admin completion approval form and readiness RPC for family final payments, dashboard commit 75dedfdcec9856e32eb20f795b883b699d6ccb56.
 - [ ] Run browser JavaScript syntax and authenticated end-to-end acceptance tests for completion approval and request gating, including regression after project status changes; do not send real payment emails.
+
+- [x] Added read-only SignWell recipient inspection, Edge Function v43 and dashboard commit d040bc71ed28265a2e99a237acfba7f9e24447b2.
+- [ ] Run authenticated SignWell recipient inspection for Maurice; inspect SignWell activity/delivery evidence before changing signing roles or sending any reminders. Verify account sender invitation behavior without creating duplicate contracts.
