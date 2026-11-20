@@ -39,3 +39,8 @@ Use this instruction:
 - [ ] NEXT: safely update rsm_request_payment to handle FAMILY_50_50 initial and final stages with approved reusable $250 link, preserve authenticated-admin and idempotency checks.
 - [ ] Update dashboard family-payment readiness and verify signed-agreement sync and downstream notification behavior.
 - [ ] Test with isolated safe records before live payment requests. No new customer payment request was sent.
+
+## 2026-11-19 additional update
+- [x] Deployed rsm_request_payment FAMILY_50_50 initial/final support and approved link mapping.
+- [x] Verified deployed function contains family logic; Maurice application remains sent and payment not_requested.
+- [ ] NEXT: inspect and update admin dashboard family payment UI, then safely acceptance-test full signed-agreement-to-payment flow and record evidence.
