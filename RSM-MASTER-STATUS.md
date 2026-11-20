@@ -79,3 +79,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-19 regular discount payment fix
 - Supabase migration reusable_regular_discount_payment_link_verified succeeded. rsm_request_payment now looks up approved reusable `RSM Publishing Discount` $600 full-payment link rather than requiring manual per-application installment link registration. Existing auth, signed-agreement, amount, prior payment and duplicate-request checks remain.
 - Initial attempted migration failed syntax validation and did NOT deploy; corrected migration succeeded. No payment request was invoked.
+
+## 2026-11-19 reusable discount dashboard integration
+- Dashboard commit e0135933e6d13a7576e88512bcfcc2e34cdf8eb5 removes obsolete per-application custom Bluevine link registration panel, matches Regular Discount to RSM Publishing Discount, and uses reusable link readiness for all pricing modes. Supabase confirmed active $600 full, $500 full, and two $250 family stage links. Maurice remains sent/not_requested at $500.
+- Browser JS/runtime and isolated non-sending acceptance tests still pending.
