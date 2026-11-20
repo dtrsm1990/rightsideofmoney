@@ -87,3 +87,6 @@ Use this instruction:
 - [x] Dashboard reusable Bluevine lookup for regular $600 and family $500/$250 pricing; obsolete custom registration UI removed, commit e0135933e6d13a7576e88512bcfcc2e34cdf8eb5.
 - [x] Verified four discount link records active in Supabase; Maurice remains sent/not_requested.
 - [ ] Run JavaScript syntax, browser UI, and isolated backend acceptance checks without sending customer emails; ensure final family payment is gated by completion as approved.
+
+- [x] Block premature FAMILY_50_50 final payment requests at RPC and UI levels pending a verified completion/release gate (migration block_family_final_until_completion_release_gate, commit 316d5ed2abc30678fc5a3224a0386886e0390cf4).
+- [ ] Implement audited admin completion approval linked to correct author/project and release the family final installment only after verified completion. Do not remove the safety block without acceptance testing.
