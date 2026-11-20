@@ -172,3 +172,6 @@ Use this instruction:
 
 - [x] Existing-request stages now hide redundant Send Payment Request and show delivery status (commit 66eec2915fac92cc46c82058434a378ef674837d).
 - [ ] Verify authenticated browser display and JS syntax; finish automatic admin approval notification for future signed agreements.
+
+- [x] Corrected duplicate/premature payment actions in dashboard source (6aa2814b2000686ee9ef367197996de27bf18092).
+- [ ] Verify deployed website serves latest GitHub dashboard and browser renders accepted initial request without Send Payment Request, with final stage locked pending project completion. Complete automatic administrator approval notification separately.
