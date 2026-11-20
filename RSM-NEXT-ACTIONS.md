@@ -164,3 +164,8 @@ Use this instruction:
 - [ ] NEXT: implement idempotent administrator approval notification for newly held signed-agreement payment drafts to publishing@rightsideofmoney.com, with no automatic author payment send. Verify sender configuration and outbox authorization before enabling notification delivery.
 - [ ] Implement administrator Approve/Hold control in mpid-portal/admin-dashboard.html with server-side authenticated admin guard, idempotency, stale-draft checks, and explicit live-send authorization boundary. Keep Maurice's current $250 draft held.
 - [ ] Authenticated browser acceptance for held-draft rendering and payment approval flow, plus remaining terminal-status lifecycle cases; no unauthorized live messages.
+
+## 2026-11-20 payment dashboard approval implementation
+- [x] Added Approve & Send Payment Link control to held payment drafts, GitHub commit 97759d369ec4a26fd72dd1a428c0f14615e466f0; requires explicit confirmation and uses existing authenticated admin RPC.
+- [ ] NEXT: authenticated browser acceptance and source JS compilation; verify admin dashboard shows Maurice's held $250 initial draft and approval action. Do not click real send without separate authorization.
+- [ ] Implement automatic administrator approval notification for future signed agreements and secure idempotent approval workflow; no auto author email before approval.
