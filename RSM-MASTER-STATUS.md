@@ -140,3 +140,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 signature notification status accuracy
 - Live SQL shows zero rsm_signwell_signer_events, zero signature-notification outbox rows, zero active family final approvals. Anonymous EXECUTE on rsm_queue_author_signed_notice is false; authenticated EXECUTE true with internal admin check. Dashboard commit e18e2dfe308748fbc7736a6692419079e6f1b02e shows actual notification status rather than hard-coded held. Full inline JS source syntax passed. SignWell authenticated recipient inspection and browser acceptance remain pending; no email sent.
+
+## 2026-11-20 security review follow-up
+- Read-only inspection of 12 authenticated-callable SECURITY DEFINER functions: all deny anon EXECUTE; 11 directly reference auth.uid(), all 12 reference mpid_is_admin(); mpid_storage_document_is_active instead uses mpid_is_admin OR an active document with mpid_can_view_project authorization. No grants or functions changed. Supabase advisor warnings still require a comprehensive authorization and leaked-password-protection review. No breach established from reviewed evidence.
