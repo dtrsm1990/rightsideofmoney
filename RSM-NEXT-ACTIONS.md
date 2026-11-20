@@ -126,3 +126,5 @@ Use this instruction:
 
 - [x] Add confirmed admin queue action for held verified author signature events (SignWell v45, dashboard commit 625ddc7ce11e889a1bf4e15bc2b3acc90bb3d062).
 - [ ] Authenticated administrator test: inspect Maurice signer status, confirm event stored, explicitly queue RSM notification if authorized, and verify Resend outbox status. No automatic queue without authorization.
+
+- [ ] BLOCKER: Locate and repair full inline admin-dashboard.html JavaScript syntax error detected by source compilation (T-035); then repeat full script check and authenticated browser acceptance. SignWell handler alone passed isolated compilation.
