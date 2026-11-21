@@ -1184,6 +1184,7 @@ async function rsmOperationsRefresh(){
    ['Payment approvals','rsm_payment_dispatch_drafts','id,application_id,payment_stage,amount_due,dispatch_status','dispatch_status',['awaiting_authorization']],
    ['Payment delivery history','mpid_payment_requests','id,installment_id,recipient_email,amount_requested,delivery_status,processed_at','delivery_status',['accepted','pending','processing','failed']],
    ['Payment requests needing reconciliation','mpid_payment_installments','id,application_id,payment_stage,amount_due,status','status',['requested']],
+   ['Awaiting verified funds','mpid_payment_installments','id,application_id,payment_stage,amount_due,amount_verified,status,verified_at','status',['requested','pending']],
    ['Unverified payments','mpid_payment_installments','id,application_id,payment_stage,amount_due,status','status',['requested','pending']],
    ['Onboarding exceptions','rsm_onboarding_jobs','id,application_id,status,last_error','status',['failed']],
    ['Onboarding pending','rsm_onboarding_jobs','id,application_id,status','status',['pending','processing']],
@@ -1198,6 +1199,11 @@ async function rsmOperationsRefresh(){
    const number=document.createElement('strong');number.textContent=error?'!':data.length===100?'100+':String(data.length);
    const name=document.createElement('span');name.textContent=label;tile.append(number,name);summary.append(tile);
    if(error){failures++;const warning=document.createElement('p');warning.textContent=label+' unavailable: '+err(error);details.append(warning);continue;}
+   if(label==='Awaiting verified funds'&&!error){
+    for(const item of data||[]){
+      item.payment_state='Payment not verified. Do not onboard until Bluevine transaction is independently confirmed.';
+    }
+   }
    if(label==='Payment delivery history'&&!error){
     const statuses={accepted:'Accepted by email provider, not proof of inbox delivery',pending:'Queued, not yet sent',processing:'Sending in progress',failed:'Delivery failed, investigate before retry'};
     for(const item of data||[])item.delivery_status=statuses[item.delivery_status]||item.delivery_status;
@@ -1275,7 +1281,7 @@ async function rsmOperationsRefresh(){
    }
    details.append(group);
   }
-  status.textContent=failures?'Operations loaded with '+failures+' source error(s).':'Operations refreshed. Counts capped at 100+.';
+  status.textContent=failures?'Operations loaded with '+failures+' source error(s).':'Operations refreshed. Payment verification requires independent Bluevine confirmation. Counts capped at 100+.';
  }catch(e){status.textContent='Operations unavailable: '+err(e);}
 }
 $('rsmOperationsRefresh').onclick=rsmOperationsRefresh;
