@@ -1182,6 +1182,7 @@ async function rsmOperationsRefresh(){
   await requireAdmin();
   const sources=[
    ['Payment approvals','rsm_payment_dispatch_drafts','id,application_id,payment_stage,amount_due,dispatch_status','dispatch_status',['awaiting_authorization']],
+   ['Payment delivery history','mpid_payment_requests','id,installment_id,recipient_email,amount_requested,delivery_status,processed_at','delivery_status',['accepted','pending','processing','failed']],
    ['Payment requests needing reconciliation','mpid_payment_installments','id,application_id,payment_stage,amount_due,status','status',['requested']],
    ['Unverified payments','mpid_payment_installments','id,application_id,payment_stage,amount_due,status','status',['requested','pending']],
    ['Onboarding exceptions','rsm_onboarding_jobs','id,application_id,status,last_error','status',['failed']],
@@ -1197,6 +1198,10 @@ async function rsmOperationsRefresh(){
    const number=document.createElement('strong');number.textContent=error?'!':data.length===100?'100+':String(data.length);
    const name=document.createElement('span');name.textContent=label;tile.append(number,name);summary.append(tile);
    if(error){failures++;const warning=document.createElement('p');warning.textContent=label+' unavailable: '+err(error);details.append(warning);continue;}
+   if(label==='Payment delivery history'&&!error){
+    const statuses={accepted:'Accepted by email provider, not proof of inbox delivery',pending:'Queued, not yet sent',processing:'Sending in progress',failed:'Delivery failed, investigate before retry'};
+    for(const item of data||[])item.delivery_status=statuses[item.delivery_status]||item.delivery_status;
+   }
    if(label==='Payment requests needing reconciliation'&&!error){
     const {data:requests,error:requestsError}=await sb.from('mpid_payment_requests').select('installment_id,delivery_status').limit(1000);
     if(requestsError){failures++;const warning=document.createElement('p');warning.textContent='Payment reconciliation unavailable: '+err(requestsError);details.append(warning);number.textContent='!';continue;}
