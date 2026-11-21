@@ -81,6 +81,32 @@
 /* Payment management: administrator RPC actions and verified ledger. */
 .payment-row{border:1px solid #51483b;border-radius:10px;padding:14px;background:var(--panel2);margin:10px 0}
 .payment-row strong{color:#f8e2b1}.payment-meta{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* RSM workflow order: presentation only. Existing sections, IDs and scripts are unchanged. */
+#workspace{display:flex;flex-direction:column;gap:18px}
+#workspace>section{width:100%;min-width:0}
+#workspace>section:nth-of-type(1){order:1}
+#workspace>section:nth-of-type(2){order:2}
+#workspace>section:nth-of-type(13){order:3}
+#workspace>section:nth-of-type(14){order:4}
+#workspace>section:nth-of-type(20){order:5}
+#workspace>section:nth-of-type(3){order:6}
+#workspace>section:nth-of-type(8){order:7}
+#workspace>section:nth-of-type(7){order:8}
+#workspace>section:nth-of-type(9){order:9}
+#workspace>section:nth-of-type(10){order:10}
+#workspace>section:nth-of-type(4){order:11}
+#workspace>section:nth-of-type(5){order:12}
+#workspace>section:nth-of-type(6){order:13}
+#workspace>section:nth-of-type(11){order:14}
+#workspace>section:nth-of-type(15){order:15}
+#workspace>section:nth-of-type(16){order:16}
+#workspace>section:nth-of-type(22){order:17}
+#workspace>section:nth-of-type(12){order:18}
+#workspace>section:nth-of-type(17){order:19}
+#workspace>section:nth-of-type(18){order:20}
+#workspace>section:nth-of-type(19){order:21}
+#workspace>section:nth-of-type(21){order:22}
 </style></head><body>
 <header><div><div class="eyebrow">RSM PUBLISHING SERVICES</div><h1>Administrator Dashboard</h1><div class="muted">RSM Publishing Services Author &amp; Manuscript Operations</div><div class="muted">Publishing operations and manuscript management</div></div><div><span id="who" class="muted">Not signed in</span> <button id="signout" class="secondary hidden">Sign Out</button></div></header>
 <main>
