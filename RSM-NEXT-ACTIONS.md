@@ -221,3 +221,8 @@ Use this instruction:
 - [x] Fix and verify background project creation audit trigger (T-061).
 - [x] Verify duplicate project rejection in rollback-isolated transaction.
 - [ ] Validate worker email invitation, profile creation, recovery and dashboard authenticated UI; do not invite Maurice before verified payment.
+
+## 2026-11-20 manuscript engine progress
+- [x] Deploy rsm-manuscript-queue v17 contract-specific payment guard across preflight/start/resume.
+- [x] Eight isolated read-only payment cases PASS; source inspection confirms guards and review state.
+- [ ] Authenticated runtime preflight and end-to-end DOCX editing/QA acceptance with an isolated authorized project; no live author release.

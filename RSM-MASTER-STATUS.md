@@ -206,3 +206,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 service-created project trigger fix
 - Isolated transaction test discovered mpid_log_project_activity() inserted null auth.uid() into non-null mpid_project_activity.actor_id, blocking background worker project creation. Applied migration support_service_created_project_activity_with_audit_label: use author_id as recorded actor fallback and explicit automated action description when no user session. Rollback-isolated retest: project creation without auth user PASS, duplicate project unique constraint PASS, fixture rolled back PASS. This tests database creation, not actual email delivery or full worker execution.
+
+## 2026-11-20 manuscript queue payment gate
+- Deployed rsm-manuscript-queue v17, ACTIVE. Contract-specific verified-payment checks added to preflight, start, and resumed processing. Code inspected post-deploy. Eight isolated SQL-equivalent contract pricing scenarios PASS. No manuscript was processed and no author deliverable released. Runtime authenticated end-to-end acceptance remains pending.

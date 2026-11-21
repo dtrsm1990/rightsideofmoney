@@ -70,3 +70,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-20 background project audit decision
 - Activity history must support background automation with no auth.uid(). Preserve non-null actor_id using project author_id as fallback and explicitly label event automated in details; do not misrepresent as a manual admin action. Verified transactional test.
+
+## 2026-11-20 manuscript processing payment safeguard
+- Editing must validate verified amount against approved contract price and correct commencement stage, not accept arbitrary paid installments. Family 50/50, standard 30%, and discounted full-upfront are handled. Human editorial QA and administrator release remain required.
