@@ -206,3 +206,8 @@ Use this instruction:
 - [x] Deploy rsm-onboarding-worker v4 with approved-contract payment-stage/amount verification and invitation timestamp persistence.
 - [x] Verify post-deployment: zero jobs, Maurice awaiting_verified_payment, active worker cron.
 - [ ] Verify positive payment path in isolated controlled test without sending a real author email; duplicate and partial-failure recovery; authenticated dashboard display. Do not mark end-to-end complete.
+
+## 2026-11-20 next handoff
+- [x] Add unique application-to-project linkage and deploy worker v5.
+- [x] Confirm no duplicate/early Maurice project created.
+- [ ] Execute isolated payment-positive and retry tests, invitation partial-failure reconciliation, and admin dashboard visibility. Do not send test invitations to real clients.

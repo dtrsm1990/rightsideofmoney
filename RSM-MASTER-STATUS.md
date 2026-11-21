@@ -194,3 +194,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - Live Supabase schema inspection superseded an outdated assumption: rsm_onboarding_jobs status check is pending/processing/completed/failed; cron job rsm-author-onboarding-worker is active every minute. Worker already exists and handles invitations, profiles, and project creation.
 - Deployed rsm-onboarding-worker Edge Function v4. Added server-side approved-price and payment-stage-specific amount verification before invitation; uses saved invitation_sent_at when recording application invitation. No client communication initiated in deployment.
 - Post-deploy read-only check: jobs=0, Maurice onboarding_state=awaiting_verified_payment, active schedule=1. End-to-end positive payment, duplicate suppression, and browser acceptance remain unverified. Worker may still require resilience improvements for partial failures.
+
+## 2026-11-20 project idempotency implementation
+- Supabase migration link_publishing_project_to_application_uniquely succeeded: mpid_projects.application_id nullable FK and unique partial index mpid_projects_application_id_unique. Existing records remain unchanged.
+- Deployed rsm-onboarding-worker v5 to identify/create projects by application_id, recover uniqueness conflicts, and reject mismatched author ownership. Verified unique index=1, onboarding jobs=0, Maurice linked projects=0. No customer invitation sent. Positive end-to-end test remains open.

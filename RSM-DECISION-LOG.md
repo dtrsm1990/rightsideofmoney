@@ -61,3 +61,6 @@ Human approval is required for substantive editorial changes, publication author
 ## 2026-11-20 decision: repair deployed worker, do not rebuild
 - Live status constraint is pending/processing/completed/failed; an existing active every-minute cron invokes the existing worker. Earlier assumption of awaiting_admin_review status was stale and corrected by inspecting live constraints.
 - Preserve the existing worker and improve eligibility/retry safeguards. Do not treat deployment as end-to-end acceptance or manually invite Maurice before verified payment.
+
+## 2026-11-20 project identity decision
+- Use mpid_projects.application_id as stable unique linkage for automatic onboarding. Never infer project identity solely from author_id and book title. Preserve existing projects with null application_id until explicitly reconciled.

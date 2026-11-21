@@ -117,3 +117,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-056 | 2026-11-20 | Verified-payment onboarding queue foundation | PARTIAL, DEPLOYED | Supabase migration prepare_onboarding_jobs_after_verified_payment_no_send succeeded; read-only query: trigger_count=1, rls_enabled=true, queued_jobs=0, Maurice onboarding_state=awaiting_verified_payment | No positive paid test, no worker/invitation/project integration, no email sent; must not mark end-to-end complete |
 
 | T-057 | 2026-11-20 | Onboarding worker v4 payment-stage guard | DEPLOYED, PARTIAL | Supabase function rsm-onboarding-worker v4 active; independent post-deploy SQL jobs=0, Maurice awaiting_verified_payment, active cron=1 | Positive paid path, duplicate/retry and browser acceptance not verified; no email sent |
+
+| T-058 | 2026-11-20 | One project per application idempotency | DEPLOYED, PARTIAL | Unique partial index verified=1; rsm-onboarding-worker v5 active; jobs=0 and Maurice projects=0 | No positive isolated paid-path or email retry test yet |
