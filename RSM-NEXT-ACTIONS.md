@@ -200,3 +200,9 @@ Use this instruction:
 - [x] Verify Maurice stays awaiting_verified_payment and zero premature jobs exist.
 - [ ] NEXT: add secure idempotent worker to process queued jobs using existing mpid-invite-author eligibility checks, prevent duplicate emails and partial author profile creation, and create project only after verified author account linkage. Preserve payment gate.
 - [ ] Add onboarding queue/readiness display to admin dashboard, then run isolated positive/negative acceptance and authenticated browser tests. No real client invitation until payment verification.
+
+## 2026-11-20 current implementation handoff
+- [x] Inspect live onboarding queue constraint, existing worker, and active cron. Existing worker was already deployed.
+- [x] Deploy rsm-onboarding-worker v4 with approved-contract payment-stage/amount verification and invitation timestamp persistence.
+- [x] Verify post-deployment: zero jobs, Maurice awaiting_verified_payment, active worker cron.
+- [ ] Verify positive payment path in isolated controlled test without sending a real author email; duplicate and partial-failure recovery; authenticated dashboard display. Do not mark end-to-end complete.
