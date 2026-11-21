@@ -1182,6 +1182,7 @@ async function rsmOperationsRefresh(){
   await requireAdmin();
   const sources=[
    ['Payment approvals','rsm_payment_dispatch_drafts','id,application_id,payment_stage,amount_due,dispatch_status','dispatch_status',['awaiting_authorization']],
+   ['Payment requests needing reconciliation','mpid_payment_installments','id,application_id,payment_stage,amount_due,status','status',['requested']],
    ['Unverified payments','mpid_payment_installments','id,application_id,payment_stage,amount_due,status','status',['requested','pending']],
    ['Onboarding exceptions','rsm_onboarding_jobs','id,application_id,status,last_error','status',['failed']],
    ['Onboarding pending','rsm_onboarding_jobs','id,application_id,status','status',['pending','processing']],
@@ -1196,6 +1197,21 @@ async function rsmOperationsRefresh(){
    const number=document.createElement('strong');number.textContent=error?'!':data.length===100?'100+':String(data.length);
    const name=document.createElement('span');name.textContent=label;tile.append(number,name);summary.append(tile);
    if(error){failures++;const warning=document.createElement('p');warning.textContent=label+' unavailable: '+err(error);details.append(warning);continue;}
+   if(label==='Payment requests needing reconciliation'&&!error){
+    const {data:requests,error:requestsError}=await sb.from('mpid_payment_requests').select('installment_id,delivery_status').limit(1000);
+    if(requestsError){failures++;const warning=document.createElement('p');warning.textContent='Payment reconciliation unavailable: '+err(requestsError);details.append(warning);number.textContent='!';continue;}
+    const requestIds=new Set((requests||[]).map(x=>x.installment_id));
+    const missing=(data||[]).filter(x=>!requestIds.has(x.id));
+    number.textContent=missing.length===100?'100+':String(missing.length);
+    if(!missing.length)continue;
+    const group=document.createElement('details');group.open=true;const head=document.createElement('summary');head.textContent='Payment records needing administrator reconciliation ('+missing.length+')';group.append(head);
+    for(const record of missing){
+      const warning=document.createElement('p');warning.textContent='Application '+record.application_id+' | '+record.payment_stage+' | '+paymentMoney(record.amount_due)+' | Marked requested, but no payment delivery record exists. Review before retrying.';
+      group.append(warning);
+      const go=document.createElement('button');go.className='secondary';go.type='button';go.textContent='Review Payment';go.onclick=()=>{const selector=$('paymentApplication');if(Array.from(selector.options).some(o=>o.value===record.application_id)){selector.value=record.application_id;selector.dispatchEvent(new Event('change'));} $('paymentCenter').scrollIntoView({behavior:'smooth',block:'start'});};group.append(go);
+    }
+    details.append(group);continue;
+   }
    if(!data.length)continue;
    const group=document.createElement('details');group.style.marginTop='12px';
    const head=document.createElement('summary');head.textContent=label+' ('+(data.length===100?'100+':data.length)+')';group.append(head);
