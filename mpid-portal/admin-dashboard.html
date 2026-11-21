@@ -1195,7 +1195,16 @@ async function rsmOperationsRefresh(){
   ];
   let failures=0;
   for(const [label,table,columns,field,values] of sources){
-   const {data,error}=await sb.from(table).select(columns).in(field,values).limit(100);
+   let data,error;
+   if(label==='Notification problems'){
+    const result=await sb.rpc('rsm_admin_operations_status');
+    error=result.error;
+    const count=Number(result.data?.failed_notifications||0)+Number(result.data?.stale_pending_notifications||0);
+    data=error?null:Array.from({length:Math.min(count,100)},()=>({status:'attention_required'}));
+   }else{
+    const result=await sb.from(table).select(columns).in(field,values).limit(100);
+    data=result.data;error=result.error;
+   }
    const tile=document.createElement('div');tile.className='submission-stat';
    const number=document.createElement('strong');number.textContent=error?'!':data.length===100?'100+':String(data.length);
    const name=document.createElement('span');name.textContent=label;tile.append(number,name);summary.append(tile);
