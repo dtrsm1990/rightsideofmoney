@@ -1199,7 +1199,22 @@ async function rsmOperationsRefresh(){
    if(!data.length)continue;
    const group=document.createElement('details');group.style.marginTop='12px';
    const head=document.createElement('summary');head.textContent=label+' ('+(data.length===100?'100+':data.length)+')';group.append(head);
-   for(const item of data.slice(0,30)){const line=document.createElement('p');line.style.cssText='padding:8px 0;border-bottom:1px solid #39342e;overflow-wrap:anywhere';line.textContent=Object.entries(item).filter(([k,v])=>v!==null&&k!=='id').map(([k,v])=>k.replace(/_/g,' ')+': '+String(v).slice(0,120)).join(' | ');group.append(line);}
+   for(const item of data.slice(0,30)){
+    const line=document.createElement('div');line.style.cssText='padding:8px 0;border-bottom:1px solid #39342e;overflow-wrap:anywhere';
+    const description=document.createElement('p');description.textContent=Object.entries(item).filter(([k,v])=>v!==null&&k!=='id').map(([k,v])=>k.replace(/_/g,' ')+': '+String(v).slice(0,120)).join(' | ');line.append(description);
+    const destination=label.includes('Payment')||label.includes('payments')?'paymentCenter':
+      label.includes('editorial')||label.includes('Manuscript')?'editorialStaging':'applicationCenter';
+    const action=document.createElement('button');action.type='button';action.className='secondary';action.textContent='Open in '+(destination==='paymentCenter'?'Payment Management':destination==='editorialStaging'?'Private Editorial Review':'Application Review');
+    action.addEventListener('click',()=>{
+      if(item.application_id&&destination==='paymentCenter'){
+       const selector=$('paymentApplication');if(Array.from(selector.options).some(o=>o.value===item.application_id)){selector.value=item.application_id;selector.dispatchEvent(new Event('change'));}
+      }
+      if(item.project_id&&destination==='editorialStaging'){
+       const selector=$('selectedProject');if(Array.from(selector.options).some(o=>o.value===item.project_id)){selector.value=item.project_id;selector.dispatchEvent(new Event('change'));}
+      }
+      document.getElementById(destination)?.scrollIntoView({behavior:'smooth',block:'start'});
+    });line.append(action);group.append(line);
+   }
    details.append(group);
   }
   status.textContent=failures?'Operations loaded with '+failures+' source error(s).':'Operations refreshed. Counts capped at 100+.';
