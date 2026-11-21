@@ -211,3 +211,8 @@ Use this instruction:
 - [x] Add unique application-to-project linkage and deploy worker v5.
 - [x] Confirm no duplicate/early Maurice project created.
 - [ ] Execute isolated payment-positive and retry tests, invitation partial-failure reconciliation, and admin dashboard visibility. Do not send test invitations to real clients.
+
+## 2026-11-20 onboarding test results
+- [x] Transactional positive queue test with $250 family deposit and duplicate update, rollback verified.
+- [x] Negative incorrect-deposit test found and fixed legacy trigger bypass. Retest passed.
+- [ ] Test worker invitation partial-failure, auth duplicate reconciliation, and project creation without sending real customer messages. Verify dashboard authenticated UI.

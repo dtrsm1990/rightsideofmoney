@@ -198,3 +198,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-20 project idempotency implementation
 - Supabase migration link_publishing_project_to_application_uniquely succeeded: mpid_projects.application_id nullable FK and unique partial index mpid_projects_application_id_unique. Existing records remain unchanged.
 - Deployed rsm-onboarding-worker v5 to identify/create projects by application_id, recover uniqueness conflicts, and reject mismatched author ownership. Verified unique index=1, onboarding jobs=0, Maurice linked projects=0. No customer invitation sent. Positive end-to-end test remains open.
+
+## 2026-11-20 onboarding queue acceptance and defect repair
+- Ran rollback-isolated live database fixture tests: unpaid blocks queue, paid family $250/500 creates exactly one job, repeated verification creates no duplicate, and fixtures rolled back. All passed.
+- Negative fixture revealed incorrectly sized $150 marked-paid payment could queue via legacy rsm_prepare_onboarding_after_payment trigger. Removed that trigger and its obsolete function in migration remove_legacy_duplicate_onboarding_payment_trigger. Retest: $150 blocked, corrected $250 queued, duplicate application job rejected, all PASS. No client emails sent.
+- Worker invitation dispatch and partial-failure recovery still require controlled testing; do not mark end-to-end complete.

@@ -119,3 +119,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-057 | 2026-11-20 | Onboarding worker v4 payment-stage guard | DEPLOYED, PARTIAL | Supabase function rsm-onboarding-worker v4 active; independent post-deploy SQL jobs=0, Maurice awaiting_verified_payment, active cron=1 | Positive paid path, duplicate/retry and browser acceptance not verified; no email sent |
 
 | T-058 | 2026-11-20 | One project per application idempotency | DEPLOYED, PARTIAL | Unique partial index verified=1; rsm-onboarding-worker v5 active; jobs=0 and Maurice projects=0 | No positive isolated paid-path or email retry test yet |
+
+| T-059 | 2026-11-20 | Transactional onboarding queue tests | PASS | Rolled-back SQL fixture: unpaid blocked; $250 paid queued once; repeat payment update no duplicate | Worker/email path not exercised |
+| T-060 | 2026-11-20 | Incorrect deposit negative test | FAIL then FIXED and PASS | $150/500 incorrectly queued through obsolete rsm_prepare_onboarding_after_payment trigger; migration removed it; rerun $150 blocked, $250 queued, duplicate job rejected | No customer invitation |

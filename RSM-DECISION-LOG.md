@@ -64,3 +64,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-20 project identity decision
 - Use mpid_projects.application_id as stable unique linkage for automatic onboarding. Never infer project identity solely from author_id and book title. Preserve existing projects with null application_id until explicitly reconciled.
+
+## 2026-11-20 duplicate-trigger remediation
+- Two payment-to-onboarding triggers coexisted. The legacy rsm_prepare_onboarding_after_payment used readiness state but did not enforce contract-specific amount, permitting wrong-size paid deposits into queue. Removed legacy trigger/function; retained stricter rsm_enqueue_verified_onboarding_trigger. Negative rollback fixture now passes.
