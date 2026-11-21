@@ -122,3 +122,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 | T-059 | 2026-11-20 | Transactional onboarding queue tests | PASS | Rolled-back SQL fixture: unpaid blocked; $250 paid queued once; repeat payment update no duplicate | Worker/email path not exercised |
 | T-060 | 2026-11-20 | Incorrect deposit negative test | FAIL then FIXED and PASS | $150/500 incorrectly queued through obsolete rsm_prepare_onboarding_after_payment trigger; migration removed it; rerun $150 blocked, $250 queued, duplicate job rejected | No customer invitation |
+
+| T-061 | 2026-11-20 | Service-role project creation and duplicate guard | FAIL then FIXED, PASS | Original SQL fixture failed null actor_id in mpid_project_activity. Migrated trigger to fallback author_id with automated-event label; retest project insert PASS, duplicate unique guard PASS, rollback PASS | Worker invitation/email not exercised |

@@ -67,3 +67,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-20 duplicate-trigger remediation
 - Two payment-to-onboarding triggers coexisted. The legacy rsm_prepare_onboarding_after_payment used readiness state but did not enforce contract-specific amount, permitting wrong-size paid deposits into queue. Removed legacy trigger/function; retained stricter rsm_enqueue_verified_onboarding_trigger. Negative rollback fixture now passes.
+
+## 2026-11-20 background project audit decision
+- Activity history must support background automation with no auth.uid(). Preserve non-null actor_id using project author_id as fallback and explicitly label event automated in details; do not misrepresent as a manual admin action. Verified transactional test.

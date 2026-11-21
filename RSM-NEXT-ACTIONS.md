@@ -216,3 +216,8 @@ Use this instruction:
 - [x] Transactional positive queue test with $250 family deposit and duplicate update, rollback verified.
 - [x] Negative incorrect-deposit test found and fixed legacy trigger bypass. Retest passed.
 - [ ] Test worker invitation partial-failure, auth duplicate reconciliation, and project creation without sending real customer messages. Verify dashboard authenticated UI.
+
+## 2026-11-20 additional acceptance
+- [x] Fix and verify background project creation audit trigger (T-061).
+- [x] Verify duplicate project rejection in rollback-isolated transaction.
+- [ ] Validate worker email invitation, profile creation, recovery and dashboard authenticated UI; do not invite Maurice before verified payment.
