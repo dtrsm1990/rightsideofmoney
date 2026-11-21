@@ -194,3 +194,9 @@ Use this instruction:
 - [ ] Verify future eligible signed agreements create held approval drafts and admin notification delivery, then one-click authorized send, idempotency, retries and audit trail. Do not recreate Maurice's request.
 - [ ] Complete manuscript processing, editorial QA, release security and end-to-end acceptance tests already listed above.
 - [ ] Keep all four continuity files updated after each verified deployment/test, with exact evidence and remaining blockers. Historical unchecked items above are superseded when their implementation is explicitly marked complete here.
+
+## 2026-11-20 active onboarding implementation
+- [x] Deploy verified-payment onboarding queue and trigger (migration prepare_onboarding_jobs_after_verified_payment_no_send, T-056).
+- [x] Verify Maurice stays awaiting_verified_payment and zero premature jobs exist.
+- [ ] NEXT: add secure idempotent worker to process queued jobs using existing mpid-invite-author eligibility checks, prevent duplicate emails and partial author profile creation, and create project only after verified author account linkage. Preserve payment gate.
+- [ ] Add onboarding queue/readiness display to admin dashboard, then run isolated positive/negative acceptance and authenticated browser tests. No real client invitation until payment verification.
