@@ -181,3 +181,16 @@ Use this instruction:
 
 - [x] Deploy read-only verified-payment onboarding readiness view, preserving payment verification as the prerequisite (T-052).
 - [ ] Connect readiness state to admin onboarding action and existing secure invitation workflow, without auto-inviting before verified payment. Record each new test once and do not repeat previously passed checks unless dependencies change.
+
+## CURRENT PRIORITY HANDOFF | 2026-11-20 (supersedes stale NEXT entries above)
+- [x] Four continuity files exist and were read from GitHub main in this session.
+- [x] Family 50/50 preparation and payment request backend deployed (see prior migrations/tests); no need to rebuild.
+- [x] Payment Management Center held-draft approval source deployed, plus admin approval notification queue/handler (T-048/T-051). Full delivery acceptance remains open.
+- [x] Maurice's revised $500 agreement is signed and $250 initial installment is REQUESTED (T-054). Do NOT resend or generate another request.
+- [x] Dashboard workflow ordering source deployed (c22c1f2b33a5234985a3dfdd7553b27ff842a7b5); Invite New Author directly below Application Review (494b4bc09bbf38ae1c50db7cf2a0fbccdee0d836), T-053.
+- [ ] FIRST: confirm $250 payment provider settlement and secure verified payment record. Current amount_verified=$0, so do not invite Maurice yet.
+- [ ] NEXT: integrate rsm_onboarding_readiness with existing admin invitation flow; only enable invitation after signed agreement and verified payment, no duplicate invitation.
+- [ ] Verify authenticated dashboard/browser layout, login, approval button behavior, duplicate suppression, and author-invitation controls; do not send customer messages in tests.
+- [ ] Verify future eligible signed agreements create held approval drafts and admin notification delivery, then one-click authorized send, idempotency, retries and audit trail. Do not recreate Maurice's request.
+- [ ] Complete manuscript processing, editorial QA, release security and end-to-end acceptance tests already listed above.
+- [ ] Keep all four continuity files updated after each verified deployment/test, with exact evidence and remaining blockers. Historical unchecked items above are superseded when their implementation is explicitly marked complete here.

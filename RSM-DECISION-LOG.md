@@ -52,3 +52,8 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-20 payment approval workflow decision
 - Owner approved future automatic initial payment preparation with administrator approval notification before sending author payment requests. Administrator approval email destination publishing@rightsideofmoney.com. Maurice Watkins current $250 request must remain held and must not be sent without separate explicit authorization. Approval is not permission to send an author payment request.
+
+## 2026-11-20 approved dashboard and continuity operating decisions
+- Invite New Author belongs immediately BELOW Author Application Review Center, followed by Applicant Manuscript Inbox. GitHub main commit 494b4bc09bbf38ae1c50db7cf2a0fbccdee0d836 implements source ordering; browser acceptance pending.
+- Maintain accurate completion tracking in ALL FOUR GitHub continuity files after each meaningful change. Mark deployed source and verified behavior separately, record commit/evidence, carry forward only outstanding actions, and read these files first in every new chat. Do not recommend rebuilding a completed feature without first checking source and live data.
+- Maurice's signed $500 agreement and already-requested $250 initial payment must not be reissued. Verified payment remains the onboarding prerequisite. Admin approval is mandatory for future author payment sends.
