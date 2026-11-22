@@ -282,3 +282,9 @@ Use this instruction:
 - [x] Authenticated live readiness checks passed for Maurice's registered PDF (seven gates reported).
 - [ ] Confirm actual PDF extraction page/word metrics and text fidelity before asserting editing-ready quality; supported type check alone is insufficient.
 - [ ] Controlled private processing and author-readable DOCX/editorial report QA after extraction confirmation; administrator release required. Do not initiate live agreement/payment/author notification.
+
+## 2026-11-21 Submission Notification Center (T-079)
+- [x] Diagnose pending item via live SQL: Maurice's original manuscript, unacknowledged, not a stale Perfect Marriage test.
+- [x] Clarify receipt acknowledgment vs editorial approval and hide test-project items from active counts in dashboard source; commit 98e4c8c1b47e87db7c549e009bbc3c9ffa9ea091.
+- [ ] Verify live UI after refresh. Administrator may acknowledge Maurice manuscript receipt after reviewing the document; do not automatically mark editorial QA approved.
+- [ ] Audit remaining dashboard controls and stage handoffs to reduce disconnected navigation; preserve permissions and release gates.
