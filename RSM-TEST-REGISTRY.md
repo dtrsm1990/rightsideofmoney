@@ -233,3 +233,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 - PASS database: rsm_register_manuscript_intake trigger exists; Maurice original manuscript has one intake job, awaiting_assembly; duplicate guard unique(source_document_id). Admin-only read policy installed.
 - PASS database: rsm_editorial_project_readiness view returned Maurice foreword 0, awaiting assembly 1, open findings 5, pending private deliverables 5, released 0, QA review runs 1.
 - NOT TESTED: automatic assembly, background editing, page-specific findings generation, KDP export, end-to-end author browser access. No claims of these passing.
+
+## 2026-11-22 | T-112 live resumption readiness inspection
+- **PASS, READ-ONLY DATABASE AND DEPLOYED SOURCE INSPECTION; END-TO-END BLOCKED.** Live `rsm_editorial_project_readiness` for Maurice returned editing, registered_forewords=0, awaiting_assembly=1, unresolved_findings=5, pending_admin_deliverables=5, released_deliverables=0, qa_review_runs=1. `rsm-manuscript-queue` v23 ACTIVE and verify_jwt=true; source starts from original manuscript document and has no foreword assembly path. No processing, release, external sends, or migration performed. Next: register actual foreword and implement versioned assembly before another run.
