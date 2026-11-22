@@ -286,3 +286,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-131 automatic dashboard report initiation
 - PASS: GitHub source JS syntax validation and commit `fc3fb3833a8198a814cf1ee92a6ac7e561e26d26`. PASS: live database schema read confirms `mpid_editorial_deliverables` required fields and default pending_review status. NOT TESTED: authenticated browser report generation and storage insertion. No false completion claim.
+
+## 2026-11-22 | T-132 report project selector synchronization
+- PASS: GitHub workflow script JavaScript syntax compiled and commit `20ee4ffc19291ef8d83e84693d8416c0ba397866` saved. PASS: local assembled manuscript candidate exists. NOT TESTED: authenticated browser, report endpoint invocation, private storage upload, processing completion.
