@@ -390,3 +390,7 @@ Use this instruction:
 - [x] Create idempotent source-linked editorial uncertainty ingestion RPC and dashboard refresh hook. Migration register_source_linked_manuscript_uncertainties; commit 38a6aebcd01a118a6c6f3d45f8106a8aa54658f3.
 - [ ] CRITICAL: Run authenticated admin dashboard refresh and verify source-linked findings are inserted, rendered, and not duplicated on repeat refresh. Current live findings count remains 0; do not claim fixed until verified.
 - [ ] Reconcile genuine findings versus chunk-boundary artifacts; derive author actions only for unresolved substantive decisions; integrate complete QA and milestone gates.
+
+- [x] Persist five provisional, source-linked manuscript uncertainty flags for Maurice; database verified 5 findings/5 unique segment links, no author checklist or release. Dashboard commit 7003c7939971ac1571c8cbe830009beca9d1f503 removes brittle refresh-time RPC and legacy client-specific auto-start.
+- [ ] Browser-verify Editorial Audit Management Center displays five findings without manual re-registration.
+- [ ] Editorial QA of each provisional flag against adjacent source segments; resolve boundary artifacts, produce exact safe corrections, then create author checklist only for genuine substantive decisions.
