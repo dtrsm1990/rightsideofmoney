@@ -134,3 +134,6 @@ Human approval is required for substantive editorial changes, publication author
 - Source-code stage ordering is implemented but must never be described as authenticated browser acceptance. A Supabase function's ACTIVE status must never be described as a successful upload, manuscript edit, or author release without an actual tested transaction.
 - Keep author-facing releases blocked until latest assembled manuscript is privately registered, version-linked editorial processing passes QA, findings are resolved with exact source references, and an administrator approves the deliverables. Preserve originals and audit history. No real author correspondence, agreement, or payment request without explicit authorization.
 - Future GitHub dashboard writes must preserve complete nonempty content, dependencies and exact filenames; prefer modifying dedicated workflow script rather than replacing the large administrator HTML when feasible.
+
+## 2026-11-22 | Administrator editorial responsibility
+- Stage 4 Editorial Quality Review is an exception-review and approval surface, not a manual status bookkeeping step. Advanced finding-status changes remain accessible only when needed for verified exceptions. Do not automatically mark segment-boundary artifacts resolved without comparison to full source. Preserve author approval in Stage 5.
