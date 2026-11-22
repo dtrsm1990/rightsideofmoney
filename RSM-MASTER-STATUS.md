@@ -373,3 +373,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - Live Supabase: public.rsm_manuscript_intake_jobs created with unique source_document_id, admin-only SELECT RLS, and mpid_documents INSERT trigger. Maurice's original manuscript registered as awaiting_assembly. Foreword is NOT yet registered in project storage and is NOT merged into working manuscript.
 - Editorial findings schema expanded with source document/page/paragraph/section, original and corrected excerpts, suggestions, action owner, change type and verification notes. Existing five findings remain open, private, and without fabricated locations.
 - Still incomplete: automatic foreword assembly, package-scoped processing worker, verified page-anchored annotations, QA, KDP-ready export, dashboard order, author release. No new editing run or author release performed.
+
+## 2026-11-22 | Live resumption verification
+- Re-read all four continuity records and inspected live Supabase tables, readiness view, and rsm-manuscript-queue v23. Maurice remains editing with 0 registered forewords, 1 awaiting assembly, 5 unresolved provisional findings, 5 pending private deliverables, 0 released, 1 QA review run.
+- Existing queue v23 accepts original source_document_id and does not assemble a foreword. Do NOT start a new run against original alone while foreword is pending. No new deployment, author release, agreement, or payment request performed.
+- Next prerequisite: obtain/register actual Colonel Jackson foreword in private project storage, then build versioned source assembly and gated processing. Browser acceptance remains pending.
