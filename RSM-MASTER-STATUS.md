@@ -325,3 +325,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 dashboard integrated assessment correction
 - GitHub commit 99973ad0b7bf89f4b3ab0ed7dd0367b18ffcae9d replaces Maurice's raw TXT-to-DOCX button with private `Generate Editorial Assessment (Word)` action. Reads all 13 completed `rsm_edit_segments` using admin SELECT RLS, produces source-excerpt-linked prioritized editorial concerns, author questions, numerical-token integrity warning and release gates. Uses private staging and existing deliverable registry. Removes stale loading indicator. JS syntax check PASS; browser generation, document inspection, factual accuracy and author release NOT verified. No files sent to author.
+
+## 2026-11-21 package scope and corrections register
+- Verified Maurice's live `mpid_projects.package` is `Publish-Ready`, status onboarding. Commit a73f17d323d6821e1a0880edb3f19157c05b6b28 extends private dashboard assessment with live package label, scope boundary and source-versus-edited changed-region register for all 13 segments. Does NOT establish complete per-edit tracked changes, signed agreement package entitlements, substantive accuracy, or end-to-end browser success. No author release.
