@@ -430,3 +430,7 @@ Use this instruction:
 - [x] Commit `7dd0face50571a54e72598c3be058ee6f746f62f`: seven ordered stage containers in existing workflow-order JS; syntax PASS. This is source deployment only.
 - [ ] Authenticated browser acceptance and correct placement of all live panels, especially author review and final payment; ensure no lost handlers.
 - [ ] Register integrated Maurice manuscript in private Supabase and connect version-aware editing; validate QA before author release.
+
+## 2026-11-22 | Dashboard stage 5 corrected
+- [x] Commit `c941df975fc6faf8c802380f71100dfc75efa1e8` maps existing author checklist and private release into Author Review & Approval; JS syntax PASS.
+- [ ] Browser validate all seven stages and complete versioned manuscript ingestion and QA.
