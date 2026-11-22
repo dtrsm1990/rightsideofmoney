@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const byName = (name) => sections.find(s => s.querySelector('h2')?.textContent.trim() === name);
   const get = (id) => document.getElementById(id) || byName(id);
   const stages = [
-    ['Application, Agreement & Payment', ['applicationCenter','signwellIntegration','paymentCenter']],
+    ['Application, Agreement & Payment', ['applicationCenter','signwellIntegration','paymentCenter','rsmOperationsCenter']],
     ['Author Onboarding & Manuscript Intake', ['authorInvitations','applicantManuscriptCenter','manuscriptRecoveryCenter','Publishing Projects','Create a Publishing Project','Manage Project','Project Details','Upload a Project Document','submissionCenter']],
     ['Manuscript Processing', ['manuscriptProcessing','rsmEditingEngine']],
-    ['Editorial Audit & Quality Assurance', ['editorialAuditCenter','Add an Editorial Finding','checklistCenter','editorialStaging']],
-    ['Author Review & Approval', []],
+    ['Editorial Audit & Quality Assurance', ['editorialAuditCenter','Add an Editorial Finding']],
+    ['Author Review & Approval', ['checklistCenter','editorialStaging']],
     ['Book Production & Proofing', ['Publication Readiness QA']],
     ['Final Payment & Publication Readiness', ['aiCostCenter','Operational Notes']]
   ];
