@@ -201,3 +201,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-098 | 2026-11-21 | Integrated private editorial assessment | SOURCE SYNTAX PASS; LIVE PENDING | GitHub commit 99973ad0b7bf89f4b3ab0ed7dd0367b18ffcae9d; 13-segment source-linked Word report generator and loading state correction | Verify browser generation, private upload, report content, download, admin QA and no release |
 
 | T-099 | 2026-11-21 | Package-aware editorial report and change register | SOURCE SYNTAX PASS; LIVE PENDING | Commit a73f17d323d6821e1a0880edb3f19157c05b6b28; confirmed live project package Publish-Ready; source-vs-edited changed regions added | Verify signed package criteria, complete per-edit change tracking, report readability and browser generation |
+
+| T-101 | 2026-11-21 | Private editorial review clutter cleanup | SOURCE SYNTAX PASS; LIVE PENDING | DB confirmed current DOCX assessment, edited DOCX draft and two obsolete report artifacts; dashboard commit 5620ae203cceb8cc55c426b9e52e42d66d3b84a9 hides obsolete report rows without deleting data | Verify two active review rows render and permitted actions work; no release |
