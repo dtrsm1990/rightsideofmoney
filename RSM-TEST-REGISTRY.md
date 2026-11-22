@@ -298,3 +298,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-135 private source reconciliation
 - PASS: SQL read verified Maurice original PDF, awaiting_assembly job, existing needs_review editing run; no registered foreword/assembled version. PASS: Supabase admin-authenticated source reconciliation Edge Function v1 ACTIVE and GitHub JS syntax validated/committed `9afc3e380d6f980f9db23e67299a2f84362429b8`. NOT TESTED: authenticated Edge Function invocation, storage folder discovery, source assembly, processing, final report or release.
+
+## 2026-11-22 | T-136 private source assembly deployment
+- PASS: Supabase `rsm-private-manuscript-assembly` v1 ACTIVE, JWT verification enabled; function source fetched and inspected; dashboard workflow JS syntax compiled before GitHub commit `57dedfa42d340561be7348ba08c7cba4ff8839bc`. NOT TESTED: authenticated invocation, private foreword discovery, PDF text extraction, DOCX output, registration, intake trigger, editorial worker or release. No QA pass claimed.
