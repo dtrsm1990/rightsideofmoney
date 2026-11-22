@@ -312,3 +312,8 @@ Use this instruction:
 ## 2026-11-21 selected project persistence (T-085)
 - [x] Persist main project selection per browser session, scope Publishing Projects table, and restore manuscript draft context on refresh. Commits d78896f9e32874179153e77adf1ccca07f3f0c7b and ee75aa4deb41aa1276a142097bdf098c798d68d9.
 - [ ] Verify live dashboard and continue scoping remaining project-specific global panels; preserve global business intake queues where appropriate.
+
+## 2026-11-21 canonical project context (T-086)
+- [x] Route project dropdown changes through one selection handler and synchronize checklist, manuscript, project table, audit and activity; commit a4a69e518c0ebb0b84ce562308c2431892adeaf9.
+- [ ] Verify authenticated browser state and ensure project-specific panels are scoped without hiding business-wide intake queues.
+- [ ] Verify Maurice source PDF extraction fidelity before paid manuscript processing; no author release without QA.
