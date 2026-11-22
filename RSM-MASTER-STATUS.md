@@ -334,3 +334,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 detailed author findings dashboard enhancement
 - Dashboard commit 6678afd20366c7f836ac190b645976378a997b5c adds `Generate Detailed Author Findings` on the current assessment row. New private `RSM_Editorial_Findings_Author_Instructions.docx` explains each source-linked review flag using original passage, RSM work performed, why review is needed, precise author response options, next RSM action and pending status; copyediting register uses BEFORE/AFTER labels. Supersedes prior assessment in active list only after new document exists; preserves audit records. JS syntax PASS; browser generation and document quality NOT independently verified; no author release.
+
+## 2026-11-21 | Editorial objective reaffirmed
+- User confirms manuscript-first objective: correct as much as safely possible in the contracted package; show all corrections transparently; offer precise recommendations to strengthen the book; require author decisions only for matters that cannot be safely resolved by RSM. Author receives clean edited manuscript plus intelligible corrections and actionable advice. Current automated run/report does NOT yet prove complete copyediting, per-edit traceability or publication-ready QA.
