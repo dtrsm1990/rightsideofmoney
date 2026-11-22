@@ -280,3 +280,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-129 duplicate summary cleanup
 - PASS: JavaScript syntax validation and nonempty GitHub commit `9b7226ab3fac713b720aacc4e82e733cd52d6976`. Stage 2 retains file-management render and controls; CSS hides duplicate findings and approval summaries, leaving dedicated workflow panels authoritative. NOT TESTED: authenticated browser layout and behavior. No processing or storage changes.
+
+## 2026-11-22 | T-130 dashboard-native report integration
+- PASS: Supabase Edge Function deployed ACTIVE v1 with verify_jwt=true; PASS GitHub full workflow script committed with Stage 4 report controls and JavaScript syntax validation. NOT TESTED: authenticated report generation, storage registration, UI download, user approval, automated new manuscript editing, or final QA. Reports remain private and explicitly unapproved.
