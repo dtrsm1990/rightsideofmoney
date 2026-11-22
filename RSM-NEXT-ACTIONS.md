@@ -349,3 +349,5 @@ Use this instruction:
 
 - [x] Add project-scoped Word-format conversion for Maurice's editorial report in private dashboard, commit cc6218274185fa51522c2ff4ff9235670842f86c.
 - [ ] Verify DOCX report generation and downloadable formatting; replace TXT as preferred admin review artifact, preserve TXT for audit; do not release without QA.
+
+- [ ] PRIORITY BLOCKER: Replace generic concatenated segment editorial report with professionally structured, evidence-based assessment, author action list and source references. Correct KDP/fact-check overclaims, segment-boundary artifacts and prohibited em dashes. Keep existing Maurice files pending_review and unreleased until verified replacement passes QA.
