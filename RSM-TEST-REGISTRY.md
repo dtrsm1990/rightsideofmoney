@@ -239,3 +239,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-114 integrated manuscript assembly
 - PASS local DOCX creation and render: recovered Colonel Carlos T. Jackson foreword integrated into a copy of Maurice candidate v7 after title and before Contents; 546 foreword words; contents entry added; rendered PDF text confirmed page sequence title -> foreword -> contents. LIMITATION: source candidate carries historical title; no Supabase upload, no editorial QA approval, no author release.
+
+## 2026-11-22 | T-116 continuity of seven-stage operational handoff
+- DOCUMENTATION ONLY: user provided exact previously approved seven-stage dashboard order and finding-status semantics (Open, In Progress, Resolved, Waived). Recorded as requirements, NOT deployment or browser test. Local foreword integration previously verified T-114. No new runtime tests or client actions. Outstanding: private Supabase version registration, end-to-end revision processing, seven-stage dashboard deployment and QA.
