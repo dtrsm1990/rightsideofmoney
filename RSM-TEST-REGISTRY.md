@@ -205,3 +205,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-101 | 2026-11-21 | Private editorial review clutter cleanup | SOURCE SYNTAX PASS; LIVE PENDING | DB confirmed current DOCX assessment, edited DOCX draft and two obsolete report artifacts; dashboard commit 5620ae203cceb8cc55c426b9e52e42d66d3b84a9 hides obsolete report rows without deleting data | Verify two active review rows render and permitted actions work; no release |
 
 | T-102 | 2026-11-21 | Detailed author-facing editorial findings | SOURCE SYNTAX PASS; LIVE PENDING | Commit 6678afd20366c7f836ac190b645976378a997b5c adds clear original/RSM done/author action/next step/status fields to private generated DOCX | Generate via dashboard, inspect passage-specific instructions and complete per-change traceability before author release |
+
+| T-103 | 2026-11-21 | Automatic private deliverables loading | SOURCE SYNTAX PASS; LIVE PENDING | Commit ebe4053997028aa13f33679a7809bd1fa7b9ef54 hides refresh control and triggers stageLoad on project selection | Verify project switching, history refresh, error display and no duplicate requests in browser |
