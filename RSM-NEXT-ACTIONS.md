@@ -425,3 +425,8 @@ Use this instruction:
 - [ ] Implement safe processing from integrated version with duplicate prevention and source-located findings, before/after correction evidence, author questions and package scope. Preserve five open findings pending QA.
 - [ ] Reorganize `mpid-portal/admin-dashboard.html` into the seven approved stages without losing controls; auto-update project progress and QA/readiness. Verify syntax and authenticated browser behavior.
 - [ ] Finish author review, proofing and final release gates; run dependency-relevant regression tests only; no client sends without authorization.
+
+## 2026-11-22 | Stage ordering implementation progress
+- [x] Commit `7dd0face50571a54e72598c3be058ee6f746f62f`: seven ordered stage containers in existing workflow-order JS; syntax PASS. This is source deployment only.
+- [ ] Authenticated browser acceptance and correct placement of all live panels, especially author review and final payment; ensure no lost handlers.
+- [ ] Register integrated Maurice manuscript in private Supabase and connect version-aware editing; validate QA before author release.
