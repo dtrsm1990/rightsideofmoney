@@ -236,3 +236,9 @@ Use this instruction:
 - [ ] Confirm actual post-creation signed Stripe event delivery and safe automatic reconciliation. Existing admin approval remains required; do not claim automatic crediting.
 - [ ] Inspect onboarding job state, invitation delivery, author access and manuscript intake before starting processing; do not send duplicate invitation.
 - [ ] Verify actual office mailbox receipt for payment alert.
+
+
+## 2026-11-21 manuscript handoff
+- [x] Locate Maurice's original applicant manuscript and verify private storage object.
+- [x] Deploy onboarding worker v6 idempotent copy/registration and confirm project document exists.
+- [ ] Confirm refreshed dashboard shows Files=1, validate authorized admin download and author access, and run controlled next-author handoff acceptance without sending customer invitations.

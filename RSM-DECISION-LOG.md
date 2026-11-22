@@ -78,3 +78,7 @@ Human approval is required for substantive editorial changes, publication author
 ## 2026-11-21 Stripe and notification compatibility
 - Preserve authenticated administrator approval for matched Stripe payment verification until safe automatic matching/crediting has been designed and acceptance-tested. Stripe webhook signature validation and event receipt alone do not authorize crediting an arbitrary installment.
 - Notification event_type constraints must remain aligned with deployed trigger event types. Accepted operational events: payment_verified_admin, author_onboarding_completed_admin, author_onboarding_failed_admin. No duplicate live payment charges or notifications should be initiated for testing.
+
+
+## 2026-11-21 manuscript handoff
+- Treat application manuscript as canonical immutable intake source; on completed onboarding copy into private project source-manuscripts directory, register document once by deterministic storage path, and never delete intake original. Do not re-request already uploaded manuscripts.

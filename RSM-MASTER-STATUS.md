@@ -215,3 +215,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - Stripe live destination enabled for payment_intent.succeeded; Supabase rsm-stripe-webhook v3 active. Vault signing secret format and service-role access verified. No actual post-creation webhook delivery has been observed; automatic receipt-to-credit remains NOT VERIFIED.
 - Maurice Watkins $250 initial installment verified via authenticated admin dashboard. Live SQL confirmed status paid, amount_verified 250.00, reconciliation event verified, application payment_status partially_paid (remaining $250 final). Project The VA Loan Millionaire exists in onboarding status.
 - Payment verification initially failed due to mpid_notification_outbox_event_type_check excluding payment_verified_admin. Applied allow_office_operational_notification_event_types migration; three event types accepted in rollback-isolated test. Admin retry succeeded. Office payment_verified_admin outbox row observed status sent; actual mailbox receipt not independently checked.
+
+
+## 2026-11-21 applicant manuscript handoff repaired
+- Maurice's uploaded original PDF found in private mpid-applicant-manuscripts storage (application 36eb0794-5def-4c5f-ab55-ca091ae649fd). Onboarding project f2bc6b19-c4f7-4842-9a74-c9ea3447a496 initially showed 0 documents.
+- Deployed rsm-onboarding-worker v6, adding idempotent source-manuscript copy and mpid_documents registration for completed onboarding jobs, preserving originals and requiring no new author upload. Confirmed target storage object exists and project document b3156828-3088-4993-b814-5501418eb473 registered with original filename. Browser UI refresh and future-author acceptance still pending.
