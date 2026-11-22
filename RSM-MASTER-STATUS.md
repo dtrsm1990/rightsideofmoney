@@ -278,3 +278,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 active draft controls and current live run status
 - Live SQL verified Maurice's The VA Loan Millionaire has no rsm_manuscript_edit_runs rows yet. No private editing run has been started.
 - Dashboard commit ea1e6a9e983e9221382556d7b93dd71f8ab1dff4 disables Continue Draft Processing when no active processing run, and disables Start Private Manuscript Draft when an active run exists. Inline JavaScript syntax PASS; browser runtime pending. No client communication or processing charge.
+
+## 2026-11-21 single project selector restoration
+- Dashboard commit 428d0bdd32879229513278edc8ea58b0893b4b51 hides duplicate manuscript Project to process selector (retains synchronized DOM dependency). Main Select project now loads canonical linked manuscript and refreshes private editing progress on selection change. Source JavaScript syntax PASS, live browser behavior pending. No database mutation or author communication.
