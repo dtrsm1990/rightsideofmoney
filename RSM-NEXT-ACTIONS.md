@@ -353,3 +353,5 @@ Use this instruction:
 - [ ] PRIORITY BLOCKER: Replace generic concatenated segment editorial report with professionally structured, evidence-based assessment, author action list and source references. Correct KDP/fact-check overclaims, segment-boundary artifacts and prohibited em dashes. Keep existing Maurice files pending_review and unreleased until verified replacement passes QA.
 
 - [ ] Verify dashboard `Generate Editorial Assessment (Word)` against Maurice's 13 segments and inspect generated DOCX inside private editorial staging; do not approve or release without substantive editorial QA.
+
+- [ ] Verify signed Publish-Ready scope against automatic correction categories, build complete per-edit traceability (current changed-region excerpts are not tracked changes), generate and inspect private assessment in dashboard; preserve original and require author approval for substantive edits.
