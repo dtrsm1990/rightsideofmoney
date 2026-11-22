@@ -395,3 +395,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-22 | Admin Dashboard seven-stage navigation enhancement
 - GitHub `mpid-portal/rsm-workflow-order.js` commit `c445c35a6c0ed9e8c1425e24c8b42e280457f9d5` adds seven-stage jump navigation, accessible labels, responsive navigation, section anchors and final-stage payment/release guidance. Existing dashboard HTML and panel elements/handlers preserved; login/setup sections remain outside workspace. Source JS syntax PASS; authenticated browser acceptance remains pending. This is a dashboard presentation release, not manuscript processing completion. No Supabase mutations or external sends.
+
+## 2026-11-22 | Live read-only project next-action queue deployed
+- Supabase migration `rsm_editorial_next_actions_readonly_20261122` created `public.rsm_editorial_next_actions` as security_invoker read-only view based on existing readiness counts. Live SQL verified Maurice action `manuscript_assembly`, 1 awaiting assembly, 5 open findings, 5 private deliverables. This is guidance only, not a processing trigger or manuscript upload.
+- Dashboard HTML commit `dca9910f069d387db4c3280a88d2354413979fdc` adds Project Workflow | Next Required Action panel using authenticated Supabase session, safe DOM text rendering and refresh button. Workflow JS commit `40147d9286df5e1927978c3bd520b32397a9f20e` places panel first in stage 1. Browser/authenticated acceptance pending. No client sends, manuscript release or changes to historical findings.
