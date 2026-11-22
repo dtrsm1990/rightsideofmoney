@@ -398,3 +398,7 @@ Use this instruction:
 - [ ] PRIORITY: Build repeatable no-regression acceptance suite for signed agreement/payment gate, portal invitation, author role/RLS, source manuscript integrity, manuscript editing, audit, checklist, private deliverables, approved release and project progress. No real messages or releases during tests.
 - [ ] Implement safe near-real-time author project status and approved action updates without re-rendering or deleting unfinished author form inputs. Keep private draft findings and deliverables inaccessible.
 - [ ] Verify Maurice invitation acceptance and actual portal access through appropriate authorized logs, not merely the invitation timestamp. Current application signed, partially_paid, invited 2026-11-22 03:09 UTC; assigned author profile exists.
+
+- [x] Add six-section onboarding and editorial collaboration guide inside authenticated author portal, commit 78f1976c4204aa7f402b813ec4ed208570922fe1.
+- [ ] Verify author guide in browser under authorized author login and regression-test existing uploads, checklist and private file RLS.
+- [ ] Build branded welcome/onboarding email in idempotent, auditable notification workflow with approval gate; do not resend to Maurice without explicit authorization. Supabase-managed invitation v8 alone does not include a detailed guide.
