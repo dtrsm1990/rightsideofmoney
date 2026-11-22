@@ -258,3 +258,9 @@ Use this instruction:
 
 - [x] Move Manuscript Processing immediately below Publishing Projects in admin dashboard source.
 - [ ] Verify deployed dashboard layout, manuscript/application selector continuity and readiness button. Confirm private edited DOCX and editorial recommendations meet professional author review requirements before release.
+
+## 2026-11-21 continuation checkpoint (T-074)
+- [x] Reconcile live project/document count and deployed queue version without repeating historical acceptance tests. Maurice project has one manuscript; queue v21 ACTIVE.
+- [ ] PRIORITY: authenticated admin preflight on Maurice's registered PDF. Inspect extraction result, PDF.js worker behavior, page count/text quality and preserve source. Current connector could not retrieve queue function bundle; this does NOT establish a PDF failure.
+- [ ] After preflight passes, controlled edit/QA acceptance, readable edited manuscript plus separate recommendations report, admin-only release review. No author-facing release without approval.
+- [ ] Verify live browser layout and project selector continuity. No agreement or payment request resend.
