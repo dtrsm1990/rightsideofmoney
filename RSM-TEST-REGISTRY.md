@@ -163,3 +163,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-079 | 2026-11-21 | Submission notification pending item diagnosis | LIVE SQL PASS, UI SOURCE/SYNTAX PASS, BROWSER PENDING | Exactly one active document: Maurice original PDF; reviewed_at null. Dashboard commit 98e4c8c1b47e87db7c549e009bbc3c9ffa9ea091 clarifies receipt acknowledgment and filters hidden test projects; JS syntax PASS | Did not mark document reviewed; no manuscript editing or author release |
 
 | T-080 | 2026-11-21 | Maurice submission receipt acknowledgment | LIVE PASS | Administrator reported 'Submission marked as reviewed'; SQL verified reviewed_at=2026-11-22 03:57:24.045+00 on original PDF | Intake acknowledgment only, no editorial QA or author release |
+
+| T-081 | 2026-11-21 | Private editing start source handoff | SOURCE/SYNTAX PASS, RUNTIME PENDING | Dashboard commit fbdc1fae9e17b548b2345a738beb8c3a72b55be8 makes start self-load linked application/source and fixes misleading next-button wording; inline JS syntax PASS | No editing run started; API usage and PDF extraction fidelity not verified |
