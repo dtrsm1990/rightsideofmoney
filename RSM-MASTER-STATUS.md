@@ -389,3 +389,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-22 | Seven-stage administrator dashboard source deployment
 - GitHub commit `7dd0face50571a54e72598c3be058ee6f746f62f` replaces presentation-only `mpid-portal/rsm-workflow-order.js` with seven ordered operational stage containers. It moves existing DOM panel nodes without recreating their handlers and retains unmatched controls in Additional Administration Controls. `mpid-portal/admin-dashboard.html` and its exact filename unchanged. Source syntax passed via JavaScript compilation. Authenticated browser/visual acceptance is NOT yet verified; author review stage currently has no dedicated mapped panel and must be integrated with release workflow before calling complete. No Supabase mutation or client send.
+
+## 2026-11-22 | Seven-stage placement refinement
+- GitHub commit `c941df975fc6faf8c802380f71100dfc75efa1e8` moves existing Author Action & Approval Checklist and Private Editorial Review & Release panels into stage 5 (Author Review & Approval), rather than leaving stage empty; maps Operations Center to stage 1. Verified panel IDs/headings against live dashboard HTML source and workflow-order script syntax PASS. Authenticated browser acceptance pending. No customer data or external sends.
