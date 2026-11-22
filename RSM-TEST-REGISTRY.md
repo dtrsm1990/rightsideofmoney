@@ -245,3 +245,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-117 dashboard workflow ordering source check
 - PASS: fetched committed `mpid-portal/rsm-workflow-order.js`, compiled JavaScript syntax successfully, seven named stage labels present. Presentation-only DOM moves preserve original element objects. NOT TESTED: authenticated browser rendering, full panel mapping, responsive display, end-to-end release controls. No client actions.
+
+## 2026-11-22 | T-118 panel mapping source inspection
+- PASS source inspection: identified actual HTML panel IDs/headings; corrected author checklist/private release into stage 5 and operations into stage 1. JS compilation PASS. Browser event behavior NOT TESTED. No external sends.
