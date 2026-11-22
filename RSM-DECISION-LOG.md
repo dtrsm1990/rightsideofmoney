@@ -98,3 +98,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 | Workflow milestones own publishing stage
 - Project status must reflect verified workflow events rather than requiring an administrator to select routine stages. Edit runs and staged editorial deliverables advance eligible projects to editing; review-stage runs are NOT proofing or completed. Preserve on_hold and later stages. Manual status changes are exception overrides, not normal workflow. Publishing Progress uses authoritative project status. Later stage transitions require separate evidence-backed gates and tests.
+
+## 2026-11-21 | Enterprise publishing platform design standard
+- All workflow centers must reflect one authoritative project state with evidence-backed transitions. Editorial engine outputs must be registered as structured findings with source locations, correction actions, author decision requirements, provenance and QA disposition. Reports are views of that evidence, not separate disconnected systems. Avoid redundant buttons, duplicated state, unverifiable readiness claims and repetitive manual reconciliation. Keep explicit administrator authorization for external communications, payments and author release.
