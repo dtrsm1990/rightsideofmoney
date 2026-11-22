@@ -95,3 +95,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 | Minimal-click editorial dashboard
 - Remove redundant buttons and automate routine state refresh, manuscript processing and report preparation wherever safe. Keep administrator approval for meaningful substantive changes, author delivery, payment requests and publication release. Preserve audit history and protected source manuscripts.
+
+## 2026-11-21 | Workflow milestones own publishing stage
+- Project status must reflect verified workflow events rather than requiring an administrator to select routine stages. Edit runs and staged editorial deliverables advance eligible projects to editing; review-stage runs are NOT proofing or completed. Preserve on_hold and later stages. Manual status changes are exception overrides, not normal workflow. Publishing Progress uses authoritative project status. Later stage transitions require separate evidence-backed gates and tests.
