@@ -274,3 +274,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 - PASS: GitHub read-only verification of dashboard HTML reference to `rsm-workflow-order.js` and Next Action Center; workflow script includes all seven ordered stages and Complete Manuscript Intake panel. Source SHA dashboard `50171c4ff4f7bc01aa39713787553198209ed478`, script `be28d5935e9fa3cd552b70ac857c7d77058bdbfd`.
 - PASS: Supabase list-edge-functions reports `rsm-assembled-manuscript-upload` v2 ACTIVE, verify_jwt=true. PASS: live Maurice release-gate query returns four false conditions and editorial_release_ready=false.
 - NOT TESTED: authenticated browser layout, upload execution, manuscript bytes in private storage, queue worker execution, annotation/page accuracy, author dashboard approval, final release, KDP-ready deliverable. No client notifications sent.
+
+## 2026-11-22 | T-127 project records visual polish
+- PASS: `rsm-workflow-order.js` modified with nonempty 13,605-character full source and JavaScript syntax compilation. GitHub commit `615f359002d24b58506238da579edcb9b73b578d`. CSS scoped to `#rsmProjectRecordPanel`; existing `#details` render and action handlers untouched. NOT TESTED: authenticated browser screenshot, responsive visual QA, duplicate audit across all dashboard sections.
