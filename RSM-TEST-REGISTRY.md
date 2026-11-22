@@ -292,3 +292,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-133 audit UI simplification and upload capability check
 - PASS: workflow JS syntax validation and GitHub commit `21051144ba08d53800ba99252a86b1c216d39798`. PASS: local combined DOCX file exists. CHECKED: available Supabase connector tools do not provide private storage binary upload, and no authenticated admin browser session is available in current tool environment. NOT TESTED: live manuscript upload, browser UI, report generation, manuscript QA. No client release.
+
+## 2026-11-22 | T-134 dashboard-only automation acceptance criteria recorded
+- REQUIREMENT RECORDED, NOT PASSED: Existing project manuscript and foreword must be automatically assembled and processed within authenticated dashboard; source-linked editorial findings must show exact location, original and correction; report and edited manuscript must be private dashboard artifacts; admin/author approval and KDP QA gates must be enforced. No authenticated end-to-end execution has been demonstrated. Prior local DOCX/report creation and GitHub UI commits do not constitute a passing production test.
