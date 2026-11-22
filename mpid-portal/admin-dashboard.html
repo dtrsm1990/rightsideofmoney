@@ -1701,6 +1701,7 @@ $('rsmEditingProject').onchange=async()=>{
  const application=$('processingApplication'),manuscript=$('processingManuscript');
  if(application.options.length===2)application.selectedIndex=1;
  if(manuscript.options.length===2)manuscript.selectedIndex=1;
+ $('rsmQueueAuto').disabled=true;
  $('rsmEditingSelection').textContent=application.value&&manuscript.value?'Ready to check: '+$('rsmEditingProject').selectedOptions[0].textContent+' | '+manuscript.selectedOptions[0].textContent+'. Click Check Editing Readiness.':'Review the matching application and manuscript below: '+$('processingMessage').textContent;
 };
 async function rsmLoadProcessingChoices(){
@@ -1839,11 +1840,15 @@ $('aiCostRefresh').onclick=async()=>{
 
 async function rsmRefreshEditing(){
  const holder=$('rsmEditingRuns'),pid=$('selectedProject').value;holder.replaceChildren();
+ $('rsmQueueAuto').disabled=true;
  if(!pid){$('rsmEditingStatus').textContent='Select a project first.';return;}
  await requireAdmin();
  const {data,error}=await sb.from('rsm_manuscript_edit_runs').select('id,status,source_filename,output_storage_path,report_storage_path,error_message,qa_status,qa_flags,completed_segments,total_segments,created_at').eq('project_id',pid).order('created_at',{ascending:false}).limit(25);
  if(error)throw error;
- if(!data?.length){holder.textContent='No private editing runs for this project.';return;}
+ const activeRun=(data||[]).find(r=>r.status==='processing');
+ $('rsmQueueAuto').disabled=!activeRun;
+ $('rsmQueueStart').disabled=!!activeRun;
+ if(!data?.length){holder.textContent='No private editing runs for this project. Next action: Start Private Manuscript Draft after checking source extraction quality.';return;}
  for(const item of data){
   const box=document.createElement('div');box.style.cssText='border-top:1px solid #50483b;padding:12px 0';
   const line=document.createElement('p');line.textContent=new Date(item.created_at).toLocaleString()+' | '+item.status+' | '+item.source_filename;box.append(line);
