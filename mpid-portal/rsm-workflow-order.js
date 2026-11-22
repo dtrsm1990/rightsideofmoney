@@ -136,7 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
       reportProject.replaceChildren(reportPlaceholder);
       (data||[]).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.title;reportProject.append(o)});
       if(Array.from(reportProject.options).some(o=>o.value===previous))reportProject.value=previous;
-      if(!reportProject.value&&projectSelect.value)reportProject.value=projectSelect.value;
+      if(!reportProject.value){
+        const mainProject=document.getElementById('selectedProject')?.value;
+        const preferred=[mainProject,projectSelect.value].find(id=>id&&Array.from(reportProject.options).some(o=>o.value===id));
+        if(preferred)reportProject.value=preferred;
+        else if(reportProject.options.length===2)reportProject.selectedIndex=1;
+      }
       await loadPrivateReports();
       await prepareReportAutomatically();
     }catch(e){reportStatus.textContent=e?.message||String(e)}
@@ -207,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   refreshReport.addEventListener('click',loadPrivateReports);
   reportProject.addEventListener('change',async()=>{await loadPrivateReports();await prepareReportAutomatically()});
+  document.getElementById('selectedProject')?.addEventListener('change',()=>{const id=document.getElementById('selectedProject')?.value;if(id&&Array.from(reportProject.options).some(o=>o.value===id)){reportProject.value=id;loadPrivateReports().then(prepareReportAutomatically)}});
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadReportProjects,1100)});
   loadReportProjects();
   // rsm-duplicate-summary-cleanup-v2: single source of truth for each task.
