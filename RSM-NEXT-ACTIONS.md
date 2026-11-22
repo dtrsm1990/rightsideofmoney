@@ -346,3 +346,6 @@ Use this instruction:
 
 - [x] Correct silent blank private editorial list in dashboard source by auto-loading stageLoad on refresh and surfacing errors; commit 5155c8b6e3f561d91f9f6f73f8b8b8eeee3a452a.
 - [ ] Confirm published dashboard/browser shows two Maurice pending_review deliverables and both private downloads work. Perform substantive QA before approval or release.
+
+- [x] Add project-scoped Word-format conversion for Maurice's editorial report in private dashboard, commit cc6218274185fa51522c2ff4ff9235670842f86c.
+- [ ] Verify DOCX report generation and downloadable formatting; replace TXT as preferred admin review artifact, preserve TXT for audit; do not release without QA.
