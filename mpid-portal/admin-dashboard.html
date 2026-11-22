@@ -1742,17 +1742,22 @@ async function stageGeneratedReviewCopy(pid,name,blob,type){
 }
 async function stageLoad(){try{await requireAdmin();const pid=$('selectedProject').value,h=$('stageList');h.replaceChildren();if(!pid){h.textContent='Select The VA Loan Millionaire under Manage Project, then click Refresh Private Deliverables.';return;}h.textContent='Loading private deliverables...';const {data,error}=await sb.from('mpid_editorial_deliverables').select('*').eq('project_id',pid).order('created_at',{ascending:false});if(error)throw error;if(pid!==$('selectedProject').value)return;h.replaceChildren();for(const d of data||[]){const row=document.createElement('div');row.style.cssText='border-top:1px solid var(--line);padding:12px 0';const title=document.createElement('p');title.textContent=d.file_name+' | '+d.status;row.append(title);const add=(label,fn)=>{const b=document.createElement('button');b.textContent=label;b.className='secondary';b.style.marginRight='8px';b.onclick=async()=>{b.disabled=true;try{await requireAdmin();if(pid!==$('selectedProject').value)throw Error('Project selection changed.');await fn();}catch(e){stageMsg(err(e));}finally{b.disabled=false;}};row.append(b);};const getFile=async()=>{const {data:b,error:e}=await sb.storage.from('mpid-editorial-staging').download(d.storage_path);if(e)throw e;return b;};
 if(d.status==='pending_review'&&d.file_name==='editorial-report.txt'&&pid==='f2bc6b19-c4f7-4842-9a74-c9ea3447a496'&&!(data||[]).some(x=>x.file_name==='RSM_Editorial_Assessment_Action_Plan.docx'))add('Generate Editorial Assessment (Word)',async()=>{
+ const project=projects.find(p=>p.id===pid);if(!project)throw Error('Project not found.');const packageName=String(project.package||'').trim();if(!packageName)throw Error('No package selected. Editorial scope cannot be determined.');
  const {data:segments,error:segmentError}=await sb.from('rsm_edit_segments').select('segment_index,source_text,edited_text,status').eq('run_id','45fdcf7f-6204-4966-bd9c-f20a2d98b686').order('segment_index');
  if(segmentError)throw segmentError;
  if(!segments||segments.length!==13||segments.some(x=>x.status!=='completed'))throw Error('All 13 completed manuscript segments are required before assessment.');
  const {Document,Paragraph,TextRun,Packer,HeadingLevel}=await import('https://esm.sh/docx@9.5.1');
  const paras=[];const add=(t,heading)=>paras.push(new Paragraph({text:t,heading:heading||undefined,spacing:{after:heading?170:110}}));
  add('RSM PUBLISHING SERVICES',HeadingLevel.TITLE);add('Private Editorial Assessment & Author Action Plan',HeadingLevel.HEADING_1);
- add('The VA Loan Millionaire | Maurice Watkins');add('CONFIDENTIAL | ADMINISTRATOR REVIEW | NOT APPROVED FOR AUTHOR RELEASE');
+ add('The VA Loan Millionaire | Maurice Watkins');add('Selected service package: '+packageName);add('CONFIDENTIAL | ADMINISTRATOR REVIEW | NOT APPROVED FOR AUTHOR RELEASE');
  add('1. Executive Editorial Assessment',HeadingLevel.HEADING_2);
  add('Purpose: Help veterans understand their VA home loan benefit. This is a preliminary editorial assessment derived from the manuscript text, not a completed legal, mortgage, tax, fact-checking, or publication-readiness certification.');
  add('Editorial disposition: HOLD FOR SUBSTANTIVE REVIEW. Preserve the author’s voice and original file. Copyediting alone does not resolve technical accuracy, reader comprehension, or production requirements.');
- add('2. Prioritized Manuscript Review',HeadingLevel.HEADING_2);
+ add('2. Package-Specific Editorial Scope',HeadingLevel.HEADING_2);
+ add('Package on the live project record: '+packageName+'. Only work expressly included in the signed scope may be described as included. This automated assessment does not expand contracted services.');
+ add('Automatically applied in the existing draft: copyediting suggestions for spelling, grammar, punctuation, spacing and readability. All changes require source-fidelity verification.');
+ add('Not automatically authorized: new chapters, restructuring, altered personal experiences, legal or tax advice, changes to factual claims, cover design, marketing, publication or distribution. Any additional work requires a scope decision.');
+ add('2A. Prioritized Manuscript Review',HeadingLevel.HEADING_2);
  const topics=[
  ['VA entitlement and county-limit examples',/entitlement|county.limit|certificate of eligibility|\\bCOE\\b/i,'Verify current VA entitlement rules, full versus partial entitlement, and the applicability of any historical county-limit example.','Check the example against current VA guidance and request author confirmation before substantive revision.'],
  ['Funding fee and exemption',/funding fee|exempt/i,'Verify funding-fee rates, exemptions, and when the fee can be financed.','Check current VA funding-fee tables and clarify exceptions and timing.'],
@@ -1765,6 +1770,21 @@ if(d.status==='pending_review'&&d.file_name==='editorial-report.txt'&&pid==='f2b
  ];
  let found=0;for(const [title,pattern,risk,action] of topics){let hit=null;for(const seg of segments){const match=seg.source_text.match(pattern);if(match){const i=match.index;hit={n:seg.segment_index+1,quote:seg.source_text.slice(Math.max(0,i-90),Math.min(seg.source_text.length,i+210)).replace(/\\s+/g,' ').trim()};break;}}if(!hit)continue;found++;add(found+'. '+title,HeadingLevel.HEADING_3);add('Source locator: Original manuscript, processing segment '+hit.n+' (not a final page or chapter reference).');add('Source excerpt: “'+hit.quote+'”');add('Editorial concern to verify: '+risk);add('Recommended action: '+action);add('Decision: Administrator review required. Author approval required for substantive rewriting.');}
  if(found<4)throw Error('Insufficient manuscript evidence for structured assessment.');
+ add('2B. Detailed Automatic Correction Register',HeadingLevel.HEADING_2);
+ add('This register compares the stored source and edited text. It identifies differences for administrator inspection, not verified corrections. Changes to facts, quotations, dates, names, numbers, or substantive meaning must not be accepted automatically.');
+ let changeCount=0;let unchanged=0;
+ for(const seg of segments){const a=seg.source_text||'',z=seg.edited_text||'';if(a===z){unchanged++;continue;}
+ const tokenize=t=>t.match(/\\S+|\\s+/g)||[];const before=tokenize(a),after=tokenize(z);
+ let first=0;while(first<before.length&&first<after.length&&before[first]===after[first])first++;
+ let lastA=before.length-1,lastZ=after.length-1;while(lastA>=first&&lastZ>=first&&before[lastA]===after[lastZ]){lastA--;lastZ--;}
+ const clip=t=>t.replace(/\\s+/g,' ').trim().slice(0,450);
+ const oldText=clip(before.slice(first,lastA+1).join('')),newText=clip(after.slice(first,lastZ+1).join(''));
+ add('Processing segment '+(seg.segment_index+1)+': changed',HeadingLevel.HEADING_3);
+ add('Original excerpt: '+(oldText||'[spacing/structure change]'));
+ add('Edited excerpt: '+(newText||'[deletion/spacing change]'));
+ add('Disposition: Compare against full original context. Accept only routine copyedits that preserve meaning; escalate factual or substantive changes for author approval.');changeCount++;
+ }
+ add('Automated comparison summary: '+changeCount+' segments contain differences; '+unchanged+' segments unchanged. Excerpts show a bounded changed region per segment, not every individual edit. A complete tracked-changes audit is still required.');
  add('3. Editorial Integrity and Manuscript Fidelity',HeadingLevel.HEADING_2);
  const source=segments.map(x=>x.source_text).join(''),edited=segments.map(x=>x.edited_text).join('');
  const count=x=>(x.match(/\\b\\d[\\d,.%$-]*\\b/g)||[]).sort();
