@@ -528,3 +528,8 @@ Use this instruction:
 - [x] Deploy private PDF+integrated-foreword DOCX assembly v2 and automatic dashboard initiation; deploy mechanical preflight worker, private findings and report generation (all unverified at runtime).
 - [ ] Invoke authenticated dashboard flow, fix runtime errors, verify assembled manuscript and version-linked editing run in live database. Currently NOT registered.
 - [ ] Implement substantive editing per purchased scope, verify paragraph and final printed page locations, source fidelity and VA facts, produce professional DOCX/PDF, and complete admin approval -> author review -> release gates. No client notification or release without explicit approval.
+
+## 2026-11-22 | Remaining production acceptance gates
+- [x] Fix mandatory application_id and approved_scope on automated editing-run registration in preflight v2.
+- [ ] Execute private assembly and preflight with authenticated dashboard, verify storage and new run. Connected Supabase management tool does not expose an authenticated user-session Edge Function invocation.
+- [ ] Complete substantive VA/mortgage editorial review, source-to-page references, print typesetting and KDP proof validation; integrate gated admin approval and author review. Never release pending or needs_review deliverables.
