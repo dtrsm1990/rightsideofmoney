@@ -340,3 +340,6 @@ Use this instruction:
 
 - [x] Fix Maurice's page-1 PDF preflight rejection and deploy `rsm-manuscript-queue` v23 ACTIVE; short cover/blank pages no longer abort extraction.
 - [ ] Run authenticated manuscript processing after v23 and verify actual editing run, all segments, private DOCX and report. If scanned body text fails document minimum, use OCR or original accessible manuscript, without replacing immutable source.
+
+- [x] Recover Maurice 13/13 editing run from finalization failure by fixing notification event-type constraint and conditionally transitioning existing run to review; two private deliverables registered pending_review. No reprocessing or author release.
+- [ ] Administrator inspect draft and editorial report in Private Editorial Review & Release, verify original fidelity, VA/tax factual claims, and print layout before author-facing approval.
