@@ -522,3 +522,9 @@ Use this instruction:
 - [x] Deploy authenticated admin-only private PDF plus foreword text assembly function and dashboard invocation, preserving source PDF and registering new version when successful.
 - [ ] Confirm foreword actually exists in Maurice's private project storage; invoke assembly authenticated, verify resulting DOCX and intake job. Function must not invent missing foreword.
 - [ ] Make assembly automatic when sources become ready, build real editing/QA worker with source-accurate findings, connect report/approval/release and execute authenticated end-to-end acceptance test. Existing assembly is text-only and not KDP production ready.
+
+## 2026-11-22 | Integrated foreword and automated preflight
+- [x] Store existing Colonel Jackson foreword text in private project-integrated manuscript source, eliminating separate foreword upload dependency.
+- [x] Deploy private PDF+integrated-foreword DOCX assembly v2 and automatic dashboard initiation; deploy mechanical preflight worker, private findings and report generation (all unverified at runtime).
+- [ ] Invoke authenticated dashboard flow, fix runtime errors, verify assembled manuscript and version-linked editing run in live database. Currently NOT registered.
+- [ ] Implement substantive editing per purchased scope, verify paragraph and final printed page locations, source fidelity and VA facts, produce professional DOCX/PDF, and complete admin approval -> author review -> release gates. No client notification or release without explicit approval.
