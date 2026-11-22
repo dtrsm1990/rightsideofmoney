@@ -259,3 +259,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 authenticated preflight result reported by administrator
 - Administrator selected The VA Loan Millionaire and registered source PDF in live dashboard. Readiness response: Preflight passed, with seven PASS checks: project/application records, real project/source, approved application/scope, matching title/package, signed live agreement, verified commencement payment, supported input type.
 - Reported UI did not show PDF page count, word count, or extraction quality evidence. Treat contractual/source readiness as PASS, but extraction fidelity and editorial QA as NOT VERIFIED. Do not conflate supported PDF type with accurate extraction.
+
+## 2026-11-21 Submission Notification Center reconciliation
+- Live SQL: one active mpid_documents row, Maurice's registered original manuscript, with no mpid_submission_reviews.reviewed_at; therefore Awaiting Review=1 reflects an unacknowledged real intake document, not a Perfect Marriage test. No database review state was changed.
+- Dashboard commit 98e4c8c1b47e87db7c549e009bbc3c9ffa9ea091 clarifies that submission review is intake acknowledgment rather than editorial approval, renames action Acknowledge Receipt, and excludes hidden test-project documents from counts. Inline JS syntax passed. Browser runtime unverified.
