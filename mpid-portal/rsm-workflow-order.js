@@ -113,6 +113,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadIntakeProjects,900)});
   loadIntakeProjects();
+  // rsm-duplicate-summary-cleanup-v2: single source of truth for each task.
+  // The original renderDetails function continues to populate #details; no data or handlers are deleted.
+  const projectRecords=document.getElementById('details')?.closest('section.card');
+  const projectIntakeStage=document.getElementById('rsm-workflow-stage-2');
+  if(projectRecords&&projectIntakeStage){
+    projectIntakeStage.append(projectRecords);
+    const sectionTitle=projectRecords.querySelector(':scope > h2');
+    if(sectionTitle)sectionTitle.textContent='Manuscript & File Management';
+    const sectionDescription=projectRecords.querySelector(':scope > p.muted');
+    if(sectionDescription)sectionDescription.textContent='Manage current and archived manuscript files here. Editorial findings are managed only in Stage 4; author decisions are managed only in Stage 5.';
+  }
+  const cleanupStyle=document.createElement('style');
+  cleanupStyle.textContent=`
+  #rsmProjectRecordPanel #details{grid-template-columns:minmax(0,1fr)!important}
+  #rsmProjectRecordPanel #details>.rsm-record-column:not(:nth-child(2)){display:none!important}
+  #rsmProjectRecordPanel #details>.rsm-record-column:nth-child(2){grid-column:1/-1;max-width:none}
+  #rsmProjectRecordPanel .rsm-record-header p{max-width:760px}
+  #rsmProjectRecordPanel #details>.rsm-record-column .item{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  #rsmProjectRecordPanel #details>.rsm-record-column .item>.actions{margin:0}
+  #rsmProjectRecordPanel #details>.rsm-record-column .item button{min-width:82px}
+  @media(max-width:700px){#rsmProjectRecordPanel #details>.rsm-record-column .item{display:block}}
+  `;
+  document.head.append(cleanupStyle);
   // rsm-project-records-polish-v1: presentation-only, retain all existing controls.
   const polish=document.createElement('style');
   polish.textContent=`
@@ -143,8 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const heading=panel.querySelector(':scope > h2');
       const intro=panel.querySelector(':scope > p.muted');
       const header=document.createElement('div');header.className='rsm-record-header';
-      if(heading){heading.textContent='Project Records & Review Snapshot';header.append(heading)}
-      if(intro){intro.textContent='One project record overview. Use the dedicated Editorial Audit and Author Review stages to manage findings and approvals.';header.append(intro)}
+      if(heading){heading.textContent='Manuscript & File Management';header.append(heading)}
+      if(intro){intro.textContent='Current manuscript versions and archived files. Findings and author approvals appear once, in their dedicated workflow stages.';header.append(intro)}
       panel.prepend(header);
     }
     const decorate=()=>{
