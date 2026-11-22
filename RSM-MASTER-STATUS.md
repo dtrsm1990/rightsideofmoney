@@ -270,3 +270,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 private manuscript start handoff fix
 - Dashboard commit fbdc1fae9e17b548b2345a738beb8c3a72b55be8 makes Start Resumable 6×9 Layout Draft resolve canonical linked approved application and registered manuscript automatically, matching preflight; corrected instruction to Continue All Segments. JavaScript source syntax PASS. No editing run created or OpenAI credits spent by this change.
 - Supabase rsm-manuscript-queue v21 ACTIVE; original manuscript remains registered. User-confirmed preflight passed seven gates; page/word extraction fidelity and generated deliverable QA remain unverified.
+
+## 2026-11-21 active manuscript UI simplification
+- Dashboard commit 3129b41c8eeb767a4b85ee79b7ee2ab7ad9122be hides disabled Legacy Editor Retired button and legacy manual RSM Manuscript Processing Center, preserving elements/handlers for compatibility. Orders and numbers active controls: 1 Check Editing Readiness, 2 Start Private Manuscript Draft, 3 Continue Draft Processing; Pause and Refresh Draft Progress remain available. No database change, payments, author notifications, or editing run.
+- Full inline JavaScript syntax compilation PASS. Browser acceptance still pending; additional dashboard-wide control audit remains.
