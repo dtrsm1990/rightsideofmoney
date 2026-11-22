@@ -506,3 +506,9 @@ Use this instruction:
 - [x] Rename Stage 4 to Editorial Quality Review, remove duplicate author approval history and hide manual finding controls by default; preserve exception override and audit history.
 - [ ] Upload `/mnt/data/The_VA_Loan_Millionaire_Complete_Editorial_Candidate.docx` using authenticated Complete Manuscript Intake in Stage 2 or authorized binary storage tool when available. Verify `mpid_documents`, storage bytes and intake job. No upload success claimed.
 - [ ] Execute latest-version manuscript processing and generate verified location-accurate findings, DOCX/PDF private deliverables and QA; present for admin approval only after actual verification.
+
+## 2026-11-22 | Highest-priority integrated dashboard-only completion
+- [ ] Eliminate manual download/reupload of ChatGPT-generated manuscript files. In authenticated dashboard, retrieve existing private Maurice project source and foreword, assemble/version privately, and trigger processing automatically.
+- [ ] Build and execute latest-source-linked manuscript editing and QA worker; distinguish genuine source findings from segment-boundary artifacts; attach exact page/paragraph references when verified.
+- [ ] Generate and register polished editorial report and corrected manuscript privately in dashboard, with administrator review and approval; route author decisions to Stage 5 and gate final KDP-ready release.
+- [ ] Run authenticated end-to-end acceptance tests on Maurice's real project without sending unauthorized author communications; record exact pass/fail results and update all continuity files. Do not ask user to download/reupload local manuscript artifacts.
