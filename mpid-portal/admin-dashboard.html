@@ -541,7 +541,7 @@ async function loadPayments(){
        const {error}=await sb.rpc('rsm_admin_verify_matched_stripe_payment',{p_event_id:e.id});
        if(error)throw error;
        alert('Stripe payment verified in RSM. Refreshing payment status.');
-       await loadPaymentManagement();
+       await loadPayments();
       }catch(error){alert('Payment verification failed: '+err(error));b.disabled=false;}
      });
      actions.appendChild(b);
