@@ -394,3 +394,7 @@ Use this instruction:
 - [x] Persist five provisional, source-linked manuscript uncertainty flags for Maurice; database verified 5 findings/5 unique segment links, no author checklist or release. Dashboard commit 7003c7939971ac1571c8cbe830009beca9d1f503 removes brittle refresh-time RPC and legacy client-specific auto-start.
 - [ ] Browser-verify Editorial Audit Management Center displays five findings without manual re-registration.
 - [ ] Editorial QA of each provisional flag against adjacent source segments; resolve boundary artifacts, produce exact safe corrections, then create author checklist only for genuine substantive decisions.
+
+- [ ] PRIORITY: Build repeatable no-regression acceptance suite for signed agreement/payment gate, portal invitation, author role/RLS, source manuscript integrity, manuscript editing, audit, checklist, private deliverables, approved release and project progress. No real messages or releases during tests.
+- [ ] Implement safe near-real-time author project status and approved action updates without re-rendering or deleting unfinished author form inputs. Keep private draft findings and deliverables inaccessible.
+- [ ] Verify Maurice invitation acceptance and actual portal access through appropriate authorized logs, not merely the invitation timestamp. Current application signed, partially_paid, invited 2026-11-22 03:09 UTC; assigned author profile exists.
