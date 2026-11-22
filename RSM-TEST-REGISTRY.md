@@ -242,3 +242,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-116 continuity of seven-stage operational handoff
 - DOCUMENTATION ONLY: user provided exact previously approved seven-stage dashboard order and finding-status semantics (Open, In Progress, Resolved, Waived). Recorded as requirements, NOT deployment or browser test. Local foreword integration previously verified T-114. No new runtime tests or client actions. Outstanding: private Supabase version registration, end-to-end revision processing, seven-stage dashboard deployment and QA.
+
+## 2026-11-22 | T-117 dashboard workflow ordering source check
+- PASS: fetched committed `mpid-portal/rsm-workflow-order.js`, compiled JavaScript syntax successfully, seven named stage labels present. Presentation-only DOM moves preserve original element objects. NOT TESTED: authenticated browser rendering, full panel mapping, responsive display, end-to-end release controls. No client actions.
