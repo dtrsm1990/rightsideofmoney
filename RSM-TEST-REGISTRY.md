@@ -142,3 +142,7 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 
 | T-070 | 2026-11-21 | PDF extraction support deployment | DEPLOYED, RUNTIME PENDING | rsm-manuscript-queue v20 ACTIVE; PDF.js extraction added with page-level low-text rejection; existing DOCX/TXT/MD branches retained | Authenticated preflight, real PDF extraction, document fidelity, editor QA and publication release not tested |
+
+
+| T-071 | 2026-11-21 | Maurice preflight contract records | PASS database inspection | Approved application, signed agreement, matching Publish-Ready project, $500 family pricing and active manuscript, zero editing runs; verified $250 installment from T-065 | Authenticated endpoint preflight pending |
+| T-072 | 2026-11-21 | Read-only PDF extraction preflight | DEPLOYED, RUNTIME PENDING | rsm-manuscript-queue v21 ACTIVE; preflight downloads PDF and attempts PDF.js text extraction with minimum readability checks, no editing run created | Authenticated browser invocation and extraction quality review required |

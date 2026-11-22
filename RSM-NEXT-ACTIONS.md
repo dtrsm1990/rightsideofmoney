@@ -250,3 +250,7 @@ Use this instruction:
 
 - [x] Deploy PDF extraction support in rsm-manuscript-queue v20.
 - [ ] Run authenticated preflight and controlled PDF extraction with Maurice's registered original; validate extracted content fidelity before AI editing. Confirm runtime PDF.js worker behavior. No author release until admin QA.
+
+
+- [x] Deploy authenticated read-only PDF extraction preflight in manuscript queue v21.
+- [ ] Invoke authenticated Preflight Check in Admin Dashboard on Maurice's registered PDF; inspect PDF extraction result. If it fails, repair worker runtime without creating an edit run. Do not release deliverables before QA.

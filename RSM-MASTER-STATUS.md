@@ -229,3 +229,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 PDF manuscript processing implementation
 - Deployed rsm-manuscript-queue v20 ACTIVE with PDF.js PDF text extraction and page-level insufficient-text rejection. DOCX/TXT/MD paths retained. Source manuscript preserved. Deployment confirmed; no authenticated runtime extraction or editing acceptance executed.
+
+
+## 2026-11-21 PDF runtime preflight enhancement
+- Live application/project contract check: approved Publish-Ready, $500 family 50/50, signed agreement, active manuscript document, no existing edit runs. Deployed rsm-manuscript-queue v21 ACTIVE; authenticated preflight now downloads PDF and attempts PDF.js extraction, validates text length and word count, and reports pass/fail without creating an editing run. Authenticated browser invocation not yet performed, so runtime extraction not yet passed.
