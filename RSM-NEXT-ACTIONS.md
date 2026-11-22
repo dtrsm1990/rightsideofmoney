@@ -402,3 +402,8 @@ Use this instruction:
 - [x] Add six-section onboarding and editorial collaboration guide inside authenticated author portal, commit 78f1976c4204aa7f402b813ec4ed208570922fe1.
 - [ ] Verify author guide in browser under authorized author login and regression-test existing uploads, checklist and private file RLS.
 - [ ] Build branded welcome/onboarding email in idempotent, auditable notification workflow with approval gate; do not resend to Maurice without explicit authorization. Supabase-managed invitation v8 alone does not include a detailed guide.
+
+## 2026-11-22 | Current execution blockers
+- Upload/register Colonel Jackson foreword in Maurice project, then assemble a versioned working manuscript with front matter and original preserved. Existing file is only available as conversation attachment, not project storage.
+- Implement secure processing worker with signed-package gate, revision fingerprint/idempotency, location-aware findings, document comparison, author report and QA. Never process original alone when new foreword pending.
+- Reorder Admin Dashboard into intake, assembly, processing, audit/QA, approval, proofing, final payment/release; implement auto-refresh and run authenticated acceptance tests.
