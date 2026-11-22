@@ -113,6 +113,80 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadIntakeProjects,900)});
   loadIntakeProjects();
+  // Administrator-only private report generation and review, integrated in Stage 4.
+  const reportPanel=document.createElement('section');reportPanel.className='card';reportPanel.id='rsmEditorialReportPanel';
+  const reportTitle=document.createElement('h2');reportTitle.textContent='Generate & Review Private Editorial Report';
+  const reportIntro=document.createElement('p');reportIntro.className='note';reportIntro.textContent='Generate a current report from registered private editorial processing records and findings. Source version and QA warnings are shown. No report is released to an author.';
+  const reportProject=document.createElement('select');reportProject.setAttribute('aria-label','Editorial report project');
+  const reportPlaceholder=document.createElement('option');reportPlaceholder.value='';reportPlaceholder.textContent='Choose publishing project';reportProject.append(reportPlaceholder);
+  const reportActions=document.createElement('div');reportActions.className='actions';
+  const generateReport=document.createElement('button');generateReport.type='button';generateReport.textContent='Generate Report for Admin Review';
+  const refreshReport=document.createElement('button');refreshReport.type='button';refreshReport.className='secondary';refreshReport.textContent='Refresh Reports';
+  const reportStatus=document.createElement('p');reportStatus.setAttribute('role','status');reportStatus.setAttribute('aria-live','polite');
+  const reportList=document.createElement('div');reportList.className='list';
+  reportActions.append(generateReport,refreshReport);reportPanel.append(reportTitle,reportIntro,reportProject,reportActions,reportStatus,reportList);
+  const auditStage=document.getElementById('rsm-workflow-stage-4');
+  if(auditStage)auditStage.insertBefore(reportPanel,auditStage.children[1]||null);
+  const loadReportProjects=async()=>{
+    try{
+      const {client}=await getClient();
+      const {data,error}=await client.from('mpid_projects').select('id,title').order('title');
+      if(error)throw error;
+      const previous=reportProject.value;
+      reportProject.replaceChildren(reportPlaceholder);
+      (data||[]).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.title;reportProject.append(o)});
+      if(Array.from(reportProject.options).some(o=>o.value===previous))reportProject.value=previous;
+      if(!reportProject.value&&projectSelect.value)reportProject.value=projectSelect.value;
+      await loadPrivateReports();
+    }catch(e){reportStatus.textContent=e?.message||String(e)}
+  };
+  const loadPrivateReports=async()=>{
+    reportList.replaceChildren();
+    if(!reportProject.value){reportStatus.textContent='Choose a project to view private reports.';return}
+    try{
+      const {client}=await getClient();
+      const {data,error}=await client.from('mpid_editorial_deliverables').select('id,file_name,storage_path,status,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(30);
+      if(error)throw error;
+      const reports=(data||[]).filter(x=>x.storage_path?.includes('/dashboard-reports/'));
+      if(!reports.length){reportStatus.textContent='No generated dashboard reports yet.';return}
+      reportStatus.textContent=reports.length+' private dashboard report(s) available. No author release from this panel.';
+      reports.forEach(r=>{
+        const item=document.createElement('div');item.className='item';
+        const title=document.createElement('strong');title.textContent=r.file_name;
+        const detail=document.createElement('p');detail.className='muted small';detail.textContent='Status: '+r.status+' | '+new Date(r.created_at).toLocaleString();
+        const download=document.createElement('button');download.type='button';download.className='secondary';download.textContent='Review Private Report';
+        download.addEventListener('click',async()=>{
+          download.disabled=true;
+          try{
+            const {client}=await getClient();
+            const {data,error}=await client.storage.from('mpid-manuscripts').download(r.storage_path);
+            if(error||!data)throw error||new Error('Private report unavailable');
+            const url=URL.createObjectURL(data);const a=document.createElement('a');a.href=url;a.download=r.file_name;a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
+          }catch(e){reportStatus.textContent=e?.message||String(e)}
+          finally{download.disabled=false}
+        });
+        item.append(title,detail,download);reportList.append(item);
+      });
+    }catch(e){reportStatus.textContent=e?.message||String(e)}
+  };
+  generateReport.addEventListener('click',async()=>{
+    generateReport.disabled=true;
+    try{
+      if(!reportProject.value)throw new Error('Select a project first');
+      const {session,cfg}=await getClient();
+      reportStatus.textContent='Generating private editorial review report...';
+      const response=await fetch(cfg.url+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value})});
+      const result=await response.json();
+      if(!response.ok||!result.ok)throw new Error(result.error||'Report generation failed');
+      reportStatus.textContent='Private report registered. '+result.findings+' finding(s). QA: '+result.qa_status+'. '+(result.source_matches?'Source version matches.':'Source version not verified. No author release.');
+      await loadPrivateReports();
+    }catch(e){reportStatus.textContent=e?.message||String(e)}
+    finally{generateReport.disabled=false}
+  });
+  refreshReport.addEventListener('click',loadPrivateReports);
+  reportProject.addEventListener('change',loadPrivateReports);
+  document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadReportProjects,1100)});
+  loadReportProjects();
   // rsm-duplicate-summary-cleanup-v2: single source of truth for each task.
   // The original renderDetails function continues to populate #details; no data or handlers are deleted.
   const projectRecords=document.getElementById('details')?.closest('section.card');
