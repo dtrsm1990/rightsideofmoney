@@ -238,3 +238,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 dashboard workflow placement and editorial requirements
 - GitHub admin-dashboard.html commit 07d1eea moves existing Manuscript Processing | Private Editorial Review section directly below Publishing Projects and updates obsolete PDF support text. No new editing run initiated. Deployment/browser rendering not yet verified.
 - Editorial acceptance requirement: preserve immutable original, readable edited DOCX, separate understandable editorial recommendations and author questions, private admin QA and approval before author-facing release. Do not silently alter facts or substantive meaning. Current editor outputs are preliminary and need acceptance review against these requirements.
+
+## 2026-11-21 continuation reconciliation (read-only)
+- Re-read all four continuity files and compared live Supabase schema/function inventory. Live public tables have RLS enabled; rsm-manuscript-queue v21 is ACTIVE.
+- Read-only live project/document query: The VA Loan Millionaire is onboarding, linked to its application, with exactly one registered manuscript document. An unrelated RSM TEST project remains with zero documents; no records changed.
+- Attempt to retrieve deployed rsm-manuscript-queue function bundle failed with connector InternalServerErrorException (Failed to retrieve function bundle). This is not a runtime preflight failure. Authenticated PDF extraction preflight remains UNTESTED; do not start editing or release on this evidence.
