@@ -418,3 +418,10 @@ Use this instruction:
 ## 2026-11-22 | Manuscript assembly produced
 - [x] Insert Colonel Jackson foreword directly into existing Maurice candidate manuscript working copy; original source preserved; rendered and text-checked.
 - [ ] Stage integrated working DOCX in Maurice private Supabase project and replace separate-foreword blocker in processing logic; validate title, formatting, full manuscript and source fidelity before production QA. No release without authorization.
+
+## 2026-11-22 | Seven-stage integrated workflow handoff
+- [x] Foreword merged locally into manuscript working DOCX. Do not request again or treat as separate deliverable.
+- [ ] Register integrated DOCX as versioned private Maurice manuscript; preserve original PDF, prior run and deliverables; reconcile approved title.
+- [ ] Implement safe processing from integrated version with duplicate prevention and source-located findings, before/after correction evidence, author questions and package scope. Preserve five open findings pending QA.
+- [ ] Reorganize `mpid-portal/admin-dashboard.html` into the seven approved stages without losing controls; auto-update project progress and QA/readiness. Verify syntax and authenticated browser behavior.
+- [ ] Finish author review, proofing and final release gates; run dependency-relevant regression tests only; no client sends without authorization.
