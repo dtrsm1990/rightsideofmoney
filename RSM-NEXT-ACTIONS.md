@@ -478,3 +478,7 @@ Use this instruction:
 - [ ] Complete and verify integrated processing worker: read latest registered DOCX, apply package-scoped edits preserving author voice, produce exact paragraph/page evidence and before/after change log, generate private editorial report and edited DOCX, and run QA.
 - [ ] Verify admin dashboard login, all seven stage panels, manuscript upload, status refresh, private approval and author review in a real authenticated browser; repair any failures.
 - [ ] Release to author only following verified QA, resolved findings, and explicit administrator approval; then author approval, final production QA and payment readiness. Do not send payment requests or client notifications without authorization.
+
+## 2026-11-22 | Admin visual refinement
+- [x] Restyle Project Records Active Documents, Editorial Findings and Author Approvals into responsive, coordinated cards, preserving live controls.
+- [ ] Authenticated browser visual acceptance at desktop and mobile sizes, audit duplicated sections and eliminate redundant workflow panels without removing functional controls. Continue remaining editorial processing integration.
