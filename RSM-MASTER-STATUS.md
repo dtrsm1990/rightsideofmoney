@@ -247,3 +247,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 preflight diagnostics source enhancement
 - GitHub commit 3ca986fed0df2196d0a90ca74ce6ee733d95ea03 enhances the existing administrator Check Editing Readiness status to display available PDF page/word/character metrics and per-check detail. It does not invoke processing, change payment controls, or release files.
 - Full inline dashboard script compiled via JavaScript Function constructor after edit; exactly one closing HTML document verified. Authenticated PDF preflight and live browser rendering remain unverified. No author communications or processing runs initiated.
+
+## 2026-11-21 manuscript selector usability repair
+- Dashboard commit 17f9922e432c45b036630c1bb00d5c4e612fa762 adds Project to process selector directly within Manuscript Processing | Private Editorial Review. Selection synchronizes existing Manage Project and invokes existing approved application/manuscript loader; selects the only matching option when unique. Existing source/contract gates and admin release unchanged.
+- Full inline JavaScript compiled successfully after change. Authenticated browser UI and PDF preflight still unverified. No client messages or edit runs.
