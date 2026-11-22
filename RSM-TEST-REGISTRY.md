@@ -1,3 +1,10 @@
+## CURRENT ACCEPTANCE GATE | 2026-11-21 | READ FIRST
+- VERIFIED LIVE DATABASE: Maurice project editing; manuscript processing 13/13, run review, QA needs_review; zero central audit findings and zero author approvals; five private deliverables pending review.
+- VERIFIED SOURCE ONLY: latest dashboard commit d6c8ff735b5d849be5a84f76bad0b191430e70ee passed inline JavaScript syntax validation. Live browser behavior not verified.
+- OPEN FAILURE/GAP: automated processing results are not registered in central audit/checklist; author-facing corrections are not yet a fully verified change-by-change register; no end-to-end publication readiness proof.
+- Next acceptance test: one safe integrated run covering intake/paid agreement gating, original preservation, edit evidence, central findings, targeted author decisions, QA, production and controlled release. Never send real correspondence or release Maurice files in a test.
+- Detailed historical tests below remain available; do not mistake their status for current end-to-end verification.
+
 # RSM Publishing Services | Evidence-Based Test Registry
 Last baseline: 2026-11-19
 
