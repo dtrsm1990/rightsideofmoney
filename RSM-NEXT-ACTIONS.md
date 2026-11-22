@@ -351,3 +351,5 @@ Use this instruction:
 - [ ] Verify DOCX report generation and downloadable formatting; replace TXT as preferred admin review artifact, preserve TXT for audit; do not release without QA.
 
 - [ ] PRIORITY BLOCKER: Replace generic concatenated segment editorial report with professionally structured, evidence-based assessment, author action list and source references. Correct KDP/fact-check overclaims, segment-boundary artifacts and prohibited em dashes. Keep existing Maurice files pending_review and unreleased until verified replacement passes QA.
+
+- [ ] Verify dashboard `Generate Editorial Assessment (Word)` against Maurice's 13 segments and inspect generated DOCX inside private editorial staging; do not approve or release without substantive editorial QA.
