@@ -292,3 +292,7 @@ Use this instruction:
 ## 2026-11-21 receipt acknowledged (T-080)
 - [x] Confirm Maurice original manuscript receipt acknowledged in live Supabase review table; no pending action for this document.
 - [ ] Continue PDF extraction fidelity verification and controlled private manuscript editing with admin QA and author-readable deliverables.
+
+## 2026-11-21 private manuscript handoff (T-081)
+- [x] Fix Start Resumable 6×9 Layout Draft to resolve project application/manuscript without navigating separate controls; commit fbdc1fae9e17b548b2345a738beb8c3a72b55be8.
+- [ ] Run controlled private draft start only after confirming PDF extraction integrity; review any resulting segments and output quality before author release.
