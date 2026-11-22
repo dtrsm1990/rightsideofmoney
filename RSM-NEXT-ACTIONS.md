@@ -407,3 +407,10 @@ Use this instruction:
 - Upload/register Colonel Jackson foreword in Maurice project, then assemble a versioned working manuscript with front matter and original preserved. Existing file is only available as conversation attachment, not project storage.
 - Implement secure processing worker with signed-package gate, revision fingerprint/idempotency, location-aware findings, document comparison, author report and QA. Never process original alone when new foreword pending.
 - Reorder Admin Dashboard into intake, assembly, processing, audit/QA, approval, proofing, final payment/release; implement auto-refresh and run authenticated acceptance tests.
+
+## 2026-11-22 | Resumption verification and immediate execution gate
+- [x] Re-read four continuity files and compare live Supabase readiness, RLS tables and deployed manuscript queue v23.
+- [x] Confirm Maurice: 0 registered forewords, 1 intake awaiting assembly, 5 unresolved findings, 5 pending private deliverables, 0 released. Existing queue cannot assemble foreword; do not rerun original-only processing.
+- [ ] Obtain actual Colonel Jackson foreword file/content and register privately to Maurice's project with provenance. Never invent the text.
+- [ ] Implement immutable original plus foreword versioned assembly, source fingerprint and duplicate-safe processing, then exact location findings and full QA. Preserve existing release gates.
+- [ ] Perform authenticated browser and isolated no-send regression acceptance after deployment.
