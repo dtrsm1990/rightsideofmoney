@@ -362,3 +362,5 @@ Use this instruction:
 - [ ] Generate `RSM_Editorial_Findings_Author_Instructions.docx` from current private assessment using dashboard, inspect for clear source-specific author instructions and factual accuracy, and retain private pending_review until approved.
 
 - [ ] PRIORITY: Finish manuscript-first pipeline: complete safe copyedits in separate working manuscript, full original-to-edited change audit, exact proposed wording for substantive recommendations, targeted author decisions, incorporation of approvals and publication-ready QA by signed package. Reports support the edited manuscript rather than replacing editorial work.
+
+- [ ] Browser-test automatic private deliverables loading on project selection and identify other redundant controls for safe consolidation without bypassing administrator approvals.
