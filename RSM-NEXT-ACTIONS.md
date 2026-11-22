@@ -321,3 +321,7 @@ Use this instruction:
 ## 2026-11-21 private processing workflow (T-087)
 - [x] Consolidate separate start/continue manuscript actions into Process Private Manuscript with private source, confirmation, resumable progress and no automatic author release. Commit d8a0ed912981f30dbd521efaf8040d8add0a19b5.
 - [ ] Initiate authorized private run through authenticated dashboard, inspect segment completeness and edited DOCX/report, and perform human editorial QA before any author release. No further general onboarding test cycle required.
+
+## 2026-11-21 processing failure diagnostic (T-088)
+- [x] Confirm canonical project/application/source linkage and no edit run in live DB; commit fb1feec5e0b20cf3317132d9f1d23ab6aa031c0a to preserve actual function errors.
+- [ ] Capture authenticated private start failure details and fix specific backend issue; do not repeat general onboarding readiness checks.
