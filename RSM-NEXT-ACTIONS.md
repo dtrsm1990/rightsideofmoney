@@ -246,3 +246,7 @@ Use this instruction:
 
 - [x] User confirmed Publishing Projects shows Files=1 for Maurice.
 - [ ] Add safe PDF extraction/conversion to manuscript queue, preserving original PDF and rejecting unreadable/scanned content. Then run authenticated preflight and editorial QA before any release.
+
+
+- [x] Deploy PDF extraction support in rsm-manuscript-queue v20.
+- [ ] Run authenticated preflight and controlled PDF extraction with Maurice's registered original; validate extracted content fidelity before AI editing. Confirm runtime PDF.js worker behavior. No author release until admin QA.

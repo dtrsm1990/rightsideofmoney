@@ -225,3 +225,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 dashboard confirmation and PDF intake limitation
 - Administrator confirmed Publishing Projects Files=1 for Maurice's project after handoff. Live SQL confirmed source document registered. Manuscript edit runs for this project: zero.
 - Inspected active rsm-manuscript-queue source: it extracts DOCX with mammoth but treats other formats using file.text(). Maurice's original source is PDF; must add PDF-safe extraction/conversion before invoking edit run. No processing run initiated.
+
+
+## 2026-11-21 PDF manuscript processing implementation
+- Deployed rsm-manuscript-queue v20 ACTIVE with PDF.js PDF text extraction and page-level insufficient-text rejection. DOCX/TXT/MD paths retained. Source manuscript preserved. Deployment confirmed; no authenticated runtime extraction or editing acceptance executed.

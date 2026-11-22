@@ -139,3 +139,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 | T-068 | 2026-11-21 | Publishing Projects manuscript visibility | PASS administrator UI observation | User confirmed Files=1 after dashboard refresh; independent SQL confirmed source manuscript document | Does not verify manuscript download or editing |
 | T-069 | 2026-11-21 | PDF manuscript engine compatibility | BLOCKED identified by source inspection | rsm-manuscript-queue extracts DOCX via mammoth but falls back to file.text() for PDF; no PDF parser; Maurice source is PDF | Must implement validated PDF extraction before editing; no run initiated |
+
+
+| T-070 | 2026-11-21 | PDF extraction support deployment | DEPLOYED, RUNTIME PENDING | rsm-manuscript-queue v20 ACTIVE; PDF.js extraction added with page-level low-text rejection; existing DOCX/TXT/MD branches retained | Authenticated preflight, real PDF extraction, document fidelity, editor QA and publication release not tested |
