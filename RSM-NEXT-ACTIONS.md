@@ -501,3 +501,8 @@ Use this instruction:
 ## 2026-11-22 | Report panel project synchronization
 - [x] Sync Stage 4 report project with selected dashboard project, reducing duplicate selection.
 - [ ] Authenticated upload of local assembled DOCX, queue processing, dashboard report registration and download acceptance. Current tools do not provide an authenticated browser session or direct private storage upload on behalf of the logged-in administrator.
+
+## 2026-11-22 | Editorial Quality Review and manuscript upload
+- [x] Rename Stage 4 to Editorial Quality Review, remove duplicate author approval history and hide manual finding controls by default; preserve exception override and audit history.
+- [ ] Upload `/mnt/data/The_VA_Loan_Millionaire_Complete_Editorial_Candidate.docx` using authenticated Complete Manuscript Intake in Stage 2 or authorized binary storage tool when available. Verify `mpid_documents`, storage bytes and intake job. No upload success claimed.
+- [ ] Execute latest-version manuscript processing and generate verified location-accurate findings, DOCX/PDF private deliverables and QA; present for admin approval only after actual verification.
