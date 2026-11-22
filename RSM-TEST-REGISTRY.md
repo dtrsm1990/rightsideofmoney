@@ -197,3 +197,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-096 | 2026-11-21 | Maurice editorial report DOCX formatting | SOURCE SYNTAX PASS, LIVE GENERATION PENDING | Commit cc6218274185fa51522c2ff4ff9235670842f86c adds project-scoped Word report conversion and private staging; inline JavaScript parsed successfully. | Need browser generation, download, document inspection; no author release |
 
 | T-097 | 2026-11-21 | Editorial report quality acceptance | FAIL | User-provided DOCX report is concatenated segment notes, lacks chapter-specific findings, factual verification, and actionable author questions; contains unverified KDP claim. Engine source confirms raw `editorial_notes` concatenation. | Block author release; redesign substantive report generation and QA |
+
+| T-098 | 2026-11-21 | Integrated private editorial assessment | SOURCE SYNTAX PASS; LIVE PENDING | GitHub commit 99973ad0b7bf89f4b3ab0ed7dd0367b18ffcae9d; 13-segment source-linked Word report generator and loading state correction | Verify browser generation, private upload, report content, download, admin QA and no release |
