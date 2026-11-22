@@ -141,6 +141,7 @@
 <p class="muted">Administrator-only payment management. Payment requests use approved Bluevine links and are emailed through Resend. Verify transactions against Bluevine before recording payments.</p>
 <label for="paymentApplication">Approved application</label><select id="paymentApplication"></select>
 <div id="paymentReconciliationNotice" class="message hidden" role="status" aria-live="polite"></div>
+<div id="stripeReconciliationSummary" class="note" aria-live="polite">Stripe webhook reconciliation: checking status.</div>
 <div id="paymentOverview" aria-live="polite"></div>
 <div id="paymentMessage" class="message hidden" role="status"></div>
 </section>
@@ -515,6 +516,13 @@ async function loadPayments(){
   notice.textContent=outstanding.length?
     'PAYMENT RECONCILIATION REQUIRED: '+outstanding.length+' payment installment(s) have an accepted payment-link email but no verified receipt. A sent link does not confirm payment. Match each Bluevine transaction before verification and onboarding.':
     '';
+  try{
+   const {data:stripeRows,error:stripeError}=await sb.rpc('rsm_admin_stripe_reconciliation');
+   if(stripeError)throw stripeError;
+   const rows=Array.isArray(stripeRows)?stripeRows:[];
+   const unresolved=rows.filter(e=>!['verified','ignored'].includes(e.reconciliation_status));
+   $('stripeReconciliationSummary').textContent='Stripe webhook reconciliation: '+unresolved.length+' event(s) awaiting review. '+(rows.length===0?'No signed Stripe webhook events received yet.':'Review unmatched payments before crediting installments.');
+  }catch(e){$('stripeReconciliationSummary').textContent='Stripe reconciliation status unavailable: '+err(e);}
   renderPaymentOverview();
  }catch(e){message('paymentMessage','Payment records could not be loaded: '+err(e));$('paymentOverview').textContent='Payment overview unavailable.';}
 }
