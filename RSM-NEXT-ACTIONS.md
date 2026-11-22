@@ -358,3 +358,5 @@ Use this instruction:
 
 - [x] Hide obsolete TXT and superseded DOCX report rows from active private review list while preserving audit records; dashboard commit 5620ae203cceb8cc55c426b9e52e42d66d3b84a9.
 - [ ] Verify refreshed dashboard displays only current assessment DOCX and edited manuscript DOCX, with appropriate status-specific actions.
+
+- [ ] Generate `RSM_Editorial_Findings_Author_Instructions.docx` from current private assessment using dashboard, inspect for clear source-specific author instructions and factual accuracy, and retain private pending_review until approved.
