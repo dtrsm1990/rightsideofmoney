@@ -241,6 +241,26 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('selectedProject')?.addEventListener('change',checkSources);
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(checkSources,1400)});
   setTimeout(checkSources,1500);
+  // Assemble private sources server-side. No local file transfer or author release.
+  const assembleButton=document.createElement('button');assembleButton.type='button';
+  assembleButton.textContent='Assemble Existing Private Sources';
+  assembleButton.className='secondary';
+  sourcePanel.insertBefore(assembleButton,sourceRefresh);
+  assembleButton.addEventListener('click',async()=>{
+    assembleButton.disabled=true;
+    try{
+      const id=document.getElementById('selectedProject')?.value||projectSelect.value;
+      if(!id)throw new Error('Select a publishing project');
+      const {session,cfg}=await getClient();
+      sourceStatus.textContent='Assembling existing private manuscript and foreword sources...';
+      const response=await fetch(cfg.url+'/functions/v1/rsm-private-manuscript-assembly',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:id})});
+      const result=await response.json();
+      if(!response.ok||!result.ok)throw new Error(result.error||'Private source assembly failed');
+      sourceStatus.textContent='Working manuscript version '+result.version+' registered privately. Source and layout QA required before approval.';
+      await checkSources();
+    }catch(e){sourceStatus.textContent='Assembly requires attention: '+(e?.message||String(e))}
+    finally{assembleButton.disabled=false}
+  });
   // Streamlined editorial audit: administrator reviews exceptions, not manual status bookkeeping.
   const auditCenter=document.getElementById('editorialAuditCenter');
   if(auditCenter){
