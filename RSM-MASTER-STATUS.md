@@ -233,3 +233,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 PDF runtime preflight enhancement
 - Live application/project contract check: approved Publish-Ready, $500 family 50/50, signed agreement, active manuscript document, no existing edit runs. Deployed rsm-manuscript-queue v21 ACTIVE; authenticated preflight now downloads PDF and attempts PDF.js extraction, validates text length and word count, and reports pass/fail without creating an editing run. Authenticated browser invocation not yet performed, so runtime extraction not yet passed.
+
+
+## 2026-11-21 dashboard workflow placement and editorial requirements
+- GitHub admin-dashboard.html commit 07d1eea moves existing Manuscript Processing | Private Editorial Review section directly below Publishing Projects and updates obsolete PDF support text. No new editing run initiated. Deployment/browser rendering not yet verified.
+- Editorial acceptance requirement: preserve immutable original, readable edited DOCX, separate understandable editorial recommendations and author questions, private admin QA and approval before author-facing release. Do not silently alter facts or substantive meaning. Current editor outputs are preliminary and need acceptance review against these requirements.

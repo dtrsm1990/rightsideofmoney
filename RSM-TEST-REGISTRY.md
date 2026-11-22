@@ -146,3 +146,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 | T-071 | 2026-11-21 | Maurice preflight contract records | PASS database inspection | Approved application, signed agreement, matching Publish-Ready project, $500 family pricing and active manuscript, zero editing runs; verified $250 installment from T-065 | Authenticated endpoint preflight pending |
 | T-072 | 2026-11-21 | Read-only PDF extraction preflight | DEPLOYED, RUNTIME PENDING | rsm-manuscript-queue v21 ACTIVE; preflight downloads PDF and attempts PDF.js text extraction with minimum readability checks, no editing run created | Authenticated browser invocation and extraction quality review required |
+
+
+| T-073 | 2026-11-21 | Dashboard processing section placement | SOURCE UPDATED, UI PENDING | GitHub admin-dashboard.html commit 07d1eea moved existing editing section immediately after Publishing Projects and corrected PDF capability copy | Live browser rendering and selected-project continuity not yet verified |

@@ -82,3 +82,7 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 manuscript handoff
 - Treat application manuscript as canonical immutable intake source; on completed onboarding copy into private project source-manuscripts directory, register document once by deterministic storage path, and never delete intake original. Do not re-request already uploaded manuscripts.
+
+
+## 2026-11-21 professional author review deliverables
+- Provide a clean author-readable edited manuscript and a separate editorial report with recommendations/questions. Correct grammar, spelling, punctuation and clarity only within approved scope; substantive changes require explicit review. Preserve original source and hold all author-facing releases for administrator approval.

@@ -254,3 +254,7 @@ Use this instruction:
 
 - [x] Deploy authenticated read-only PDF extraction preflight in manuscript queue v21.
 - [ ] Invoke authenticated Preflight Check in Admin Dashboard on Maurice's registered PDF; inspect PDF extraction result. If it fails, repair worker runtime without creating an edit run. Do not release deliverables before QA.
+
+
+- [x] Move Manuscript Processing immediately below Publishing Projects in admin dashboard source.
+- [ ] Verify deployed dashboard layout, manuscript/application selector continuity and readiness button. Confirm private edited DOCX and editorial recommendations meet professional author review requirements before release.
