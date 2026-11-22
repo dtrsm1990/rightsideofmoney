@@ -328,3 +328,6 @@ Use this instruction:
 
 - [x] Fix stale manuscript source selection, commit 234c253bbf82f9caca6383c44c3c0ef67c5c8c33.
 - [ ] Verify authenticated private processing start and actual edited DOCX/report, without author release.
+
+- [x] Recover accessible Maurice original PDF and create private preliminary Word working draft plus editorial review report outside portal, without changing source or releasing author files.
+- [ ] Complete substantive line-by-line copyedit and original-page comparison, correct reconstructed paragraph/heading/table formatting, validate VA and tax claims, then upload private deliverables into portal and obtain administrator QA approval before release.
