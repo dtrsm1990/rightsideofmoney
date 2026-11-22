@@ -135,3 +135,7 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 
 | T-067 | 2026-11-21 | Maurice intake manuscript to project handoff | PASS live storage/database | Onboarding worker v6 ACTIVE; copied original PDF from mpid-applicant-manuscripts to mpid-manuscripts/projects/<project-id>/source-manuscripts/<request-id>/; project mpid_documents row b3156828-3088-4993-b814-5501418eb473 exists with original filename; intake original retained | Browser dashboard refresh and future onboarding acceptance pending |
+
+
+| T-068 | 2026-11-21 | Publishing Projects manuscript visibility | PASS administrator UI observation | User confirmed Files=1 after dashboard refresh; independent SQL confirmed source manuscript document | Does not verify manuscript download or editing |
+| T-069 | 2026-11-21 | PDF manuscript engine compatibility | BLOCKED identified by source inspection | rsm-manuscript-queue extracts DOCX via mammoth but falls back to file.text() for PDF; no PDF parser; Maurice source is PDF | Must implement validated PDF extraction before editing; no run initiated |

@@ -220,3 +220,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 applicant manuscript handoff repaired
 - Maurice's uploaded original PDF found in private mpid-applicant-manuscripts storage (application 36eb0794-5def-4c5f-ab55-ca091ae649fd). Onboarding project f2bc6b19-c4f7-4842-9a74-c9ea3447a496 initially showed 0 documents.
 - Deployed rsm-onboarding-worker v6, adding idempotent source-manuscript copy and mpid_documents registration for completed onboarding jobs, preserving originals and requiring no new author upload. Confirmed target storage object exists and project document b3156828-3088-4993-b814-5501418eb473 registered with original filename. Browser UI refresh and future-author acceptance still pending.
+
+
+## 2026-11-21 dashboard confirmation and PDF intake limitation
+- Administrator confirmed Publishing Projects Files=1 for Maurice's project after handoff. Live SQL confirmed source document registered. Manuscript edit runs for this project: zero.
+- Inspected active rsm-manuscript-queue source: it extracts DOCX with mammoth but treats other formats using file.text(). Maurice's original source is PDF; must add PDF-safe extraction/conversion before invoking edit run. No processing run initiated.

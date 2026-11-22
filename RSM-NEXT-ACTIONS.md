@@ -242,3 +242,7 @@ Use this instruction:
 - [x] Locate Maurice's original applicant manuscript and verify private storage object.
 - [x] Deploy onboarding worker v6 idempotent copy/registration and confirm project document exists.
 - [ ] Confirm refreshed dashboard shows Files=1, validate authorized admin download and author access, and run controlled next-author handoff acceptance without sending customer invitations.
+
+
+- [x] User confirmed Publishing Projects shows Files=1 for Maurice.
+- [ ] Add safe PDF extraction/conversion to manuscript queue, preserving original PDF and rejecting unreadable/scanned content. Then run authenticated preflight and editorial QA before any release.
