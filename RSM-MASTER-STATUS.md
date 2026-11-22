@@ -337,3 +337,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 | Editorial objective reaffirmed
 - User confirms manuscript-first objective: correct as much as safely possible in the contracted package; show all corrections transparently; offer precise recommendations to strengthen the book; require author decisions only for matters that cannot be safely resolved by RSM. Author receives clean edited manuscript plus intelligible corrections and actionable advice. Current automated run/report does NOT yet prove complete copyediting, per-edit traceability or publication-ready QA.
+
+## 2026-11-21 streamlined private deliverables navigation
+- Commit ebe4053997028aa13f33679a7809bd1fa7b9ef54 hides redundant `Refresh Private Deliverables` button and automatically loads project private deliverables when project selection changes. Existing manual refresh handler retained internally; approval and author-release controls preserved. Inline JavaScript syntax PASS; browser end-to-end verification pending. No author release.
