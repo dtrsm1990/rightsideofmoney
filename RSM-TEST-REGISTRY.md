@@ -283,3 +283,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-130 dashboard-native report integration
 - PASS: Supabase Edge Function deployed ACTIVE v1 with verify_jwt=true; PASS GitHub full workflow script committed with Stage 4 report controls and JavaScript syntax validation. NOT TESTED: authenticated report generation, storage registration, UI download, user approval, automated new manuscript editing, or final QA. Reports remain private and explicitly unapproved.
+
+## 2026-11-22 | T-131 automatic dashboard report initiation
+- PASS: GitHub source JS syntax validation and commit `fc3fb3833a8198a814cf1ee92a6ac7e561e26d26`. PASS: live database schema read confirms `mpid_editorial_deliverables` required fields and default pending_review status. NOT TESTED: authenticated browser report generation and storage insertion. No false completion claim.
