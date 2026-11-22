@@ -1360,7 +1360,7 @@ async function rsmRenderMonitorHealth(){
  }catch(e){panel.textContent='Automation health unavailable: '+err(e);}
 }
 $('rsmOperationsRefresh').onclick=rsmOperationsRefresh;
-async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();await rsmOperationsRefresh();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const showTests=$('showTestProjects')?.checked===true;projects=projects.filter(p=>showTests||!p.is_test);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','rsmEditingProject','uploadProject','findingProject','checklistProjectSelect'])fillSelect(id,projects,p=>(p.is_test?'[TEST] ':'')+p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');let selected=projects.find(p=>p.id===$('selectedProject').value);if(!selected){let saved='';try{saved=sessionStorage.getItem('rsm_admin_selected_project')||'';}catch(_ignored){}selected=projects.find(p=>p.id===saved);if(selected)$('selectedProject').value=selected.id;}if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.filter(p=>!$('selectedProject').value||p.id===$('selectedProject').value).map(p=>'<tr><td>'+esc((p.is_test?'[TEST] ':'')+p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();renderEditorialAudit();await loadChecklist();await loadActivity();await loadSubmissionReviews();await loadApplications();await loadPayments();await loadApplicantManuscripts();await loadRecoveryQueue();if(selected){try{await rsmLoadProcessingChoices();await rsmRefreshEditing();}catch(e){$('rsmEditingStatus').textContent='Project manuscript load: '+err(e);}}message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString('en-US',{timeZone:MPID_TIME_ZONE,timeZoneName:'short'})+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
+async function refresh(){const button=$('refresh');if(button)button.disabled=true;message('refreshMessage','Refreshing project information...',true);try{await requireAdmin();await rsmOperationsRefresh();[profiles,projects,documents,findings,approvals]=await Promise.all([query('mpid_profiles','id,full_name,role'),query('mpid_projects','*'),query('mpid_documents','*'),query('mpid_audit_findings','*'),query('mpid_approvals','*')]);const showTests=$('showTestProjects')?.checked===true;projects=projects.filter(p=>showTests||!p.is_test);const authors=profiles.filter(p=>p.role==='author');$('authorCount').textContent=authors.length;$('projectCount').textContent=projects.length;$('documentCount').textContent=documents.filter(d=>!d.archived_at).length;$('findingCount').textContent=findings.length;fillSelect('newAuthor',authors,a=>a.full_name||a.id);for(const id of ['selectedProject','rsmEditingProject','uploadProject','findingProject','checklistProjectSelect'])fillSelect(id,projects,p=>(p.is_test?'[TEST] ':'')+p.title+' ('+(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown author')+')');let selected=projects.find(p=>p.id===$('selectedProject').value);if(!selected){let saved='';try{saved=sessionStorage.getItem('rsm_admin_selected_project')||'';}catch(_ignored){}selected=projects.find(p=>p.id===saved);if(selected)$('selectedProject').value=selected.id;}if(selected)$('newStatus').value=selected.status;syncProjectSelectors();$('projects').innerHTML='<table><thead><tr><th>Project</th><th>Author</th><th>Package</th><th>Status</th><th>Files</th></tr></thead><tbody>'+projects.filter(p=>!$('selectedProject').value||p.id===$('selectedProject').value).map(p=>'<tr><td>'+esc((p.is_test?'[TEST] ':'')+p.title)+'</td><td>'+esc(profiles.find(a=>a.id===p.author_id)?.full_name||'Unknown')+'</td><td>'+esc(p.package||'Not set')+'</td><td><span class="pill">'+esc(p.status)+'</span></td><td>'+documents.filter(d=>d.project_id===p.id&&!d.archived_at).length+'</td></tr>').join('')+'</tbody></table>';if(!projects.length)$('projects').textContent='No projects found.';renderDetails();renderEditorialAudit();await loadChecklist();await loadActivity();await loadSubmissionReviews();await loadApplications();await loadPayments();await loadApplicantManuscripts();await loadRecoveryQueue();if(selected){try{await rsmLoadProcessingChoices();await rsmRefreshEditing();}catch(e){$('rsmEditingStatus').textContent='Project manuscript load: '+err(e);}}if(selected&&selected.id==='f2bc6b19-c4f7-4842-9a74-c9ea3447a496'&&!rsmAutoActive){void rsmAutoStartApprovedMaurice().catch(e=>{$('rsmEditingStatus').textContent='Automatic manuscript processing: '+err(e);});}message('refreshMessage','Dashboard updated successfully at '+new Date().toLocaleTimeString('en-US',{timeZone:MPID_TIME_ZONE,timeZoneName:'short'})+'.',true);}catch(e){message('refreshMessage','Dashboard refresh failed: '+err(e));}finally{if(button)button.disabled=false;}}
 $('inviteAuthorForm').addEventListener('submit',async event=>{
  event.preventDefault();
  const button=$('sendAuthorInvitation');
@@ -1706,7 +1706,7 @@ $('rsmEditingProject').onchange=async()=>{
 };
 async function rsmLoadProcessingChoices(){
  await requireAdmin();
- const p=projects.find(x=>x.id===($('rsmEditingProject').value||$('selectedProject').value));
+ const p=projects.find(x=>x.id===($('selectedProject').value||$('rsmEditingProject').value));
  if(!p)throw Error('Select a publishing project.');
  $('selectedProject').value=p.id;
  const {data,error}=await sb.from('mpid_author_applications').select('id,book_title,approved_package,application_status').eq('id',p.application_id||'00000000-0000-0000-0000-000000000000').maybeSingle();
@@ -1926,6 +1926,21 @@ $('rsmQueuePreflight').onclick=async()=>{
 
 let rsmAutoStop=false,rsmAutoActive=false;
 $('rsmQueueStop').onclick=()=>{rsmAutoStop=true;$('rsmEditingStatus').textContent='Stop requested. Current segment will finish, then processing will pause.';};
+let rsmApprovedAutoProject='';
+async function rsmAutoStartApprovedMaurice(){
+ const pid='f2bc6b19-c4f7-4842-9a74-c9ea3447a496';
+ const key='rsm_private_edit_autostart_'+pid;
+ if($('selectedProject').value!==pid||rsmAutoActive||sessionStorage.getItem(key)==='attempted')return;
+ await requireAdmin();
+ const {data,error}=await sb.from('rsm_manuscript_edit_runs').select('id,status').eq('project_id',pid).order('created_at',{ascending:false}).limit(5);
+ if(error)throw error;
+ if((data||[]).some(r=>r.status==='review')){await stageLoad();return;}
+ if((data||[]).some(r=>r.status==='failed')){$('rsmEditingStatus').textContent='A failed manuscript run needs administrator investigation. Automatic retry withheld to protect the manuscript.';return;}
+ sessionStorage.setItem(key,'attempted');
+ rsmApprovedAutoProject=pid;
+ $('rsmEditingStatus').textContent='Starting previously authorized private manuscript editing. No author release.';
+ $('rsmQueueAuto').click();
+}
 $('rsmQueueAuto').onclick=async()=>{
  if(rsmAutoActive)return;
  const button=$('rsmQueueAuto'),stop=$('rsmQueueStop');
@@ -1939,7 +1954,7 @@ $('rsmQueueAuto').onclick=async()=>{
   if(!runs?.length){
    const loaded=await rsmLoadProcessingChoices();
    if(!loaded)throw Error('Approved application or original manuscript is not linked to this project.');
-   if(!confirm('Create and process a PRIVATE manuscript draft? Processing uses paid OpenAI API credits. The original remains unchanged and nothing is sent to the author.'))return;
+   if(!rsmApprovedAutoProject||rsmApprovedAutoProject!==projectId){if(!confirm('Create and process a PRIVATE manuscript draft? Processing uses paid OpenAI API credits. The original remains unchanged and nothing is sent to the author.'))return;}
    rsmAutoActive=true;rsmAutoStop=false;button.disabled=true;stop.disabled=false;
    const {data:started,error:startError}=await sb.functions.invoke('rsm-manuscript-queue',{body:{action:'start',project_id:projectId,application_id:$('processingApplication').value,source_document_id:$('processingManuscript').value}});
    if(startError||!started?.ok){let detail=started?.error||startError?.message||'Could not start private draft';try{if(startError?.context instanceof Response){const payload=await startError.context.clone().json();detail=payload?.error||payload?.message||detail;}}catch(_ignored){}throw Error('Private draft start failed: '+detail);}
@@ -1947,7 +1962,7 @@ $('rsmQueueAuto').onclick=async()=>{
   }
   if(runs.length>1)throw Error('More than one active run exists. Use Process Next Segment on the intended run.');
   if(runs?.length){runId=runs[0].id;
-   if(!confirm('Resume private manuscript processing? This uses paid OpenAI API credits. No author files will be released.'))return;
+   if(!rsmApprovedAutoProject||rsmApprovedAutoProject!==projectId){if(!confirm('Resume private manuscript processing? This uses paid OpenAI API credits. No author files will be released.'))return;}
    rsmAutoActive=true;rsmAutoStop=false;button.disabled=true;stop.disabled=false;
   }
   for(let count=0;count<150&&!rsmAutoStop;count++){
