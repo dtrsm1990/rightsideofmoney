@@ -470,3 +470,11 @@ Use this instruction:
 - [x] Atomic service-role-only latest-version assembled manuscript queue claim.
 - [ ] Implement worker to process DOCX, emit location-accurate findings, generate edited manuscript and QA deliverables, with retries and private staging.
 - [ ] Authenticate admin upload of Maurice candidate DOCX; complete end-to-end acceptance and author approval.
+
+## 2026-11-22 | Reconciled priority queue
+- [x] Verify seven-stage dashboard ordering and Complete Manuscript Intake panel exist in GitHub source; no authenticated browser acceptance claimed.
+- [x] Verify latest-version release gate remains closed for Maurice and private upload function is deployed.
+- [ ] Complete authenticated private upload of corrected-title combined Maurice DOCX to `mpid-manuscripts`; confirm actual storage bytes, document row and version-specific intake job. Do not fabricate a document record.
+- [ ] Complete and verify integrated processing worker: read latest registered DOCX, apply package-scoped edits preserving author voice, produce exact paragraph/page evidence and before/after change log, generate private editorial report and edited DOCX, and run QA.
+- [ ] Verify admin dashboard login, all seven stage panels, manuscript upload, status refresh, private approval and author review in a real authenticated browser; repair any failures.
+- [ ] Release to author only following verified QA, resolved findings, and explicit administrator approval; then author approval, final production QA and payment readiness. Do not send payment requests or client notifications without authorization.
