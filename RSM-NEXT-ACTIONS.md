@@ -331,3 +331,6 @@ Use this instruction:
 
 - [x] Recover accessible Maurice original PDF and create private preliminary Word working draft plus editorial review report outside portal, without changing source or releasing author files.
 - [ ] Complete substantive line-by-line copyedit and original-page comparison, correct reconstructed paragraph/heading/table formatting, validate VA and tax claims, then upload private deliverables into portal and obtain administrator QA approval before release.
+
+- [x] Deploy Edge Function v22 fixing malformed PDF preflight detection and word counting; dashboard automatically refreshes private review center after successful run, commit 2c2d38a174775fa87ee65552b4cd0a9556f1e80f.
+- [ ] Initiate Maurice's authenticated processing run, verify segment completion, staged private DOCX and report, and administrator QA. Live SQL currently shows no run. Never auto-release to author.
