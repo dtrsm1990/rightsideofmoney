@@ -368,3 +368,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 | Author onboarding guide added to portal
 - GitHub commit 78f1976c4204aa7f402b813ec4ed208570922fe1 adds six-section professional author guide directly to `mpid-portal/author-dashboard.html`, inside authenticated dashboard. Covers activation, progress, submissions, edited manuscript and recommendations, author checklist responses, proofs and final deliverables. Original author authentication, upload, file access, approval logic unchanged. Existing Supabase `mpid-invite-author` edge function v8 still sends Supabase-managed invitation email only; no separate RSM-branded welcome instructions or tracked delivery. No new invite/email sent. Browser verification pending. Future enhancement: branded guide email via controlled, idempotent notification pipeline, subject to explicit send approval for real authors.
+
+## 2026-11-22 | Intake automation checkpoint
+- Live Supabase: public.rsm_manuscript_intake_jobs created with unique source_document_id, admin-only SELECT RLS, and mpid_documents INSERT trigger. Maurice's original manuscript registered as awaiting_assembly. Foreword is NOT yet registered in project storage and is NOT merged into working manuscript.
+- Editorial findings schema expanded with source document/page/paragraph/section, original and corrected excerpts, suggestions, action owner, change type and verification notes. Existing five findings remain open, private, and without fabricated locations.
+- Still incomplete: automatic foreword assembly, package-scoped processing worker, verified page-anchored annotations, QA, KDP-ready export, dashboard order, author release. No new editing run or author release performed.
