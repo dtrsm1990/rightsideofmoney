@@ -487,3 +487,8 @@ Use this instruction:
 - [x] Hide duplicate Project Details findings and author approval summaries; relocate existing file management to Stage 2 without removing download/archive/delete handlers.
 - [ ] Browser-verify responsive Stage 2 file management and dedicated Stage 4/5 views; inspect remaining duplicate sections.
 - [ ] Complete authenticated private manuscript intake and actual processing worker so review reports are generated inside the dashboard, not as disconnected local artifacts.
+
+## 2026-11-22 | Dashboard report generation
+- [x] Deploy administrator-authenticated private editorial report generator and Stage 4 generate/review controls in existing Admin Dashboard.
+- [ ] Authenticated browser invocation for Maurice and verify actual private TXT report and `pending_review` record; investigate any schema/status constraints.
+- [ ] Connect revised assembled manuscript upload and real editing worker to generate new findings with exact source references and final page verification, then deliver professional DOCX/PDF through dashboard and gate author release.
