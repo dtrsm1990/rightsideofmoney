@@ -169,3 +169,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-082 | 2026-11-21 | Simplify active manuscript processing buttons | SOURCE/SYNTAX PASS, BROWSER PENDING | Commit 3129b41c8eeb767a4b85ee79b7ee2ab7ad9122be; removed obsolete buttons from visible UI by hiding (preserving handlers); ordered active steps 1/2/3; inline JS syntax PASS | Authenticated browser flow and draft processing not tested |
 
 | T-083 | 2026-11-21 | Draft workflow state-aware controls | LIVE SQL + SOURCE/SYNTAX PASS, BROWSER PENDING | SQL confirms zero edit runs for Maurice; dashboard commit ea1e6a9e983e9221382556d7b93dd71f8ab1dff4 disables Continue when no active run and Start when active run exists; JS syntax PASS | Authenticated browser state and PDF extraction not verified |
+
+| T-084 | 2026-11-21 | Single project selector manuscript workflow | SOURCE/SYNTAX PASS, BROWSER PENDING | Commit 428d0bdd32879229513278edc8ea58b0893b4b51 hides duplicate selector and wires main Select project to load manuscript and run progress; JS syntax PASS | Full dashboard-wide scoping of all sections still requires audit |
