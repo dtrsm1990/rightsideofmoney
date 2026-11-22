@@ -111,3 +111,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 | Source-linked findings ingestion
 - Only explicit manuscript-editor uncertainty notes are eligible for automatic central audit registration. Each record must retain source segment provenance and stay open until human QA verifies issue versus chunk-boundary artifact. Routine copyedits must not become author tasks. Idempotency must prevent duplicate findings. Administrator-authenticated execution only; no auto-author release.
+
+## 2026-11-21 | Editorial audit ingestion operational rule
+- Persist source-linked processing uncertainties as provisional internal audit findings, not as author-facing confirmed corrections. Use unique segment links for deduplication. The dashboard reads findings rather than attempting an RPC batch on every refresh. Remove hard-coded customer-specific processing triggers from generic dashboard. Only create author checklist actions after editorial verification.
