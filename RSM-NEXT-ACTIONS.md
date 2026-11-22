@@ -355,3 +355,6 @@ Use this instruction:
 - [ ] Verify dashboard `Generate Editorial Assessment (Word)` against Maurice's 13 segments and inspect generated DOCX inside private editorial staging; do not approve or release without substantive editorial QA.
 
 - [ ] Verify signed Publish-Ready scope against automatic correction categories, build complete per-edit traceability (current changed-region excerpts are not tracked changes), generate and inspect private assessment in dashboard; preserve original and require author approval for substantive edits.
+
+- [x] Hide obsolete TXT and superseded DOCX report rows from active private review list while preserving audit records; dashboard commit 5620ae203cceb8cc55c426b9e52e42d66d3b84a9.
+- [ ] Verify refreshed dashboard displays only current assessment DOCX and edited manuscript DOCX, with appropriate status-specific actions.
