@@ -277,3 +277,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-127 project records visual polish
 - PASS: `rsm-workflow-order.js` modified with nonempty 13,605-character full source and JavaScript syntax compilation. GitHub commit `615f359002d24b58506238da579edcb9b73b578d`. CSS scoped to `#rsmProjectRecordPanel`; existing `#details` render and action handlers untouched. NOT TESTED: authenticated browser screenshot, responsive visual QA, duplicate audit across all dashboard sections.
+
+## 2026-11-22 | T-129 duplicate summary cleanup
+- PASS: JavaScript syntax validation and nonempty GitHub commit `9b7226ab3fac713b720aacc4e82e733cd52d6976`. Stage 2 retains file-management render and controls; CSS hides duplicate findings and approval summaries, leaving dedicated workflow panels authoritative. NOT TESTED: authenticated browser layout and behavior. No processing or storage changes.
