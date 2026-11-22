@@ -1,3 +1,13 @@
+## CURRENT EXECUTIVE CHECKPOINT | 2026-11-21 | READ FIRST
+- Mission: deliver an integrated, secure, automated, professional RSM Publishing Services platform. Prioritize working end-to-end business workflows over disconnected dashboard buttons and isolated reports.
+- Live verified: Maurice Watkins / The VA Loan Millionaire project status **editing**; manuscript run 45fdcf7f-6204-4966-bd9c-f20a2d98b686 has 13/13 completed segments, run status review, QA needs_review. Five private editorial deliverables pending review, zero structured audit findings, zero author approvals. NOT publication ready; nothing released.
+- Key gap: editing output and detailed author report are not connected to structured audit findings, checklist, approval decisions and production gates. No unsupported claims of QA completion.
+- Latest dashboard commit: d6c8ff735b5d849be5a84f76bad0b191430e70ee. Editorial Audit Management Center shows evidence summary and gap warning, refresh button removed. Browser acceptance remains pending.
+- Database migration: sync_publishing_project_editing_from_editorial_work advances eligible projects to editing from manuscript run/deliverable evidence; Maurice live status verified.
+- Source: dtrsm1990/rightsideofmoney, exact dashboard mpid-portal/admin-dashboard.html. Supabase: rufcgmqpueejoyypnpzn.
+- Next integrated release: register verifiable source-linked findings from engine, separate auto-corrected mechanical changes from author decisions, derive action checklist, synchronize stage gates, then one complete acceptance run. Preserve signed scope, original manuscripts, payments, audit trails. No external sends/releases without explicit authorization.
+- Continuity: read all four files each session; update checkpoint, decisions, test evidence, next actions after each significant release. Older entries below are historical, not necessarily current.
+
 # RSM Publishing Services | Master System Status
 Last baseline: 2026-11-19
 Repository: dtrsm1990/rightsideofmoney
