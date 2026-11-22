@@ -232,11 +232,41 @@ document.addEventListener('DOMContentLoaded', () => {
       const response=await fetch(cfg.url+'/functions/v1/rsm-manuscript-source-reconciliation',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:projectId})});
       const result=await response.json();
       if(!response.ok||!result.ok)throw new Error(result.error||'Private source check failed');
-      const lines=['Original: '+(result.source?.file_name||'Not registered'),'Working manuscript: '+(result.assembled?.file_name||'Not registered'),'Foreword: '+(result.foreword_documents?.length||result.foreword_storage_candidates?.length?'Located in private project records':'Not located in private project records'),'Latest QA: '+(result.latest_run?.qa_status||'Not run')];
+      const lines=['Original: '+(result.source?.file_name||'Not registered'),'Working manuscript: '+(result.assembled?.file_name||'Not registered'),'Foreword: '+(result.integrated_foreword?'Included in private integrated source':result.foreword_documents?.length||result.foreword_storage_candidates?.length?'Located in private project records':'Not located in private project records'),'Latest QA: '+(result.latest_run?.qa_status||'Not run')];
       lines.push(...(result.warnings||[]).map(x=>'Attention: '+x));
       sourceStatus.textContent=lines.join(' | ');
+      await autoProcessProject(projectId,result);
     }catch(e){sourceStatus.textContent=e?.message||String(e)}
   };
+  // Fully automatic intake initiation: no manual file transfer, no release.
+  const autoProcessing=new Set();
+  const autoProcessProject=async(id,state)=>{
+    if(autoProcessing.has(id)||!state.source)return;
+    if(!state.assembled&&!state.integrated_foreword)return;
+    if(state.assembled&&state.latest_run?.source_document_id===state.assembled.id)return;
+    autoProcessing.add(id);
+    try{
+      const {session,cfg}=await getClient();
+      const call=async(name)=>{
+        const response=await fetch(cfg.url+'/functions/v1/'+name,{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:id})});
+        const result=await response.json();
+        if(!response.ok||!result.ok)throw new Error(result.error||name+' failed');
+        return result;
+      };
+      if(!state.assembled){
+        sourceStatus.textContent='Automatically incorporating integrated foreword into a private manuscript version...';
+        await call('rsm-private-manuscript-assembly');
+      }
+      sourceStatus.textContent='Running private manuscript mechanical preflight and registering findings...';
+      const result=await call('rsm-private-editorial-preflight');
+      sourceStatus.textContent='Private manuscript preflight registered. '+(result.mechanical_findings||0)+' mechanical finding(s). QA: '+result.qa_status+'. Awaiting verified editorial and production review. No author release.';
+      document.getElementById('rsmNextActionRefresh')?.click();
+      await loadPrivateReports();
+    }catch(e){sourceStatus.textContent='Automatic processing requires attention: '+(e?.message||String(e))}
+    finally{autoProcessing.delete(id)}
+  };
+  // A complete manuscript is generated internally. Hide the obsolete manual upload workflow.
+  intakePanel.hidden=true;
   sourceRefresh.addEventListener('click',checkSources);
   document.getElementById('selectedProject')?.addEventListener('change',checkSources);
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(checkSources,1400)});
@@ -245,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const assembleButton=document.createElement('button');assembleButton.type='button';
   assembleButton.textContent='Assemble Existing Private Sources';
   assembleButton.className='secondary';
-  sourcePanel.insertBefore(assembleButton,sourceRefresh);
+  // Assembly is initiated automatically by the source reconciliation process.
   assembleButton.addEventListener('click',async()=>{
     assembleButton.disabled=true;
     try{
