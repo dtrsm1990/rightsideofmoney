@@ -164,7 +164,7 @@
 </section>
 <section class="card" id="submissionCenter">
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Submission Notification Center</h2><span class="pill" id="submissionBadge" aria-live="polite">Loading submissions</span></div>
-<p class="muted">Review incoming documents from all publishing projects. New uploads appear after refreshing the dashboard. Reviewed documents remain available in the project.</p>
+<p class="muted">Document intake acknowledgments, not editorial approvals. Manuscripts remain awaiting acknowledgment until an administrator confirms receipt. Acknowledgment does not approve edits or release files.</p>
 <div class="submission-stats"><div class="submission-stat"><span class="muted">Awaiting Review</span><strong id="pendingSubmissionCount">0</strong></div><div class="submission-stat"><span class="muted">Reviewed</span><strong id="reviewedSubmissionCount">0</strong></div></div>
 <h3>Documents Awaiting Review</h3><div id="pendingSubmissions" class="list" aria-live="polite"></div>
 <details style="margin-top:22px"><summary style="cursor:pointer;color:var(--gold);font-weight:800">Reviewed Submissions History</summary><div id="reviewedSubmissions" class="list" style="margin-top:14px"></div></details>
@@ -293,7 +293,7 @@ function renderSubmissions(){
   reviewed.textContent='Review history unavailable.';return;
  }
  const reviews=new Map(submissionReviews.map(r=>[r.document_id,r]));
- const active=documents.filter(d=>!d.archived_at);
+ const active=documents.filter(d=>!d.archived_at&&projects.some(p=>p.id===d.project_id));
  const waiting=active.filter(d=>!reviews.get(d.id)?.reviewed_at).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
  const done=active.filter(d=>!!reviews.get(d.id)?.reviewed_at).sort((a,b)=>new Date(reviews.get(b.id).reviewed_at)-new Date(reviews.get(a.id).reviewed_at));
  $('pendingSubmissionCount').textContent=waiting.length;
@@ -306,7 +306,7 @@ function renderSubmissions(){
   const review=reviews.get(d.id);
   const who=uploader?.full_name||author?.full_name||'Unknown uploader';
   const reviewer=profiles.find(p=>p.id===review?.reviewed_by)?.full_name||'RSM Publishing Administrator';
-  return '<div class="item submission-entry '+(isReviewed?'submission-reviewed':'')+'"><div><div class="filename">'+esc(d.file_name)+'</div><div class="meta">Submitted by: '+esc(who)+' · Project: '+esc(project?.title||'Project unavailable')+'</div><div class="meta">Type: '+esc(d.document_type||'Document')+' · Submitted: '+esc(submissionDate(d.created_at))+'</div>'+(isReviewed?'<div class="meta">Reviewed by: '+esc(reviewer)+' · '+esc(submissionDate(review.reviewed_at))+'</div>':'')+'</div><div class="actions"><button class="secondary" type="button" data-submission-open="'+esc(d.project_id)+'">View Project</button><button class="secondary" type="button" data-submission-download="'+esc(d.id)+'">Download</button>'+(isReviewed?'':'<button type="button" data-submission-review="'+esc(d.id)+'">Mark as Reviewed</button>')+'</div></div>';
+  return '<div class="item submission-entry '+(isReviewed?'submission-reviewed':'')+'"><div><div class="filename">'+esc(d.file_name)+'</div><div class="meta">Submitted by: '+esc(who)+' · Project: '+esc(project?.title||'Project unavailable')+'</div><div class="meta">Type: '+esc(d.document_type||'Document')+' · Submitted: '+esc(submissionDate(d.created_at))+'</div>'+(isReviewed?'<div class="meta">Reviewed by: '+esc(reviewer)+' · '+esc(submissionDate(review.reviewed_at))+'</div>':'')+'</div><div class="actions"><button class="secondary" type="button" data-submission-open="'+esc(d.project_id)+'">View Project</button><button class="secondary" type="button" data-submission-download="'+esc(d.id)+'">Download</button>'+(isReviewed?'':'<button type="button" data-submission-review="'+esc(d.id)+'">Acknowledge Receipt</button>')+'</div></div>';
  }
  pending.innerHTML=waiting.map(d=>item(d,false)).join('')||'<div class="muted">No documents awaiting review.</div>';
  reviewed.innerHTML=done.map(d=>item(d,true)).join('')||'<div class="muted">No reviewed documents yet.</div>';
@@ -334,7 +334,7 @@ function renderSubmissions(){
  $('submissionCenter').querySelectorAll('[data-submission-review]').forEach(b=>b.onclick=async()=>{
   const document_id=b.getAttribute('data-submission-review');
   const doc=documents.find(d=>d.id===document_id);
-  if(!doc||!confirm('Mark "'+doc.file_name+'" as reviewed?'))return;
+  if(!doc||!confirm('Acknowledge receipt of "'+doc.file_name+'" as reviewed?'))return;
   b.disabled=true;
   try{
    await requireAdmin();
