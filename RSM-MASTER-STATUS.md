@@ -291,3 +291,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 single-action private manuscript processing
 - Reviewed live Supabase rsm-manuscript-queue v21 source. It supports private PDF extraction, segment persistence, OpenAI copyediting, numeric and word-count QA checks, private 6x9 DOCX and editorial report, no automatic author release. Existing browser workflow required separate Start then Continue clicks.
 - Dashboard commit d8a0ed912981f30dbd521efaf8040d8add0a19b5 exposes a single Process Private Manuscript action: resolves canonical project source, creates a private run when none exists, and processes or resumes segments with paid OpenAI credits after confirmation. Old preflight/start buttons hidden but retained for compatibility; pause and refresh remain. JavaScript syntax PASS, authenticated runtime not verified. No run started and no client notification sent.
+
+## 2026-11-21 processing failure investigation
+- Live SQL confirms Maurice project f2bc6b19-c4f7-4842-9a74-c9ea3447a496 linked to approved application 36eb0794-5def-4c5f-ab55-ca091ae649fd and original manuscript document b3156828-3088-4993-b814-5501418eb473. No rsm_manuscript_edit_runs row was created.
+- Dashboard commit fb1feec5e0b20cf3317132d9f1d23ab6aa031c0a preserves detailed failure message after refresh, reads Supabase function response error body, and removes stale direction to hidden Start button. Full HTML retained (245235 chars), inline JS syntax PASS. No editing run initiated, no client communication.
