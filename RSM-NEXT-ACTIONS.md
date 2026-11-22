@@ -334,3 +334,6 @@ Use this instruction:
 
 - [x] Deploy Edge Function v22 fixing malformed PDF preflight detection and word counting; dashboard automatically refreshes private review center after successful run, commit 2c2d38a174775fa87ee65552b4cd0a9556f1e80f.
 - [ ] Initiate Maurice's authenticated processing run, verify segment completion, staged private DOCX and report, and administrator QA. Live SQL currently shows no run. Never auto-release to author.
+
+- [x] Integrate narrowly scoped, previously authorized Maurice manuscript auto-start into authenticated admin dashboard refresh, commit 504f4bcc439f2781397c9521ca3e325256233ed2. Source syntax verified.
+- [ ] Verify authenticated dashboard refresh starts/resumes run, completes private manuscript editing and stages author-readable edited DOCX and report for admin review. Investigate runtime errors, no author release.
