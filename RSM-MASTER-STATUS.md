@@ -328,3 +328,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 package scope and corrections register
 - Verified Maurice's live `mpid_projects.package` is `Publish-Ready`, status onboarding. Commit a73f17d323d6821e1a0880edb3f19157c05b6b28 extends private dashboard assessment with live package label, scope boundary and source-versus-edited changed-region register for all 13 segments. Does NOT establish complete per-edit tracked changes, signed agreement package entitlements, substantive accuracy, or end-to-end browser success. No author release.
+
+## 2026-11-21 private review UI cleanup
+- User confirmed current assessment report looks good and requested unnecessary buttons removed. Verified live staging has four pending_review artifacts: current `RSM_Editorial_Assessment_Action_Plan.docx`, current `6x9-layout-review-draft.docx`, superseded `RSM_Editorial_Review_Report.docx`, and source `editorial-report.txt`. Dashboard commit 5620ae203cceb8cc55c426b9e52e42d66d3b84a9 hides superseded report rows when current assessment exists; retains underlying private records, original manuscripts and legitimate download/approve/release actions. Inline JS syntax PASS; browser verification pending. No author release.
