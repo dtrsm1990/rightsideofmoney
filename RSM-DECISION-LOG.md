@@ -122,3 +122,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 | Author onboarding instructions
 - Make clear onboarding instructions available inside the existing authenticated author portal without adding unnecessary administrator buttons or altering payment/invitation gates. Explain account activation, project stage, uploads, approved edits, released checklist, proofs and help contact. Keep internal drafts private. Branded onboarding emails require delivery tracking, idempotency and explicit authorization before sending real correspondence.
+
+## 2026-11-22 | Automatic editorial workflow
+- Administrator should only review and approve package-scoped outputs. Incoming forewords and supplements must be versioned, assembled before processing, and never overwrite original manuscripts. Exact page/paragraph evidence and change comparisons are required before author release. No author communication or KDP-ready designation without explicit gates.
