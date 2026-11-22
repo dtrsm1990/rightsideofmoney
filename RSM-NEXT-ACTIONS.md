@@ -364,3 +364,7 @@ Use this instruction:
 - [ ] PRIORITY: Finish manuscript-first pipeline: complete safe copyedits in separate working manuscript, full original-to-edited change audit, exact proposed wording for substantive recommendations, targeted author decisions, incorporation of approvals and publication-ready QA by signed package. Reports support the edited manuscript rather than replacing editorial work.
 
 - [ ] Browser-test automatic private deliverables loading on project selection and identify other redundant controls for safe consolidation without bypassing administrator approvals.
+
+- [x] Synchronize project editing stage automatically from manuscript edit-run/private editorial activity; verify Maurice status editing with 13/13 run in review. Migration sync_publishing_project_editing_from_editorial_work.
+- [x] Move routine status selection behind administrator exception override and add live status refresh/realtime subscription; commit 3697879f0d6b17df5603d4c3f5b42cb4a899941e.
+- [ ] Browser-verify Publishing Progress and project selector after deployment; implement and test evidence-gated automatic transitions for author review, production, proofing and completed without skipping author/admin approval requirements.
