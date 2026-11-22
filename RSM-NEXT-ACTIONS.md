@@ -414,3 +414,7 @@ Use this instruction:
 - [ ] Obtain actual Colonel Jackson foreword file/content and register privately to Maurice's project with provenance. Never invent the text.
 - [ ] Implement immutable original plus foreword versioned assembly, source fingerprint and duplicate-safe processing, then exact location findings and full QA. Preserve existing release gates.
 - [ ] Perform authenticated browser and isolated no-send regression acceptance after deployment.
+
+## 2026-11-22 | Manuscript assembly produced
+- [x] Insert Colonel Jackson foreword directly into existing Maurice candidate manuscript working copy; original source preserved; rendered and text-checked.
+- [ ] Stage integrated working DOCX in Maurice private Supabase project and replace separate-foreword blocker in processing logic; validate title, formatting, full manuscript and source fidelity before production QA. No release without authorization.
