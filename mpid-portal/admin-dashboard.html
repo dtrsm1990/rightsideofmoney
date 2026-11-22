@@ -1882,13 +1882,14 @@ $('rsmQueueStart').onclick=async()=>{
  const button=$('rsmQueueStart');
  try{
   await requireAdmin();
+  const loaded=await rsmLoadProcessingChoices();
   const project_id=$('selectedProject').value,application_id=$('processingApplication').value,source_document_id=$('processingManuscript').value;
-  if(!project_id||!application_id||!source_document_id)throw Error('Select project, load processing details, and select the approved application and original manuscript.');
-  if(!confirm('Start a private resumable manuscript editing run? This uses paid OpenAI credits as you process segments. Signed agreement and verified payment required.'))return;
+  if(!loaded)throw Error('Approved application or registered manuscript could not be resolved: '+$('processingMessage').textContent);
+  if(!confirm('Start a PRIVATE resumable manuscript draft for this project? This uses paid OpenAI credits during segment processing. The original manuscript is preserved and nothing is released to the author.'))return;
   button.disabled=true;
   const {data,error}=await sb.functions.invoke('rsm-manuscript-queue',{body:{action:'start',project_id,application_id,source_document_id}});
   if(error||!data?.ok)throw Error(data?.error||error?.message||'Unable to start');
-  $('rsmEditingStatus').textContent='Created private editing run with '+data.total+' segments. Use Process Next Segment to advance and save progress.';
+  $('rsmEditingStatus').textContent='Created private editing run with '+data.total+' segments. Use Continue All Segments to process the draft privately; review all results before author release.';
   await rsmRefreshEditing();
  }catch(e){$('rsmEditingStatus').textContent='Queue start: '+err(e);}finally{button.disabled=false;}
 };
