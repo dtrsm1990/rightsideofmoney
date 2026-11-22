@@ -304,3 +304,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-137 integrated foreword and automated preflight deployment
 - PASS: private integrated foreword text inserted and read back (3,432 characters), RLS migration applied, assembly Edge Function v2 ACTIVE, source reconciliation v2 ACTIVE, mechanical editorial preflight v1 ACTIVE; GitHub JS syntax validated and committed `90986cb6288d51c60101905405a8ec5fbe069ab3`. FAIL/NOT COMPLETE: post-deployment live SQL shows only original PDF in `mpid_documents`, latest editing run still original PDF and `needs_review`. NOT TESTED: authenticated dashboard assembly/preflight execution, final source fidelity, full factual editorial review, KDP page layout, author release. No false test pass.
+
+## 2026-11-22 | T-138 editing-run schema fix
+- PASS: live information_schema shows `rsm_manuscript_edit_runs.application_id` and `approved_scope` NOT NULL; v1 lacked both. PASS: deployed `rsm-private-editorial-preflight` v2 ACTIVE with those fields, confirmed Maurice project application_id exists. NOT TESTED: authenticated function invocation, full editorial run, layout QA or release. Existing needs_review run and five pending deliverables remain. No pass claimed for manuscript completion.
