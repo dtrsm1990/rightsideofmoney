@@ -295,3 +295,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-134 dashboard-only automation acceptance criteria recorded
 - REQUIREMENT RECORDED, NOT PASSED: Existing project manuscript and foreword must be automatically assembled and processed within authenticated dashboard; source-linked editorial findings must show exact location, original and correction; report and edited manuscript must be private dashboard artifacts; admin/author approval and KDP QA gates must be enforced. No authenticated end-to-end execution has been demonstrated. Prior local DOCX/report creation and GitHub UI commits do not constitute a passing production test.
+
+## 2026-11-22 | T-135 private source reconciliation
+- PASS: SQL read verified Maurice original PDF, awaiting_assembly job, existing needs_review editing run; no registered foreword/assembled version. PASS: Supabase admin-authenticated source reconciliation Edge Function v1 ACTIVE and GitHub JS syntax validated/committed `9afc3e380d6f980f9db23e67299a2f84362429b8`. NOT TESTED: authenticated Edge Function invocation, storage folder discovery, source assembly, processing, final report or release.
