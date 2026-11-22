@@ -455,3 +455,8 @@ Use this instruction:
 - [x] Deploy admin-authenticated private DOCX upload endpoint `rsm-assembled-manuscript-upload` v1; hashes and version-registers assembled documents, no client release.
 - [ ] Wire admin dashboard to endpoint with safe nonempty-file update and verify authenticated upload. No direct container internet or Supabase storage-upload connector; Maurice assembled document count remains zero.
 - [ ] Validate actual upload, processing worker, QA and author approval end-to-end before marking complete.
+
+## 2026-11-22 | Intake UI and secure endpoint connected
+- [x] Edge Function v2 with CORS and private DOCX registration.
+- [x] Admin stage 2 upload UI, project selector and private registration wired via `rsm-workflow-order.js` commit `425ce041b0fc3c062a70ae39ea36cacde390d69f`; no dashboard HTML replacement.
+- [ ] Authenticated upload of existing combined DOCX, title reconciliation, worker processing, annotated QA and author approval. No evidence these have completed; avoid false success claims.
