@@ -167,3 +167,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-081 | 2026-11-21 | Private editing start source handoff | SOURCE/SYNTAX PASS, RUNTIME PENDING | Dashboard commit fbdc1fae9e17b548b2345a738beb8c3a72b55be8 makes start self-load linked application/source and fixes misleading next-button wording; inline JS syntax PASS | No editing run started; API usage and PDF extraction fidelity not verified |
 
 | T-082 | 2026-11-21 | Simplify active manuscript processing buttons | SOURCE/SYNTAX PASS, BROWSER PENDING | Commit 3129b41c8eeb767a4b85ee79b7ee2ab7ad9122be; removed obsolete buttons from visible UI by hiding (preserving handlers); ordered active steps 1/2/3; inline JS syntax PASS | Authenticated browser flow and draft processing not tested |
+
+| T-083 | 2026-11-21 | Draft workflow state-aware controls | LIVE SQL + SOURCE/SYNTAX PASS, BROWSER PENDING | SQL confirms zero edit runs for Maurice; dashboard commit ea1e6a9e983e9221382556d7b93dd71f8ab1dff4 disables Continue when no active run and Start when active run exists; JS syntax PASS | Authenticated browser state and PDF extraction not verified |
