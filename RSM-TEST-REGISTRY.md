@@ -289,3 +289,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-132 report project selector synchronization
 - PASS: GitHub workflow script JavaScript syntax compiled and commit `20ee4ffc19291ef8d83e84693d8416c0ba397866` saved. PASS: local assembled manuscript candidate exists. NOT TESTED: authenticated browser, report endpoint invocation, private storage upload, processing completion.
+
+## 2026-11-22 | T-133 audit UI simplification and upload capability check
+- PASS: workflow JS syntax validation and GitHub commit `21051144ba08d53800ba99252a86b1c216d39798`. PASS: local combined DOCX file exists. CHECKED: available Supabase connector tools do not provide private storage binary upload, and no authenticated admin browser session is available in current tool environment. NOT TESTED: live manuscript upload, browser UI, report generation, manuscript QA. No client release.
