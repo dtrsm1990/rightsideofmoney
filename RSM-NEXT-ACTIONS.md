@@ -386,3 +386,7 @@ Use this instruction:
 3. [ ] Generate author action checklist from findings that genuinely require author decisions; keep automatic copyedits in separate change register.
 4. [ ] Drive report, dashboard, author deliverables and production gates from the same source records. Consolidate redundant controls and run one integrated end-to-end acceptance test with safe test records.
 5. [x] Add live processing/QA/pending-file/structured-finding summary to Editorial Audit Management Center and remove its manual refresh button; commit d6c8ff735b5d849be5a84f76bad0b191430e70ee.
+
+- [x] Create idempotent source-linked editorial uncertainty ingestion RPC and dashboard refresh hook. Migration register_source_linked_manuscript_uncertainties; commit 38a6aebcd01a118a6c6f3d45f8106a8aa54658f3.
+- [ ] CRITICAL: Run authenticated admin dashboard refresh and verify source-linked findings are inserted, rendered, and not duplicated on repeat refresh. Current live findings count remains 0; do not claim fixed until verified.
+- [ ] Reconcile genuine findings versus chunk-boundary artifacts; derive author actions only for unresolved substantive decisions; integrate complete QA and milestone gates.
