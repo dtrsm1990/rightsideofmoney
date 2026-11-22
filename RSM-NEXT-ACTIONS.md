@@ -325,3 +325,6 @@ Use this instruction:
 ## 2026-11-21 processing failure diagnostic (T-088)
 - [x] Confirm canonical project/application/source linkage and no edit run in live DB; commit fb1feec5e0b20cf3317132d9f1d23ab6aa031c0a to preserve actual function errors.
 - [ ] Capture authenticated private start failure details and fix specific backend issue; do not repeat general onboarding readiness checks.
+
+- [x] Fix stale manuscript source selection, commit 234c253bbf82f9caca6383c44c3c0ef67c5c8c33.
+- [ ] Verify authenticated private processing start and actual edited DOCX/report, without author release.
