@@ -439,3 +439,9 @@ Use this instruction:
 - [x] Seven-stage workflow sections, accessible jump navigation and mobile styling committed `c445c35a6c0ed9e8c1425e24c8b42e280457f9d5`; syntax checked.
 - [ ] Authenticated visual/browser test for stage order, preserved controls and responsive layout. Do not claim complete until observed.
 - [ ] Continue integrated manuscript version staging, QA and author release workflow separately.
+
+## 2026-11-22 | Live next-action queue progress
+- [x] Deploy security-invoker `rsm_editorial_next_actions` view; verified Maurice next action and counts in live SQL (T-120).
+- [x] Commit dashboard live next-action panel `dca9910f069d387db4c3280a88d2354413979fdc` and stage mapping `40147d9286df5e1927978c3bd520b32397a9f20e`.
+- [ ] Browser verify panel under administrator login, session lifecycle and layout.
+- [ ] Stage integrated Maurice manuscript in private storage; build versioned editing/QA processing. Do not interpret read-only next-action guidance as completed automation.
