@@ -114,3 +114,8 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 | Editorial audit ingestion operational rule
 - Persist source-linked processing uncertainties as provisional internal audit findings, not as author-facing confirmed corrections. Use unique segment links for deduplication. The dashboard reads findings rather than attempting an RPC batch on every refresh. Remove hard-coded customer-specific processing triggers from generic dashboard. Only create author checklist actions after editorial verification.
+
+## 2026-11-21 | Mandatory author portal and no-regression standards
+- Grant author portal access at onboarding only after signed agreement, verified required initial payment and authorized invitation. Maintain access throughout active project. Author sees up-to-date milestone status, released edits/proofs, approved findings, author actions and response history. Internal draft changes and provisional audit flags remain private until admin approval. Author must not wait until editorial editing finishes.
+- Every change requires dependency review and explicit regression checklist across agreement/payment gates, invitations, author access, project state, manuscript preservation, editorial findings, checklist release, file RLS and admin release. Preserve working behavior and exact filenames. No client-specific hard-coded automation in generic dashboard.
+- Existing author dashboard is NOT real-time: it loads on demand and has no realtime subscription. Implement safe non-disruptive project updates and approved-item notifications without wiping in-progress author form responses.
