@@ -228,3 +228,8 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-110 | 2026-11-21 | Cross-workflow no-regression gate | POLICY ADOPTED; TESTS PENDING | Future releases must verify agreement/payment, invitation, manuscript source, admin/author dashboards, audit/checklist, storage permissions and release controls before calling complete | Build one repeatable automated acceptance suite with safe fixtures |
 
 | T-111 | 2026-11-21 | In-portal author onboarding guide | SOURCE COMMITTED; BROWSER PENDING | Commit 78f1976c4204aa7f402b813ec4ed208570922fe1 inserts six-section static guide in authenticated author dashboard without editing its existing module script; no email sent. | Verify author login, guide visibility, responsive layout, checklist/upload operation and restricted file access |
+
+## 2026-11-22 | Verified live intake/readiness checkpoint
+- PASS database: rsm_register_manuscript_intake trigger exists; Maurice original manuscript has one intake job, awaiting_assembly; duplicate guard unique(source_document_id). Admin-only read policy installed.
+- PASS database: rsm_editorial_project_readiness view returned Maurice foreword 0, awaiting assembly 1, open findings 5, pending private deliverables 5, released 0, QA review runs 1.
+- NOT TESTED: automatic assembly, background editing, page-specific findings generation, KDP export, end-to-end author browser access. No claims of these passing.
