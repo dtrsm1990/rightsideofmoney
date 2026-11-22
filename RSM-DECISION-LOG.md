@@ -125,3 +125,7 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-22 | Automatic editorial workflow
 - Administrator should only review and approve package-scoped outputs. Incoming forewords and supplements must be versioned, assembled before processing, and never overwrite original manuscripts. Exact page/paragraph evidence and change comparisons are required before author release. No author communication or KDP-ready designation without explicit gates.
+
+## 2026-11-22 | Approved administrator workflow and automation policy
+- Seven administrator stages in strict operational order: Application, Agreement & Payment; Author Onboarding & Manuscript Intake; Manuscript Processing; Editorial Audit & Quality Assurance; Author Review & Approval; Book Production & Proofing; Final Payment & Publication Readiness.
+- Automatic manuscript revision intake must register the integrated version, fingerprint/idempotently process only changed content, and link source-page/paragraph findings to corrections, verification and author recommendations. Status recommendations may be automated, but verified resolution and release remain gated. Admin responsibilities are exception review, QA and approval. Dashboard refresh is not processing. Do not change provisional findings solely to advance workflow.
