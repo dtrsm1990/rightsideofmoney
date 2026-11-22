@@ -215,6 +215,47 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('selectedProject')?.addEventListener('change',()=>{const id=document.getElementById('selectedProject')?.value;if(id&&Array.from(reportProject.options).some(o=>o.value===id)){reportProject.value=id;loadPrivateReports().then(prepareReportAutomatically)}});
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadReportProjects,1100)});
   loadReportProjects();
+  // Streamlined editorial audit: administrator reviews exceptions, not manual status bookkeeping.
+  const auditCenter=document.getElementById('editorialAuditCenter');
+  if(auditCenter){
+    const heading=auditCenter.querySelector('h2');if(heading)heading.textContent='Editorial Quality Review';
+    const intro=auditCenter.querySelector(':scope > p.muted');
+    if(intro)intro.textContent='Automated editorial findings and QA status appear here. Review exceptions and the private editorial report. Author approval happens in Stage 5.';
+    const auditHistory=document.getElementById('auditApprovalsList');
+    const historyTitle=Array.from(auditCenter.querySelectorAll('h3')).find(x=>x.textContent.includes('Author Approval History'));
+    const historyNote=historyTitle?.nextElementSibling;
+    if(historyTitle)historyTitle.hidden=true;
+    if(historyNote&&historyNote.classList.contains('note'))historyNote.hidden=true;
+    if(auditHistory)auditHistory.hidden=true;
+    const auditList=document.getElementById('auditFindingsList');
+    const summary=document.createElement('p');summary.className='note';
+    summary.textContent='Finding status is generated from editorial processing. You do not need to update each finding manually. Open Advanced Finding Controls only to record a verified exception after reviewing the source.';
+    if(auditList)auditList.before(summary);
+    const toggle=document.createElement('button');toggle.type='button';toggle.className='secondary';toggle.textContent='Show Advanced Finding Controls';toggle.setAttribute('aria-expanded','false');
+    if(auditList)auditList.before(toggle);
+    let advanced=false;
+    toggle.addEventListener('click',()=>{
+      advanced=!advanced;
+      toggle.textContent=advanced?'Hide Advanced Finding Controls':'Show Advanced Finding Controls';
+      toggle.setAttribute('aria-expanded',String(advanced));
+      auditCenter.classList.toggle('rsm-audit-advanced',advanced);
+    });
+    const auditStyle=document.createElement('style');
+    auditStyle.textContent=`
+      #editorialAuditCenter{border:1px solid #68583a;border-radius:16px}
+      #editorialAuditCenter>h3{color:#e6c77e}
+      #editorialAuditCenter #auditStats{gap:12px}
+      #editorialAuditCenter .audit-finding{border:1px solid #574a36;border-radius:12px;padding:18px;margin:12px 0;background:linear-gradient(145deg,#25231e,#1b1b1b)}
+      #editorialAuditCenter .audit-finding strong{color:#f0d391}
+      #editorialAuditCenter .audit-text{line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+      #editorialAuditCenter .audit-status-row{display:none}
+      #editorialAuditCenter.rsm-audit-advanced .audit-status-row{display:flex}
+      #editorialAuditCenter #auditFindingsList{margin-top:16px}
+      #rsmEditorialReportPanel{border:1px solid #78643e;border-radius:16px;background:linear-gradient(150deg,#29251e,#1d1d1d)}
+      #rsmEditorialReportPanel .item{padding:15px;border-radius:10px;border:1px solid #5a4b34}
+    `;
+    document.head.append(auditStyle);
+  }
   // rsm-duplicate-summary-cleanup-v2: single source of truth for each task.
   // The original renderDetails function continues to populate #details; no data or handlers are deleted.
   const projectRecords=document.getElementById('details')?.closest('section.card');
