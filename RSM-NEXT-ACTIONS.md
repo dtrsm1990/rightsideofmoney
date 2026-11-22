@@ -497,3 +497,7 @@ Use this instruction:
 - [x] Trigger private report generation from existing editing run when administrator selects project in Stage 4, if no dashboard report exists.
 - [ ] Authenticate and execute live generation, verify private storage, report record, and download; fix failures.
 - [ ] Upload revised assembled manuscript and implement actual version-linked worker for new full-manuscript QA; do not treat old segment warnings as verified final findings.
+
+## 2026-11-22 | Report panel project synchronization
+- [x] Sync Stage 4 report project with selected dashboard project, reducing duplicate selection.
+- [ ] Authenticated upload of local assembled DOCX, queue processing, dashboard report registration and download acceptance. Current tools do not provide an authenticated browser session or direct private storage upload on behalf of the logged-in administrator.
