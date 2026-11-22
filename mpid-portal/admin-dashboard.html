@@ -527,6 +527,26 @@ async function loadPayments(){
    if(matched.length){
     const details=matched.slice(0,5).map(e=>(e.payer_name||e.payer_email||'Unknown payer')+' | '+paymentMoney(Number(e.amount_cents)/100)+' | '+e.payment_intent_id+' | Awaiting ledger verification');
     $('stripeReconciliationSummary').textContent+=' '+details.join(' ; ');
+    const actions=document.createElement('div');
+    actions.style.marginTop='12px';
+    matched.forEach(e=>{
+     const b=document.createElement('button');
+     b.type='button';
+     b.textContent='Verify '+(e.payer_name||'Stripe payment')+' '+paymentMoney(Number(e.amount_cents)/100);
+     b.style.margin='4px';
+     b.addEventListener('click',async()=>{
+      if(!confirm('Verify Stripe payment '+e.payment_intent_id+' and start the existing paid-installment workflow?'))return;
+      b.disabled=true;
+      try{
+       const {error}=await sb.rpc('rsm_admin_verify_matched_stripe_payment',{p_event_id:e.id});
+       if(error)throw error;
+       alert('Stripe payment verified in RSM. Refreshing payment status.');
+       await loadPaymentManagement();
+      }catch(error){alert('Payment verification failed: '+err(error));b.disabled=false;}
+     });
+     actions.appendChild(b);
+    });
+    $('stripeReconciliationSummary').appendChild(actions);
    }
   }catch(e){$('stripeReconciliationSummary').textContent='Stripe reconciliation status unavailable: '+err(e);}
   renderPaymentOverview();
