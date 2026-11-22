@@ -512,3 +512,8 @@ Use this instruction:
 - [ ] Build and execute latest-source-linked manuscript editing and QA worker; distinguish genuine source findings from segment-boundary artifacts; attach exact page/paragraph references when verified.
 - [ ] Generate and register polished editorial report and corrected manuscript privately in dashboard, with administrator review and approval; route author decisions to Stage 5 and gate final KDP-ready release.
 - [ ] Run authenticated end-to-end acceptance tests on Maurice's real project without sending unauthorized author communications; record exact pass/fail results and update all continuity files. Do not ask user to download/reupload local manuscript artifacts.
+
+## 2026-11-22 | Source reconciliation integration
+- [x] Inspect Maurice live source document, intake job and prior editing run; deploy private source reconciliation function and dashboard Stage 2 status display.
+- [ ] Verify actual foreword location in private storage via authenticated source check. If absent, implement dashboard-native foreword intake without external ChatGPT artifact transfers.
+- [ ] Implement server-side PDF extraction and DOCX assembly preserving original source, version registration, automated latest-version processing, findings and QA; authenticate and execute complete workflow before declaring complete.
