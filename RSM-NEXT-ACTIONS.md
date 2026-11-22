@@ -517,3 +517,8 @@ Use this instruction:
 - [x] Inspect Maurice live source document, intake job and prior editing run; deploy private source reconciliation function and dashboard Stage 2 status display.
 - [ ] Verify actual foreword location in private storage via authenticated source check. If absent, implement dashboard-native foreword intake without external ChatGPT artifact transfers.
 - [ ] Implement server-side PDF extraction and DOCX assembly preserving original source, version registration, automated latest-version processing, findings and QA; authenticate and execute complete workflow before declaring complete.
+
+## 2026-11-22 | Private assembly function deployed
+- [x] Deploy authenticated admin-only private PDF plus foreword text assembly function and dashboard invocation, preserving source PDF and registering new version when successful.
+- [ ] Confirm foreword actually exists in Maurice's private project storage; invoke assembly authenticated, verify resulting DOCX and intake job. Function must not invent missing foreword.
+- [ ] Make assembly automatic when sources become ready, build real editing/QA worker with source-accurate findings, connect report/approval/release and execute authenticated end-to-end acceptance test. Existing assembly is text-only and not KDP production ready.
