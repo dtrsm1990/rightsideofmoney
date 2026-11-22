@@ -277,3 +277,8 @@ Use this instruction:
 ## 2026-11-21 preflight selection incident repair (T-077)
 - [x] Repair application/manuscript resolution using canonical project.application_id, re-resolve on Check Editing Readiness, and hide legacy Perfect Marriage test panel. Commit 4fb71f160cded8fb5b7fa837566a0051f6a86cde; JS syntax PASS.
 - [ ] Confirm deployed dashboard refresh and authenticated readiness invocation; capture PDF extraction result and repair actual runtime errors if any. No author release or edits before validated preflight.
+
+## 2026-11-21 administrator-confirmed readiness (T-078)
+- [x] Authenticated live readiness checks passed for Maurice's registered PDF (seven gates reported).
+- [ ] Confirm actual PDF extraction page/word metrics and text fidelity before asserting editing-ready quality; supported type check alone is insufficient.
+- [ ] Controlled private processing and author-readable DOCX/editorial report QA after extraction confirmation; administrator release required. Do not initiate live agreement/payment/author notification.
