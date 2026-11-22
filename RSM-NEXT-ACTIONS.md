@@ -445,3 +445,8 @@ Use this instruction:
 - [x] Commit dashboard live next-action panel `dca9910f069d387db4c3280a88d2354413979fdc` and stage mapping `40147d9286df5e1927978c3bd520b32397a9f20e`.
 - [ ] Browser verify panel under administrator login, session lifecycle and layout.
 - [ ] Stage integrated Maurice manuscript in private storage; build versioned editing/QA processing. Do not interpret read-only next-action guidance as completed automation.
+
+## 2026-11-22 | Versioned assembled intake
+- [x] Deploy Supabase intake trigger recognition for `assembled_manuscript`/`working_manuscript`/`manuscript_revision`, with duplicate guard and `ready_for_processing` status. No author release.
+- [ ] Upload integrated Maurice DOCX to private Supabase storage and create linked `mpid_documents` row to exercise trigger; preserve originals. Existing toolset has no direct storage upload action, so do not create a false document row without file bytes.
+- [ ] Implement authenticated version-aware processing worker, QA and author approval. No further dashboard HTML write unless complete payload and safe authorization confirmed.
