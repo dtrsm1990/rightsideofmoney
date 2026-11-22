@@ -492,3 +492,8 @@ Use this instruction:
 - [x] Deploy administrator-authenticated private editorial report generator and Stage 4 generate/review controls in existing Admin Dashboard.
 - [ ] Authenticated browser invocation for Maurice and verify actual private TXT report and `pending_review` record; investigate any schema/status constraints.
 - [ ] Connect revised assembled manuscript upload and real editing worker to generate new findings with exact source references and final page verification, then deliver professional DOCX/PDF through dashboard and gate author release.
+
+## 2026-11-22 | Auto report on Stage 4 selection
+- [x] Trigger private report generation from existing editing run when administrator selects project in Stage 4, if no dashboard report exists.
+- [ ] Authenticate and execute live generation, verify private storage, report record, and download; fix failures.
+- [ ] Upload revised assembled manuscript and implement actual version-linked worker for new full-manuscript QA; do not treat old segment warnings as verified final findings.
