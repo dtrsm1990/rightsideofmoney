@@ -215,6 +215,32 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('selectedProject')?.addEventListener('change',()=>{const id=document.getElementById('selectedProject')?.value;if(id&&Array.from(reportProject.options).some(o=>o.value===id)){reportProject.value=id;loadPrivateReports().then(prepareReportAutomatically)}});
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadReportProjects,1100)});
   loadReportProjects();
+  // Private project source reconciliation runs inside the administrator dashboard.
+  const sourcePanel=document.createElement('section');sourcePanel.className='card';sourcePanel.id='rsmSourceReconciliation';
+  const sourceTitle=document.createElement('h2');sourceTitle.textContent='Automatic Manuscript Source Check';
+  const sourceNote=document.createElement('p');sourceNote.className='note';sourceNote.textContent='Checks the original manuscript, private foreword records and latest working version without downloading or moving any files. Source issues are shown for administrator attention.';
+  const sourceStatus=document.createElement('p');sourceStatus.setAttribute('role','status');sourceStatus.setAttribute('aria-live','polite');
+  const sourceRefresh=document.createElement('button');sourceRefresh.type='button';sourceRefresh.className='secondary';sourceRefresh.textContent='Refresh Source Check';
+  sourcePanel.append(sourceTitle,sourceNote,sourceStatus,sourceRefresh);
+  if(intakeStage)intakeStage.insertBefore(sourcePanel,intakePanel);
+  const checkSources=async()=>{
+    const projectId=document.getElementById('selectedProject')?.value||projectSelect.value;
+    if(!projectId){sourceStatus.textContent='Select a publishing project to inspect its existing private sources.';return}
+    try{
+      const {session,cfg}=await getClient();
+      sourceStatus.textContent='Checking private project source records...';
+      const response=await fetch(cfg.url+'/functions/v1/rsm-manuscript-source-reconciliation',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:projectId})});
+      const result=await response.json();
+      if(!response.ok||!result.ok)throw new Error(result.error||'Private source check failed');
+      const lines=['Original: '+(result.source?.file_name||'Not registered'),'Working manuscript: '+(result.assembled?.file_name||'Not registered'),'Foreword: '+(result.foreword_documents?.length||result.foreword_storage_candidates?.length?'Located in private project records':'Not located in private project records'),'Latest QA: '+(result.latest_run?.qa_status||'Not run')];
+      lines.push(...(result.warnings||[]).map(x=>'Attention: '+x));
+      sourceStatus.textContent=lines.join(' | ');
+    }catch(e){sourceStatus.textContent=e?.message||String(e)}
+  };
+  sourceRefresh.addEventListener('click',checkSources);
+  document.getElementById('selectedProject')?.addEventListener('change',checkSources);
+  document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(checkSources,1400)});
+  setTimeout(checkSources,1500);
   // Streamlined editorial audit: administrator reviews exceptions, not manual status bookkeeping.
   const auditCenter=document.getElementById('editorialAuditCenter');
   if(auditCenter){
