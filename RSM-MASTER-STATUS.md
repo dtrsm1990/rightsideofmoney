@@ -284,3 +284,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 selected project continuity
 - Dashboard commits d78896f9e32874179153e77adf1ccca07f3f0c7b and ee75aa4deb41aa1276a142097bdf098c798d68d9 persist selected project in browser session, restore on refresh if still authorized/visible, scope Publishing Projects table to current selection, rerender table on switching projects, and reload canonical manuscript/private run status on refresh. No backend records changed. JS syntax PASS, live browser QA pending.
+
+## 2026-11-21 canonical project selection propagation
+- Dashboard commit a4a69e518c0ebb0b84ce562308c2431892adeaf9 routes upload, findings and checklist dropdown project changes through the main project selector change handler so manuscript context, progress, table, details, audit and activity update together. Checklist dropdown also synchronized by syncProjectSelectors. Main selector relabeled Active publishing project. JavaScript source syntax PASS, authenticated browser acceptance pending. No client data changed or notifications sent.
