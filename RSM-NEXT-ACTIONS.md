@@ -482,3 +482,8 @@ Use this instruction:
 ## 2026-11-22 | Admin visual refinement
 - [x] Restyle Project Records Active Documents, Editorial Findings and Author Approvals into responsive, coordinated cards, preserving live controls.
 - [ ] Authenticated browser visual acceptance at desktop and mobile sizes, audit duplicated sections and eliminate redundant workflow panels without removing functional controls. Continue remaining editorial processing integration.
+
+## 2026-11-22 | Remove redundant records display
+- [x] Hide duplicate Project Details findings and author approval summaries; relocate existing file management to Stage 2 without removing download/archive/delete handlers.
+- [ ] Browser-verify responsive Stage 2 file management and dedicated Stage 4/5 views; inspect remaining duplicate sections.
+- [ ] Complete authenticated private manuscript intake and actual processing worker so review reports are generated inside the dashboard, not as disconnected local artifacts.
