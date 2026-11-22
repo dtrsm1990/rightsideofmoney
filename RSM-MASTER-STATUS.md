@@ -251,3 +251,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 manuscript selector usability repair
 - Dashboard commit 17f9922e432c45b036630c1bb00d5c4e612fa762 adds Project to process selector directly within Manuscript Processing | Private Editorial Review. Selection synchronizes existing Manage Project and invokes existing approved application/manuscript loader; selects the only matching option when unique. Existing source/contract gates and admin release unchanged.
 - Full inline JavaScript compiled successfully after change. Authenticated browser UI and PDF preflight still unverified. No client messages or edit runs.
+
+## 2026-11-21 manuscript preflight selector repair and legacy test cleanup
+- Dashboard commit 4fb71f160cded8fb5b7fa837566a0051f6a86cde hides obsolete Isolated AI Editing Test panel from normal operations (code retained) and removes The Perfect Marriage placeholder. Replaces fragile name/title/package application matching with project's canonical application_id, auto-selects unique linked approved application and registered manuscript, and resolves choices again before preflight.
+- Live SQL confirmed Maurice's project links one approved application and has one active manuscript. Inline JavaScript syntax compiled after change. Authenticated browser and actual PDF preflight remain pending. No edit run or customer notification initiated.
