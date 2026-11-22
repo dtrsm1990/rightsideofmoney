@@ -1955,7 +1955,7 @@ $('rsmQueueAuto').onclick=async()=>{
    const {data,error}=await sb.functions.invoke('rsm-manuscript-queue',{body:{action:'next',run_id:runId}});
    if(error||!data?.ok)throw Error(data?.error||error?.message||'Processing failed');
    $('rsmEditingStatus').textContent='Processing run '+runId.slice(0,8)+': '+data.completed+' of '+data.total+' sections complete. '+(data.status==='review'?'Ready for private review.':'');
-   if(data.status==='review')break;
+   if(data.status==='review'){await stageLoad();$('rsmEditingStatus').textContent='Private editing complete. The edited manuscript and editorial report are now in Private Editorial Review & Release for administrator review. Nothing has been sent to the author.';break;}
    if(data.status!=='processing')throw Error('Unexpected run status: '+data.status);
   }
   await rsmRefreshEditing();
