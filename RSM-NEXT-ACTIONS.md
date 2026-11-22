@@ -288,3 +288,7 @@ Use this instruction:
 - [x] Clarify receipt acknowledgment vs editorial approval and hide test-project items from active counts in dashboard source; commit 98e4c8c1b47e87db7c549e009bbc3c9ffa9ea091.
 - [ ] Verify live UI after refresh. Administrator may acknowledge Maurice manuscript receipt after reviewing the document; do not automatically mark editorial QA approved.
 - [ ] Audit remaining dashboard controls and stage handoffs to reduce disconnected navigation; preserve permissions and release gates.
+
+## 2026-11-21 receipt acknowledged (T-080)
+- [x] Confirm Maurice original manuscript receipt acknowledged in live Supabase review table; no pending action for this document.
+- [ ] Continue PDF extraction fidelity verification and controlled private manuscript editing with admin QA and author-readable deliverables.
