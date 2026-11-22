@@ -317,3 +317,7 @@ Use this instruction:
 - [x] Route project dropdown changes through one selection handler and synchronize checklist, manuscript, project table, audit and activity; commit a4a69e518c0ebb0b84ce562308c2431892adeaf9.
 - [ ] Verify authenticated browser state and ensure project-specific panels are scoped without hiding business-wide intake queues.
 - [ ] Verify Maurice source PDF extraction fidelity before paid manuscript processing; no author release without QA.
+
+## 2026-11-21 private processing workflow (T-087)
+- [x] Consolidate separate start/continue manuscript actions into Process Private Manuscript with private source, confirmation, resumable progress and no automatic author release. Commit d8a0ed912981f30dbd521efaf8040d8add0a19b5.
+- [ ] Initiate authorized private run through authenticated dashboard, inspect segment completeness and edited DOCX/report, and perform human editorial QA before any author release. No further general onboarding test cycle required.
