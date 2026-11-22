@@ -149,3 +149,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 
 | T-073 | 2026-11-21 | Dashboard processing section placement | SOURCE UPDATED, UI PENDING | GitHub admin-dashboard.html commit 07d1eea moved existing editing section immediately after Publishing Projects and corrected PDF capability copy | Live browser rendering and selected-project continuity not yet verified |
+
+| T-074 | 2026-11-21 | Manuscript preflight prerequisite reconciliation | PARTIAL, AUTHENTICATED PREFLIGHT PENDING | Live SQL read-only project/document count confirms one registered manuscript for The VA Loan Millionaire; deployed rsm-manuscript-queue v21 ACTIVE. Connector get_edge_function returned Failed to retrieve function bundle. | No authenticated PDF preflight, extraction fidelity, or author release tested; no data mutated. |
