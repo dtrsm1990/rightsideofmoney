@@ -140,6 +140,7 @@
 <div class="actions" style="justify-content:space-between;align-items:center"><h2>Payment Management Center</h2><button class="secondary" type="button" id="refreshPayments">Refresh Payments</button></div>
 <p class="muted">Administrator-only payment management. Payment requests use approved Bluevine links and are emailed through Resend. Verify transactions against Bluevine before recording payments.</p>
 <label for="paymentApplication">Approved application</label><select id="paymentApplication"></select>
+<div id="paymentReconciliationNotice" class="message hidden" role="status" aria-live="polite"></div>
 <div id="paymentOverview" aria-live="polite"></div>
 <div id="paymentMessage" class="message hidden" role="status"></div>
 </section>
@@ -506,6 +507,14 @@ async function loadPayments(){
    return {id:a.id,ready:!error&&data?.ready===true};
   }));
   for(const check of familyChecks)if(check.ready)familyFinalApprovedApplications.add(check.id);
+  const notice=$('paymentReconciliationNotice');
+  const awaiting=paymentInstallments.filter(i=>i.status==='requested'&&Number(i.amount_due)>Number(i.amount_verified||0));
+  const accepted=new Set(paymentRequests.filter(r=>r.delivery_status==='accepted').map(r=>r.installment_id));
+  const outstanding=awaiting.filter(i=>accepted.has(i.id));
+  notice.classList.toggle('hidden',outstanding.length===0);
+  notice.textContent=outstanding.length?
+    'PAYMENT RECONCILIATION REQUIRED: '+outstanding.length+' payment installment(s) have an accepted payment-link email but no verified receipt. A sent link does not confirm payment. Match each Bluevine transaction before verification and onboarding.':
+    '';
   renderPaymentOverview();
  }catch(e){message('paymentMessage','Payment records could not be loaded: '+err(e));$('paymentOverview').textContent='Payment overview unavailable.';}
 }
