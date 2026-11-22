@@ -296,3 +296,7 @@ Use this instruction:
 ## 2026-11-21 private manuscript handoff (T-081)
 - [x] Fix Start Resumable 6×9 Layout Draft to resolve project application/manuscript without navigating separate controls; commit fbdc1fae9e17b548b2345a738beb8c3a72b55be8.
 - [ ] Run controlled private draft start only after confirming PDF extraction integrity; review any resulting segments and output quality before author release.
+
+## 2026-11-21 manuscript controls cleanup (T-082)
+- [x] Hide obsolete manual manuscript center and disabled legacy editor; retain dependencies and project data; simplify active processing steps with numbered actions. Commit 3129b41c8eeb767a4b85ee79b7ee2ab7ad9122be.
+- [ ] Verify active workflow renders correctly in browser and complete dashboard-wide button inventory and conditional action visibility by stage; preserve security and release approval gates.
