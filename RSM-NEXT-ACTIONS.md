@@ -368,3 +368,10 @@ Use this instruction:
 - [x] Synchronize project editing stage automatically from manuscript edit-run/private editorial activity; verify Maurice status editing with 13/13 run in review. Migration sync_publishing_project_editing_from_editorial_work.
 - [x] Move routine status selection behind administrator exception override and add live status refresh/realtime subscription; commit 3697879f0d6b17df5603d4c3f5b42cb4a899941e.
 - [ ] Browser-verify Publishing Progress and project selector after deployment; implement and test evidence-gated automatic transitions for author review, production, proofing and completed without skipping author/admin approval requirements.
+
+## Enterprise integration priority | 2026-11-21
+1. [ ] Build single evidence-backed project workflow state and transition rules across intake, payment, manuscript, editorial QA, author decisions, production and release.
+2. [ ] Register manuscript-engine findings into central audit with exact source references, proposed correction, owner, author action and verification status, without fabricating findings or duplicating prior records.
+3. [ ] Generate author action checklist from findings that genuinely require author decisions; keep automatic copyedits in separate change register.
+4. [ ] Drive report, dashboard, author deliverables and production gates from the same source records. Consolidate redundant controls and run one integrated end-to-end acceptance test with safe test records.
+5. [x] Add live processing/QA/pending-file/structured-finding summary to Editorial Audit Management Center and remove its manual refresh button; commit d6c8ff735b5d849be5a84f76bad0b191430e70ee.
