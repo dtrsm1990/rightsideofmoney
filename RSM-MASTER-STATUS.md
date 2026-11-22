@@ -287,3 +287,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 canonical project selection propagation
 - Dashboard commit a4a69e518c0ebb0b84ce562308c2431892adeaf9 routes upload, findings and checklist dropdown project changes through the main project selector change handler so manuscript context, progress, table, details, audit and activity update together. Checklist dropdown also synchronized by syncProjectSelectors. Main selector relabeled Active publishing project. JavaScript source syntax PASS, authenticated browser acceptance pending. No client data changed or notifications sent.
+
+## 2026-11-21 single-action private manuscript processing
+- Reviewed live Supabase rsm-manuscript-queue v21 source. It supports private PDF extraction, segment persistence, OpenAI copyediting, numeric and word-count QA checks, private 6x9 DOCX and editorial report, no automatic author release. Existing browser workflow required separate Start then Continue clicks.
+- Dashboard commit d8a0ed912981f30dbd521efaf8040d8add0a19b5 exposes a single Process Private Manuscript action: resolves canonical project source, creates a private run when none exists, and processes or resumes segments with paid OpenAI credits after confirmation. Old preflight/start buttons hidden but retained for compatibility; pause and refresh remain. JavaScript syntax PASS, authenticated runtime not verified. No run started and no client notification sent.
