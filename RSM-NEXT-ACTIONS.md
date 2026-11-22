@@ -465,3 +465,8 @@ Use this instruction:
 - [x] Require QA-passed edit run tied to latest assembled DOCX document before editorial release readiness.
 - [x] Inspect local candidate DOCX and verify title/foreword present.
 - [ ] Private upload of candidate DOCX, actual queue worker execution and full editorial QA; browser acceptance and author approval remain outstanding.
+
+## 2026-11-22 | Processing queue concurrency
+- [x] Atomic service-role-only latest-version assembled manuscript queue claim.
+- [ ] Implement worker to process DOCX, emit location-accurate findings, generate edited manuscript and QA deliverables, with retries and private staging.
+- [ ] Authenticate admin upload of Maurice candidate DOCX; complete end-to-end acceptance and author approval.
