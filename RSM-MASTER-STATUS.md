@@ -255,3 +255,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 manuscript preflight selector repair and legacy test cleanup
 - Dashboard commit 4fb71f160cded8fb5b7fa837566a0051f6a86cde hides obsolete Isolated AI Editing Test panel from normal operations (code retained) and removes The Perfect Marriage placeholder. Replaces fragile name/title/package application matching with project's canonical application_id, auto-selects unique linked approved application and registered manuscript, and resolves choices again before preflight.
 - Live SQL confirmed Maurice's project links one approved application and has one active manuscript. Inline JavaScript syntax compiled after change. Authenticated browser and actual PDF preflight remain pending. No edit run or customer notification initiated.
+
+## 2026-11-21 authenticated preflight result reported by administrator
+- Administrator selected The VA Loan Millionaire and registered source PDF in live dashboard. Readiness response: Preflight passed, with seven PASS checks: project/application records, real project/source, approved application/scope, matching title/package, signed live agreement, verified commencement payment, supported input type.
+- Reported UI did not show PDF page count, word count, or extraction quality evidence. Treat contractual/source readiness as PASS, but extraction fidelity and editorial QA as NOT VERIFIED. Do not conflate supported PDF type with accurate extraction.
