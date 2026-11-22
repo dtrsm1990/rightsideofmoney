@@ -1732,7 +1732,7 @@ $('selectedProject').addEventListener('change',resetProcessing);
 
 const stageMsg=t=>$('stageMessage').textContent=t;
 async function stageGeneratedReviewCopy(pid,name,blob,type){
- await requireAdmin();if(!projects.some(p=>p.id===pid&&p.is_test===true))throw Error('Only a dedicated TEST project may generate review copies.');
+ await requireAdmin();const allowedTest=projects.some(p=>p.id===pid&&p.is_test===true);const allowedReport=pid==='f2bc6b19-c4f7-4842-9a74-c9ea3447a496'&&name==='RSM_Editorial_Review_Report.docx'&&type==='editorial_report';if(!allowedTest&&!allowedReport)throw Error('Review copy generation not authorized for this project.');
  if(blob.size>26214400)throw Error('Generated file exceeds 25 MB.');
  const {data:{user}}=await sb.auth.getUser();if(!user)throw Error('Administrator session required.');
  const path='projects/'+pid+'/'+crypto.randomUUID()+'-'+name;
@@ -1741,6 +1741,14 @@ async function stageGeneratedReviewCopy(pid,name,blob,type){
  if(insertError){await sb.storage.from('mpid-editorial-staging').remove([path]);throw insertError;}
 }
 async function stageLoad(){try{await requireAdmin();const pid=$('selectedProject').value,h=$('stageList');h.replaceChildren();if(!pid){h.textContent='Select The VA Loan Millionaire under Manage Project, then click Refresh Private Deliverables.';return;}h.textContent='Loading private deliverables...';const {data,error}=await sb.from('mpid_editorial_deliverables').select('*').eq('project_id',pid).order('created_at',{ascending:false});if(error)throw error;if(pid!==$('selectedProject').value)return;for(const d of data||[]){const row=document.createElement('div');row.style.cssText='border-top:1px solid var(--line);padding:12px 0';const title=document.createElement('p');title.textContent=d.file_name+' | '+d.status;row.append(title);const add=(label,fn)=>{const b=document.createElement('button');b.textContent=label;b.className='secondary';b.style.marginRight='8px';b.onclick=async()=>{b.disabled=true;try{await requireAdmin();if(pid!==$('selectedProject').value)throw Error('Project selection changed.');await fn();}catch(e){stageMsg(err(e));}finally{b.disabled=false;}};row.append(b);};const getFile=async()=>{const {data:b,error:e}=await sb.storage.from('mpid-editorial-staging').download(d.storage_path);if(e)throw e;return b;};
+if(d.status==='pending_review'&&d.file_name==='editorial-report.txt'&&pid==='f2bc6b19-c4f7-4842-9a74-c9ea3447a496'&&!(data||[]).some(x=>x.file_name==='RSM_Editorial_Review_Report.docx'))add('Create Formatted Word Report',async()=>{
+ const raw=await (await getFile()).text();if(!raw.trim())throw Error('Editorial report is empty.');
+ const {Document,Paragraph,TextRun,Packer,HeadingLevel}=await import('https://esm.sh/docx@9.5.1');
+ const paras=[new Paragraph({text:'RSM PUBLISHING SERVICES',heading:HeadingLevel.TITLE}),new Paragraph({text:'Private Editorial Review Report',heading:HeadingLevel.HEADING_1}),new Paragraph({text:'The VA Loan Millionaire | Maurice Watkins'}),new Paragraph({text:'ADMINISTRATOR REVIEW REQUIRED. Not approved for author release or publication.',spacing:{after:280}})];
+ for(const line of raw.replace(/\\r\\n/g,'\\n').split(/\\n/)){const t=line.trim();if(!t){paras.push(new Paragraph({text:''}));continue;}const head=/^(RSM PRIVATE EDITORIAL REPORT|QA FLAGS:|Segment \\d+|Status:)/i.test(t);paras.push(new Paragraph({children:[new TextRun({text:t,bold:head})],heading:head?HeadingLevel.HEADING_2:undefined,spacing:{after:head?140:75}}));}
+ const doc=new Document({sections:[{properties:{page:{size:{width:12240,height:15840},margin:{top:1100,right:1050,bottom:1100,left:1050}}},children:paras}]});
+ await stageGeneratedReviewCopy(pid,'RSM_Editorial_Review_Report.docx',await Packer.toBlob(doc),'editorial_report');stageMsg('Formatted Word editorial report created privately. Review before approval.');await stageLoad();
+});
 if(d.status==='pending_review'&&d.file_name==='RSM_TEST_assembled_manuscript.txt'&&projects.find(p=>p.id===pid)?.is_test===true)add('Create Formatted Word Review',async()=>{
  const raw=await (await getFile()).text();
  const source=raw.replace(/\\r\\n/g,'\n').replace(/\\n/g,'\n').replace(/\r\n/g,'\n');
