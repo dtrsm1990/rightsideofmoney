@@ -300,3 +300,7 @@ Use this instruction:
 ## 2026-11-21 manuscript controls cleanup (T-082)
 - [x] Hide obsolete manual manuscript center and disabled legacy editor; retain dependencies and project data; simplify active processing steps with numbered actions. Commit 3129b41c8eeb767a4b85ee79b7ee2ab7ad9122be.
 - [ ] Verify active workflow renders correctly in browser and complete dashboard-wide button inventory and conditional action visibility by stage; preserve security and release approval gates.
+
+## 2026-11-21 draft control state management (T-083)
+- [x] Verify live Maurice editing run status: none created. Commit ea1e6a9e983e9221382556d7b93dd71f8ab1dff4 sets Start/Continue button availability according to active run.
+- [ ] Verify live dashboard button state, source PDF extraction fidelity, and create private draft run when extraction integrity is established; no author release without QA.
