@@ -308,3 +308,7 @@ Use this instruction:
 ## 2026-11-21 single-selector fix (T-084)
 - [x] Hide duplicate manuscript project selector and synchronize manuscript load and draft progress from main Select project; commit 428d0bdd32879229513278edc8ea58b0893b4b51.
 - [ ] Audit all dashboard project-specific panels to ensure one selected project scopes every view; verify browser and reload persistence.
+
+## 2026-11-21 selected project persistence (T-085)
+- [x] Persist main project selection per browser session, scope Publishing Projects table, and restore manuscript draft context on refresh. Commits d78896f9e32874179153e77adf1ccca07f3f0c7b and ee75aa4deb41aa1276a142097bdf098c798d68d9.
+- [ ] Verify live dashboard and continue scoping remaining project-specific global panels; preserve global business intake queues where appropriate.
