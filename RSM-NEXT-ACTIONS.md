@@ -264,3 +264,8 @@ Use this instruction:
 - [ ] PRIORITY: authenticated admin preflight on Maurice's registered PDF. Inspect extraction result, PDF.js worker behavior, page count/text quality and preserve source. Current connector could not retrieve queue function bundle; this does NOT establish a PDF failure.
 - [ ] After preflight passes, controlled edit/QA acceptance, readable edited manuscript plus separate recommendations report, admin-only release review. No author-facing release without approval.
 - [ ] Verify live browser layout and project selector continuity. No agreement or payment request resend.
+
+## 2026-11-21 diagnostic UI implementation (T-075)
+- [x] Enhance Check Editing Readiness display for extraction metrics and per-check detail, preserving existing backend and no-release boundary; GitHub commit 3ca986fed0df2196d0a90ca74ce6ee733d95ea03; inline JavaScript syntax passed.
+- [ ] Run authenticated read-only PDF preflight on registered Maurice PDF and inspect extraction fidelity. Dashboard source syntax is not proof of runtime PDF.js success.
+- [ ] Verify live browser serves updated dashboard, then proceed to controlled editing and private administrator QA only after successful preflight.
