@@ -343,3 +343,6 @@ Use this instruction:
 
 - [x] Recover Maurice 13/13 editing run from finalization failure by fixing notification event-type constraint and conditionally transitioning existing run to review; two private deliverables registered pending_review. No reprocessing or author release.
 - [ ] Administrator inspect draft and editorial report in Private Editorial Review & Release, verify original fidelity, VA/tax factual claims, and print layout before author-facing approval.
+
+- [x] Correct silent blank private editorial list in dashboard source by auto-loading stageLoad on refresh and surfacing errors; commit 5155c8b6e3f561d91f9f6f73f8b8b8eeee3a452a.
+- [ ] Confirm published dashboard/browser shows two Maurice pending_review deliverables and both private downloads work. Perform substantive QA before approval or release.
