@@ -108,3 +108,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 | Enterprise publishing platform design standard
 - All workflow centers must reflect one authoritative project state with evidence-backed transitions. Editorial engine outputs must be registered as structured findings with source locations, correction actions, author decision requirements, provenance and QA disposition. Reports are views of that evidence, not separate disconnected systems. Avoid redundant buttons, duplicated state, unverifiable readiness claims and repetitive manual reconciliation. Keep explicit administrator authorization for external communications, payments and author release.
+
+## 2026-11-21 | Source-linked findings ingestion
+- Only explicit manuscript-editor uncertainty notes are eligible for automatic central audit registration. Each record must retain source segment provenance and stay open until human QA verifies issue versus chunk-boundary artifact. Routine copyedits must not become author tasks. Idempotency must prevent duplicate findings. Administrator-authenticated execution only; no auto-author release.
