@@ -260,3 +260,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-122 private assembled manuscript upload endpoint
 - PASS deployment metadata: `rsm-assembled-manuscript-upload` v1 ACTIVE, verify_jwt=true. PASS local combined manuscript exists (55KB). PASS live query: Maurice assembled document count 0, so no false upload claim. NOT TESTED: authenticated multipart request, storage policy compatibility, DB constraints, race handling, dashboard wiring or end-to-end editing. No client send.
+
+## 2026-11-22 | T-123 admin intake connection
+- PASS Edge Function v2 deployment status ACTIVE and verify_jwt true; PASS GitHub workflow-order JS syntax compilation after adding assembled DOCX upload panel; PASS source validation nonempty 9,298-character script, previous 4,506 characters. NOT TESTED authenticated browser upload, actual storage bytes, processing worker, author review. Manuscript source inspection shows legacy first-page title inconsistent with approved title.
