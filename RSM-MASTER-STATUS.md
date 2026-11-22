@@ -298,3 +298,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 live manuscript source selection fix
 - Dashboard rsmLoadProcessingChoices selected source from cached documents array, which can be stale. Commit 234c253bbf82f9caca6383c44c3c0ef67c5c8c33 changes selection to live authenticated mpid_documents query scoped to project, manuscript and nonarchived rows. Full dashboard preserved; inline JS syntax PASS. Runtime start unverified.
+
+## 2026-11-21 private manuscript editorial artifacts created outside portal
+- Recovered Maurice Watkins original PDF from available Project/Library file; created preliminary private Word working draft and editorial review report in current conversation, using local file processing. Source PDF 21 pages, approximately 6,800 words. Rendered draft (24 pages) and report (2 pages). Draft is extracted/reconstructed text with only limited conservative editing, not a completed copyedit, layout proof or source-verified final manuscript. Original PDF unchanged. Files are not uploaded to Supabase, no edit run exists and nothing was sent to author. Need full editorial copyedit and source/page fidelity QA before any release.
