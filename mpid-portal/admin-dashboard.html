@@ -1848,7 +1848,7 @@ async function rsmRefreshEditing(){
  const activeRun=(data||[]).find(r=>r.status==='processing');
  $('rsmQueueAuto').disabled=false;
  $('rsmQueueStart').disabled=!!activeRun;
- if(!data?.length){holder.textContent='No private editing runs for this project. Next action: Start Private Manuscript Draft after checking source extraction quality.';return;}
+ if(!data?.length){holder.textContent='No editing run recorded yet. Use Process Private Manuscript. If you already attempted it, check the processing status message above for the failure reason.';return;}
  for(const item of data){
   const box=document.createElement('div');box.style.cssText='border-top:1px solid #50483b;padding:12px 0';
   const line=document.createElement('p');line.textContent=new Date(item.created_at).toLocaleString()+' | '+item.status+' | '+item.source_filename;box.append(line);
@@ -1940,7 +1940,7 @@ $('rsmQueueAuto').onclick=async()=>{
    if(!confirm('Create and process a PRIVATE manuscript draft? Processing uses paid OpenAI API credits. The original remains unchanged and nothing is sent to the author.'))return;
    rsmAutoActive=true;rsmAutoStop=false;button.disabled=true;stop.disabled=false;
    const {data:started,error:startError}=await sb.functions.invoke('rsm-manuscript-queue',{body:{action:'start',project_id:projectId,application_id:$('processingApplication').value,source_document_id:$('processingManuscript').value}});
-   if(startError||!started?.ok)throw Error(started?.error||startError?.message||'Could not start private draft');
+   if(startError||!started?.ok){let detail=started?.error||startError?.message||'Could not start private draft';try{if(startError?.context instanceof Response){const payload=await startError.context.clone().json();detail=payload?.error||payload?.message||detail;}}catch(_ignored){}throw Error('Private draft start failed: '+detail);}
    runId=started.run_id;
   }
   if(runs.length>1)throw Error('More than one active run exists. Use Process Next Segment on the intended run.');
@@ -1958,7 +1958,7 @@ $('rsmQueueAuto').onclick=async()=>{
   }
   await rsmRefreshEditing();
   if(rsmAutoStop)$('rsmEditingStatus').textContent='Processing paused safely. Completed segments were saved. Press Process Private Manuscript to resume.';
- }catch(e){$('rsmEditingStatus').textContent='Automatic processing paused: '+err(e)+' Previously completed sections remain saved.';try{await rsmRefreshEditing();}catch(_ignored){}}
+ }catch(e){const detail='Manuscript processing failed: '+err(e)+(runId?' | Run '+runId:' | No run created');try{await rsmRefreshEditing();}catch(_ignored){}$('rsmEditingStatus').textContent=detail;}
  finally{rsmAutoActive=false;rsmAutoStop=false;button.disabled=false;stop.disabled=true;}
 };
 
