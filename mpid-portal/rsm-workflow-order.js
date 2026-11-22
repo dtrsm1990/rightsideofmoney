@@ -113,6 +113,63 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadIntakeProjects,900)});
   loadIntakeProjects();
+  // rsm-project-records-polish-v1: presentation-only, retain all existing controls.
+  const polish=document.createElement('style');
+  polish.textContent=`
+  #rsmProjectRecordPanel{border:1px solid #6e5935;background:linear-gradient(160deg,#242322,#171717);border-radius:16px;overflow:hidden}
+  #rsmProjectRecordPanel>.rsm-record-header{padding:22px 24px;border-bottom:1px solid #514534;background:linear-gradient(110deg,#28241d,#191919)}
+  #rsmProjectRecordPanel>.rsm-record-header h2{margin:0 0 6px;color:#eac77c;font-size:21px;letter-spacing:.015em}
+  #rsmProjectRecordPanel>.rsm-record-header p{margin:0;color:#c5bba9;line-height:1.5;font-size:13px}
+  #rsmProjectRecordPanel #details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:18px;align-items:start}
+  #rsmProjectRecordPanel #details>div:first-child{grid-column:1/-1}
+  #rsmProjectRecordPanel #details>.rsm-record-column{min-width:0;border:1px solid #534a3b;border-radius:12px;background:#211f1b;padding:16px}
+  #rsmProjectRecordPanel #details>.rsm-record-column h3{font-size:15px;margin:0 0 14px;color:#edce8c;letter-spacing:.01em}
+  #rsmProjectRecordPanel #details>.rsm-record-column h3:not(:first-child){border-top:1px solid #494337;padding-top:16px}
+  #rsmProjectRecordPanel #details>.rsm-record-column .list{display:grid;gap:9px}
+  #rsmProjectRecordPanel #details>.rsm-record-column .item{margin:0;border:1px solid #514b40;border-radius:9px;background:#292722;padding:12px;overflow-wrap:anywhere}
+  #rsmProjectRecordPanel #details>.rsm-record-column .actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+  #rsmProjectRecordPanel #details>.rsm-record-column button{max-width:100%;white-space:normal}
+  #rsmProjectRecordPanel .rsm-record-caption{display:inline-flex;gap:8px;align-items:center;color:#b6ad9c;font-size:12px;margin-bottom:12px}
+  #rsmProjectRecordPanel #details>.rsm-record-column .muted{overflow-wrap:anywhere}
+  @media(max-width:1100px){#rsmProjectRecordPanel #details{grid-template-columns:repeat(2,minmax(0,1fr))}#rsmProjectRecordPanel #details>.rsm-record-column:last-child{grid-column:1/-1}}
+  @media(max-width:700px){#rsmProjectRecordPanel #details{grid-template-columns:minmax(0,1fr);padding:12px}#rsmProjectRecordPanel #details>.rsm-record-column:last-child{grid-column:auto}#rsmProjectRecordPanel>.rsm-record-header{padding:18px}}
+  `;
+  document.head.append(polish);
+  const recordRoot=document.getElementById('details');
+  if(recordRoot){
+    const panel=recordRoot.closest('section.card');
+    if(panel){
+      panel.id='rsmProjectRecordPanel';
+      const heading=panel.querySelector(':scope > h2');
+      const intro=panel.querySelector(':scope > p.muted');
+      const header=document.createElement('div');header.className='rsm-record-header';
+      if(heading){heading.textContent='Project Records & Review Snapshot';header.append(heading)}
+      if(intro){intro.textContent='One project record overview. Use the dedicated Editorial Audit and Author Review stages to manage findings and approvals.';header.append(intro)}
+      panel.prepend(header);
+    }
+    const decorate=()=>{
+      const children=Array.from(recordRoot.children);
+      children.forEach((node,index)=>{
+        if(index===0)return;
+        if(node.classList.contains('rsm-record-column'))return;
+        node.classList.add('rsm-record-column');
+        const h=node.querySelector('h3');
+        if(h){
+          const label=h.textContent||'';
+          if(label.startsWith('Editorial Findings')){
+            const cap=document.createElement('div');cap.className='rsm-record-caption';cap.textContent='Read-only summary. Manage resolution in Stage 4.';node.prepend(cap);
+          }else if(label.startsWith('Author Approvals')){
+            const cap=document.createElement('div');cap.className='rsm-record-caption';cap.textContent='Historical decisions. Manage author review in Stage 5.';node.prepend(cap);
+          }else if(label.startsWith('Active Documents')){
+            const cap=document.createElement('div');cap.className='rsm-record-caption';cap.textContent='Current files and archived versions';node.prepend(cap);
+          }
+        }
+      });
+    };
+    const recordsObserver=new MutationObserver(()=>decorate());
+    recordsObserver.observe(recordRoot,{childList:true});
+    decorate();
+  }
   // Preserve newly added/unmapped panels, without dropping functionality.
   const remaining = sections.filter(s => root.contains(s) && !used.has(s) && !s.closest('#rsmWorkflowStages'));
   if (remaining.length) {
