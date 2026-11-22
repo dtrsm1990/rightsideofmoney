@@ -269,3 +269,7 @@ Use this instruction:
 - [x] Enhance Check Editing Readiness display for extraction metrics and per-check detail, preserving existing backend and no-release boundary; GitHub commit 3ca986fed0df2196d0a90ca74ce6ee733d95ea03; inline JavaScript syntax passed.
 - [ ] Run authenticated read-only PDF preflight on registered Maurice PDF and inspect extraction fidelity. Dashboard source syntax is not proof of runtime PDF.js success.
 - [ ] Verify live browser serves updated dashboard, then proceed to controlled editing and private administrator QA only after successful preflight.
+
+## 2026-11-21 direct manuscript selection repair (T-076)
+- [x] Add direct project selector within manuscript processing panel and load matching application/source automatically when unique. Source deployed commit 17f9922e432c45b036630c1bb00d5c4e612fa762; JS syntax verified.
+- [ ] Authenticated browser check: select Maurice in new Project to process dropdown, confirm matching application/manuscript and Check Editing Readiness results. Do not start editing if extraction blocked.
