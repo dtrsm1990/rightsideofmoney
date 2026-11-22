@@ -263,3 +263,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 Submission Notification Center reconciliation
 - Live SQL: one active mpid_documents row, Maurice's registered original manuscript, with no mpid_submission_reviews.reviewed_at; therefore Awaiting Review=1 reflects an unacknowledged real intake document, not a Perfect Marriage test. No database review state was changed.
 - Dashboard commit 98e4c8c1b47e87db7c549e009bbc3c9ffa9ea091 clarifies that submission review is intake acknowledgment rather than editorial approval, renames action Acknowledge Receipt, and excludes hidden test-project documents from counts. Inline JS syntax passed. Browser runtime unverified.
+
+## 2026-11-21 Maurice manuscript receipt acknowledged
+- Administrator reported successful Submission marked as reviewed. Live Supabase query verified mpid_submission_reviews.reviewed_at=2026-11-22 03:57:24.045+00 for Maurice original PDF. This is an intake receipt acknowledgment only; no editing, editorial QA, or author release.
