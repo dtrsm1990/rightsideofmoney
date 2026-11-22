@@ -304,3 +304,7 @@ Use this instruction:
 ## 2026-11-21 draft control state management (T-083)
 - [x] Verify live Maurice editing run status: none created. Commit ea1e6a9e983e9221382556d7b93dd71f8ab1dff4 sets Start/Continue button availability according to active run.
 - [ ] Verify live dashboard button state, source PDF extraction fidelity, and create private draft run when extraction integrity is established; no author release without QA.
+
+## 2026-11-21 single-selector fix (T-084)
+- [x] Hide duplicate manuscript project selector and synchronize manuscript load and draft progress from main Select project; commit 428d0bdd32879229513278edc8ea58b0893b4b51.
+- [ ] Audit all dashboard project-specific panels to ensure one selected project scopes every view; verify browser and reload persistence.
