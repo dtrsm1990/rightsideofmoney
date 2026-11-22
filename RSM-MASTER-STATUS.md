@@ -209,3 +209,9 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-20 manuscript queue payment gate
 - Deployed rsm-manuscript-queue v17, ACTIVE. Contract-specific verified-payment checks added to preflight, start, and resumed processing. Code inspected post-deploy. Eight isolated SQL-equivalent contract pricing scenarios PASS. No manuscript was processed and no author deliverable released. Runtime authenticated end-to-end acceptance remains pending.
+
+
+## 2026-11-21 Stripe payment verification incident resolved
+- Stripe live destination enabled for payment_intent.succeeded; Supabase rsm-stripe-webhook v3 active. Vault signing secret format and service-role access verified. No actual post-creation webhook delivery has been observed; automatic receipt-to-credit remains NOT VERIFIED.
+- Maurice Watkins $250 initial installment verified via authenticated admin dashboard. Live SQL confirmed status paid, amount_verified 250.00, reconciliation event verified, application payment_status partially_paid (remaining $250 final). Project The VA Loan Millionaire exists in onboarding status.
+- Payment verification initially failed due to mpid_notification_outbox_event_type_check excluding payment_verified_admin. Applied allow_office_operational_notification_event_types migration; three event types accepted in rollback-isolated test. Admin retry succeeded. Office payment_verified_admin outbox row observed status sent; actual mailbox receipt not independently checked.

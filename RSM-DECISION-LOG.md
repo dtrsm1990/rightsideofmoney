@@ -73,3 +73,8 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-20 manuscript processing payment safeguard
 - Editing must validate verified amount against approved contract price and correct commencement stage, not accept arbitrary paid installments. Family 50/50, standard 30%, and discounted full-upfront are handled. Human editorial QA and administrator release remain required.
+
+
+## 2026-11-21 Stripe and notification compatibility
+- Preserve authenticated administrator approval for matched Stripe payment verification until safe automatic matching/crediting has been designed and acceptance-tested. Stripe webhook signature validation and event receipt alone do not authorize crediting an arbitrary installment.
+- Notification event_type constraints must remain aligned with deployed trigger event types. Accepted operational events: payment_verified_admin, author_onboarding_completed_admin, author_onboarding_failed_admin. No duplicate live payment charges or notifications should be initiated for testing.

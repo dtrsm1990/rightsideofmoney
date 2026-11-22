@@ -226,3 +226,13 @@ Use this instruction:
 - [x] Deploy rsm-manuscript-queue v17 contract-specific payment guard across preflight/start/resume.
 - [x] Eight isolated read-only payment cases PASS; source inspection confirms guards and review state.
 - [ ] Authenticated runtime preflight and end-to-end DOCX editing/QA acceptance with an isolated authorized project; no live author release.
+
+
+## 2026-11-21 live payment milestone
+- [x] Verify live Stripe destination, Vault signing secret and service-role retrieval; webhook v3 deployed.
+- [x] Repair outbox event type constraint and verify three operational events with rollback-only test.
+- [x] Verify Maurice $250 initial installment via authenticated dashboard and independently confirm ledger, Stripe reconciliation and partial-payment status.
+- [x] Observe office payment verification outbox event marked sent.
+- [ ] Confirm actual post-creation signed Stripe event delivery and safe automatic reconciliation. Existing admin approval remains required; do not claim automatic crediting.
+- [ ] Inspect onboarding job state, invitation delivery, author access and manuscript intake before starting processing; do not send duplicate invitation.
+- [ ] Verify actual office mailbox receipt for payment alert.
