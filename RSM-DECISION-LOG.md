@@ -86,3 +86,9 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-21 professional author review deliverables
 - Provide a clean author-readable edited manuscript and a separate editorial report with recommendations/questions. Correct grammar, spelling, punctuation and clarity only within approved scope; substantive changes require explicit review. Preserve original source and hold all author-facing releases for administrator approval.
+
+## 2026-11-21 | Manuscript-first editorial production standard
+- Primary deliverable is a substantially improved, publication-ready manuscript within the selected signed package, not an editorial report alone. Preserve the original immutable manuscript and the author's voice and meaning.
+- Apply safe grammar, spelling, punctuation, consistency, readability and formatting corrections directly to a separate working copy. Give the author a clean edited manuscript and a clear correction record; routine mechanical edits do not require individual author approval.
+- For substantive issues, propose concrete improved wording or additions, explain the benefit and source evidence, and request author decisions only where needed (facts, personal experiences, legal/tax/mortgage assertions, scope changes). The publisher completes approved changes and final QA.
+- Do not claim publication readiness until package obligations, substantive accuracy, author decisions and print/ebook production QA have actually passed.
