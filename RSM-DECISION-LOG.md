@@ -137,3 +137,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-22 | Administrator editorial responsibility
 - Stage 4 Editorial Quality Review is an exception-review and approval surface, not a manual status bookkeeping step. Advanced finding-status changes remain accessible only when needed for verified exceptions. Do not automatically mark segment-boundary artifacts resolved without comparison to full source. Preserve author approval in Stage 5.
+
+## 2026-11-22 | Binding workflow decision: dashboard-only, no manual artifact transfer
+- All author manuscripts, forewords, working copies, editorial findings, reports, QA results and deliverables must be ingested, generated, stored and reviewed within RSM Publishing Services' authenticated Admin Dashboard and private Supabase infrastructure. No external ChatGPT-produced manuscript download or reupload as a normal operational step. Administrator responsibility is to review exceptions and approve release, not run processing or manually update routine finding statuses. Preserve source files, version history, contracted scope, privacy and approval gates. Do not represent the system as fully automated until an authenticated end-to-end test passes.
