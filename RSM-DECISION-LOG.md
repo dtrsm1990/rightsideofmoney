@@ -1,3 +1,10 @@
+## CURRENT OPERATING DECISIONS | 2026-11-21 | READ FIRST
+- Manuscript-first production: improve working copy as far as signed package safely permits, preserve original and author voice, deliver readable clean manuscript plus transparent corrections and concrete improvement recommendations.
+- One evidence-backed workflow, one source of truth: manuscript engine, audit register, author checklist, administrator decisions, production and progress display must agree. Never infer completion from a document existing.
+- Automate routine copyedits, synchronization and refresh. Keep human authorization for substantive author decisions, external messages, payments and releases. Minimize controls and duplicate work.
+- Delivery standard: integrated change with migration/source review, targeted verification and continuity update. Do not represent source syntax checks as live browser tests.
+- Preserve prior approved decisions and history below; newer explicit decisions supersede older incomplete plans.
+
 # RSM Publishing Services | Approved Decisions
 Last baseline: 2026-11-19
 
