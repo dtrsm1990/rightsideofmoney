@@ -450,3 +450,8 @@ Use this instruction:
 - [x] Deploy Supabase intake trigger recognition for `assembled_manuscript`/`working_manuscript`/`manuscript_revision`, with duplicate guard and `ready_for_processing` status. No author release.
 - [ ] Upload integrated Maurice DOCX to private Supabase storage and create linked `mpid_documents` row to exercise trigger; preserve originals. Existing toolset has no direct storage upload action, so do not create a false document row without file bytes.
 - [ ] Implement authenticated version-aware processing worker, QA and author approval. No further dashboard HTML write unless complete payload and safe authorization confirmed.
+
+## 2026-11-22 | Secure assembled manuscript endpoint
+- [x] Deploy admin-authenticated private DOCX upload endpoint `rsm-assembled-manuscript-upload` v1; hashes and version-registers assembled documents, no client release.
+- [ ] Wire admin dashboard to endpoint with safe nonempty-file update and verify authenticated upload. No direct container internet or Supabase storage-upload connector; Maurice assembled document count remains zero.
+- [ ] Validate actual upload, processing worker, QA and author approval end-to-end before marking complete.
