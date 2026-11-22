@@ -412,3 +412,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-22 | Latest manuscript version QA gate strengthened
 - Migration `rsm_latest_manuscript_version_release_gate_20261122` requires successful editing run to reference the latest non-archived assembled manuscript document ID, not an older manuscript. Verified live Maurice `editorial_release_ready=false` with all four gates false. Local editorial candidate DOCX inspected: 226 paragraphs, title `THE VA LOAN MILLIONAIRE`, Foreword present; local file not yet in private Supabase storage. No author release.
+
+## 2026-11-22 | Atomic latest-version processing claim deployed
+- Migration `rsm_atomic_assembled_intake_queue_20261122` plus guard fix `rsm_atomic_claim_role_guard_20261122` deployed `public.rsm_claim_assembled_intake_job()`. Only service_role can atomically claim a `ready_for_processing` job for the latest, unarchived assembled DOCX in private project storage. Row locking with SKIP LOCKED prevents concurrent double claims; claim changes status to `processing`, but DOES NOT run an editor, produce QA, or release author materials. Source function verified through live SQL. Next: worker and authenticated manuscript upload.
