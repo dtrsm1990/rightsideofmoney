@@ -460,3 +460,8 @@ Use this instruction:
 - [x] Edge Function v2 with CORS and private DOCX registration.
 - [x] Admin stage 2 upload UI, project selector and private registration wired via `rsm-workflow-order.js` commit `425ce041b0fc3c062a70ae39ea36cacde390d69f`; no dashboard HTML replacement.
 - [ ] Authenticated upload of existing combined DOCX, title reconciliation, worker processing, annotated QA and author approval. No evidence these have completed; avoid false success claims.
+
+## 2026-11-22 | Version-specific QA guard
+- [x] Require QA-passed edit run tied to latest assembled DOCX document before editorial release readiness.
+- [x] Inspect local candidate DOCX and verify title/foreword present.
+- [ ] Private upload of candidate DOCX, actual queue worker execution and full editorial QA; browser acceptance and author approval remain outstanding.
