@@ -266,3 +266,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-124 latest assembled manuscript release gate
 - PASS migration applied and live SQL verified Maurice has assembled=false, latest-version QA=false, findings resolved=false, approved deliverable=false, editorial release ready=false. PASS local candidate DOCX opens with python-docx, 226 paragraphs, corrected title and Foreword. NOT TESTED authenticated private upload or manuscript processing.
+
+## 2026-11-22 | T-125 atomic latest-version job claim
+- PASS migrations applied and function source read back from Supabase, including service-role guard, latest-version selection, private storage path restriction, FOR UPDATE SKIP LOCKED, status transition. NOT TESTED: invocation with actual assembled DOCX, worker execution, failure retry, browser acceptance. No author communication.
