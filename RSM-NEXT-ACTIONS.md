@@ -273,3 +273,7 @@ Use this instruction:
 ## 2026-11-21 direct manuscript selection repair (T-076)
 - [x] Add direct project selector within manuscript processing panel and load matching application/source automatically when unique. Source deployed commit 17f9922e432c45b036630c1bb00d5c4e612fa762; JS syntax verified.
 - [ ] Authenticated browser check: select Maurice in new Project to process dropdown, confirm matching application/manuscript and Check Editing Readiness results. Do not start editing if extraction blocked.
+
+## 2026-11-21 preflight selection incident repair (T-077)
+- [x] Repair application/manuscript resolution using canonical project.application_id, re-resolve on Check Editing Readiness, and hide legacy Perfect Marriage test panel. Commit 4fb71f160cded8fb5b7fa837566a0051f6a86cde; JS syntax PASS.
+- [ ] Confirm deployed dashboard refresh and authenticated readiness invocation; capture PDF extraction result and repair actual runtime errors if any. No author release or edits before validated preflight.
