@@ -433,3 +433,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-22 | Auto-registration of private dashboard editorial report
 - GitHub commit `fc3fb3833a8198a814cf1ee92a6ac7e561e26d26` adds automatic Stage 4 report registration when an authenticated administrator selects a project with an existing editing run and no prior dashboard-generated report. Uses authenticated Edge Function `rsm-dashboard-editorial-report` and checks existing deliverables to avoid repeat generation. Existing manual Generate Report button retained for refresh/rebuild. No author release. JavaScript syntax checked. Browser and actual Supabase function invocation still unverified; source manuscript integration and editing worker remain outstanding.
+
+## 2026-11-22 | Editorial report active-project synchronization
+- GitHub `mpid-portal/rsm-workflow-order.js` commit `20ee4ffc19291ef8d83e84693d8416c0ba397866` synchronizes Stage 4 report project selection with the main `selectedProject` control and defaults to the sole available project. JavaScript syntax verified before commit. Existing local Maurice combined manuscript candidate file confirmed present, but there is no authenticated upload to private Supabase and no newly completed editing run. Live report generation remains unverified.
