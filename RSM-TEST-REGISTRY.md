@@ -263,3 +263,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-123 admin intake connection
 - PASS Edge Function v2 deployment status ACTIVE and verify_jwt true; PASS GitHub workflow-order JS syntax compilation after adding assembled DOCX upload panel; PASS source validation nonempty 9,298-character script, previous 4,506 characters. NOT TESTED authenticated browser upload, actual storage bytes, processing worker, author review. Manuscript source inspection shows legacy first-page title inconsistent with approved title.
+
+## 2026-11-22 | T-124 latest assembled manuscript release gate
+- PASS migration applied and live SQL verified Maurice has assembled=false, latest-version QA=false, findings resolved=false, approved deliverable=false, editorial release ready=false. PASS local candidate DOCX opens with python-docx, 226 paragraphs, corrected title and Foreword. NOT TESTED authenticated private upload or manuscript processing.
