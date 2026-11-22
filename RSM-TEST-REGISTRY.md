@@ -179,3 +179,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 | T-087 | 2026-11-21 | Single-action manuscript processing workflow | SOURCE/SYNTAX PASS, RUNTIME PENDING | Reviewed Supabase queue v21 and dashboard commit d8a0ed912981f30dbd521efaf8040d8add0a19b5; new Process Private Manuscript creates/resumes private run and processes segments, with explicit paid API confirmation; JS syntax PASS | No authenticated invocation, editing output, or author release tested |
 
 | T-088 | 2026-11-21 | Manuscript start failure diagnostic | LIVE SQL + SOURCE/SYNTAX PASS, RUNTIME PENDING | Live project/application/manuscript linkage confirmed; zero edit runs. Commit fb1feec5e0b20cf3317132d9f1d23ab6aa031c0a surfaces Supabase start error and prevents refresh masking it; inline JS syntax PASS | Exact runtime failure still unknown; authenticated invocation needed |
+
+| T-089 | 2026-11-21 | Live manuscript source selection | SOURCE/SYNTAX PASS, RUNTIME PENDING | Replaced cached document lookup with live mpid_documents query; commit 234c253bbf82f9caca6383c44c3c0ef67c5c8c33; JS syntax PASS | No authenticated start or AI processing verified |
