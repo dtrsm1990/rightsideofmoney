@@ -316,3 +316,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 private review list visibility correction
 - Live SQL confirms Maurice has exactly two `mpid_editorial_deliverables` pending_review: 6x9-layout-review-draft.docx and editorial-report.txt. Admin-only RLS policy exists. Dashboard source commit 5155c8b6e3f561d91f9f6f73f8b8b8eeee3a452a calls stageLoad during main refresh, shows loading/error/selection guidance in stageList, and chooses the only project when there is exactly one. Inline JS syntax PASS; browser and published-site behavior not verified. No release.
+
+## 2026-11-21 editorial report format correction
+- User correctly identified that raw TXT editorial reports violate agreed professional DOCX/PDF review standard. Dashboard commit cc6218274185fa51522c2ff4ff9235670842f86c adds narrowly scoped `Create Formatted Word Report` for Maurice's existing pending_review editorial-report.txt, producing a private DOCX `RSM_Editorial_Review_Report.docx` with headings and admin-review warning. Original TXT retained for audit, original manuscript untouched. JS syntax PASS; live browser conversion and DOCX output pending verification. Do not approve or release.
