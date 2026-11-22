@@ -301,3 +301,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-136 private source assembly deployment
 - PASS: Supabase `rsm-private-manuscript-assembly` v1 ACTIVE, JWT verification enabled; function source fetched and inspected; dashboard workflow JS syntax compiled before GitHub commit `57dedfa42d340561be7348ba08c7cba4ff8839bc`. NOT TESTED: authenticated invocation, private foreword discovery, PDF text extraction, DOCX output, registration, intake trigger, editorial worker or release. No QA pass claimed.
+
+## 2026-11-22 | T-137 integrated foreword and automated preflight deployment
+- PASS: private integrated foreword text inserted and read back (3,432 characters), RLS migration applied, assembly Edge Function v2 ACTIVE, source reconciliation v2 ACTIVE, mechanical editorial preflight v1 ACTIVE; GitHub JS syntax validated and committed `90986cb6288d51c60101905405a8ec5fbe069ab3`. FAIL/NOT COMPLETE: post-deployment live SQL shows only original PDF in `mpid_documents`, latest editing run still original PDF and `needs_review`. NOT TESTED: authenticated dashboard assembly/preflight execution, final source fidelity, full factual editorial review, KDP page layout, author release. No false test pass.
