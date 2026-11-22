@@ -243,3 +243,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - Re-read all four continuity files and compared live Supabase schema/function inventory. Live public tables have RLS enabled; rsm-manuscript-queue v21 is ACTIVE.
 - Read-only live project/document query: The VA Loan Millionaire is onboarding, linked to its application, with exactly one registered manuscript document. An unrelated RSM TEST project remains with zero documents; no records changed.
 - Attempt to retrieve deployed rsm-manuscript-queue function bundle failed with connector InternalServerErrorException (Failed to retrieve function bundle). This is not a runtime preflight failure. Authenticated PDF extraction preflight remains UNTESTED; do not start editing or release on this evidence.
+
+## 2026-11-21 preflight diagnostics source enhancement
+- GitHub commit 3ca986fed0df2196d0a90ca74ce6ee733d95ea03 enhances the existing administrator Check Editing Readiness status to display available PDF page/word/character metrics and per-check detail. It does not invoke processing, change payment controls, or release files.
+- Full inline dashboard script compiled via JavaScript Function constructor after edit; exactly one closing HTML document verified. Authenticated PDF preflight and live browser rendering remain unverified. No author communications or processing runs initiated.
