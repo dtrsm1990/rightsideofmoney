@@ -521,7 +521,13 @@ async function loadPayments(){
    if(stripeError)throw stripeError;
    const rows=Array.isArray(stripeRows)?stripeRows:[];
    const unresolved=rows.filter(e=>!['verified','ignored'].includes(e.reconciliation_status));
-   $('stripeReconciliationSummary').textContent='Stripe webhook reconciliation: '+unresolved.length+' event(s) awaiting review. '+(rows.length===0?'No signed Stripe webhook events received yet.':'Review unmatched payments before crediting installments.');
+   const matched=unresolved.filter(e=>e.reconciliation_status==='matched_pending_verification');
+   const unmatched=unresolved.filter(e=>e.reconciliation_status!=='matched_pending_verification');
+   $('stripeReconciliationSummary').textContent='Stripe reconciliation: '+matched.length+' payment(s) matched, pending ledger verification; '+unmatched.length+' unmatched event(s). '+(rows.length===0?'No events received yet.':'Matched payments require authorized verification before onboarding.');
+   if(matched.length){
+    const details=matched.slice(0,5).map(e=>(e.payer_name||e.payer_email||'Unknown payer')+' | '+paymentMoney(Number(e.amount_cents)/100)+' | '+e.payment_intent_id+' | Awaiting ledger verification');
+    $('stripeReconciliationSummary').textContent+=' '+details.join(' ; ');
+   }
   }catch(e){$('stripeReconciliationSummary').textContent='Stripe reconciliation status unavailable: '+err(e);}
   renderPaymentOverview();
  }catch(e){message('paymentMessage','Payment records could not be loaded: '+err(e));$('paymentOverview').textContent='Payment overview unavailable.';}
