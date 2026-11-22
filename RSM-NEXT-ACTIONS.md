@@ -434,3 +434,8 @@ Use this instruction:
 ## 2026-11-22 | Dashboard stage 5 corrected
 - [x] Commit `c941df975fc6faf8c802380f71100dfc75efa1e8` maps existing author checklist and private release into Author Review & Approval; JS syntax PASS.
 - [ ] Browser validate all seven stages and complete versioned manuscript ingestion and QA.
+
+## 2026-11-22 | Dashboard navigation delivered
+- [x] Seven-stage workflow sections, accessible jump navigation and mobile styling committed `c445c35a6c0ed9e8c1425e24c8b42e280457f9d5`; syntax checked.
+- [ ] Authenticated visual/browser test for stage order, preserved controls and responsive layout. Do not claim complete until observed.
+- [ ] Continue integrated manuscript version staging, QA and author release workflow separately.
