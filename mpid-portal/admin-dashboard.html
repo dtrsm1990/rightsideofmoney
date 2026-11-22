@@ -1871,8 +1871,16 @@ $('rsmQueuePreflight').onclick=async()=>{
   button.disabled=true;
   const {data,error}=await sb.functions.invoke('rsm-manuscript-queue',{body:{action:'preflight',project_id,application_id,source_document_id}});
   if(error||!data?.ok)throw Error(data?.error||error?.message||'Readiness check failed');
-  const lines=data.checks.map(x=>(x.pass?'PASS: ':'BLOCKED: ')+x.name);
-  $('rsmEditingStatus').textContent=(data.ready?'Ready for a controlled test. ':'Editing is blocked until all checks pass. ')+lines.join(' | ');
+  const checks=Array.isArray(data.checks)?data.checks:[];
+  const lines=checks.map(x=>(x.pass?'PASS: ':'BLOCKED: ')+String(x.name||'Unnamed check')+(x.detail?' ('+String(x.detail)+')':''));
+  const extraction=data.extraction||data.pdf||data.source||{};
+  const metrics=[];
+  for(const [key,label] of [['page_count','Pages'],['pages','Pages'],['word_count','Words'],['character_count','Characters'],['text_length','Text characters']]){
+   const value=extraction[key]??data[key];
+   if(typeof value==='number'&&Number.isFinite(value)&&value>=0&&!metrics.some(m=>m.startsWith(label+':')))metrics.push(label+': '+value);
+  }
+  $('rsmEditingStatus').textContent=(data.ready?'Preflight passed. Review extraction quality before starting editing. ':'Editing blocked. Resolve the failed checks before starting. ')+[...metrics,...lines].join(' | ');
+  $('rsmEditingStatus').scrollIntoView({block:'nearest'});
  }catch(e){$('rsmEditingStatus').textContent='Readiness check: '+err(e);}finally{button.disabled=false;}
 };
 
