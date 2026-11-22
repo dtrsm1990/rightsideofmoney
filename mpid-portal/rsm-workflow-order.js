@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(Array.from(reportProject.options).some(o=>o.value===previous))reportProject.value=previous;
       if(!reportProject.value&&projectSelect.value)reportProject.value=projectSelect.value;
       await loadPrivateReports();
+      await prepareReportAutomatically();
     }catch(e){reportStatus.textContent=e?.message||String(e)}
   };
   const loadPrivateReports=async()=>{
@@ -183,8 +184,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch(e){reportStatus.textContent=e?.message||String(e)}
     finally{generateReport.disabled=false}
   });
+  // Automatically prepare a private report for a selected project if one has not been registered.
+  // No author release, no payment, and no outgoing notification.
+  const autoReportAttempted=new Set();
+  const prepareReportAutomatically=async()=>{
+    const id=reportProject.value;
+    if(!id||autoReportAttempted.has(id))return;
+    try{
+      const {client,session,cfg}=await getClient();
+      const {data:existing,error}=await client.from('mpid_editorial_deliverables').select('id,storage_path').eq('project_id',id).limit(100);
+      if(error)throw error;
+      if((existing||[]).some(x=>x.storage_path?.includes('/dashboard-reports/'))){autoReportAttempted.add(id);return}
+      const {data:runs,error:runError}=await client.from('rsm_manuscript_edit_runs').select('id').eq('project_id',id).limit(1);
+      if(runError||!runs?.length)return;
+      autoReportAttempted.add(id);
+      reportStatus.textContent='Preparing existing editorial findings for private administrator review...';
+      const response=await fetch(cfg.url+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:id})});
+      const result=await response.json();
+      if(!response.ok||!result.ok)throw new Error(result.error||'Automatic report registration failed');
+      await loadPrivateReports();
+    }catch(e){autoReportAttempted.delete(id);reportStatus.textContent='Automatic report preparation: '+(e?.message||String(e))}
+  };
   refreshReport.addEventListener('click',loadPrivateReports);
-  reportProject.addEventListener('change',loadPrivateReports);
+  reportProject.addEventListener('change',async()=>{await loadPrivateReports();await prepareReportAutomatically()});
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadReportProjects,1100)});
   loadReportProjects();
   // rsm-duplicate-summary-cleanup-v2: single source of truth for each task.
