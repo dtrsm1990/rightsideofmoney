@@ -54,6 +54,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     holder.append(stage);
   });
+  // Private, administrator-only assembled manuscript intake.
+  const intakePanel=document.createElement('section');
+  intakePanel.className='card';
+  intakePanel.id='rsmAssembledIntake';
+  const intakeTitle=document.createElement('h2');intakeTitle.textContent='Complete Manuscript Intake';
+  const intakeNote=document.createElement('p');intakeNote.className='note';intakeNote.textContent='Upload the combined DOCX with foreword. The original manuscript remains unchanged. The new version enters the private processing queue; author release requires separate approval.';
+  const projectSelect=document.createElement('select');projectSelect.setAttribute('aria-label','Publishing project');
+  const initialOption=document.createElement('option');initialOption.value='';initialOption.textContent='Choose publishing project';projectSelect.append(initialOption);
+  const fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document';fileInput.setAttribute('aria-label','Complete manuscript DOCX');
+  const uploadButton=document.createElement('button');uploadButton.type='button';uploadButton.textContent='Register Complete Manuscript and Queue Processing';
+  const uploadStatus=document.createElement('p');uploadStatus.setAttribute('role','status');uploadStatus.setAttribute('aria-live','polite');
+  const intakeRefresh=document.createElement('button');intakeRefresh.type='button';intakeRefresh.className='secondary';intakeRefresh.textContent='Refresh Projects';
+  intakePanel.append(intakeTitle,intakeNote,projectSelect,fileInput,uploadButton,intakeRefresh,uploadStatus);
+  const intakeStage=document.getElementById('rsm-workflow-stage-2');
+  if(intakeStage)intakeStage.insertBefore(intakePanel,intakeStage.children[1]||null);
+  const getClient=async()=>{
+    const cfg=JSON.parse(localStorage.getItem('mpid_admin_public_supabase_config_v1')||'null');
+    if(!cfg?.url||!cfg?.key)throw new Error('Connect and sign in to Supabase first');
+    const lib=await import('https://esm.sh/@supabase/supabase-js@2');
+    const client=lib.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+    const {data:{session}}=await client.auth.getSession();
+    if(!session)throw new Error('Administrator sign-in required');
+    const {data:profile,error:profileError}=await client.from('mpid_profiles').select('role').eq('id',session.user.id).single();
+    if(profileError||profile?.role!=='admin')throw new Error('Administrator role required');
+    return {client,session,cfg};
+  };
+  const loadIntakeProjects=async()=>{
+    try{
+      const {client}=await getClient();
+      const {data,error}=await client.from('mpid_projects').select('id,title').order('title');
+      if(error)throw error;
+      const previous=projectSelect.value;
+      projectSelect.replaceChildren(initialOption);
+      (data||[]).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.title;projectSelect.append(o)});
+      if(Array.from(projectSelect.options).some(o=>o.value===previous))projectSelect.value=previous;
+      uploadStatus.textContent='Select a project and the complete DOCX to register its next version.';
+    }catch(e){uploadStatus.textContent=e?.message||String(e)}
+  };
+  intakeRefresh.addEventListener('click',loadIntakeProjects);
+  uploadButton.addEventListener('click',async()=>{
+    uploadButton.disabled=true;
+    try{
+      if(!projectSelect.value)throw new Error('Select a publishing project');
+      const file=fileInput.files?.[0];
+      if(!file||!file.name.toLowerCase().endsWith('.docx'))throw new Error('Choose the complete DOCX manuscript');
+      const {session,cfg}=await getClient();
+      const form=new FormData();form.append('project_id',projectSelect.value);form.append('file',file,file.name);
+      uploadStatus.textContent='Securely uploading and registering the manuscript version...';
+      const response=await fetch(cfg.url+'/functions/v1/rsm-assembled-manuscript-upload',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key},body:form});
+      const result=await response.json();
+      if(!response.ok||!result.ok)throw new Error(result.error||'Private upload failed');
+      uploadStatus.textContent='Registered manuscript version '+result.version+'. Processing intake queued. Author release remains locked.';
+      fileInput.value='';
+      document.getElementById('rsmNextActionRefresh')?.click();
+    }catch(e){uploadStatus.textContent=e?.message||String(e)}
+    finally{uploadButton.disabled=false}
+  });
+  document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadIntakeProjects,900)});
+  loadIntakeProjects();
   // Preserve newly added/unmapped panels, without dropping functionality.
   const remaining = sections.filter(s => root.contains(s) && !used.has(s) && !s.closest('#rsmWorkflowStages'));
   if (remaining.length) {
