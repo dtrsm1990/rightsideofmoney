@@ -1,3 +1,14 @@
+## CURRENT EXECUTION QUEUE | 2026-11-21 | READ FIRST
+**Single active objective: complete one integrated editorial-to-publication workflow, not another collection of disconnected features.**
+1. Inspect current engine and signed package rules; define source-linked finding schema and idempotent ingestion into central audit. Do not turn routine copyedits into author tasks or invent technical findings.
+2. Link real findings to author decisions and action checklist, with explicit original text, RSM correction, proposed improvement, evidence, responsibility and resolution.
+3. Connect milestone events to correct dashboard stage and enforce QA, author review, production and proofing gates. Preserve hold states and prevent premature completion.
+4. Remove duplicate controls and reports; show one clear active project, pending administrator decisions and next action.
+5. Run one integrated safe acceptance test, log actual evidence, then assess readiness for Maurice's controlled author review.
+**Current verified:** project editing, 13/13 processing segments, QA needs_review, five private pending deliverables, zero structured findings/author approvals. No real author release.
+**Current dashboard:** d6c8ff735b5d849be5a84f76bad0b191430e70ee. **Open:** browser QA and engine-to-audit integration.
+**Historical backlog below may be stale. Do not restart old payment work without verifying live state.**
+
 # RSM Publishing Services | Next Actions and Handoff
 Last baseline: 2026-11-19
 Current focus: complete continuity infrastructure, then safely finish contract-to-payment-to-onboarding automation.
