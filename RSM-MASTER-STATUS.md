@@ -274,3 +274,7 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 active manuscript UI simplification
 - Dashboard commit 3129b41c8eeb767a4b85ee79b7ee2ab7ad9122be hides disabled Legacy Editor Retired button and legacy manual RSM Manuscript Processing Center, preserving elements/handlers for compatibility. Orders and numbers active controls: 1 Check Editing Readiness, 2 Start Private Manuscript Draft, 3 Continue Draft Processing; Pause and Refresh Draft Progress remain available. No database change, payments, author notifications, or editing run.
 - Full inline JavaScript syntax compilation PASS. Browser acceptance still pending; additional dashboard-wide control audit remains.
+
+## 2026-11-21 active draft controls and current live run status
+- Live SQL verified Maurice's The VA Loan Millionaire has no rsm_manuscript_edit_runs rows yet. No private editing run has been started.
+- Dashboard commit ea1e6a9e983e9221382556d7b93dd71f8ab1dff4 disables Continue Draft Processing when no active processing run, and disables Start Private Manuscript Draft when an active run exists. Inline JavaScript syntax PASS; browser runtime pending. No client communication or processing charge.
