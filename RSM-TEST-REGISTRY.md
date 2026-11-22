@@ -254,3 +254,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-120 project next-action view
 - PASS migration execution and read-only SQL query for Maurice: `workflow_step=manuscript_assembly`, `awaiting_assembly=1`, `unresolved_findings=5`, `pending_admin_deliverables=5`. Dashboard panel and placement committed, NOT browser tested. No processing run, upload, author release or communication.
+
+## 2026-11-22 | T-121 assembled document intake trigger
+- PASS migration applied for assembled manuscript recognition and `ready_for_processing` job creation on future `mpid_documents` inserts. Existing Maurice project read-only readiness remained `awaiting_assembly=1`, open findings 5, as expected because combined DOCX has not been uploaded. NOT TESTED: actual document upload, trigger execution with real assembled document, end-to-end editing or browser QA. No live client data modified.
