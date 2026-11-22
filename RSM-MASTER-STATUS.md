@@ -281,3 +281,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-21 single project selector restoration
 - Dashboard commit 428d0bdd32879229513278edc8ea58b0893b4b51 hides duplicate manuscript Project to process selector (retains synchronized DOM dependency). Main Select project now loads canonical linked manuscript and refreshes private editing progress on selection change. Source JavaScript syntax PASS, live browser behavior pending. No database mutation or author communication.
+
+## 2026-11-21 selected project continuity
+- Dashboard commits d78896f9e32874179153e77adf1ccca07f3f0c7b and ee75aa4deb41aa1276a142097bdf098c798d68d9 persist selected project in browser session, restore on refresh if still authorized/visible, scope Publishing Projects table to current selection, rerender table on switching projects, and reload canonical manuscript/private run status on refresh. No backend records changed. JS syntax PASS, live browser QA pending.
