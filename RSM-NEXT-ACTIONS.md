@@ -337,3 +337,6 @@ Use this instruction:
 
 - [x] Integrate narrowly scoped, previously authorized Maurice manuscript auto-start into authenticated admin dashboard refresh, commit 504f4bcc439f2781397c9521ca3e325256233ed2. Source syntax verified.
 - [ ] Verify authenticated dashboard refresh starts/resumes run, completes private manuscript editing and stages author-readable edited DOCX and report for admin review. Investigate runtime errors, no author release.
+
+- [x] Fix Maurice's page-1 PDF preflight rejection and deploy `rsm-manuscript-queue` v23 ACTIVE; short cover/blank pages no longer abort extraction.
+- [ ] Run authenticated manuscript processing after v23 and verify actual editing run, all segments, private DOCX and report. If scanned body text fails document minimum, use OCR or original accessible manuscript, without replacing immutable source.
