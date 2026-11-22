@@ -295,3 +295,6 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 ## 2026-11-21 processing failure investigation
 - Live SQL confirms Maurice project f2bc6b19-c4f7-4842-9a74-c9ea3447a496 linked to approved application 36eb0794-5def-4c5f-ab55-ca091ae649fd and original manuscript document b3156828-3088-4993-b814-5501418eb473. No rsm_manuscript_edit_runs row was created.
 - Dashboard commit fb1feec5e0b20cf3317132d9f1d23ab6aa031c0a preserves detailed failure message after refresh, reads Supabase function response error body, and removes stale direction to hidden Start button. Full HTML retained (245235 chars), inline JS syntax PASS. No editing run initiated, no client communication.
+
+## 2026-11-21 live manuscript source selection fix
+- Dashboard rsmLoadProcessingChoices selected source from cached documents array, which can be stale. Commit 234c253bbf82f9caca6383c44c3c0ef67c5c8c33 changes selection to live authenticated mpid_documents query scoped to project, manuscript and nonarchived rows. Full dashboard preserved; inline JS syntax PASS. Runtime start unverified.
