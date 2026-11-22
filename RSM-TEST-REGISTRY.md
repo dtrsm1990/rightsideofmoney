@@ -251,3 +251,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-119 dashboard navigation source validation
 - PASS: deployed workflow-order JS compiled with Function constructor, seven stages and anchors defined; verified existing dashboard source includes the external script and workspace container. NOT VERIFIED: browser DOM positioning, mobile rendering, authenticated administrator workflows or author access. No client records touched.
+
+## 2026-11-22 | T-120 project next-action view
+- PASS migration execution and read-only SQL query for Maurice: `workflow_step=manuscript_assembly`, `awaiting_assembly=1`, `unresolved_findings=5`, `pending_admin_deliverables=5`. Dashboard panel and placement committed, NOT browser tested. No processing run, upload, author release or communication.
