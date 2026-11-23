@@ -571,3 +571,5 @@ Use this instruction:
 2026-11-22: [x] Correct assembly-to-editor document ID handoff in dashboard. [ ] Authenticated assembly execution and substantive editing, precise location findings, print QA, gated author review. Do not release client work before verification.
 
 2026-11-22: [x] Add editor duplicate-run protection and private edited-DOCX registration; [x] expose private edited-DOCX admin download in Stage 4. [ ] Verify authenticated assembly and editor execution; generate source-located findings and complete KDP production and gated author review.
+
+2026-11-22: [x] Add formatted private DOCX editorial audit generation and dashboard private download. [ ] Execute authenticated Maurice audit using registered original plus integrated foreword; verify DOCX registration and real source-located findings; complete editing, print QA and approvals.
