@@ -166,3 +166,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-22: Generate/register only formatted DOCX audits for new dashboard reports, do not add TXT deliverables. Use active Publishing Projects selection as authoritative processing project. Preserve historical files and approval gate.
 
 2026-11-22: Editorial engine v10 registers formatted DOCX report, not TXT. Exact source excerpt verification is mandatory for automatic findings; inferred source PDF page marker may be recorded, but unverified paragraph is null. Original manuscript and private approval gates remain intact.
+
+2026-11-23: Stage 4 Generate Report for Admin Review must run missing assembled-manuscript editing before audit generation. Do not let stale PDF-based runs masquerade as current. Hide test projects in production workflow selectors.
