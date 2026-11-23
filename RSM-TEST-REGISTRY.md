@@ -307,3 +307,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-138 editing-run schema fix
 - PASS: live information_schema shows `rsm_manuscript_edit_runs.application_id` and `approved_scope` NOT NULL; v1 lacked both. PASS: deployed `rsm-private-editorial-preflight` v2 ACTIVE with those fields, confirmed Maurice project application_id exists. NOT TESTED: authenticated function invocation, full editorial run, layout QA or release. Existing needs_review run and five pending deliverables remain. No pass claimed for manuscript completion.
+
+## 2026-11-22 | T-139 release-gate constraint mismatch
+- PASS: inspected live view requiring `status=completed` and `qa_status=passed`; inspected live check constraints allowing neither. PASS: applied migration extending allowed statuses; GitHub workflow JS syntax validated and committed `320b5491e6b8f908952548611899998ed9939a47`. PASS: read Maurice live release-gate booleans, all false. NOT TESTED: authenticated manuscript assembly, processing, substantive editorial QA, KDP print proof, admin/author release. No false completion claim.
