@@ -478,3 +478,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - No client payment action, external communication or author release is authorized by this update.
 
 2026-11-22: GitHub commit ab3324e3cd8e0674018c3c5197443c185e43746e fixes dashboard assembly handoff to retrieve the registered assembled manuscript from private mpid_documents instead of trusting a possibly mismatched function response. Original client document remains unchanged. Live Maurice check still showed original PDF only; no end-to-end run claimed.
+
+2026-11-22: Editorial engine rsm-manuscript-editor v9 ACTIVE. It now prevents duplicate completed/review processing of the same source and registers the edited DOCX as a private pending-review deliverable. Dashboard Stage 4 commit e31c5ca758ed6b8cdfdb38d17c0d9bcdb182a29a adds private DOCX download for admin alongside TXT report. Neither deployment authorizes author release. End-to-end execution remains unverified.
