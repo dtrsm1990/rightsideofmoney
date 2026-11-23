@@ -178,3 +178,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23: For Mammoth 1.9.0 in Supabase Edge Function, use Buffer.from(DOCX ArrayBuffer) as {buffer} to extract raw text. Keep admin JWT and private release controls.
 
 2026-11-23: Do not repeat synchronous full-manuscript editing requests after HTTP 546 timeout. Implement resumable background or segment processing with persisted checkpoints and job status, preserving source and existing deliverables.
+
+2026-11-23: Process one editorial segment per authenticated request; persist edited text, findings and usage in rsm_editor_segments before next request; assemble private DOCX outputs only after all segments saved. Preserve approval gate.
