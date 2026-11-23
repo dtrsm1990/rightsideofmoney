@@ -250,7 +250,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Stage 4 is the sole current-version approval surface. Historical drafts never receive actions.
         if(target===currentBox && workingRun && r.status!=='released'){
           const action=(label,fn)=>{const b=document.createElement('button');b.type='button';b.className='secondary';b.style.marginLeft='8px';b.textContent=label;b.addEventListener('click',async()=>{b.disabled=true;try{await fn()}catch(e){reportStatus.textContent='Action not completed: '+(e?.message||String(e))}finally{b.disabled=false}});item.append(b)};
-          if(r.status==='pending_review'){
+          // Known production defect: source PDF page labels and running headers were copied into this draft.
+          // Block approval of the defective version until a distinct clean replacement is generated and verified.
+          const knownDefectiveDraft=reportProject.value==='f2bc6b19-c4f7-4842-9a74-c9ea3447a496'
+            &&r.storage_path==='projects/f2bc6b19-c4f7-4842-9a74-c9ea3447a496/private-ai-review/7c047525-ee48-4988-b1d0-a1362531a960/edited-manuscript.docx';
+          if(knownDefectiveDraft){
+            const warning=document.createElement('p');warning.style.color='#ffb4a6';
+            warning.textContent='QA BLOCKED: source PDF page markers, running headers, and hard-wrapped paragraph lines remain in this draft. Do not approve or release. A clean replacement is required.';
+            item.append(warning);
+          }
+          if(r.status==='pending_review'&&!knownDefectiveDraft){
             action('Approve for Author Review',async()=>{
               if(!confirm('Approve this exact current '+r.file_name+' for author review? Approval alone does NOT release the file.'))return;
               const {client}=await getClient();
