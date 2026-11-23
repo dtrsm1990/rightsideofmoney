@@ -152,3 +152,5 @@ Human approval is required for substantive editorial changes, publication author
 - Administrator approval remains required for release. UI deployment and JavaScript syntax checks alone are insufficient.
 
 2026-11-22: Register edited DOCX and editorial report as separate private pending-review deliverables. Reuse an existing successful draft for the same source rather than creating duplicate AI runs. Only an authorized admin can download private drafts; no automatic author release.
+
+2026-11-22: Private editorial audit output should be professionally formatted DOCX, not TXT-only; retain TXT for backwards compatibility. DOCX remains private pending_review with explicit release gate, not an author-facing approved audit.
