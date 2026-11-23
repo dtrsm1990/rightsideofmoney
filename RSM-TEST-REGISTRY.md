@@ -363,3 +363,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23: PASS Supabase migration rsm_editor_resumable_segments, PASS Edge Function v12 ACTIVE deployment/readback, PASS dashboard JavaScript syntax and GitHub commit 2435ee2011801021509c91ffcb0defdc57c1f03e. NOT TESTED authenticated segment run or final DOCX outputs.
 
 2026-11-23: PASS authenticated 7/7 editorial segments and registered private DOCX paths in DB. FAIL user Word opening RSM_Editorial_Audit report. PASS Edge Function report generator v4 ACTIVE deployment; NOT TESTED regenerated Word file opens. QA remains needs_review.
+
+2026-11-23: FAIL user Word opening regenerated v4 audit. PASS v5 Edge Function deployment ACTIVE, source updated for new file path and DOCX ZIP signature guard. NOT TESTED Word opening regenerated v5 report; ZIP signature alone does not prove document integrity.
