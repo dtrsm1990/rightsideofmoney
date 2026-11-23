@@ -343,3 +343,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-22: PASS static syntax validation of inline scripts in admin-dashboard.html after replacing legacy TXT editorial report download with formatted DOCX request. Commit e830c01e9cd5ebcbe0485d54d44a90780aedaa3d. NOT TESTED authenticated browser download or generated DOCX content.
 
 2026-11-22: PASS live Supabase migration and registration of Maurice assembled DOCX as mpid_documents v2 after fixing intake job role CHECK. Editorial processing, DOCX content fidelity and author release NOT TESTED.
+
+2026-11-22: PASS deployment status ACTIVE of rsm-dashboard-editorial-report v3 and JS syntax validation of selected-project correction. NOT TESTED authenticated function execution, DOCX fidelity, assembled manuscript editing, source-located findings or author release.
