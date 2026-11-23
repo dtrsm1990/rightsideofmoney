@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sourcePanel.append(sourceTitle,sourceNote,sourceStatus,sourceRefresh);
   if(intakeStage)intakeStage.insertBefore(sourcePanel,intakePanel);
   const checkSources=async()=>{
-    const projectId=document.getElementById('selectedProject')?.value||reportProject.value||projectSelect.value;
+    const projectId=reportProject.value||document.getElementById('selectedProject')?.value||projectSelect.value;
     if(!projectId){sourceStatus.textContent='Select a publishing project to inspect its existing private sources.';return}
     try{
       const {session,cfg}=await getClient();
@@ -334,7 +334,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const response=await fetch(cfg.url+'/functions/v1/rsm-manuscript-editor',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:id,application_id:project.application_id,source_document_id:source.id})});
       const result=await response.json();
       if(!response.ok||!result.ok)throw new Error(result.error||'Editorial processing failed');
-      sourceStatus.textContent='Edited manuscript and editorial report registered for administrator review. QA remains pending. No author release.';
+      sourceStatus.textContent='Private editing completed. Preparing formatted DOCX audit for administrator review...';
+      const auditResponse=await fetch(cfg.url+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:id})});
+      const auditResult=await auditResponse.json();
+      if(!auditResponse.ok||!auditResult.ok)throw new Error('Edited manuscript saved, but formatted audit failed: '+(auditResult.error||'Unknown error'));
+      sourceStatus.textContent='Private edited manuscript and formatted DOCX audit registered for administrator review. QA remains pending. No author release.';
       document.getElementById('rsmNextActionRefresh')?.click();
       if(Array.from(reportProject.options).some(o=>o.value===id))reportProject.value=id;
       await loadPrivateReports();
@@ -344,7 +348,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   // A complete manuscript is generated internally. Hide the obsolete manual upload workflow.
   intakePanel.hidden=true;
-  sourceRefresh.addEventListener('click',checkSources);
+  const auditRunButton=document.createElement('button');auditRunButton.type='button';auditRunButton.textContent='Run Editorial Audit & Generate DOCX';
+  auditRunButton.title='Uses the selected project and private manuscript. Does not release anything to the author.';
+  sourcePanel.append(auditRunButton);
+  auditRunButton.addEventListener('click',async()=>{
+    auditRunButton.disabled=true;
+    try{await checkSources();}finally{auditRunButton.disabled=false}
+  });
+    sourceRefresh.addEventListener('click',checkSources);
   document.getElementById('selectedProject')?.addEventListener('change',checkSources);
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(checkSources,1400)});
   setTimeout(checkSources,1500);
