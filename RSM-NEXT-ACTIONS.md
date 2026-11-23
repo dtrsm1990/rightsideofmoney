@@ -593,3 +593,5 @@ Use this instruction:
 2026-11-23: [x] Prevent Stage 3 queue from selecting original PDF. [ ] Verify authenticated processing run uses assembled manuscript source and produces DOCX deliverables; QA and release approval remain pending.
 
 2026-11-23: [x] Separate current working-source editorial output from historical original-source drafts in Stage 4. [ ] Execute authenticated editorial processing and verify generated DOCX QA, findings and private review.
+
+2026-11-23: [x] Fix runtime DOCX parser crash in rsm-manuscript-editor v11. [ ] Authenticated retry and verify new working-source editorial run, private DOCX deliverables, QA findings and release gate.
