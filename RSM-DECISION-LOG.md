@@ -168,3 +168,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-22: Editorial engine v10 registers formatted DOCX report, not TXT. Exact source excerpt verification is mandatory for automatic findings; inferred source PDF page marker may be recorded, but unverified paragraph is null. Original manuscript and private approval gates remain intact.
 
 2026-11-23: Stage 4 Generate Report for Admin Review must run missing assembled-manuscript editing before audit generation. Do not let stale PDF-based runs masquerade as current. Hide test projects in production workflow selectors.
+
+2026-11-23: Correct actual DOCX/PDF filename filtering rather than regenerate existing documents. Do not classify original-PDF draft as final foreword-inclusive manuscript.
