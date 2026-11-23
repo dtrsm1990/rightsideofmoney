@@ -1942,10 +1942,34 @@ async function rsmRefreshEditing(){
   if(item.qa_status){const qa=document.createElement('p');qa.textContent='Editorial QA: '+item.qa_status;box.append(qa);}
   if(Array.isArray(item.qa_flags)&&item.qa_flags.length){const ul=document.createElement('ul');for(const flag of item.qa_flags){const li=document.createElement('li');li.textContent=flag;ul.append(li);}box.append(ul);}
   if(item.error_message){const note=document.createElement('p');note.textContent=item.error_message;box.append(note);}
-  for(const [path,label] of [[item.output_storage_path,'Download Private Edited Draft'],[item.report_storage_path,'Download Editorial Report']]){
+  for(const [path,label] of [[item.output_storage_path,'Download Private Edited Draft'],[item.report_storage_path,'Download Formatted Editorial Audit (DOCX)']]){
    if(!path)continue;
    const btn=document.createElement('button');btn.type='button';btn.className='secondary';btn.textContent=label;btn.style.marginRight='8px';
-   btn.onclick=async()=>{try{await requireAdmin();const {data:file,error:e}=await sb.storage.from('mpid-manuscripts').download(path);if(e)throw e;const url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=path.split('/').pop();a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){$('rsmEditingStatus').textContent='Download failed: '+err(e);}};
+   btn.onclick=async()=>{
+    btn.disabled=true;
+    try{
+     await requireAdmin();
+     let targetPath=path;
+     if(label.includes('Editorial Audit')){
+      const projectId=$('selectedProject')?.value;
+      if(!projectId)throw new Error('Select a publishing project first');
+      $('rsmEditingStatus').textContent='Generating formatted private DOCX editorial audit...';
+      const {data:sessionData,error:sessionError}=await sb.auth.getSession();
+      if(sessionError||!sessionData?.session?.access_token)throw new Error('Administrator session required');
+      const response=await fetch(RSM_PUBLIC_SUPABASE_URL+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+sessionData.session.access_token,apikey:RSM_PUBLIC_SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({project_id:projectId})});
+      const result=await response.json();
+      if(!response.ok||!result.ok||!result.docx_path)throw new Error(result.error||'Formatted audit not available');
+      targetPath=result.docx_path;
+     }else if(!/\\.docx$|\\.pdf$/i.test(targetPath)){
+      throw new Error('The edited draft is not in DOCX/PDF format. Use the private manuscript processing workflow.');
+     }
+     const {data:file,error:e}=await sb.storage.from('mpid-manuscripts').download(targetPath);
+     if(e||!file)throw e||new Error('Private document unavailable');
+     const url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=targetPath.split('/').pop();document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
+     $('rsmEditingStatus').textContent='Private formatted document downloaded. No author release.';
+    }catch(e){$('rsmEditingStatus').textContent='Download failed: '+err(e)}
+    finally{btn.disabled=false}
+   };
    box.append(btn);
   }
   holder.append(box);
