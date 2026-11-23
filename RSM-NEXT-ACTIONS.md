@@ -558,3 +558,5 @@ Use this instruction:
 ## 2026-11-22 | Editorial findings display
 - [x] Implement private Stage 4 source-located finding cards with original/corrected excerpts and recommendations, no manual finding-status action required to view.
 - [ ] Verify live authenticated rendering and source mapping; complete manuscript assembly, substantive editing, KDP proof and approval workflow.
+
+2026-11-22: Editorial dashboard private findings export added in commit 352781536e74a1c7e97569b958848372c1540725. JavaScript syntax validated; authenticated UI and end-to-end editorial processing remain unverified. No author release or notification.
