@@ -599,3 +599,5 @@ Use this instruction:
 2026-11-23: [x] Diagnose HTTP 546 runtime timeout and recover stuck run state. [ ] Implement resumable per-segment editorial engine, durable progress and retry, then verify private deliverables and QA before author release.
 
 2026-11-23: [x] Implement persisted editorial section checkpoints and sequential dashboard orchestration. [ ] Verify authenticated end-to-end section execution, DOCX outputs, QA findings and no-author-release.
+
+2026-11-23: [x] Confirm 7/7 private editorial segments and report paths. [x] Fix DOCX-as-text parsing in dashboard audit generator (v4). [ ] Regenerate existing audit DOCX and verify ZIP/Word opens; inspect edited manuscript DOCX; complete QA before author release.
