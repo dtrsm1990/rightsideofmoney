@@ -469,3 +469,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 
 ## 2026-11-22 | Editorial source-location review in dashboard
 - GitHub `mpid-portal/rsm-workflow-order.js` commit `2255594782cbd7c9fa6d65a698e807141221a4dd` adds Stage 4 administrator-only read-only finding cards showing stored source section, PDF page, paragraph, original excerpt, proposed correction, author suggestion and verification notes. Missing locations are explicitly labeled not recorded; source PDF page is not misrepresented as KDP final page. Existing private RLS and release gates remain unchanged. JavaScript syntax validated, authenticated browser rendering not tested. No manuscript processing or release claimed.
+
+2026-11-22: Editorial dashboard private findings export added in commit 352781536e74a1c7e97569b958848372c1540725. JavaScript syntax validated; authenticated UI and end-to-end editorial processing remain unverified. No author release or notification.
