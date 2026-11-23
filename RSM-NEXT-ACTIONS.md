@@ -579,3 +579,5 @@ Use this instruction:
 2026-11-22: [x] Wire selected-project private audit trigger, formatted DOCX generation after editing, and DOCX backfill for existing runs. [ ] Execute authenticated Maurice project processing and verify actual DOCX, source fidelity, page/paragraph findings, KDP-ready production and approval gates.
 
 2026-11-22: [x] Correct visible Manuscript Processing legacy editorial report download to formatted DOCX. [ ] Authenticated verification of download and Maurice source/foreword assembly, location-verified audit and KDP QA.
+
+2026-11-22: [x] Resolve private assembled manuscript registration failure; assembled document v2 registered. [ ] Resume automated editorial processing from assembled document and verify DOCX audit/QA, approval gates.
