@@ -201,7 +201,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if(error)throw error;
       const reports=(data||[]).filter(x=>['editorial_report','edited_manuscript'].includes(x.document_type)||x.storage_path?.includes('/dashboard-reports/')||x.storage_path?.includes('/private-ai-review/'));
       if(!reports.length){reportStatus.textContent='No generated dashboard reports yet.';return}
-      const activeReports=reports.filter(r=>r.status!=='released'&&/\.docx$|\.pdf$/i.test(r.file_name||'')&&!/^RSM_TEST_/i.test(r.file_name||''));
+      const {data:sourceRuns,error:runError}=await client.from('rsm_manuscript_edit_runs').select('id,source_document_id,output_storage_path,report_storage_path,status,qa_status').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(20);
+      if(runError)throw runError;
+      const {data:assembled,error:assembledError}=await client.from('mpid_documents').select('id').eq('project_id',reportProject.value).eq('document_type','assembled_manuscript').is('archived_at',null).order('version',{ascending:false}).limit(1);
+      if(assembledError)throw assembledError;
+      const workingId=assembled?.[0]?.id;
+      const workingRun=(sourceRuns||[]).find(x=>x.source_document_id===workingId&&x.output_storage_path&&x.report_storage_path&&x.status!=='failed');
+      const workingPrefix=workingRun?.output_storage_path?.slice(0,workingRun.output_storage_path.lastIndexOf('/')+1);
+      const activeReports=workingRun?reports.filter(r=>r.status!=='released'&&/\.docx$|\.pdf$/i.test(r.file_name||'')&&!/^RSM_TEST_/i.test(r.file_name||'')&&(
+         r.storage_path===workingRun.output_storage_path||
+         r.storage_path===workingRun.report_storage_path||
+         (r.storage_path.startsWith(workingPrefix)&&/\.docx$/i.test(r.file_name||'')&&/editorial|audit/i.test(r.file_name||''))||
+         (r.storage_path.includes('/dashboard-reports/')&&r.storage_path.includes(workingRun.id))
+       )):[];
       const byKind=new Map();
       for(const r of activeReports){
         const kind=r.document_type==='edited_manuscript'||/manuscript|layout/i.test(r.file_name)?'manuscript':'audit';
@@ -209,7 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const current=Array.from(byKind.values());
       const history=reports.filter(r=>!current.some(c=>c.id===r.id));
-      reportStatus.textContent=current.length+' current private DOCX/PDF review document(s). '+history.length+' older draft or TXT report(s) retained in private history. No author release.';
+      reportStatus.textContent=workingRun
+       ?current.length+' current private DOCX/PDF review document(s) from working manuscript. '+history.length+' historical document(s). QA: '+workingRun.qa_status+'. No author release.'
+       :'No current editorial run for the working manuscript. '+history.length+' historical document(s) preserved. Select Generate Report for Admin Review to process the working manuscript. No author release.';
       const historyToggle=document.createElement('button');historyToggle.type='button';historyToggle.className='secondary';historyToggle.textContent='Show Older Reports ('+history.length+')';historyToggle.setAttribute('aria-expanded','false');
       const historyBox=document.createElement('div');historyBox.hidden=true;
       historyToggle.addEventListener('click',()=>{historyBox.hidden=!historyBox.hidden;historyToggle.setAttribute('aria-expanded',String(!historyBox.hidden));historyToggle.textContent=(historyBox.hidden?'Show':'Hide')+' Older Reports ('+history.length+')'});
