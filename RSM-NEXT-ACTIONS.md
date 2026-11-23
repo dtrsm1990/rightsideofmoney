@@ -589,3 +589,5 @@ Use this instruction:
 2026-11-23: [x] Connect Stage 4 Generate Report to assembled-manuscript editor before DOCX audit; hide test projects in workflow dropdowns. [ ] Authenticated reload dashboard, select Maurice, click Generate Report, verify new assembled-source run, DOCX output, QA and finding location.
 
 2026-11-23: [x] Fix overescaped DOCX/PDF regex causing false 0 current reports. [ ] Refresh authenticated dashboard to verify report visibility. [ ] Run editor on assembled DOCX v2, not original PDF; inspect foreword inclusion and QA before approval.
+
+2026-11-23: [x] Prevent Stage 3 queue from selecting original PDF. [ ] Verify authenticated processing run uses assembled manuscript source and produces DOCX deliverables; QA and release approval remain pending.
