@@ -150,3 +150,5 @@ Human approval is required for substantive editorial changes, publication author
 ## 2026-11-22 | Editorial completion acceptance criteria
 - Do not describe the editorial section as complete until a private source manuscript plus integrated sections is assembled, processed into an edited manuscript, documented with verifiable source-located findings and corrections, checked for source fidelity and KDP production requirements, and tested through administrator approval and author review gates.
 - Administrator approval remains required for release. UI deployment and JavaScript syntax checks alone are insufficient.
+
+2026-11-22: Register edited DOCX and editorial report as separate private pending-review deliverables. Reuse an existing successful draft for the same source rather than creating duplicate AI runs. Only an authorized admin can download private drafts; no automatic author release.
