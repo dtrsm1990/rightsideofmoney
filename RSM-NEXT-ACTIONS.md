@@ -533,3 +533,9 @@ Use this instruction:
 - [x] Fix mandatory application_id and approved_scope on automated editing-run registration in preflight v2.
 - [ ] Execute private assembly and preflight with authenticated dashboard, verify storage and new run. Connected Supabase management tool does not expose an authenticated user-session Edge Function invocation.
 - [ ] Complete substantive VA/mortgage editorial review, source-to-page references, print typesetting and KDP proof validation; integrate gated admin approval and author review. Never release pending or needs_review deliverables.
+
+## 2026-11-22 | Gate alignment and remaining verified acceptance
+- [x] Correct contradictory editing-run check constraints that made release gate impossible to satisfy.
+- [x] Remove obsolete manual assembly control and undefined report-refresh reference from workflow JS.
+- [ ] Authenticated run of private PDF plus integrated foreword assembly and preflight; inspect errors and verify new private document/run in live SQL.
+- [ ] Implement and validate substantive editorial findings, print-ready KDP layout and proof, verified QA and administrator/author approval release. Live gate remains all false. Never mark mechanical preflight as full QA.
