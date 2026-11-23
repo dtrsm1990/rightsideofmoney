@@ -605,3 +605,5 @@ Use this instruction:
 2026-11-23: [x] Deploy separate v5 audit report generation path without large embedded engine report. [ ] Generate v5 audit with authenticated dashboard and verify Word opens, then inspect DOCX content and QA before release.
 
 2026-11-23: [x] User confirmed corrected v5 audit and edited manuscript DOCX both download and open in Word. [ ] Perform substantive editorial QA, source-located findings, foreword/author-voice preservation, KDP layout validation. [ ] Require administrator and author approval before release; QA remains needs_review. Do not rerun seven completed segments for DOCX-open testing.
+
+2026-11-23: [x] Restore Stage 4 current working-document Approve for Author Review, Request Corrections, and separately confirmed Release to Author controls in GitHub source. [ ] Browser refresh and authenticated rendering/approval acceptance; verify current corrected audit and edited manuscript selected, no historical approval. [ ] Validate author portal delivery/notification safely before any real author release. [ ] Complete substantive QA and approval gates.
