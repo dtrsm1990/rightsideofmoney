@@ -585,3 +585,5 @@ Use this instruction:
 2026-11-22: [x] Remove new TXT audit deliverable registration, deploy formatted DOCX report v3; [x] fix project selection precedence. [ ] Execute authenticated assembled manuscript editing and inspect actual DOCX and source-anchored findings; retain private release gate.
 
 2026-11-22: [x] Deploy editor v10 with formatted DOCX reports and source-excerpt-verified finding records. [ ] Authenticated execute on Maurice assembled document v2 (id 27834501-e54b-4801-af4c-ba744d8ee725); verify private output DOCX and source fidelity, findings, QA and admin review. Do not release to author before approval.
+
+2026-11-23: [x] Connect Stage 4 Generate Report to assembled-manuscript editor before DOCX audit; hide test projects in workflow dropdowns. [ ] Authenticated reload dashboard, select Maurice, click Generate Report, verify new assembled-source run, DOCX output, QA and finding location.
