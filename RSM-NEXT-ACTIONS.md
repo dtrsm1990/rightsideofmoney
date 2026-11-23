@@ -539,3 +539,8 @@ Use this instruction:
 - [x] Remove obsolete manual assembly control and undefined report-refresh reference from workflow JS.
 - [ ] Authenticated run of private PDF plus integrated foreword assembly and preflight; inspect errors and verify new private document/run in live SQL.
 - [ ] Implement and validate substantive editorial findings, print-ready KDP layout and proof, verified QA and administrator/author approval release. Live gate remains all false. Never mark mechanical preflight as full QA.
+
+## 2026-11-22 | Admin-only private report integration
+- [x] Add inline private TXT report viewing and Stage 4 project-triggered automatic source processing without requiring manuscript download/reupload.
+- [ ] Execute with authenticated admin session and inspect live logs/storage/database for assembled manuscript, new run and report; fix any runtime failures.
+- [ ] Complete substantive editorial and print QA plus explicit administrator and author release workflow; do not release on preflight-only results.
