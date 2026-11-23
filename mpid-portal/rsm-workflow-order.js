@@ -253,13 +253,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!response.ok||!result.ok)throw new Error(result.error||name+' failed');
         return result;
       };
-      if(!state.assembled){
+      let source=state.assembled;
+      if(!source){
         sourceStatus.textContent='Automatically incorporating integrated foreword into a private manuscript version...';
-        await call('rsm-private-manuscript-assembly');
+        const assembly=await call('rsm-private-manuscript-assembly');
+        source={id:assembly.document_id};
       }
-      sourceStatus.textContent='Running private manuscript mechanical preflight and registering findings...';
-      const result=await call('rsm-private-editorial-preflight');
-      sourceStatus.textContent='Private manuscript preflight registered. '+(result.mechanical_findings||0)+' mechanical finding(s). QA: '+result.qa_status+'. Awaiting verified editorial and production review. No author release.';
+      if(!source?.id)throw new Error('Working manuscript version could not be resolved');
+      const {client}=await getClient();
+      const {data:project,error:projectError}=await client.from('mpid_projects').select('application_id').eq('id',id).single();
+      if(projectError||!project?.application_id)throw new Error('Approved application is missing');
+      sourceStatus.textContent='Running contracted editorial manuscript processing in private storage...';
+      const response=await fetch(cfg.url+'/functions/v1/rsm-manuscript-editor',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:id,application_id:project.application_id,source_document_id:source.id})});
+      const result=await response.json();
+      if(!response.ok||!result.ok)throw new Error(result.error||'Editorial processing failed');
+      sourceStatus.textContent='Edited manuscript and editorial report registered for administrator review. QA remains pending. No author release.';
       document.getElementById('rsmNextActionRefresh')?.click();
       if(Array.from(reportProject.options).some(o=>o.value===id))reportProject.value=id;
       await loadPrivateReports();
