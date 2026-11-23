@@ -597,3 +597,5 @@ Use this instruction:
 2026-11-23: [x] Fix runtime DOCX parser crash in rsm-manuscript-editor v11. [ ] Authenticated retry and verify new working-source editorial run, private DOCX deliverables, QA findings and release gate.
 
 2026-11-23: [x] Diagnose HTTP 546 runtime timeout and recover stuck run state. [ ] Implement resumable per-segment editorial engine, durable progress and retry, then verify private deliverables and QA before author release.
+
+2026-11-23: [x] Implement persisted editorial section checkpoints and sequential dashboard orchestration. [ ] Verify authenticated end-to-end section execution, DOCX outputs, QA findings and no-author-release.
