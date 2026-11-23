@@ -160,3 +160,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-22: Run Editorial Audit & Generate DOCX acts on selected private project, chains private assembly/editor and formatted audit. Existing completed private edit may generate missing formatted audit without a duplicate editing run. Release remains approval gated.
 
 2026-11-22: Fix the existing visible Manuscript Processing controls rather than add duplicate workflow buttons. Editorial report download must generate formatted DOCX; TXT remains internal only. Preserve original and admin approval gates.
+
+2026-11-22: Intake trigger already classifies assembled_manuscript; expand intake jobs role constraint to allow that value rather than bypass registration or change original source. No author release.
