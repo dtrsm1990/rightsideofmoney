@@ -143,3 +143,6 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-22 | Foreword is part of Maurice's manuscript
 - The Colonel Carlos T. Jackson foreword is integrated as manuscript source content in private Supabase, not treated as an independent operational deliverable. Server-side assembly reads the original PDF and integrated foreword, creates a new working version without changing original source. Admin dashboard should automatically initiate processing when sources are present. A mechanical preflight is not a full substantive editorial review; no automatic author release or KDP-ready claim without verified QA and approvals.
+
+## 2026-11-22 | Preserve strict production QA gate
+- Align database allowed statuses with release-gate view without weakening gate requirements. Automated mechanical preflight stays `needs_review`; only verified substantive editorial, source-fidelity, and print-layout QA can justify `completed` plus `passed`. No automatic approval or author release from a mere deployment or preflight.
