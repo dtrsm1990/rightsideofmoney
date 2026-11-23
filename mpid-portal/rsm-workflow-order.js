@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(error)throw error;
       const reports=(data||[]).filter(x=>['editorial_report','edited_manuscript'].includes(x.document_type)||x.storage_path?.includes('/dashboard-reports/')||x.storage_path?.includes('/private-ai-review/'));
       if(!reports.length){reportStatus.textContent='No generated dashboard reports yet.';return}
-      const activeReports=reports.filter(r=>r.status!=='released'&&/\\.docx$|\\.pdf$/i.test(r.file_name||'')&&!/^RSM_TEST_/i.test(r.file_name||''));
+      const activeReports=reports.filter(r=>r.status!=='released'&&/\.docx$|\.pdf$/i.test(r.file_name||'')&&!/^RSM_TEST_/i.test(r.file_name||''));
       const byKind=new Map();
       for(const r of activeReports){
         const kind=r.document_type==='edited_manuscript'||/manuscript|layout/i.test(r.file_name)?'manuscript':'audit';
