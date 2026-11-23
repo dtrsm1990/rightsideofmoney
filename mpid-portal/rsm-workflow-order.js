@@ -306,7 +306,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const autoProcessProject=async(id,state)=>{
     if(autoProcessing.has(id)||!state.source)return;
     if(!state.assembled&&!state.integrated_foreword)return;
-    if(state.assembled&&state.latest_run?.source_document_id===state.assembled.id&&state.latest_run?.report_storage_path)return;
+    if(state.assembled&&state.latest_run?.source_document_id===state.assembled.id&&state.latest_run?.report_storage_path){
+      try{
+        const {client,session,cfg}=await getClient();
+        const {data:existingAudit,error:existingAuditError}=await client.from('mpid_editorial_deliverables').select('id').eq('project_id',id).like('file_name','RSM_Editorial_Audit_%.docx').limit(1);
+        if(existingAuditError)throw existingAuditError;
+        if(!existingAudit?.length){
+          sourceStatus.textContent='Existing private edit found. Generating formatted DOCX audit...';
+          const response=await fetch(cfg.url+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:id})});
+          const result=await response.json();
+          if(!response.ok||!result.ok)throw new Error(result.error||'Formatted audit failed');
+          await loadPrivateReports();
+          sourceStatus.textContent='Formatted private DOCX audit registered for administrator review. No author release.';
+        }
+      }catch(e){sourceStatus.textContent='Private audit needs attention: '+(e?.message||String(e))}
+      return;
+    }
     autoProcessing.add(id);
     try{
       const {session,cfg}=await getClient();
