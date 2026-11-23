@@ -201,8 +201,23 @@ document.addEventListener('DOMContentLoaded', () => {
       if(error)throw error;
       const reports=(data||[]).filter(x=>['editorial_report','edited_manuscript'].includes(x.document_type)||x.storage_path?.includes('/dashboard-reports/')||x.storage_path?.includes('/private-ai-review/'));
       if(!reports.length){reportStatus.textContent='No generated dashboard reports yet.';return}
-      reportStatus.textContent=reports.length+' private editorial document(s) available, including formatted DOCX reports where generated. No author release from this panel.';
-      reports.forEach(r=>{
+      const activeReports=reports.filter(r=>r.status!=='released'&&/\\.docx$|\\.pdf$/i.test(r.file_name||'')&&!/^RSM_TEST_/i.test(r.file_name||''));
+      const byKind=new Map();
+      for(const r of activeReports){
+        const kind=r.document_type==='edited_manuscript'||/manuscript|layout/i.test(r.file_name)?'manuscript':'audit';
+        if(!byKind.has(kind))byKind.set(kind,r);
+      }
+      const current=Array.from(byKind.values());
+      const history=reports.filter(r=>!current.some(c=>c.id===r.id));
+      reportStatus.textContent=current.length+' current private DOCX/PDF review document(s). '+history.length+' older draft or TXT report(s) retained in private history. No author release.';
+      const historyToggle=document.createElement('button');historyToggle.type='button';historyToggle.className='secondary';historyToggle.textContent='Show Older Reports ('+history.length+')';historyToggle.setAttribute('aria-expanded','false');
+      const historyBox=document.createElement('div');historyBox.hidden=true;
+      historyToggle.addEventListener('click',()=>{historyBox.hidden=!historyBox.hidden;historyToggle.setAttribute('aria-expanded',String(!historyBox.hidden));historyToggle.textContent=(historyBox.hidden?'Show':'Hide')+' Older Reports ('+history.length+')'});
+      const currentBox=document.createElement('div');
+      reportList.append(currentBox);
+      if(history.length)reportList.append(historyToggle,historyBox);
+      const render=(r,target)=>{
+
         const item=document.createElement('div');item.className='item';
         const title=document.createElement('strong');title.textContent=r.file_name;
         const detail=document.createElement('p');detail.className='muted small';detail.textContent='Status: '+r.status+' | '+new Date(r.created_at).toLocaleString();
@@ -217,8 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
           }catch(e){reportStatus.textContent=e?.message||String(e)}
           finally{download.disabled=false}
         });
-        item.append(title,detail,download);reportList.append(item);
-      });
+        item.append(title,detail,download);target.append(item);
+      };
+      current.forEach(r=>render(r,currentBox));
+      history.forEach(r=>render(r,historyBox));
     }catch(e){reportStatus.textContent=e?.message||String(e)}
   };
   generateReport.addEventListener('click',async()=>{
