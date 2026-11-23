@@ -355,3 +355,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23: PASS syntax validation of two inline admin-dashboard.html scripts after enforcing assembled manuscript processing source, commit 622c78e954847a90d654b5a35f0e905b45c6fd44. Authenticated execution not verified.
 
 2026-11-23: PASS syntax check of working-source-linked report classification, commit ba212eee886838f2d05b265c2dff859769221f57. NOT TESTED live authenticated dashboard. No assembled-source run verified.
+
+2026-11-23: PASS runtime log root-cause identified 'Could not find file in options' in Mammoth DOCX extraction. PASS Edge Function rsm-manuscript-editor v11 deployed ACTIVE and readback confirms Buffer.from(bytes) fix. NOT TESTED new authenticated editor run or DOCX output.
