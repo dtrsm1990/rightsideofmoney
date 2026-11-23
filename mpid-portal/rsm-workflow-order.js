@@ -270,8 +270,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if(projectError||!project?.application_id)throw new Error('Project application link is missing');
         reportStatus.textContent='Processing assembled manuscript privately. Keep this page open until complete...';
         const editResponse=await fetch(cfg.url+'/functions/v1/rsm-manuscript-editor',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value,application_id:project.application_id,source_document_id:source.assembled.id})});
-        const edit=await editResponse.json();
+        let edit=await editResponse.json();
         if(!editResponse.ok||!edit.ok)throw new Error(edit.error||'Private manuscript editing failed');
+        while(edit.status==='processing'&&Number.isInteger(edit.next_segment)){
+          reportStatus.textContent='Private editorial processing: '+edit.completed_segments+' of '+edit.total_segments+' sections saved. Please keep this tab open.';
+          const nextResponse=await fetch(cfg.url+'/functions/v1/rsm-manuscript-editor',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value,application_id:project.application_id,source_document_id:source.assembled.id,segment_index:edit.next_segment})});
+          const nextEdit=await nextResponse.json();
+          if(!nextResponse.ok||!nextEdit.ok)throw new Error(nextEdit.error||'Editorial section processing failed');
+          if(nextEdit.next_segment===edit.next_segment)throw new Error('Editorial processing did not advance');
+          edit=nextEdit;
+        }
       }
       reportStatus.textContent='Generating formatted DOCX report from the assembled manuscript editorial run...';
       const response=await fetch(cfg.url+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value})});
