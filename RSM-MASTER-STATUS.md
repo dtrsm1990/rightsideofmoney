@@ -504,3 +504,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23: Updated rsm-workflow-order.js commit ba212eee886838f2d05b265c2dff859769221f57 to display current editorial documents only when backed by a completed output run linked to the registered working manuscript. Prior PDF-based drafts are retained as history, not current. JavaScript syntax checked. Authenticated end-to-end run still pending.
 
 2026-11-23: Root cause found in Supabase function_logs at 08:25:54 UTC: Mammoth DOCX extraction threw 'Could not find file in options' because Edge Function passed {arrayBuffer} instead of Node-compatible {buffer}. Deployed rsm-manuscript-editor v11 ACTIVE using Buffer.from(bytes), readback confirmed. Authenticated retry and output QA still pending.
+
+2026-11-23: Live editor POST returned HTTP 546 at 08:42:38 UTC after starting 08:40:09, with run b5bf1cfe-c74e-43c7-8bb7-ecabb04e3eb8 stuck processing. Confirmed no output paths, marked only that run failed with timeout reason via conditional SQL. Synchronous editor exceeds Edge Function execution window; needs resumable segment architecture. No author release.
