@@ -498,3 +498,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23: Fixed Stage 4 report generation workflow in rsm-workflow-order.js commit 69319d454cda625c1c129ffaae6b041644536d5f. Button now reconciles assembled manuscript, executes editor against assembled DOCX when needed, then generates DOCX report; test projects excluded from workflow dropdowns. JS syntax validated; authenticated end-to-end still unverified.
 
 2026-11-23: Identified dashboard false zero-current-documents defect: regex /\\.docx$/ was overescaped in rsm-workflow-order.js, hiding valid DOCX/PDF records. Fixed regex commit 90d1de6b947e43490726fa2a80630e66b7e221f4. Live DB has nine editorial deliverables, including private formatted DOCX audit, but latest edit run still references original PDF, not assembled DOCX. No author release.
+
+2026-11-23: Fixed legacy Stage 3 processing source selection in admin-dashboard.html to use only registered assembled_manuscript records, not original PDF. Commit 622c78e954847a90d654b5a35f0e905b45c6fd44. Two inline JS scripts syntax-validated. Authenticated end-to-end remains pending.
