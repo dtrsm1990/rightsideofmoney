@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeReports=workingRun?reports.filter(r=>r.status!=='released'&&/\.docx$|\.pdf$/i.test(r.file_name||'')&&!/^RSM_TEST_/i.test(r.file_name||'')&&(
          r.storage_path===workingRun.output_storage_path||
          r.storage_path===workingRun.report_storage_path||
-         (r.storage_path.startsWith(workingPrefix)&&/\.docx$/i.test(r.file_name||'')&&/editorial|audit/i.test(r.file_name||''))||
+         (r.storage_path.startsWith(workingPrefix)&&/\.docx$/i.test(r.file_name||'')&&/editorial|audit|edited.manuscript.clean/i.test(r.file_name||''))||
          (r.storage_path.includes('/dashboard-reports/')&&r.storage_path.includes(workingRun.id))
        )):[];
       // Prefer the clean replacement for the current run. Never offer the known defective original for approval.
