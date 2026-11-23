@@ -471,3 +471,8 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - GitHub `mpid-portal/rsm-workflow-order.js` commit `2255594782cbd7c9fa6d65a698e807141221a4dd` adds Stage 4 administrator-only read-only finding cards showing stored source section, PDF page, paragraph, original excerpt, proposed correction, author suggestion and verification notes. Missing locations are explicitly labeled not recorded; source PDF page is not misrepresented as KDP final page. Existing private RLS and release gates remain unchanged. JavaScript syntax validated, authenticated browser rendering not tested. No manuscript processing or release claimed.
 
 2026-11-22: Editorial dashboard private findings export added in commit 352781536e74a1c7e97569b958848372c1540725. JavaScript syntax validated; authenticated UI and end-to-end editorial processing remain unverified. No author release or notification.
+
+## 2026-11-22 | Continuity reconciliation and editorial readiness
+- The Stage 4 private findings panel and administrator-only text export are committed to GitHub. They are interface capabilities, not proof of completed editing.
+- Editorial automation is NOT production-ready: original-to-working-manuscript assembly, substantive editing, exact source-location verification, KDP-ready DOCX/PDF, authenticated end-to-end tests and gated author review remain incomplete or unverified.
+- No client payment action, external communication or author release is authorized by this update.
