@@ -170,3 +170,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23: Stage 4 Generate Report for Admin Review must run missing assembled-manuscript editing before audit generation. Do not let stale PDF-based runs masquerade as current. Hide test projects in production workflow selectors.
 
 2026-11-23: Correct actual DOCX/PDF filename filtering rather than regenerate existing documents. Do not classify original-PDF draft as final foreword-inclusive manuscript.
+
+2026-11-23: Stage 3 private manuscript queue source dropdown must only expose assembled_manuscript documents. Do not process original manuscript PDF as current working version.
