@@ -544,3 +544,8 @@ Use this instruction:
 - [x] Add inline private TXT report viewing and Stage 4 project-triggered automatic source processing without requiring manuscript download/reupload.
 - [ ] Execute with authenticated admin session and inspect live logs/storage/database for assembled manuscript, new run and report; fix any runtime failures.
 - [ ] Complete substantive editorial and print QA plus explicit administrator and author release workflow; do not release on preflight-only results.
+
+## 2026-11-22 | Integrated contracted editor
+- [x] Wire automatic dashboard assembly to approved-scope AI editor using versioned private DOCX and approved application ID; register private editorial report pending review.
+- [ ] Execute authenticated dashboard flow, verify assembly/editor output, identify errors from function logs, and inspect resulting documents and QA state.
+- [ ] Implement exact page/paragraph tracked corrections, substantive fact-check review, professional KDP layout and proof QA; verify admin approval, author review and gated release without sending unauthorized messages.
