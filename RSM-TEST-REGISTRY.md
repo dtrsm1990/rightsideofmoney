@@ -313,3 +313,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-140 dashboard-native report viewing
 - PASS: JavaScript syntax validation of `rsm-workflow-order.js` after inline TXT report preview and Stage 4 project auto-processing changes; GitHub commit `65626d5cc6aafa10239c1191294dc99e662b0cd9`. NOT TESTED: authenticated browser rendering, private report retrieval, source assembly, editorial preflight, KDP production or author release. No release or author notification performed.
+
+## 2026-11-22 | T-141 editor integration
+- PASS: live application status read (approved, signed, partially_paid, Publish-Ready approved scope). PASS: Supabase `rsm-manuscript-editor` v8 deployed ACTIVE with assembled manuscript support and private report registration. PASS: dashboard JS syntax checked and GitHub commit `99bd2945ac00005e502d13c196a4ecd7ceb41506`. NOT TESTED: authenticated browser execution, payment-installment gate at runtime, source DOCX editing, generated findings with exact location, print proof and author release. Do not mark end-to-end acceptance passed.
