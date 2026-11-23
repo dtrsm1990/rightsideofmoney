@@ -144,7 +144,38 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       // Stage 4 refreshes through its existing project-linked report controls.
       await prepareReportAutomatically();
+      await loadLocatedFindings();
     }catch(e){reportStatus.textContent=e?.message||String(e)}
+  };
+  // Administrator-only, source-located editorial finding review. No manual finding edits.
+  const findingPanel=document.createElement('section');findingPanel.className='card';findingPanel.id='rsmLocatedFindings';
+  const findingHeading=document.createElement('h2');findingHeading.textContent='Editorial Findings by Source Location';
+  const findingNote=document.createElement('p');findingNote.className='note';findingNote.textContent='Source page and paragraph are displayed only when recorded. Source PDF pages may differ from final KDP pagination. Findings are private until separately approved for author release.';
+  const findingStatus=document.createElement('p');findingStatus.setAttribute('role','status');
+  const findingList=document.createElement('div');
+  findingPanel.append(findingHeading,findingNote,findingStatus,findingList);
+  if(auditStage)auditStage.append(findingPanel);
+  const loadLocatedFindings=async()=>{
+    findingList.replaceChildren();
+    const id=reportProject.value;
+    if(!id){findingStatus.textContent='Choose a publishing project to review findings.';return}
+    try{
+      const {client}=await getClient();
+      const {data,error}=await client.from('mpid_audit_findings').select('id,dimension,severity,status,source_page,source_paragraph,source_section,finding,original_excerpt,corrected_excerpt,recommendation,author_suggestion,verification_notes,change_type,released_to_author').eq('project_id',id).order('created_at',{ascending:false}).limit(250);
+      if(error)throw error;
+      findingStatus.textContent=(data||[]).length+' private editorial finding(s). Source locations are not final print page numbers.';
+      (data||[]).forEach(f=>{
+        const card=document.createElement('div');card.className='item';card.style.cssText='padding:14px;margin:10px 0;border:1px solid #665537;border-radius:8px';
+        const head=document.createElement('strong');head.textContent=[f.severity||'Unrated',f.dimension||'Editorial',f.status||'Open'].join(' | ');
+        const location=document.createElement('p');location.className='muted small';location.textContent='Source: '+[f.source_section||'Section not recorded',f.source_page?'PDF page '+f.source_page:'PDF page not recorded',f.source_paragraph?'paragraph '+f.source_paragraph:'paragraph not recorded'].join(' | ');
+        card.append(head,location);
+        for(const [label,value] of [['Finding',f.finding],['Original text',f.original_excerpt],['Proposed correction',f.corrected_excerpt],['Recommendation',f.recommendation],['Author suggestion',f.author_suggestion],['Verification',f.verification_notes]]){
+          if(!value)continue;
+          const line=document.createElement('p');const bold=document.createElement('strong');bold.textContent=label+': ';line.append(bold,document.createTextNode(value));card.append(line);
+        }
+        const visibility=document.createElement('p');visibility.className='muted small';visibility.textContent=f.released_to_author?'Author visibility recorded':'Private administrator review only';card.append(visibility);findingList.append(card);
+      });
+    }catch(e){findingStatus.textContent='Unable to load private findings: '+(e?.message||String(e))}
   };
   const loadPrivateReports=async()=>{
     reportList.replaceChildren();
@@ -211,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch(e){autoReportAttempted.delete(id);reportStatus.textContent='Automatic report preparation: '+(e?.message||String(e))}
   };
   refreshReport.addEventListener('click',loadPrivateReports);
-  reportProject.addEventListener('change',async()=>{await loadPrivateReports();await prepareReportAutomatically()});
+  reportProject.addEventListener('change',async()=>{await loadPrivateReports();await loadLocatedFindings();await prepareReportAutomatically()});
   document.getElementById('selectedProject')?.addEventListener('change',()=>{const id=document.getElementById('selectedProject')?.value;if(id&&Array.from(reportProject.options).some(o=>o.value===id)){reportProject.value=id;loadPrivateReports().then(prepareReportAutomatically)}});
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(loadReportProjects,1100)});
   loadReportProjects();
@@ -271,6 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('rsmNextActionRefresh')?.click();
       if(Array.from(reportProject.options).some(o=>o.value===id))reportProject.value=id;
       await loadPrivateReports();
+      await loadLocatedFindings();
     }catch(e){sourceStatus.textContent='Automatic processing requires attention: '+(e?.message||String(e))}
     finally{autoProcessing.delete(id)}
   };
