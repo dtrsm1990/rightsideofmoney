@@ -502,3 +502,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23: Fixed legacy Stage 3 processing source selection in admin-dashboard.html to use only registered assembled_manuscript records, not original PDF. Commit 622c78e954847a90d654b5a35f0e905b45c6fd44. Two inline JS scripts syntax-validated. Authenticated end-to-end remains pending.
 
 2026-11-23: Updated rsm-workflow-order.js commit ba212eee886838f2d05b265c2dff859769221f57 to display current editorial documents only when backed by a completed output run linked to the registered working manuscript. Prior PDF-based drafts are retained as history, not current. JavaScript syntax checked. Authenticated end-to-end run still pending.
+
+2026-11-23: Root cause found in Supabase function_logs at 08:25:54 UTC: Mammoth DOCX extraction threw 'Could not find file in options' because Edge Function passed {arrayBuffer} instead of Node-compatible {buffer}. Deployed rsm-manuscript-editor v11 ACTIVE using Buffer.from(bytes), readback confirmed. Authenticated retry and output QA still pending.
