@@ -365,3 +365,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23: PASS authenticated 7/7 editorial segments and registered private DOCX paths in DB. FAIL user Word opening RSM_Editorial_Audit report. PASS Edge Function report generator v4 ACTIVE deployment; NOT TESTED regenerated Word file opens. QA remains needs_review.
 
 2026-11-23: FAIL user Word opening regenerated v4 audit. PASS v5 Edge Function deployment ACTIVE, source updated for new file path and DOCX ZIP signature guard. NOT TESTED Word opening regenerated v5 report; ZIP signature alone does not prove document integrity.
+
+2026-11-23: PASS user-observed Word-open/download acceptance for corrected v5 audit DOCX and current 7/7 edited manuscript DOCX. PASS DB presence of private deliverable records, status pending_review. NOT VERIFIED: source fidelity, specific page/paragraph locations, editorial correctness, KDP production formatting, author release. No client notification.
