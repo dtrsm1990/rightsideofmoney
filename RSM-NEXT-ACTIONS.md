@@ -581,3 +581,5 @@ Use this instruction:
 2026-11-22: [x] Correct visible Manuscript Processing legacy editorial report download to formatted DOCX. [ ] Authenticated verification of download and Maurice source/foreword assembly, location-verified audit and KDP QA.
 
 2026-11-22: [x] Resolve private assembled manuscript registration failure; assembled document v2 registered. [ ] Resume automated editorial processing from assembled document and verify DOCX audit/QA, approval gates.
+
+2026-11-22: [x] Remove new TXT audit deliverable registration, deploy formatted DOCX report v3; [x] fix project selection precedence. [ ] Execute authenticated assembled manuscript editing and inspect actual DOCX and source-anchored findings; retain private release gate.
