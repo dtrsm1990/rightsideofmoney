@@ -176,3 +176,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23: Current editorial deliverables must match the latest registered assembled working manuscript and its processing run. Historical PDF-source drafts are not current for QA or release.
 
 2026-11-23: For Mammoth 1.9.0 in Supabase Edge Function, use Buffer.from(DOCX ArrayBuffer) as {buffer} to extract raw text. Keep admin JWT and private release controls.
+
+2026-11-23: Do not repeat synchronous full-manuscript editing requests after HTTP 546 timeout. Implement resumable background or segment processing with persisted checkpoints and job status, preserving source and existing deliverables.
