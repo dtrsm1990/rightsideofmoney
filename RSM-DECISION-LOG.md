@@ -174,3 +174,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23: Stage 3 private manuscript queue source dropdown must only expose assembled_manuscript documents. Do not process original manuscript PDF as current working version.
 
 2026-11-23: Current editorial deliverables must match the latest registered assembled working manuscript and its processing run. Historical PDF-source drafts are not current for QA or release.
+
+2026-11-23: For Mammoth 1.9.0 in Supabase Edge Function, use Buffer.from(DOCX ArrayBuffer) as {buffer} to extract raw text. Keep admin JWT and private release controls.
