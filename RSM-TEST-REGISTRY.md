@@ -367,3 +367,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23: FAIL user Word opening regenerated v4 audit. PASS v5 Edge Function deployment ACTIVE, source updated for new file path and DOCX ZIP signature guard. NOT TESTED Word opening regenerated v5 report; ZIP signature alone does not prove document integrity.
 
 2026-11-23: PASS user-observed Word-open/download acceptance for corrected v5 audit DOCX and current 7/7 edited manuscript DOCX. PASS DB presence of private deliverable records, status pending_review. NOT VERIFIED: source fidelity, specific page/paragraph locations, editorial correctness, KDP production formatting, author release. No client notification.
+
+2026-11-23: PASS GitHub source commit 15f86c3702a74ce706638386c844e10be3559e97 for Stage 4 approval/release UI. PASS read-only inspection of existing mpid_finalize_editorial_release RPC and editorial events schema. NOT TESTED authenticated browser button rendering, approvals, release, notifications, or author visibility. No client records changed and no author notification sent.
