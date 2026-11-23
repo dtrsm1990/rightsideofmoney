@@ -146,3 +146,7 @@ Human approval is required for substantive editorial changes, publication author
 
 ## 2026-11-22 | Preserve strict production QA gate
 - Align database allowed statuses with release-gate view without weakening gate requirements. Automated mechanical preflight stays `needs_review`; only verified substantive editorial, source-fidelity, and print-layout QA can justify `completed` plus `passed`. No automatic approval or author release from a mere deployment or preflight.
+
+## 2026-11-22 | Editorial completion acceptance criteria
+- Do not describe the editorial section as complete until a private source manuscript plus integrated sections is assembled, processed into an edited manuscript, documented with verifiable source-located findings and corrections, checked for source fidelity and KDP production requirements, and tested through administrator approval and author review gates.
+- Administrator approval remains required for release. UI deployment and JavaScript syntax checks alone are insufficient.
