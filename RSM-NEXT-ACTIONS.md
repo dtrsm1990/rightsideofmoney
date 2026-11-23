@@ -549,3 +549,8 @@ Use this instruction:
 - [x] Wire automatic dashboard assembly to approved-scope AI editor using versioned private DOCX and approved application ID; register private editorial report pending review.
 - [ ] Execute authenticated dashboard flow, verify assembly/editor output, identify errors from function logs, and inspect resulting documents and QA state.
 - [ ] Implement exact page/paragraph tracked corrections, substantive fact-check review, professional KDP layout and proof QA; verify admin approval, author review and gated release without sending unauthorized messages.
+
+## 2026-11-22 | Updated integration verification
+- [x] Verify Maurice $250 commencement payment is marked paid and fully verified in live installment table.
+- [x] Fix source reconciliation response to include latest run report path for dashboard automatic processing detection.
+- [ ] Execute authenticated administrator dashboard processing to register assembled manuscript and editing run; inspect runtime failures and complete substantive QA, KDP proof and gated author review.
