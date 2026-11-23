@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(error)throw error;
       const reports=(data||[]).filter(x=>['editorial_report','edited_manuscript'].includes(x.document_type)||x.storage_path?.includes('/dashboard-reports/')||x.storage_path?.includes('/private-ai-review/'));
       if(!reports.length){reportStatus.textContent='No generated dashboard reports yet.';return}
-      reportStatus.textContent=reports.length+' private dashboard report(s) available. No author release from this panel.';
+      reportStatus.textContent=reports.length+' private editorial document(s) available, including formatted DOCX reports where generated. No author release from this panel.';
       reports.forEach(r=>{
         const item=document.createElement('div');item.className='item';
         const title=document.createElement('strong');title.textContent=r.file_name;
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response=await fetch(cfg.url+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value})});
       const result=await response.json();
       if(!response.ok||!result.ok)throw new Error(result.error||'Report generation failed');
-      reportStatus.textContent='Private report registered. '+result.findings+' finding(s). QA: '+result.qa_status+'. '+(result.source_matches?'Source version matches.':'Source version not verified. No author release.');
+      reportStatus.textContent='Formatted DOCX editorial audit registered for private administrator review. '+result.findings+' finding(s). QA: '+result.qa_status+'. '+(result.source_matches?'Source version matches.':'Source version not verified. No author release.');
       await loadPrivateReports();
     }catch(e){reportStatus.textContent=e?.message||String(e)}
     finally{generateReport.disabled=false}
