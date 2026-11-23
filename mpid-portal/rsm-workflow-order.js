@@ -151,9 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!reportProject.value){reportStatus.textContent='Choose a project to view private reports.';return}
     try{
       const {client}=await getClient();
-      const {data,error}=await client.from('mpid_editorial_deliverables').select('id,file_name,storage_path,status,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(30);
+      const {data,error}=await client.from('mpid_editorial_deliverables').select('id,file_name,storage_path,document_type,status,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(30);
       if(error)throw error;
-      const reports=(data||[]).filter(x=>x.storage_path?.includes('/dashboard-reports/'));
+      const reports=(data||[]).filter(x=>x.document_type==='editorial_report'||x.storage_path?.includes('/dashboard-reports/')||x.storage_path?.includes('/private-ai-review/'));
       if(!reports.length){reportStatus.textContent='No generated dashboard reports yet.';return}
       reportStatus.textContent=reports.length+' private dashboard report(s) available. No author release from this panel.';
       reports.forEach(r=>{
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const {client}=await getClient();
             const {data,error}=await client.storage.from('mpid-manuscripts').download(r.storage_path);
             if(error||!data)throw error||new Error('Private report unavailable');
-            const url=URL.createObjectURL(data);const a=document.createElement('a');a.href=url;a.download=r.file_name;a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
+            const preview=item.querySelector('.rsm-inline-report')||document.createElement('pre');preview.className='rsm-inline-report';preview.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;max-height:460px;overflow:auto;padding:14px;border:1px solid #6d5731;border-radius:8px';if(/\.txt$/i.test(r.file_name)){preview.textContent=await data.text()}else{preview.textContent='This document is stored privately. Review the text editorial report here; DOCX and PDF preview requires a supported secure viewer.'}if(!preview.parentElement)item.append(preview);
           }catch(e){reportStatus.textContent=e?.message||String(e)}
           finally{download.disabled=false}
         });
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const {client,session,cfg}=await getClient();
       const {data:existing,error}=await client.from('mpid_editorial_deliverables').select('id,storage_path').eq('project_id',id).limit(100);
       if(error)throw error;
-      if((existing||[]).some(x=>x.storage_path?.includes('/dashboard-reports/'))){autoReportAttempted.add(id);return}
+      if((existing||[]).some(x=>x.storage_path?.includes('/dashboard-reports/'))){autoReportAttempted.add(id);await loadPrivateReports();return}
       const {data:runs,error:runError}=await client.from('rsm_manuscript_edit_runs').select('id').eq('project_id',id).limit(1);
       if(runError||!runs?.length)return;
       autoReportAttempted.add(id);
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sourcePanel.append(sourceTitle,sourceNote,sourceStatus,sourceRefresh);
   if(intakeStage)intakeStage.insertBefore(sourcePanel,intakePanel);
   const checkSources=async()=>{
-    const projectId=document.getElementById('selectedProject')?.value||projectSelect.value;
+    const projectId=document.getElementById('selectedProject')?.value||reportProject.value||projectSelect.value;
     if(!projectId){sourceStatus.textContent='Select a publishing project to inspect its existing private sources.';return}
     try{
       const {session,cfg}=await getClient();
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const autoProcessProject=async(id,state)=>{
     if(autoProcessing.has(id)||!state.source)return;
     if(!state.assembled&&!state.integrated_foreword)return;
-    if(state.assembled&&state.latest_run?.source_document_id===state.assembled.id)return;
+    if(state.assembled&&state.latest_run?.source_document_id===state.assembled.id&&state.latest_run?.report_storage_path)return;
     autoProcessing.add(id);
     try{
       const {session,cfg}=await getClient();
@@ -261,6 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const result=await call('rsm-private-editorial-preflight');
       sourceStatus.textContent='Private manuscript preflight registered. '+(result.mechanical_findings||0)+' mechanical finding(s). QA: '+result.qa_status+'. Awaiting verified editorial and production review. No author release.';
       document.getElementById('rsmNextActionRefresh')?.click();
+      if(Array.from(reportProject.options).some(o=>o.value===id))reportProject.value=id;
       await loadPrivateReports();
     }catch(e){sourceStatus.textContent='Automatic processing requires attention: '+(e?.message||String(e))}
     finally{autoProcessing.delete(id)}
@@ -271,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('selectedProject')?.addEventListener('change',checkSources);
   document.addEventListener('click',e=>{if(e.target?.id==='refreshDashboard'||e.target?.id==='loginButton')setTimeout(checkSources,1400)});
   setTimeout(checkSources,1500);
+  reportProject.addEventListener('change',checkSources);
   // Streamlined editorial audit: administrator reviews exceptions, not manual status bookkeeping.
   const auditCenter=document.getElementById('editorialAuditCenter');
   if(auditCenter){
