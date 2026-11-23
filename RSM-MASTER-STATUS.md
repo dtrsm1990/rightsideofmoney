@@ -476,3 +476,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 - The Stage 4 private findings panel and administrator-only text export are committed to GitHub. They are interface capabilities, not proof of completed editing.
 - Editorial automation is NOT production-ready: original-to-working-manuscript assembly, substantive editing, exact source-location verification, KDP-ready DOCX/PDF, authenticated end-to-end tests and gated author review remain incomplete or unverified.
 - No client payment action, external communication or author release is authorized by this update.
+
+2026-11-22: GitHub commit ab3324e3cd8e0674018c3c5197443c185e43746e fixes dashboard assembly handoff to retrieve the registered assembled manuscript from private mpid_documents instead of trusting a possibly mismatched function response. Original client document remains unchanged. Live Maurice check still showed original PDF only; no end-to-end run claimed.
