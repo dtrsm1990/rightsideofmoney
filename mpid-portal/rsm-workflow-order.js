@@ -303,7 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!source){
         sourceStatus.textContent='Automatically incorporating integrated foreword into a private manuscript version...';
         const assembly=await call('rsm-private-manuscript-assembly');
-        source={id:assembly.document_id};
+        const {client:assemblyClient}=await getClient();
+        const {data:working,error:workingError}=await assemblyClient.from('mpid_documents').select('id,file_name,storage_path').eq('project_id',id).eq('document_type','assembled_manuscript').is('archived_at',null).order('created_at',{ascending:false}).limit(1);
+        if(workingError)throw workingError;
+        source=working?.[0]||null;
+        if(!source?.id)throw new Error('Assembly returned without registering a working manuscript. '+(assembly.error||'Inspect assembly function logs before retrying.'));
       }
       if(!source?.id)throw new Error('Working manuscript version could not be resolved');
       const {client}=await getClient();
