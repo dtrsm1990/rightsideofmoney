@@ -156,3 +156,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-22: Private editorial audit output should be professionally formatted DOCX, not TXT-only; retain TXT for backwards compatibility. DOCX remains private pending_review with explicit release gate, not an author-facing approved audit.
 
 2026-11-22: Editorial cleanup is non-destructive: current formatted DOCX/PDF review first; older drafts, TXT reports and test artifacts in collapsed private history. No permanent deletion of client or audit history.
+
+2026-11-22: Run Editorial Audit & Generate DOCX acts on selected private project, chains private assembly/editor and formatted audit. Existing completed private edit may generate missing formatted audit without a duplicate editing run. Release remains approval gated.
