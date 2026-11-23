@@ -319,3 +319,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-142 live payment and automatic run state
 - PASS: queried live Maurice installment, verified paid $250 of $250 and cancelled $600 legacy item. PASS: deployed source reconciliation v3 ACTIVE with report_storage_path in latest run response to support idempotent dashboard processing. FAIL/INCOMPLETE: live document table still original manuscript only. NOT TESTED: authenticated dashboard function execution, manuscript assembly, final editorial QA, KDP proof or author release.
+
+## 2026-11-22 | T-143 source-located editorial findings panel
+- PASS: verified live `mpid_audit_findings` column names and dashboard JavaScript syntax after adding read-only source location cards. GitHub commit `2255594782cbd7c9fa6d65a698e807141221a4dd`. NOT TESTED: authenticated browser display, source-location correctness of existing findings, manuscript processing, print proof and author release. Missing location values are labeled rather than invented.
