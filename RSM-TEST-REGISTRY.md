@@ -316,3 +316,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-141 editor integration
 - PASS: live application status read (approved, signed, partially_paid, Publish-Ready approved scope). PASS: Supabase `rsm-manuscript-editor` v8 deployed ACTIVE with assembled manuscript support and private report registration. PASS: dashboard JS syntax checked and GitHub commit `99bd2945ac00005e502d13c196a4ecd7ceb41506`. NOT TESTED: authenticated browser execution, payment-installment gate at runtime, source DOCX editing, generated findings with exact location, print proof and author release. Do not mark end-to-end acceptance passed.
+
+## 2026-11-22 | T-142 live payment and automatic run state
+- PASS: queried live Maurice installment, verified paid $250 of $250 and cancelled $600 legacy item. PASS: deployed source reconciliation v3 ACTIVE with report_storage_path in latest run response to support idempotent dashboard processing. FAIL/INCOMPLETE: live document table still original manuscript only. NOT TESTED: authenticated dashboard function execution, manuscript assembly, final editorial QA, KDP proof or author release.
