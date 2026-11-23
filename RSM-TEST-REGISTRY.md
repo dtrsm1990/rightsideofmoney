@@ -322,3 +322,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-143 source-located editorial findings panel
 - PASS: verified live `mpid_audit_findings` column names and dashboard JavaScript syntax after adding read-only source location cards. GitHub commit `2255594782cbd7c9fa6d65a698e807141221a4dd`. NOT TESTED: authenticated browser display, source-location correctness of existing findings, manuscript processing, print proof and author release. Missing location values are labeled rather than invented.
+
+2026-11-22: Editorial dashboard private findings export added in commit 352781536e74a1c7e97569b958848372c1540725. JavaScript syntax validated; authenticated UI and end-to-end editorial processing remain unverified. No author release or notification.
