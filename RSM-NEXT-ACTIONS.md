@@ -567,3 +567,5 @@ Use this instruction:
 3. Produce and QA KDP-compliant edited DOCX/PDF, verify source fidelity and print layout.
 4. Exercise administrator review and approval, author review and approval, and final release gates without sending unauthorized client communications.
 5. Record real acceptance results in the test registry. Do not mark completion based only on deployments.
+
+2026-11-22: [x] Correct assembly-to-editor document ID handoff in dashboard. [ ] Authenticated assembly execution and substantive editing, precise location findings, print QA, gated author review. Do not release client work before verification.
