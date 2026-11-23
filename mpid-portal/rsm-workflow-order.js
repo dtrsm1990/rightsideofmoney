@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sourcePanel.append(sourceTitle,sourceNote,sourceStatus,sourceRefresh);
   if(intakeStage)intakeStage.insertBefore(sourcePanel,intakePanel);
   const checkSources=async()=>{
-    const projectId=reportProject.value||document.getElementById('selectedProject')?.value||projectSelect.value;
+    const projectId=document.getElementById('selectedProject')?.value||projectSelect.value||reportProject.value;
     if(!projectId){sourceStatus.textContent='Select a publishing project to inspect its existing private sources.';return}
     try{
       const {session,cfg}=await getClient();
