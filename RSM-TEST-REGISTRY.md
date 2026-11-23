@@ -310,3 +310,6 @@ Record each significant test once. For a regression, add a NEW test row linked t
 
 ## 2026-11-22 | T-139 release-gate constraint mismatch
 - PASS: inspected live view requiring `status=completed` and `qa_status=passed`; inspected live check constraints allowing neither. PASS: applied migration extending allowed statuses; GitHub workflow JS syntax validated and committed `320b5491e6b8f908952548611899998ed9939a47`. PASS: read Maurice live release-gate booleans, all false. NOT TESTED: authenticated manuscript assembly, processing, substantive editorial QA, KDP print proof, admin/author release. No false completion claim.
+
+## 2026-11-22 | T-140 dashboard-native report viewing
+- PASS: JavaScript syntax validation of `rsm-workflow-order.js` after inline TXT report preview and Stage 4 project auto-processing changes; GitHub commit `65626d5cc6aafa10239c1191294dc99e662b0cd9`. NOT TESTED: authenticated browser rendering, private report retrieval, source assembly, editorial preflight, KDP production or author release. No release or author notification performed.
