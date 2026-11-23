@@ -164,3 +164,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-22: Intake trigger already classifies assembled_manuscript; expand intake jobs role constraint to allow that value rather than bypass registration or change original source. No author release.
 
 2026-11-22: Generate/register only formatted DOCX audits for new dashboard reports, do not add TXT deliverables. Use active Publishing Projects selection as authoritative processing project. Preserve historical files and approval gate.
+
+2026-11-22: Editorial engine v10 registers formatted DOCX report, not TXT. Exact source excerpt verification is mandatory for automatic findings; inferred source PDF page marker may be recorded, but unverified paragraph is null. Original manuscript and private approval gates remain intact.
