@@ -349,3 +349,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-22: PASS deployed rsm-manuscript-editor v10 ACTIVE, retrieved deployed source and verified DOCX report, 6x9 DOCX, source-excerpt matching logic present. PASS live original and assembled manuscript registrations. NOT TESTED authenticated editor execution, report generation, DOCX contents, page accuracy or QA. No new Maurice run registered at last check.
 
 2026-11-23: PASS JS syntax check for Stage 4 assembled-manuscript processing and test-project filter; GitHub commit 69319d454cda625c1c129ffaae6b041644536d5f. NOT TESTED authenticated browser, editor invocation, DOCX generation, or author release.
+
+2026-11-23: PASS live DB confirmed nine Maurice deliverable rows and formatted DOCX audit registered. PASS JS syntax after regex fix commit 90d1de6b947e43490726fa2a80630e66b7e221f4. NOT TESTED authenticated UI after deployment; assembled-source editorial run remains missing.
