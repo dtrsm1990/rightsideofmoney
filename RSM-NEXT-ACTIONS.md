@@ -554,3 +554,7 @@ Use this instruction:
 - [x] Verify Maurice $250 commencement payment is marked paid and fully verified in live installment table.
 - [x] Fix source reconciliation response to include latest run report path for dashboard automatic processing detection.
 - [ ] Execute authenticated administrator dashboard processing to register assembled manuscript and editing run; inspect runtime failures and complete substantive QA, KDP proof and gated author review.
+
+## 2026-11-22 | Editorial findings display
+- [x] Implement private Stage 4 source-located finding cards with original/corrected excerpts and recommendations, no manual finding-status action required to view.
+- [ ] Verify live authenticated rendering and source mapping; complete manuscript assembly, substantive editing, KDP proof and approval workflow.
