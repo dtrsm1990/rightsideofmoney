@@ -560,3 +560,10 @@ Use this instruction:
 - [ ] Verify live authenticated rendering and source mapping; complete manuscript assembly, substantive editing, KDP proof and approval workflow.
 
 2026-11-22: Editorial dashboard private findings export added in commit 352781536e74a1c7e97569b958848372c1540725. JavaScript syntax validated; authenticated UI and end-to-end editorial processing remain unverified. No author release or notification.
+
+## 2026-11-22 | Editorial completion priorities
+1. Diagnose authenticated private manuscript assembly and confirm integrated sections are present in a new registered working document, preserving original.
+2. Run substantive editing on assembled source and generate actual location-verified editorial findings with original and corrected excerpts, author suggestions and private review deliverables.
+3. Produce and QA KDP-compliant edited DOCX/PDF, verify source fidelity and print layout.
+4. Exercise administrator review and approval, author review and approval, and final release gates without sending unauthorized client communications.
+5. Record real acceptance results in the test registry. Do not mark completion based only on deployments.
