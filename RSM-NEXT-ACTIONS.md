@@ -591,3 +591,5 @@ Use this instruction:
 2026-11-23: [x] Fix overescaped DOCX/PDF regex causing false 0 current reports. [ ] Refresh authenticated dashboard to verify report visibility. [ ] Run editor on assembled DOCX v2, not original PDF; inspect foreword inclusion and QA before approval.
 
 2026-11-23: [x] Prevent Stage 3 queue from selecting original PDF. [ ] Verify authenticated processing run uses assembled manuscript source and produces DOCX deliverables; QA and release approval remain pending.
+
+2026-11-23: [x] Separate current working-source editorial output from historical original-source drafts in Stage 4. [ ] Execute authenticated editorial processing and verify generated DOCX QA, findings and private review.
