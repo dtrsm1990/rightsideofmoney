@@ -158,3 +158,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-22: Editorial cleanup is non-destructive: current formatted DOCX/PDF review first; older drafts, TXT reports and test artifacts in collapsed private history. No permanent deletion of client or audit history.
 
 2026-11-22: Run Editorial Audit & Generate DOCX acts on selected private project, chains private assembly/editor and formatted audit. Existing completed private edit may generate missing formatted audit without a duplicate editing run. Release remains approval gated.
+
+2026-11-22: Fix the existing visible Manuscript Processing controls rather than add duplicate workflow buttons. Editorial report download must generate formatted DOCX; TXT remains internal only. Preserve original and admin approval gates.
