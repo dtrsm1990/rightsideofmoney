@@ -333,3 +333,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-22: Verified live Maurice documents (original PDF only), latest edit run review/needs_review and source findings lacking page/paragraph. Dashboard assembly handoff fix ab3324e3cd8e0674018c3c5197443c185e43746e passed JavaScript syntax check. Authenticated function execution and complete editorial acceptance NOT TESTED.
 
 2026-11-22: VERIFIED deployed rsm-manuscript-editor v9 ACTIVE and dashboard GitHub commit e31c5ca758ed6b8cdfdb38d17c0d9bcdb182a29a JavaScript syntax validation. NOT TESTED: authenticated run, actual DOCX creation, report accuracy, author approval, KDP production.
+
+2026-11-22: DEPLOYED rsm-dashboard-editorial-report v2 ACTIVE, GitHub dashboard commit 21d18a45f5359a7689e67524d32b60a224933f36 syntax checked. NOT TESTED authenticated function invocation, actual DOCX bytes, private report registration or Maurice substantive audit. Do not mark audit passed.
