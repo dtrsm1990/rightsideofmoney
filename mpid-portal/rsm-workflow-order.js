@@ -83,11 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadIntakeProjects=async()=>{
     try{
       const {client}=await getClient();
-      const {data,error}=await client.from('mpid_projects').select('id,title').order('title');
+      const {data,error}=await client.from('mpid_projects').select('id,title,is_test').order('title');
       if(error)throw error;
       const previous=projectSelect.value;
       projectSelect.replaceChildren(initialOption);
-      (data||[]).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.title;projectSelect.append(o)});
+      (data||[]).filter(p=>!p.is_test).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.title;projectSelect.append(o)});
       if(Array.from(projectSelect.options).some(o=>o.value===previous))projectSelect.value=previous;
       uploadStatus.textContent='Select a project and the complete DOCX to register its next version.';
     }catch(e){uploadStatus.textContent=e?.message||String(e)}
@@ -130,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadReportProjects=async()=>{
     try{
       const {client}=await getClient();
-      const {data,error}=await client.from('mpid_projects').select('id,title').order('title');
+      const {data,error}=await client.from('mpid_projects').select('id,title,is_test').order('title');
       if(error)throw error;
       const previous=reportProject.value;
       reportProject.replaceChildren(reportPlaceholder);
-      (data||[]).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.title;reportProject.append(o)});
+      (data||[]).filter(p=>!p.is_test).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.title;reportProject.append(o)});
       if(Array.from(reportProject.options).some(o=>o.value===previous))reportProject.value=previous;
       if(!reportProject.value){
         const mainProject=document.getElementById('selectedProject')?.value;
@@ -243,7 +243,23 @@ document.addEventListener('DOMContentLoaded', () => {
     try{
       if(!reportProject.value)throw new Error('Select a project first');
       const {session,cfg}=await getClient();
-      reportStatus.textContent='Generating private editorial review report...';
+      reportStatus.textContent='Checking assembled manuscript and running private editorial processing before report generation...';
+      const reconcile=await fetch(cfg.url+'/functions/v1/rsm-manuscript-source-reconciliation',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value})});
+      const source=await reconcile.json();
+      if(!reconcile.ok||!source.ok)throw new Error(source.error||'Manuscript source check failed');
+      if(!source.assembled?.id)throw new Error('Assembled manuscript with foreword is missing. Return to Stage 3 to assemble before generating the audit.');
+      const {client}=await getClient();
+      const {data:runs,error:runsError}=await client.from('rsm_manuscript_edit_runs').select('id,source_document_id,status,output_storage_path').eq('project_id',reportProject.value).eq('source_document_id',source.assembled.id).order('created_at',{ascending:false}).limit(1);
+      if(runsError)throw runsError;
+      if(!runs?.length||!runs[0].output_storage_path){
+        const {data:project,error:projectError}=await client.from('mpid_projects').select('application_id').eq('id',reportProject.value).single();
+        if(projectError||!project?.application_id)throw new Error('Project application link is missing');
+        reportStatus.textContent='Processing assembled manuscript privately. Keep this page open until complete...';
+        const editResponse=await fetch(cfg.url+'/functions/v1/rsm-manuscript-editor',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value,application_id:project.application_id,source_document_id:source.assembled.id})});
+        const edit=await editResponse.json();
+        if(!editResponse.ok||!edit.ok)throw new Error(edit.error||'Private manuscript editing failed');
+      }
+      reportStatus.textContent='Generating formatted DOCX report from the assembled manuscript editorial run...';
       const response=await fetch(cfg.url+'/functions/v1/rsm-dashboard-editorial-report',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value})});
       const result=await response.json();
       if(!response.ok||!result.ok)throw new Error(result.error||'Report generation failed');
