@@ -569,3 +569,5 @@ Use this instruction:
 5. Record real acceptance results in the test registry. Do not mark completion based only on deployments.
 
 2026-11-22: [x] Correct assembly-to-editor document ID handoff in dashboard. [ ] Authenticated assembly execution and substantive editing, precise location findings, print QA, gated author review. Do not release client work before verification.
+
+2026-11-22: [x] Add editor duplicate-run protection and private edited-DOCX registration; [x] expose private edited-DOCX admin download in Stage 4. [ ] Verify authenticated assembly and editor execution; generate source-located findings and complete KDP production and gated author review.
