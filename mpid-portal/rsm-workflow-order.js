@@ -192,8 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }catch(e){findingStatus.textContent='Unable to load private findings: '+(e?.message||String(e))}
   };
-  const cleanDraft=document.createElement('button');cleanDraft.type='button';cleanDraft.className='secondary';cleanDraft.textContent='Regenerate Clean Edited Manuscript';
-  cleanDraft.title='Reassemble saved editorial segments without rerunning AI. Keeps the original and prior drafts unchanged.';
+  const cleanDraft=document.createElement('button');cleanDraft.type='button';cleanDraft.className='secondary';cleanDraft.textContent='Generate Typeset Manuscript with Tables & Page Numbers';
+  cleanDraft.title='Create a new private typeset version with bordered VA funding table, bold headings and page numbers; original remains unchanged.';
   reportActions.append(cleanDraft);
   cleanDraft.addEventListener('click',async()=>{
     cleanDraft.disabled=true;
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const pid=reportProject.value;if(!pid)throw Error('Select the publishing project.');
       const {data:runs,error}=await client.from('rsm_manuscript_edit_runs').select('id,status,source_document_id,completed_segments,total_segments').eq('project_id',pid).eq('status','review').order('created_at',{ascending:false}).limit(1);
       if(error||!runs?.length)throw error||Error('No completed private editing run.');
-      if(!confirm('Regenerate a clean private Word manuscript from '+runs[0].completed_segments+' saved editorial segments? No author release and no AI rerun.'))return;
+      if(!confirm('Generate a new private typeset Word manuscript from '+runs[0].completed_segments+' saved editorial segments? No author release and no AI rerun.'))return;
       reportStatus.textContent='Reconstructing private manuscript paragraphs and removing verified source-PDF artifacts...';
       const response=await fetch(cfg.url+'/functions/v1/rsm-clean-manuscript',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({run_id:runs[0].id})});
       const result=await response.json();if(!response.ok||!result.ok)throw Error(result.error||'Clean manuscript regeneration failed');
@@ -230,11 +230,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const activeReports=workingRun?reports.filter(r=>r.status!=='released'&&/\.docx$|\.pdf$/i.test(r.file_name||'')&&!/^RSM_TEST_/i.test(r.file_name||'')&&(
          r.storage_path===workingRun.output_storage_path||
          r.storage_path===workingRun.report_storage_path||
-         (r.storage_path.startsWith(workingPrefix)&&/\.docx$/i.test(r.file_name||'')&&/editorial|audit|edited.manuscript.clean/i.test(r.file_name||''))||
+         (r.storage_path.startsWith(workingPrefix)&&/\.docx$/i.test(r.file_name||'')&&/editorial|audit|edited.manuscript.clean|edited.manuscript.typeset/i.test(r.file_name||''))||
          (r.storage_path.includes('/dashboard-reports/')&&r.storage_path.includes(workingRun.id))
        )):[];
       // Prefer the clean replacement for the current run. Never offer the known defective original for approval.
-      activeReports.sort((a,b)=>Number(b.file_name?.startsWith('Edited_Manuscript_Clean_'))-Number(a.file_name?.startsWith('Edited_Manuscript_Clean_')));
+      activeReports.sort((a,b)=>Number(b.file_name?.startsWith('Edited_Manuscript_Typeset_'))-Number(a.file_name?.startsWith('Edited_Manuscript_Typeset_'))||Number(b.file_name?.startsWith('Edited_Manuscript_Clean_'))-Number(a.file_name?.startsWith('Edited_Manuscript_Clean_')));
       const byKind=new Map();
       for(const r of activeReports){
         const kind=r.document_type==='edited_manuscript'||/manuscript|layout/i.test(r.file_name)?'manuscript':'audit';
