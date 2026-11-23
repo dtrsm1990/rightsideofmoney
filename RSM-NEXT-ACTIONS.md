@@ -603,3 +603,5 @@ Use this instruction:
 2026-11-23: [x] Confirm 7/7 private editorial segments and report paths. [x] Fix DOCX-as-text parsing in dashboard audit generator (v4). [ ] Regenerate existing audit DOCX and verify ZIP/Word opens; inspect edited manuscript DOCX; complete QA before author release.
 
 2026-11-23: [x] Deploy separate v5 audit report generation path without large embedded engine report. [ ] Generate v5 audit with authenticated dashboard and verify Word opens, then inspect DOCX content and QA before release.
+
+2026-11-23: [x] User confirmed corrected v5 audit and edited manuscript DOCX both download and open in Word. [ ] Perform substantive editorial QA, source-located findings, foreword/author-voice preservation, KDP layout validation. [ ] Require administrator and author approval before release; QA remains needs_review. Do not rerun seven completed segments for DOCX-open testing.
