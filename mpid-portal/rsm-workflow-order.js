@@ -155,15 +155,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const findingList=document.createElement('div');
   findingPanel.append(findingHeading,findingNote,findingStatus,findingList);
   if(auditStage)auditStage.append(findingPanel);
+  const exportFindingReport=document.createElement('button');exportFindingReport.type='button';exportFindingReport.className='secondary';exportFindingReport.textContent='Export Private Editorial Review Report';
+  exportFindingReport.title='Export a private administrator-only review document. This does not release findings to the author.';
+  findingPanel.insertBefore(exportFindingReport,findingList);
+  let currentFindings=[];
+  exportFindingReport.addEventListener('click',()=>{
+    if(!reportProject.value||!currentFindings.length){findingStatus.textContent='Select a project with findings before exporting.';return}
+    const lines=['RSM PUBLISHING SERVICES','PRIVATE EDITORIAL REVIEW REPORT','Project: '+(reportProject.selectedOptions[0]?.textContent||reportProject.value),'Generated: '+new Date().toISOString(),'ADMINISTRATOR REVIEW ONLY. NOT RELEASED TO AUTHOR.','Source PDF pages are not final KDP page numbers. Missing locations are not inferred.',''];
+    currentFindings.forEach((f,i)=>{
+      lines.push('FINDING '+(i+1),'Severity: '+(f.severity||'Not recorded'),'Category: '+(f.dimension||'Not recorded'),'Status: '+(f.status||'Not recorded'),'Section: '+(f.source_section||'Not recorded'),'Source PDF page: '+(f.source_page||'Not recorded'),'Source paragraph: '+(f.source_paragraph||'Not recorded'),'Finding: '+(f.finding||'Not recorded'),'Original: '+(f.original_excerpt||'Not recorded'),'Proposed correction: '+(f.corrected_excerpt||'Not recorded'),'Recommendation: '+(f.recommendation||'Not recorded'),'Author suggestion: '+(f.author_suggestion||'Not recorded'),'Verification: '+(f.verification_notes||'Not recorded'),'');
+    });
+    const blob=new Blob([lines.join('\\n')],{type:'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='RSM-Private-Editorial-Review-'+reportProject.value+'.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
   const loadLocatedFindings=async()=>{
-    findingList.replaceChildren();
+    findingList.replaceChildren();currentFindings=[];
     const id=reportProject.value;
     if(!id){findingStatus.textContent='Choose a publishing project to review findings.';return}
     try{
       const {client}=await getClient();
       const {data,error}=await client.from('mpid_audit_findings').select('id,dimension,severity,status,source_page,source_paragraph,source_section,finding,original_excerpt,corrected_excerpt,recommendation,author_suggestion,verification_notes,change_type,released_to_author').eq('project_id',id).order('created_at',{ascending:false}).limit(250);
       if(error)throw error;
-      findingStatus.textContent=(data||[]).length+' private editorial finding(s). Source locations are not final print page numbers.';
+      currentFindings=data||[];
+      findingStatus.textContent=currentFindings.length+' private editorial finding(s). Source locations are not final print page numbers.';
       (data||[]).forEach(f=>{
         const card=document.createElement('div');card.className='item';card.style.cssText='padding:14px;margin:10px 0;border:1px solid #665537;border-radius:8px';
         const head=document.createElement('strong');head.textContent=[f.severity||'Unrated',f.dimension||'Editorial',f.status||'Open'].join(' | ');
