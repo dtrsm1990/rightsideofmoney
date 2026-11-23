@@ -199,21 +199,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const {client}=await getClient();
       const {data,error}=await client.from('mpid_editorial_deliverables').select('id,file_name,storage_path,document_type,status,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(30);
       if(error)throw error;
-      const reports=(data||[]).filter(x=>x.document_type==='editorial_report'||x.storage_path?.includes('/dashboard-reports/')||x.storage_path?.includes('/private-ai-review/'));
+      const reports=(data||[]).filter(x=>['editorial_report','edited_manuscript'].includes(x.document_type)||x.storage_path?.includes('/dashboard-reports/')||x.storage_path?.includes('/private-ai-review/'));
       if(!reports.length){reportStatus.textContent='No generated dashboard reports yet.';return}
       reportStatus.textContent=reports.length+' private dashboard report(s) available. No author release from this panel.';
       reports.forEach(r=>{
         const item=document.createElement('div');item.className='item';
         const title=document.createElement('strong');title.textContent=r.file_name;
         const detail=document.createElement('p');detail.className='muted small';detail.textContent='Status: '+r.status+' | '+new Date(r.created_at).toLocaleString();
-        const download=document.createElement('button');download.type='button';download.className='secondary';download.textContent='Review Private Report';
+        const download=document.createElement('button');download.type='button';download.className='secondary';download.textContent=/\.docx$/i.test(r.file_name)?'Download Private Edited Manuscript':'Review Private Report';
         download.addEventListener('click',async()=>{
           download.disabled=true;
           try{
             const {client}=await getClient();
             const {data,error}=await client.storage.from('mpid-manuscripts').download(r.storage_path);
             if(error||!data)throw error||new Error('Private report unavailable');
-            const preview=item.querySelector('.rsm-inline-report')||document.createElement('pre');preview.className='rsm-inline-report';preview.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;max-height:460px;overflow:auto;padding:14px;border:1px solid #6d5731;border-radius:8px';if(/\.txt$/i.test(r.file_name)){preview.textContent=await data.text()}else{preview.textContent='This document is stored privately. Review the text editorial report here; DOCX and PDF preview requires a supported secure viewer.'}if(!preview.parentElement)item.append(preview);
+            const preview=item.querySelector('.rsm-inline-report')||document.createElement('pre');preview.className='rsm-inline-report';preview.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere;max-height:460px;overflow:auto;padding:14px;border:1px solid #6d5731;border-radius:8px';if(/\.txt$/i.test(r.file_name)){preview.textContent=await data.text();if(!preview.parentElement)item.append(preview)}else{const url=URL.createObjectURL(data);const a=document.createElement('a');a.href=url;a.download=r.file_name||'private-editorial-deliverable.docx';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
           }catch(e){reportStatus.textContent=e?.message||String(e)}
           finally{download.disabled=false}
         });
