@@ -595,3 +595,5 @@ Use this instruction:
 2026-11-23: [x] Separate current working-source editorial output from historical original-source drafts in Stage 4. [ ] Execute authenticated editorial processing and verify generated DOCX QA, findings and private review.
 
 2026-11-23: [x] Fix runtime DOCX parser crash in rsm-manuscript-editor v11. [ ] Authenticated retry and verify new working-source editorial run, private DOCX deliverables, QA findings and release gate.
+
+2026-11-23: [x] Diagnose HTTP 546 runtime timeout and recover stuck run state. [ ] Implement resumable per-segment editorial engine, durable progress and retry, then verify private deliverables and QA before author release.
