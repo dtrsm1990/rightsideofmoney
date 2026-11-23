@@ -379,3 +379,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23: PASS inspected live rsm_editor_segments funding-fee text showing table header and three rate rows. PASS Supabase deployment rsm-clean-manuscript v2 ACTIVE and GitHub UI update e2aae03afc9a2a663cf83eb5e166559083fca0b1. NOT TESTED actual typeset DOCX generation, table rendering, pagination, title page breaks, complete table inventory or Word opening. Author release not performed.
 
 2026-11-23: PASS live source inspection of v3 showing all headings using default Heading1 and no Manuscript removal. PASS Supabase rsm-clean-manuscript v5 ACTIVE and GitHub UI commit 033580938385ad6dff626de84f8eb8615ff37068. NOT TESTED production-review generation, Word opening, exact chapter break coverage, copyright order, all tables or KDP proof. No author release.
+
+2026-11-23: PASS Supabase Edge Function rsm-clean-manuscript v6 ACTIVE; PASS GitHub Stage 4 structured layout UI commit 4162d51431ffa03622284bdd48e95fc70269a4cb. NOT TESTED authenticated generation, front matter boundary validation, Word opening, pagination, complete manuscript fidelity or author release.
