@@ -246,6 +246,52 @@ document.addEventListener('DOMContentLoaded', () => {
           }catch(e){reportStatus.textContent=e?.message||String(e)}
           finally{download.disabled=false}
         });
+
+        // Stage 4 is the sole current-version approval surface. Historical drafts never receive actions.
+        if(target===currentBox && workingRun && r.status!=='released'){
+          const action=(label,fn)=>{const b=document.createElement('button');b.type='button';b.className='secondary';b.style.marginLeft='8px';b.textContent=label;b.addEventListener('click',async()=>{b.disabled=true;try{await fn()}catch(e){reportStatus.textContent='Action not completed: '+(e?.message||String(e))}finally{b.disabled=false}});item.append(b)};
+          if(r.status==='pending_review'){
+            action('Approve for Author Review',async()=>{
+              if(!confirm('Approve this exact current '+r.file_name+' for author review? Approval alone does NOT release the file.'))return;
+              const {client}=await getClient();
+              const {data:check,error:ce}=await client.from('rsm_manuscript_edit_runs').select('id,source_document_id,status').eq('id',workingRun.id).single();
+              if(ce||check?.source_document_id!==workingId||check.status==='failed')throw Error('Working manuscript version changed. Refresh before approving.');
+              const {data:changed,error}=await client.from('mpid_editorial_deliverables').update({status:'approved',approved_at:new Date().toISOString()}).eq('id',r.id).eq('project_id',reportProject.value).eq('status','pending_review').select('id');
+              if(error||changed?.length!==1)throw error||Error('Approval not recorded; refresh to reconcile.');
+              reportStatus.textContent='Approved privately. Release to Author is a separate action.';
+              await loadPrivateReports();
+            });
+            action('Request Corrections',async()=>{
+              if(!confirm('Record that this current document needs further corrections? It will remain private and unapproved.'))return;
+              const {client,session}=await getClient();
+              const {error}=await client.from('mpid_editorial_events').insert({project_id:reportProject.value,deliverable_id:r.id,event:'corrections_requested',actor_id:session.user.id});
+              if(error)throw error;
+              reportStatus.textContent='Corrections requested and recorded. Document remains private and pending review.';
+            });
+          }
+          if(r.status==='approved')action('Release to Author',async()=>{
+            if(!confirm('Release this exact approved '+r.file_name+' to the author portal? This is a real author-facing action and may queue a notification.'))return;
+            const {client}=await getClient();
+            const {data:latest,error:le}=await client.from('rsm_manuscript_edit_runs').select('id,source_document_id,status').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(1);
+            if(le||latest?.[0]?.id!==workingRun.id||latest[0].source_document_id!==workingId)throw Error('Newer editorial run exists. Refresh before release.');
+            const {data:d,error:de}=await client.from('mpid_editorial_deliverables').select('*').eq('id',r.id).eq('project_id',reportProject.value).single();
+            if(de||d?.status!=='approved'||d.storage_path!==r.storage_path)throw Error('Exact approved version no longer matches.');
+            const sourceBucket=d.storage_path.includes('/private-ai-review/')?'mpid-manuscripts':'mpid-editorial-staging';
+            const {data:blob,error:be}=await client.storage.from(sourceBucket).download(d.storage_path);
+            if(be||!blob)throw be||Error('Approved file unavailable.');
+            const dest='projects/'+reportProject.value+'/editorial-'+d.id+'-'+d.file_name.replace(/[^a-zA-Z0-9._-]/g,'_');
+            const {data:existing,error:existingError}=await client.storage.from('mpid-manuscripts').download(dest);
+            const digest=async b=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await b.arrayBuffer()))).map(x=>x.toString(16).padStart(2,'0')).join('');
+            if(existingError){
+              const {error:up}=await client.storage.from('mpid-manuscripts').upload(dest,blob,{upsert:false});
+              if(up)throw Error('Release copy failed: '+up.message);
+            }else if(await digest(existing)!==await digest(blob))throw Error('Release destination differs from approved version. No release made.');
+            const {data:docId,error:finalError}=await client.rpc('mpid_finalize_editorial_release',{p_deliverable:d.id});
+            if(finalError||!docId)throw finalError||Error('Release registration failed.');
+            reportStatus.textContent='Released to secure author portal. Notification delivery is not yet verified.';
+            await loadPrivateReports();
+          });
+        }
         item.append(title,detail,download);target.append(item);
       };
       current.forEach(r=>render(r,currentBox));
