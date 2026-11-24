@@ -657,3 +657,5 @@ Use this instruction:
 2026-11-23 | [x] Deploy v12 paragraph spacing. [ ] Regenerate existing run and visually approve; remaining unified production and print PDF QA.
 
 2026-11-23 | [x] Administrator approved v12 visual formatting; lock universal package standard. [ ] Unify older Section 4 production engine without modifying existing approved deliverables; validate all three package executions and project-specific trim, TOC, PDF and print QA. [ ] Verify earlier contracted Maurice manuscript/audit release only after administrator completes approval/send; preserve optional Signature Author run privately.
+
+2026-11-24 | [x] Streamline editorial review section. [ ] Verify live dashboard after GitHub Pages deployment; assess duplicate manual finding and project details sections separately.
