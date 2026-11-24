@@ -580,3 +580,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-24 | Isolated preview submission now feeds a separate test inbox in Stage 5; session storage retains sample across same-tab refresh. No live records or email.
 
 2026-11-24 | Administrator confirmed updated dashboard live and sample submission immediately appears in revision center without manual refresh.
+
+2026-11-24 | Notification worker v20 active; isolated office-only test event and admin RPC deployed. Sample submit now queues test email. Delivery unverified.

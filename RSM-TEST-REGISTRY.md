@@ -433,3 +433,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-24 | Administrator confirmed live revision center visible. PASS sample inbox script syntax; browser retest pending.
 
 2026-11-24 | PASS administrator browser test: clicking Submit sample revisions immediately displays test submission in revision center without refresh. Live submission, email, regeneration and approval remain unverified.
+
+2026-11-24 | PASS worker v20 deployment, migration success and sample script syntax. Pending browser queue and Resend delivery verification.

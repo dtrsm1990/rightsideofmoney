@@ -671,3 +671,5 @@ Use this instruction:
 2026-11-24 | Verify isolated sample inbox in browser; implement safe office test email, real comparison, regeneration and approval integration.
 
 2026-11-24 | [x] Isolated sample inbox browser acceptance. [ ] Change comparison, regeneration, approval and office notification test; authenticated end-to-end acceptance.
+
+2026-11-24 | Test sample submit office notification and verify queue/delivery. Continue actual revision comparison, regeneration and approval.

@@ -232,3 +232,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-24 | Sample submissions must be explicitly labeled TEST SUBMISSION and isolated from live author records. Browser-only test inbox does not claim email or regeneration verification.
 
 2026-11-24 | Accept isolated sample inbox interaction; do not equate simulation with live author or email acceptance.
+
+2026-11-24 | Office-only test notification uses no project or author ID, admin authentication, idempotency and one-minute rate limit.
