@@ -383,3 +383,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23: PASS Supabase Edge Function rsm-clean-manuscript v6 ACTIVE; PASS GitHub Stage 4 structured layout UI commit 4162d51431ffa03622284bdd48e95fc70269a4cb. NOT TESTED authenticated generation, front matter boundary validation, Word opening, pagination, complete manuscript fidelity or author release.
 
 2026-11-23: FAIL user visual inspection of BookLayout front matter: copyright disclaimer hard-wrap lines became separate paragraphs; heading/paragraph hierarchy not verified against original. PASS read-only SQL inspection of saved editorial segment: copyright lines are separated by double newline despite forming one sentence. NOT TESTED source-page comparison, paragraph reconstruction, full heading inventory, Word rendering, or KDP proof. No author release.
+
+2026-11-23 | PASS administrator visual acceptance: latest manuscript layout and spacing look good. NOT TESTED independently: complete page-by-page machine inspection, final KDP print proof, author release. Stage 4 workflow button relabeling and Advanced Corrections placement require post-deployment browser verification.

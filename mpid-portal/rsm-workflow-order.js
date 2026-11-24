@@ -115,16 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Legacy upload is retained in code for recovery only; dashboard processing is automatic.
   // Administrator-only private report generation and review, integrated in Stage 4.
   const reportPanel=document.createElement('section');reportPanel.className='card';reportPanel.id='rsmEditorialReportPanel';
-  const reportTitle=document.createElement('h2');reportTitle.textContent='Generate & Review Private Editorial Report';
-  const reportIntro=document.createElement('p');reportIntro.className='note';reportIntro.textContent='Generate a current report from registered private editorial processing records and findings. Source version and QA warnings are shown. No report is released to an author.';
+  const reportTitle=document.createElement('h2');reportTitle.textContent='Final Manuscript Review & Editorial Approval';
+  const reportIntro=document.createElement('p');reportIntro.className='note';reportIntro.textContent='Review the current private manuscript and editorial findings, then approve the exact verified version for author review. Earlier drafts remain in history. Approval does not release anything to the author.';
   const reportProject=document.createElement('select');reportProject.setAttribute('aria-label','Editorial report project');
   const reportPlaceholder=document.createElement('option');reportPlaceholder.value='';reportPlaceholder.textContent='Choose publishing project';reportProject.append(reportPlaceholder);
   const reportActions=document.createElement('div');reportActions.className='actions';
-  const generateReport=document.createElement('button');generateReport.type='button';generateReport.textContent='Generate Report for Admin Review';
-  const refreshReport=document.createElement('button');refreshReport.type='button';refreshReport.className='secondary';refreshReport.textContent='Refresh Reports';
+  const generateReport=document.createElement('button');generateReport.type='button';generateReport.textContent='Regenerate Editorial Report';
+  const refreshReport=document.createElement('button');refreshReport.type='button';refreshReport.className='secondary';refreshReport.textContent='Refresh Final Review';
   const reportStatus=document.createElement('p');reportStatus.setAttribute('role','status');reportStatus.setAttribute('aria-live','polite');
   const reportList=document.createElement('div');reportList.className='list';
-  reportActions.append(generateReport,refreshReport);reportPanel.append(reportTitle,reportIntro,reportProject,reportActions,reportStatus,reportList);
+  reportActions.append(refreshReport);const correctionTools=document.createElement('details');correctionTools.className='rsm-advanced-corrections';const correctionSummary=document.createElement('summary');correctionSummary.textContent='Advanced Corrections (only if needed)';correctionTools.append(correctionSummary,generateReport);reportPanel.append(reportTitle,reportIntro,reportProject,reportActions,reportStatus,reportList,correctionTools);
   const auditStage=document.getElementById('rsm-workflow-stage-4');
   if(auditStage)auditStage.insertBefore(reportPanel,auditStage.children[1]||null);
   const loadReportProjects=async()=>{
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   // Administrator-only, source-located editorial finding review. No manual finding edits.
   const findingPanel=document.createElement('section');findingPanel.className='card';findingPanel.id='rsmLocatedFindings';
-  const findingHeading=document.createElement('h2');findingHeading.textContent='Editorial Findings by Source Location';
+  const findingHeading=document.createElement('h2');findingHeading.textContent='Review Editorial Findings by Source Location';
   const findingNote=document.createElement('p');findingNote.className='note';findingNote.textContent='Source page and paragraph are displayed only when recorded. Source PDF pages may differ from final KDP pagination. Findings are private until separately approved for author release.';
   const findingStatus=document.createElement('p');findingStatus.setAttribute('role','status');
   const findingList=document.createElement('div');
@@ -192,9 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }catch(e){findingStatus.textContent='Unable to load private findings: '+(e?.message||String(e))}
   };
-  const cleanDraft=document.createElement('button');cleanDraft.type='button';cleanDraft.className='secondary';cleanDraft.textContent='Generate Structured Book Layout';
+  const cleanDraft=document.createElement('button');cleanDraft.type='button';cleanDraft.className='secondary';cleanDraft.textContent='Regenerate Manuscript Layout (Corrections Only)';
   cleanDraft.title='Create a new private typeset version with bordered VA funding table, bold headings and page numbers; original remains unchanged.';
-  reportActions.append(cleanDraft);
+  correctionTools.append(cleanDraft);
   cleanDraft.addEventListener('click',async()=>{
     cleanDraft.disabled=true;
     try{
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const item=document.createElement('div');item.className='item';
         const title=document.createElement('strong');title.textContent=r.file_name;
         const detail=document.createElement('p');detail.className='muted small';detail.textContent='Status: '+r.status+' | '+new Date(r.created_at).toLocaleString();
-        const download=document.createElement('button');download.type='button';download.className='secondary';download.textContent=/\.docx$/i.test(r.file_name)?'Download Private Edited Manuscript':'Review Private Report';
+        const download=document.createElement('button');download.type='button';download.className='secondary';download.textContent=/\.docx$/i.test(r.file_name)?'Review Final Manuscript (Download)':'Review Editorial Report';
         download.addEventListener('click',async()=>{
           download.disabled=true;
           try{
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.append(warning);
           }
           if(r.status==='pending_review'&&!knownDefectiveDraft){
-            action('Approve for Author Review',async()=>{
+            action('Approve Manuscript for Author Review',async()=>{
               if(!confirm('Approve this exact current '+r.file_name+' for author review? Approval alone does NOT release the file.'))return;
               const {client}=await getClient();
               const {data:check,error:ce}=await client.from('rsm_manuscript_edit_runs').select('id,source_document_id,status').eq('id',workingRun.id).single();
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
               reportStatus.textContent='Approved privately. Release to Author is a separate action.';
               await loadPrivateReports();
             });
-            action('Request Corrections',async()=>{
+            action('Request Editorial Corrections',async()=>{
               if(!confirm('Record that this current document needs further corrections? It will remain private and unapproved.'))return;
               const {client,session}=await getClient();
               const {error}=await client.from('mpid_editorial_events').insert({project_id:reportProject.value,deliverable_id:r.id,event:'corrections_requested',actor_id:session.user.id});

@@ -182,3 +182,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23: Process one editorial segment per authenticated request; persist edited text, findings and usage in rsm_editor_segments before next request; assemble private DOCX outputs only after all segments saved. Preserve approval gate.
 
 2026-11-23: Publishing layout decision: title page alone on page 1; copyright/disclaimer page starts page 2; foreword starts a subsequent page and Carlos T. Jackson signature/rank stay adjacent; introduction and chapters start new pages. Original manuscript is the structural reference for heading levels, paragraph boundaries, and tables. Do not use blank-line PDF extraction or uppercase heuristics as authoritative. Preserve original and prior private outputs, and require admin QA before author release.
+
+2026-11-23 | Lock accepted private manuscript layout as working master based on administrator visual acceptance, without changing original or earlier drafts. Section 4 should show final review and approval first; place regeneration under collapsed Advanced Corrections. Never automatically release to author.
