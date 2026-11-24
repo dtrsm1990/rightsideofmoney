@@ -212,7 +212,7 @@ async function loadDashboard(){
    const {data:files,error:fe}=await client.from('mpid_documents')
     .select('id,file_name,storage_path,document_type,version,created_at')
     .eq('project_id',project.id).is('archived_at',null)
-    .order('created_at',{ascending:false});
+    .order('created_at',{ascending:false}).order('id',{ascending:false});
    if(fe){list.append(el('p','small','Could not load documents: '+fe.message))}
    else{
     if(!files||!files.length)list.append(el('p','small','No active documents available for this project.'));
@@ -257,6 +257,11 @@ async function loadDashboard(){
    const stage=el('select');stage.required=true;
    for(const [value,label] of [['editorial_changes','Editorial changes'],['revised_manuscript','Revised manuscript'],['final_proof','Final proof']]){const o=el('option','',label);o.value=value;stage.append(o)}
    stageLabel.append(stage);
+   const sourceLabel=el('p','small');
+   const approvalSource=()=>{const type={editorial_changes:'editorial_report',revised_manuscript:'edited_manuscript'}[stage.value];return type?(files||[]).find(file=>file.document_type===type):null;};
+   function showApprovalSource(){const file=approvalSource();sourceLabel.textContent=file?'Review version '+file.version+' of '+file.file_name+' before recording your decision.':stage.value==='final_proof'?'Record your decision after reviewing the final proof.':'No current review document is available for this decision.';}
+   stage.onchange=showApprovalSource;
+   showApprovalSource();
    const decisionLabel=el('label','field','Decision');
    const decision=el('select');decision.required=true;
    for(const [value,label] of [['','Select a decision'],['approved','Approve'],['changes_requested','Request revisions'],['rejected','Do not approve']]){const o=el('option','',label);o.value=value;decision.append(o)}
@@ -266,25 +271,27 @@ async function loadDashboard(){
    commentsLabel.append(comments);
    const submit=el('button','','Submit Formal Decision');submit.type='submit';
    const feedback=el('p','small','');feedback.setAttribute('role','status');
-   form.append(stageLabel,decisionLabel,commentsLabel,submit,feedback);panel.append(form);
+   form.append(stageLabel,sourceLabel,decisionLabel,commentsLabel,submit,feedback);panel.append(form);
    const history=el('div');panel.append(el('h3','', 'Decision History'));panel.append(history);
    async function loadApprovals(){
     history.replaceChildren();
-    const {data,error}=await client.from('mpid_approvals').select('approval_type,decision,comments,created_at').eq('project_id',project.id).eq('author_id',activeUser.id).order('created_at',{ascending:false});
+    const {data,error}=await client.from('mpid_approvals').select('approval_type,decision,comments,created_at,source_document_id').eq('project_id',project.id).eq('author_id',activeUser.id).order('created_at',{ascending:false});
     if(error){history.append(el('p','small','Unable to load decisions: '+error.message));return}
     if(!data?.length){history.append(el('p','small','No formal decisions submitted yet.'));return}
-    for(const a of data){const row=el('div','finding');row.append(el('strong','',a.approval_type.replaceAll('_',' ')+' · '+a.decision.replaceAll('_',' ')));row.append(el('p','small',new Date(a.created_at).toLocaleString()));if(a.comments)row.append(el('p','',a.comments));history.append(row)}
+    for(const a of data){const row=el('div','finding');row.append(el('strong','',a.approval_type.replaceAll('_',' ')+' · '+a.decision.replaceAll('_',' ')));row.append(el('p','small',new Date(a.created_at).toLocaleString()));const source=(files||[]).find(file=>file.id===a.source_document_id);if(source)row.append(el('p','small','Version '+source.version+' · '+source.file_name));if(a.comments)row.append(el('p','',a.comments));history.append(row)}
    }
    await loadApprovals();
    form.onsubmit=async ev=>{
     ev.preventDefault();feedback.textContent='';
     if(!decision.value){feedback.textContent='Choose a decision.';return}
     if(decision.value!=='approved'&&!comments.value.trim()){feedback.textContent='Explain the requested changes or reason for nonapproval.';return}
+    const source=approvalSource();
+    if(stage.value!=='final_proof'&&!source){feedback.textContent='No current review document is available for this decision.';return;}
     if(!confirm('Submit this formal '+decision.options[decision.selectedIndex].text.toLowerCase()+' decision? It will be retained in the project history.'))return;
     submit.disabled=true;
     try{
      const {data:{user},error:ue}=await client.auth.getUser();if(ue||!user||user.id!==activeUser.id)throw Error('Session expired. Please sign in again.');
-     const {error}=await client.from('mpid_approvals').insert({project_id:project.id,author_id:user.id,approval_type:stage.value,decision:decision.value,comments:comments.value.trim()||null});
+     const {error}=await client.from('mpid_approvals').insert({project_id:project.id,author_id:user.id,approval_type:stage.value,decision:decision.value,comments:comments.value.trim()||null,source_document_id:source?.id??null}).abortSignal(AbortSignal.timeout(20000));
      if(error)throw error;
      feedback.textContent='Decision recorded successfully.';decision.value='';comments.value='';await loadApprovals();
     }catch(e){feedback.textContent='Decision not saved: '+e.message}
