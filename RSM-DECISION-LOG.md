@@ -1,3 +1,8 @@
+## 2026-11-24 | Proof approval and final delivery sequencing
+
+- Final money is gated by the current released proof, completed evidence-based QA and the latest author approval of that proof. Use the exact signed application link and existing administrator authorizations. Prepare separately from dispatch. Family eligibility does not require prematurely marking the project Completed.
+- Final publishing assets are staged as a private ZIP. An explicit approved release after verified payment completes the project. Completed projects leave the active admin list and retain author access. The signed scope governs package assets and any cover obligations.
+
 ## 2026-11-24 | Retest by changed functionality
 
 - Retain prior owner acceptance of sample submission, inbox visibility, downloads, editorial generation and office receipt. Test new Word revision behavior with actual stored artifacts. Do not treat a synthetic user backed by an administrator profile as independent author-browser acceptance. Observe new production notifications on authorized real events.
