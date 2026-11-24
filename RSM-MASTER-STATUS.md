@@ -574,3 +574,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-24 | Removed routine source-located finding cards in workflow script commit e8c3039725e3c03e3a1da65e293e32cb2765cefe; exceptions summary and private export retained; script cache version updated.
 
 2026-11-24 | Author workspace preview visible and sample submission confirmed by administrator. Author workspace commit 77456926bc333b579c9140fa30d048ce9d306333. Notification worker v19 ACTIVE; revision read scope corrected; submission guard and office notification queue triggers deployed. Two released deliverables preserved. Actual author submission and email delivery not verified.
+
+2026-11-24 | Admin revision inbox source added to Stage 5; private submitted text and comments, manual refresh and dashboard refresh. Regeneration not implemented.

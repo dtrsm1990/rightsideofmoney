@@ -226,3 +226,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-24 | Routine editorial corrections must not render individually on dashboard. Retain report export and unresolved high/critical exceptions; no finding status changes.
 
 2026-11-24 | Permanent author workspace across all packages; isolated preview only. Office-only revision notification; latest released manuscript required; submitted source locked. Preserve all existing records and workflows. No unauthorized client sends.
+
+2026-11-24 | Revision inbox renders author content as plain text, not executable HTML. No release or approval action added until regeneration and QA are ready.

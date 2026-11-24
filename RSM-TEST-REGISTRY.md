@@ -427,3 +427,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-24 | PASS committed workflow source inspection: old heading absent, exception filter and full export retained. Live browser verification pending.
 
 2026-11-24 | PASS administrator confirms preview visible and simulated submission. PASS database readback of corrected revision read policy and two new triggers; two released deliverables retained; zero revision notices queued at verification. Notification worker v19 deployment confirmed. PENDING authenticated author submission, concurrency, cross-author isolation, email delivery and regression.
+
+2026-11-24 | PASS new inbox JavaScript and workflow script syntax checks. Pending authenticated browser and actual submission test.
