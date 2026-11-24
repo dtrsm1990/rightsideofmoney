@@ -415,3 +415,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23 | PASS v10 deployment and deployed-source heading formatter sample execution; user reported v9 nearly acceptable. Actual v10 DOCX visual QA and PDF readiness pending.
 
 2026-11-23 | PASS v11 deployment and deployed-source checks for shared builder, indentation, spacing and administrator gate. User visually accepted v10 heading appearance. v11 visual review and PDF QA pending.
+
+2026-11-23 | User confirmed v11 indentation visible but requested paragraph spacing. PASS v12 deployment and deployed-source spacing check; visual review pending.
