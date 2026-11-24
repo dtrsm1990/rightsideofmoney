@@ -220,3 +220,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | LOCKED administrator-approved v12 typography: Georgia 24pt book title, 18pt bold centered major headings on new pages, 12pt bold left paragraph headings, consistent Title Case preserving acronyms, 11pt single-spaced body, 0.2-inch first-line indent except first paragraph after headings, 4pt after prose, 12pt before/6pt after headings, bordered tables, centered 9pt page numbers. Trim per project (Maurice 6x9). Same production quality for all packages; editorial depth alone differs. Preserve earlier contracted deliverables and separate optional runs.
 
 2026-11-24 | Administrator approved manage-by-exception editorial dashboard; retain all underlying findings, resolution controls and approval history, collapse details by default.
+
+2026-11-24 | Show latest released and approved per deliverable type, and newer pending draft where applicable; collapse other versions, upload and history. Preserve exact file controls and records.
