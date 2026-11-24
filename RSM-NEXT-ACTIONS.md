@@ -1,3 +1,8 @@
+## 2026-11-24 | Consolidated acceptance remaining
+
+- Published dashboard verified. Generator runtime and database regressions passed separately. Complete end-to-end acceptance with an authenticated synthetic author, real synthetic Word storage, signed-in administrator and office inbox access. Verify submission confirmation, inbox visibility, staged output review, replacement approval, and receipt of the isolated 2:41 p.m. Pacific test email.
+- Version-specific approval and private output registration are deployed. Validate pagination physically on a representative production manuscript and route unsupported structural changes to editorial review. Leave live project records and client communications untouched during acceptance.
+
 ## 2026-11-24 | Version-specific approval continuation
 
 - Verify administrator Pages publication and run authenticated browser acceptance against a synthetic released document. Production still awaits the actual author's first submission or decision. Prior office-only test reached Resend. Mailbox receipt remains unverified.
