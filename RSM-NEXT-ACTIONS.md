@@ -651,3 +651,5 @@ Use this instruction:
 2026-11-23 | [x] Deploy v8 layout improvements. [ ] Format latest saved run and inspect DOCX; verify source heading hierarchy, title-case headings, TOC, trim and PDF QA.
 
 2026-11-23 | [x] Deploy v9 section hierarchy and v10 consistent title typography. [ ] Regenerate saved run, visually inspect headings, table placement and final print QA; implement generalized source-aware hierarchy and PDF.
+
+2026-11-23 | [x] Deploy v11 paragraph formatting for all package runs. [ ] Regenerate saved run and visually review paragraph spacing/indentation; unify regular Section 4 production engine and validate all packages, TOC and print PDF.
