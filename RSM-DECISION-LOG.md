@@ -222,3 +222,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-24 | Administrator approved manage-by-exception editorial dashboard; retain all underlying findings, resolution controls and approval history, collapse details by default.
 
 2026-11-24 | Show latest released and approved per deliverable type, and newer pending draft where applicable; collapse other versions, upload and history. Preserve exact file controls and records.
+
+2026-11-24 | Routine editorial corrections must not render individually on dashboard. Retain report export and unresolved high/critical exceptions; no finding status changes.
