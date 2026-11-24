@@ -1,3 +1,8 @@
+## 2026-11-24 | Signed-in acceptance entry point
+
+- Version 1 is released on `RSM TEST | Private Editorial Workflow`. Sign in as the assigned test author, download `RSM_Acceptance_Manuscript.docx`, open the editor and replace Tuesday with Wednesday, then submit. Enable test projects in Admin Dashboard, review both generated files, approve and release version 2, then approve that specific version as the test author. Test emails are suppressed. Confirm the allowance decreases from two to one and approval advances to Production.
+- Confirm public allowance UI publication and inspect actual revised Word output and correction summary in the authenticated run. Verify signed numeric allowances for additional packages when approved agreements become available.
+
 ## 2026-11-24 | Remaining acceptance after office receipt
 
 - Office test receipt confirmed. Match the received timestamp or the newer message body mentioning the synthetic Word revision and correction summary to attribute the exact outbox row. Do not send another email test.
