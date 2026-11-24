@@ -562,3 +562,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | v9 added manuscript-specific section hierarchy and historical price table; user confirmed improved layout. v10 ACTIVE standardizes heading case and 18pt major/12pt subsection sizes; preserves prior private versions.
 
 2026-11-23 | v11 ACTIVE shared package builder adds 0.2-inch first-line prose indentation, flush first paragraph after headings, zero inter-prose spacing, 6pt after headings. User confirmed v10 looks good.
+
+2026-11-23 | v12 ACTIVE: shared package body paragraph spacing increased to 4pt, retaining 0.2-inch first-line indentation and single spacing.
