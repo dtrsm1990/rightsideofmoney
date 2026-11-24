@@ -281,15 +281,15 @@ document.addEventListener('DOMContentLoaded', () => {
             item.append(warning);
           }
           if(r.status==='pending_review'&&!knownDefectiveDraft){
-            action('Approve Manuscript for Author Review',async()=>{
-              if(!confirm('Approve this exact current '+r.file_name+' for author review? Approval alone does NOT release the file.'))return;
+            const deliverableLabel=(r.document_type==='edited_manuscript'||/manuscript|layout/i.test(r.file_name))?'Edited Manuscript':'Editorial Audit';
+            action('Approve & Send '+deliverableLabel+' to Author',async()=>{
+              if(!confirm('APPROVE AND SEND '+deliverableLabel+'?\\n\\nFile: '+r.file_name+'\\n\\nThis will approve the exact document, release it to the author portal, and queue a real notification to the author.'))return;
               const {client}=await getClient();
               const {data:check,error:ce}=await client.from('rsm_manuscript_edit_runs').select('id,source_document_id,status').eq('id',workingRun.id).single();
               if(ce||check?.source_document_id!==workingId||check.status==='failed')throw Error('Working manuscript version changed. Refresh before approving.');
               const {data:changed,error}=await client.from('mpid_editorial_deliverables').update({status:'approved',approved_at:new Date().toISOString()}).eq('id',r.id).eq('project_id',reportProject.value).eq('status','pending_review').select('id');
               if(error||changed?.length!==1)throw error||Error('Approval not recorded; refresh to reconcile.');
-              reportStatus.textContent='Approved privately. Release to Author is a separate action.';
-              await loadPrivateReports();
+              try{await releaseApproved()}catch(e){reportStatus.textContent='Document approved, but release did not complete. Use Send Approved '+deliverableLabel+' to Author after refreshing. Reason: '+(e?.message||String(e));await loadPrivateReports();throw e}
             });
             action('Request Editorial Corrections',async()=>{
               if(!confirm('Record that this current document needs further corrections? It will remain private and unapproved.'))return;
@@ -299,8 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
               reportStatus.textContent='Corrections requested and recorded. Document remains private and pending review.';
             });
           }
-          if(r.status==='approved')action('Release to Author',async()=>{
-            if(!confirm('Release this exact approved '+r.file_name+' to the author portal? This is a real author-facing action and may queue a notification.'))return;
+          const releaseApproved=async()=>{
             const {client}=await getClient();
             const {data:latest,error:le}=await client.from('rsm_manuscript_edit_runs').select('id,source_document_id,status').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(1);
             if(le||latest?.[0]?.id!==workingRun.id||latest[0].source_document_id!==workingId)throw Error('Newer editorial run exists. Refresh before release.');
@@ -318,8 +317,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }else if(await digest(existing)!==await digest(blob))throw Error('Release destination differs from approved version. No release made.');
             const {data:docId,error:finalError}=await client.rpc('mpid_finalize_editorial_release',{p_deliverable:d.id});
             if(finalError||!docId)throw finalError||Error('Release registration failed.');
-            reportStatus.textContent='Released to secure author portal. Notification delivery is not yet verified.';
+            reportStatus.textContent='Released to secure author portal. Author notification queued by database trigger; email delivery is not yet verified.';
             await loadPrivateReports();
+          };
+          if(r.status==='approved')action('Send Approved '+(r.document_type==='edited_manuscript'||/manuscript|layout/i.test(r.file_name)?'Edited Manuscript':'Editorial Audit')+' to Author',async()=>{
+            if(!confirm('Release this exact approved '+r.file_name+' to the author portal? This queues a real author notification.'))return;
+            await releaseApproved();
           });
         }
         item.append(title,detail,download);target.append(item);

@@ -625,3 +625,5 @@ Use this instruction:
 2026-11-23 | [x] Administrator accepted latest private manuscript layout and spacing as working master. [ ] Verify Stage 4 final review buttons and collapsed Advanced Corrections after deployment. [ ] Confirm exact latest private deliverable and its approval status. [ ] Perform KDP proof checks. [ ] Obtain explicit administrator authorization before any author release.
 
 2026-11-23 | [x] Remove author-facing Supabase key entry and configure verified public key in author-dashboard.html. [ ] Verify deployed author portal loads sign-in without key prompt. [ ] Test existing invitation link and password activation without sending new email. [ ] Verify Maurice sees only authorized projects and files; preserve no author release.
+
+2026-11-23 | [x] Add distinct Approve & Send Edited Manuscript and Approve & Send Editorial Audit actions with explicit confirmation. [x] Reuse approved-document release RPC and notification queue trigger. [ ] Test live browser action with authorized test record before releasing Maurice's documents. [ ] Verify outbox dispatcher and email delivery. [ ] Confirm author dashboard visibility and review-response workflow.

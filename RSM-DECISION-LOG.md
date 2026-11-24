@@ -186,3 +186,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Lock accepted private manuscript layout as working master based on administrator visual acceptance, without changing original or earlier drafts. Section 4 should show final review and approval first; place regeneration under collapsed Advanced Corrections. Never automatically release to author.
 
 2026-11-23 | Author Portal must never ask an author for Supabase connection details. Use only active public sb_publishable key as browser configuration; preserve Supabase RLS, invitation activation, passwords, private manuscript access, and separate author release gate. No real invitation sent as part of fix.
+
+2026-11-23 | Admin one-click approval and author release is authorized only after explicit in-dashboard confirmation for each exact document. Edited manuscript and editorial audit are separate actions. Existing release RPC, version checks, QA triggers, RLS and notification outbox remain authoritative; no direct email from browser. Delivery must not be claimed until confirmed.
