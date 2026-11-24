@@ -397,3 +397,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23 | PASS SQL creation of admin-only rsm_package_comparison_runs and RLS. PASS Supabase Edge Function rsm-package-comparison v1 ACTIVE. PASS static dashboard integration with package selector, generate, history, and two private download buttons. NOT TESTED live AI processing, generated DOCX validity, browser UI, or download permissions. 18,000-character limit is enforced; no author release performed.
 
 2026-11-23 | PASS rsm-package-comparison Edge Function v2 deployed ACTIVE with gateway verify_jwt=false; internal getUser and mpid_is_admin checks retained. PASS static dashboard relabeling and error handling. NOT TESTED Safari request success, full DOCX generation or audit completion. User reported 'Load failed' before changes.
+
+2026-11-23 | PASS live log diagnosis: POST 500 with Mammoth openZip 'Could not find file in options' on 2026-11-24 05:44 UTC. PASS Edge Function v3 deployed ACTIVE with corrected buffer extraction. NOT TESTED new live generation, output DOCX validation or browser end-to-end.

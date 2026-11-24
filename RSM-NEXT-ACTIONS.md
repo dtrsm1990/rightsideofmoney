@@ -635,3 +635,5 @@ Use this instruction:
 2026-11-23 | [x] Create isolated package comparison database and backend. [x] Add Section 4 package selector and private manuscript/audit generation and downloads. [ ] Run authorized private integration test with a suitable assembled DOCX, verify full content and DOCX integrity. [ ] Expand engine to resumable full-length manuscript processing with QA before production use. [ ] Verify live admin UI and RLS; never release comparisons automatically.
 
 2026-11-23 | [x] Align Section 4 wording with manual package-specific editorial audit and edited manuscript. [x] Change gateway authentication to existing proven pattern while retaining internal administrator verification. [ ] Verify Safari request and actual document generation. [ ] Improve full-length processing and QA.
+
+2026-11-23 | [x] Fix DOCX extraction input in package audit service. [ ] Confirm next authenticated run succeeds and inspect generated DOCX. [ ] Extend processing for full manuscripts, quality controls and secure final review.
