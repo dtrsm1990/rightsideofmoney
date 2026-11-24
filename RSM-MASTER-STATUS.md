@@ -1,3 +1,8 @@
+## 2026-11-24 | Stored Word revision and release verified
+
+- Isolated acceptance project reached Production after an actual stored Word revision, private summary, administrator-approved release of version 2 and version-specific approval. Both Word versions remain in Storage. One round remains. No live project changed and no email sent.
+- Worker v27 restores the prior production code hash after temporary isolated Word inspection. Unprivileged access to private records and staged Word files was denied. The test project is assigned to the administrator account, so independent author browser role acceptance and visual Word pagination are not established.
+
 ## 2026-11-24 | Browser acceptance specimen and revision allowances
 
 - Isolated project `RSM TEST | Private Editorial Workflow` has a real released `RSM_Acceptance_Manuscript.docx` version 1 (8,745 bytes), generated and reopened by worker v24. The specimen has two chapters, a footer page field and a table. Zero release emails. The test starts in Editing.
