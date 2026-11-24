@@ -1,3 +1,9 @@
+## 2026-11-24 | Author review and submission checkpoint
+
+- Production Supabase migration `advance_editorial_stage_for_released_review_pair` now advances supported early stages to `author_review` when both the released edited manuscript and editorial report link to active documents. The current live Publish-Ready project advanced from `editing` to `author_review`. Both released files were already available. Zero saved revisions and zero author approvals at verification.
+- GitHub main author dashboard commit `676ba2e8e85bb194cb5d3ff1d694cb580092f757` adds progress, bounded save requests, recovery after a lost submission response, and retry feedback. Admin dashboard commit `b56aae37d46b0ae3441e95ea845a684281f54578` adds visible-tab inbox refresh every 30 seconds and on return to the tab. Both source files verified by readback. Authenticated browser acceptance and Pages deployment verification pending.
+- Supabase notification worker v20 is active and scheduled every minute. The submission trigger queues office notices for live projects. Zero revision notification events at verification. Email delivery and downstream regeneration, approval gating and print preflight are open.
+
 ## CURRENT EXECUTIVE CHECKPOINT | 2026-11-21 | READ FIRST
 - Mission: deliver an integrated, secure, automated, professional RSM Publishing Services platform. Prioritize working end-to-end business workflows over disconnected dashboard buttons and isolated reports.
 - Live verified: Maurice Watkins / The VA Loan Millionaire project status **editing**; manuscript run 45fdcf7f-6204-4966-bd9c-f20a2d98b686 has 13/13 completed segments, run status review, QA needs_review. Five private editorial deliverables pending review, zero structured audit findings, zero author approvals. NOT publication ready; nothing released.
