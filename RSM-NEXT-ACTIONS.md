@@ -667,3 +667,5 @@ Use this instruction:
 2026-11-24 | [x] Preview visibility and simulated submission. [x] Revision read scope, submission guard and notification queue deployed; worker v19 active. [ ] Admin Revision Management Center, change tracking, automatic regeneration and approval integration. [ ] Verify authenticated end-to-end workflow and email delivery before production acceptance.
 
 2026-11-24 | Admin revision inbox source prepared. Remaining automatic change tracking, regeneration, approval integration and end-to-end tests.
+
+2026-11-24 | Verify isolated sample inbox in browser; implement safe office test email, real comparison, regeneration and approval integration.
