@@ -224,7 +224,7 @@ async function loadDashboard(){
      for(const [label,download] of [['View',false],['Download',true]]){
       const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(file.storage_path,file.file_name,download,btn);actions.append(btn)
      }
-     row.append(left,actions);list.append(row)
+     row.append(left,actions);list.append(row);if(['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name)){const host=el('div');const open=el('button','secondary',file.document_type==='edited_manuscript'?'Open manuscript workspace':'Read editorial audit');open.type='button';open.onclick=()=>openWorkspace(file,project,host,open);actions.prepend(open);list.append(host);}
     }
    }
    panel.append(el('h3','', 'Editorial Findings'));
@@ -376,6 +376,33 @@ async function renderAuthorChecklist(panel,project){
   }
 }
 
+async function openWorkspace(file,project,host,btn){
+ btn.disabled=true;host.replaceChildren(el('p','small','Opening secure document...'));
+ try{
+ const {data,error}=await client.storage.from('mpid-manuscripts').download(file.storage_path);if(error)throw error;
+ const mammoth=await import('https://cdn.jsdelivr.net/npm/mammoth@1.9.0/+esm');
+ const result=await (mammoth.default||mammoth).convertToHtml({arrayBuffer:await data.arrayBuffer()});
+ const parsed=new DOMParser().parseFromString(result.value,'text/html');
+ const allowed=new Set(['P','H1','H2','H3','H4','H5','H6','STRONG','B','EM','I','U','S','BR','TABLE','TBODY','THEAD','TR','TD','TH','UL','OL','LI','BLOCKQUOTE','SUP','SUB']);
+ function safe(node){if(node.nodeType===3)return document.createTextNode(node.textContent);const out=document.createDocumentFragment();if(node.nodeType!==1||['SCRIPT','STYLE','IFRAME','OBJECT','IMG'].includes(node.tagName))return out;const target=allowed.has(node.tagName)?document.createElement(node.tagName):out;for(const child of node.childNodes)target.append(safe(child));return target;}
+ const editor=el('div');editor.style.cssText='background:white;color:#171717;padding:24px;border:1px solid #aaa;border-radius:8px;max-height:70vh;overflow:auto;font:16px/1.6 Georgia,serif;overflow-wrap:anywhere';
+ const editable=file.document_type==='edited_manuscript'&&!['completed','on_hold'].includes(project.status);
+ const status=el('p','small','Online review copy. Print pagination and images may differ from the released Word document.');
+ host.replaceChildren(el('h3','',file.file_name),status,editor);
+ for(const node of parsed.body.childNodes)editor.append(safe(node));
+ if(!editable)return;
+ const {data:history,error:he}=await client.from('rsm_author_revision_snapshots').select('id,content,state,created_at').eq('project_id',project.id).eq('source_document_id',file.id).order('created_at',{ascending:false}).limit(1);if(he)throw he;
+ const latest=history?.[0];if(latest?.content?.html){const doc=new DOMParser().parseFromString(latest.content.html,'text/html');editor.replaceChildren();for(const node of doc.body.childNodes)editor.append(safe(node));}
+ const comment=el('textarea');comment.placeholder='Optional comments for your editor';comment.value=latest?.content?.comment||'';comment.maxLength=10000;
+ const save=el('button','secondary','Save draft');const submit=el('button','','Submit revisions');save.type=submit.type='button';host.append(comment,save,submit);
+ if(latest?.state==='submitted'){comment.disabled=save.disabled=submit.disabled=true;status.textContent='Revisions submitted. Awaiting RSM review.';return;}
+ editor.contentEditable='true';editor.setAttribute('role','textbox');editor.setAttribute('aria-label','Manuscript working copy');
+ let timer,busy=false,dirty=false;
+ async function persist(state){if(busy)return;busy=true;save.disabled=submit.disabled=true;clearTimeout(timer);const snapshot={html:editor.innerHTML,comment:comment.value};try{const {error}=await client.from('rsm_author_revision_snapshots').insert({project_id:project.id,source_document_id:file.id,content:snapshot,state});if(error)throw error;dirty=editor.innerHTML!==snapshot.html||comment.value!==snapshot.comment;status.textContent=state==='submitted'?'Revisions submitted. Awaiting RSM review.':'Draft saved at '+new Date().toLocaleTimeString();if(state==='submitted'){editor.contentEditable='false';comment.disabled=true;return;} }catch(e){status.textContent='Save failed: '+e.message;dirty=true;}finally{busy=false;if(editor.contentEditable==='true'){save.disabled=submit.disabled=false;if(dirty)timer=setTimeout(()=>persist('draft'),5000);}}}
+ function changed(){dirty=true;status.textContent='Unsaved changes';clearTimeout(timer);timer=setTimeout(()=>persist('draft'),3000);}
+ editor.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'));});editor.addEventListener('drop',e=>e.preventDefault());editor.addEventListener('input',changed);comment.addEventListener('input',changed);save.onclick=()=>persist('draft');submit.onclick=()=>{if(confirm('Submit this working copy to RSM for review?'))persist('submitted');};
+ }catch(e){host.replaceChildren(el('p','small','Workspace unavailable: '+e.message+'. Existing downloads remain available.'));}finally{btn.disabled=false;}
+}
 async function accessFile(path,name,download,btn){btn.disabled=true;msg('Checking secure file access...');try{const {data,error}=await client.storage.from('mpid-manuscripts').download(path);if(error)throw error;if(!data)throw Error('No file data returned');const blobUrl=URL.createObjectURL(data);const a=document.createElement('a');a.href=blobUrl;a.rel='noopener';if(download){a.download=name}else{a.target='_blank'}document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);msg((download?'Download':'View')+' request succeeded for '+name+'. Your authorized file is ready.','success')}catch(e){msg('File access denied or failed: '+e.message,'error')}finally{btn.disabled=false}}
 </script>
 </body></html>
