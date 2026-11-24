@@ -142,6 +142,52 @@ document.addEventListener('DOMContentLoaded', () => {
   reportActions.append(refreshReport);const correctionTools=document.createElement('details');correctionTools.className='rsm-advanced-corrections';const correctionSummary=document.createElement('summary');correctionSummary.textContent='Advanced Corrections (only if needed)';correctionTools.append(correctionSummary,generateReport);reportPanel.append(reportTitle,reportIntro,reportProject,reportActions,reportStatus,reportList,correctionTools);
   const auditStage=document.getElementById('rsm-workflow-stage-4');
   if(auditStage)auditStage.insertBefore(reportPanel,auditStage.children[1]||null);
+  // Optional package comparisons are private and independent of the contracted editorial run.
+  const comparisonPanel=document.createElement('section');comparisonPanel.className='card';comparisonPanel.id='rsmPackageComparison';
+  const comparisonTitle=document.createElement('h2');comparisonTitle.textContent='Optional Package Comparison & Edited Manuscript';
+  const comparisonIntro=document.createElement('p');comparisonIntro.className='note';comparisonIntro.textContent='Generate a separate private edited manuscript and editorial audit for Publish-Ready, Full Launch, or Signature Author. Does not change the purchased package, master manuscript, contract, payments, or author access. Current engine supports assembled DOCX up to 18,000 extracted characters.';
+  const comparisonPackage=document.createElement('select');comparisonPackage.setAttribute('aria-label','Comparison package');
+  for(const pkg of ['Publish-Ready','Full Launch','Signature Author']){const opt=document.createElement('option');opt.value=pkg;opt.textContent=pkg;comparisonPackage.append(opt)}
+  const comparisonRun=document.createElement('button');comparisonRun.type='button';comparisonRun.textContent='Generate Private Package Manuscript & Audit';
+  const comparisonRefresh=document.createElement('button');comparisonRefresh.type='button';comparisonRefresh.className='secondary';comparisonRefresh.textContent='Refresh Package Comparisons';
+  const comparisonStatus=document.createElement('p');comparisonStatus.setAttribute('role','status');comparisonStatus.setAttribute('aria-live','polite');
+  const comparisonResults=document.createElement('div');comparisonResults.className='list';
+  comparisonPanel.append(comparisonTitle,comparisonIntro,comparisonPackage,comparisonRun,comparisonRefresh,comparisonStatus,comparisonResults);
+  if(auditStage)auditStage.insertBefore(comparisonPanel,reportPanel.nextSibling);
+  const loadComparisons=async()=>{
+    comparisonResults.replaceChildren();if(!reportProject.value){comparisonStatus.textContent='Select the project above.';return}
+    const {client}=await getClient();
+    const {data,error}=await client.from('rsm_package_comparison_runs').select('id,requested_package,status,manuscript_path,audit_path,error_message,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(20);
+    if(error){comparisonStatus.textContent='Comparison history unavailable: '+error.message;return}
+    comparisonStatus.textContent=(data||[]).length+' private package comparison run(s). Nothing released to author.';
+    for(const r of data||[]){
+      const item=document.createElement('div');item.className='item';
+      const heading=document.createElement('strong');heading.textContent=r.requested_package+' | '+r.status+' | '+new Date(r.created_at).toLocaleString();item.append(heading);
+      if(r.error_message){const p=document.createElement('p');p.textContent=r.error_message;item.append(p)}
+      for(const [label,path] of [['Download Edited Manuscript',r.manuscript_path],['Download Editorial Audit',r.audit_path]]){
+        if(!path||r.status!=='review')continue;
+        const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;
+        b.addEventListener('click',async()=>{b.disabled=true;try{const {client}=await getClient();const {data:blob,error}=await client.storage.from('mpid-manuscripts').download(path);if(error||!blob)throw error||Error('File unavailable');const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=path.split('/').pop();document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}catch(e){comparisonStatus.textContent='Download failed: '+(e?.message||String(e))}finally{b.disabled=false}});item.append(b);
+      }
+      comparisonResults.append(item);
+    }
+  };
+  comparisonRefresh.addEventListener('click',()=>loadComparisons().catch(e=>comparisonStatus.textContent=String(e)));
+  comparisonRun.addEventListener('click',async()=>{
+    if(!reportProject.value){comparisonStatus.textContent='Choose publishing project above.';return}
+    const pkg=comparisonPackage.value;
+    if(!confirm('Generate a PRIVATE '+pkg+' manuscript and audit comparison? This may incur AI processing cost. No author release or contract change.'))return;
+    comparisonRun.disabled=true;
+    try{
+      const {session,cfg}=await getClient();
+      comparisonStatus.textContent='Processing private '+pkg+' comparison. Please keep this page open.';
+      const response=await fetch(cfg.url+'/functions/v1/rsm-package-comparison',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value,requested_package:pkg})});
+      const result=await response.json();if(!response.ok||!result.ok)throw Error(result.error||'Comparison failed');
+      await loadComparisons();comparisonStatus.textContent='Private '+pkg+' manuscript and audit ready for download and administrator review. No author release.';
+    }catch(e){comparisonStatus.textContent='Comparison not completed: '+(e?.message||String(e))}
+    finally{comparisonRun.disabled=false}
+  });
+  reportProject.addEventListener('change',()=>loadComparisons().catch(e=>comparisonStatus.textContent=String(e)));
   const loadReportProjects=async()=>{
     try{
       const {client}=await getClient();
