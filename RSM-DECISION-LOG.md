@@ -212,3 +212,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Reuse approved production standards across packages; left align body to avoid excessive justification gaps. Retain private review gate.
 
 2026-11-23 | Use consistent Title Case with acronym preservation; Georgia 18pt major headings, 12pt subsection headings, 11pt body. No changes to editorial body or release gates.
+
+2026-11-23 | Universal package typography: traditional first-line indent 0.2 inches, no indent first paragraph after heading, single line spacing, zero between prose paragraphs, 12pt before/6pt after headings. Lists/tables excluded.
