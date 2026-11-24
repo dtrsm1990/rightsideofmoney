@@ -663,3 +663,5 @@ Use this instruction:
 2026-11-24 | [x] Compact private review/release display. [ ] Verify live browser and actual released records; confirm historical controls remain accessible.
 
 2026-11-24 | [x] Remove source-location finding card flood. [ ] Verify live dashboard; address duplicate findings, segment-boundary flags and prohibited punctuation recommendations in editorial generation separately.
+
+2026-11-24 | [x] Preview visibility and simulated submission. [x] Revision read scope, submission guard and notification queue deployed; worker v19 active. [ ] Admin Revision Management Center, change tracking, automatic regeneration and approval integration. [ ] Verify authenticated end-to-end workflow and email delivery before production acceptance.

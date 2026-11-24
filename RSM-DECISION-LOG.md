@@ -224,3 +224,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-24 | Show latest released and approved per deliverable type, and newer pending draft where applicable; collapse other versions, upload and history. Preserve exact file controls and records.
 
 2026-11-24 | Routine editorial corrections must not render individually on dashboard. Retain report export and unresolved high/critical exceptions; no finding status changes.
+
+2026-11-24 | Permanent author workspace across all packages; isolated preview only. Office-only revision notification; latest released manuscript required; submitted source locked. Preserve all existing records and workflows. No unauthorized client sends.
