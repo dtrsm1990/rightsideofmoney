@@ -224,8 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   // Administrator-only, source-located editorial finding review. No manual finding edits.
   const findingPanel=document.createElement('section');findingPanel.className='card';findingPanel.id='rsmLocatedFindings';
-  const findingHeading=document.createElement('h2');findingHeading.textContent='Review Editorial Findings by Source Location';
-  const findingNote=document.createElement('p');findingNote.className='note';findingNote.textContent='Source page and paragraph are displayed only when recorded. Source PDF pages may differ from final KDP pagination. Findings are private until separately approved for author release.';
+  const findingHeading=document.createElement('h2');findingHeading.textContent='Editorial Exceptions';
+  const findingNote=document.createElement('p');findingNote.className='note';findingNote.textContent='Routine corrections are retained in the private editorial report, not displayed on the dashboard. Only unresolved high or critical findings appear here.';
   const findingStatus=document.createElement('p');findingStatus.setAttribute('role','status');
   const findingList=document.createElement('div');
   findingPanel.append(findingHeading,findingNote,findingStatus,findingList);
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const a=document.createElement('a');a.href=url;a.download='RSM-Private-Editorial-Review-'+reportProject.value+'.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
   const loadLocatedFindings=async()=>{
-    findingList.replaceChildren();currentFindings=[];
+    findingList.replaceChildren();currentFindings=[];exportFindingReport.disabled=true;
     const id=reportProject.value;
     if(!id){findingStatus.textContent='Choose a publishing project to review findings.';return}
     try{
@@ -254,17 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if(error)throw error;
       currentFindings=data||[];
       findingStatus.textContent=currentFindings.length+' private editorial finding(s). Source locations are not final print page numbers.';
-      (data||[]).forEach(f=>{
-        const card=document.createElement('div');card.className='item';card.style.cssText='padding:14px;margin:10px 0;border:1px solid #665537;border-radius:8px';
-        const head=document.createElement('strong');head.textContent=[f.severity||'Unrated',f.dimension||'Editorial',f.status||'Open'].join(' | ');
-        const location=document.createElement('p');location.className='muted small';location.textContent='Source: '+[f.source_section||'Section not recorded',f.source_page?'PDF page '+f.source_page:'PDF page not recorded',f.source_paragraph?'paragraph '+f.source_paragraph:'paragraph not recorded'].join(' | ');
-        card.append(head,location);
-        for(const [label,value] of [['Finding',f.finding],['Original text',f.original_excerpt],['Proposed correction',f.corrected_excerpt],['Recommendation',f.recommendation],['Author suggestion',f.author_suggestion],['Verification',f.verification_notes]]){
-          if(!value)continue;
-          const line=document.createElement('p');const bold=document.createElement('strong');bold.textContent=label+': ';line.append(bold,document.createTextNode(value));card.append(line);
-        }
-        const visibility=document.createElement('p');visibility.className='muted small';visibility.textContent=f.released_to_author?'Author visibility recorded':'Private administrator review only';card.append(visibility);findingList.append(card);
-      });
+      const exceptions=currentFindings.filter(f=>['high','critical'].includes(String(f.severity).toLowerCase())&&!['resolved','waived'].includes(String(f.status).toLowerCase()));
+      findingStatus.textContent=currentFindings.length+' recorded findings | '+exceptions.length+' unresolved high or critical findings. Full details are available in the private report.';
+      exportFindingReport.disabled=!currentFindings.length;
+      for(const f of exceptions){const line=document.createElement('p');line.className='note';line.textContent=(f.severity||'')+' | '+(f.dimension||'Editorial')+' | '+(f.finding||'');findingList.append(line);}
+
     }catch(e){findingStatus.textContent='Unable to load private findings: '+(e?.message||String(e))}
   };
   const cleanDraft=document.createElement('button');cleanDraft.type='button';cleanDraft.className='secondary';cleanDraft.textContent='Regenerate Manuscript Layout (Corrections Only)';
