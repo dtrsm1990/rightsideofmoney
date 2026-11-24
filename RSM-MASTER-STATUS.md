@@ -558,3 +558,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | Package editorial engine v7 ACTIVE: shared interior DOCX builder now used automatically on completion and on existing-run formatting. Existing saved sections preserved. Preliminary 6x9 layout only; final print QA outstanding.
 
 2026-11-23 | v8 ACTIVE: title/copyright page separation, major/subheading hierarchy, left aligned single-spaced body, Markdown bordered tables, new versioned private formatting path. Existing runs preserved.
+
+2026-11-23 | v9 added manuscript-specific section hierarchy and historical price table; user confirmed improved layout. v10 ACTIVE standardizes heading case and 18pt major/12pt subsection sizes; preserves prior private versions.
