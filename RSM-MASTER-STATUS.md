@@ -568,3 +568,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | Administrator visually approved v12 package interior formatting. Adopt as RSM universal production typography standard for Publish-Ready, Full Launch and Signature Author. Administrator intends to personally approve and send Maurice's earlier contracted manuscript and audit; release not verified. Optional Signature Author run remains private.
 
 2026-11-24 | Dashboard editorial review streamlined in commit e0a7b3e7d75ade07df8ef80fb5a6623e2405bd41; detailed findings and approval history collapsed, high/critical unresolved exceptions visible. Existing release controls preserved.
+
+2026-11-24 | Private Editorial Review & Release compact view committed b3554680006937fb8ad2a9f941b537f15dec66a9. User dashboard reports contracted manuscript and audit released; database confirmation pending.
