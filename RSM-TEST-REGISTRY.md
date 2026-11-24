@@ -423,3 +423,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-24 | PASS GitHub dashboard commit and source inspection for collapsed details and exception summary; browser deployment and authenticated UI verification pending.
 
 2026-11-24 | PASS committed source inspection and sample current-selection logic for released manuscript/audit with older pending draft. Live authenticated UI and release verification pending.
+
+2026-11-24 | PASS committed workflow source inspection: old heading absent, exception filter and full export retained. Live browser verification pending.
