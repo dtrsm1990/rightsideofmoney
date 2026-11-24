@@ -1,3 +1,9 @@
+## 2026-11-24 | Production completion regression
+
+- PASS rollback regressions: unverified proof rejected, completed QA plus ready proof advances to Proofing, approval bound to current proof, family payment authorization required, idempotent preparation of one $250 final installment with no email dispatch, synthetic accepted request and payment verification, unpaid final ZIP rejected, administrator-approved paid ZIP release idempotent, one production completion event and Completed status. Used synthetic storage metadata and simulated provider acceptance. No requests or messages escaped the transaction.
+- Found existing payment-approval notice missing from the outbox constraint. Restored the event already supported by the worker. Family regression passed after repair.
+- Dashboard syntax checked. Authenticated flows, actual package bytes and rendered KDP proof, notification delivery, and full package asset requirements still need evidence. Prior author revision results carried forward.
+
 ## 2026-11-24 | Reconciled acceptance and actual Word revision
 
 - Carry forward prior owner-confirmed sample submission and automatic admin visibility, prior manuscript downloads and editorial Word generation, and owner-confirmed synthetic office email receipt. No manual retest requested for those passed paths. New automatic revision, replacement release and version-specific approval required distinct automated regression because the earlier dashboard and rollback tests did not exercise stored Word artifacts.
