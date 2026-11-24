@@ -1,3 +1,9 @@
+## 2026-11-24 | Automated private revision generation
+
+- Production notification worker v22 processes author revision events and stages a revised Word manuscript plus private correction summary. Migration `queue_and_register_private_author_revision_outputs` links both outputs to the submitted revision, verifies both staging objects, rejects superseded sources and keeps the correction summary private. The existing administrator approval and release controls publish the replacement version and queue author notice.
+- Admin commit `442390ba9c7968ffeae13ed521a0e7935b41ee25` shows generation status and retry and is verified at the standard public dashboard URL. Supported text corrections retain source Word layout. Structural or ambiguous changes fail safely for editorial review. Pagination requires visual QA.
+- Rolled-back registration and release regression passed. Synthetic Word generation passed in the deployed worker. Office-only test accepted by Resend at 2:41 p.m. Pacific. Signed-in browser and actual mailbox verification remain open.
+
 ## 2026-11-24 | Version-specific author approval
 
 - Production migration `bind_editorial_author_decisions_to_released_document` ties new editorial decisions to the current released version and prevents approval of a manuscript with submitted corrections until a newer version is released. Existing decision history retained. Author Portal commit `9427690c6df572774b1a8c46b8ef4d643d923892` verified in published source. Administrator version display committed as `32dd29cf70e75e805ac45d1c71e2d3aa349326f9` and verified in GitHub. Published admin display check pending.
