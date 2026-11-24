@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ['Author Onboarding & Manuscript Intake', ['authorInvitations','Publishing Projects','Create a Publishing Project','Manage Project','applicantManuscriptCenter','manuscriptRecoveryCenter','submissionCenter','Upload a Project Document','Project Details']],
     ['Manuscript Processing', ['rsmEditingEngine','manuscriptProcessing']],
     ['Editorial Audit & Quality Assurance', ['editorialAuditCenter','Add an Editorial Finding','editorialStaging']],
-    ['Author Review & Approval', ['checklistCenter']],
+    ['Author Review & Approval', ['rsmAuthorPreview','checklistCenter']],
     ['Book Production & Proofing', ['Publication Readiness QA']],
     ['Final Payment & Publication Readiness', ['aiCostCenter','Operational Notes']]
   ];
