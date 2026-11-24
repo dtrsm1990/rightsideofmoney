@@ -1,3 +1,9 @@
+## 2026-11-24 | Browser acceptance specimen and revision allowances
+
+- Isolated project `RSM TEST | Private Editorial Workflow` has a real released `RSM_Acceptance_Manuscript.docx` version 1 (8,745 bytes), generated and reopened by worker v24. The specimen has two chapters, a footer page field and a table. Zero release emails. The test starts in Editing.
+- Signed Publish-Ready agreement confirms two rounds for the live project. Public Full Launch lists up to three. Public Publish-Ready and Signature Author have no fixed numeric allocation. Migration `enforce_agreement_specific_author_revision_rounds` uses explicit signed terms and permits separately audited administrator grants. The isolated project uses a two-round fixture. Dashboard source changes are committed. Public publication and authenticated acceptance pending.
+- `advance_after_approval_of_current_released_revision` advances approved generated replacements to Production. Verified in a rolled-back database regression.
+
 ## 2026-11-24 | Office receipt and isolated browser acceptance
 
 - Owner confirmed receipt of the Author Revision Received office test in response to the 2:41 p.m. Pacific acceptance request. The requested synthetic outbox row `a42dcfa1-d8fc-4027-ba71-7e201d452ed5` is sent, attempt 1, no error, with no author or project ID. A prior 2:28 p.m. test used the same subject. Exact message-to-row identification requires the received message time or body. Office delivery of a synthetic notification is confirmed.
