@@ -131,6 +131,9 @@ async function loadDashboard(){
   if(!projects.length){$('projects').append(el('div','panel','No publishing projects are assigned to your account yet.'));msg('Signed in. No projects found.','success');return}
   for(const project of projects){
    const panel=el('section','panel');panel.append(el('h2','',project.title));panel.append(el('div','pill',project.status||'Unknown status'));const progress=el('div');progress.innerHTML=mpidProgressMarkup(project.status);panel.append(progress);
+   const rounds=el('p','small');panel.append(rounds);
+   async function showRounds(){const {data,error}=await client.rpc('rsm_revision_rounds',{p_project:project.id});const row=data?.[0];rounds.textContent=error?'Revision allowance unavailable.':row?.remaining==null?'RSM must confirm the signed revision allowance.':row.remaining+' revision round(s) remaining · '+row.used+' submitted · '+(row.included??0)+' included · '+row.additional+' additional';}
+   void showRounds();
    // Author submissions are available only during stages permitted by the database policies.
    const uploadStages=new Set(['onboarding','author_review','editing','production','proofing']);
    if(uploadStages.has(String(project.status||'').trim().toLowerCase())){
@@ -224,7 +227,7 @@ async function loadDashboard(){
      for(const [label,download] of [['View',false],['Download',true]]){
       const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(file.storage_path,file.file_name,download,btn);actions.append(btn)
      }
-     row.append(left,actions);list.append(row);if(['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name)){const host=el('div');const open=el('button','secondary',file.document_type==='edited_manuscript'?'Open and edit manuscript':'Read editorial audit');open.type='button';open.onclick=()=>{if(host.firstElementChild&&!host.querySelector('[data-workspace-error]')){host.scrollIntoView({block:'nearest'});return;}void openWorkspace(file,project,host,open);};actions.prepend(open);list.append(host);}
+     row.append(left,actions);list.append(row);if(['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name)){const host=el('div');const open=el('button','secondary',file.document_type==='edited_manuscript'?'Open and edit manuscript':'Read editorial audit');open.type='button';open.onclick=()=>{if(host.firstElementChild&&!host.querySelector('[data-workspace-error]')){host.scrollIntoView({block:'nearest'});return;}void openWorkspace(file,project,host,open,showRounds);};actions.prepend(open);list.append(host);}
     }
    }
    panel.append(el('h3','', 'Editorial Findings'));
@@ -383,7 +386,7 @@ async function renderAuthorChecklist(panel,project){
   }
 }
 
-async function openWorkspace(file,project,host,btn){
+async function openWorkspace(file,project,host,btn,onSubmitted){
  btn.disabled=true;host.replaceChildren(el('p','small','Opening secure document...'));
  try{
  const {data,error}=await client.storage.from('mpid-manuscripts').download(file.storage_path);if(error)throw error;
@@ -402,7 +405,8 @@ async function openWorkspace(file,project,host,btn){
  const latest=history?.[0];if(latest?.content?.html){const doc=new DOMParser().parseFromString(latest.content.html,'text/html');editor.replaceChildren();for(const node of doc.body.childNodes)editor.append(safe(node));}
  const comment=el('textarea');comment.placeholder='Optional comments for your editor';comment.value=latest?.content?.comment||'';comment.maxLength=10000;
  const save=el('button','secondary','Save draft');const submit=el('button','','Submit revisions');save.type=submit.type='button';host.append(comment,save,submit);
- if(latest?.state==='submitted'){comment.disabled=save.disabled=submit.disabled=true;status.textContent='Revisions submitted. Awaiting RSM review.';return;}
+ if(latest?.state==='submitted'){comment.disabled=save.disabled=submit.disabled=true;status.textContent='Revisions submitted. Awaiting RSM review.';
+           void onSubmitted();return;}
  editor.contentEditable='true';editor.setAttribute('role','textbox');editor.setAttribute('aria-multiline','true');editor.setAttribute('aria-label','Manuscript working copy');
  status.textContent='Edit directly in the manuscript below. Save a draft to return later, or submit revisions to notify RSM.';
  let timer,busy=false,dirty=false;
@@ -423,6 +427,7 @@ async function openWorkspace(file,project,host,btn){
      const {error}=await client.from('rsm_author_revision_snapshots').insert({project_id:project.id,source_document_id:file.id,content:snapshot,state}).abortSignal(AbortSignal.timeout(20000));
      if(error)throw error;
      dirty=editor.innerHTML!==snapshot.html||comment.value!==snapshot.comment;
+     if(submitting)void onSubmitted();
      status.textContent=submitting?'Revisions submitted. Awaiting RSM review.':'Draft saved at '+new Date().toLocaleTimeString();
    }catch(e){
      if(submitting){
@@ -430,6 +435,7 @@ async function openWorkspace(file,project,host,btn){
          const {data,error}=await client.from('rsm_author_revision_snapshots').select('id').eq('project_id',project.id).eq('source_document_id',file.id).eq('state','submitted').limit(1).abortSignal(AbortSignal.timeout(8000));
          if(!error&&data?.length){
            status.textContent='Revisions submitted. Awaiting RSM review.';
+           void onSubmitted();
            return;
          }
        }catch(_lookupError){}
