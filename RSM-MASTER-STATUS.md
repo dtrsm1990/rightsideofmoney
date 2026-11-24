@@ -566,3 +566,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | v12 ACTIVE: shared package body paragraph spacing increased to 4pt, retaining 0.2-inch first-line indentation and single spacing.
 
 2026-11-23 | Administrator visually approved v12 package interior formatting. Adopt as RSM universal production typography standard for Publish-Ready, Full Launch and Signature Author. Administrator intends to personally approve and send Maurice's earlier contracted manuscript and audit; release not verified. Optional Signature Author run remains private.
+
+2026-11-24 | Dashboard editorial review streamlined in commit e0a7b3e7d75ade07df8ef80fb5a6623e2405bd41; detailed findings and approval history collapsed, high/critical unresolved exceptions visible. Existing release controls preserved.
