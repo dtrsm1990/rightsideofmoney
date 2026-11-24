@@ -1,3 +1,7 @@
+## 2026-11-24 | Retest by changed functionality
+
+- Retain prior owner acceptance of sample submission, inbox visibility, downloads, editorial generation and office receipt. Test new Word revision behavior with actual stored artifacts. Do not treat a synthetic user backed by an administrator profile as independent author-browser acceptance. Observe new production notifications on authorized real events.
+
 ## 2026-11-24 | Agreement revision allowance and production transition
 
 - Use explicit signed revision terms, with separate audited administrator grants. A fixed number applies only where the terms specify it. Count one submitted batch per source version, with draft saves and job retries excluded. The isolated two-round fixture is test-only.
