@@ -724,7 +724,7 @@ function renderPaymentOverview(){
   const send=document.createElement('button');send.type='button';send.textContent='Send Payment Request';
   const finalFamilyReleaseBlocked=familySplit&&stage==='final'&&!familyFinalApprovedApplications.has(app.id);
   send.disabled=finalFamilyReleaseBlocked||protectedTest||app.agreement_status!=='signed'||!Number.isFinite(expected)||expected<=0||Boolean(installment?.status==='paid')||records.length>0||!matches;
-  send.title=finalFamilyReleaseBlocked?'Family final payment is held until completion and release approval are verified.':protectedTest?'Protected test application: live payment requests prohibited.':'Queues a real payment email. Requires confirmation.';
+  send.title=finalFamilyReleaseBlocked?'Family final payment is held until author proof approval and administrator payment authorization are verified.':protectedTest?'Protected test application: live payment requests prohibited.':'Queues a real payment email. Requires confirmation.';
   send.onclick=async()=>{
    if(protectedTest)return;
    const recipient=String(app.email||'').trim();
@@ -742,7 +742,13 @@ function renderPaymentOverview(){
     message('paymentMessage','Payment request recorded and queued for delivery. Check the notification outbox and Resend delivery status before assuming the email was accepted.',true);
    }catch(e){message('paymentMessage','Payment request NOT confirmed: '+err(e));await loadPayments();}
   };
-  if(!records.length && !paymentDispatchDrafts.some(d=>d.application_id===app.id&&d.payment_stage===stage&&d.dispatch_status==='awaiting_authorization'))actions.append(send);
+  if(stage==='final'&&!installment&&!protectedTest){
+   const prepare=document.createElement('button');prepare.type='button';prepare.className='secondary';prepare.textContent='Prepare Final Installment';
+   prepare.disabled=send.disabled;
+   prepare.onclick=async()=>{prepare.disabled=true;try{await requireAdmin();const {error}=await sb.rpc('rsm_prepare_final_payment',{p_application_id:app.id});if(error)throw error;await loadPayments();message('paymentMessage','Final installment prepared. No payment email was queued.',true);}catch(e){message('paymentMessage','Final installment not prepared: '+err(e));prepare.disabled=false;}};
+   actions.append(prepare);
+  }
+  if(!records.length&&(stage==='final'||!paymentDispatchDrafts.some(d=>d.application_id===app.id&&d.payment_stage===stage&&d.dispatch_status==='awaiting_authorization')))actions.append(send);
   const verify=document.createElement('button');verify.type='button';verify.className='secondary';verify.textContent='Verify Bluevine Payment';
   const latestAccepted=records.some(r=>r.delivery_status==='accepted');
   const outstanding=installment?Math.round((Number(installment.amount_due)-Number(installment.amount_verified||0))*100)/100:0;
