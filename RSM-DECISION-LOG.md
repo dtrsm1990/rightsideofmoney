@@ -1,3 +1,7 @@
+## 2026-11-24 | Revision write and email controls
+
+- Keep authenticated revision insert limited to project ID, source document ID, content and state. Database assigns author identity and continues to enforce project and released-source access. Notify the publishing office upon submitted revisions. Draft saves stay private.
+
 ## 2026-11-24 | Author revision handling
 
 - Confirm a submission with the saved, source-scoped revision after an ambiguous response. Preserve the author’s local edits when confirmation fails. A failed submit must leave an explicit retry path. Live inbox refresh stays on the visible, authenticated Admin Dashboard and uses existing read policies.
