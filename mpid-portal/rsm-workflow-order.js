@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Optional package comparisons are private and independent of the contracted editorial run.
   const comparisonPanel=document.createElement('section');comparisonPanel.className='card';comparisonPanel.id='rsmPackageComparison';
   const comparisonTitle=document.createElement('h2');comparisonTitle.textContent='Manual Package Editorial Audit & Manuscript Editing';
-  const comparisonIntro=document.createElement('p');comparisonIntro.className='note';comparisonIntro.textContent='Run a private editorial audit and generate a corrected manuscript using the selected Publish-Ready, Full Launch, or Signature Author editing standard. Does not change the purchased package, master manuscript, contract, payments, or author access. Current engine supports assembled DOCX up to 18,000 extracted characters. The original and contracted package are preserved.';
+  const comparisonIntro=document.createElement('p');comparisonIntro.className='note';comparisonIntro.textContent='Run a private editorial audit and generate a corrected manuscript using the selected Publish-Ready, Full Launch, or Signature Author editing standard. Does not change the purchased package, master manuscript, contract, payments, or author access. Processes assembled DOCX in saved sections, up to 300,000 extracted characters. The original and contracted package are preserved.';
   const comparisonPackage=document.createElement('select');comparisonPackage.setAttribute('aria-label','Comparison package');
   for(const pkg of ['Publish-Ready','Full Launch','Signature Author']){const opt=document.createElement('option');opt.value=pkg;opt.textContent=pkg;comparisonPackage.append(opt)}
   const comparisonRun=document.createElement('button');comparisonRun.type='button';comparisonRun.textContent='Run Package Audit & Edit Manuscript';
@@ -181,8 +181,18 @@ document.addEventListener('DOMContentLoaded', () => {
     try{
       const {session,cfg}=await getClient();
       comparisonStatus.textContent='Processing private '+pkg+' audit and manuscript editing. Please keep this page open.';
-      const response=await fetch(cfg.url+'/functions/v1/rsm-package-comparison',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value,requested_package:pkg})});
-      const raw=await response.text();let result;try{result=JSON.parse(raw)}catch{throw Error('Processing service returned an unreadable response (HTTP '+response.status+'). Try refreshing the dashboard; if this continues contact support.')}if(!response.ok||!result.ok)throw Error(result.error||'Audit and editing failed (HTTP '+response.status+')');
+      const projectId=reportProject.value;
+      let runId=null,previous=-1;
+      for(let step=0;step<110;step++){
+        const response=await fetch(cfg.url+'/functions/v1/rsm-package-comparison',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:projectId,requested_package:pkg,run_id:runId})});
+        const raw=await response.text();let result;try{result=JSON.parse(raw)}catch{throw Error('Processing service returned an unreadable response (HTTP '+response.status+')')}
+        if(!response.ok||!result.ok)throw Error(result.error||'Audit and editing failed (HTTP '+response.status+')');
+        if(result.status==='review')break;
+        if(result.status!=='processing'||!result.run_id||!Number.isInteger(result.completed_segments)||result.completed_segments<=previous)throw Error('Processing did not advance. Click Run again to resume saved progress.');
+        runId=result.run_id;previous=result.completed_segments;
+        comparisonStatus.textContent='Private '+pkg+' editing: '+result.completed_segments+' of '+result.total_segments+' sections saved. Keep this tab open. If interrupted, select the same package and run again to resume.';
+        if(step===109)throw Error('Processing paused. Click Run again to resume.');
+      }
       await loadComparisons();comparisonStatus.textContent='Private '+pkg+' edited manuscript and audit ready for download and administrator review. No author release.';
     }catch(e){comparisonStatus.textContent='Package audit not completed: '+(e?.message==='Load failed'?'The processing service could not be reached. Refresh this page and retry. If it persists, the connection or service needs attention.':(e?.message||String(e)))}
     finally{comparisonRun.disabled=false}

@@ -546,3 +546,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | Corrected user-facing intent: optional manual package editorial audit and manuscript editing, not package comparison. Addressed Safari Load failed likely Edge Function gateway JWT rejection by deploying rsm-package-comparison v2 with gateway JWT verification off; function still validates bearer identity and mpid_is_admin internally. Dashboard now reports network/HTTP errors clearly. No author release.
 
 2026-11-23 | Diagnosed user-reported package audit Load failed from live Supabase function logs: HTTP 500 and Mammoth 'Could not find file in options' during DOCX extraction. Fixed package audit Edge Function v3 to pass Uint8Array as Mammoth buffer rather than unsupported arrayBuffer option. No manuscript processing or author release performed.
+
+2026-11-23 | Package audit v4 deployed with resumable section processing up to 300,000 extracted characters, source hash, saved section results, private DOCX assembly and excerpt verification flags. Dashboard loops through saved sections and displays progress. No actual generation test yet.

@@ -198,3 +198,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Manual package audit is an editing workflow for the chosen editorial standard, not a comparison or upsell workflow. Preserve contracted package, source manuscript, author access, and all release gates. Gateway JWT verification can be disabled only when function independently validates authenticated user and administrator RPC.
 
 2026-11-23 | Investigate live server logs before attributing package audit failure to browser or network. DOCX extraction in Deno Mammoth requires buffer input; preserve admin-only processing and source integrity.
+
+2026-11-23 | Replace 18,000-character single-call limit with section processing. Preserve selected package and exact source hash; resume interrupted runs; never register complete deliverables before all sections are saved. No automatic author release.
