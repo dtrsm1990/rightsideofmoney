@@ -1,3 +1,8 @@
+## 2026-11-24 | Private Word regeneration and recovery
+
+- Apply verified textual changes to a copy of the exact released Word document to preserve styles, layout and version history. Require editorial review for ambiguous mappings and unsupported structural changes. Keep correction summaries private and require visual pagination review before release.
+- Reuse the existing scheduled worker, office notification and private approval/release workflow. Unique revision events and deliverables make retries safe. Send author notice only through authorized release.
+
 ## 2026-11-24 | Version-specific approval rules
 
 - Formal editorial decisions identify the current released manuscript or report. An approval of a manuscript with submitted changes requires review of a replacement release. Preserve past decisions and the existing final-proof path. Version-specific decisions do not themselves release files or certify print readiness.
