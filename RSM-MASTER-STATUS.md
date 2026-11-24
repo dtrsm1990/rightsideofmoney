@@ -1,3 +1,10 @@
+## 2026-11-24 | Production proof, final payment and delivery gates
+
+- Deployed version-specific production proof approval and transition to Proofing when the released proof has all three existing QA checks. The current proof and its latest author decision control final payment eligibility. Final installment preparation reuses signed pricing and existing Bluevine links with no dispatch. Existing administrator request and settled-payment verification remain separate.
+- Deployed private final ZIP staging and approved release, gated by current author-approved proof and verified signed balance. Release marks the project Completed. The administrator can include completed projects in the project list. Author access remains intact. Worker v28 uses the existing release event for proof and completion notices.
+- Live readback: Publish-Ready project remains in Author Review; agreement signed at $500, $250 verified, no final request and no final release.
+- Actual KDP PDF and cover rendering/preflight, signed-scope asset inventory, authenticated dashboard release and live email delivery remain outstanding. Dashboard upload limit remains 25 MB.
+
 ## 2026-11-24 | Stored Word revision and release verified
 
 - Isolated acceptance project reached Production after an actual stored Word revision, private summary, administrator-approved release of version 2 and version-specific approval. Both Word versions remain in Storage. One round remains. No live project changed and no email sent.
