@@ -1,6 +1,6 @@
 ## 2026-11-24 | Current continuation checkpoint
 
-1. Verify the deployed dashboards using an isolated authenticated author submission and administrator session. Check confirmation, automatic inbox receipt, source locking, and a retry after ambiguous response. The live project is already in Author Review. Leave live files and submissions untouched during testing.
+1. Complete authenticated acceptance using an isolated author submission and administrator session. Check confirmation, automatic inbox receipt, source locking, and a retry after ambiguous response. The live project is already in Author Review. Leave live files and submissions untouched during testing. The sole existing test project lacks an eligible released edited manuscript.
 2. Verify office-only notification processing and provider delivery with authorized test routing. Live revision notices have no delivery evidence yet.
 3. Connect accepted author changes to private versioned regeneration, print QA, admin review and author approval. Carry forward package standards, keep publication and payment gates, and run integrated acceptance.
 
