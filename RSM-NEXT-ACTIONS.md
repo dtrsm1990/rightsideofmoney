@@ -1,3 +1,8 @@
+## 2026-11-24 | Version-specific approval continuation
+
+- Verify administrator Pages publication and run authenticated browser acceptance against a synthetic released document. Production still awaits the actual author's first submission or decision. Prior office-only test reached Resend. Mailbox receipt remains unverified.
+- Connect submitted revisions to private regenerated Word output, administrator approval, controlled replacement release and print preflight. Current author approval accepts the released replacement after review. Do not use synthetic corrections on the live client project.
+
 ## 2026-11-24 | Revision acceptance remaining
 
 - Database acceptance passed after fixing the authenticated insert grant. Published workspace source verified. Check the signed-in browser workflow with a synthetic released Word document. Confirm mailbox receipt of the separately accepted office test and distinguish provider acceptance from mailbox delivery.
