@@ -554,3 +554,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | Signature Author run ea94ad0d-8a39-42c3-ac7b-2f275beb158b resumed successfully and reached review, 8/8 sections persisted. Both private DOCX storage objects verified: edited manuscript 25,585 bytes; editorial audit 25,669 bytes. Admin dashboard reported download controls. No author release; file opening and editorial quality still pending.
 
 2026-11-23 | User reported plain edited Word output unacceptable. Added private 6x9 formatted interior review DOCX generation from existing saved package sections (no AI rerun), separate formatted_manuscript_path, Edge Function v6 and dashboard formatting/download controls. Initial formatting includes serif typography, heading detection, page breaks, margins, footer numbering. NOT final KDP-ready: TOC, front matter validation, project-specific trim, PDF rendering and print QA outstanding.
+
+2026-11-23 | Package editorial engine v7 ACTIVE: shared interior DOCX builder now used automatically on completion and on existing-run formatting. Existing saved sections preserved. Preliminary 6x9 layout only; final print QA outstanding.
