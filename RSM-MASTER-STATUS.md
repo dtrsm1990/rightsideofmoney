@@ -1,3 +1,9 @@
+## 2026-11-24 | Author manuscript corrections and office notification
+
+- Fixed production revision writes after an authenticated-role test reproduced `42501 permission denied for table rsm_author_revision_snapshots`. Migration `grant_author_revision_snapshot_insert_columns` grants authenticated inserts only for the four portal fields. Existing ownership, released-source and duplicate guards remain active.
+- Author Portal commit `535a61a55b4d8fdcbaf1869589eedb4c2b8b4fee` makes inline editing discoverable and retains the open working copy when the button is clicked again. Verified GitHub readback and published source. The current live released manuscript is a Word document with an existing Storage object and matching policy path.
+- Office-only revision test accepted by Resend at 2:28 p.m. Pacific, first attempt, no worker error. Actual inbox receipt and a real client submission are unverified.
+
 ## 2026-11-24 | Author review and submission checkpoint
 
 - Production Supabase migration `advance_editorial_stage_for_released_review_pair` now advances supported early stages to `author_review` when both the released edited manuscript and editorial report link to active documents. The current live Publish-Ready project advanced from `editing` to `author_review`. Both released files were already available. Zero saved revisions and zero author approvals at verification.
