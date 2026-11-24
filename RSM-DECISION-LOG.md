@@ -204,3 +204,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Use integer progress counter for optimistic concurrency rather than serializing manuscript content into a PostgREST filter. Never reset saved segments on retry.
 
 2026-11-23 | Keep successful optional package audit outputs private and separate from contracted deliverables. Administrator must inspect both documents before considering further action.
+
+2026-11-23 | All packages require professional book production; editorial depth differs by package. Preserve saved editorial results and raw drafts; formatted output remains private until final QA. Do not label preliminary layout as KDP-ready.

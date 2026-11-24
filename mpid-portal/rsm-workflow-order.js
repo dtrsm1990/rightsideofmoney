@@ -157,14 +157,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadComparisons=async()=>{
     comparisonResults.replaceChildren();if(!reportProject.value){comparisonStatus.textContent='Select the project above.';return}
     const {client}=await getClient();
-    const {data,error}=await client.from('rsm_package_comparison_runs').select('id,requested_package,status,manuscript_path,audit_path,error_message,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(20);
+    const {data,error}=await client.from('rsm_package_comparison_runs').select('id,requested_package,status,manuscript_path,audit_path,formatted_manuscript_path,error_message,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(20);
     if(error){comparisonStatus.textContent='Comparison history unavailable: '+error.message;return}
     comparisonStatus.textContent=(data||[]).length+' private package audit run(s). Nothing released to author.';
     for(const r of data||[]){
       const item=document.createElement('div');item.className='item';
       const heading=document.createElement('strong');heading.textContent=r.requested_package+' | '+r.status+' | '+new Date(r.created_at).toLocaleString();item.append(heading);
       if(r.error_message){const p=document.createElement('p');p.textContent=r.error_message;item.append(p)}
-      for(const [label,path] of [['Download Edited Manuscript',r.manuscript_path],['Download Editorial Audit',r.audit_path]]){
+      if(r.status==='review'){
+        const format=document.createElement('button');format.type='button';format.textContent=r.formatted_manuscript_path?'Regenerate Formatted Interior':'Format Book Interior for Review';
+        format.addEventListener('click',async()=>{format.disabled=true;try{const {session,cfg}=await getClient();comparisonStatus.textContent='Formatting saved editorial results. No new AI editing request.';const response=await fetch(cfg.url+'/functions/v1/rsm-package-comparison',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value,requested_package:r.requested_package,format_run_id:r.id})});const result=await response.json();if(!response.ok||!result.ok)throw Error(result.error||'Formatting failed');await loadComparisons();comparisonStatus.textContent='Formatted Word interior ready for private layout review. Print PDF and final QA still required.'}catch(e){comparisonStatus.textContent='Formatting failed: '+(e?.message||String(e))}finally{format.disabled=false}});item.append(format);
+      }
+      for(const [label,path] of [['Download Edited Text Draft',r.manuscript_path],['Download Editorial Audit',r.audit_path],['Download Formatted Interior (DOCX)',r.formatted_manuscript_path]]){
         if(!path||r.status!=='review')continue;
         const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;
         b.addEventListener('click',async()=>{b.disabled=true;try{const {client}=await getClient();const {data:blob,error}=await client.storage.from('mpid-manuscripts').download(path);if(error||!blob)throw error||Error('File unavailable');const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=path.split('/').pop();document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}catch(e){comparisonStatus.textContent='Download failed: '+(e?.message||String(e))}finally{b.disabled=false}});item.append(b);

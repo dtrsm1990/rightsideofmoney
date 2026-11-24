@@ -405,3 +405,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23 | PASS read-only verification of 2/8 persisted sections in Signature Author run. PASS counter migration and v5 ACTIVE deployment. NOT TESTED resumed processing or final DOCX generation.
 
 2026-11-23 | PASS live resume from saved sections (user confirmed section 3 onward), database 8/8 and review status, both storage objects with DOCX MIME and nonzero sizes. PASS user-reported dashboard completion and download controls. NOT TESTED actual Word opening, content completeness, layout, editorial quality, or other packages.
+
+2026-11-23 | PASS database additive column and v6 deployment ACTIVE; PASS static dashboard integration. NOT TESTED formatted DOCX opening or pagination. User confirmed prior raw draft opens but lacks professional formatting.
