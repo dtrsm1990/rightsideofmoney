@@ -1,3 +1,8 @@
+## 2026-11-24 | Remaining acceptance after office receipt
+
+- Office test receipt confirmed. Match the received timestamp or the newer message body mentioning the synthetic Word revision and correction summary to attribute the exact outbox row. Do not send another email test.
+- The isolated project has no released Word specimen. Stage and release a synthetic DOCX in an authenticated administrator session, then use the isolated author session to edit, submit and approve the replacement. Verify actual private Storage downloads, visual layout and browser status. Use only the isolated project.
+
 ## 2026-11-24 | Consolidated acceptance remaining
 
 - Published dashboard verified. Generator runtime and database regressions passed separately. Complete end-to-end acceptance with an authenticated synthetic author, real synthetic Word storage, signed-in administrator and office inbox access. Verify submission confirmation, inbox visibility, staged output review, replacement approval, and receipt of the isolated 2:41 p.m. Pacific test email.
