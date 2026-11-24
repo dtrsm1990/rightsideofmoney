@@ -39,7 +39,7 @@
 <header><div><div class="brand">RSM PUBLISHING SERVICES</div><div class="sub">SECURE AUTHOR PORTAL | PROJECT ACCESS</div></div><button id="signout" class="secondary" hidden>Sign Out</button></header>
 <main class="container">
 <section id="loginSection"><h1>Author Portal</h1><p>Sign in to review your publishing projects and access your authorized documents.</p>
-<div class="panel" id="setupPanel" hidden><h2>One-time portal setup</h2><p class="small">Enter the Supabase publishable key once on this device. Never use a secret or service-role key. This setting is saved in this browser.</p><label class="field">Supabase publishable key<input id="key" type="text" placeholder="sb_publishable_..." autocomplete="off" spellcheck="false"></label><div class="actions"><button id="connect" type="button">Save connection</button></div></div>
+
 <div class="panel" id="signInPanel"><h2>Sign in to your author account</h2><form id="loginForm"><div class="grid"><label class="field">Email<input id="email" type="email" required autocomplete="username"></label><label class="field">Password<input id="password" type="password" required autocomplete="current-password"></label></div><button id="login" type="submit" disabled>Sign In</button></form></div>
 <div class="panel" id="activationPanel" hidden><h2>Activate your RSM Publishing Services account</h2><p>Choose a password to complete your invitation.</p><form id="activationForm"><label class="field">New password<input id="newPassword" type="password" required minlength="12" autocomplete="new-password"></label><button type="submit" id="activate">Activate Account</button></form></div>
 </section>
@@ -77,11 +77,10 @@ function mpidProgressMarkup(status){
 
 const $=id=>document.getElementById(id);let client=null;let activeUser=null;
 const SUPABASE_URL='https://rufcgmqpueejoyypnpzn.supabase.co';
-const STORAGE_KEY='mpid_public_key_v1';
-function initialize(key){
- if(!key || !/^(sb_publishable_|eyJ)/.test(key))throw Error('Use a Supabase publishable or legacy anon key, not a secret key.');
- client=createClient(SUPABASE_URL,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'implicit'}});
- busy('login',false);$('setupPanel').hidden=true;
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_OhU0hXDnWw9OGkyUXHi7hA_j1kYFkei';
+function initialize(){
+ client=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'implicit'}});
+ busy('login',false);
  client.auth.onAuthStateChange((_event,session)=>{
    if(session?.user && !$('activationPanel').hidden)return;
    if(!session?.user && activeUser){displayLogin();$('projects').replaceChildren()}
@@ -100,7 +99,7 @@ function normalizeUrl(s){let u;try{u=new URL(s.trim())}catch{throw Error('Enter 
 function displayLogin(){activeUser=null;$('dashboard').hidden=true;$('loginSection').hidden=false;$('signout').hidden=true}
 function displayDashboard(){ $('loginSection').hidden=true;$('dashboard').hidden=false;$('signout').hidden=false }
 function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x}
-$('connect').onclick=async()=>{try{const key=$('key').value.trim();await initialize(key);localStorage.setItem(STORAGE_KEY,key);msg('Connection saved on this device.','success')}catch(e){msg('Setup failed: '+e.message,'error')}};
+
 $('activationForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return;busy('activate',true);try{const password=$('newPassword').value;if(password.length<12)throw Error('Use at least 12 characters.');const {error}=await client.auth.updateUser({password});if(error)throw error;$('newPassword').value='';$('activationPanel').hidden=true;$('signInPanel').hidden=false;history.replaceState({},'',location.pathname);const {data}=await client.auth.getUser();if(!data.user)throw Error('Please sign in with your new password.');activeUser=data.user;displayDashboard();await loadDashboard()}catch(e){msg('Activation failed: '+e.message,'error')}finally{busy('activate',false)}};
 $('loginForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return msg('Portal connection is not configured.','error');busy('login',true);msg('Signing in...');try{const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;activeUser=data.user;$('password').value='';displayDashboard();await loadDashboard()}catch(e){msg('Sign-in error: '+e.message,'error')}finally{busy('login',false)}};
 $('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();msg('Signed out.','success')};
@@ -118,7 +117,7 @@ $('accountPasswordForm').onsubmit=async ev=>{
  finally{busy('saveAccountPassword',false)}
 };
 $('refresh').onclick=loadDashboard;
-(async()=>{const key=localStorage.getItem(STORAGE_KEY);if(!key){$('setupPanel').hidden=false;return}try{await initialize(key)}catch(e){$('setupPanel').hidden=false;msg('Saved connection failed: '+e.message,'error')}})();
+(async()=>{try{await initialize()}catch(e){msg('Author portal connection unavailable. Please contact RSM Publishing Services: '+e.message,'error')}})();
 async function loadDashboard(){
  if(!client||!activeUser)return;
  busy('refresh',true);msg('Loading your projects, documents, and editorial findings...');$('projects').replaceChildren();
