@@ -1,3 +1,9 @@
+## 2026-11-24 | Actual test specimen and allowance regression
+
+- PASS actual synthetic DOCX generated, reopened, uploaded and released as version 1 on `RSM TEST | Private Editorial Workflow`. Storage size 8,745 bytes. Zero release emails. Visual inspection and dashboard download remain pending.
+- PASS rollback: two included rounds, duplicate rejection, exhaustion, idempotent additional-round authorization and correct balance. PASS approval of current generated replacement advances the isolated project to Production. No live project writes.
+- Dashboard syntax checks passed. Both public URLs served login screens but the first checks did not yet expose the new allowance code. Signed-in full lifecycle remains pending.
+
 ## 2026-11-24 | Office notification receipt and isolated release check
 
 - PASS, office receipt of synthetic Author Revision Received notification, owner-confirmed. The requested test `a42dcfa1-d8fc-4027-ba71-7e201d452ed5` was accepted at 2:41:03 p.m. Pacific on attempt 1 without error or a client association. Same-subject prior test `2da83881-610d-47c9-b885-0d976c2a46b7` was accepted at 2:28:00 p.m. Pacific. Exact row correlation awaits received message time or body. Do not resend for correlation.
