@@ -202,3 +202,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Replace 18,000-character single-call limit with section processing. Preserve selected package and exact source hash; resume interrupted runs; never register complete deliverables before all sections are saved. No automatic author release.
 
 2026-11-23 | Use integer progress counter for optimistic concurrency rather than serializing manuscript content into a PostgREST filter. Never reset saved segments on retry.
+
+2026-11-23 | Keep successful optional package audit outputs private and separate from contracted deliverables. Administrator must inspect both documents before considering further action.
