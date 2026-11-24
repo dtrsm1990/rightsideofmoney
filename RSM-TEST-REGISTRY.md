@@ -1,3 +1,8 @@
+## 2026-11-24 | Office notification receipt and isolated release check
+
+- PASS, office receipt of synthetic Author Revision Received notification, owner-confirmed. The requested test `a42dcfa1-d8fc-4027-ba71-7e201d452ed5` was accepted at 2:41:03 p.m. Pacific on attempt 1 without error or a client association. Same-subject prior test `2da83881-610d-47c9-b885-0d976c2a46b7` was accepted at 2:28:00 p.m. Pacific. Exact row correlation awaits received message time or body. Do not resend for correlation.
+- PASS, rollback-only database test on isolated project: one generation request, two idempotently registered private outputs, administrator release of version 2 and zero email jobs. Storage entries were synthetic rollback metadata. Authenticated browser and real synthetic artifact acceptance remain open.
+
 ## 2026-11-24 | Private revision production and publication checks
 
 - Public Admin Dashboard standard URL served committed approval version label and generation retry code. GitHub readback matched the full replacement.
