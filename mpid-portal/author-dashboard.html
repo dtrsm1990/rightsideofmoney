@@ -391,14 +391,56 @@ async function openWorkspace(file,project,host,btn){
  host.replaceChildren(el('h3','',file.file_name),status,editor);
  for(const node of parsed.body.childNodes)editor.append(safe(node));
  if(!editable)return;
- const {data:history,error:he}=await client.from('rsm_author_revision_snapshots').select('id,content,state,created_at').eq('project_id',project.id).eq('source_document_id',file.id).order('created_at',{ascending:false}).limit(1);if(he)throw he;
+ const {data:history,error:he}=await client.from('rsm_author_revision_snapshots').select('id,content,state,created_at').eq('project_id',project.id).eq('source_document_id',file.id).order('state',{ascending:false}).order('created_at',{ascending:false}).limit(1);if(he)throw he;
  const latest=history?.[0];if(latest?.content?.html){const doc=new DOMParser().parseFromString(latest.content.html,'text/html');editor.replaceChildren();for(const node of doc.body.childNodes)editor.append(safe(node));}
  const comment=el('textarea');comment.placeholder='Optional comments for your editor';comment.value=latest?.content?.comment||'';comment.maxLength=10000;
  const save=el('button','secondary','Save draft');const submit=el('button','','Submit revisions');save.type=submit.type='button';host.append(comment,save,submit);
  if(latest?.state==='submitted'){comment.disabled=save.disabled=submit.disabled=true;status.textContent='Revisions submitted. Awaiting RSM review.';return;}
  editor.contentEditable='true';editor.setAttribute('role','textbox');editor.setAttribute('aria-label','Manuscript working copy');
  let timer,busy=false,dirty=false;
- async function persist(state){if(busy)return;busy=true;save.disabled=submit.disabled=true;clearTimeout(timer);const snapshot={html:editor.innerHTML,comment:comment.value};try{const {error}=await client.from('rsm_author_revision_snapshots').insert({project_id:project.id,source_document_id:file.id,content:snapshot,state});if(error)throw error;dirty=editor.innerHTML!==snapshot.html||comment.value!==snapshot.comment;status.textContent=state==='submitted'?'Revisions submitted. Awaiting RSM review.':'Draft saved at '+new Date().toLocaleTimeString();if(state==='submitted'){editor.contentEditable='false';comment.disabled=true;return;} }catch(e){status.textContent='Save failed: '+e.message;dirty=true;}finally{busy=false;if(editor.contentEditable==='true'){save.disabled=submit.disabled=false;if(dirty)timer=setTimeout(()=>persist('draft'),5000);}}}
+ status.setAttribute('role','status');
+ async function persist(state){
+   if(busy)return;
+   const submitting=state==='submitted';
+   busy=true;
+   save.disabled=submit.disabled=true;
+   clearTimeout(timer);
+   if(submitting){
+     editor.contentEditable='false';
+     comment.disabled=true;
+   }
+   status.textContent=submitting?'Submitting revisions...':'Saving draft...';
+   const snapshot={html:editor.innerHTML,comment:comment.value};
+   try{
+     const {error}=await client.from('rsm_author_revision_snapshots').insert({project_id:project.id,source_document_id:file.id,content:snapshot,state}).abortSignal(AbortSignal.timeout(20000));
+     if(error)throw error;
+     dirty=editor.innerHTML!==snapshot.html||comment.value!==snapshot.comment;
+     status.textContent=submitting?'Revisions submitted. Awaiting RSM review.':'Draft saved at '+new Date().toLocaleTimeString();
+   }catch(e){
+     if(submitting){
+       try{
+         const {data,error}=await client.from('rsm_author_revision_snapshots').select('id').eq('project_id',project.id).eq('source_document_id',file.id).eq('state','submitted').limit(1).abortSignal(AbortSignal.timeout(8000));
+         if(!error&&data?.length){
+           status.textContent='Revisions submitted. Awaiting RSM review.';
+           return;
+         }
+       }catch(_lookupError){}
+       editor.contentEditable='true';
+       comment.disabled=false;
+     }
+     dirty=true;
+     status.textContent=submitting?'Submission could not be confirmed. Your edits are still here. Select Submit revisions to retry. '+e.message:'Draft could not be saved. Select Save draft to retry. '+e.message;
+   }finally{
+     busy=false;
+     if(editor.contentEditable==='true'){
+       save.disabled=submit.disabled=false;
+       if(!submitting&&dirty&&(editor.innerHTML!==snapshot.html||comment.value!==snapshot.comment)){
+         clearTimeout(timer);
+         timer=setTimeout(()=>persist('draft'),3000);
+       }
+     }
+   }
+ }
  function changed(){dirty=true;status.textContent='Unsaved changes';clearTimeout(timer);timer=setTimeout(()=>persist('draft'),3000);}
  editor.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'));});editor.addEventListener('drop',e=>e.preventDefault());editor.addEventListener('input',changed);comment.addEventListener('input',changed);save.onclick=()=>persist('draft');submit.onclick=()=>{if(confirm('Submit this working copy to RSM for review?'))persist('submitted');};
  }catch(e){host.replaceChildren(el('p','small','Workspace unavailable: '+e.message+'. Existing downloads remain available.'));}finally{btn.disabled=false;}
