@@ -411,3 +411,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23 | PASS deployment v7 ACTIVE and deployed-source inspection confirms automatic interior builder and administrator RPC retained. NOT TESTED authenticated generation, actual DOCX layout, PDF or KDP proof.
 
 2026-11-23 | PASS live saved text inspection confirms four funding fee rows; PASS v8 deployment and source checks. NOT TESTED actual Word rendering, table pagination, all headings or KDP PDF.
+
+2026-11-23 | PASS v10 deployment and deployed-source heading formatter sample execution; user reported v9 nearly acceptable. Actual v10 DOCX visual QA and PDF readiness pending.
