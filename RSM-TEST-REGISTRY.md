@@ -1,3 +1,9 @@
+## 2026-11-24 | Private revision production and publication checks
+
+- Public Admin Dashboard standard URL served committed approval version label and generation retry code. GitHub readback matched the full replacement.
+- Deployed worker v22 generated and re-read a synthetic Word revision, built its correction summary, and sent one isolated office-only email accepted by Resend at 2:41 p.m. Pacific on attempt 1. Outbox ID `a42dcfa1-d8fc-4027-ba71-7e201d452ed5`. Mailbox receipt unverified.
+- Rolled-back database regressions passed: one submission notice plus one generation event, reject missing staged outputs, idempotent private registration, enforce summary privacy and approval gate, release replacement version once, queue one author notice, reject stale approval and allow current replacement approval. Release test used synthetic storage metadata inside the transaction. No author email, actual release or persisted fixtures.
+
 ## 2026-11-24 | Revision to version-specific approval regression
 
 - Passed rollback-only authenticated database regression: submit corrections, queue one office event, deny approval of the submitted source, release a synthetic replacement, deny approval of the stale source, accept approval of the current replacement, and read decision and source as an administrator. No fixture data persisted and no test email sent during this regression.
