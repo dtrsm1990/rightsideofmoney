@@ -1,3 +1,8 @@
+## 2026-11-24 | Agreement revision allowance and production transition
+
+- Use explicit signed revision terms, with separate audited administrator grants. A fixed number applies only where the terms specify it. Count one submitted batch per source version, with draft saves and job retries excluded. The isolated two-round fixture is test-only.
+- Approval of a current generated replacement advances an Editing or Author Review project to Production. Payment and final release controls remain independent.
+
 ## 2026-11-24 | Email-free test project acceptance
 
 - Isolated projects exercise the production generation, private review and versioned release path. Only a generation event tied to a real submitted snapshot can pass the existing test notification guard. Worker v23 skips email for that event on test projects. Test releases queue no author email.
