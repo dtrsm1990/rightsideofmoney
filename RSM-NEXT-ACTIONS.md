@@ -647,3 +647,5 @@ Use this instruction:
 2026-11-23 | [x] Add private formatted interior DOCX generation without AI rerun. [ ] Validate actual formatted file; implement project-specific trim, front matter, TOC, print PDF rendering, gutter/page QA, and automatic production integration.
 
 2026-11-23 | [x] Integrate preliminary interior builder into automatic package completion (v7). [ ] Improve source-aware structure, trim specifications, tables, front matter, TOC, print PDF and QA. [ ] Validate existing saved run via format action without AI rerun.
+
+2026-11-23 | [x] Deploy v8 layout improvements. [ ] Format latest saved run and inspect DOCX; verify source heading hierarchy, title-case headings, TOC, trim and PDF QA.
