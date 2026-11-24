@@ -1,3 +1,9 @@
+## 2026-11-24 | Next production work
+
+- Produce and validate rendered print PDFs from approved manuscripts when released to Production. Use signed scope to verify paperback, Kindle, cover and hardcover obligations where applicable. Add machine preflight and preserve visual proof review. No actual KDP file or cover has been certified by the gate regression.
+- Verify final ZIP bytes, signed-scope inventory, authenticated portal behavior and production notification delivery on authorized work. Current ZIP upload limit is 25 MB. Leave live final payment and releases held until production proof and administrator actions are complete.
+- Live project remains in Author Review with $250 outstanding. No repeated revision test or separate test-author account required for administrator preview.
+
 ## 2026-11-24 | Remaining operator involvement
 
 - No repeat of sample submission, inbox visibility, generic manuscript download, original editorial generation or office receipt. Isolated real-artifact backend lifecycle complete through Production.
