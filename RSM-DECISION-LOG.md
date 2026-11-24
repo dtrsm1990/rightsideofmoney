@@ -208,3 +208,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | All packages require professional book production; editorial depth differs by package. Preserve saved editorial results and raw drafts; formatted output remains private until final QA. Do not label preliminary layout as KDP-ready.
 
 2026-11-23 | Package selection is editorial processing, not comparison. Automatically format every package on completion; retain internal identifiers for compatibility. Do not label preliminary DOCX KDP-ready.
+
+2026-11-23 | Reuse approved production standards across packages; left align body to avoid excessive justification gaps. Retain private review gate.
