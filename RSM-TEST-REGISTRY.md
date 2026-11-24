@@ -417,3 +417,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23 | PASS v11 deployment and deployed-source checks for shared builder, indentation, spacing and administrator gate. User visually accepted v10 heading appearance. v11 visual review and PDF QA pending.
 
 2026-11-23 | User confirmed v11 indentation visible but requested paragraph spacing. PASS v12 deployment and deployed-source spacing check; visual review pending.
+
+2026-11-23 | PASS administrator visual acceptance of v12 formatting (user reported looks good). This is not PDF/KDP preflight or acceptance of every package execution. Earlier contracted manuscript/audit release not yet verified.
