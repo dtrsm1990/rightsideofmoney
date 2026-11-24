@@ -1,3 +1,9 @@
+## 2026-11-24 | Revision permissions and notification acceptance
+
+- Before migration, authenticated insert reproduced SQLSTATE 42501. After `grant_author_revision_snapshot_insert_columns`, a rolled-back synthetic transaction verified authenticated author insert and read, duplicate rejection, admin read, and exactly one pending live office event. No synthetic revision or live event persisted. Anonymous insert and authenticated insert of author identity remain disallowed.
+- Separate office-only test notification was marked sent on attempt 1 after Resend acceptance. No client was contacted. Mailbox receipt unverified.
+- Author Portal source syntax, GitHub readback and published source verified for `535a61a55b4d8fdcbaf1869589eedb4c2b8b4fee`. Authenticated browser conversion and editing remain to be exercised.
+
 ## 2026-11-24 | Author submission and review-stage checks
 
 - Verified both committed dashboard files against validated complete replacements. Inline JavaScript syntax checks passed. Mocked author submission checks passed for successful write, lost response with saved row, and failed write with a retry available. These checks did not use a live author account.
