@@ -1,3 +1,8 @@
+## 2026-11-24 | Office receipt and isolated browser acceptance
+
+- Owner confirmed receipt of the Author Revision Received office test in response to the 2:41 p.m. Pacific acceptance request. The requested synthetic outbox row `a42dcfa1-d8fc-4027-ba71-7e201d452ed5` is sent, attempt 1, no error, with no author or project ID. A prior 2:28 p.m. test used the same subject. Exact message-to-row identification requires the received message time or body. Office delivery of a synthetic notification is confirmed.
+- Worker v23 and migrations `enable_email_suppressed_test_project_revision_acceptance` and `allow_only_no_mail_generation_jobs_for_test_projects` permit verified generation jobs for isolated projects while suppressing their emails. Rolled-back regression passed generation queue, private registration and administrator release of version 2 with no email jobs.
+
 ## 2026-11-24 | Automated private revision generation
 
 - Production notification worker v22 processes author revision events and stages a revised Word manuscript plus private correction summary. Migration `queue_and_register_private_author_revision_outputs` links both outputs to the submitted revision, verifies both staging objects, rejects superseded sources and keeps the correction summary private. The existing administrator approval and release controls publish the replacement version and queue author notice.
