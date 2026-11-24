@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const byName = (name) => sections.find(s => s.querySelector('h2')?.textContent.trim() === name);
   const get = (id) => document.getElementById(id) || byName(id);
   const stages = [
-    ['Application, Agreement & Payment', ['rsmNextActionCenter','applicationCenter','signwellIntegration','paymentCenter','rsmOperationsCenter']],
-    ['Author Onboarding & Manuscript Intake', ['authorInvitations','applicantManuscriptCenter','manuscriptRecoveryCenter','Publishing Projects','Create a Publishing Project','Manage Project','Project Details','Upload a Project Document','submissionCenter']],
-    ['Manuscript Processing', ['manuscriptProcessing','rsmEditingEngine']],
-    ['Editorial Audit & Quality Assurance', ['editorialAuditCenter','Add an Editorial Finding']],
-    ['Author Review & Approval', ['checklistCenter','editorialStaging']],
+    ['Application, Agreement & Initial Payment', ['rsmNextActionCenter','applicationCenter','signwellIntegration','paymentCenter','rsmOperationsCenter']],
+    ['Author Onboarding & Manuscript Intake', ['authorInvitations','Publishing Projects','Create a Publishing Project','Manage Project','applicantManuscriptCenter','manuscriptRecoveryCenter','submissionCenter','Upload a Project Document','Project Details']],
+    ['Manuscript Processing', ['rsmEditingEngine','manuscriptProcessing']],
+    ['Editorial Audit & Quality Assurance', ['editorialAuditCenter','Add an Editorial Finding','editorialStaging']],
+    ['Author Review & Approval', ['checklistCenter']],
     ['Book Production & Proofing', ['Publication Readiness QA']],
     ['Final Payment & Publication Readiness', ['aiCostCenter','Operational Notes']]
   ];
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index === 6) {
       const note = document.createElement('p');
       note.className = 'note';
-      note.textContent = 'Final payment and publication release remain subject to verified completion, contractual requirements, and administrator approval. Use the Payment Management Center in Stage 1 for payment records.';
+      note.textContent = 'Before final delivery, verify the final payment in the Stage 1 Payment Management Center, confirm author approvals and production QA, and authorize publication readiness. This stage does not automatically publish or charge the author.';
       stage.append(note);
     }
     ids.forEach(id => {
@@ -54,6 +54,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     holder.append(stage);
   });
+  // Keep the legacy manual processing tools accessible without cluttering the active workflow.
+  const legacyProcessing=document.getElementById('manuscriptProcessing');
+  if(legacyProcessing){
+    legacyProcessing.hidden=true;
+    const legacyStage=document.getElementById('rsm-workflow-stage-3');
+    if(legacyStage){
+      const legacyTools=document.createElement('details');
+      legacyTools.id='rsmLegacyProcessingTools';
+      const legacySummary=document.createElement('summary');
+      legacySummary.textContent='Legacy Manual Processing (advanced troubleshooting only)';
+      legacyTools.append(legacySummary,legacyProcessing);
+      legacyStage.append(legacyTools);
+      legacyTools.addEventListener('toggle',()=>{legacyProcessing.hidden=!legacyTools.open});
+    }
+  }
   // Private, administrator-only assembled manuscript intake.
   const intakePanel=document.createElement('section');
   intakePanel.className='card';
