@@ -650,7 +650,7 @@ function renderPaymentOverview(){
  if(familySplit&&!protectedTest){
   const approval=document.createElement('div');approval.className='payment-row';
   const heading=document.createElement('h3');heading.textContent='Final Installment Completion Approval';approval.append(heading);
-  const status=document.createElement('p');status.className='note';status.textContent=familyFinalApprovedApplications.has(app.id)?'Completion approval verified. Final payment may be requested after initial payment verification.':'Final payment locked until project completion and administrator approval.';approval.append(status);
+  const status=document.createElement('p');status.className='note';status.textContent=familyFinalApprovedApplications.has(app.id)?'Completion approval verified. Final payment may be requested after initial payment verification.':'Final payment is held until the current production proof passes QA and receives author approval.';approval.append(status);
   const projectInput=document.createElement('select');projectInput.setAttribute('aria-label','Completed publishing project');
   const placeholder=document.createElement('option');placeholder.value='';placeholder.textContent='Select completed publishing project';projectInput.append(placeholder);
   const refreshProjects=document.createElement('button');refreshProjects.type='button';refreshProjects.className='secondary';refreshProjects.textContent='Load Completed Projects';
@@ -668,11 +668,11 @@ function renderPaymentOverview(){
    finally{refreshProjects.disabled=false;}
   };
   const reason=document.createElement('textarea');reason.placeholder='Document completion evidence and reason for approval (minimum 12 characters)';reason.setAttribute('aria-label','Completion approval reason');
-  const approve=document.createElement('button');approve.type='button';approve.textContent='Approve Completed Project for Final Payment';approve.disabled=familyFinalApprovedApplications.has(app.id);
+  const approve=document.createElement('button');approve.type='button';approve.textContent='Authorize Final Payment After Proof Approval';approve.disabled=familyFinalApprovedApplications.has(app.id);
   approve.onclick=async()=>{
    if(!projectInput.value){message('paymentMessage','Select a completed project first.');return;}
    if(reason.value.trim().length<12){message('paymentMessage','Enter a completion approval reason of at least 12 characters.');return;}
-   if(!confirm('Approve completed project for final payment eligibility? This records an administrator approval, but does not send an email.'))return;
+   if(!confirm('Authorize final payment eligibility for the approved proof? This records eligibility only.'))return;
    approve.disabled=true;
    try{await requireAdmin();const {data,error}=await sb.rpc('rsm_approve_family_final',{p_application_id:app.id,p_project_id:projectInput.value.trim(),p_reason:reason.value.trim()});if(error)throw error;if(!data?.approved)throw Error('Approval not confirmed');await loadPayments();message('paymentMessage','Project completion approved. No payment request sent.',true);}
    catch(e){message('paymentMessage','Completion approval failed: '+err(e));approve.disabled=false;}
@@ -1468,7 +1468,10 @@ function renderDetails(){
  }).join('');
  const docHtml=(items,isArchived)=>items.map(x=>'<div class="item"><strong>'+esc(x.file_name)+'</strong><div class="muted small">'+esc(x.document_type)+' · Version '+esc(x.version||1)+(isArchived?' · Archived '+esc(new Date(x.archived_at).toLocaleString('en-US',MPID_DATE_OPTIONS)):'')+'</div><div class="actions"><button class="secondary" data-file="'+esc(x.storage_path)+'">Download</button><button class="secondary" data-document-id="'+esc(x.id)+'" data-archive="'+(isArchived?'false':'true')+'">'+(isArchived?'Restore':'Archive')+'</button><button class="danger" data-delete-document-id="'+esc(x.id)+'">Delete</button></div></div>').join('');
  $('details').innerHTML='<div style="grid-column:1/-1">'+mpidProgressMarkup(projects.find(p=>p.id===id)?.status)+'</div><div><h3>Active Documents ('+active.length+')</h3><div class="list">'+(docHtml(active,false)||'<div class="muted">No active document records.</div>')+'</div><h3 style="margin-top:24px">Archived Documents ('+archived.length+')</h3><p class="note">Archived documents remain recoverable. Only administrators can manage them.</p><div class="list">'+(docHtml(archived,true)||'<div class="muted">No archived documents.</div>')+'</div></div><div><h3>Editorial Findings ('+f.length+')</h3><div class="list">'+(f.map(x=>'<div class="item"><strong>'+esc(x.dimension)+'</strong> · '+esc(x.severity)+'<p>'+esc(x.finding)+'</p><div class="muted small">'+esc(x.recommendation)+'</div></div>').join('')||'<div class="muted">No findings yet.</div>')+'</div></div><div><h3>Author Approvals ('+a.length+')</h3><div class="list">'+(approvalHtml||'<div class="muted">No approvals yet.</div>')+'</div></div>';
- if(id){$('details').prepend(roundPanel);void showRevisionAllowance();}
+ if(id){
+ const finalStatus=document.createElement('p');finalStatus.className='note';$('details').prepend(roundPanel,finalStatus);void showRevisionAllowance();
+ void sb.rpc('rsm_project_final_readiness',{p_project:id}).then(({data,error})=>{if(!finalStatus.isConnected)return;finalStatus.textContent=error?'Final readiness unavailable: '+err(error):'Final proof '+(data.proof_accepted?'approved by the author':data.proof_document_id?'awaiting author decision':'awaiting QA and release')+' · '+(data.payment_verified?'payment verified':data.balance==null?'signed balance unavailable':paymentMoney(data.balance)+' contract balance');});
+ }
  $('details').querySelectorAll('[data-file]').forEach(b=>b.onclick=async()=>{try{await requireAdmin();const path=b.getAttribute('data-file');if(!path)throw new Error('Document record has no storage path.');const {data,error}=await sb.storage.from('mpid-manuscripts').download(path);if(error)throw error;const url=URL.createObjectURL(data),a=document.createElement('a');a.href=url;a.download=path.split('/').pop()||'document';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){alert('Download failed: '+err(e))}});
  $('details').querySelectorAll('[data-document-id]').forEach(b=>b.onclick=async()=>{
   const documentId=b.getAttribute('data-document-id'),archive=b.getAttribute('data-archive')==='true';
