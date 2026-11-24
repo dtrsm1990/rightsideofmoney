@@ -1,3 +1,7 @@
+## 2026-11-24 | Version-specific approval rules
+
+- Formal editorial decisions identify the current released manuscript or report. An approval of a manuscript with submitted changes requires review of a replacement release. Preserve past decisions and the existing final-proof path. Version-specific decisions do not themselves release files or certify print readiness.
+
 ## 2026-11-24 | Revision write and email controls
 
 - Keep authenticated revision insert limited to project ID, source document ID, content and state. Database assigns author identity and continues to enforce project and released-source access. Notify the publishing office upon submitted revisions. Draft saves stay private.
