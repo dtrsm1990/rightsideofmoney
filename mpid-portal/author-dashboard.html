@@ -197,10 +197,10 @@ async function loadDashboard(){
    reviewGuide.append(el('h3','', 'How to Review and Respond to Editorial Documents'));
    reviewGuide.append(el('p','small','When RSM Publishing Services releases an edited manuscript or editorial audit, follow these steps before submitting your decision.'));
    const guideSteps=[
-    '1. Under Project Documents, find the exact file name and version mentioned in your notification. Select Download to save a copy. Open Word documents in Microsoft Word or a compatible reader.',
+    '1. Under Project Documents, choose Open and edit manuscript to read and revise your working copy here. Select Download if you also want a Word copy.',
     '2. For an Edited Manuscript, read the complete document. Check the title, author name, foreword, chapters, factual statements, tables, wording, and formatting. Note anything missing or inaccurate.',
     '3. For an Editorial Audit, read each finding and recommendation. Compare the finding with your manuscript and identify questions or changes you would like considered.',
-    '4. Under Author Approvals & Revision Requests, choose Revised manuscript for the edited manuscript, or Editorial changes for the editorial audit.',
+    '4. In the manuscript workspace, select Submit revisions when your edits and comments are ready. RSM receives your submitted revision for review. Use Author Approvals & Revision Requests to record your approval decision.',
     '5. Choose Approve only if you accept what you reviewed. Otherwise choose Request revisions and describe each correction, including the file name, version, chapter or page, paragraph, and desired wording.',
     '6. Select Submit Formal Decision and confirm. Your response is recorded in Decision History. Contact publishing@rightsideofmoney.com if you need help. Do not email your password or confidential manuscript.'
    ];
@@ -224,7 +224,7 @@ async function loadDashboard(){
      for(const [label,download] of [['View',false],['Download',true]]){
       const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(file.storage_path,file.file_name,download,btn);actions.append(btn)
      }
-     row.append(left,actions);list.append(row);if(['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name)){const host=el('div');const open=el('button','secondary',file.document_type==='edited_manuscript'?'Open manuscript workspace':'Read editorial audit');open.type='button';open.onclick=()=>openWorkspace(file,project,host,open);actions.prepend(open);list.append(host);}
+     row.append(left,actions);list.append(row);if(['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name)){const host=el('div');const open=el('button','secondary',file.document_type==='edited_manuscript'?'Open and edit manuscript':'Read editorial audit');open.type='button';open.onclick=()=>{if(host.firstElementChild&&!host.querySelector('[data-workspace-error]')){host.scrollIntoView({block:'nearest'});return;}void openWorkspace(file,project,host,open);};actions.prepend(open);list.append(host);}
     }
    }
    panel.append(el('h3','', 'Editorial Findings'));
@@ -383,7 +383,7 @@ async function openWorkspace(file,project,host,btn){
  const mammoth=await import('https://cdn.jsdelivr.net/npm/mammoth@1.9.0/+esm');
  const result=await (mammoth.default||mammoth).convertToHtml({arrayBuffer:await data.arrayBuffer()});
  const parsed=new DOMParser().parseFromString(result.value,'text/html');
- const allowed=new Set(['P','H1','H2','H3','H4','H5','H6','STRONG','B','EM','I','U','S','BR','TABLE','TBODY','THEAD','TR','TD','TH','UL','OL','LI','BLOCKQUOTE','SUP','SUB']);
+ const allowed=new Set(['P','DIV','H1','H2','H3','H4','H5','H6','STRONG','B','EM','I','U','S','BR','TABLE','TBODY','THEAD','TR','TD','TH','UL','OL','LI','BLOCKQUOTE','SUP','SUB']);
  function safe(node){if(node.nodeType===3)return document.createTextNode(node.textContent);const out=document.createDocumentFragment();if(node.nodeType!==1||['SCRIPT','STYLE','IFRAME','OBJECT','IMG'].includes(node.tagName))return out;const target=allowed.has(node.tagName)?document.createElement(node.tagName):out;for(const child of node.childNodes)target.append(safe(child));return target;}
  const editor=el('div');editor.style.cssText='background:white;color:#171717;padding:24px;border:1px solid #aaa;border-radius:8px;max-height:70vh;overflow:auto;font:16px/1.6 Georgia,serif;overflow-wrap:anywhere';
  const editable=file.document_type==='edited_manuscript'&&!['completed','on_hold'].includes(project.status);
@@ -396,7 +396,8 @@ async function openWorkspace(file,project,host,btn){
  const comment=el('textarea');comment.placeholder='Optional comments for your editor';comment.value=latest?.content?.comment||'';comment.maxLength=10000;
  const save=el('button','secondary','Save draft');const submit=el('button','','Submit revisions');save.type=submit.type='button';host.append(comment,save,submit);
  if(latest?.state==='submitted'){comment.disabled=save.disabled=submit.disabled=true;status.textContent='Revisions submitted. Awaiting RSM review.';return;}
- editor.contentEditable='true';editor.setAttribute('role','textbox');editor.setAttribute('aria-label','Manuscript working copy');
+ editor.contentEditable='true';editor.setAttribute('role','textbox');editor.setAttribute('aria-multiline','true');editor.setAttribute('aria-label','Manuscript working copy');
+ status.textContent='Edit directly in the manuscript below. Save a draft to return later, or submit revisions to notify RSM.';
  let timer,busy=false,dirty=false;
  status.setAttribute('role','status');
  async function persist(state){
@@ -443,7 +444,7 @@ async function openWorkspace(file,project,host,btn){
  }
  function changed(){dirty=true;status.textContent='Unsaved changes';clearTimeout(timer);timer=setTimeout(()=>persist('draft'),3000);}
  editor.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'));});editor.addEventListener('drop',e=>e.preventDefault());editor.addEventListener('input',changed);comment.addEventListener('input',changed);save.onclick=()=>persist('draft');submit.onclick=()=>{if(confirm('Submit this working copy to RSM for review?'))persist('submitted');};
- }catch(e){host.replaceChildren(el('p','small','Workspace unavailable: '+e.message+'. Existing downloads remain available.'));}finally{btn.disabled=false;}
+ }catch(e){const notice=el('p','small','Workspace unavailable: '+e.message+'. Select the workspace button to retry. Existing downloads remain available.');notice.dataset.workspaceError='true';host.replaceChildren(notice);}finally{btn.disabled=false;}
 }
 async function accessFile(path,name,download,btn){btn.disabled=true;msg('Checking secure file access...');try{const {data,error}=await client.storage.from('mpid-manuscripts').download(path);if(error)throw error;if(!data)throw Error('No file data returned');const blobUrl=URL.createObjectURL(data);const a=document.createElement('a');a.href=blobUrl;a.rel='noopener';if(download){a.download=name}else{a.target='_blank'}document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);msg((download?'Download':'View')+' request succeeded for '+name+'. Your authorized file is ready.','success')}catch(e){msg('File access denied or failed: '+e.message,'error')}finally{btn.disabled=false}}
 </script>
