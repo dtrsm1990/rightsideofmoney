@@ -1,3 +1,8 @@
+## 2026-11-24 | Revision to version-specific approval regression
+
+- Passed rollback-only authenticated database regression: submit corrections, queue one office event, deny approval of the submitted source, release a synthetic replacement, deny approval of the stale source, accept approval of the current replacement, and read decision and source as an administrator. No fixture data persisted and no test email sent during this regression.
+- Both dashboard sources passed syntax and GitHub readback checks. Author Portal published source verified. First admin published check did not yet show the new version label. Authenticated browser acceptance and mailbox delivery are unverified.
+
 ## 2026-11-24 | Revision permissions and notification acceptance
 
 - Before migration, authenticated insert reproduced SQLSTATE 42501. After `grant_author_revision_snapshot_insert_columns`, a rolled-back synthetic transaction verified authenticated author insert and read, duplicate rejection, admin read, and exactly one pending live office event. No synthetic revision or live event persisted. Anonymous insert and authenticated insert of author identity remain disallowed.
