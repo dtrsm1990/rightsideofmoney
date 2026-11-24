@@ -1,3 +1,9 @@
+## 2026-11-24 | Reconciled acceptance and actual Word revision
+
+- Carry forward prior owner-confirmed sample submission and automatic admin visibility, prior manuscript downloads and editorial Word generation, and owner-confirmed synthetic office email receipt. No manual retest requested for those passed paths. New automatic revision, replacement release and version-specific approval required distinct automated regression because the earlier dashboard and rollback tests did not exercise stored Word artifacts.
+- PASS actual stored synthetic manuscript revision. Initial synthetic markup used ordinary table cells in the header; generator rejected it safely. Retried the same isolated revision with the converter's actual table header markup and produced two private Word outputs. Reopened original, revision and summary; Wednesday replaced Tuesday, other text matched, Word package parts outside the main document were byte-identical, and layout/table structures matched. Original and released version 2 remain in storage.
+- PASS authenticated-role private access denial for an unprivileged identity, admin approval, byte-verified release copy, idempotent finalization, stale approval rejection, version 2 approval, Production advancement and one remaining round. Fixture shares the administrator identity, so independent author browser login and visual rendering remain unverified. Isolated emails suppressed; production ready/release delivery awaits real events.
+
 ## 2026-11-24 | Actual test specimen and allowance regression
 
 - PASS actual synthetic DOCX generated, reopened, uploaded and released as version 1 on `RSM TEST | Private Editorial Workflow`. Storage size 8,745 bytes. Zero release emails. Visual inspection and dashboard download remain pending.
