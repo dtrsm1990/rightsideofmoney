@@ -1445,6 +1445,14 @@ $('refresh').onclick=refresh;
 function renderDetails(){
  const id=$('selectedProject').value;
  const d=documents.filter(x=>x.project_id===id),f=findings.filter(x=>x.project_id===id),a=approvals.filter(x=>x.project_id===id);
+ const roundPanel=document.createElement('div');roundPanel.className='item';
+ async function showRevisionAllowance(){
+  const {data,error}=await sb.rpc('rsm_revision_rounds',{p_project:id});const row=data?.[0];if(!roundPanel.isConnected)return;
+  const label=document.createElement('p');label.textContent=error?'Revision allowance unavailable: '+err(error):row?.remaining==null?'Signed revision allowance requires confirmation.':row.remaining+' revision round(s) remaining · '+row.used+' submitted · '+(row.included??0)+' included · '+row.additional+' additional';
+  const grant=document.createElement('button');grant.type='button';grant.className='secondary';grant.textContent='Authorize an additional revision round';
+  grant.onclick=async()=>{const reason=prompt('Reason for authorizing one additional revision round');if(!reason?.trim())return;if(!confirm('Authorize one additional round for the selected project?'))return;grant.disabled=true;const {error}=await sb.rpc('rsm_grant_revision_rounds',{p_project:id,p_rounds:1,p_reason:reason.trim(),p_request:crypto.randomUUID()});if(error){label.textContent=err(error);grant.disabled=false;return;}void showRevisionAllowance();};
+  roundPanel.replaceChildren(label,grant);
+ }
  const active=d.filter(x=>!x.archived_at),archived=d.filter(x=>!!x.archived_at);
  const approvalLabels={editorial_changes:'Editorial Changes',revised_manuscript:'Revised Manuscript',final_proof:'Final Proof',proof:'Final Proof'};
  const decisionLabels={approved:'Approved',changes_requested:'Revisions Requested',rejected:'Not Approved',declined:'Declined'};
@@ -1460,6 +1468,7 @@ function renderDetails(){
  }).join('');
  const docHtml=(items,isArchived)=>items.map(x=>'<div class="item"><strong>'+esc(x.file_name)+'</strong><div class="muted small">'+esc(x.document_type)+' · Version '+esc(x.version||1)+(isArchived?' · Archived '+esc(new Date(x.archived_at).toLocaleString('en-US',MPID_DATE_OPTIONS)):'')+'</div><div class="actions"><button class="secondary" data-file="'+esc(x.storage_path)+'">Download</button><button class="secondary" data-document-id="'+esc(x.id)+'" data-archive="'+(isArchived?'false':'true')+'">'+(isArchived?'Restore':'Archive')+'</button><button class="danger" data-delete-document-id="'+esc(x.id)+'">Delete</button></div></div>').join('');
  $('details').innerHTML='<div style="grid-column:1/-1">'+mpidProgressMarkup(projects.find(p=>p.id===id)?.status)+'</div><div><h3>Active Documents ('+active.length+')</h3><div class="list">'+(docHtml(active,false)||'<div class="muted">No active document records.</div>')+'</div><h3 style="margin-top:24px">Archived Documents ('+archived.length+')</h3><p class="note">Archived documents remain recoverable. Only administrators can manage them.</p><div class="list">'+(docHtml(archived,true)||'<div class="muted">No archived documents.</div>')+'</div></div><div><h3>Editorial Findings ('+f.length+')</h3><div class="list">'+(f.map(x=>'<div class="item"><strong>'+esc(x.dimension)+'</strong> · '+esc(x.severity)+'<p>'+esc(x.finding)+'</p><div class="muted small">'+esc(x.recommendation)+'</div></div>').join('')||'<div class="muted">No findings yet.</div>')+'</div></div><div><h3>Author Approvals ('+a.length+')</h3><div class="list">'+(approvalHtml||'<div class="muted">No approvals yet.</div>')+'</div></div>';
+ if(id){$('details').prepend(roundPanel);void showRevisionAllowance();}
  $('details').querySelectorAll('[data-file]').forEach(b=>b.onclick=async()=>{try{await requireAdmin();const path=b.getAttribute('data-file');if(!path)throw new Error('Document record has no storage path.');const {data,error}=await sb.storage.from('mpid-manuscripts').download(path);if(error)throw error;const url=URL.createObjectURL(data),a=document.createElement('a');a.href=url;a.download=path.split('/').pop()||'document';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){alert('Download failed: '+err(e))}});
  $('details').querySelectorAll('[data-document-id]').forEach(b=>b.onclick=async()=>{
   const documentId=b.getAttribute('data-document-id'),archive=b.getAttribute('data-archive')==='true';
