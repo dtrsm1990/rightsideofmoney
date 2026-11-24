@@ -1114,7 +1114,10 @@ function renderEditorialAudit(){
   const name=document.createElement('strong');name.textContent=(a.approval_type||'Approval').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
   const detail=document.createElement('div');detail.className='muted small';detail.textContent='Decision: '+(a.decision||'Not recorded')+' | Author: '+(profiles.find(p=>p.id===a.author_id)?.full_name||'Unknown')+' | '+submissionDate(a.created_at);
   const comments=document.createElement('div');comments.className='audit-text';comments.textContent='Comments: '+(a.comments||'None recorded');
-  card.append(name,detail,comments);history.append(card);
+  const source=documents.find(file=>file.project_id===projectId&&file.id===a.source_document_id);
+  card.append(name,detail);
+  if(source){const version=document.createElement('div');version.className='muted small';version.textContent='Reviewed version '+source.version+' · '+source.file_name;card.append(version);}
+  card.append(comments);history.append(card);
  }
 }
 async function rsmAuditWorkflowSummary(){
@@ -1442,7 +1445,8 @@ function renderDetails(){
    const statusClass=x.decision==='approved'?'approved':x.decision==='changes_requested'?'revisions':'';
    const when=x.created_at&&!Number.isNaN(new Date(x.created_at).getTime())?new Date(x.created_at).toLocaleString('en-US',MPID_DATE_OPTIONS):'Date unavailable';
    const approver=profiles.find(p=>p.id===x.author_id)?.full_name||authorName;
-   return '<div class="item"><div class="approval-head"><strong>'+esc(type)+'</strong><span class="approval-status '+statusClass+'">'+esc(decision)+'</span></div><div class="approval-meta">Author: '+esc(approver)+' · Submitted: '+esc(when)+'</div><div class="approval-comment"><span class="muted small">Author comment</span><div>'+esc(x.comments||'No comment provided.')+'</div></div></div>';
+   const source=d.find(file=>file.id===x.source_document_id);
+   return '<div class="item"><div class="approval-head"><strong>'+esc(type)+'</strong><span class="approval-status '+statusClass+'">'+esc(decision)+'</span></div><div class="approval-meta">Author: '+esc(approver)+' · Submitted: '+esc(when)+'</div>'+(source?'<div class="approval-meta">Reviewed version '+esc(source.version)+' · '+esc(source.file_name)+'</div>':'')+'<div class="approval-comment"><span class="muted small">Author comment</span><div>'+esc(x.comments||'No comment provided.')+'</div></div></div>';
  }).join('');
  const docHtml=(items,isArchived)=>items.map(x=>'<div class="item"><strong>'+esc(x.file_name)+'</strong><div class="muted small">'+esc(x.document_type)+' · Version '+esc(x.version||1)+(isArchived?' · Archived '+esc(new Date(x.archived_at).toLocaleString('en-US',MPID_DATE_OPTIONS)):'')+'</div><div class="actions"><button class="secondary" data-file="'+esc(x.storage_path)+'">Download</button><button class="secondary" data-document-id="'+esc(x.id)+'" data-archive="'+(isArchived?'false':'true')+'">'+(isArchived?'Restore':'Archive')+'</button><button class="danger" data-delete-document-id="'+esc(x.id)+'">Delete</button></div></div>').join('');
  $('details').innerHTML='<div style="grid-column:1/-1">'+mpidProgressMarkup(projects.find(p=>p.id===id)?.status)+'</div><div><h3>Active Documents ('+active.length+')</h3><div class="list">'+(docHtml(active,false)||'<div class="muted">No active document records.</div>')+'</div><h3 style="margin-top:24px">Archived Documents ('+archived.length+')</h3><p class="note">Archived documents remain recoverable. Only administrators can manage them.</p><div class="list">'+(docHtml(archived,true)||'<div class="muted">No archived documents.</div>')+'</div></div><div><h3>Editorial Findings ('+f.length+')</h3><div class="list">'+(f.map(x=>'<div class="item"><strong>'+esc(x.dimension)+'</strong> · '+esc(x.severity)+'<p>'+esc(x.finding)+'</p><div class="muted small">'+esc(x.recommendation)+'</div></div>').join('')||'<div class="muted">No findings yet.</div>')+'</div></div><div><h3>Author Approvals ('+a.length+')</h3><div class="list">'+(approvalHtml||'<div class="muted">No approvals yet.</div>')+'</div></div>';
