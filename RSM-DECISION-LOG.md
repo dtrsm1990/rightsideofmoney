@@ -1,3 +1,8 @@
+## 2026-11-24 | Author revision handling
+
+- Confirm a submission with the saved, source-scoped revision after an ambiguous response. Preserve the author’s local edits when confirmation fails. A failed submit must leave an explicit retry path. Live inbox refresh stays on the visible, authenticated Admin Dashboard and uses existing read policies.
+- Author Review follows the presence of an active released manuscript and editorial report. The stage sync respects held and later production stages. Submitted revisions and author sign-off still require their own evidence and gates.
+
 ## CURRENT OPERATING DECISIONS | 2026-11-21 | READ FIRST
 - Manuscript-first production: improve working copy as far as signed package safely permits, preserve original and author voice, deliver readable clean manuscript plus transparent corrections and concrete improvement recommendations.
 - One evidence-backed workflow, one source of truth: manuscript engine, audit register, author checklist, administrator decisions, production and progress display must agree. Never infer completion from a document existing.
