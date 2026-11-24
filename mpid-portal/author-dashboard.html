@@ -193,6 +193,20 @@ async function loadDashboard(){
    }else{
     panel.append(el('p','small','Document uploads are not available while this project is '+(project.status||'in its current stage')+'. Contact RSM Publishing Services if you need to submit a file.'));
    }
+   const reviewGuide=el('section','finding');
+   reviewGuide.append(el('h3','', 'How to Review and Respond to Editorial Documents'));
+   reviewGuide.append(el('p','small','When RSM Publishing Services releases an edited manuscript or editorial audit, follow these steps before submitting your decision.'));
+   const guideSteps=[
+    '1. Under Project Documents, find the exact file name and version mentioned in your notification. Select Download to save a copy. Open Word documents in Microsoft Word or a compatible reader.',
+    '2. For an Edited Manuscript, read the complete document. Check the title, author name, foreword, chapters, factual statements, tables, wording, and formatting. Note anything missing or inaccurate.',
+    '3. For an Editorial Audit, read each finding and recommendation. Compare the finding with your manuscript and identify questions or changes you would like considered.',
+    '4. Under Author Approvals & Revision Requests, choose Revised manuscript for the edited manuscript, or Editorial changes for the editorial audit.',
+    '5. Choose Approve only if you accept what you reviewed. Otherwise choose Request revisions and describe each correction, including the file name, version, chapter or page, paragraph, and desired wording.',
+    '6. Select Submit Formal Decision and confirm. Your response is recorded in Decision History. Contact publishing@rightsideofmoney.com if you need help. Do not email your password or confidential manuscript.'
+   ];
+   for(const instruction of guideSteps)reviewGuide.append(el('p','small',instruction));
+   reviewGuide.append(el('p','small','Editorial approval is not permission to publish or upload your book to KDP. RSM Publishing Services will coordinate publication readiness separately.'));
+   panel.append(reviewGuide);
    panel.append(el('h3','', 'Project Documents'));
    const list=el('div');panel.append(list);$('projects').append(panel);
    const {data:files,error:fe}=await client.from('mpid_documents')

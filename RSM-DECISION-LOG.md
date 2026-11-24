@@ -188,3 +188,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Author Portal must never ask an author for Supabase connection details. Use only active public sb_publishable key as browser configuration; preserve Supabase RLS, invitation activation, passwords, private manuscript access, and separate author release gate. No real invitation sent as part of fix.
 
 2026-11-23 | Admin one-click approval and author release is authorized only after explicit in-dashboard confirmation for each exact document. Edited manuscript and editorial audit are separate actions. Existing release RPC, version checks, QA triggers, RLS and notification outbox remain authoritative; no direct email from browser. Delivery must not be claimed until confirmed.
+
+2026-11-23 | All author editorial releases must include actionable, plain-English steps tailored to edited manuscript versus editorial audit, document identity/version, where to access, how to approve or request revisions, contact support, and distinction between review approval and publication authorization. Keep manuscript attachments private behind portal authentication.
