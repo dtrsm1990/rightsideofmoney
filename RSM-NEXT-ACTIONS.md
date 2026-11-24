@@ -639,3 +639,5 @@ Use this instruction:
 2026-11-23 | [x] Fix DOCX extraction input in package audit service. [ ] Confirm next authenticated run succeeds and inspect generated DOCX. [ ] Extend processing for full manuscripts, quality controls and secure final review.
 
 2026-11-23 | [x] Implement resumable package-specific section processing and dashboard progress. [ ] Verify live Signature Author run and both DOCX outputs; test resume, security and completeness.
+
+2026-11-23 | [x] Correct progress-save conflict and preserve saved sections. [ ] Resume Signature Author run from persisted section 2; verify 8/8 and both Word documents.

@@ -401,3 +401,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23 | PASS live log diagnosis: POST 500 with Mammoth openZip 'Could not find file in options' on 2026-11-24 05:44 UTC. PASS Edge Function v3 deployed ACTIVE with corrected buffer extraction. NOT TESTED new live generation, output DOCX validation or browser end-to-end.
 
 2026-11-23 | PASS additive database columns and Edge Function v4 deployment. PASS static dashboard progress-loop integration. User confirmed v3 extraction reached length validation. NOT TESTED v4 live generation, resume, document completeness or formatting.
+
+2026-11-23 | PASS read-only verification of 2/8 persisted sections in Signature Author run. PASS counter migration and v5 ACTIVE deployment. NOT TESTED resumed processing or final DOCX generation.

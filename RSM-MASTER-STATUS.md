@@ -548,3 +548,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | Diagnosed user-reported package audit Load failed from live Supabase function logs: HTTP 500 and Mammoth 'Could not find file in options' during DOCX extraction. Fixed package audit Edge Function v3 to pass Uint8Array as Mammoth buffer rather than unsupported arrayBuffer option. No manuscript processing or author release performed.
 
 2026-11-23 | Package audit v4 deployed with resumable section processing up to 300,000 extracted characters, source hash, saved section results, private DOCX assembly and excerpt verification flags. Dashboard loops through saved sections and displays progress. No actual generation test yet.
+
+2026-11-23 | Signature Author live run ea94ad0d-8a39-42c3-ac7b-2f275beb158b paused with progress conflict; database confirmed 2 of 8 sections persisted. Added saved_segment_count and backfilled from JSON array length. Edge Function v5 uses atomic integer compare-and-set instead of full JSON URL filter, preserves existing sections and distinguishes database errors from concurrency. No author release.
