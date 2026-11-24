@@ -1,3 +1,8 @@
+## 2026-11-24 | Remaining operator involvement
+
+- No repeat of sample submission, inbox visibility, generic manuscript download, original editorial generation or office receipt. Isolated real-artifact backend lifecycle complete through Production.
+- Review rendered pagination, table placement and page numbers during normal review of the first real revised manuscript before author release. Observe ready and release notification delivery on authorized production events. No standalone owner acceptance run required for previously verified scenarios.
+
 ## 2026-11-24 | Signed-in acceptance entry point
 
 - Version 1 is released on `RSM TEST | Private Editorial Workflow`. Sign in as the assigned test author, download `RSM_Acceptance_Manuscript.docx`, open the editor and replace Tuesday with Wednesday, then submit. Enable test projects in Admin Dashboard, review both generated files, approve and release version 2, then approve that specific version as the test author. Test emails are suppressed. Confirm the allowance decreases from two to one and approval advances to Production.
