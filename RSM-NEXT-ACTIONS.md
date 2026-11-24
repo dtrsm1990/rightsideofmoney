@@ -1,3 +1,8 @@
+## 2026-11-24 | Revision acceptance remaining
+
+- Database acceptance passed after fixing the authenticated insert grant. Published workspace source verified. Check the signed-in browser workflow with a synthetic released Word document. Confirm mailbox receipt of the separately accepted office test and distinguish provider acceptance from mailbox delivery.
+- Keep author-submitted changes versioned and private until the approved regeneration, print QA and release workflow is implemented.
+
 ## 2026-11-24 | Current continuation checkpoint
 
 1. Complete authenticated acceptance using an isolated author submission and administrator session. Check confirmation, automatic inbox receipt, source locking, and a retry after ambiguous response. The live project is already in Author Review. Leave live files and submissions untouched during testing. The sole existing test project lacks an eligible released edited manuscript.
