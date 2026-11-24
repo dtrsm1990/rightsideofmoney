@@ -230,3 +230,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-24 | Revision inbox renders author content as plain text, not executable HTML. No release or approval action added until regeneration and QA are ready.
 
 2026-11-24 | Sample submissions must be explicitly labeled TEST SUBMISSION and isolated from live author records. Browser-only test inbox does not claim email or regeneration verification.
+
+2026-11-24 | Accept isolated sample inbox interaction; do not equate simulation with live author or email acceptance.

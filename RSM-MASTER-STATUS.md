@@ -578,3 +578,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-24 | Admin revision inbox source added to Stage 5; private submitted text and comments, manual refresh and dashboard refresh. Regeneration not implemented.
 
 2026-11-24 | Isolated preview submission now feeds a separate test inbox in Stage 5; session storage retains sample across same-tab refresh. No live records or email.
+
+2026-11-24 | Administrator confirmed updated dashboard live and sample submission immediately appears in revision center without manual refresh.

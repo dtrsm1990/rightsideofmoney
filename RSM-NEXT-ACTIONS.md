@@ -669,3 +669,5 @@ Use this instruction:
 2026-11-24 | Admin revision inbox source prepared. Remaining automatic change tracking, regeneration, approval integration and end-to-end tests.
 
 2026-11-24 | Verify isolated sample inbox in browser; implement safe office test email, real comparison, regeneration and approval integration.
+
+2026-11-24 | [x] Isolated sample inbox browser acceptance. [ ] Change comparison, regeneration, approval and office notification test; authenticated end-to-end acceptance.
