@@ -556,3 +556,5 @@ A workflow is COMPLETE only after code is deployed, evidence-backed acceptance t
 2026-11-23 | User reported plain edited Word output unacceptable. Added private 6x9 formatted interior review DOCX generation from existing saved package sections (no AI rerun), separate formatted_manuscript_path, Edge Function v6 and dashboard formatting/download controls. Initial formatting includes serif typography, heading detection, page breaks, margins, footer numbering. NOT final KDP-ready: TOC, front matter validation, project-specific trim, PDF rendering and print QA outstanding.
 
 2026-11-23 | Package editorial engine v7 ACTIVE: shared interior DOCX builder now used automatically on completion and on existing-run formatting. Existing saved sections preserved. Preliminary 6x9 layout only; final print QA outstanding.
+
+2026-11-23 | v8 ACTIVE: title/copyright page separation, major/subheading hierarchy, left aligned single-spaced body, Markdown bordered tables, new versioned private formatting path. Existing runs preserved.
