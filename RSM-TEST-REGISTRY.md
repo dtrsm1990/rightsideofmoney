@@ -2,7 +2,7 @@
 
 - Verified both committed dashboard files against validated complete replacements. Inline JavaScript syntax checks passed. Mocked author submission checks passed for successful write, lost response with saved row, and failed write with a retry available. These checks did not use a live author account.
 - Verified Supabase migration `advance_editorial_stage_for_released_review_pair` and live database readback of `author_review` following confirmation of the active released manuscript/report pair. Zero saved revision snapshots and zero author approvals on the live project. Security advisor did not flag the updated function.
-- Verified scheduled notification worker v20 and event schema by inspection. Zero revision notices found. Pending authenticated author submission and admin receipt, retry under network interruption, and provider delivery. Public website requests from this runner could not verify Pages deployment.
+- Verified scheduled notification worker v20 and event schema by inspection. Zero revision notices found. Pending authenticated author submission and admin receipt, retry under network interruption, and provider delivery. Browser verified that both live sign-in pages load and serve the new dashboard code.
 
 ## CURRENT ACCEPTANCE GATE | 2026-11-21 | READ FIRST
 - VERIFIED LIVE DATABASE: Maurice project editing; manuscript processing 13/13, run review, QA needs_review; zero central audit findings and zero author approvals; five private deliverables pending review.
