@@ -194,3 +194,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Workflow stages must follow application to agreement/payment to author onboarding/intake to processing to editorial audit/private review to author approval to proofing to final payment/readiness. Keep private editorial staging in editorial audit, not author-facing approval. Keep legacy manual tools collapsed, preserve their event handlers and availability.
 
 2026-11-23 | Package comparison runs are independent private assessments. Never modify contracted package, original or working manuscript, agreements, payments, or author visibility. Explicit admin action, source version, package and distinct private outputs. Upgrade opportunities must be based on findings. Long manuscripts must fail clearly rather than be silently truncated.
+
+2026-11-23 | Manual package audit is an editing workflow for the chosen editorial standard, not a comparison or upsell workflow. Preserve contracted package, source manuscript, author access, and all release gates. Gateway JWT verification can be disabled only when function independently validates authenticated user and administrator RPC.

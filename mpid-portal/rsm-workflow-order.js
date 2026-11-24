@@ -144,12 +144,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if(auditStage)auditStage.insertBefore(reportPanel,auditStage.children[1]||null);
   // Optional package comparisons are private and independent of the contracted editorial run.
   const comparisonPanel=document.createElement('section');comparisonPanel.className='card';comparisonPanel.id='rsmPackageComparison';
-  const comparisonTitle=document.createElement('h2');comparisonTitle.textContent='Optional Package Comparison & Edited Manuscript';
-  const comparisonIntro=document.createElement('p');comparisonIntro.className='note';comparisonIntro.textContent='Generate a separate private edited manuscript and editorial audit for Publish-Ready, Full Launch, or Signature Author. Does not change the purchased package, master manuscript, contract, payments, or author access. Current engine supports assembled DOCX up to 18,000 extracted characters.';
+  const comparisonTitle=document.createElement('h2');comparisonTitle.textContent='Manual Package Editorial Audit & Manuscript Editing';
+  const comparisonIntro=document.createElement('p');comparisonIntro.className='note';comparisonIntro.textContent='Run a private editorial audit and generate a corrected manuscript using the selected Publish-Ready, Full Launch, or Signature Author editing standard. Does not change the purchased package, master manuscript, contract, payments, or author access. Current engine supports assembled DOCX up to 18,000 extracted characters. The original and contracted package are preserved.';
   const comparisonPackage=document.createElement('select');comparisonPackage.setAttribute('aria-label','Comparison package');
   for(const pkg of ['Publish-Ready','Full Launch','Signature Author']){const opt=document.createElement('option');opt.value=pkg;opt.textContent=pkg;comparisonPackage.append(opt)}
-  const comparisonRun=document.createElement('button');comparisonRun.type='button';comparisonRun.textContent='Generate Private Package Manuscript & Audit';
-  const comparisonRefresh=document.createElement('button');comparisonRefresh.type='button';comparisonRefresh.className='secondary';comparisonRefresh.textContent='Refresh Package Comparisons';
+  const comparisonRun=document.createElement('button');comparisonRun.type='button';comparisonRun.textContent='Run Package Audit & Edit Manuscript';
+  const comparisonRefresh=document.createElement('button');comparisonRefresh.type='button';comparisonRefresh.className='secondary';comparisonRefresh.textContent='Refresh Package Audit Runs';
   const comparisonStatus=document.createElement('p');comparisonStatus.setAttribute('role','status');comparisonStatus.setAttribute('aria-live','polite');
   const comparisonResults=document.createElement('div');comparisonResults.className='list';
   comparisonPanel.append(comparisonTitle,comparisonIntro,comparisonPackage,comparisonRun,comparisonRefresh,comparisonStatus,comparisonResults);
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const {client}=await getClient();
     const {data,error}=await client.from('rsm_package_comparison_runs').select('id,requested_package,status,manuscript_path,audit_path,error_message,created_at').eq('project_id',reportProject.value).order('created_at',{ascending:false}).limit(20);
     if(error){comparisonStatus.textContent='Comparison history unavailable: '+error.message;return}
-    comparisonStatus.textContent=(data||[]).length+' private package comparison run(s). Nothing released to author.';
+    comparisonStatus.textContent=(data||[]).length+' private package audit run(s). Nothing released to author.';
     for(const r of data||[]){
       const item=document.createElement('div');item.className='item';
       const heading=document.createElement('strong');heading.textContent=r.requested_package+' | '+r.status+' | '+new Date(r.created_at).toLocaleString();item.append(heading);
@@ -176,15 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
   comparisonRun.addEventListener('click',async()=>{
     if(!reportProject.value){comparisonStatus.textContent='Choose publishing project above.';return}
     const pkg=comparisonPackage.value;
-    if(!confirm('Generate a PRIVATE '+pkg+' manuscript and audit comparison? This may incur AI processing cost. No author release or contract change.'))return;
+    if(!confirm('Run a PRIVATE editorial audit and manuscript edit for '+pkg+' manuscript and audit package? This may incur AI processing cost. No author release or contract change.'))return;
     comparisonRun.disabled=true;
     try{
       const {session,cfg}=await getClient();
-      comparisonStatus.textContent='Processing private '+pkg+' comparison. Please keep this page open.';
+      comparisonStatus.textContent='Processing private '+pkg+' audit and manuscript editing. Please keep this page open.';
       const response=await fetch(cfg.url+'/functions/v1/rsm-package-comparison',{method:'POST',headers:{Authorization:'Bearer '+session.access_token,apikey:cfg.key,'Content-Type':'application/json'},body:JSON.stringify({project_id:reportProject.value,requested_package:pkg})});
-      const result=await response.json();if(!response.ok||!result.ok)throw Error(result.error||'Comparison failed');
-      await loadComparisons();comparisonStatus.textContent='Private '+pkg+' manuscript and audit ready for download and administrator review. No author release.';
-    }catch(e){comparisonStatus.textContent='Comparison not completed: '+(e?.message||String(e))}
+      const raw=await response.text();let result;try{result=JSON.parse(raw)}catch{throw Error('Processing service returned an unreadable response (HTTP '+response.status+'). Try refreshing the dashboard; if this continues contact support.')}if(!response.ok||!result.ok)throw Error(result.error||'Audit and editing failed (HTTP '+response.status+')');
+      await loadComparisons();comparisonStatus.textContent='Private '+pkg+' edited manuscript and audit ready for download and administrator review. No author release.';
+    }catch(e){comparisonStatus.textContent='Package audit not completed: '+(e?.message==='Load failed'?'The processing service could not be reached. Refresh this page and retry. If it persists, the connection or service needs attention.':(e?.message||String(e)))}
     finally{comparisonRun.disabled=false}
   });
   reportProject.addEventListener('change',()=>loadComparisons().catch(e=>comparisonStatus.textContent=String(e)));
