@@ -1,3 +1,9 @@
+## 2026-11-24 | Current continuation checkpoint
+
+1. Verify the deployed dashboards using an isolated authenticated author submission and administrator session. Check confirmation, automatic inbox receipt, source locking, and a retry after ambiguous response. The live project is already in Author Review. Leave live files and submissions untouched during testing.
+2. Verify office-only notification processing and provider delivery with authorized test routing. Live revision notices have no delivery evidence yet.
+3. Connect accepted author changes to private versioned regeneration, print QA, admin review and author approval. Carry forward package standards, keep publication and payment gates, and run integrated acceptance.
+
 ## CURRENT EXECUTION QUEUE | 2026-11-21 | READ FIRST
 **Single active objective: complete one integrated editorial-to-publication workflow, not another collection of disconnected features.**
 1. Inspect current engine and signed package rules; define source-linked finding schema and idempotent ingestion into central audit. Do not turn routine copyedits into author tasks or invent technical findings.
