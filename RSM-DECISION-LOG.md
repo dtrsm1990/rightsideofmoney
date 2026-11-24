@@ -210,3 +210,5 @@ Human approval is required for substantive editorial changes, publication author
 2026-11-23 | Package selection is editorial processing, not comparison. Automatically format every package on completion; retain internal identifiers for compatibility. Do not label preliminary DOCX KDP-ready.
 
 2026-11-23 | Reuse approved production standards across packages; left align body to avoid excessive justification gaps. Retain private review gate.
+
+2026-11-23 | Use consistent Title Case with acronym preservation; Georgia 18pt major headings, 12pt subsection headings, 11pt body. No changes to editorial body or release gates.
