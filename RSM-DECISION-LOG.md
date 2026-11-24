@@ -1,3 +1,7 @@
+## 2026-11-24 | Email-free test project acceptance
+
+- Isolated projects exercise the production generation, private review and versioned release path. Only a generation event tied to a real submitted snapshot can pass the existing test notification guard. Worker v23 skips email for that event on test projects. Test releases queue no author email.
+
 ## 2026-11-24 | Private Word regeneration and recovery
 
 - Apply verified textual changes to a copy of the exact released Word document to preserve styles, layout and version history. Require editorial review for ambiguous mappings and unsupported structural changes. Keep correction summaries private and require visual pagination review before release.
