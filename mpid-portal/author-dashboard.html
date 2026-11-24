@@ -261,8 +261,9 @@ async function loadDashboard(){
    for(const [value,label] of [['editorial_changes','Editorial changes'],['revised_manuscript','Revised manuscript'],['final_proof','Final proof']]){const o=el('option','',label);o.value=value;stage.append(o)}
    stageLabel.append(stage);
    const sourceLabel=el('p','small');
-   const approvalSource=()=>{const type={editorial_changes:'editorial_report',revised_manuscript:'edited_manuscript'}[stage.value];return type?(files||[]).find(file=>file.document_type===type):null;};
-   function showApprovalSource(){const file=approvalSource();sourceLabel.textContent=file?'Review version '+file.version+' of '+file.file_name+' before recording your decision.':stage.value==='final_proof'?'Record your decision after reviewing the final proof.':'No current review document is available for this decision.';}
+   const {data:finalReadiness}=await client.rpc('rsm_project_final_readiness',{p_project:project.id});
+   const approvalSource=()=>{if(stage.value==='final_proof')return (files||[]).find(file=>file.id===finalReadiness?.proof_document_id);const type={editorial_changes:'editorial_report',revised_manuscript:'edited_manuscript'}[stage.value];return type?(files||[]).find(file=>file.document_type===type):null;};
+   function showApprovalSource(){const file=approvalSource();sourceLabel.textContent=file?'Review version '+file.version+' of '+file.file_name+' before recording your decision.':stage.value==='final_proof'?'The current final proof will appear here after production QA and release.':'No current review document is available for this decision.';}
    stage.onchange=showApprovalSource;
    showApprovalSource();
    const decisionLabel=el('label','field','Decision');
@@ -289,7 +290,7 @@ async function loadDashboard(){
     if(!decision.value){feedback.textContent='Choose a decision.';return}
     if(decision.value!=='approved'&&!comments.value.trim()){feedback.textContent='Explain the requested changes or reason for nonapproval.';return}
     const source=approvalSource();
-    if(stage.value!=='final_proof'&&!source){feedback.textContent='No current review document is available for this decision.';return;}
+    if(!source){feedback.textContent='No current review document is available for this decision.';return;}
     if(!confirm('Submit this formal '+decision.options[decision.selectedIndex].text.toLowerCase()+' decision? It will be retained in the project history.'))return;
     submit.disabled=true;
     try{
