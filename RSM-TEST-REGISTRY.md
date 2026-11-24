@@ -421,3 +421,5 @@ Record each significant test once. For a regression, add a NEW test row linked t
 2026-11-23 | PASS administrator visual acceptance of v12 formatting (user reported looks good). This is not PDF/KDP preflight or acceptance of every package execution. Earlier contracted manuscript/audit release not yet verified.
 
 2026-11-24 | PASS GitHub dashboard commit and source inspection for collapsed details and exception summary; browser deployment and authenticated UI verification pending.
+
+2026-11-24 | PASS committed source inspection and sample current-selection logic for released manuscript/audit with older pending draft. Live authenticated UI and release verification pending.
