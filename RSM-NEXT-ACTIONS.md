@@ -661,3 +661,5 @@ Use this instruction:
 2026-11-24 | [x] Streamline editorial review section. [ ] Verify live dashboard after GitHub Pages deployment; assess duplicate manual finding and project details sections separately.
 
 2026-11-24 | [x] Compact private review/release display. [ ] Verify live browser and actual released records; confirm historical controls remain accessible.
+
+2026-11-24 | [x] Remove source-location finding card flood. [ ] Verify live dashboard; address duplicate findings, segment-boundary flags and prohibited punctuation recommendations in editorial generation separately.
