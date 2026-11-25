@@ -70,3 +70,7 @@
 ## Controlled dashboard activation
 
 - Visual deployment was approved separately from backend automation. Keep the editorial privacy hold. The forward rollback commit 094c9d84f84a6351eb004530a65fec1241a1323f restores the exact pre-release tree. Apply only from the release head or build a scoped revert against a newer head.
+
+## Print boundary validation
+
+- A PDF with correct media dimensions can still crop the artwork. Bundle preflight now requires matching crop and media boxes. Visual proofing and Print Previewer acceptance remain separate.

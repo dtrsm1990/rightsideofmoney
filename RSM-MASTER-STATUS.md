@@ -70,3 +70,7 @@
 ## Controlled dashboard activation
 
 - Both approved dashboard designs are live from 9b5a88b49eea2e622ee5d3023ef1422093d1528e. The release changed five portal HTML, CSS and JavaScript files. No production schema, worker or client records were changed.
+
+## Print boundary validation
+
+- Private engine staging 9cf24aa3189a6dc4a2191fa0f9834c13850c8d35 adds a PDF crop-box guard for paperback covers and interiors, and updates the DOCX reader. No runtime deployment.

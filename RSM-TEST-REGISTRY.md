@@ -74,3 +74,7 @@
 ## Controlled dashboard activation
 
 - Authenticated QA author opened version 2 and the read-only earlier manuscript. QA admin switched the synthetic project and opened its revision view. QA lacked payment and operations parity; the production dependencies were verified read-only and no new backend targets were introduced. Verified both public sign-in pages, CSS and logos and all eight administrator workflow disclosures after publication. No production sign-in or financial mutation was performed.
+
+## Print boundary validation
+
+- The staged cover validator accepted a synthetic 40-page full wrap and rejected an otherwise identical PDF with a narrowed crop box. The exact change is also wired into interior bundle preflight. The full isolated bundle path was not rerun.

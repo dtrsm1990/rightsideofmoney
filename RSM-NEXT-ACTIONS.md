@@ -64,3 +64,7 @@
 ## Controlled dashboard activation
 
 - Continue production studio and cover integration, proof approval, simulated payment, secure delivery and private-engine parity in isolated QA. Keep the rollback commit available. Production-authenticated acceptance was outside this public smoke check.
+
+## Print boundary validation
+
+- Continue production Studio runtime and full-wrap QA, then proof, simulated payment, secure delivery and engine parity. The separate QA project still lacks payment and operations dependencies needed for transactional browser coverage.
