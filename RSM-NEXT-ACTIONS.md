@@ -1,3 +1,9 @@
+## 2026-11-24 | Gated migration and format validation
+
+- Make the proposed private repository accessible to the connected account. Verify privacy and permissions before copying clean backend sources. Validate staging parity, retain rollback and keep public hosting independent.
+- Obtain administrator approval of publishing privacy disclosures and any required prospective consent or addendum. Confirm OpenAI project retention and processor requirements before live worker deployment.
+- Validate EPUB with EPUBCheck and a reading-system preview. Use package-specific scope and approved KDP templates for designed covers and applicable hardcover. Advanced layout and final KDP Previewer acceptance remain open.
+
 ## 2026-11-24 | Remaining production and privacy work
 
 - Provide an accessible private repository for proprietary source and verify restricted access before any import. Use an authorized full repository mirror for history exposure review. Keep public hosting and existing dependencies in place until parity is proven.
