@@ -1,4 +1,4 @@
-/* RSM Publishing Services: presentation-only, seven-stage operational workflow.
+/* RSM Publishing Services: presentation-only, eight-stage operational workflow.
    Existing panel nodes and their event listeners are moved, never recreated. */
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('workspace');
@@ -7,14 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const byName = (name) => sections.find(s => s.querySelector('h2')?.textContent.trim() === name);
   const get = (id) => document.getElementById(id) || byName(id);
   const stages = [
-    ['Application, Agreement & Initial Payment', ['rsmNextActionCenter','applicationCenter','signwellIntegration','paymentCenter','rsmOperationsCenter']],
-    ['Author Onboarding & Manuscript Intake', ['authorInvitations','Publishing Projects','Create a Publishing Project','Manage Project','applicantManuscriptCenter','manuscriptRecoveryCenter','submissionCenter','Upload a Project Document','Project Details']],
-    ['Manuscript Processing', ['rsmEditingEngine','manuscriptProcessing']],
-    ['Editorial Audit & Quality Assurance', ['editorialAuditCenter','Add an Editorial Finding','editorialStaging']],
-    ['Author Review & Approval', ['rsmAuthorPreview','rsmRevisionCenter','checklistCenter']],
-    ['Book Production & Proofing', ['Publication Readiness QA']],
-    ['Final Payment & Publication Readiness', ['aiCostCenter','Operational Notes']]
+    ['Applications, Agreements & Initial Payments', ['applicationCenter','signwellIntegration','paymentCenter','rsmOperationsCenter']],
+    ['Author Onboarding & Manuscript Intake', ['authorInvitations','Publishing Projects','Create a Publishing Project','applicantManuscriptCenter','submissionCenter','Upload a Project Document','Project Details']],
+    ['Automated Editorial Processing', ['rsmEditingEngine','manuscriptRecoveryCenter','manuscriptProcessing']],
+    ['Editorial QA & Administrator Approval', ['editorialAuditCenter','Add an Editorial Finding','editorialStaging']],
+    ['Author Review & Revisions', ['rsmRevisionCenter','checklistCenter','rsmAuthorPreview']],
+    ['Book Production & Cover Studio', []],
+    ['Proofing, Final QA & Author Approval', ['Publication Readiness QA']],
+    ['Final Payment, Delivery & Completion', []]
   ];
+  const responsibilities = ['Review applications, agreements and deposits.','Invite authors and confirm intake.','Monitor automated editing and recovery.','Review private editorial output and approve the current version.','Track author decisions and review submitted corrections.','Review contracted formats, covers and generated assets.','Inspect the proof and track the author’s version-specific decision.','Authorize payment and review secure final delivery.'];
   const style = document.createElement('style');
   style.textContent = '#rsmWorkflowNav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px}#rsmWorkflowNav a{color:#f8e2b1;text-decoration:none;border:1px solid #76613d;background:#202024;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:700}#rsmWorkflowNav a:focus-visible{outline:3px solid #d6ae5a}#rsmWorkflowStages .rsm-workflow-stage{scroll-margin-top:20px;border-top:1px solid #51483b;padding-top:12px}#rsmWorkflowStages .rsm-workflow-stage:empty{display:none}@media(max-width:700px){#rsmWorkflowNav{display:grid;grid-template-columns:1fr 1fr}#rsmWorkflowNav a{font-size:12px}}';
   document.head.append(style);
@@ -27,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const stats = root.querySelector('section.grid');
   if (stats) { stats.after(nav); nav.after(holder); } else { root.prepend(nav); nav.after(holder); }
   const used = new Set();
+  for (const id of ['Manage Project']) {
+    const panel = get(id);
+    if (panel) { nav.before(panel); used.add(panel); }
+  }
   stages.forEach(([heading, ids], index) => {
     const stage = document.createElement('section');
     stage.className = 'rsm-workflow-stage';
@@ -40,12 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
     title.textContent = (index + 1) + '. ' + heading;
     title.style.cssText = 'color:#d6ae5a;border-bottom:2px solid #76613d;padding:12px 0;margin:0 0 16px;font-size:22px';
     stage.append(title);
-    if (index === 6) {
-      const note = document.createElement('p');
-      note.className = 'note';
-      note.textContent = 'Before final delivery, verify the final payment in the Stage 1 Payment Management Center, confirm author approvals and production QA, and authorize publication readiness. This stage does not automatically publish or charge the author.';
-      stage.append(note);
-    }
+    const responsibility = document.createElement('p');
+    responsibility.className = 'note';
+    responsibility.textContent = responsibilities[index];
+    stage.append(responsibility);
     ids.forEach(id => {
       const panel = get(id);
       if (!panel || used.has(panel) || !root.contains(panel)) return;
@@ -81,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const uploadButton=document.createElement('button');uploadButton.type='button';uploadButton.textContent='Register Complete Manuscript and Queue Processing';
   const uploadStatus=document.createElement('p');uploadStatus.setAttribute('role','status');uploadStatus.setAttribute('aria-live','polite');
   const intakeRefresh=document.createElement('button');intakeRefresh.type='button';intakeRefresh.className='secondary';intakeRefresh.textContent='Refresh Projects';
-  intakePanel.append(intakeTitle,intakeNote,projectSelect,fileInput,uploadButton,intakeRefresh,uploadStatus);
+  intakePanel.append(intakeTitle,intakeNote,projectSelect,fileInput,uploadButton,uploadStatus);
   const intakeStage=document.getElementById('rsm-workflow-stage-2');
   if(intakeStage)intakeStage.insertBefore(intakePanel,intakeStage.children[1]||null);
   const getClient=async()=>{
@@ -681,16 +685,198 @@ document.addEventListener('DOMContentLoaded', () => {
     recordsObserver.observe(recordRoot,{childList:true});
     decorate();
   }
+
+  const makePanel = (stage, id, title, content) => {
+    const panel = document.createElement('section');
+    panel.className = 'card rsm-studio';
+    panel.id = id;
+    const heading = document.createElement('h3');
+    heading.textContent = title;
+    panel.append(heading, content);
+    document.getElementById('rsm-workflow-stage-' + stage).append(panel);
+    return panel;
+  };
+  const makeHost = id => {
+    const host = document.createElement('div');
+    host.id = id;
+    return host;
+  };
+  const studio = makeHost('rsmProductionSummary');
+  studio.setAttribute('role', 'status');
+  const production = makePanel(6, 'rsmProductionStudio', 'Manuscript Production Studio', studio);
+  production.append(makeHost('rsmPrintJobs'));
+  const covers = makePanel(6, 'rsmCoverStudio', 'Cover Studio', makeHost('rsmCoverSources'));
+  const form = document.getElementById('rsmPrivateUpload');
+  const coverFiles = makeHost('rsmCoverDeliverables');
+  covers.append(coverFiles);
+  const proof = makePanel(7, 'rsmProofStudio', 'Private Production Proofs', makeHost('rsmProofDeliverables'));
+  proof.append(makeHost('rsmProofReadiness'));
+  const delivery = makePanel(8, 'rsmDeliveryStudio', 'Final Delivery Assets', makeHost('rsmFinalDeliverables'));
+  const readiness = makeHost('rsmDeliveryReadiness');
+  readiness.setAttribute('role', 'status');
+  delivery.prepend(readiness);
+  const stageType = document.getElementById('stageType');
+  const stageFile = document.getElementById('stageFile');
+  const stageSubmit = document.getElementById('stageUpload');
+  const editor = document.getElementById('editorialStaging');
+  const addIntake = (panel, label, type) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = label;
+    button.setAttribute('aria-controls', form.id);
+    button.onclick = () => {
+      const project = document.getElementById('selectedProject');
+      if (!project.value) { project.focus(); return; }
+      if (stageSubmit.disabled) return;
+      form.querySelector('summary').textContent = label + ' for private review';
+      panel.insertBefore(form, button.nextSibling);
+      stageType.value = type;
+      stageType.dispatchEvent(new Event('change'));
+      form.hidden = false;
+      form.open = true;
+      stageFile.focus();
+      stageFile.click();
+    };
+    panel.insertBefore(button, form.parentElement === panel ? form : null);
+  };
+  addIntake(editor, 'Upload Edited Manuscript', 'manuscript');
+  addIntake(editor, 'Upload Editorial Report', 'editorial_report');
+  addIntake(editor, 'Upload Supporting Deliverable', 'other');
+  addIntake(covers, 'Upload Cover', 'cover');
+  addIntake(proof, 'Upload Proof', 'proof');
+  addIntake(delivery, 'Upload Final Delivery ZIP', 'final_delivery');
+  form.hidden = true;
+  stageType.parentElement.querySelector('label[for="stageType"]').hidden = true;
+  stageType.hidden = true;
+  const payments = document.createElement('a');
+  payments.href = '#paymentCenter';
+  payments.textContent = 'Open signed payment schedule and authorization';
+  delivery.prepend(payments);
+  const paymentProject = document.getElementById('paymentApplication');
+  const projectControl = document.getElementById('selectedProject');
+  payments.addEventListener('click', event => {
+    // The signed payment schedule is keyed by application, not project.
+    const application = projectControl.selectedOptions[0]?.dataset.application;
+    if (!application || !Array.from(paymentProject.options).some(o => o.value === application)) {
+      event.preventDefault();
+      readiness.textContent = 'No approved payment application is available for the selected project.';
+      return;
+    }
+    if (application && paymentProject.value !== application && Array.from(paymentProject.options).some(o => o.value === application)) {
+      paymentProject.value = application;
+      paymentProject.dispatchEvent(new Event('change'));
+    }
+  });
+  const status = document.getElementById('stageMessage');
+  form.append(status);
+  status.setAttribute('aria-live', 'polite');
+  const studioStyle = document.createElement('style');
+  studioStyle.textContent = `
+    #rsmWorkflowStages .rsm-studio { border-color:#6b5737; padding:clamp(14px,3vw,24px); overflow-wrap:anywhere }
+    #rsmWorkflowStages .rsm-studio h3 { color:#f1ce85; font-size:1.2rem }
+    #rsmWorkflowStages .rsm-studio > * + * { margin-top:12px }
+    #rsmWorkflowStages .rsm-studio a, #rsmNextActionCenter a { color:#f1ce85 }
+    #rsmWorkflowNav { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px }
+    #rsmWorkflowNav a { display:flex;align-items:center;min-height:46px;line-height:1.3 }
+    #rsmNextActionCenter, #rsmCurrentWorkspace { border-color:#6b5737 }
+    #rsmCurrentWorkspace { display:grid;gap:8px;margin:12px 0 }
+    #rsmWorkflowStages button:focus-visible,#rsmWorkflowStages summary:focus-visible,#rsmWorkflowStages a:focus-visible { outline:3px solid #d6ae5a;outline-offset:3px }
+    .rsm-private-preview { width:100%;height:min(70vh,680px);border:1px solid #6b5737;margin-top:12px }
+    @media (max-width:800px) { #rsmWorkflowNav { grid-template-columns:repeat(2,minmax(0,1fr)) } }
+    @media (max-width:390px) { #rsmWorkflowNav { grid-template-columns:minmax(0,1fr) } }
+  `;
+  document.head.append(studioStyle);
   // Preserve newly added/unmapped panels, without dropping functionality.
   const remaining = sections.filter(s => root.contains(s) && !used.has(s) && !s.closest('#rsmWorkflowStages'));
   if (remaining.length) {
-    const extra = document.createElement('section');
-    extra.setAttribute('aria-label', 'Additional administration controls');
-    const heading = document.createElement('h2');
-    heading.textContent = 'Additional Administration Controls';
-    heading.style.cssText = 'color:#d6ae5a;border-bottom:2px solid #76613d;padding:12px 0;margin:0 0 16px;font-size:22px';
+    const extra = document.createElement('details');
+    const heading = document.createElement('summary');
+    heading.textContent = 'Advanced administration and troubleshooting';
     extra.append(heading);
     remaining.forEach(s => extra.append(s));
     holder.append(extra);
   }
+  const studioGuide = (label, items) => {
+    const detail = document.createElement('details');
+    detail.className = 'rsm-studio-checks';
+    const summary = document.createElement('summary');
+    summary.textContent = label;
+    const checks = document.createElement('ul');
+    for (const value of items) {
+      const item = document.createElement('li');
+      item.textContent = value;
+      checks.append(item);
+    }
+    detail.append(summary, checks);
+    return detail;
+  };
+  production.append(studioGuide('Manuscript production checks', [
+    'Confirm the signed output formats and the exact author-approved manuscript version.',
+    'Inspect rendered chapter openings, headings, pagination, tables and any missing or clipped content.',
+    'Verify trim, margins, gutter and embedded fonts. Record the file version, location and evidence in Proofing and Final QA.',
+    'Review DOCX, print PDF and EPUB where contracted. Record KDP Print Previewer acceptance separately.'
+  ]));
+  const qaLink = document.createElement('a');
+  qaLink.href = '#qaLoad';
+  qaLink.textContent = 'Open proof QA and record evidence';
+  production.append(qaLink);
+  covers.append(studioGuide('Cover production checks', [
+    'Confirm the signed service scope and select the matching binding and paper specification.',
+    'Compare the front, spine and back against the print template for the final interior page count.',
+    'Inspect trim, bleed, safe areas and barcode reserve. Record the exact cover version and page count.',
+    'If pagination changes, withhold the previous cover approval until a matching template and cover are reviewed.'
+  ]));
+  const caption = document.createElement('p');
+  caption.className = 'note';
+  caption.textContent = 'PDF dimension checks support internal review. KDP Print Previewer acceptance is a separate check.';
+  covers.append(caption);
+  const disclosureById = new Map();
+  for (const stage of holder.querySelectorAll(':scope > .rsm-workflow-stage')) {
+    const disclosure = document.createElement('details');
+    disclosure.className = 'rsm-stage-disclosure';
+    const summary = document.createElement('summary');
+    summary.className = 'rsm-stage-summary';
+    const heading = stage.querySelector(':scope > h2');
+    heading.removeAttribute('style');
+    const body = document.createElement('div');
+    body.className = 'rsm-stage-body';
+    summary.append(heading);
+    for (const node of [...stage.childNodes]) body.append(node);
+    disclosure.append(summary, body);
+    stage.append(disclosure);
+    disclosureById.set(stage.id, disclosure);
+  }
+  const reveal = id => {
+    const target = document.getElementById(id);
+    for (let node = target; node && node !== holder; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+    const section = target?.closest('.rsm-workflow-stage');
+    if (section) disclosureById.get(section.id).open = true;
+  };
+  holder.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', () => reveal(link.hash.slice(1)));
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => reveal(link.hash.slice(1)));
+  });
+  window.addEventListener('hashchange', () => reveal(location.hash.slice(1)));
+  const stageForStatus = {onboarding:2,audit:4,editing:3,author_review:5,production:6,proofing:7,completed:8};
+  let activeStage = null;
+  document.addEventListener('rsm-admin-project-stage', event => {
+    const current = stageForStatus[event.detail];
+    const target = current ? 'rsm-workflow-stage-' + current : null;
+    for (const [id, disclosure] of disclosureById) {
+      disclosure.parentElement.classList.toggle('rsm-stage-current', id === target);
+      if (id === target && id !== activeStage) disclosure.open = true;
+    }
+    for (const link of nav.querySelectorAll('a')) {
+      if (link.hash === '#' + target) link.setAttribute('aria-current', 'step');
+      else link.removeAttribute('aria-current');
+    }
+    activeStage = target;
+  });
+  if (location.hash) reveal(location.hash.slice(1));
+  else disclosureById.get('rsm-workflow-stage-1').open = true;
+
 });
