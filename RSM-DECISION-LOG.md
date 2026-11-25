@@ -1,3 +1,9 @@
+## 2026-11-24 | Private engine boundary and deployment consent
+
+- Place worker source, rendering and packaging logic, AI instructions, database migrations, deployment configuration without secrets, private runbooks and synthetic test harnesses in the proposed private engine repository. Keep the public website and a thin portal client at their existing locations. Runtime secrets and tenant content stay in their authorized services.
+- Do not migrate dependencies before isolated compatibility and parity verification. Preserve evidence of historical exposure in an access-controlled incident record. Require separate approval for rewriting history or changing visibility.
+- Synthetic AI-free testing does not authorize live manuscript transmission. Confirm agreement and privacy disclosures, processor terms, response storage and account retention controls before seeking live deployment authorization.
+
 ## 2026-11-24 | Privacy and commercial separation
 
 - Use the public repository for public pages and a thin portal client. Keep automation implementation, deployment code, contract configuration, tenant data and operational records in private systems. Use authenticated tenant-scoped APIs, least-privilege access and server-managed secrets for a licensable platform.
