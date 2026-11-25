@@ -82,3 +82,7 @@
 ### Isolated print worker release boundary
 
 The print worker is pinned to isolated QA and accepts only authenticated administrator requests. It uses the existing approved-source and proof-registration guards. The production stage was explicitly set on the synthetic fixture for this run. Rendering supports the verified text-and-table profile. The short styled fixture and broader layouts remain outside this validation.
+
+### Print proof release boundary
+
+The isolated proof finalizer requires administrator approval, the current author-approved source, all three recorded processing QA checks and matching private-source and destination metadata. Only the exact approved path may receive the copy, and the copy is private until finalization. The final-delivery lock still applies. Recorded QA describes synthetic technical review only.
