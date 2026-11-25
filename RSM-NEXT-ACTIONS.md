@@ -80,3 +80,7 @@ Reuse the same synthetic project and proof. The editorial finalizer currently su
 ### Continue from the author-approved synthetic proof
 
 Reuse the approved synthetic proof. QA lacks the signed agreement and verified payment ledger dependencies used by production final delivery. Add isolated equivalents and require paid balance even for the synthetic acceptance run. Continue final ZIP staging, exact delivery release, project completion, broader renderer compatibility, visual cover acceptance, authenticated Studio controls, and private-engine parity and rollback. Keep the final-delivery lock until its dedicated guard is verified.
+
+### Continue from completed isolated paperback delivery
+
+The earlier missing-payment dependency is closed for the synthetic test. Continue mixed-format DOCX renderer support and authenticated browser acceptance of the Studio controls. The synthetic full wrap received internal visual review; external KDP Print Previewer acceptance remains open. Private source parity and rollback were verified for the QA final-bundle worker. Full private-engine parity and production cutover remain open. Keep production safeguards and the live manuscript-processing privacy hold.
