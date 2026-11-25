@@ -60,3 +60,7 @@
 ## Visual approval and atomic editorial acceptance
 
 - Keep the approved visual baseline. Complete Stage 6 production capability and browser acceptance with synthetic projects, then test proof approval, simulated payment, secure delivery and private-engine rollback. Prepare a separate production deployment decision only after those checks.
+
+## Controlled dashboard activation
+
+- Continue production studio and cover integration, proof approval, simulated payment, secure delivery and private-engine parity in isolated QA. Keep the rollback commit available. Production-authenticated acceptance was outside this public smoke check.

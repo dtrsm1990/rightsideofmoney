@@ -66,3 +66,7 @@
 ## Visual approval and atomic editorial acceptance
 
 - Preserve both approved designs. Release only approved editorial files through the atomic QA finalizer. Restrictive RLS blocks direct registration and state changes; non-editorial delivery remains locked. No production authorization was granted.
+
+## Controlled dashboard activation
+
+- Visual deployment was approved separately from backend automation. Keep the editorial privacy hold. The forward rollback commit 094c9d84f84a6351eb004530a65fec1241a1323f restores the exact pre-release tree. Apply only from the release head or build a scoped revert against a newer head.

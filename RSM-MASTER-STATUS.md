@@ -66,3 +66,7 @@
 ## Visual approval and atomic editorial acceptance
 
 - Administrator personally approved both dashboard designs at 961459d176dc1a07a2ac9500aff7aab2095888cf. Isolated QA now supports atomic editorial release and the authenticated correction sequence passed at the API level.
+
+## Controlled dashboard activation
+
+- Both approved dashboard designs are live from 9b5a88b49eea2e622ee5d3023ef1422093d1528e. The release changed five portal HTML, CSS and JavaScript files. No production schema, worker or client records were changed.

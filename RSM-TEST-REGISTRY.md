@@ -70,3 +70,7 @@
 ## Visual approval and atomic editorial acceptance
 
 - Verified role-based rollback tests and authenticated QA API acceptance using a real DOCX: original release and retry, cross-author denial, draft save and sign-out restore, single submission, decrement of synthetic allowance, worker output and private summary, corrected DOCX part preservation, approval, exact-destination release and current-version author approval. Stale approval and private summary access were denied. Fixed worker queue completion by using fresh query builders, then verified completion without duplicate outputs. Browser acceptance was not performed.
+
+## Controlled dashboard activation
+
+- Authenticated QA author opened version 2 and the read-only earlier manuscript. QA admin switched the synthetic project and opened its revision view. QA lacked payment and operations parity; the production dependencies were verified read-only and no new backend targets were introduced. Verified both public sign-in pages, CSS and logos and all eight administrator workflow disclosures after publication. No production sign-in or financial mutation was performed.
