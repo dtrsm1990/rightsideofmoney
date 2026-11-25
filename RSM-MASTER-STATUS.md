@@ -1,3 +1,8 @@
+## 2026-11-24 | Public dashboard privacy and recovery visibility
+
+- Current administrator dashboard and workflow source use authorized project and QA records for the private assessment and draft warnings. Obsolete client-specific agreement and automatic-start code was removed. The private assessment uses the selected project's completed run. The dashboard shows the next unresolved manuscript checkpoint and retry count.
+- The production worker continues on its previous deployment. A proposed retry change was blocked by automatic review. No live author, payment or asset was changed.
+
 ## 2026-11-24 | Operations monitor and print packaging
 
 - The operations monitor now shows unresolved live manuscript failures and prevents a repeat notice for an already notified run. A later successful run of the same input and scope with both files in storage clears the earlier failure from active monitoring. The historical failure remains auditable.
