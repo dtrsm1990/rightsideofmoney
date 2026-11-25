@@ -86,3 +86,7 @@
 ### Authenticated print worker integration
 
 Passed in isolated QA through authenticated APIs. A real synthetic DOCX went through private upload, administrator approval, atomic manuscript release and exact-version author approval. Worker execution was rejected before the production stage and rejected for the author identity. After the synthetic project entered production, the administrator generated a private 26-page PDF proof and retrieved its actual bytes. A repeated request reused the proof. Direct author download of the unreleased proof was rejected. Studio browser controls, visual cover QA, proof release and downstream steps were outside this run.
+
+### Authenticated proof release and approval
+
+Passed using the existing registered proof. All 26 pages matched the synthetic DOCX text and table cells. PDF checks confirmed matching 6 x 9 page boxes, embedded fonts, sequential folios and in-bounds text origins. Rejected unreviewed release, incomplete QA, incorrect destination, missing copy, author copy and release, access before finalization, unrelated author access and approval, and approval against a non-proof ID. The exact PDF was retrieved and approved by the assigned author. Finalization was idempotent and moved the project to Proofing. These were authenticated API checks.
