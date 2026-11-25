@@ -34,3 +34,7 @@
 ## Author intake and revision safeguards
 
 - Applied the QA revision foundation with production current-version and allocation guards, a unique submitted snapshot per source, and restricted editorial author decisions. Durable delivery locks remain in place.
+
+## Automated DOCX correction checkpoint
+
+- Installed production-derived revision queue, processing status and private output registration in isolated QA. Corrected styled-run boundary handling and updated XML and DOCX parser dependencies in private engine staging. No worker was deployed.

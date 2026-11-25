@@ -28,3 +28,7 @@
 ## Author intake and revision safeguards
 
 - Wire the reviewed correction worker and release prerequisites for QA, then test actual DOCX revisions, signed-scope allowances, proof approval, simulated payment and final delivery. Full wrap, manuscript output and isolated engine rollback require acceptance before release. A single page PDF is an intake fixture only.
+
+## Automated DOCX correction checkpoint
+
+- Complete QA guarded release prerequisites and wire the QA correction worker before attempting browser submission from a released DOCX. Verify database registration and dashboard rendering of both real artifacts, version-specific author acceptance, signed-scope allowances, proof, payment simulation, final delivery and isolated rollback. The local fixture outputs were not registered or released.

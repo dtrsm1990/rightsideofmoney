@@ -34,3 +34,7 @@
 ## Author intake and revision safeguards
 
 - Use the existing TEST ONLY allowance for synthetic guard tests. Keep real agreement records and provider credentials out of QA. Preserve the private correction summary and immutable revision linkage controls.
+
+## Automated DOCX correction checkpoint
+
+- Restrict the QA outbox to revision processing events and allow only the service role to register generated files. Keep both release locks until reviewed proof, payment and delivery guards are integrated. The local fixture exercised the generator with registry imports adapted for Node.
