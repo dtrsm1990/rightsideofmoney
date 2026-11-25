@@ -1,3 +1,8 @@
+## 2026-11-24 | Private migration readiness and EPUB validation
+
+- The proposed private repository returned Not Found to the connected GitHub account. Its visibility and write permissions could not be established. No source or Git history was transferred. Public hosting and live dependencies were preserved.
+- Exported an actual synthetic EPUB 3 from the isolated generator. XML syntax, three spine entries, and three navigation targets with expected chapter content passed. EPUBCheck could not run because no Java runtime was available. Rendered reader preview remains unverified.
+
 ## 2026-11-24 | Isolated production and delivery verification
 
 - Synthetic-only Edge check passed the deployed PDF extractor, checkpoint and lease recovery assertions, four-attempt ceiling, duplicate-output check, and EPUB archive checks. The live manuscript worker was not redeployed.
