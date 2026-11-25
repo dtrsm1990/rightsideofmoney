@@ -90,3 +90,7 @@ The isolated proof finalizer requires administrator approval, the current author
 ### Isolated final delivery and rollback
 
 The payment simulation uses synthetic agreement and ledger records only. The authorization requires the exact current author-approved proof, verified balance, administrator approval, and a byte-matched delivery destination. An approved staging artifact cannot be overwritten through the authenticated Storage API. The isolated bundle-worker rollback restored the original bundle checksum and passed an authenticated smoke test.
+
+### Operational release boundaries
+
+The staged Studio route selects QA-only finalizers only for the exact isolated Supabase endpoint. Editorial releases and non-QA endpoints retain the legacy route. Live worker expansion remains subject to processor disclosure, author authorization and retention review.
