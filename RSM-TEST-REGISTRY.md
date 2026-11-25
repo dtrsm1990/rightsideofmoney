@@ -1,3 +1,9 @@
+## 2026-11-24 | New isolated evidence
+
+- PASS same PDF extraction implementation in synthetic Edge runtime against a real three-page text PDF. PASS checkpoint persistence in a local restart test; expired lease recovery, stale-write rejection, bounded retries and duplicate-output assertions in synthetic harness. Live queue integration not exercised.
+- PASS actual engine ZIP HTTP retrieval under disposable author authentication after isolated simulated release registration. Before registration and for unrelated and anonymous subjects, Storage returned no bytes. SHA-256 matched. Cleanup verified. This was not a payment transaction or repeat of ZIP or database gate acceptance.
+- PASS synthetic EPUB 3 ZIP readback, CRC, uncompressed first mimetype entry, chapter content and package/navigation files. EPUBCheck, visual Kindle preview, broader package deployment, and KDP Print Previewer remain unverified.
+
 ## 2026-11-24 | Privacy and verification scope
 
 - PASS dashboard JavaScript syntax and GitHub readback checks for removal of client-specific literals and use of selected project and QA records. Authenticated browser behavior was not exercised.
