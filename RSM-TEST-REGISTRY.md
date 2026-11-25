@@ -98,3 +98,5 @@ Passed using the existing proof and synthetic identities. Visually inspected the
 ### Studio release routing regression
 
 Parsed all three inline dashboard scripts and exercised four routing cases: isolated proof, isolated final delivery, isolated editorial report and production proof. All matched their intended finalizers. Authenticated browser acceptance of the Studio action remains open; existing authenticated API evidence is retained.
+
+The authenticated Studio browser attempt stopped before sign-in. Local Chrome aborted at launch, and the in-app browser rejected the staged local file under its HTTP/HTTPS URL policy. Browser acceptance remains pending a permitted isolated staging URL.
