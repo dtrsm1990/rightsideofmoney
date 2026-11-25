@@ -82,3 +82,7 @@
 ## Studio QA integration
 
 - Rollback tests selected approved DOCX version 2 and rejected absent scope, the wrong stage, unrelated approvals and registration without the private proof object. Verified service-only proof registration. A real 26-page synthetic DOCX rendered to PDF and paired with a page-count-matched full wrap in a byte-verified ZIP. A clipped interior was rejected.
+
+### Authenticated print worker integration
+
+Passed in isolated QA through authenticated APIs. A real synthetic DOCX went through private upload, administrator approval, atomic manuscript release and exact-version author approval. Worker execution was rejected before the production stage and rejected for the author identity. After the synthetic project entered production, the administrator generated a private 26-page PDF proof and retrieved its actual bytes. A repeated request reused the proof. Direct author download of the unreleased proof was rejected. Studio browser controls, visual cover QA, proof release and downstream steps were outside this run.
