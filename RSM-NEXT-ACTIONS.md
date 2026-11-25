@@ -1,3 +1,9 @@
+## 2026-11-24 | Remaining production and privacy work
+
+- Provide an accessible private repository for proprietary source and verify restricted access before any import. Use an authorized full repository mirror for history exposure review. Keep public hosting and existing dependencies in place until parity is proven.
+- Resolve live manuscript processor disclosure and retention gaps, then obtain separate authorization for worker rollout. Isolated recovery and PDF compatibility passed, but live queue integration is unverified.
+- Validate the synthetic EPUB with EPUBCheck and Kindle Previewer. Finish scoped ebook, applicable hardcover, designed cover and advanced layout production. Print Previewer acceptance remains external and outstanding. Do not repeat the isolated signed author HTTP download or prior release-gate checks.
+
 ## 2026-11-24 | Remaining security and production checks
 
 - Complete a full refs and objects history audit with an authorized repository mirror. Review targeted historical remediation separately. Do not rewrite history or change public hosting without authorization.
