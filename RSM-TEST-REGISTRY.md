@@ -26,3 +26,7 @@
 ## Temporary Free test project
 
 - The project cost endpoint rejected the organization quote request with MCP error -32600, permission denied. The browser fallback required account sign-in. No authenticated tests ran.
+
+## Dedicated QA project foundation
+
+- Transaction-scoped database role tests passed for admin project access and staging inserts, both authors' project isolation, author staging read/write denial, anonymous project denial and release rejection. Confirmed rollback left no fixture rows. Confirmed two private buckets and their administrator staging policies. Authenticated browser and Storage API tests remain open.

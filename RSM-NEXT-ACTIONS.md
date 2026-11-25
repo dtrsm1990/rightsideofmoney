@@ -16,3 +16,7 @@
 ## Temporary Free test project
 
 - Obtain the second-project quote from the signed-in organization dashboard. If it confirms zero cost and no plan change, proceed with synthetic-only acceptance and isolated engine parity.
+
+## Dedicated QA project foundation
+
+- Reconstruct and review the remaining foundational, revision, proof, final delivery and payment schema and release guards before enabling full QA workflow. Prepare synthetic Auth identities and isolated dashboard hosting. Validate the private monitor with synthetic data and a disabled email transport before marking runtime parity. Keep the live manuscript processing privacy hold.

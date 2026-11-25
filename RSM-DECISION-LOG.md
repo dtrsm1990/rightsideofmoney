@@ -22,3 +22,7 @@
 ## Temporary Free test project
 
 - Proceed with a temporary separate test project only after verifying the organization-specific quote is zero and the production plan does not change.
+
+## Dedicated QA project foundation
+
+- Use the retained QA project with synthetic-only data. Keep external agreements, payments, notifications and other outbound integrations unconfigured. Treat the release lock as an interim QA safety control.

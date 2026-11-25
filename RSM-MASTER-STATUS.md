@@ -22,3 +22,7 @@
 ## Temporary Free test project
 
 - The second Free-project option is blocked pending an organization-specific quote. No test project was created.
+
+## Dedicated QA project foundation
+
+- Verified the dedicated QA project is healthy. Applied two QA-only migrations for profile and project access, two private buckets and administrator-only deliverable staging. Release stays locked pending production guard parity. No dashboard or worker was deployed.
