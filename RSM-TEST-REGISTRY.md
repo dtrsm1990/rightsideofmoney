@@ -1,3 +1,9 @@
+## 2026-11-24 | Actual paperback production evidence
+
+- PASS deployed worker generated real synthetic PDF/DOCX/ZIP and read them back from private Storage. PDF reopened at 26 pages and 432 × 648 points; four pages rendered and inspected, including chapter and table pages. First render exposed black table fill. Renderer corrected and second render verified readable table contents and borders. ZIP reopened with CRC checks and exact members and bytes. Cover geometry accepted a matching synthetic one-page PDF and rejected incorrect size. No cover design or KDP upload exercised.
+- PASS rollback regression of exact-version production enqueue and unsupported scope rejection. PASS unprivileged database Storage access check against actual private test artifacts. Preserve prior proof, payment, final-release and revision regressions. No test or live email sent in these production runs.
+- Pending: integrated approval-to-storage proof and cover ZIP for a real signed manuscript, paid author download of the generated ZIP, expanded package assets, and KDP Previewer acceptance. The isolated generated ZIP contained the synthetic editable DOCX and PDF; live supported scope packages approved print interior and supplied cover only.
+
 ## 2026-11-24 | Production completion regression
 
 - PASS rollback regressions: unverified proof rejected, completed QA plus ready proof advances to Proofing, approval bound to current proof, family payment authorization required, idempotent preparation of one $250 final installment with no email dispatch, synthetic accepted request and payment verification, unpaid final ZIP rejected, administrator-approved paid ZIP release idempotent, one production completion event and Completed status. Used synthetic storage metadata and simulated provider acceptance. No requests or messages escaped the transaction.
