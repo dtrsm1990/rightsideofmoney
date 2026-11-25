@@ -42,3 +42,7 @@
 ## In-dashboard author manuscript review
 
 - Keep one in-dashboard manuscript review workspace, with downloads optional, earlier versions read-only, and a separate in-dashboard PDF proof preview when a proof is authorized. Treat the HTML review as a reading and editing view.
+
+## Isolated revision worker checkpoint
+
+- Keep both existing release locks until reviewed release guards pass acceptance. The QA worker is explicitly administrator-invoked. Final payment guard acceptance must use a fixture that actually exercises the payment check because the production function skips that check for is_test projects.

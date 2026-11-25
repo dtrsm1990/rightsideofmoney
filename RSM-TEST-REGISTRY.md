@@ -46,3 +46,7 @@
 ## In-dashboard author manuscript review
 
 - Verified live sign-in fields in-browser without signing in to production. Tested the staged workspace against a real synthetic DOCX in a loopback browser fixture. Verified heading navigation, search, table rendering, draft restore after reload and current-version approval navigation. Fixture persistence used session storage as a Supabase substitute. No authenticated revision or notification result is claimed.
+
+## Isolated revision worker checkpoint
+
+- Verified deployed source readback for worker and correction module. Anonymous invoke returned 401. Initial synthetic administrator invoke returned 403 because the service role lacked table read grants. Applied limited read grants. Retest returned 404 for an unqueued revision as administrator and 403 as author. Email and password authentication returned 200 for both. No author submission, generated output or release was exercised by these tests.

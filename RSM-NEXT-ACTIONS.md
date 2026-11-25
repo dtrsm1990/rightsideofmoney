@@ -36,3 +36,7 @@
 ## In-dashboard author manuscript review
 
 - Authenticate staged author review against a QA-released DOCX after the release guards are complete. Verify invitation activation, draft persistence across sign-out, revision receipt, administrator visibility, notification routing, allowance, proof preview and exact-version acceptance. Keep production and QA release locks in place.
+
+## Isolated revision worker checkpoint
+
+- Install and verify the reviewed release guards, then release a synthetic DOCX through the authorized path. Run authenticated draft and submission acceptance, invoke the QA worker on that queued revision, verify its private outputs and record current-version acceptance. Proof, payment, delivery, production checks and isolated rollback remain open.

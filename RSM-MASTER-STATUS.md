@@ -42,3 +42,7 @@
 ## In-dashboard author manuscript review
 
 - Verified that the live Author Portal asks for email and password only. The Author Dashboard source matched main before this staged review update. Existing production DOCX review and version-linked revision controls are present.
+
+## Isolated revision worker checkpoint
+
+- Deployed a dedicated QA revision worker with the pinned private correction module. The worker is QA-project-bound, requires an administrator JWT, accepts only queued synthetic revisions and has no external notification integration. No correction job was available to process.
