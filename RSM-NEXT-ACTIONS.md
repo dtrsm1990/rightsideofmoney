@@ -72,3 +72,7 @@
 ## Studio QA integration
 
 - Connect the isolated print worker to a representative approved production fixture and verify proof registration through Storage. The earlier short, styled revision fixture is outside the current text-and-table print renderer profile. Verify visual cover acceptance, proof approval, simulated payment, secure delivery and private-engine rollback before any production automation changes.
+
+### Continue from the registered private print proof
+
+Reuse the same synthetic project and proof. The editorial finalizer currently supports editorial artifact types only. Add proof-specific atomic release and exact-destination authorization with production-derived proof and QA guards before attempting downstream acceptance. Outstanding checks include broader renderer compatibility, pagination-bound cover acceptance, Studio browser controls, author proof approval, simulated payment, paid delivery, completion and private-engine rollback.
