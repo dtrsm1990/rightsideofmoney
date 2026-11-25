@@ -90,3 +90,7 @@ The isolated QA migration now gates the exact proof copy and atomically register
 ### Isolated paperback delivery and completion
 
 The same synthetic project completed the proof, payment and delivery cycle. A private worker built the final ZIP from the exact approved 26-page interior and the reviewed full wrap linked to that proof. Simulated payment unlocked the exact delivery copy. Atomic release advanced the project to Completed and the assigned author downloaded the ZIP. Private engine staging: `5e0cc56`. No production changes.
+
+### Studio release routing
+
+Staging commit `aa5c674` routes isolated QA proof and paid final-delivery releases to their dedicated atomic finalizers. The approved visual designs and deployed dashboards were left in place.
