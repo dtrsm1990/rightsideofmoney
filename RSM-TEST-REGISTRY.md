@@ -22,3 +22,7 @@
 ## Isolated acceptance environment
 
 - A fresh Supabase branch request returned PaymentRequiredException: Branching is supported only on the Pro plan or above. The branch inventory showed only the default production ref. No authenticated checks or rollback rehearsal were performed.
+
+## Temporary Free test project
+
+- The project cost endpoint rejected the organization quote request with MCP error -32600, permission denied. The browser fallback required account sign-in. No authenticated tests ran.

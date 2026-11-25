@@ -12,3 +12,7 @@
 ## Isolated acceptance environment
 
 - Use an existing isolated environment or seek separate authorization for plan costs before attempting paid branching. Keep the manuscript processing privacy hold while isolated parity remains open.
+
+## Temporary Free test project
+
+- Obtain the second-project quote from the signed-in organization dashboard. If it confirms zero cost and no plan change, proceed with synthetic-only acceptance and isolated engine parity.

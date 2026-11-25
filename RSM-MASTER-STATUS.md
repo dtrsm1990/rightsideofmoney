@@ -18,3 +18,7 @@
 ## Isolated acceptance environment
 
 - Authenticated dashboard acceptance and private engine parity remain blocked. The connected Supabase environment requires Pro or above for preview branching. No preview environment was provisioned.
+
+## Temporary Free test project
+
+- The second Free-project option is blocked pending an organization-specific quote. No test project was created.

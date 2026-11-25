@@ -18,3 +18,7 @@
 ## Isolated acceptance environment
 
 - Limit paid authorization to one temporary preview branch at the quoted hourly rate. A plan upgrade requires a separate decision. Keep the dashboard release gated on authenticated acceptance and rollback rehearsal.
+
+## Temporary Free test project
+
+- Proceed with a temporary separate test project only after verifying the organization-specific quote is zero and the production plan does not change.
