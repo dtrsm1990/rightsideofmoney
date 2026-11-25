@@ -78,3 +78,7 @@
 ## Studio QA integration
 
 - Administrator and Author Dashboard activation is complete and accepted. Installed isolated print source lookup and private proof registration guards. Validated the local manuscript and cover bundle on synthetic artifacts.
+
+### Isolated print worker connected
+
+The QA-only worker generated and registered a private 26-page paperback proof from the exact author-approved DOCX in private Storage. An authenticated administrator retrieved the proof. The assigned author could not retrieve it before release. Live dashboard activation remains complete and the live manuscript-processing privacy hold remains in effect.
