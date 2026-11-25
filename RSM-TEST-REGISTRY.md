@@ -1,3 +1,9 @@
+## 2026-11-24 | Privacy and verification scope
+
+- PASS dashboard JavaScript syntax and GitHub readback checks for removal of client-specific literals and use of selected project and QA records. Authenticated browser behavior was not exercised.
+- Reviewed 402 repository commit diffs from the connector's recent and keyword results. Historical client and agreement references found. No privileged credential pattern matched in the reviewed diffs. The sample does not certify complete history.
+- Preserved earlier isolated ZIP integrity, private access and payment-gate results. Paid author HTTP download and real KDP Print Previewer acceptance are still open. No prior acceptance workflow was rerun.
+
 ## 2026-11-24 | Monitor and additional paperback checks
 
 - PASS rollback tests for isolated failure suppression, detection of an active unresolved failure, prior-day deduplication, and exclusion of a superseded historical failure. The first scheduled monitor run after deployment completed with no new notices or errors.
