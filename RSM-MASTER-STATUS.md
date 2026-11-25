@@ -30,3 +30,7 @@
 ## Authenticated QA checkpoint
 
 - Installed isolated document intake and read-only editorial dashboard tables. Created three synthetic Auth users and two projects. Served the staged dashboards on loopback with a QA-only connection allowlist.
+
+## Author intake and revision safeguards
+
+- Applied the QA revision foundation with production current-version and allocation guards, a unique submitted snapshot per source, and restricted editorial author decisions. Durable delivery locks remain in place.

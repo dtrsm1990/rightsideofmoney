@@ -34,3 +34,7 @@
 ## Authenticated QA checkpoint
 
 - Browser sign-in worked for the synthetic administrator and first author. Logged-in author saw only their assigned project and was denied administrator access on reload. Confirmed all eight navigation links and Stage 6 navigation, both administrator test projects, private cover upload, pending review registration and one-page PDF dimension preview. Verified the object by matching the staging bucket and registration record. Initial QA sign-ins failed because fixture rows had not been committed; successful sign-ins followed the fixture fix.
+
+## Author intake and revision safeguards
+
+- A signed-in author uploaded and downloaded an actual synthetic PDF classified as manuscript intake. Matched its document record to private storage and the assigned synthetic author. Rollback-only database fixtures accepted the current editorial version, rejected stale approval and duplicate submission, consumed one of two synthetic rounds, and rejected approval after submitted corrections. Confirmed zero retained revision fixtures and both release locks still installed.

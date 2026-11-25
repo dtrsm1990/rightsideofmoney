@@ -24,3 +24,7 @@
 ## Authenticated QA checkpoint
 
 - Restore guarded revision, proof, payment and final delivery dependencies and QA-safe worker paths before full acceptance. Exercise author upload and version approval, cover access denial, private-engine runtime parity and rollback. Keep the production release and manuscript processing privacy hold.
+
+## Author intake and revision safeguards
+
+- Wire the reviewed correction worker and release prerequisites for QA, then test actual DOCX revisions, signed-scope allowances, proof approval, simulated payment and final delivery. Full wrap, manuscript output and isolated engine rollback require acceptance before release. A single page PDF is an intake fixture only.

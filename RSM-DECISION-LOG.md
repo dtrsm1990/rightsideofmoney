@@ -30,3 +30,7 @@
 ## Authenticated QA checkpoint
 
 - Keep approval writes and delivery releases locked until the corresponding production guards are reviewed. Use separate browser sessions for administrator and author testing because Auth sessions are shared on the same origin.
+
+## Author intake and revision safeguards
+
+- Use the existing TEST ONLY allowance for synthetic guard tests. Keep real agreement records and provider credentials out of QA. Preserve the private correction summary and immutable revision linkage controls.
