@@ -1,3 +1,8 @@
+## 2026-11-24 | Staged source import and privacy review
+
+- Seed a verified private repository with clean source snapshots only. Include processing, rendering, packaging, limited deployment templates, migrations, tests and runbooks. Exclude tenant data, signed documents, secrets and Git history. Use a separate staging deployment for parity, keep existing public endpoints and retain the prior deployment for rollback.
+- Before live AI processing expands, approve processor disclosure and applicable author authorization, verify actual provider retention settings, explicitly disable response application-state storage where supported, and document access, retention and deletion controls. Apply agreement changes prospectively or by separately approved consent. No retroactive signed agreement edits.
+
 ## 2026-11-24 | Private engine boundary and deployment consent
 
 - Place worker source, rendering and packaging logic, AI instructions, database migrations, deployment configuration without secrets, private runbooks and synthetic test harnesses in the proposed private engine repository. Keep the public website and a thin portal client at their existing locations. Runtime secrets and tenant content stay in their authorized services.
