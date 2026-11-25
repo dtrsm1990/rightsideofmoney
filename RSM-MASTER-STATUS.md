@@ -82,3 +82,7 @@
 ### Isolated print worker connected
 
 The QA-only worker generated and registered a private 26-page paperback proof from the exact author-approved DOCX in private Storage. An authenticated administrator retrieved the proof. The assigned author could not retrieve it before release. Live dashboard activation remains complete and the live manuscript-processing privacy hold remains in effect.
+
+### Synthetic print proof release and author approval
+
+The isolated QA migration now gates the exact proof copy and atomically registers the author-visible proof and advances the project to Proofing. The assigned synthetic author downloaded the same 26-page PDF and approved its exact version. Private engine staging commit: `d568620`. Live production was untouched.
