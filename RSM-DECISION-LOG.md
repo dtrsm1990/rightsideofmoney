@@ -11,3 +11,5 @@
 
 - Reuse the private deliverable upload, storage, existing payment management and exact-file review actions. Keep preview and dimensional QA separate from KDP acceptance.
 - Stage dashboard code and sanitized continuity together. Verify authenticated behavior before production publication.
+
+- Keep upload entry points close to their workflow stage and reuse one private registration handler. Display signed readiness from the existing service. Final release remains server-authorized.

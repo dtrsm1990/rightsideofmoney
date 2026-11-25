@@ -12,3 +12,6 @@
 - Static checks passed for the eight-stage config, workflow and all three inline script blocks, all 232 preexisting element IDs and preservation of existing gate calls.
 - Read-only schema verification confirmed project readiness, signed format specifications, approval versions and private deliverable fields. Staged operations monitor source matches active version 5 byte for byte.
 - Authenticated staging browser acceptance, visual cover QA, full isolated engine parity and rollback remain open. No previous acceptance tests were repeated.
+
+- Confirmed the existing final readiness service returns signed agreement, verified payment, signed balance and exact proof approval status. The release guard remains authoritative for final eligibility.
+- No isolated Supabase branch was available. A branch creation attempt returned an expired cost confirmation. Authenticated acceptance remains open.

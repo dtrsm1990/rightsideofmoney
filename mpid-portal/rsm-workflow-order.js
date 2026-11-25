@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const byName = (name) => sections.find(s => s.querySelector('h2')?.textContent.trim() === name);
   const get = (id) => document.getElementById(id) || byName(id);
   const stages = [
-    ['Applications, Agreements & Initial Payments', ['applicationCenter','signwellIntegration','paymentCenter']],
+    ['Applications, Agreements & Initial Payments', ['applicationCenter','signwellIntegration','paymentCenter','rsmOperationsCenter']],
     ['Author Onboarding & Manuscript Intake', ['authorInvitations','Publishing Projects','Create a Publishing Project','applicantManuscriptCenter','submissionCenter','Upload a Project Document','Project Details']],
     ['Automated Editorial Processing', ['rsmEditingEngine','manuscriptRecoveryCenter','manuscriptProcessing']],
     ['Editorial QA & Administrator Approval', ['editorialAuditCenter','Add an Editorial Finding','editorialStaging']],
@@ -706,44 +706,69 @@ document.addEventListener('DOMContentLoaded', () => {
   const production = makePanel(6, 'rsmProductionStudio', 'Manuscript Production Studio', studio);
   production.append(makeHost('rsmPrintJobs'));
   const covers = makePanel(6, 'rsmCoverStudio', 'Cover Studio', makeHost('rsmCoverSources'));
-  const upload = document.createElement('button');
-  upload.type = 'button';
-  upload.textContent = 'Upload Cover';
-  upload.setAttribute('aria-controls', 'rsmPrivateUpload');
-  upload.onclick = () => {
-    if (!document.getElementById('selectedProject').value) {
-      document.getElementById('selectedProject').focus();
-      return;
-    }
-    const type = document.getElementById('stageType');
-    type.value = 'cover';
-    type.dispatchEvent(new Event('change'));
-    const form = document.getElementById('rsmPrivateUpload');
-    form.open = true;
-    document.getElementById('stageFile').focus();
-    document.getElementById('stageFile').click();
-  };
   const form = document.getElementById('rsmPrivateUpload');
-  covers.append(upload, form, makeHost('rsmCoverDeliverables'));
+  const coverFiles = makeHost('rsmCoverDeliverables');
+  covers.append(coverFiles);
   const proof = makePanel(7, 'rsmProofStudio', 'Private Production Proofs', makeHost('rsmProofDeliverables'));
   proof.append(makeHost('rsmProofReadiness'));
   const delivery = makePanel(8, 'rsmDeliveryStudio', 'Final Delivery Assets', makeHost('rsmFinalDeliverables'));
+  const readiness = makeHost('rsmDeliveryReadiness');
+  readiness.setAttribute('role', 'status');
+  delivery.prepend(readiness);
+  const stageType = document.getElementById('stageType');
+  const stageFile = document.getElementById('stageFile');
+  const stageSubmit = document.getElementById('stageUpload');
+  const editor = document.getElementById('editorialStaging');
+  const addIntake = (panel, label, type) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = label;
+    button.setAttribute('aria-controls', form.id);
+    button.onclick = () => {
+      const project = document.getElementById('selectedProject');
+      if (!project.value) { project.focus(); return; }
+      if (stageSubmit.disabled) return;
+      form.querySelector('summary').textContent = label + ' for private review';
+      panel.insertBefore(form, button.nextSibling);
+      stageType.value = type;
+      stageType.dispatchEvent(new Event('change'));
+      form.hidden = false;
+      form.open = true;
+      stageFile.focus();
+      stageFile.click();
+    };
+    panel.insertBefore(button, form.parentElement === panel ? form : null);
+  };
+  addIntake(editor, 'Upload Edited Manuscript', 'manuscript');
+  addIntake(editor, 'Upload Editorial Report', 'editorial_report');
+  addIntake(editor, 'Upload Supporting Deliverable', 'other');
+  addIntake(covers, 'Upload Cover', 'cover');
+  addIntake(proof, 'Upload Proof', 'proof');
+  addIntake(delivery, 'Upload Final Delivery ZIP', 'final_delivery');
+  form.hidden = true;
+  stageType.parentElement.querySelector('label[for="stageType"]').hidden = true;
+  stageType.hidden = true;
   const payments = document.createElement('a');
   payments.href = '#paymentCenter';
   payments.textContent = 'Open signed payment schedule and authorization';
   delivery.prepend(payments);
   const paymentProject = document.getElementById('paymentApplication');
   const projectControl = document.getElementById('selectedProject');
-  projectControl.addEventListener('change', () => {
+  payments.addEventListener('click', event => {
     // The signed payment schedule is keyed by application, not project.
     const application = projectControl.selectedOptions[0]?.dataset.application;
+    if (!application || !Array.from(paymentProject.options).some(o => o.value === application)) {
+      event.preventDefault();
+      readiness.textContent = 'No approved payment application is available for the selected project.';
+      return;
+    }
     if (application && paymentProject.value !== application && Array.from(paymentProject.options).some(o => o.value === application)) {
       paymentProject.value = application;
       paymentProject.dispatchEvent(new Event('change'));
     }
   });
   const status = document.getElementById('stageMessage');
-  nav.before(status);
+  form.append(status);
   status.setAttribute('aria-live', 'polite');
   const studioStyle = document.createElement('style');
   studioStyle.textContent = `

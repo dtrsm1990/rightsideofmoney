@@ -6,3 +6,8 @@
 - Added private PDF preview and dimension reporting. The dashboard shows existing production job status, signed format specifications and recorded proof QA.
 - The private engine import remains staged. The deployed operations monitor matches its staged source exactly. Full isolated deployment and rollback remain open.
 - Prior verification remains recorded in the test registry. Historical continuity is available in version history.
+
+## Stage-specific intake and delivery
+
+- Stage-specific upload actions share one private registration flow. Stage 8 reads final readiness from the existing service and shows the current delivery ZIP status.
+- The production site remains on its existing release. Isolated authenticated acceptance and rollback rehearsal remain open.
