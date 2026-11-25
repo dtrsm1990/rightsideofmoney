@@ -7,3 +7,8 @@
 - Finish EPUBCheck and rendered reading-system inspection. Verify scoped cover design, hardcover and advanced interior layout support. KDP Previewer acceptance remains external and outstanding.
 
 - Authorize an isolated Supabase environment with synthetic identities and a safe staging URL. Run targeted authenticated tests and rehearse rollback before considering a production merge.
+
+
+## Isolated acceptance environment
+
+- Use an existing isolated environment or seek separate authorization for plan costs before attempting paid branching. Keep the manuscript processing privacy hold while isolated parity remains open.

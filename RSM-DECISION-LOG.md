@@ -13,3 +13,8 @@
 - Stage dashboard code and sanitized continuity together. Verify authenticated behavior before production publication.
 
 - Keep upload entry points close to their workflow stage and reuse one private registration handler. Display signed readiness from the existing service. Final release remains server-authorized.
+
+
+## Isolated acceptance environment
+
+- Limit paid authorization to one temporary preview branch at the quoted hourly rate. A plan upgrade requires a separate decision. Keep the dashboard release gated on authenticated acceptance and rollback rehearsal.

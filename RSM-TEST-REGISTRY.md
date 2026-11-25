@@ -17,3 +17,8 @@
 - No isolated Supabase branch was available. A branch creation attempt returned an expired cost confirmation. Authenticated acceptance remains open.
 
 - Targeted DOM fixture checks passed for six upload actions, single-form movement, project and busy guards, and readiness error, unpaid and paid states. The live sign-in page rendered in a browser. Authenticated storage was not exercised.
+
+
+## Isolated acceptance environment
+
+- A fresh Supabase branch request returned PaymentRequiredException: Branching is supported only on the Pro plan or above. The branch inventory showed only the default production ref. No authenticated checks or rollback rehearsal were performed.
