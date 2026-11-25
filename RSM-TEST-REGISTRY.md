@@ -66,3 +66,7 @@
 ## Coordinated dashboard redesign
 
 - Browser design fixture passed the eight-stage render, keyboard disclosure toggle, selected production stage highlight, official logo and visible Upload Cover action. Verified no horizontal overflow at 390 CSS pixels. Captured both administrator layouts. Prior author screenshots remain applicable to the unchanged Author Workspace. Source checks preserved existing administrator element IDs and release gate calls. Read-only QA check confirmed both release locks remain.
+
+## Visual approval and atomic editorial acceptance
+
+- Verified role-based rollback tests and authenticated QA API acceptance using a real DOCX: original release and retry, cross-author denial, draft save and sign-out restore, single submission, decrement of synthetic allowance, worker output and private summary, corrected DOCX part preservation, approval, exact-destination release and current-version author approval. Stale approval and private summary access were denied. Fixed worker queue completion by using fresh query builders, then verified completion without duplicate outputs. Browser acceptance was not performed.

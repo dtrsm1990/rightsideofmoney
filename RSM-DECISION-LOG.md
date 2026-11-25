@@ -62,3 +62,7 @@
 ## Coordinated dashboard redesign
 
 - Keep dashboard styling separate from release, payment and worker logic. Stage counts describe project phases. Treat the Stage 6 checklist and PDF dimensions as internal QA evidence, not external Print Previewer acceptance.
+
+## Visual approval and atomic editorial acceptance
+
+- Preserve both approved designs. Release only approved editorial files through the atomic QA finalizer. Restrictive RLS blocks direct registration and state changes; non-editorial delivery remains locked. No production authorization was granted.

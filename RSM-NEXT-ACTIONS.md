@@ -56,3 +56,7 @@
 ## Coordinated dashboard redesign
 
 - Review both dashboard layouts as an independent visual release candidate. Before production deploy, validate the new layouts in authenticated QA and finish atomic editorial finalization. Cover generation, pagination-linked approval invalidation, full production file QA and authenticated end-to-end acceptance remain open.
+
+## Visual approval and atomic editorial acceptance
+
+- Keep the approved visual baseline. Complete Stage 6 production capability and browser acceptance with synthetic projects, then test proof approval, simulated payment, secure delivery and private-engine rollback. Prepare a separate production deployment decision only after those checks.

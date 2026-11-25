@@ -62,3 +62,7 @@
 ## Coordinated dashboard redesign
 
 - Staged the Administrator Publishing Command Center to match the staged Author Workspace. Added portfolio metrics, eight selectable expandable stages, selected-stage highlighting and Stage 6 manuscript and cover review guides linked to existing production controls.
+
+## Visual approval and atomic editorial acceptance
+
+- Administrator personally approved both dashboard designs at 961459d176dc1a07a2ac9500aff7aab2095888cf. Isolated QA now supports atomic editorial release and the authenticated correction sequence passed at the API level.
