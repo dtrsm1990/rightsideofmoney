@@ -1955,6 +1955,21 @@ async function rsmRefreshEditing(){
  const {data,error}=await sb.from('rsm_manuscript_edit_runs').select('id,status,source_filename,output_storage_path,report_storage_path,error_message,qa_status,qa_flags,completed_segments,total_segments,created_at').eq('project_id',pid).order('created_at',{ascending:false}).limit(25);
  if(error)throw error;
  const activeRun=(data||[]).find(r=>r.status==='processing');
+ if(activeRun){
+  const {data:unfinished,error:checkpointError}=await sb.from('rsm_edit_segments')
+   .select('segment_index,status,attempt_count,last_error,claimed_at').eq('run_id',activeRun.id)
+   .neq('status','completed').order('segment_index').limit(1).maybeSingle();
+  if(pid!==$('selectedProject').value)return;
+  const checkpoint=document.createElement('p');checkpoint.className='note';checkpoint.setAttribute('role','status');
+  if(checkpointError)checkpoint.textContent='The current recovery checkpoint could not be loaded.';
+  else if(!unfinished)checkpoint.textContent='All segments are saved. Private document finalization may still be pending.';
+  else {
+   const wait=unfinished.status==='processing'&&unfinished.claimed_at&&Date.now()-Date.parse(unfinished.claimed_at)<120000;
+   const state=wait?'currently claimed':unfinished.attempt_count>=4?'retry limit reached':unfinished.status==='processing'?'interrupted and eligible for administrator resume':unfinished.status;
+   checkpoint.textContent='Next checkpoint: segment '+(unfinished.segment_index+1)+' · '+state+' · '+unfinished.attempt_count+' of 4 attempts'+(unfinished.last_error?' · '+unfinished.last_error:'');
+  }
+  holder.append(checkpoint);
+ }
  $('rsmQueueAuto').disabled=false;
  $('rsmQueueStart').disabled=!!activeRun;
  if(!data?.length){holder.textContent='No editing run recorded yet. Use Process Private Manuscript. If you already attempted it, check the processing status message above for the failure reason.';return;}
