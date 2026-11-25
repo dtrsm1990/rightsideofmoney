@@ -46,3 +46,7 @@
 ## Isolated revision worker checkpoint
 
 - Keep both existing release locks until reviewed release guards pass acceptance. The QA worker is explicitly administrator-invoked. Final payment guard acceptance must use a fixture that actually exercises the payment check because the production function skips that check for is_test projects.
+
+## Release guard integration
+
+- Preserve the process QA decision checks and assigned-author version acceptance. Keep notification triggers and provider integrations absent from QA. Do not treat transaction-scoped guard tests as authenticated browser release acceptance.

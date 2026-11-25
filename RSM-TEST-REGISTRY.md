@@ -50,3 +50,7 @@
 ## Isolated revision worker checkpoint
 
 - Verified deployed source readback for worker and correction module. Anonymous invoke returned 401. Initial synthetic administrator invoke returned 403 because the service role lacked table read grants. Applied limited read grants. Retest returned 404 for an unqueued revision as administrator and 403 as author. Email and password authentication returned 200 for both. No author submission, generated output or release was exercised by these tests.
+
+## Release guard integration
+
+- Rollback-only tests denied author release, unapproved admin release, approval with missing or failed processing QA, release without the authorized destination object, and proof-link changes. Passing processing QA permitted the approval transition. Confirmed no proof was accepted without a verified released proof and both locks remained installed.

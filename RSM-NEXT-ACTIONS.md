@@ -40,3 +40,7 @@
 ## Isolated revision worker checkpoint
 
 - Install and verify the reviewed release guards, then release a synthetic DOCX through the authorized path. Run authenticated draft and submission acceptance, invoke the QA worker on that queued revision, verify its private outputs and record current-version acceptance. Proof, payment, delivery, production checks and isolated rollback remain open.
+
+## Release guard integration
+
+- Remaining release prerequisites include reviewed editorial stage advancement, final-delivery proof and payment guard dependencies, and exact release destination Storage authorization. After those controls pass, exercise the approved synthetic DOCX through authenticated author draft, submission, worker processing, administrator review and version-specific release. No browser correction loop or runtime rollback passed at this checkpoint.

@@ -46,3 +46,7 @@
 ## Isolated revision worker checkpoint
 
 - Deployed a dedicated QA revision worker with the pinned private correction module. The worker is QA-project-bound, requires an administrator JWT, accepts only queued synthetic revisions and has no external notification integration. No correction job was available to process.
+
+## Release guard integration
+
+- Installed the production processing QA trigger, editorial release finalization RPC, current verified proof and latest approval helpers, and proof linkage guard in QA. Both existing release locks remain active.
