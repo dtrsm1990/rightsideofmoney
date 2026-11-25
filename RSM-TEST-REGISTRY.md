@@ -6,3 +6,9 @@
 - Synthetic cover geometry accepted a matching template and rejected a wrong binding, page count, width, and rotation.
 - Prior verified results remain in force: isolated revision and recovery checks, paperback rendering and package integrity, payment and release controls, authorized synthetic download, and EPUB archive and XML checks.
 - Isolated deployment parity, full cover quality review, EPUBCheck, reading-system preview, and KDP Previewer remain open.
+
+## Administrator workspace staging
+
+- Static checks passed for the eight-stage config, workflow and all three inline script blocks, all 232 preexisting element IDs and preservation of existing gate calls.
+- Read-only schema verification confirmed project readiness, signed format specifications, approval versions and private deliverable fields. Staged operations monitor source matches active version 5 byte for byte.
+- Authenticated staging browser acceptance, visual cover QA, full isolated engine parity and rollback remain open. No previous acceptance tests were repeated.
