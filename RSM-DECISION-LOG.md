@@ -86,3 +86,7 @@ The print worker is pinned to isolated QA and accepts only authenticated adminis
 ### Print proof release boundary
 
 The isolated proof finalizer requires administrator approval, the current author-approved source, all three recorded processing QA checks and matching private-source and destination metadata. Only the exact approved path may receive the copy, and the copy is private until finalization. The final-delivery lock still applies. Recorded QA describes synthetic technical review only.
+
+### Isolated final delivery and rollback
+
+The payment simulation uses synthetic agreement and ledger records only. The authorization requires the exact current author-approved proof, verified balance, administrator approval, and a byte-matched delivery destination. An approved staging artifact cannot be overwritten through the authenticated Storage API. The isolated bundle-worker rollback restored the original bundle checksum and passed an authenticated smoke test.
