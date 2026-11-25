@@ -1,3 +1,8 @@
+## 2026-11-24 | Alert and public documentation rules
+
+- Alert once for an unresolved live manuscript failure. Preserve historical failure records and suppress office alerts for isolated tests and demonstrably recovered runs.
+- Keep public continuity entries free of client details, private operational identifiers and credentials. Protect final ZIPs with the existing private release and verified payment gates. Machine cover checks verify dimensions. Review artwork and barcode placement visually before release.
+
 ## 2026-11-24 | Supported automatic paperback scope
 
 - Match the explicit signed 6 × 9 black-and-white white-paper paperback profile. Build the print proof from the exact current approved Word source, fail safely on unsupported layout and preserve the source. Keep private proof approval and visual QA separate from machine checks.
@@ -52,26 +57,26 @@ Last baseline: 2026-11-19
 ## Business and branding
 - Public brand: RSM Publishing Services, operated under Right Side of Money LLC.
 - Technical MPID names may remain in internal database and code.
-- All publishing notifications route to publishing@rightsideofmoney.com.
+- All publishing notifications route to [private contact].
 - GitHub repository dtrsm1990/rightsideofmoney is authoritative for website source.
 - Admin dashboard filename must remain mpid-portal/admin-dashboard.html.
 - Admin UI should be professional, structured, and card-based, not raw SignWell field dumps.
 
 ## Packages
-- Publish-Ready: $997.
-- Full Launch: $2,497.
-- Signature Author: $4,997.
+- Publish-Ready: [amount]
+- Full Launch: [amount]
+- Signature Author: [amount]
 - Standard schedule: 30% initial, 40% milestone, 30% before final delivery.
 - Reusable Bluevine links are preferred; never invent or regenerate a payment link.
 - Special pricing must be explicitly scoped and approved, not silently applied to all clients.
 
-## Maurice Watkins agreement revision
-- Book: The VA Loan Millionaire; package: Publish-Ready.
-- Revised contract: $500 family discount; $250 on signing and $250 on completion.
-- Preserve original signed $600 contract as historical evidence.
+## [private name] agreement revision
+- Book: [private title]; package: Publish-Ready.
+- Revised contract: [amount] family discount; [amount] on signing and [amount] on completion.
+- Preserve original signed [amount] contract as historical evidence.
 - Do not send payment request before the revised agreement is signed.
 - Do not issue duplicate agreements or payment requests.
-- Revised SignWell document ID: 8de47506-d4f4-4310-80cf-8777831a6023.
+- Revised SignWell document ID: [private reference].
 
 ## Client lifecycle
 Application -> review and scope -> agreement signed -> verified payment -> author invitation/onboarding -> manuscript processing -> admin review -> author approvals/proof -> final payment -> secure delivery -> archive.
@@ -81,7 +86,7 @@ Human approval is required for substantive editorial changes, publication author
 - AI manuscript processing should be package-specific, auditable, and admin-reviewed before release.
 - Preserve originals and provide traceable revisions.
 - No invented facts, citations, or unapproved material changes.
-- For Maurice paperback: 6x9, black-and-white interior on white paper, glossy cover.
+- For [private name] paperback: 6x9, black-and-white interior on white paper, glossy cover.
 - Author retains responsibility for their KDP account and ISBN unless the signed scope explicitly states otherwise.
 
 ## Continuity policy (adopted 2026-11-19)
@@ -92,23 +97,23 @@ Human approval is required for substantive editorial changes, publication author
 - No secret keys, private client files, or sensitive contract text in GitHub continuity files.
 
 ## Reusable discount selection (confirmed 2026-11-19)
-- Regular Discount and Family Discount are reusable options for any eligible author, not Maurice-specific.
-- Approved options: standard packages at $997/$2,497/$4,997 with 30/40/30; Regular Discount $600 full upfront; Family Discount $500 full upfront OR $250 upon signing plus $250 upon completion.
+- Regular Discount and Family Discount are reusable options for any eligible author, not [private name]-specific.
+- Approved options: standard packages at [amount]/[amount]/[amount] with 30/40/30; Regular Discount [amount] full upfront; Family Discount [amount] full upfront OR [amount] upon signing plus [amount] upon completion.
 - Discounts affect price and payment schedule, not the selected publishing service package or scope unless separately approved.
 - Admin dashboard must expose a reusable pricing selector and send agreements with corresponding terms; no customer-specific button in the general workflow.
 - Reuse existing approved Bluevine links; do not create new links per author.
 
 ## 2026-11-20 payment approval workflow decision
-- Owner approved future automatic initial payment preparation with administrator approval notification before sending author payment requests. Administrator approval email destination publishing@rightsideofmoney.com. Maurice Watkins current $250 request must remain held and must not be sent without separate explicit authorization. Approval is not permission to send an author payment request.
+- Owner approved future automatic initial payment preparation with administrator approval notification before sending author payment requests. Administrator approval email destination [private contact]. [private name] current [amount] request must remain held and must not be sent without separate explicit authorization. Approval is not permission to send an author payment request.
 
 ## 2026-11-20 approved dashboard and continuity operating decisions
 - Invite New Author belongs immediately BELOW Author Application Review Center, followed by Applicant Manuscript Inbox. GitHub main commit 494b4bc09bbf38ae1c50db7cf2a0fbccdee0d836 implements source ordering; browser acceptance pending.
 - Maintain accurate completion tracking in ALL FOUR GitHub continuity files after each meaningful change. Mark deployed source and verified behavior separately, record commit/evidence, carry forward only outstanding actions, and read these files first in every new chat. Do not recommend rebuilding a completed feature without first checking source and live data.
-- Maurice's signed $500 agreement and already-requested $250 initial payment must not be reissued. Verified payment remains the onboarding prerequisite. Admin approval is mandatory for future author payment sends.
+- [private name]'s signed [amount] agreement and already-requested [amount] initial payment must not be reissued. Verified payment remains the onboarding prerequisite. Admin approval is mandatory for future author payment sends.
 
 ## 2026-11-20 decision: repair deployed worker, do not rebuild
 - Live status constraint is pending/processing/completed/failed; an existing active every-minute cron invokes the existing worker. Earlier assumption of awaiting_admin_review status was stale and corrected by inspecting live constraints.
-- Preserve the existing worker and improve eligibility/retry safeguards. Do not treat deployment as end-to-end acceptance or manually invite Maurice before verified payment.
+- Preserve the existing worker and improve eligibility/retry safeguards. Do not treat deployment as end-to-end acceptance or manually invite [private name] before verified payment.
 
 ## 2026-11-20 project identity decision
 - Use mpid_projects.application_id as stable unique linkage for automatic onboarding. Never infer project identity solely from author_id and book title. Preserve existing projects with null application_id until explicitly reconciled.
@@ -182,8 +187,8 @@ Human approval is required for substantive editorial changes, publication author
 ## 2026-11-22 | Binding workflow decision: dashboard-only, no manual artifact transfer
 - All author manuscripts, forewords, working copies, editorial findings, reports, QA results and deliverables must be ingested, generated, stored and reviewed within RSM Publishing Services' authenticated Admin Dashboard and private Supabase infrastructure. No external ChatGPT-produced manuscript download or reupload as a normal operational step. Administrator responsibility is to review exceptions and approve release, not run processing or manually update routine finding statuses. Preserve source files, version history, contracted scope, privacy and approval gates. Do not represent the system as fully automated until an authenticated end-to-end test passes.
 
-## 2026-11-22 | Foreword is part of Maurice's manuscript
-- The Colonel Carlos T. Jackson foreword is integrated as manuscript source content in private Supabase, not treated as an independent operational deliverable. Server-side assembly reads the original PDF and integrated foreword, creates a new working version without changing original source. Admin dashboard should automatically initiate processing when sources are present. A mechanical preflight is not a full substantive editorial review; no automatic author release or KDP-ready claim without verified QA and approvals.
+## 2026-11-22 | Foreword is part of [private name]'s manuscript
+- The Colonel [private name] foreword is integrated as manuscript source content in private Supabase, not treated as an independent operational deliverable. Server-side assembly reads the original PDF and integrated foreword, creates a new working version without changing original source. Admin dashboard should automatically initiate processing when sources are present. A mechanical preflight is not a full substantive editorial review; no automatic author release or KDP-ready claim without verified QA and approvals.
 
 ## 2026-11-22 | Preserve strict production QA gate
 - Align database allowed statuses with release-gate view without weakening gate requirements. Automated mechanical preflight stays `needs_review`; only verified substantive editorial, source-fidelity, and print-layout QA can justify `completed` plus `passed`. No automatic approval or author release from a mere deployment or preflight.
@@ -222,7 +227,7 @@ Human approval is required for substantive editorial changes, publication author
 
 2026-11-23: Process one editorial segment per authenticated request; persist edited text, findings and usage in rsm_editor_segments before next request; assemble private DOCX outputs only after all segments saved. Preserve approval gate.
 
-2026-11-23: Publishing layout decision: title page alone on page 1; copyright/disclaimer page starts page 2; foreword starts a subsequent page and Carlos T. Jackson signature/rank stay adjacent; introduction and chapters start new pages. Original manuscript is the structural reference for heading levels, paragraph boundaries, and tables. Do not use blank-line PDF extraction or uppercase heuristics as authoritative. Preserve original and prior private outputs, and require admin QA before author release.
+2026-11-23: Publishing layout decision: title page alone on page 1; copyright/disclaimer page starts page 2; foreword starts a subsequent page and [private name] signature/rank stay adjacent; introduction and chapters start new pages. Original manuscript is the structural reference for heading levels, paragraph boundaries, and tables. Do not use blank-line PDF extraction or uppercase heuristics as authoritative. Preserve original and prior private outputs, and require admin QA before author release.
 
 2026-11-23 | Lock accepted private manuscript layout as working master based on administrator visual acceptance, without changing original or earlier drafts. Section 4 should show final review and approval first; place regeneration under collapsed Advanced Corrections. Never automatically release to author.
 
@@ -258,7 +263,7 @@ Human approval is required for substantive editorial changes, publication author
 
 2026-11-23 | Supersede zero inter-prose spacing with 4pt after body paragraphs for readable nonfiction layout across all package selections.
 
-2026-11-23 | LOCKED administrator-approved v12 typography: Georgia 24pt book title, 18pt bold centered major headings on new pages, 12pt bold left paragraph headings, consistent Title Case preserving acronyms, 11pt single-spaced body, 0.2-inch first-line indent except first paragraph after headings, 4pt after prose, 12pt before/6pt after headings, bordered tables, centered 9pt page numbers. Trim per project (Maurice 6x9). Same production quality for all packages; editorial depth alone differs. Preserve earlier contracted deliverables and separate optional runs.
+2026-11-23 | LOCKED administrator-approved v12 typography: Georgia 24pt book title, 18pt bold centered major headings on new pages, 12pt bold left paragraph headings, consistent Title Case preserving acronyms, 11pt single-spaced body, 0.2-inch first-line indent except first paragraph after headings, 4pt after prose, 12pt before/6pt after headings, bordered tables, centered 9pt page numbers. Trim per project ([private name] 6x9). Same production quality for all packages; editorial depth alone differs. Preserve earlier contracted deliverables and separate optional runs.
 
 2026-11-24 | Administrator approved manage-by-exception editorial dashboard; retain all underlying findings, resolution controls and approval history, collapse details by default.
 
