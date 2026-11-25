@@ -1,3 +1,7 @@
+## 2026-11-25 | Private engine staging
+
+- Verified private engine access and staged screened rendering, revision and monitor code, a reference migration and two review documents. Readback passed. Added isolated cover geometry preflight. No production cutover.
+
 ## 2026-11-24 | Private migration readiness and EPUB validation
 
 - The proposed private repository returned Not Found to the connected GitHub account. Its visibility and write permissions could not be established. No source or Git history was transferred. Public hosting and live dependencies were preserved.
