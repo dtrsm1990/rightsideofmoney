@@ -68,3 +68,7 @@
 ## Print boundary validation
 
 - Continue production Studio runtime and full-wrap QA, then proof, simulated payment, secure delivery and engine parity. The separate QA project still lacks payment and operations dependencies needed for transactional browser coverage.
+
+## Studio QA integration
+
+- Connect the isolated print worker to a representative approved production fixture and verify proof registration through Storage. The earlier short, styled revision fixture is outside the current text-and-table print renderer profile. Verify visual cover acceptance, proof approval, simulated payment, secure delivery and private-engine rollback before any production automation changes.

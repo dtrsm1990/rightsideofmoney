@@ -74,3 +74,7 @@
 ## Print boundary validation
 
 - Private engine staging 9cf24aa3189a6dc4a2191fa0f9834c13850c8d35 adds a PDF crop-box guard for paperback covers and interiors, and updates the DOCX reader. No runtime deployment.
+
+## Studio QA integration
+
+- Administrator and Author Dashboard activation is complete and accepted. Installed isolated print source lookup and private proof registration guards. Validated the local manuscript and cover bundle on synthetic artifacts.

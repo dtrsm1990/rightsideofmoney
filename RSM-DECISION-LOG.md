@@ -74,3 +74,7 @@
 ## Print boundary validation
 
 - A PDF with correct media dimensions can still crop the artwork. Bundle preflight now requires matching crop and media boxes. Visual proofing and Print Previewer acceptance remain separate.
+
+## Studio QA integration
+
+- The QA print profile is limited to synthetic projects and matching fixture terms. It does not simulate signed agreements, grant production scope, or send payment requests. Keep live proof and delivery safeguards in place.

@@ -78,3 +78,7 @@
 ## Print boundary validation
 
 - The staged cover validator accepted a synthetic 40-page full wrap and rejected an otherwise identical PDF with a narrowed crop box. The exact change is also wired into interior bundle preflight. The full isolated bundle path was not rerun.
+
+## Studio QA integration
+
+- Rollback tests selected approved DOCX version 2 and rejected absent scope, the wrong stage, unrelated approvals and registration without the private proof object. Verified service-only proof registration. A real 26-page synthetic DOCX rendered to PDF and paired with a page-count-matched full wrap in a byte-verified ZIP. A clipped interior was rejected.
