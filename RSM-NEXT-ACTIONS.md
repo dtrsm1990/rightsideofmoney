@@ -76,3 +76,7 @@
 ### Continue from the registered private print proof
 
 Reuse the same synthetic project and proof. The editorial finalizer currently supports editorial artifact types only. Add proof-specific atomic release and exact-destination authorization with production-derived proof and QA guards before attempting downstream acceptance. Outstanding checks include broader renderer compatibility, pagination-bound cover acceptance, Studio browser controls, author proof approval, simulated payment, paid delivery, completion and private-engine rollback.
+
+### Continue from the author-approved synthetic proof
+
+Reuse the approved synthetic proof. QA lacks the signed agreement and verified payment ledger dependencies used by production final delivery. Add isolated equivalents and require paid balance even for the synthetic acceptance run. Continue final ZIP staging, exact delivery release, project completion, broader renderer compatibility, visual cover acceptance, authenticated Studio controls, and private-engine parity and rollback. Keep the final-delivery lock until its dedicated guard is verified.
