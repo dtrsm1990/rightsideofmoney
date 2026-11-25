@@ -58,3 +58,7 @@
 ## Professional Author Dashboard staging
 
 - The visual styling is separable in author-dashboard.css. Existing authentication, Storage, revision submissions and approval RPCs remain the source of authority. Unavailable cover approval and agreement or payment status use explanatory guidance.
+
+## Coordinated dashboard redesign
+
+- Keep dashboard styling separate from release, payment and worker logic. Stage counts describe project phases. Treat the Stage 6 checklist and PDF dimensions as internal QA evidence, not external Print Previewer acceptance.

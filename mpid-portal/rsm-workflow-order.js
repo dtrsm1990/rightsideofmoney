@@ -796,4 +796,87 @@ document.addEventListener('DOMContentLoaded', () => {
     remaining.forEach(s => extra.append(s));
     holder.append(extra);
   }
+  const studioGuide = (label, items) => {
+    const detail = document.createElement('details');
+    detail.className = 'rsm-studio-checks';
+    const summary = document.createElement('summary');
+    summary.textContent = label;
+    const checks = document.createElement('ul');
+    for (const value of items) {
+      const item = document.createElement('li');
+      item.textContent = value;
+      checks.append(item);
+    }
+    detail.append(summary, checks);
+    return detail;
+  };
+  production.append(studioGuide('Manuscript production checks', [
+    'Confirm the signed output formats and the exact author-approved manuscript version.',
+    'Inspect rendered chapter openings, headings, pagination, tables and any missing or clipped content.',
+    'Verify trim, margins, gutter and embedded fonts. Record the file version, location and evidence in Proofing and Final QA.',
+    'Review DOCX, print PDF and EPUB where contracted. Record KDP Print Previewer acceptance separately.'
+  ]));
+  const qaLink = document.createElement('a');
+  qaLink.href = '#qaLoad';
+  qaLink.textContent = 'Open proof QA and record evidence';
+  production.append(qaLink);
+  covers.append(studioGuide('Cover production checks', [
+    'Confirm the signed service scope and select the matching binding and paper specification.',
+    'Compare the front, spine and back against the print template for the final interior page count.',
+    'Inspect trim, bleed, safe areas and barcode reserve. Record the exact cover version and page count.',
+    'If pagination changes, withhold the previous cover approval until a matching template and cover are reviewed.'
+  ]));
+  const caption = document.createElement('p');
+  caption.className = 'note';
+  caption.textContent = 'PDF dimension checks support internal review. KDP Print Previewer acceptance is a separate check.';
+  covers.append(caption);
+  const disclosureById = new Map();
+  for (const stage of holder.querySelectorAll(':scope > .rsm-workflow-stage')) {
+    const disclosure = document.createElement('details');
+    disclosure.className = 'rsm-stage-disclosure';
+    const summary = document.createElement('summary');
+    summary.className = 'rsm-stage-summary';
+    const heading = stage.querySelector(':scope > h2');
+    heading.removeAttribute('style');
+    const body = document.createElement('div');
+    body.className = 'rsm-stage-body';
+    summary.append(heading);
+    for (const node of [...stage.childNodes]) body.append(node);
+    disclosure.append(summary, body);
+    stage.append(disclosure);
+    disclosureById.set(stage.id, disclosure);
+  }
+  const reveal = id => {
+    const target = document.getElementById(id);
+    for (let node = target; node && node !== holder; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+    const section = target?.closest('.rsm-workflow-stage');
+    if (section) disclosureById.get(section.id).open = true;
+  };
+  holder.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', () => reveal(link.hash.slice(1)));
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => reveal(link.hash.slice(1)));
+  });
+  window.addEventListener('hashchange', () => reveal(location.hash.slice(1)));
+  const stageForStatus = {onboarding:2,audit:4,editing:3,author_review:5,production:6,proofing:7,completed:8};
+  let activeStage = null;
+  document.addEventListener('rsm-admin-project-stage', event => {
+    const current = stageForStatus[event.detail];
+    const target = current ? 'rsm-workflow-stage-' + current : null;
+    for (const [id, disclosure] of disclosureById) {
+      disclosure.parentElement.classList.toggle('rsm-stage-current', id === target);
+      if (id === target && id !== activeStage) disclosure.open = true;
+    }
+    for (const link of nav.querySelectorAll('a')) {
+      if (link.hash === '#' + target) link.setAttribute('aria-current', 'step');
+      else link.removeAttribute('aria-current');
+    }
+    activeStage = target;
+  });
+  if (location.hash) reveal(location.hash.slice(1));
+  else disclosureById.get('rsm-workflow-stage-1').open = true;
+
 });

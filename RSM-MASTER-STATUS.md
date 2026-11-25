@@ -58,3 +58,7 @@
 ## Professional Author Dashboard staging
 
 - Implemented the professional Author Dashboard in staging with the approved logo, responsive presentation, dynamic project overview and nine chronological sections. The staged Admin Dashboard and production remain separate.
+
+## Coordinated dashboard redesign
+
+- Staged the Administrator Publishing Command Center to match the staged Author Workspace. Added portfolio metrics, eight selectable expandable stages, selected-stage highlighting and Stage 6 manuscript and cover review guides linked to existing production controls.

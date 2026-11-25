@@ -62,3 +62,7 @@
 ## Professional Author Dashboard staging
 
 - Checked parsing and rendered desktop and 390-pixel mobile browser previews with synthetic data and a DOCX worksheet. Verified the logo, nine navigation entries, inline table rendering and no horizontal overflow on mobile. These visual checks did not authenticate to the QA backend or execute a release.
+
+## Coordinated dashboard redesign
+
+- Browser design fixture passed the eight-stage render, keyboard disclosure toggle, selected production stage highlight, official logo and visible Upload Cover action. Verified no horizontal overflow at 390 CSS pixels. Captured both administrator layouts. Prior author screenshots remain applicable to the unchanged Author Workspace. Source checks preserved existing administrator element IDs and release gate calls. Read-only QA check confirmed both release locks remain.

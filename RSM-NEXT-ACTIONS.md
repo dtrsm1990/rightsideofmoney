@@ -52,3 +52,7 @@
 ## Professional Author Dashboard staging
 
 - Review the screenshots. Complete authenticated workflow acceptance after atomic editorial finalization is guarded. Add author-scoped cover decisions and agreement/payment summaries only after authorized sources are available. Keep the production release hold.
+
+## Coordinated dashboard redesign
+
+- Review both dashboard layouts as an independent visual release candidate. Before production deploy, validate the new layouts in authenticated QA and finish atomic editorial finalization. Cover generation, pagination-linked approval invalidation, full production file QA and authenticated end-to-end acceptance remain open.
