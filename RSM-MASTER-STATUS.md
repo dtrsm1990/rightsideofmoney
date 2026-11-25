@@ -86,3 +86,7 @@ The QA-only worker generated and registered a private 26-page paperback proof fr
 ### Synthetic print proof release and author approval
 
 The isolated QA migration now gates the exact proof copy and atomically registers the author-visible proof and advances the project to Proofing. The assigned synthetic author downloaded the same 26-page PDF and approved its exact version. Private engine staging commit: `d568620`. Live production was untouched.
+
+### Isolated paperback delivery and completion
+
+The same synthetic project completed the proof, payment and delivery cycle. A private worker built the final ZIP from the exact approved 26-page interior and the reviewed full wrap linked to that proof. Simulated payment unlocked the exact delivery copy. Atomic release advanced the project to Completed and the assigned author downloaded the ZIP. Private engine staging: `5e0cc56`. No production changes.
