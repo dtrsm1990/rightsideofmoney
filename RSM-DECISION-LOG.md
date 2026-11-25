@@ -1,3 +1,8 @@
+## 2026-11-24 | Supported automatic paperback scope
+
+- Match the explicit signed 6 × 9 black-and-white white-paper paperback profile. Build the print proof from the exact current approved Word source, fail safely on unsupported layout and preserve the source. Keep private proof approval and visual QA separate from machine checks.
+- Build signed-scope print ZIP from the approved PDF proof and approved supplied cover. Cover geometry requires a confirmed even page count in the supported range. Require current ZIP approval before final payment preparation or dispatch on this engine path. No ebook, hardcover, commissioned cover artwork or editable delivery assumed.
+
 ## 2026-11-24 | Proof approval and final delivery sequencing
 
 - Final money is gated by the current released proof, completed evidence-based QA and the latest author approval of that proof. Use the exact signed application link and existing administrator authorizations. Prepare separately from dispatch. Family eligibility does not require prematurely marking the project Completed.
