@@ -1,3 +1,9 @@
+## 2026-11-24 | Automated paperback production
+
+- Worker v31 and print production migrations generate a private PDF proof from the exact current author-approved Word version for the supported signed Publish-Ready 6 × 9 black-and-white white-paper paperback profile. The approval queues one internal job. Admin dashboard commit `a7efdeddf058d0562ce779356cde9d0264` displays generation status and retry. Human production QA and release remain required.
+- After exact proof approval, the supported bundle worker stages a private interior-and-cover ZIP if an approved author-supplied cover PDF passes geometry validation. Engine-generated proofs require an approved current ZIP before preparing or dispatching final payment. Existing payment authorization and final delivery checks remain.
+- Actual isolated files generated and reread: 26-page PDF (432 × 648 points), DOCX specimen and CRC-checked ZIP. Rendered pages 1, 2, 4 and 26 inspected after fixing opaque black table cell fill. Content bounds, visible page numbers, representative headings and table layout passed. No live release, payment request or notification. Live project remains Author Review with $250 verified of $500.
+
 ## 2026-11-24 | Production proof, final payment and delivery gates
 
 - Deployed version-specific production proof approval and transition to Proofing when the released proof has all three existing QA checks. The current proof and its latest author decision control final payment eligibility. Final installment preparation reuses signed pricing and existing Bluevine links with no dispatch. Existing administrator request and settled-payment verification remain separate.
