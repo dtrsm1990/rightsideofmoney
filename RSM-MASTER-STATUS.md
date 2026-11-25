@@ -38,3 +38,7 @@
 ## Automated DOCX correction checkpoint
 
 - Installed production-derived revision queue, processing status and private output registration in isolated QA. Corrected styled-run boundary handling and updated XML and DOCX parser dependencies in private engine staging. No worker was deployed.
+
+## In-dashboard author manuscript review
+
+- Verified that the live Author Portal asks for email and password only. The Author Dashboard source matched main before this staged review update. Existing production DOCX review and version-linked revision controls are present.

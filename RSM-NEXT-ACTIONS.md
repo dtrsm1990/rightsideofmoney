@@ -32,3 +32,7 @@
 ## Automated DOCX correction checkpoint
 
 - Complete QA guarded release prerequisites and wire the QA correction worker before attempting browser submission from a released DOCX. Verify database registration and dashboard rendering of both real artifacts, version-specific author acceptance, signed-scope allowances, proof, payment simulation, final delivery and isolated rollback. The local fixture outputs were not registered or released.
+
+## In-dashboard author manuscript review
+
+- Authenticate staged author review against a QA-released DOCX after the release guards are complete. Verify invitation activation, draft persistence across sign-out, revision receipt, administrator visibility, notification routing, allowance, proof preview and exact-version acceptance. Keep production and QA release locks in place.

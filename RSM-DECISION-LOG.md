@@ -38,3 +38,7 @@
 ## Automated DOCX correction checkpoint
 
 - Restrict the QA outbox to revision processing events and allow only the service role to register generated files. Keep both release locks until reviewed proof, payment and delivery guards are integrated. The local fixture exercised the generator with registry imports adapted for Node.
+
+## In-dashboard author manuscript review
+
+- Keep one in-dashboard manuscript review workspace, with downloads optional, earlier versions read-only, and a separate in-dashboard PDF proof preview when a proof is authorized. Treat the HTML review as a reading and editing view.

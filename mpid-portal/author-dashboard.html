@@ -75,10 +75,12 @@ function mpidProgressMarkup(status){
  return '<div class="mpid-progress" aria-label="Publishing progress"><div class="mpid-progress-title">Publishing Progress: '+safeText(heading)+'</div><div class="mpid-progress-note">'+safeText(description)+'</div><div class="mpid-progress-track" aria-hidden="true">'+segments+'</div><div class="mpid-progress-steps">'+steps+'</div>'+(held?'<p class="mpid-progress-note">On Hold is a pause, not a completed milestone.</p>':'')+'</div>';
 }
 
-const $=id=>document.getElementById(id);let client=null;let activeUser=null;
+const $=id=>document.getElementById(id);let client=null;let activeUser=null;const openDrafts=new Map();
 const SUPABASE_URL='https://rufcgmqpueejoyypnpzn.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_OhU0hXDnWw9OGkyUXHi7hA_j1kYFkei';
 function initialize(){
+ const hash=new URLSearchParams(location.hash.slice(1));
+ const invite=['invite','recovery'].includes(hash.get('type'));
  client=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'implicit'}});
  busy('login',false);
  client.auth.onAuthStateChange((_event,session)=>{
@@ -87,22 +89,26 @@ function initialize(){
  });
  return client.auth.getSession().then(({data,error})=>{
    if(error)throw error;
-   const hash=new URLSearchParams(location.hash.replace(/^#/,''));
-   const invite=hash.get('type')==='invite'||hash.get('type')==='recovery';
    if(invite&&data.session){$('signInPanel').hidden=true;$('activationPanel').hidden=false;return}
    if(data.session?.user){activeUser=data.session.user;displayDashboard();return loadDashboard()}
  });
 }
 function msg(s,type=''){const e=$('message');e.hidden=!s;e.textContent=s||'';e.className='notice '+type}
 function busy(id,b){$(id).disabled=b}
-function normalizeUrl(s){let u;try{u=new URL(s.trim())}catch{throw Error('Enter the complete Supabase API URL, starting with https://')}if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co'))throw Error('Use the HTTPS project API URL ending in .supabase.co');return u.origin}
 function displayLogin(){activeUser=null;$('dashboard').hidden=true;$('loginSection').hidden=false;$('signout').hidden=true}
 function displayDashboard(){ $('loginSection').hidden=true;$('dashboard').hidden=false;$('signout').hidden=false }
 function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x}
 
 $('activationForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return;busy('activate',true);try{const password=$('newPassword').value;if(password.length<12)throw Error('Use at least 12 characters.');const {error}=await client.auth.updateUser({password});if(error)throw error;$('newPassword').value='';$('activationPanel').hidden=true;$('signInPanel').hidden=false;history.replaceState({},'',location.pathname);const {data}=await client.auth.getUser();if(!data.user)throw Error('Please sign in with your new password.');activeUser=data.user;displayDashboard();await loadDashboard()}catch(e){msg('Activation failed: '+e.message,'error')}finally{busy('activate',false)}};
 $('loginForm').onsubmit=async ev=>{ev.preventDefault();if(!client)return msg('Portal connection is not configured.','error');busy('login',true);msg('Signing in...');try{const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;activeUser=data.user;$('password').value='';displayDashboard();await loadDashboard()}catch(e){msg('Sign-in error: '+e.message,'error')}finally{busy('login',false)}};
-$('signout').onclick=async()=>{if(client)await client.auth.signOut();displayLogin();$('projects').replaceChildren();msg('Signed out.','success')};
+async function flushDrafts(){
+ for(const [host,flush] of openDrafts){
+  if(!host.isConnected){openDrafts.delete(host);continue;}
+  if(!await flush()){msg('A manuscript draft could not be saved. Keep this page open and try Save draft again.','error');return false;}
+ }
+ return true;
+}
+$('signout').onclick=async()=>{if(!await flushDrafts())return;if(client)await client.auth.signOut();openDrafts.clear();displayLogin();$('projects').replaceChildren();msg('Signed out.','success')};
 $('accountPasswordForm').onsubmit=async ev=>{
  ev.preventDefault();const status=$('accountPasswordStatus');status.textContent='';
  if(!client||!activeUser){status.textContent='Please sign in first.';return}
@@ -116,7 +122,7 @@ $('accountPasswordForm').onsubmit=async ev=>{
  }catch(e){status.textContent='Password could not be saved: '+e.message}
  finally{busy('saveAccountPassword',false)}
 };
-$('refresh').onclick=loadDashboard;
+$('refresh').onclick=async()=>{if(await flushDrafts())await loadDashboard()};
 (async()=>{try{await initialize()}catch(e){msg('Author portal connection unavailable. Please contact RSM Publishing Services: '+e.message,'error')}})();
 async function loadDashboard(){
  if(!client||!activeUser)return;
@@ -200,7 +206,7 @@ async function loadDashboard(){
    reviewGuide.append(el('h3','', 'How to Review and Respond to Editorial Documents'));
    reviewGuide.append(el('p','small','When RSM Publishing Services releases an edited manuscript or editorial audit, follow these steps before submitting your decision.'));
    const guideSteps=[
-    '1. Under Project Documents, choose Open and edit manuscript to read and revise your working copy here. Select Download if you also want a Word copy.',
+    '1. Under Project Documents, choose Open manuscript review to read and revise your working copy here. Select Download if you also want a Word copy.',
     '2. For an Edited Manuscript, read the complete document. Check the title, author name, foreword, chapters, factual statements, tables, wording, and formatting. Note anything missing or inaccurate.',
     '3. For an Editorial Audit, read each finding and recommendation. Compare the finding with your manuscript and identify questions or changes you would like considered.',
     '4. In the manuscript workspace, select Submit revisions when your edits and comments are ready. RSM receives your submitted revision for review. Use Author Approvals & Revision Requests to record your approval decision.',
@@ -224,13 +230,43 @@ async function loadDashboard(){
      left.append(el('div','filename',file.file_name));
      left.append(el('div','small',(file.document_type||'Project document')+' · Version '+(file.version||1)));
      const actions=el('div','actions');
-     for(const [label,download] of [['View',false],['Download',true]]){
+     const inlineWord=['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name);
+     const inlinePdf=file.document_type==='proof'&&/\.pdf$/i.test(file.file_name);
+     for(const [label,download] of inlineWord||inlinePdf?[['Download copy',true]]:[['View',false],['Download',true]]){
       const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(file.storage_path,file.file_name,download,btn);actions.append(btn)
      }
-     row.append(left,actions);list.append(row);if(['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name)){const host=el('div');const open=el('button','secondary',file.document_type==='edited_manuscript'?'Open and edit manuscript':'Read editorial audit');open.type='button';open.onclick=()=>{if(host.firstElementChild&&!host.querySelector('[data-workspace-error]')){host.scrollIntoView({block:'nearest'});return;}void openWorkspace(file,project,host,open,showRounds);};actions.prepend(open);list.append(host);}
+     row.append(left,actions);list.append(row);
+    if(inlineWord){
+      const host=el('div');
+      const current=(files||[]).find(item=>item.document_type===file.document_type)?.id===file.id;
+      const open=el('button',current?'':'secondary',file.document_type==='edited_manuscript'?(current?'Open manuscript review':'Read earlier manuscript version'):'Read editorial audit');
+      open.type='button';
+      open.onclick=()=>{if(host.firstElementChild&&!host.querySelector('[data-workspace-error]')){host.scrollIntoView({block:'nearest'});return;}void openWorkspace(file,project,host,open,showRounds,current,panel);};
+      actions.prepend(open);list.append(host);
+    }
+    if(inlinePdf){
+      const preview=el('div');
+      const open=el('button','secondary','Preview print proof');open.type='button';
+      open.onclick=async()=>{
+        if(preview.querySelector('iframe')){preview.scrollIntoView({block:'nearest'});return;}
+        open.disabled=true;
+        try{
+          const {data,error}=await client.storage.from('mpid-manuscripts').download(file.storage_path);
+          if(error)throw error;
+          if(!data||await data.slice(0,5).text()!=='%PDF-')throw Error('File is not a valid PDF proof.');
+          const url=URL.createObjectURL(new Blob([data],{type:'application/pdf'}));
+          const frame=el('iframe');frame.title='Print proof for '+file.file_name;frame.style.cssText='width:100%;height:65vh;border:0';
+          frame.addEventListener('load',()=>setTimeout(()=>URL.revokeObjectURL(url),60000),{once:true});
+          frame.src=url;
+          preview.replaceChildren(el('p','small','Print proof PDF · Version '+file.version),frame);
+        }catch(e){preview.textContent='Print proof could not open: '+e.message}
+        finally{open.disabled=false;}
+      };
+      actions.prepend(open);list.append(preview);
+    }
     }
    }
-   panel.append(el('h3','', 'Editorial Findings'));
+   const findingsHeading=el('h3','', 'Editorial Findings');findingsHeading.dataset.reviewFindings='';findingsHeading.tabIndex=-1;panel.append(findingsHeading);
    const findingsList=el('div');panel.append(findingsList);
    const {data:findings,error:findErr}=await client.from('mpid_audit_findings')
     .select('dimension,severity,finding,recommendation,status,created_at')
@@ -255,9 +291,9 @@ async function loadDashboard(){
    // Formal author decisions are append-only and tied to this author's project.
    panel.append(el('h3','', 'Author Approvals & Revision Requests'));
    panel.append(el('p','small','Submit a formal decision for a review stage. Each submission is retained as a separate record. Only approve materials you have reviewed.'));
-   const form=el('form','approval-form');
+   const form=el('form','approval-form');form.dataset.reviewApproval='';
    const stageLabel=el('label','field','Approval stage');
-   const stage=el('select');stage.required=true;
+   const stage=el('select');stage.required=true;stage.dataset.reviewApprovalStage='';
    for(const [value,label] of [['editorial_changes','Editorial changes'],['revised_manuscript','Revised manuscript'],['final_proof','Final proof']]){const o=el('option','',label);o.value=value;stage.append(o)}
    stageLabel.append(stage);
    const sourceLabel=el('p','small');
@@ -387,30 +423,76 @@ async function renderAuthorChecklist(panel,project){
   }
 }
 
-async function openWorkspace(file,project,host,btn,onSubmitted){
+async function openWorkspace(file,project,host,btn,onSubmitted,current,panel){
  btn.disabled=true;host.replaceChildren(el('p','small','Opening secure document...'));
  try{
  const {data,error}=await client.storage.from('mpid-manuscripts').download(file.storage_path);if(error)throw error;
- const mammoth=await import('https://cdn.jsdelivr.net/npm/mammoth@1.9.0/+esm');
+ const mammoth=await import('https://cdn.jsdelivr.net/npm/mammoth@1.13.0/+esm');
  const result=await (mammoth.default||mammoth).convertToHtml({arrayBuffer:await data.arrayBuffer()});
  const parsed=new DOMParser().parseFromString(result.value,'text/html');
  const allowed=new Set(['P','DIV','H1','H2','H3','H4','H5','H6','STRONG','B','EM','I','U','S','BR','TABLE','TBODY','THEAD','TR','TD','TH','UL','OL','LI','BLOCKQUOTE','SUP','SUB']);
- function safe(node){if(node.nodeType===3)return document.createTextNode(node.textContent);const out=document.createDocumentFragment();if(node.nodeType!==1||['SCRIPT','STYLE','IFRAME','OBJECT','IMG'].includes(node.tagName))return out;const target=allowed.has(node.tagName)?document.createElement(node.tagName):out;for(const child of node.childNodes)target.append(safe(child));return target;}
+ function safe(node){if(node.nodeType===3)return document.createTextNode(node.textContent);const out=document.createDocumentFragment();if(node.nodeType!==1||['SCRIPT','STYLE','IFRAME','OBJECT','IMG'].includes(node.tagName))return out;const target=allowed.has(node.tagName)?document.createElement(node.tagName):out;if(['TD','TH'].includes(node.tagName)){for(const attr of ['colspan','rowspan']){const value=node.getAttribute(attr);if(value&&/^[1-9]\d{0,2}$/.test(value))target.setAttribute(attr,value);}}for(const child of node.childNodes)target.append(safe(child));return target;}
  const editor=el('div');editor.style.cssText='background:white;color:#171717;padding:24px;border:1px solid #aaa;border-radius:8px;max-height:70vh;overflow:auto;font:16px/1.6 Georgia,serif;overflow-wrap:anywhere';
- const editable=file.document_type==='edited_manuscript'&&!['completed','on_hold'].includes(project.status);
- const status=el('p','small','Online review copy. Print pagination and images may differ from the released Word document.');
- host.replaceChildren(el('h3','',file.file_name),status,editor);
+ const editable=current&&file.document_type==='edited_manuscript'&&!['completed','on_hold'].includes(project.status);
+ const status=el('p','small');
+ const toolbar=el('div','actions');
+ const guide=el('p','small','Manuscript version '+(file.version||1)+' · Online review copy. Use the print proof for exact pagination when available. Images and some Word styling may differ.');
+ host.replaceChildren(el('h3','',file.file_name),guide,toolbar,status,editor);
+ const chapter=el('select');chapter.setAttribute('aria-label','Jump to chapter or heading');
+ const query=el('input');query.type='search';query.placeholder='Find in manuscript';query.setAttribute('aria-label','Find in manuscript');
+ const results=el('p','small');results.setAttribute('role','status');
+ const next=el('button','secondary','Find next');next.type='button';
+ const findings=el('button','secondary','Editorial findings');findings.type='button';
+ findings.onclick=()=>panel.querySelector('[data-review-findings]')?.focus();
+ toolbar.append(chapter,query,next,findings,results);
+ if(editable){
+   const approval=el('button','secondary','Go to current version approval');approval.type='button';
+   approval.onclick=()=>{
+     const stage=panel.querySelector('[data-review-approval-stage]');
+     if(!stage)return;
+     stage.value='revised_manuscript';
+     stage.dispatchEvent(new Event('change'));
+     stage.focus();
+   };
+   toolbar.append(approval);
+ }
+ const headings=()=>[...editor.querySelectorAll('h1,h2,h3,h4,h5,h6')];
+ const refreshHeadings=()=>{
+  chapter.replaceChildren(new Option('Jump to heading',''));
+  headings().forEach((heading,index)=>chapter.add(new Option(heading.textContent.trim()||'Untitled heading',String(index))));
+  chapter.disabled=chapter.options.length<2;
+ };
+ chapter.onchange=()=>{if(chapter.value!=='')headings()[Number(chapter.value)]?.scrollIntoView({block:'nearest'});};
+ let matchIndex=-1;
+ query.oninput=()=>{matchIndex=-1;results.textContent='';};
+ next.onclick=()=>{
+  const value=query.value.trim().toLowerCase();if(!value){results.textContent='Enter text to find.';return;}
+  const blocks=[...editor.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,th,blockquote,div')];
+  const matching=new Set(blocks.filter(block=>block.textContent.toLowerCase().includes(value)));
+  const excluded=new Set();
+  for(const item of matching){for(let p=item.parentElement;p&&p!==editor;p=p.parentElement){if(matching.has(p))excluded.add(p);}}
+  const matches=[...matching].filter(block=>!excluded.has(block));
+  if(!matches.length){results.textContent='No matching sections.';return;}
+  matchIndex=(matchIndex+1)%matches.length;
+  matches[matchIndex].scrollIntoView({block:'nearest'});
+  const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(matches[matchIndex]);selection?.removeAllRanges();selection?.addRange(range);
+  results.textContent='Matching section '+(matchIndex+1)+' of '+matches.length+'.';
+ };
+ query.onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();next.click();}};
  for(const node of parsed.body.childNodes)editor.append(safe(node));
+ refreshHeadings();
  if(!editable)return;
  const {data:history,error:he}=await client.from('rsm_author_revision_snapshots').select('id,content,state,created_at').eq('project_id',project.id).eq('source_document_id',file.id).order('state',{ascending:false}).order('created_at',{ascending:false}).limit(1);if(he)throw he;
- const latest=history?.[0];if(latest?.content?.html){const doc=new DOMParser().parseFromString(latest.content.html,'text/html');editor.replaceChildren();for(const node of doc.body.childNodes)editor.append(safe(node));}
+ const latest=history?.[0];if(latest?.content?.html){const doc=new DOMParser().parseFromString(latest.content.html,'text/html');editor.replaceChildren();for(const node of doc.body.childNodes)editor.append(safe(node));refreshHeadings();}
  const comment=el('textarea');comment.placeholder='Optional comments for your editor';comment.value=latest?.content?.comment||'';comment.maxLength=10000;
  const save=el('button','secondary','Save draft');const submit=el('button','','Submit revisions');save.type=submit.type='button';host.append(comment,save,submit);
  if(latest?.state==='submitted'){comment.disabled=save.disabled=submit.disabled=true;status.textContent='Revisions submitted. Awaiting RSM review.';
            void onSubmitted();return;}
  editor.contentEditable='true';editor.setAttribute('role','textbox');editor.setAttribute('aria-multiline','true');editor.setAttribute('aria-label','Manuscript working copy');
  status.textContent='Edit directly in the manuscript below. Save a draft to return later, or submit revisions to notify RSM.';
- let timer,busy=false,dirty=false;
+ let timer,busy=false,dirty=false,pending;
+ const runSave=state=>{if(busy)return pending;pending=persist(state);return pending;};
+ openDrafts.set(host,async()=>{clearTimeout(timer);if(pending)await pending;if(dirty)await runSave('draft');return !dirty;});
  status.setAttribute('role','status');
  async function persist(state){
    if(busy)return;
@@ -436,7 +518,7 @@ async function openWorkspace(file,project,host,btn,onSubmitted){
          const {data,error}=await client.from('rsm_author_revision_snapshots').select('id').eq('project_id',project.id).eq('source_document_id',file.id).eq('state','submitted').limit(1).abortSignal(AbortSignal.timeout(8000));
          if(!error&&data?.length){
            status.textContent='Revisions submitted. Awaiting RSM review.';
-           void onSubmitted();
+           dirty=false;void onSubmitted();
            return;
          }
        }catch(_lookupError){}
@@ -451,13 +533,13 @@ async function openWorkspace(file,project,host,btn,onSubmitted){
        save.disabled=submit.disabled=false;
        if(!submitting&&dirty&&(editor.innerHTML!==snapshot.html||comment.value!==snapshot.comment)){
          clearTimeout(timer);
-         timer=setTimeout(()=>persist('draft'),3000);
+         timer=setTimeout(()=>runSave('draft'),3000);
        }
      }
    }
  }
- function changed(){dirty=true;status.textContent='Unsaved changes';clearTimeout(timer);timer=setTimeout(()=>persist('draft'),3000);}
- editor.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'));});editor.addEventListener('drop',e=>e.preventDefault());editor.addEventListener('input',changed);comment.addEventListener('input',changed);save.onclick=()=>persist('draft');submit.onclick=()=>{if(confirm('Submit this working copy to RSM for review?'))persist('submitted');};
+ function changed(){dirty=true;status.textContent='Unsaved changes';clearTimeout(timer);timer=setTimeout(()=>runSave('draft'),3000);}
+ editor.addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain'));});editor.addEventListener('drop',e=>e.preventDefault());editor.addEventListener('input',changed);comment.addEventListener('input',changed);save.onclick=()=>runSave('draft');submit.onclick=()=>{if(confirm('Submit this working copy to RSM for review?'))runSave('submitted');};
  }catch(e){const notice=el('p','small','Workspace unavailable: '+e.message+'. Select the workspace button to retry. Existing downloads remain available.');notice.dataset.workspaceError='true';host.replaceChildren(notice);}finally{btn.disabled=false;}
 }
 async function accessFile(path,name,download,btn){btn.disabled=true;msg('Checking secure file access...');try{const {data,error}=await client.storage.from('mpid-manuscripts').download(path);if(error)throw error;if(!data)throw Error('No file data returned');const blobUrl=URL.createObjectURL(data);const a=document.createElement('a');a.href=blobUrl;a.rel='noopener';if(download){a.download=name}else{a.target='_blank'}document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);msg((download?'Download':'View')+' request succeeded for '+name+'. Your authorized file is ready.','success')}catch(e){msg('File access denied or failed: '+e.message,'error')}finally{btn.disabled=false}}

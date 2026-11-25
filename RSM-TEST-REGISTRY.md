@@ -42,3 +42,7 @@
 ## Automated DOCX correction checkpoint
 
 - The actual correction generator produced a revised DOCX and a private summary fixture. Verified precise text replacement, bold run formatting, headings, unchanged paragraphs, unchanged table, preserved page break and footer page-number field, and byte-identical content of all 17 other package parts. Confirmed empty and structural edits were rejected. The final local dependency audit reported no advisories. The QA database retained both release locks and denied direct output registration to authenticated users.
+
+## In-dashboard author manuscript review
+
+- Verified live sign-in fields in-browser without signing in to production. Tested the staged workspace against a real synthetic DOCX in a loopback browser fixture. Verified heading navigation, search, table rendering, draft restore after reload and current-version approval navigation. Fixture persistence used session storage as a Supabase substitute. No authenticated revision or notification result is claimed.
