@@ -94,3 +94,7 @@ Passed using the existing registered proof. All 26 pages matched the synthetic D
 ### Authenticated paperback delivery acceptance
 
 Passed using the existing proof and synthetic identities. Visually inspected the rendered full-wrap fixture and verified dimensions for the 26-page interior. Packaging rejected missing cover approval and non-admin execution. The ZIP passed CRC checks and its two members exactly matched the approved interior and cover. Unpaid release and download, author payment and release attempts, incorrect payment and destination, missing copy, pre-release download, unrelated download and anonymous download were rejected. Exact payment, authorized release, paid-author byte-exact HTTP download and automatic completion passed. Retries were idempotent. The isolated worker returned the expected maintenance response on a temporary revision; the restored revision matched the original bundle checksum and returned success.
+
+### Studio release routing regression
+
+Parsed all three inline dashboard scripts and exercised four routing cases: isolated proof, isolated final delivery, isolated editorial report and production proof. All matched their intended finalizers. Authenticated browser acceptance of the Studio action remains open; existing authenticated API evidence is retained.
