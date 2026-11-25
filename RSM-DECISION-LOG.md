@@ -78,3 +78,7 @@
 ## Studio QA integration
 
 - The QA print profile is limited to synthetic projects and matching fixture terms. It does not simulate signed agreements, grant production scope, or send payment requests. Keep live proof and delivery safeguards in place.
+
+### Isolated print worker release boundary
+
+The print worker is pinned to isolated QA and accepts only authenticated administrator requests. It uses the existing approved-source and proof-registration guards. The production stage was explicitly set on the synthetic fixture for this run. Rendering supports the verified text-and-table profile. The short styled fixture and broader layouts remain outside this validation.
