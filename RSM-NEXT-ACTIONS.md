@@ -1,3 +1,7 @@
+## 2026-11-25 | Private engine staging
+
+- Review the private import and privacy drafts. Screen remaining worker entrypoints and migrations, then verify isolated deployment parity and rollback. Confirm processor retention and author authorization before any expanded live processing. EPUBCheck, reader preview, cover design, hardcover integration and advanced layout remain open.
+
 ## 2026-11-24 | Gated migration and format validation
 
 - Make the proposed private repository accessible to the connected account. Verify privacy and permissions before copying clean backend sources. Validate staging parity, retain rollback and keep public hosting independent.
