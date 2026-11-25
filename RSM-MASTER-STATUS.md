@@ -11,3 +11,5 @@
 
 - Stage-specific upload actions share one private registration flow. Stage 8 reads final readiness from the existing service and shows the current delivery ZIP status.
 - The production site remains on its existing release. Isolated authenticated acceptance and rollback rehearsal remain open.
+
+- Moved agreement and usage panels inside the signed-in workspace. Confirmed production sign-in page availability.
