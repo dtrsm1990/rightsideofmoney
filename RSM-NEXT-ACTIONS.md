@@ -84,3 +84,11 @@ Reuse the approved synthetic proof. QA lacks the signed agreement and verified p
 ### Continue from completed isolated paperback delivery
 
 The earlier missing-payment dependency is closed for the synthetic test. Continue mixed-format DOCX renderer support and authenticated browser acceptance of the Studio controls. The synthetic full wrap received internal visual review; external KDP Print Previewer acceptance remains open. Private source parity and rollback were verified for the QA final-bundle worker. Full private-engine parity and production cutover remain open. Keep production safeguards and the live manuscript-processing privacy hold.
+
+### Consolidated operational readiness checklist
+
+- Intake and commercial controls: reuse existing application, assessment, package selection, agreement and ledger controls. Verify production-equivalent handoffs without sending real requests.
+- Onboarding and editorial: retain verified private intake and versioned approval. Close authenticated browser handoffs and package-specific editorial validation. Hold live worker expansion until processor terms, author disclosure and authorization, and retention safeguards are verified and approved.
+- Production: complete mixed-format DOCX handling and authenticated Studio acceptance. Close EPUBCheck and reader preview, and verify hardcover and advanced layout where the signed scope requires them. Obtain external Print Previewer acceptance before claiming KDP readiness.
+- Proof and delivery: retain authenticated QA evidence for exact proof, simulated paid delivery and completion. Verify Studio routing through an authenticated browser and production-equivalent payment guard parity before enabling production automation.
+- Private engine: retain verified QA bundle-worker rollback. Complete remaining worker and monitor parity, dependency cutover checks and rollback rehearsal.
