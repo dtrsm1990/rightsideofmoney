@@ -1,3 +1,8 @@
+## 2026-11-24 | Privacy and commercial separation
+
+- Use the public repository for public pages and a thin portal client. Keep automation implementation, deployment code, contract configuration, tenant data and operational records in private systems. Use authenticated tenant-scoped APIs, least-privilege access and server-managed secrets for a licensable platform.
+- Preserve public URLs, visibility and history unless cleanup is separately approved. Current source cleanup does not remove exposure in prior commits.
+
 ## 2026-11-24 | Alert and public documentation rules
 
 - Alert once for an unresolved live manuscript failure. Preserve historical failure records and suppress office alerts for isolated tests and demonstrably recovered runs.
