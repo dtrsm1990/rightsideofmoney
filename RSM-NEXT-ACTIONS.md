@@ -48,3 +48,7 @@
 ## Editorial destination authorization
 
 - Implement and verify atomic editorial finalization guards that can replace the blanket QA release locks for editorial artifacts only. Retain proof and payment protection for final delivery. Then release the existing candidate through the authenticated admin path and finish the author correction and release browser test.
+
+## Professional Author Dashboard staging
+
+- Review the screenshots. Complete authenticated workflow acceptance after atomic editorial finalization is guarded. Add author-scoped cover decisions and agreement/payment summaries only after authorized sources are available. Keep the production release hold.

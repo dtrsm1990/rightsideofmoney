@@ -58,3 +58,7 @@
 ## Editorial destination authorization
 
 - Authenticated Storage API checks with a real synthetic DOCX passed: pending copy, wrong destination, author write and author read were denied; the administrator could copy the approved file to its exact destination. The finalizer reached the document insert and was rejected by the QA release constraint. Verified zero author-visible registrations, one approved private candidate, and two intact release locks.
+
+## Professional Author Dashboard staging
+
+- Checked parsing and rendered desktop and 390-pixel mobile browser previews with synthetic data and a DOCX worksheet. Verified the logo, nine navigation entries, inline table rendering and no horizontal overflow on mobile. These visual checks did not authenticate to the QA backend or execute a release.

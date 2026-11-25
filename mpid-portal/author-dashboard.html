@@ -34,17 +34,18 @@
 .checklist-entry textarea{min-height:100px;resize:vertical}
 .checklist-response{border-top:1px solid #47413b;margin-top:12px;padding-top:10px;white-space:pre-wrap;overflow-wrap:anywhere}
 </style>
+<link rel="stylesheet" href="./author-dashboard.css">
 </head>
 <body>
-<header><div><div class="brand">RSM PUBLISHING SERVICES</div><div class="sub">SECURE AUTHOR PORTAL | PROJECT ACCESS</div></div><button id="signout" class="secondary" hidden>Sign Out</button></header>
+<header class="author-header"><div class="author-brand"><img src="../rsm-logo.png" alt="" width="48" height="48"><div><div class="brand">RSM Publishing Services</div><div class="sub">Author workspace</div></div></div><button id="signout" class="secondary" hidden>Sign out</button></header>
 <main class="container">
 <section id="loginSection"><h1>Author Portal</h1><p>Sign in to review your publishing projects and access your authorized documents.</p>
 
 <div class="panel" id="signInPanel"><h2>Sign in to your author account</h2><form id="loginForm"><div class="grid"><label class="field">Email<input id="email" type="email" required autocomplete="username"></label><label class="field">Password<input id="password" type="password" required autocomplete="current-password"></label></div><button id="login" type="submit" disabled>Sign In</button></form></div>
 <div class="panel" id="activationPanel" hidden><h2>Activate your RSM Publishing Services account</h2><p>Choose a password to complete your invitation.</p><form id="activationForm"><label class="field">New password<input id="newPassword" type="password" required minlength="12" autocomplete="new-password"></label><button type="submit" id="activate">Activate Account</button></form></div>
 </section>
-<section id="dashboard" hidden><h1>Welcome, <span id="authorName">Author</span></h1><p>Your publishing projects, documents, and editorial findings appear below. Access is checked against your Supabase account.</p><div class="actions"><button id="refresh" class="secondary">Refresh Dashboard</button><span id="authorRole" class="pill"></span></div><section class="panel" id="authorWelcomeGuide" aria-labelledby="authorWelcomeHeading">
-<h2 id="authorWelcomeHeading">Your RSM Publishing Services Author Guide</h2>
+<section id="dashboard" hidden><div class="workspace-heading"><div><p class="workspace-label">Your publishing workspace</p><h1>Welcome, <span id="authorName">Author</span></h1></div><button id="refresh" class="secondary">Refresh dashboard</button><span id="authorRole" hidden></span></div><div id="projects"></div>
+<details class="panel" id="authorWelcomeGuide"><summary id="authorWelcomeHeading">Author guide</summary>
 <p class="small">Your secure portal becomes available after your agreement is signed, the required initial payment is verified, and your invitation is authorized. Keep your sign-in details private.</p>
 <details><summary><strong>1. Activate your account</strong></summary><p>Open your invitation email, follow the secure link, and set your password when prompted. Return to this Author Dashboard to access your project. If your invitation has expired, contact publishing@rightsideofmoney.com. Never email your password.</p></details>
 <details><summary><strong>2. Track your publishing progress</strong></summary><p>Your assigned book displays its current publishing stage. This stage reflects recorded project activity, not a claim that every quality check is complete. Use Refresh Dashboard for the latest released information.</p></details>
@@ -53,8 +54,8 @@
 <details><summary><strong>5. Complete author action items</strong></summary><p>Only approved requests appear in your Author Action Checklist. Read each request and submit the requested approval, exact replacement wording, clarification, or supporting evidence. Your response is recorded for RSM's editorial team.</p></details>
 <details><summary><strong>6. Review proofs and final files</strong></summary><p>RSM releases proofs and publication materials after internal review and required approvals. Respond to proofing requests promptly. Publication readiness requires completed editorial and production quality checks.</p></details>
 <p class="small">Questions or access problems? Contact <a href="mailto:publishing@rightsideofmoney.com">publishing@rightsideofmoney.com</a>. Unapproved internal drafts and provisional findings remain private.</p>
-</section>
-<div id="projects"></div>
+</details>
+
 <section class="panel" id="accountPanel"><h2>Account Security</h2><p class="small">Create your password after accepting an invitation, or change your existing password. Use at least 12 characters.</p>
 <form id="accountPasswordForm"><div class="grid"><label class="field">New password<input id="accountNewPassword" type="password" required minlength="12" autocomplete="new-password"></label><label class="field">Confirm new password<input id="accountConfirmPassword" type="password" required minlength="12" autocomplete="new-password"></label></div><div class="actions"><button id="saveAccountPassword" type="submit">Save Password</button></div></form><div id="accountPasswordStatus" class="small" role="status" aria-live="polite"></div></section>
 </section>
@@ -132,19 +133,61 @@ async function loadDashboard(){
   if(pe)throw pe;
   if(profile.role!=='author')throw Error('This account is not assigned the author role. Please use your author account.');
   $('authorName').textContent=profile.full_name||'Author';$('authorRole').textContent=profile.role;
-  const {data:projects,error:prErr}=await client.from('mpid_projects').select('id,title,status').eq('author_id',activeUser.id).order('created_at',{ascending:false});
+  const {data:projects,error:prErr}=await client.from('mpid_projects').select('id,title,status,package').eq('author_id',activeUser.id).order('created_at',{ascending:false});
   if(prErr)throw prErr;displayDashboard();
   if(!projects.length){$('projects').append(el('div','panel','No publishing projects are assigned to your account yet.'));msg('Signed in. No projects found.','success');return}
   for(const project of projects){
-   const panel=el('section','panel');panel.append(el('h2','',project.title));panel.append(el('div','pill',project.status||'Unknown status'));const progress=el('div');progress.innerHTML=mpidProgressMarkup(project.status);panel.append(progress);
-   const rounds=el('p','small');panel.append(rounds);
-   async function showRounds(){const {data,error}=await client.rpc('rsm_revision_rounds',{p_project:project.id});const row=data?.[0];rounds.textContent=error?'Revision allowance unavailable.':row?.remaining==null?'RSM must confirm the signed revision allowance.':row.remaining+' revision round(s) remaining · '+row.used+' submitted · '+(row.included??0)+' included · '+row.additional+' additional';}
+   const panel=el('article','author-project');
+   const fileLabels={edited_manuscript:'Edited manuscript',editorial_report:'Editorial report',proof:'Print proof',cover:'Book cover',cover_art:'Cover artwork',book_cover:'Book cover',final_delivery:'Completed files',manuscript:'Manuscript',revision:'Revised manuscript',supporting_document:'Supporting document'};
+   const stageName=MPID_STAGES.find(s=>s[0]===project.status)?.[1]||(project.status==='on_hold'?'On hold':'Status unavailable');
+   const makeSection=(key,title)=>{
+    const section=el('section','workspace-card');section.id='project-'+project.id+'-'+key;
+    const heading=el('h3','',title);heading.tabIndex=-1;section.append(heading);
+    return section;
+   };
+   const hero=el('section','project-hero');hero.id='project-'+project.id+'-overview';
+   const heroTop=el('div','project-hero-top');const titleGroup=el('div');
+   titleGroup.append(el('p','workspace-label','Project overview'),el('h2','',project.title));
+   heroTop.append(titleGroup,el('span','stage-chip',stageName));hero.append(heroTop);
+   const overview=el('dl','project-metrics');
+   function metric(label,value){
+    const group=el('div');const target=el('dd','',value);
+    group.append(el('dt','',label),target);overview.append(group);return target;
+   }
+   metric('Publishing package',project.package||'Awaiting confirmation');
+   const reviewMetric=metric('Manuscript review','Checking released files');
+   const rounds=metric('Revision rounds remaining','Checking allowance');
+   const approvalMetric=metric('Outstanding approvals','Checking decisions');
+   const progress=el('div');progress.innerHTML=mpidProgressMarkup(project.status);
+   const nextCard=el('div','next-action');nextCard.append(el('div','workspace-label','Next action'));
+   const nextText=el('p','','Checking project readiness');nextCard.append(nextText);
+   hero.append(overview,progress,nextCard);
+   const review=makeSection('review','Manuscript review workspace');
+   const findingsSection=makeSection('findings','Editorial findings and recommendations');
+   const versions=makeSection('versions','Corrections and manuscript versions');
+   const cover=makeSection('cover','Book cover review');
+   const proof=makeSection('proof','Final proof review and approval');
+   const agreement=makeSection('agreement','Agreement and payment status');
+   const delivery=makeSection('delivery','Completed publishing files');
+   const support=makeSection('support','Publishing support');
+   const intake=el('details','upload-disclosure');intake.append(el('summary','','Upload requested materials'));
+   support.append(intake);
+   agreement.append(el('p','small','Refer to your signed agreement and the payment instructions from RSM Publishing Services. Contact publishing support for your current balance or agreement status.'));
+   const contact=el('a','support-link','Email publishing support');contact.href='mailto:publishing@rightsideofmoney.com';
+   support.append(el('p','small','Contact us for help with your project, account, agreement or payment.'),contact);
+   const nav=el('nav','workspace-nav');nav.setAttribute('aria-label','Project workspace');
+   for(const [section,label] of [[hero,'Overview'],[review,'Manuscript'],[findingsSection,'Findings'],[versions,'Versions'],[cover,'Cover'],[proof,'Proof'],[agreement,'Agreement'],[delivery,'Files'],[support,'Support']]){
+    const link=el('a','',label);link.href='#'+section.id;nav.append(link);
+   }
+   panel.append(hero,nav,review,findingsSection,versions,cover,proof,agreement,delivery,support);
+   $('projects').append(panel);
+   async function showRounds(){const {data,error}=await client.rpc('rsm_revision_rounds',{p_project:project.id});const row=data?.[0];rounds.textContent=error?'Revision allowance unavailable.':row?.remaining==null?'RSM must confirm the signed revision allowance.':String(row.remaining);}
    void showRounds();
    // Author submissions are available only during stages permitted by the database policies.
    const uploadStages=new Set(['onboarding','author_review','editing','production','proofing']);
    if(uploadStages.has(String(project.status||'').trim().toLowerCase())){
-    panel.append(el('h3','','Upload Document'));
-    panel.append(el('p','small','Submit your manuscript, revision, or supporting document for RSM Publishing Services review. Maximum file size: 25 MB. Each submission is saved as a separate file.'));
+    
+    intake.append(el('p','small','Send files requested by RSM. For corrections to a released manuscript, use the review workspace. Maximum file size is 25 MB.'));
     const uploadForm=el('form','approval-form');
     const typeLabel=el('label','field','Document type');
     const typeSelect=el('select');
@@ -158,7 +201,7 @@ async function loadDashboard(){
     fileLabel.append(fileInput);
     const uploadButton=el('button','','Upload Document');uploadButton.type='submit';
     const uploadFeedback=el('div','small');uploadFeedback.setAttribute('role','status');uploadFeedback.setAttribute('aria-live','polite');
-    uploadForm.append(typeLabel,fileLabel,uploadButton,uploadFeedback);panel.append(uploadForm);
+    uploadForm.append(typeLabel,fileLabel,uploadButton,uploadFeedback);intake.append(uploadForm);if(project.status==='onboarding'){intake.open=true;review.append(intake);}
     uploadForm.onsubmit=async ev=>{
      ev.preventDefault();
      const file=fileInput.files?.[0];
@@ -200,24 +243,9 @@ async function loadDashboard(){
      }finally{uploadButton.disabled=false}
     };
    }else{
-    panel.append(el('p','small','Document uploads are not available while this project is '+(project.status||'in its current stage')+'. Contact RSM Publishing Services if you need to submit a file.'));
+    intake.remove();
    }
-   const reviewGuide=el('section','finding');
-   reviewGuide.append(el('h3','', 'How to Review and Respond to Editorial Documents'));
-   reviewGuide.append(el('p','small','When RSM Publishing Services releases an edited manuscript or editorial audit, follow these steps before submitting your decision.'));
-   const guideSteps=[
-    '1. Under Project Documents, choose Open manuscript review to read and revise your working copy here. Select Download if you also want a Word copy.',
-    '2. For an Edited Manuscript, read the complete document. Check the title, author name, foreword, chapters, factual statements, tables, wording, and formatting. Note anything missing or inaccurate.',
-    '3. For an Editorial Audit, read each finding and recommendation. Compare the finding with your manuscript and identify questions or changes you would like considered.',
-    '4. In the manuscript workspace, select Submit revisions when your edits and comments are ready. RSM receives your submitted revision for review. Use Author Approvals & Revision Requests to record your approval decision.',
-    '5. Choose Approve only if you accept what you reviewed. Otherwise choose Request revisions and describe each correction, including the file name, version, chapter or page, paragraph, and desired wording.',
-    '6. Select Submit Formal Decision and confirm. Your response is recorded in Decision History. Contact publishing@rightsideofmoney.com if you need help. Do not email your password or confidential manuscript.'
-   ];
-   for(const instruction of guideSteps)reviewGuide.append(el('p','small',instruction));
-   reviewGuide.append(el('p','small','Editorial approval is not permission to publish or upload your book to KDP. RSM Publishing Services will coordinate publication readiness separately.'));
-   panel.append(reviewGuide);
-   panel.append(el('h3','', 'Project Documents'));
-   const list=el('div');panel.append(list);$('projects').append(panel);
+   const list=el('div');review.append(list);
    const {data:files,error:fe}=await client.from('mpid_documents')
     .select('id,file_name,storage_path,document_type,version,created_at')
     .eq('project_id',project.id).is('archived_at',null)
@@ -227,22 +255,25 @@ async function loadDashboard(){
     if(!files||!files.length)list.append(el('p','small','No active documents available for this project.'));
     for(const file of files||[]){
      const row=el('div','file');const left=el('div');
+     const type=file.document_type;
+     const currentManuscript=type==='edited_manuscript'&&(files||[]).find(item=>item.document_type===type)?.id===file.id;
+     const fileSection=currentManuscript?list:type==='proof'?proof:['cover','cover_art','book_cover'].includes(type)?cover:type==='final_delivery'?delivery:type==='editorial_report'?findingsSection:versions;
      left.append(el('div','filename',file.file_name));
-     left.append(el('div','small',(file.document_type||'Project document')+' · Version '+(file.version||1)));
+     left.append(el('div','small',(fileLabels[file.document_type]||'Project document')+' · Version '+(file.version||1)));
      const actions=el('div','actions');
      const inlineWord=['edited_manuscript','editorial_report'].includes(file.document_type)&&/\.docx$/i.test(file.file_name);
      const inlinePdf=file.document_type==='proof'&&/\.pdf$/i.test(file.file_name);
      for(const [label,download] of inlineWord||inlinePdf?[['Download copy',true]]:[['View',false],['Download',true]]){
       const btn=el('button','secondary',label);btn.type='button';btn.onclick=()=>accessFile(file.storage_path,file.file_name,download,btn);actions.append(btn)
      }
-     row.append(left,actions);list.append(row);
+     row.append(left,actions);fileSection.append(row);
     if(inlineWord){
       const host=el('div');
       const current=(files||[]).find(item=>item.document_type===file.document_type)?.id===file.id;
       const open=el('button',current?'':'secondary',file.document_type==='edited_manuscript'?(current?'Open manuscript review':'Read earlier manuscript version'):'Read editorial audit');
       open.type='button';
       open.onclick=()=>{if(host.firstElementChild&&!host.querySelector('[data-workspace-error]')){host.scrollIntoView({block:'nearest'});return;}void openWorkspace(file,project,host,open,showRounds,current,panel);};
-      actions.prepend(open);list.append(host);
+      actions.prepend(open);fileSection.append(host);
     }
     if(inlinePdf){
       const preview=el('div');
@@ -262,14 +293,22 @@ async function loadDashboard(){
         }catch(e){preview.textContent='Print proof could not open: '+e.message}
         finally{open.disabled=false;}
       };
-      actions.prepend(open);list.append(preview);
+      actions.prepend(open);fileSection.append(preview);
     }
     }
    }
-   const findingsHeading=el('h3','', 'Editorial Findings');findingsHeading.dataset.reviewFindings='';findingsHeading.tabIndex=-1;panel.append(findingsHeading);
-   const findingsList=el('div');panel.append(findingsList);
+   const manuscript=(files||[]).find(file=>file.document_type==='edited_manuscript');
+   const manuscriptInPortal=manuscript&&/\.docx$/i.test(manuscript.file_name);
+   reviewMetric.textContent=manuscript?'Version '+manuscript.version+' available':'Awaiting release';
+   if(!manuscriptInPortal)list.append(el('p','small',manuscript?'The released manuscript is listed above. Ask RSM for an editable review copy.':'Your manuscript will appear here when it is ready for review.'));
+   if(cover.children.length===1)cover.append(el('p','small','Cover files will appear here when available. Contact RSM to confirm cover decisions.'));
+   else cover.append(el('p','small','Contact RSM to confirm any cover changes or approval.'));
+   if(proof.children.length===1)proof.append(el('p','small','Your final proof will appear after production review.'));
+   if(delivery.children.length===1)delivery.append(el('p','small','Completed files will appear here after RSM releases them.'));
+   const findingsHeading=findingsSection.firstElementChild;findingsHeading.dataset.reviewFindings='';
+   const findingsList=el('div');findingsSection.append(findingsList);
    const {data:findings,error:findErr}=await client.from('mpid_audit_findings')
-    .select('dimension,severity,finding,recommendation,status,created_at')
+    .select('dimension,severity,finding,recommendation,status,created_at,source_page,source_paragraph,source_section')
     .eq('project_id',project.id).order('created_at',{ascending:false});
    if(findErr){findingsList.append(el('p','small','Could not load editorial findings: '+findErr.message));}
    if(!findErr&&(!findings||!findings.length)){findingsList.append(el('p','small','No editorial findings have been posted for this project.'));}
@@ -279,6 +318,8 @@ async function loadDashboard(){
     if(finding.severity)heading.append(el('span','pill',finding.severity));
     if(finding.status)heading.append(el('span','small','Status: '+finding.status));
     item.append(heading);
+    const location=[finding.source_section,finding.source_page&&'Page '+finding.source_page,finding.source_paragraph&&'Paragraph '+finding.source_paragraph].filter(Boolean).join(' · ');
+    if(location)item.append(el('p','small',location));
     item.append(el('div','finding-label','Finding'));
     item.append(el('p','finding-text',finding.finding||'No description provided.'));
     item.append(el('div','finding-label','Recommendation'));
@@ -286,11 +327,11 @@ async function loadDashboard(){
     findingsList.append(item)
    }
    // Render released checklist items before formal approvals.
-   await renderAuthorChecklist(panel, project); // Display the author checklist for this project.
+   await renderAuthorChecklist(versions, project); // Display the author checklist for this project.
 
    // Formal author decisions are append-only and tied to this author's project.
-   panel.append(el('h3','', 'Author Approvals & Revision Requests'));
-   panel.append(el('p','small','Submit a formal decision for a review stage. Each submission is retained as a separate record. Only approve materials you have reviewed.'));
+   versions.append(el('h3','', 'Author approvals'));
+   versions.append(el('p','small','Submit a formal decision for a review stage. Each submission is retained as a separate record. Only approve materials you have reviewed.'));
    const form=el('form','approval-form');form.dataset.reviewApproval='';
    const stageLabel=el('label','field','Approval stage');
    const stage=el('select');stage.required=true;stage.dataset.reviewApprovalStage='';
@@ -311,12 +352,25 @@ async function loadDashboard(){
    commentsLabel.append(comments);
    const submit=el('button','','Submit Formal Decision');submit.type='submit';
    const feedback=el('p','small','');feedback.setAttribute('role','status');
-   form.append(stageLabel,sourceLabel,decisionLabel,commentsLabel,submit,feedback);panel.append(form);
-   const history=el('div');panel.append(el('h3','', 'Decision History'));panel.append(history);
+   form.append(stageLabel,sourceLabel,decisionLabel,commentsLabel,submit,feedback);versions.append(form);
+   const history=el('div');versions.append(el('h3','', 'Decision history'),history);
    async function loadApprovals(){
     history.replaceChildren();
     const {data,error}=await client.from('mpid_approvals').select('approval_type,decision,comments,created_at,source_document_id').eq('project_id',project.id).eq('author_id',activeUser.id).order('created_at',{ascending:false});
-    if(error){history.append(el('p','small','Unable to load decisions: '+error.message));return}
+    if(error){approvalMetric.textContent='Unavailable';history.append(el('p','small','Approval history is unavailable. Refresh to try again.'));return}
+    const editorialOpen=['author_review','editing'].includes(project.status);
+    const proofOpen=['production','proofing'].includes(project.status);
+    const targets=[
+     ...(editorialOpen?[['revised_manuscript',manuscript],['editorial_changes',(files||[]).find(file=>file.document_type==='editorial_report')]]:[]),
+     ...(proofOpen?[['final_proof',(files||[]).find(file=>file.id===finalReadiness?.proof_document_id)]]:[])
+    ].filter(([,file])=>file);
+    const outstanding=targets.filter(([type,file])=>data?.find(a=>a.approval_type===type&&a.source_document_id===file.id)?.decision!=='approved');
+    approvalMetric.textContent=String(outstanding.length);
+    if(manuscript&&data?.find(a=>a.approval_type==='revised_manuscript'&&a.source_document_id===manuscript.id)?.decision==='approved')reviewMetric.textContent='Version '+manuscript.version+' approved';
+    nextText.textContent=project.status==='on_hold'?'Contact RSM Publishing Services for an update.':project.status==='completed'?'Access your completed publishing files.':outstanding.some(([type])=>type==='final_proof')?'Review and approve the current final proof.':outstanding.length?'Review your released materials and record your decision.':project.status==='onboarding'?'Upload the materials requested by your publishing team.':'Check back after your publishing team updates your project.';
+    for(const option of stage.options)option.disabled=!targets.some(([type])=>type===option.value);
+    if(stage.selectedOptions[0]?.disabled&&targets.length)stage.value=targets[0][0];
+    showApprovalSource();
     if(!data?.length){history.append(el('p','small','No formal decisions submitted yet.'));return}
     for(const a of data){const row=el('div','finding');row.append(el('strong','',a.approval_type.replaceAll('_',' ')+' · '+a.decision.replaceAll('_',' ')));row.append(el('p','small',new Date(a.created_at).toLocaleString()));const source=(files||[]).find(file=>file.id===a.source_document_id);if(source)row.append(el('p','small','Version '+source.version+' · '+source.file_name));if(a.comments)row.append(el('p','',a.comments));history.append(row)}
    }
@@ -326,7 +380,7 @@ async function loadDashboard(){
     if(!decision.value){feedback.textContent='Choose a decision.';return}
     if(decision.value!=='approved'&&!comments.value.trim()){feedback.textContent='Explain the requested changes or reason for nonapproval.';return}
     const source=approvalSource();
-    if(!source){feedback.textContent='No current review document is available for this decision.';return;}
+    if(!source||stage.selectedOptions[0]?.disabled){feedback.textContent='No current review document is available for this decision.';return;}
     if(!confirm('Submit this formal '+decision.options[decision.selectedIndex].text.toLowerCase()+' decision? It will be retained in the project history.'))return;
     submit.disabled=true;
     try{
@@ -432,8 +486,8 @@ async function openWorkspace(file,project,host,btn,onSubmitted,current,panel){
  const parsed=new DOMParser().parseFromString(result.value,'text/html');
  const allowed=new Set(['P','DIV','H1','H2','H3','H4','H5','H6','STRONG','B','EM','I','U','S','BR','TABLE','TBODY','THEAD','TR','TD','TH','UL','OL','LI','BLOCKQUOTE','SUP','SUB']);
  function safe(node){if(node.nodeType===3)return document.createTextNode(node.textContent);const out=document.createDocumentFragment();if(node.nodeType!==1||['SCRIPT','STYLE','IFRAME','OBJECT','IMG'].includes(node.tagName))return out;const target=allowed.has(node.tagName)?document.createElement(node.tagName):out;if(['TD','TH'].includes(node.tagName)){for(const attr of ['colspan','rowspan']){const value=node.getAttribute(attr);if(value&&/^[1-9]\d{0,2}$/.test(value))target.setAttribute(attr,value);}}for(const child of node.childNodes)target.append(safe(child));return target;}
- const editor=el('div');editor.style.cssText='background:white;color:#171717;padding:24px;border:1px solid #aaa;border-radius:8px;max-height:70vh;overflow:auto;font:16px/1.6 Georgia,serif;overflow-wrap:anywhere';
- const editable=current&&file.document_type==='edited_manuscript'&&!['completed','on_hold'].includes(project.status);
+ const editor=el('div','review-sheet');editor.style.cssText='background:white;color:#171717;padding:24px;border:1px solid #aaa;border-radius:8px;max-height:70vh;overflow:auto;font:16px/1.6 Georgia,serif;overflow-wrap:anywhere';
+ const editable=current&&file.document_type==='edited_manuscript'&&['author_review','editing'].includes(project.status);
  const status=el('p','small');
  const toolbar=el('div','actions');
  const guide=el('p','small','Manuscript version '+(file.version||1)+' · Online review copy. Use the print proof for exact pagination when available. Images and some Word styling may differ.');

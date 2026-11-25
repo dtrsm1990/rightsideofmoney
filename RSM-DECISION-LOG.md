@@ -54,3 +54,7 @@
 ## Editorial destination authorization
 
 - Keep editorial review independent of proof and payment gates. Exact-destination Storage copy is limited to an administrator, an active synthetic project and an approved manuscript or editorial report. It does not register an author-visible document.
+
+## Professional Author Dashboard staging
+
+- The visual styling is separable in author-dashboard.css. Existing authentication, Storage, revision submissions and approval RPCs remain the source of authority. Unavailable cover approval and agreement or payment status use explanatory guidance.
