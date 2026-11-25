@@ -50,3 +50,7 @@
 ## Release guard integration
 
 - Installed the production processing QA trigger, editorial release finalization RPC, current verified proof and latest approval helpers, and proof linkage guard in QA. Both existing release locks remain active.
+
+## Editorial destination authorization
+
+- Installed the production editorial stage transition trigger and QA Storage authorization for the exact destination of approved editorial artifacts. Preserved a private synthetic DOCX candidate for integrated acceptance.

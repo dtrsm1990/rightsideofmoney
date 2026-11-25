@@ -54,3 +54,7 @@
 ## Release guard integration
 
 - Rollback-only tests denied author release, unapproved admin release, approval with missing or failed processing QA, release without the authorized destination object, and proof-link changes. Passing processing QA permitted the approval transition. Confirmed no proof was accepted without a verified released proof and both locks remained installed.
+
+## Editorial destination authorization
+
+- Authenticated Storage API checks with a real synthetic DOCX passed: pending copy, wrong destination, author write and author read were denied; the administrator could copy the approved file to its exact destination. The finalizer reached the document insert and was rejected by the QA release constraint. Verified zero author-visible registrations, one approved private candidate, and two intact release locks.

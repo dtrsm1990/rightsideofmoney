@@ -44,3 +44,7 @@
 ## Release guard integration
 
 - Remaining release prerequisites include reviewed editorial stage advancement, final-delivery proof and payment guard dependencies, and exact release destination Storage authorization. After those controls pass, exercise the approved synthetic DOCX through authenticated author draft, submission, worker processing, administrator review and version-specific release. No browser correction loop or runtime rollback passed at this checkpoint.
+
+## Editorial destination authorization
+
+- Implement and verify atomic editorial finalization guards that can replace the blanket QA release locks for editorial artifacts only. Retain proof and payment protection for final delivery. Then release the existing candidate through the authenticated admin path and finish the author correction and release browser test.

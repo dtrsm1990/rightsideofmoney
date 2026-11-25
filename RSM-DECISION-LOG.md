@@ -50,3 +50,7 @@
 ## Release guard integration
 
 - Preserve the process QA decision checks and assigned-author version acceptance. Keep notification triggers and provider integrations absent from QA. Do not treat transaction-scoped guard tests as authenticated browser release acceptance.
+
+## Editorial destination authorization
+
+- Keep editorial review independent of proof and payment gates. Exact-destination Storage copy is limited to an administrator, an active synthetic project and an approved manuscript or editorial report. It does not register an author-visible document.
