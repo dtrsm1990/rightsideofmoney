@@ -1,3 +1,8 @@
+## 2026-11-24 | Additional EPUB checks
+
+- PASS XML parser checks on the container, package and all XHTML files in the exported synthetic EPUB. Three spine items and navigation links resolved to three expected chapters with matching fixture text. Edge export used only generated text.
+- EPUBCheck and visual reading-system acceptance remain open. Installed command shim did not have a Java runtime. No earlier download or recovery acceptance test was repeated.
+
 ## 2026-11-24 | New isolated evidence
 
 - PASS same PDF extraction implementation in synthetic Edge runtime against a real three-page text PDF. PASS checkpoint persistence in a local restart test; expired lease recovery, stale-write rejection, bounded retries and duplicate-output assertions in synthetic harness. Live queue integration not exercised.
