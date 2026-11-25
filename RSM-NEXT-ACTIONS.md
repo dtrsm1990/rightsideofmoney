@@ -20,3 +20,7 @@
 ## Dedicated QA project foundation
 
 - Reconstruct and review the remaining foundational, revision, proof, final delivery and payment schema and release guards before enabling full QA workflow. Prepare synthetic Auth identities and isolated dashboard hosting. Validate the private monitor with synthetic data and a disabled email transport before marking runtime parity. Keep the live manuscript processing privacy hold.
+
+## Authenticated QA checkpoint
+
+- Restore guarded revision, proof, payment and final delivery dependencies and QA-safe worker paths before full acceptance. Exercise author upload and version approval, cover access denial, private-engine runtime parity and rollback. Keep the production release and manuscript processing privacy hold.

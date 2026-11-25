@@ -30,3 +30,7 @@
 ## Dedicated QA project foundation
 
 - Transaction-scoped database role tests passed for admin project access and staging inserts, both authors' project isolation, author staging read/write denial, anonymous project denial and release rejection. Confirmed rollback left no fixture rows. Confirmed two private buckets and their administrator staging policies. Authenticated browser and Storage API tests remain open.
+
+## Authenticated QA checkpoint
+
+- Browser sign-in worked for the synthetic administrator and first author. Logged-in author saw only their assigned project and was denied administrator access on reload. Confirmed all eight navigation links and Stage 6 navigation, both administrator test projects, private cover upload, pending review registration and one-page PDF dimension preview. Verified the object by matching the staging bucket and registration record. Initial QA sign-ins failed because fixture rows had not been committed; successful sign-ins followed the fixture fix.

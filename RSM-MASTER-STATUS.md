@@ -26,3 +26,7 @@
 ## Dedicated QA project foundation
 
 - Verified the dedicated QA project is healthy. Applied two QA-only migrations for profile and project access, two private buckets and administrator-only deliverable staging. Release stays locked pending production guard parity. No dashboard or worker was deployed.
+
+## Authenticated QA checkpoint
+
+- Installed isolated document intake and read-only editorial dashboard tables. Created three synthetic Auth users and two projects. Served the staged dashboards on loopback with a QA-only connection allowlist.

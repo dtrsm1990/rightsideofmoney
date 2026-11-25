@@ -26,3 +26,7 @@
 ## Dedicated QA project foundation
 
 - Use the retained QA project with synthetic-only data. Keep external agreements, payments, notifications and other outbound integrations unconfigured. Treat the release lock as an interim QA safety control.
+
+## Authenticated QA checkpoint
+
+- Keep approval writes and delivery releases locked until the corresponding production guards are reviewed. Use separate browser sessions for administrator and author testing because Auth sessions are shared on the same origin.
