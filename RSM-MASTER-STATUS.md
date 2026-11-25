@@ -1,3 +1,9 @@
+## 2026-11-24 | Isolated production and delivery verification
+
+- Synthetic-only Edge check passed the deployed PDF extractor, checkpoint and lease recovery assertions, four-attempt ceiling, duplicate-output check, and EPUB archive checks. The live manuscript worker was not redeployed.
+- The assigned disposable author downloaded the actual engine ZIP over authenticated HTTP after simulated release registration. The file matched byte for byte. Pre-registration, unrelated and anonymous access were denied. Test accounts and project were cleaned up. No live payment, notification or release occurred.
+- Proposed private engine repository was not accessible. Public website, portal and hosting were left in place.
+
 ## 2026-11-24 | Public dashboard privacy and recovery visibility
 
 - Current administrator dashboard and workflow source use authorized project and QA records for the private assessment and draft warnings. Obsolete client-specific agreement and automatic-start code was removed. The private assessment uses the selected project's completed run. The dashboard shows the next unresolved manuscript checkpoint and retry count.
