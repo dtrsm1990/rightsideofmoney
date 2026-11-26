@@ -104,3 +104,7 @@ Review the private privacy draft at `bdace6f` alongside the actual API project c
 ### Version-specific manuscript privacy controls
 
 Obtain actual API project data-control and contract evidence. Approve retention limits only after verifying backup and logging horizons. Connect the QA assertion to exact-byte validation immediately before a synthetic processor dispatch and verify deletion, worker log redaction and rollback. Existing Studio, DOCX, handoff and private-engine acceptance gates remain open.
+
+### Processor configuration and request safeguards
+
+Verify runtime credential attribution and applicable DPA without exposing credentials. Keep the rejected client-specific source at its origin. Continue synthetic worker authorization, log and telemetry tests and the existing Studio, DOCX, commercial handoff and parity gates before releasing the candidate.
