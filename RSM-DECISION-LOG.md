@@ -94,3 +94,7 @@ The payment simulation uses synthetic agreement and ledger records only. The aut
 ### Operational release boundaries
 
 The staged Studio route selects QA-only finalizers only for the exact isolated Supabase endpoint. Editorial releases and non-QA endpoints retain the legacy route. Live worker expansion remains subject to processor disclosure, author authorization and retention review.
+
+### Signed scope and release boundary
+
+A read-only aggregate of signed non-test format terms found one scoped agreement. It specifies a 6 × 9 paperback and an author-submitted cover, with no ebook or hardcover mention in the format terms. This finding is limited to stored signed format terms. Keep additional-format automation out of this release and retain the live manuscript-processing privacy hold.
