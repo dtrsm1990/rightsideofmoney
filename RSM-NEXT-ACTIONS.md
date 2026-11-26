@@ -92,3 +92,7 @@ The earlier missing-payment dependency is closed for the synthetic test. Continu
 - Production: complete mixed-format DOCX handling and authenticated Studio acceptance. Close EPUBCheck and reader preview, and verify hardcover and advanced layout where the signed scope requires them. Obtain external Print Previewer acceptance before claiming KDP readiness.
 - Proof and delivery: retain authenticated QA evidence for exact proof, simulated paid delivery and completion. Verify Studio routing through an authenticated browser and production-equivalent payment guard parity before enabling production automation.
 - Private engine: retain verified QA bundle-worker rollback. Complete remaining worker and monitor parity, dependency cutover checks and rollback rehearsal.
+
+### Integrated production release decision
+
+No-go for expanded production automation. Staged Studio routing is the candidate baseline. Required acceptance is a sequential authenticated browser run on a guarded synthetic candidate with pending proof and unpaid delivery. Retain the existing completed acceptance evidence. Final release also requires scope-appropriate DOCX fidelity, privacy approval, operational and payment parity, and private-engine cutover and rollback checks. Keep unverified additional formats outside this candidate.
