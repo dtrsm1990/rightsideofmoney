@@ -98,3 +98,7 @@ The staged Studio route selects QA-only finalizers only for the exact isolated S
 ### Signed scope and release boundary
 
 A read-only aggregate of signed non-test format terms found one scoped agreement. It specifies a 6 × 9 paperback and an author-submitted cover, with no ebook or hardcover mention in the format terms. This finding is limited to stored signed format terms. Keep additional-format automation out of this release and retain the live manuscript-processing privacy hold.
+
+### Manuscript privacy review
+
+Keep contract language prospective. Approval of author-facing wording, processor terms and actual account controls is required before lifting the privacy hold. The private draft does not amend existing agreements.
