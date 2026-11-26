@@ -96,3 +96,7 @@ The earlier missing-payment dependency is closed for the synthetic test. Continu
 ### Integrated production release decision
 
 No-go for expanded production automation. Staged Studio routing is the candidate baseline. Required acceptance is a sequential authenticated browser run on a guarded synthetic candidate with pending proof and unpaid delivery. Retain the existing completed acceptance evidence. Final release also requires scope-appropriate DOCX fidelity, privacy approval, operational and payment parity, and private-engine cutover and rollback checks. Keep unverified additional formats outside this candidate.
+
+### Manuscript privacy review
+
+Review the private privacy draft at `bdace6f` alongside the actual API project controls. Keep the hold active. Resume isolated browser acceptance with a pending proof and unpaid synthetic ledger, then close DOCX fidelity, operational parity and engine rollback before requesting activation.
