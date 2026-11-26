@@ -106,3 +106,7 @@ Prepared a private administrator-review draft covering prospective manuscript di
 ### Version-specific manuscript privacy controls
 
 QA now has a versioned synthetic author authorization ledger and a service-role-only assertion. Private staging `26aaf4a` contains the migration, test, and proposed retention schedule. The live hold remains active.
+
+### Processor configuration and request safeguards
+
+Private staging `bfc5a43` records administrator-reported processor configuration and three Responses worker candidates with explicit application-state opt-out and fixed error output. Live processing remains on hold.
