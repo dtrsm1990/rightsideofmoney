@@ -98,3 +98,7 @@ Staging commit `aa5c674` routes isolated QA proof and paid final-delivery releas
 ### Operational release gate
 
 The existing staged Administrator Dashboard opened in the in-app browser over a loopback HTTP origin with production API connections blocked by the preview policy. This verified the staging origin and sign-in screen. The completed synthetic project remains intact. Production automation remains on hold.
+
+### Manuscript privacy review
+
+Prepared a private administrator-review draft covering prospective manuscript disclosures, version-specific author authorization, retention and processor verification. Private staging commit `bdace6f`. No live activation.
