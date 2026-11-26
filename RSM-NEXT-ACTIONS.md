@@ -100,3 +100,7 @@ No-go for expanded production automation. Staged Studio routing is the candidate
 ### Manuscript privacy review
 
 Review the private privacy draft at `bdace6f` alongside the actual API project controls. Keep the hold active. Resume isolated browser acceptance with a pending proof and unpaid synthetic ledger, then close DOCX fidelity, operational parity and engine rollback before requesting activation.
+
+### Version-specific manuscript privacy controls
+
+Obtain actual API project data-control and contract evidence. Approve retention limits only after verifying backup and logging horizons. Connect the QA assertion to exact-byte validation immediately before a synthetic processor dispatch and verify deletion, worker log redaction and rollback. Existing Studio, DOCX, handoff and private-engine acceptance gates remain open.
