@@ -102,3 +102,7 @@ A read-only aggregate of signed non-test format terms found one scoped agreement
 ### Manuscript privacy review
 
 Keep contract language prospective. Approval of author-facing wording, processor terms and actual account controls is required before lifting the privacy hold. The private draft does not amend existing agreements.
+
+### Version-specific manuscript privacy controls
+
+Production source inspection confirmed the manuscript editor, queue, and editorial engine target the OpenAI Responses API using runtime credentials. Source does not establish the actual organization, project, contract, or retention settings. Keep the live hold and require account-level evidence.
