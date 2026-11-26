@@ -110,3 +110,7 @@ QA now has a versioned synthetic author authorization ledger and a service-role-
 ### Processor configuration and request safeguards
 
 Private staging `bfc5a43` records administrator-reported processor configuration and three Responses worker candidates with explicit application-state opt-out and fixed error output. Live processing remains on hold.
+
+### Isolated manuscript dispatch enforcement
+
+Deployed an isolated manuscript dispatch acceptance probe. It validates the selected source bytes and invokes the registered version-specific authorization before dispatch to an in-memory mock. Private source checkpoint `ac7ea56`. The production workers and live hold are unchanged.
