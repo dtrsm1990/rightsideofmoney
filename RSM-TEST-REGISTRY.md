@@ -112,3 +112,7 @@ Read-only isolated status check found one Completed project and one in Author Re
 ### Version-specific manuscript privacy controls
 
 Isolated database assertions passed for affirmative grant, exact version, absent, expired and revoked consent, unrelated author denial, audit visibility, direct mutation denial and service-role access. The test transaction rolled back. No external processor request or worker deployment was exercised.
+
+### Processor configuration and request safeguards
+
+Read-only inspection identified three Responses API workers. Their staged TypeScript parsed, and mock transport confirmed `store:false` on each outbound request. Static checks confirmed removal of raw exception forwarding patterns. There was no external API call or runtime telemetry test. An additional source import was rejected because it contained client-specific data.
