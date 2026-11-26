@@ -104,3 +104,7 @@ The authenticated Studio browser attempt stopped before sign-in. Local Chrome ab
 ### Isolated Studio origin verified
 
 The in-app browser loaded staged Administrator Sign In over loopback HTTP. The previous local-file protocol restriction no longer blocks opening the staging app. This run did not verify authenticated Studio actions. The existing QA ledger has one Completed project and one in Author Review. Keep the prior authenticated API evidence distinct from browser acceptance.
+
+### Manuscript privacy review
+
+Read-only isolated status check found one Completed project and one in Author Review. No new authenticated browser or production activation result is claimed.
