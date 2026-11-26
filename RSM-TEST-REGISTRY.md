@@ -108,3 +108,7 @@ The in-app browser loaded staged Administrator Sign In over loopback HTTP. The p
 ### Manuscript privacy review
 
 Read-only isolated status check found one Completed project and one in Author Review. No new authenticated browser or production activation result is claimed.
+
+### Version-specific manuscript privacy controls
+
+Isolated database assertions passed for affirmative grant, exact version, absent, expired and revoked consent, unrelated author denial, audit visibility, direct mutation denial and service-role access. The test transaction rolled back. No external processor request or worker deployment was exercised.
