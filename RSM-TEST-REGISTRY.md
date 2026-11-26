@@ -100,3 +100,7 @@ Passed using the existing proof and synthetic identities. Visually inspected the
 Parsed all three inline dashboard scripts and exercised four routing cases: isolated proof, isolated final delivery, isolated editorial report and production proof. All matched their intended finalizers. Authenticated browser acceptance of the Studio action remains open; existing authenticated API evidence is retained.
 
 The authenticated Studio browser attempt stopped before sign-in. Local Chrome aborted at launch, and the in-app browser rejected the staged local file under its HTTP/HTTPS URL policy. Browser acceptance remains pending a permitted isolated staging URL.
+
+### Isolated Studio origin verified
+
+The in-app browser loaded staged Administrator Sign In over loopback HTTP. The previous local-file protocol restriction no longer blocks opening the staging app. This run did not verify authenticated Studio actions. The existing QA ledger has one Completed project and one in Author Review. Keep the prior authenticated API evidence distinct from browser acceptance.
