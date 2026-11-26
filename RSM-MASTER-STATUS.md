@@ -102,3 +102,7 @@ The existing staged Administrator Dashboard opened in the in-app browser over a 
 ### Manuscript privacy review
 
 Prepared a private administrator-review draft covering prospective manuscript disclosures, version-specific author authorization, retention and processor verification. Private staging commit `bdace6f`. No live activation.
+
+### Version-specific manuscript privacy controls
+
+QA now has a versioned synthetic author authorization ledger and a service-role-only assertion. Private staging `26aaf4a` contains the migration, test, and proposed retention schedule. The live hold remains active.
