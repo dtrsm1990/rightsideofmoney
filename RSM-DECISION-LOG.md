@@ -106,3 +106,7 @@ Keep contract language prospective. Approval of author-facing wording, processor
 ### Version-specific manuscript privacy controls
 
 Production source inspection confirmed the manuscript editor, queue, and editorial engine target the OpenAI Responses API using runtime credentials. Source does not establish the actual organization, project, contract, or retention settings. Keep the live hold and require account-level evidence.
+
+### Processor configuration and request safeguards
+
+Keep account identifiers in private documentation. Do not enable automated deletion of original manuscripts or author deliverables before retention and archive terms are finalized. Preserve existing provider settings. Treat credential binding and DPA coverage as unverified until account evidence is matched.
