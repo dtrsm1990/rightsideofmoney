@@ -10,3 +10,7 @@
 ## 2026-11-27 | Paperback release review
 
 - Authenticated synthetic paperback acceptance remains verified. External print preview and production activation remain pending. Private evidence references: 6d42885, 8834941 and 10fb8a0.
+
+## 2026-11-27 | Candidate verification
+
+- Isolated verification passed for the cancelled-installment and superseding 50/50 case. Candidate runtime checks exercised authentication, denied actions and duplicate ZIP requests. The full authenticated workflow baseline remains 6d42885. Private candidate and verification references: 6d42885 and 97ed46f.
