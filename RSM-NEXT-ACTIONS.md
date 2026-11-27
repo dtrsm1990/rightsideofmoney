@@ -40,3 +40,7 @@
 ## 2026-11-27 | Candidate verification
 
 - Validate the candidate migration and a fresh internal-only production run in a production-shaped environment before activation. Complete external print preview separately. Private candidate and verification references: 6d42885 and 97ed46f.
+
+## 2026-11-27 | Fresh isolated paperback execution
+
+- The fresh isolated paperback run passed. Production migration and activation remain separate, as does external print preview. Keep external manuscript processing on hold. Private evidence: 54ca4e9. Prior authenticated baseline: 6d42885.
