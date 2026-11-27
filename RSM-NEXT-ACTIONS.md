@@ -44,3 +44,7 @@
 ## 2026-11-27 | Fresh isolated paperback execution
 
 - The fresh isolated paperback run passed. Production migration and activation remain separate, as does external print preview. Keep external manuscript processing on hold. Private evidence: 54ca4e9. Prior authenticated baseline: 6d42885.
+
+## 2026-11-27 | Controlled release decision
+
+- Review the private release manifest, authorize disabled-state deployment if accepted, then verify its deployed configuration before considering any internal project activation. Keep external manuscript processing on hold. Private evidence: 0812572, 54ca4e9, and 6d42885.
