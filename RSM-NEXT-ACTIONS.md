@@ -36,3 +36,7 @@
 ## 2026-11-27 | Paperback release review
 
 - Complete production-compatible validation and independent print preview before activation. Review author access separately without sending automatic communications. Private evidence references: 6d42885, 8834941 and 10fb8a0.
+
+## 2026-11-27 | Candidate verification
+
+- Validate the candidate migration and a fresh internal-only production run in a production-shaped environment before activation. Complete external print preview separately. Private candidate and verification references: 6d42885 and 97ed46f.
