@@ -6,3 +6,7 @@
 - Keep executed agreements intact. Require approval of appropriate processor disclosures, retention controls, and prospective author authorization before expanded processing.
 - Use the approved print template for the actual binding, paper, trim, and page count. Keep cover visual review separate from geometry checks.
 - Preserve previous verified decisions and results. Keep detailed operational history and client information out of public updates.
+
+## 2026-11-27 | Paperback release review
+
+- Keep external manuscript processing suspended pending account control, processor terms and version-specific author authorization review. Private evidence references: 6d42885, 8834941 and 10fb8a0.
