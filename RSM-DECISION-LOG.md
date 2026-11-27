@@ -10,3 +10,7 @@
 ## 2026-11-27 | Paperback release review
 
 - Keep external manuscript processing suspended pending account control, processor terms and version-specific author authorization review. Private evidence references: 6d42885, 8834941 and 10fb8a0.
+
+## 2026-11-27 | Candidate verification
+
+- Keep production activation and external manuscript processing on hold until the production ledger migration and worker activation are approved. Private candidate and verification references: 6d42885 and 97ed46f.
