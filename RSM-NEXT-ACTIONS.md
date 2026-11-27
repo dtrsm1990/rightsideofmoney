@@ -32,3 +32,7 @@
 - Track generation and packaging failures in the administrator dashboard, with recovery and deduplication evidence.
 - Expand ebook, hardcover, advanced layout and cover design only for the applicable signed package scope.
 - Keep client records, financial terms, identifiers, document paths and operational secrets in authorized private systems.
+
+## 2026-11-27 | Paperback release review
+
+- Complete production-compatible validation and independent print preview before activation. Review author access separately without sending automatic communications. Private evidence references: 6d42885, 8834941 and 10fb8a0.
