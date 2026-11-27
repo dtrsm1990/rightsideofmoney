@@ -14,3 +14,7 @@
 ## 2026-11-27 | Candidate verification
 
 - Keep production activation and external manuscript processing on hold until the production ledger migration and worker activation are approved. Private candidate and verification references: 6d42885 and 97ed46f.
+
+## 2026-11-27 | Controlled release decision
+
+- Controlled deployment with internal workers disabled and no project enrolled is the next authorization decision. Internal activation is separate. Private evidence: 0812572, 54ca4e9, and 6d42885.
