@@ -18,3 +18,7 @@
 ## 2026-11-27 | Fresh isolated paperback execution
 
 - Fresh authenticated isolated paperback execution passed with candidate worker logic. The assigned synthetic author downloaded the new private ZIP and the project reached Completed. Replay and disablement checks passed. Private evidence: 54ca4e9. Prior authenticated baseline: 6d42885.
+
+## 2026-11-27 | Controlled release decision
+
+- Fresh isolated end-to-end acceptance remains verified. Targeted release checks passed for default-off project enrollment and administrator isolation. External print preview remains pending. Private evidence: 0812572, 54ca4e9, and 6d42885.
