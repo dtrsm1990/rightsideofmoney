@@ -82,3 +82,9 @@
 - Bind the tested EPUB coordinator to authenticated private job, Storage and signed payment services before production release. Keep Paperback disabled and external manuscript processing on hold.
 
 Evidence: f4d4a15.
+
+## 2026-11-28 | Isolated EPUB database and Storage controls
+
+- Connect the isolated Supabase EPUB gates to the trusted EPUBCheck worker, private object readback and synthetic verified ledger; verify the positive authenticated workflow before any rollout.
+
+Evidence: 2337748.
