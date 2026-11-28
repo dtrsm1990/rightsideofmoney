@@ -26,3 +26,7 @@
 ## 2026-11-28 | Production paperback installation
 
 - Installed dashboard bytes matched live. Both production workers rejected missing JWTs with 401 and returned disabled 503 with a valid public gateway JWT. Enrollment remained empty. Private deployment evidence: 5943178.
+
+## 2026-11-28 | Expanded package QA
+
+- A fresh synthetic reflowable EPUB passed EPUBCheck v5.4.0 with zero errors or warnings. Isolated case-wrap and hardcover geometry fixtures passed. Nine invalid-scope or layout cases and a corrupt EPUB were rejected. Kindle rendering and KDP Print Previewer remain pending. Private evidence: 598565b.
