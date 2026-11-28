@@ -64,3 +64,7 @@
 ## 2026-11-28 | Disabled installation closeout
 
 - Authenticated eight-stage inspection passed. The disabled installation is accepted with one exception: direct staff-token worker responses were not tested. Prior gateway-JWT disabled responses and anonymous denial passed. Keep project enrollment empty, both workers disabled and external manuscript processing on hold. Private acceptance evidence: 3187235.
+
+## 2026-11-28 | Expanded package QA
+
+- Keep the disabled paperback baseline and external processing hold. Review the private expanded-format QA checkpoint before integrating signed package job and delivery controls. Actual Kindle rendering and KDP cover template and print preview checks remain open. Private evidence: 598565b.
