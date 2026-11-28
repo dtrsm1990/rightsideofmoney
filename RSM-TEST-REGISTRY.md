@@ -50,3 +50,8 @@ Evidence: f4d4a15.
 - The isolated Supabase EPUB intake denied a signed-in administrator using an out-of-scope project and denied author job creation and direct job reads. Private bucket, service-only registration and empty job state were verified. Positive EPUB artifact, proof and delivery acceptance remains pending.
 
 Evidence: 2337748.
+
+## 2026-11-28 | Synthetic Full Launch EPUB integration
+
+- In isolated QA, administrator manuscript release and exact-version author approval passed in the portals. A fresh approved manuscript produced an EPUB with zero EPUBCheck errors or warnings. Authenticated retries used one durable job and one private file. Assigned-author download matched the registered digest and unauthenticated download was denied.
+- Staff proof release, exact author proof approval and payment-gated final release passed via authenticated APIs. Dashboard final-download wiring, cross-author HTTP verification for this artifact, generalized processing and Kindle visual acceptance remain open.
