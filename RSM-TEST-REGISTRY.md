@@ -30,3 +30,7 @@
 ## 2026-11-28 | Expanded package QA
 
 - A fresh synthetic reflowable EPUB passed EPUBCheck v5.4.0 with zero errors or warnings. Isolated case-wrap and hardcover geometry fixtures passed. Nine invalid-scope or layout cases and a corrupt EPUB were rejected. Kindle rendering and KDP Print Previewer remain pending. Private evidence: 598565b.
+
+## 2026-11-28 | Required operations manuals
+
+- Documentation acceptance is pending. Verify stage and package coverage, procedure accuracy against accepted production, synthetic screenshot privacy, export quality, and administrator versus author help visibility. Private deliverable register: 5242ad7.
