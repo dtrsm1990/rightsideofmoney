@@ -22,3 +22,7 @@
 ## 2026-11-27 | Controlled release decision
 
 - Fresh isolated end-to-end acceptance remains verified. Targeted release checks passed for default-off project enrollment and administrator isolation. External print preview remains pending. Private evidence: 0812572, 54ca4e9, and 6d42885.
+
+## 2026-11-28 | Production paperback installation
+
+- Installed dashboard bytes matched live. Both production workers rejected missing JWTs with 401 and returned disabled 503 with a valid public gateway JWT. Enrollment remained empty. Private deployment evidence: 5943178.
