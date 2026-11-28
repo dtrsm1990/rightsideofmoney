@@ -59,3 +59,7 @@ Evidence: 2337748.
 ## 2026-11-28 | EPUB worker and Author Dashboard QA
 
 - A signed-in synthetic author used the final EPUB dashboard control and the browser verified the artifact digest before starting the download. Local worker testing passed actual EPUBCheck, exact-byte readback and duplicate retry with a simulated backend. Fresh hosted worker acceptance and cross-author HTTP denial remain open.
+
+## 2026-11-28 | Full Launch completion QA
+
+- An authenticated unrelated synthetic author received no bytes from the actual private EPUB object. An attempted early Full Launch completion left the synthetic project in Production. The QA database trigger rollback restored both triggers. Positive package completion and hosted worker acceptance remain unverified.
