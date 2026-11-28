@@ -68,3 +68,7 @@
 ## 2026-11-28 | Expanded package QA
 
 - Keep the disabled paperback baseline and external processing hold. Review the private expanded-format QA checkpoint before integrating signed package job and delivery controls. Actual Kindle rendering and KDP cover template and print preview checks remain open. Private evidence: 598565b.
+
+## 2026-11-28 | Required operations manuals
+
+- Maintain both required manuals as each approved capability passes verification. Final acceptance requires numbered procedures, annotated synthetic-only dashboard screenshots, expected outcomes, troubleshooting, official branding, Word and PDF files, and role-appropriate dashboard help. Private deliverable register: 5242ad7.
