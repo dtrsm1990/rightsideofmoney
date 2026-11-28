@@ -72,3 +72,7 @@
 ## 2026-11-28 | Required operations manuals
 
 - Maintain both required manuals as each approved capability passes verification. Final acceptance requires numbered procedures, annotated synthetic-only dashboard screenshots, expected outcomes, troubleshooting, official branding, Word and PDF files, and role-appropriate dashboard help. Private deliverable register: 5242ad7.
+
+## 2026-11-28 | Signed Word-to-EPUB QA
+
+- Maintain the two private manual sources. Connect the isolated Word-to-EPUB adapter to private production approvals, jobs, proofing, payment and delivery before release. Kindle and print preview, advanced layout, and external processor approval remain open. Private evidence: 0ae5f64.
