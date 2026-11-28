@@ -92,3 +92,7 @@ Evidence: 2337748.
 ## 2026-11-28 | EPUB worker and Author Dashboard QA
 
 - Run the staged EPUB worker with an isolated server identity. Verify cross-author HTTP, connect package-wide completion, and complete a fresh synthetic run and Kindle visual preview. Preserve existing acceptance evidence.
+
+## 2026-11-28 | Full Launch completion QA
+
+- Run the reusable worker in a trusted isolated runtime with the pinned Java validator and a server-side QA identity. Use a fresh project to prove both format releases and positive completion. Complete Kindle visual acceptance and worker rollback before retiring the fixture registrar.
