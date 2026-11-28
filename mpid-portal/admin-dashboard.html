@@ -1771,7 +1771,7 @@ async function stageGeneratedReviewCopy(pid,name,blob,type){
 }
 async function stageLoad(){try{await requireAdmin();const pid=$('selectedProject').value,h=$('stageList');const targets=[h,...['rsmCoverDeliverables','rsmProofDeliverables','rsmFinalDeliverables'].map($).filter(Boolean)];for(const target of targets)target.replaceChildren();rsmClearPdfPreview();if(!pid){h.textContent='Select a publishing project under Manage Project. Its private deliverables will load automatically.';return;}h.textContent='Loading private deliverables...';const {data,error}=await sb.from('mpid_editorial_deliverables').select('*').eq('project_id',pid).order('created_at',{ascending:false});if(error)throw error;if(pid!==$('selectedProject').value)return;const {data:reviewRuns,error:reviewError}=await sb.from('rsm_manuscript_edit_runs').select('output_storage_path,qa_status').eq('project_id',pid);if(reviewError)throw reviewError;if(pid!==$('selectedProject').value)return;const heldDrafts=new Set((reviewRuns||[]).filter(r=>r.qa_status==='needs_review'&&r.output_storage_path).map(r=>r.output_storage_path));h.replaceChildren();const hasDetailed=(data||[]).some(x=>x.file_name==='RSM_Editorial_Findings_Author_Instructions.docx');const hasAssessment=(data||[]).some(x=>x.file_name==='RSM_Editorial_Assessment_Action_Plan.docx');const visible=(data||[]).filter(x=>!(hasAssessment&&['editorial-report.txt','RSM_Editorial_Review_Report.docx'].includes(x.file_name))&&!(hasDetailed&&x.file_name==='RSM_Editorial_Assessment_Action_Plan.docx'));const current=new Set();const types=new Set(visible.map(d=>d.document_type||'other'));for(const type of types){const group=visible.filter(d=>(d.document_type||'other')===type);const released=group.find(d=>d.status==='released');const approved=group.find(d=>d.status==='approved');const pending=group.find(d=>d.status==='pending_review');if(released)current.add(released.id);if(approved)current.add(approved.id);if(pending&&(!released||new Date(pending.created_at)>new Date(released.released_at||released.created_at))&&!approved)current.add(pending.id);}
 const archives=new Map();const counts=new Map();
-const destination=d=>$(({cover:'rsmCoverDeliverables',proof:'rsmProofDeliverables',final_delivery:'rsmFinalDeliverables'})[d.document_type])||h;
+const candidateEnabled=await rsmCandidateEnabled(pid);const destination=d=>$(({cover:'rsmCoverDeliverables',proof:'rsmProofDeliverables',final_delivery:'rsmFinalDeliverables'})[d.document_type])||h;
 const appendVersion=(d,row)=>{
  const host=destination(d);counts.set(host,(counts.get(host)||0)+1);
  if(current.has(d.id)){host.append(row);return;}
@@ -1887,22 +1887,22 @@ if(d.status==='pending_review'&&d.file_name==='RSM_TEST_editorial_QA_report.txt'
  line('ADMINISTRATOR DECISION: PENDING',true,11);pageFooter();
  await stageGeneratedReviewCopy(pid,'RSM_TEST_editorial_QA_report_STRUCTURED.pdf',pdf.output('blob'),'editorial_report');
  stageMsg('Structured PDF report staged privately. Original files preserved.');await stageLoad();
-});if(d.document_type==='proof')add('Load Recorded QA',async()=>{
+});if(candidateEnabled&&d.document_type==='proof'&&d.status==='approved')add('Record Proof QA',async()=>{await $('qaLoad').onclick();if(qaPid!==pid||pid!==$('selectedProject').value)throw Error('Project changed.');$('qaJob').value=d.id;$('qaDoc').value=d.id;if(!$('qaJob').value||!$('qaDoc').value)throw Error('The exact proof and its processing job must be registered.');$('qaEvidence').focus();$('qaEvidence').scrollIntoView({block:'center'});});if(d.document_type==='proof')add('Load Recorded QA',async()=>{
  const {data:checks,error}=await sb.from('mpid_processing_qa').select('check_name,result,evidence').eq('deliverable_id',d.id);
  if(error)throw error;if(pid!==$('selectedProject').value||!row.isConnected)return;
  const results=row.querySelector('.rsm-proof-checks')||document.createElement('div');results.className='rsm-proof-checks';results.replaceChildren();
  if(!checks.length)results.textContent='No QA evidence is recorded for this proof.';
  for(const check of checks){const line=document.createElement('p');line.className='note';line.textContent=check.check_name+' · '+check.result+(check.evidence?' · '+check.evidence:'');results.append(line);}
  row.append(results);
-});if(/\.pdf$/i.test(d.file_name)&&['cover','proof'].includes(d.document_type))add('Preview PDF and Check Dimensions',async()=>{const blob=await getFile();await rsmPreviewPdf(pid,blob,d.file_name,row);});add('Download for Review',async()=>{const b=await getFile(),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=d.file_name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);});if(d.status==='pending_review'&&d.document_type!=='author_revision_summary'&&!heldDrafts.has(d.storage_path))add('Approve',async()=>{if(!confirm('Approve this exact file? It remains private.'))return;const {data:r,error:e}=await sb.from('mpid_editorial_deliverables').update({status:'approved',approved_at:new Date().toISOString()}).eq('id',d.id).eq('project_id',pid).eq('status','pending_review').select('id');if(e)throw e;if(!r?.length)throw Error('Approval not confirmed.');stageMsg('Approved; still private.');await stageLoad();});if(d.status==='approved'&&d.document_type!=='author_revision_summary')add('Release to Author',async()=>{if(!confirm('Release '+d.file_name+' to the selected author?'))return;const {data:r,error:e}=await sb.from('mpid_editorial_deliverables').select('*').eq('id',d.id).eq('project_id',pid).single();if(e)throw e;if(r.status!=='approved')throw Error('File is not approved.');const path='projects/'+pid+'/editorial-'+d.id+'-'+d.file_name.replace(/[^a-zA-Z0-9._-]/g,'_');const b=await getFile();const {data:prior,error:priorError}=await sb.storage.from('mpid-manuscripts').download(path);if(priorError){const {error:up}=await sb.storage.from('mpid-manuscripts').upload(path,b,{upsert:false});if(up)throw Error('Release upload failed. Retry or reconcile storage: '+err(up));}else{const hash=async x=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await x.arrayBuffer()))).join(',');if(await hash(prior)!==await hash(b))throw Error('Existing release file differs from approved file. Stop and reconcile.');}const {data:docId,error:se}=await sb.rpc('mpid_finalize_editorial_release',{p_deliverable:d.id});if(se||!docId)throw Error('Release finalization failed. Retry safely: '+err(se));stageMsg('Released to author portal. Email notification queued; delivery not yet confirmed.');await refresh();await stageLoad();});appendVersion(d,row);}const finalHost=$('rsmFinalDeliverables');if(finalHost){
+});if(/\.pdf$/i.test(d.file_name)&&['cover','proof'].includes(d.document_type))add('Preview PDF and Check Dimensions',async()=>{const blob=await getFile();await rsmPreviewPdf(pid,blob,d.file_name,row);});add('Download for Review',async()=>{const b=await getFile(),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=d.file_name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);});if(d.status==='pending_review'&&d.document_type!=='author_revision_summary'&&!heldDrafts.has(d.storage_path))add('Approve',async()=>{if(!confirm('Approve this exact file? It remains private.'))return;const {data:r,error:e}=await sb.from('mpid_editorial_deliverables').update({status:'approved',approved_at:new Date().toISOString()}).eq('id',d.id).eq('project_id',pid).eq('status','pending_review').select('id');if(e)throw e;if(!r?.length)throw Error('Approval not confirmed.');stageMsg('Approved; still private.');await stageLoad();});if(d.status==='approved'&&d.document_type!=='author_revision_summary'&&(!candidateEnabled||d.document_type!=='proof'||visible.some(c=>c.document_type==='cover'&&c.status==='approved'&&c.production_proof_id===d.id)))add('Release to Author',async()=>{if(!confirm('Release '+d.file_name+' to the selected author?'))return;const {data:r,error:e}=await sb.from('mpid_editorial_deliverables').select('*').eq('id',d.id).eq('project_id',pid).single();if(e)throw e;if(r.status!=='approved')throw Error('File is not approved.');const path='projects/'+pid+'/editorial-'+d.id+'-'+d.file_name.replace(/[^a-zA-Z0-9._-]/g,'_');const b=await getFile();const {data:prior,error:priorError}=await sb.storage.from('mpid-manuscripts').download(path);if(priorError){const {error:up}=await sb.storage.from('mpid-manuscripts').upload(path,b,{upsert:false});if(up)throw Error('Release upload failed. Retry or reconcile storage: '+err(up));}else{const hash=async x=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await x.arrayBuffer()))).join(',');if(await hash(prior)!==await hash(b))throw Error('Existing release file differs from approved file. Stop and reconcile.');}const {data:docId,error:se}=await sb.rpc('mpid_finalize_editorial_release',{p_deliverable:d.id});if(se||!docId)throw Error('Release finalization failed. Retry safely: '+err(se));stageMsg('Released to author portal. Email notification queued; delivery not yet confirmed.');await refresh();await stageLoad();});appendVersion(d,row);}const finalHost=$('rsmFinalDeliverables');if(finalHost){
  const archive=visible.find(d=>d.document_type==='final_delivery'&&current.has(d.id)&&d.status!=='released');
  const released=visible.find(d=>d.document_type==='final_delivery'&&current.has(d.id)&&d.status==='released');
  const note=document.createElement('p');note.className='note';
  note.textContent=archive?.status==='approved'?'Current delivery ZIP is approved privately. Explicit release is required.':archive?'Current delivery ZIP awaits administrator approval.':released?'A final delivery ZIP has been released.':'No final delivery ZIP is registered.';
  finalHost.prepend(note);
-}for(const target of targets){const archive=archives.get(target);if(archive){archive.firstChild.textContent='Previous versions ('+(archive.children.length-1)+')';target.append(archive);}if(!counts.has(target)&&target!==finalHost)target.textContent='No private deliverables at this stage.';}}catch(e){$('stageList').textContent='Unable to load private deliverables: '+err(e);stageMsg(err(e));}}
+}await rsmCandidateStudio(pid,visible,candidateEnabled);for(const target of targets){const archive=archives.get(target);if(archive){archive.firstChild.textContent='Previous versions ('+(archive.children.length-1)+')';target.append(archive);}if(!counts.has(target)&&target!==finalHost)target.textContent='No private deliverables at this stage.';}}catch(e){$('stageList').textContent='Unable to load private deliverables: '+err(e);stageMsg(err(e));}}
 $('stageRefresh').onclick=stageLoad;
-$('stageUpload').onclick=async()=>{const b=$('stageUpload');b.disabled=true;try{await requireAdmin();const pid=$('selectedProject').value,f=$('stageFile').files[0],type=$('stageType').value;if(!projects.some(p=>p.id===pid)||!f)throw Error('Select a project and file.');if(f.size>26214400)throw Error('File exceeds 25 MB.');if(type==='cover')await rsmReadPdf(f);if(type==='final_delivery'&&!/\.zip$/i.test(f.name))throw Error('Choose a ZIP containing the approved final publishing assets.');const path='projects/'+pid+'/'+crypto.randomUUID()+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');const {data:{user}}=await sb.auth.getUser();if(pid!==$('selectedProject').value)throw Error('Project changed. Select the file again.');const {error}=await sb.storage.from('mpid-editorial-staging').upload(path,f,{upsert:false});if(error)throw error;const {error:e}=await sb.from('mpid_editorial_deliverables').insert({project_id:pid,file_name:f.name,storage_path:path,document_type:type,uploaded_by:user.id});if(e){await sb.storage.from('mpid-editorial-staging').remove([path]);throw e;}if(pid===$('selectedProject').value)$('stageFile').value='';stageMsg('Uploaded privately.');await stageLoad();}catch(e){stageMsg(err(e));}finally{b.disabled=false;}};
+$('stageUpload').onclick=async()=>{const b=$('stageUpload');b.disabled=true;try{await requireAdmin();const pid=$('selectedProject').value,f=$('stageFile').files[0],type=$('stageType').value;if(!projects.some(p=>p.id===pid)||!f)throw Error('Select a project and file.');if(f.size>26214400)throw Error('File exceeds 25 MB.');let binding={};if(type==='cover'){if(await rsmCandidateEnabled(pid))binding=await rsmCandidateCoverBinding(pid,f);else await rsmReadPdf(f);}if(type==='final_delivery'&&!/\.zip$/i.test(f.name))throw Error('Choose a ZIP containing the approved final publishing assets.');const path='projects/'+pid+'/'+crypto.randomUUID()+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'_');const {data:{user}}=await sb.auth.getUser();if(pid!==$('selectedProject').value)throw Error('Project changed. Select the file again.');const {error}=await sb.storage.from('mpid-editorial-staging').upload(path,f,{upsert:false});if(error)throw error;const {error:e}=await sb.from('mpid_editorial_deliverables').insert({project_id:pid,file_name:f.name,storage_path:path,document_type:type,uploaded_by:user.id,...binding});if(e){await sb.storage.from('mpid-editorial-staging').remove([path]);throw e;}if(pid===$('selectedProject').value)$('stageFile').value='';stageMsg('Uploaded privately.');await stageLoad();}catch(e){stageMsg(err(e));}finally{b.disabled=false;}};
 $('selectedProject').addEventListener('change',()=>{$('stageList').replaceChildren();$('stageFile').value='';stageMsg('');void stageLoad();});
 
 async function loadStageHistory(){const h=$('stageHistory');h.replaceChildren();try{await requireAdmin();const pid=$('selectedProject').value;if(!pid)return;const {data,error}=await sb.from('mpid_editorial_events').select('deliverable_id,event,created_at').eq('project_id',pid).order('created_at',{ascending:false}).limit(100);if(error)throw error;if(pid!==$('selectedProject').value)return;for(const e of data||[]){const p=document.createElement('p');p.textContent=new Date(e.created_at).toLocaleString()+' | '+e.event.replaceAll('_',' ')+' | Deliverable '+e.deliverable_id;h.append(p);}if(!data?.length)h.textContent='No editorial processing events recorded.';}catch(e){h.textContent=err(e);}}
@@ -1993,6 +1993,92 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 $('selectedProject').addEventListener('change',()=>{rsmClearPdfPreview();const host=$('rsmPrintJobs');if(host)host.replaceChildren();});
 
+async function rsmCandidateEnabled(pid){
+ if(!pid)return false;
+ const {data,error}=await sb.rpc('rsm_paperback_admin_release_enabled',{p_project:pid});
+ return !error&&data===true;
+}
+async function rsmCandidateCoverBinding(pid,file){
+ if(sb.supabaseUrl!=='https://rufcgmqpueejoyypnpzn.supabase.co')throw Error('Production candidate only.');
+ const {data,error}=await sb.from('mpid_editorial_deliverables').select('id,file_name,storage_path')
+   .eq('project_id',pid).eq('document_type','proof').in('status',['pending_review','approved','released'])
+   .order('created_at',{ascending:false}).order('id',{ascending:false}).limit(1).maybeSingle();
+ if(error)throw error;
+ if(!data)throw Error('Generate the current print proof before uploading the matching full-wrap cover.');
+ const {data:proof,error:downloadError}=await sb.storage.from('mpid-editorial-staging').download(data.storage_path);
+ if(downloadError)throw downloadError;
+ const [cover,interior]=await Promise.all([rsmReadPdf(file),rsmReadPdf(proof)]);
+ const expectedWidth=(12.25+interior.getPageCount()*0.002252)*72;
+ const box=cover.getPage(0).getSize();
+ if(cover.getPageCount()!==1||Math.abs(box.width-expectedWidth)>1||Math.abs(box.height-9.25*72)>1)
+   throw Error('Upload a full-wrap 6 × 9 white-paper cover sized for the current '+interior.getPageCount()+'-page proof, including bleed and spine.');
+ return {production_proof_id:data.id};
+}
+async function rsmCandidateStudio(pid,deliverables,enabled){
+ if(sb.supabaseUrl!=='https://rufcgmqpueejoyypnpzn.supabase.co'||$('selectedProject').value!==pid)return;
+ const project=projects.find(p=>p.id===pid);
+ if(!project||project.is_test||project.package!=='Publish-Ready')return;
+ const placements=['rsmProductionStudio','rsmProofStudio','rsmDeliveryStudio'].map($);
+ for(const panel of placements)panel?.querySelector('[data-candidate-studio-actions]')?.remove();
+ if(!enabled)return;
+ const active=()=>{if($('selectedProject').value!==pid)throw Error('Project changed. Select the action again.');};
+ const request=async(name,args)=>{
+   const {data,error}=await sb.rpc(name,args);if(error)throw error;return data;
+ };
+ const make=(panel,description)=>{
+   if(!panel)return null;
+   const host=document.createElement('div');host.dataset.candidateStudioActions='';
+   const note=document.createElement('p');note.className='note';note.textContent=description;host.append(note);
+   const status=document.createElement('p');status.setAttribute('role','status');host.append(status);
+   panel.append(host);return {host,status};
+ };
+ const action=(ui,label,run)=>{
+   if(!ui)return;
+   const button=document.createElement('button');button.type='button';button.textContent=label;ui.host.insertBefore(button,ui.status);
+   button.onclick=async()=>{
+     button.disabled=true;ui.status.textContent='Working…';
+     try{await requireAdmin();active();const message=await run();stageMsg(message);if($('selectedProject').value===pid)await refresh();}
+     catch(error){ui.status.textContent=err(error);stageMsg(err(error));}
+     finally{button.disabled=false;}
+   };
+ };
+ const invoke=async(slug,type)=>{
+   const relevant=type==='final_proof'?'proof':'edited_manuscript';
+   const {data:current,error:sourceError}=await sb.from('mpid_documents').select('id')
+      .eq('project_id',pid).eq('document_type',relevant).is('archived_at',null)
+      .order('created_at',{ascending:false}).order('id',{ascending:false}).limit(1).maybeSingle();
+   if(sourceError)throw sourceError;
+   if(!current)throw Error('The current released source is unavailable.');
+   const {data:approval,error}=await sb.from('mpid_approvals').select('id,decision')
+      .eq('project_id',pid).eq('source_document_id',current.id).eq('approval_type',type)
+      .eq('author_id',project.author_id).order('created_at',{ascending:false}).order('id',{ascending:false}).limit(1).maybeSingle();
+   if(error)throw error;
+   if(approval?.decision!=='approved')throw Error('The assigned author must approve the current version.');
+   active();
+   const result=await sb.functions.invoke(slug,{body:{project:pid,approval:approval.id}});
+   if(result.error){
+     const body=await result.error.context?.json?.().catch(()=>null);
+     throw Error(body?.error||result.error.message);
+   }
+   return result.data;
+ };
+ const proof=deliverables.find(d=>d.document_type==='proof');
+ const delivery=deliverables.find(d=>d.document_type==='final_delivery');
+ if(project.status==='production'&&!proof){
+   action(make(placements[0],'Generate the print proof from the exact author-approved manuscript.'),'Generate Print Proof',async()=>{
+     await invoke('rsm-paperback-print-v1','revised_manuscript');return 'Print proof generated and staged privately.';
+   });
+ }
+ if(!['production','proofing'].includes(project.status))return;
+ let terms;
+ try{terms=await request('rsm_project_final_readiness',{p_project:pid});}
+ catch(error){if($('selectedProject').value===pid)make(placements[2],'Signed payment status is unavailable.');return;}
+ if($('selectedProject').value!==pid)return;
+ const ui=make(placements[2],terms?.payment_verified?'Verified payment.':'Awaiting verified payment in the Payment Center.');
+ if(terms?.agreement_signed&&terms.payment_verified&&terms.proof_accepted&&!delivery)action(ui,'Prepare Private Final ZIP',async()=>{
+   await invoke('rsm-paperback-bundle-v1','final_proof');return 'Final ZIP generated and staged privately for approval.';
+ });
+}
 const originalStageLoad=stageLoad;
 async function rsmShowPrintJobs(){
  const pid=$('selectedProject').value;if(!pid)return;
