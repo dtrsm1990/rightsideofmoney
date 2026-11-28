@@ -76,3 +76,9 @@
 ## 2026-11-28 | Signed Word-to-EPUB QA
 
 - Maintain the two private manual sources. Connect the isolated Word-to-EPUB adapter to private production approvals, jobs, proofing, payment and delivery before release. Kindle and print preview, advanced layout, and external processor approval remain open. Private evidence: 0ae5f64.
+
+## 2026-11-28 | Full Launch EPUB workflow QA
+
+- Bind the tested EPUB coordinator to authenticated private job, Storage and signed payment services before production release. Keep Paperback disabled and external manuscript processing on hold.
+
+Evidence: f4d4a15.
