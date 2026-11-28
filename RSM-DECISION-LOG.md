@@ -22,3 +22,7 @@
 ## 2026-11-28 | Production paperback installation
 
 - Authorized disabled installation completed. Production activation and enrollment remain separate decisions. External processing remains on hold. Private deployment evidence: 5943178.
+
+## 2026-11-28 | Required operations manuals
+
+- Administrator Operations Manual and Author Instructions Manual are required for final acceptance. Maintain them with verified implementation. Deliver editable Word, professional PDF and role-appropriate dashboard help. Private requirements register: 5242ad7.
