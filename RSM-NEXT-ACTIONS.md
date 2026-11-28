@@ -88,3 +88,7 @@ Evidence: f4d4a15.
 - Connect the isolated Supabase EPUB gates to the trusted EPUBCheck worker, private object readback and synthetic verified ledger; verify the positive authenticated workflow before any rollout.
 
 Evidence: 2337748.
+
+## 2026-11-28 | EPUB worker and Author Dashboard QA
+
+- Run the staged EPUB worker with an isolated server identity. Verify cross-author HTTP, connect package-wide completion, and complete a fresh synthetic run and Kindle visual preview. Preserve existing acceptance evidence.
