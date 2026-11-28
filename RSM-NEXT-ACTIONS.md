@@ -52,3 +52,7 @@
 ## 2026-11-28 | Authorized disabled deployment preflight
 
 - Live dashboard source and all eight release input checksums matched. The production preinstall snapshot was recorded privately at `afe9b3b`. Installation awaits verification of the production disable flag through an authenticated management session. No production components have been installed. Enrollment and external manuscript processing remain outside the authorization.
+
+## 2026-11-28 | Production paperback installation
+
+- Disabled production installation is complete. Keep the internal switch false and enrollment empty until separately authorized. Production staff-session validation and external print preview remain distinct checks. Private deployment evidence: 5943178.
