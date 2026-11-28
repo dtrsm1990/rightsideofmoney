@@ -44,3 +44,9 @@
 - Local synthetic Full Launch EPUB passed private proof, exact approval, verified installments and final download. Ten denials passed. Real authenticated Storage and payment integration and Kindle preview remain unverified.
 
 Evidence: f4d4a15.
+
+## 2026-11-28 | Isolated EPUB database and Storage controls
+
+- The isolated Supabase EPUB intake denied a signed-in administrator using an out-of-scope project and denied author job creation and direct job reads. Private bucket, service-only registration and empty job state were verified. Positive EPUB artifact, proof and delivery acceptance remains pending.
+
+Evidence: 2337748.
