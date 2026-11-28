@@ -55,3 +55,7 @@ Evidence: 2337748.
 
 - In isolated QA, administrator manuscript release and exact-version author approval passed in the portals. A fresh approved manuscript produced an EPUB with zero EPUBCheck errors or warnings. Authenticated retries used one durable job and one private file. Assigned-author download matched the registered digest and unauthenticated download was denied.
 - Staff proof release, exact author proof approval and payment-gated final release passed via authenticated APIs. Dashboard final-download wiring, cross-author HTTP verification for this artifact, generalized processing and Kindle visual acceptance remain open.
+
+## 2026-11-28 | EPUB worker and Author Dashboard QA
+
+- A signed-in synthetic author used the final EPUB dashboard control and the browser verified the artifact digest before starting the download. Local worker testing passed actual EPUBCheck, exact-byte readback and duplicate retry with a simulated backend. Fresh hosted worker acceptance and cross-author HTTP denial remain open.
