@@ -38,3 +38,9 @@
 ## 2026-11-28 | Signed Word-to-EPUB QA
 
 - A fresh, scoped synthetic approved Word-to-EPUB conversion passed EPUBCheck 5.4.0 with zero errors or warnings. Six negative source, agreement, identity, integrity and layout checks passed. Private evidence: 0ae5f64.
+
+## 2026-11-28 | Full Launch EPUB workflow QA
+
+- Local synthetic Full Launch EPUB passed private proof, exact approval, verified installments and final download. Ten denials passed. Real authenticated Storage and payment integration and Kindle preview remain unverified.
+
+Evidence: f4d4a15.
