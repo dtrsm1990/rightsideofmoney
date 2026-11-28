@@ -26,3 +26,7 @@
 ## 2026-11-28 | Required operations manuals
 
 - Administrator Operations Manual and Author Instructions Manual are required for final acceptance. Maintain them with verified implementation. Deliver editable Word, professional PDF and role-appropriate dashboard help. Private requirements register: 5242ad7.
+
+## 2026-11-28 | Full Launch completion QA
+
+- Full Launch project completion in isolated QA requires both the approved, delivered EPUB and the approved, paid print delivery. Keep the fixture registrar until the hosted worker passes.
