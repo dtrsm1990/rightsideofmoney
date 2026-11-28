@@ -18,3 +18,7 @@
 ## 2026-11-27 | Controlled release decision
 
 - Controlled deployment with internal workers disabled and no project enrolled is the next authorization decision. Internal activation is separate. Private evidence: 0812572, 54ca4e9, and 6d42885.
+
+## 2026-11-28 | Production paperback installation
+
+- Authorized disabled installation completed. Production activation and enrollment remain separate decisions. External processing remains on hold. Private deployment evidence: 5943178.
