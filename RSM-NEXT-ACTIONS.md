@@ -48,3 +48,7 @@
 ## 2026-11-27 | Controlled release decision
 
 - Review the private release manifest, authorize disabled-state deployment if accepted, then verify its deployed configuration before considering any internal project activation. Keep external manuscript processing on hold. Private evidence: 0812572, 54ca4e9, and 6d42885.
+
+## 2026-11-28 | Authorized disabled deployment preflight
+
+- Live dashboard source and all eight release input checksums matched. The production preinstall snapshot was recorded privately at `afe9b3b`. Installation awaits verification of the production disable flag through an authenticated management session. No production components have been installed. Enrollment and external manuscript processing remain outside the authorization.
