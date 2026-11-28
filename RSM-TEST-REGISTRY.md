@@ -34,3 +34,7 @@
 ## 2026-11-28 | Required operations manuals
 
 - Documentation acceptance is pending. Verify stage and package coverage, procedure accuracy against accepted production, synthetic screenshot privacy, export quality, and administrator versus author help visibility. Private deliverable register: 5242ad7.
+
+## 2026-11-28 | Signed Word-to-EPUB QA
+
+- A fresh, scoped synthetic approved Word-to-EPUB conversion passed EPUBCheck 5.4.0 with zero errors or warnings. Six negative source, agreement, identity, integrity and layout checks passed. Private evidence: 0ae5f64.
